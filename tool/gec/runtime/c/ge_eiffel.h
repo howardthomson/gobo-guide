@@ -6,8 +6,8 @@
 	system: "Gobo Eiffel Compiler"
 	copyright: "Copyright (c) 2005-2007, Eric Bezault and others"
 	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "$Date: 2008-10-26 19:24:44 +0000 (Sun, 26 Oct 2008) $"
+	revision: "$Revision: 6538 $"
 */
 
 #ifndef GE_EIFFEL_H
@@ -59,14 +59,6 @@
 #else
 #define EIF_IS_MAC EIF_FALSE
 #endif
-/* VxWorks definition */
-#ifdef EIF_VXWORKS
-#define EIF_IS_VXWORKS EIF_TRUE
-#undef EIF_IS_UNIX
-#define EIF_IS_UNIX EIF_FALSE
-#else
-#define EIF_IS_VXWORKS EIF_FALSE
-#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -109,7 +101,11 @@ typedef int intptr_t;
 #endif
 
 /* Basic Eiffel types */
+#ifdef EIF_EDP_GC
+typedef struct {int16_t id;} EIF_ANY;
+#else
 typedef struct {int id;} EIF_ANY;
+#endif
 #define EIF_REFERENCE EIF_ANY*
 typedef char EIF_BOOLEAN;
 typedef unsigned char EIF_CHARACTER_8;
