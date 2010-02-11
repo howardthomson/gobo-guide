@@ -1,0 +1,8 @@
+Adapt code from egc, the Embedded Garbage Collector, re-modelled to
+the Eiffel Garbage Collector.
+
+Use card-marking per-page, instead of VM access traps.
+
+Requires:
+	Precise stack marking.
+	Precise object marking.

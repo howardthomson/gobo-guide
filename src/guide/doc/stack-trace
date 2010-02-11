@@ -1,0 +1,5 @@
+Implement once-registration code for each routine that, on routine entry,
+registers a class_id and stack arguments+locals+Result descriptor to enable
+stack tracing and twinning for debugging.
+
+Also needed for precise GC tracing.

@@ -1,0 +1,14 @@
+Support for dynamic loading of Eiffel class libraries
+
+Register each class in the loaded library.
+
+For each effective class:
+
+	Register a class_id for the class.
+
+	For each attribute in the class:
+		Register the offset of the attribute for the class_id
+
+	For each routine in the class:
+		Register the <class_id, routine_address> of the routine with the
+		seed lookup method for the routine.

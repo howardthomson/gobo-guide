@@ -1,0 +1,5 @@
+class INTERNAL support
+
+Generate class descriptors for each potential effective class.
+
+Includes offset and type of each attribute of the class.

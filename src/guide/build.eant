@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+
+<project name="guide" default="help">
+
+	<description>
+		description: "Eiffel Ant file for 'guide'"
+		system: "Gobo Eiffel Compiler"
+		copyright: "Copyright (c) 2005, Eric Bezault and others"
+		license: "Eiffel Forum License v2 (see forum.txt)"
+		date: "$Date: 2005/10/28 12:19:24 $"
+		revision: "$Revision: 1.1 $"
+	</description>
+
+	<inherit>
+		<parent location="${GOBO}/misc/eiffel.eant">
+			<redefine target="init_system"/>
+			<redefine target="compile_ge"/>
+		</parent>
+	</inherit>
+
+
+<!-- Implementation -->
+
+	<target name="init_system">
+		<set name="system" value="guide"/>
+		<set name="system_dir" value="${GUIDE}/src/${system}"/>
+	</target>
+
+	<target name="compile_ge" depend="prepare_compile">
+		<description>
+			Compile '${system}' with Gobo Eiffel.
+			Compile in debug mode if ${debug} is defined.
+		</description>
+
+		<set name="eiffel" value="ge"/>
+		<setenv name="bit_64" value="_64"/>
+		<geant target="xace">
+			<argument name="a_compiler" value="ge"/>
+			<argument name="a_output" value="compile_ge.xace"/>
+		</geant>
+		<delete file="${system}${exe}"/>
+		<set name="finalize" value="true"/>
+		<set name="finalize" value="false" if="${debug}"/>
+		<gec ace="compile_ge.xace" finalize="${finalize}" c_compile="true" cat="false"/>
+	</target>
+	
+	<target name="compile_ge32" depend="prepare_compile">
+		<description>
+			Compile '${system}' with Gobo Eiffel.
+			Compile in debug mode if ${debug} is defined.
+		</description>
+
+		<set name="eiffel" value="ge"/>
+		<setenv name="m32" value="-m32"/>
+		<geant target="xace">
+			<argument name="a_compiler" value="ge"/>
+			<argument name="a_output" value="compile_ge32.ace"/>
+		</geant>
+		<delete file="${system}${exe}"/>
+		<set name="finalize" value="true"/>
+		<set name="finalize" value="false" if="${debug}"/>
+		<gec ace="compile_ge32.ace" finalize="${finalize}" c_compile="true" cat="false"/>
+	</target>
+
+	<target name="compile_ge_win32" depend="prepare_compile">
+		<description>
+			Compile '${system}' with Gobo Eiffel.
+			Compile in debug mode if ${debug} is defined.
+		</description>
+
+		<set name="eiffel" value="ge"/>
+		<setenv name="GOBO_CC" value="mingw32-g++"/>
+		<geant target="xace">
+			<argument name="a_compiler" value="ge"/>
+			<argument name="a_output" value="compile_ge_win32.ace"/>
+		</geant>
+		<delete file="${system}${exe}"/>
+		<delete file="${system}.c"/>
+		<set name="finalize" value="true"/>
+		<set name="finalize" value="false" if="${debug}"/>
+		<gec ace="compile_ge.ace" finalize="${finalize}" c_compile="true" cat="false" split="true"/>
+		<exec executable="mingw32-gcc -m32 -c guide.c" unless="${GOBO_OS}=windows"/>
+		<exec executable="mingw32-g++ -o edp_win32.exe guide.o 
+			-L/usr/X11R6/lib 
+			-lX11 -lrt 
+			-lm 
+			${GOBO}/guide/c_code/pointer_access.o 
+			${GOBO}/guide/c_code/x_error.o" unless="${GOBO_OS}=windows"/>
+	</target>
+
+</project>
