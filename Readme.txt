@@ -1,3 +1,13 @@
+Gobo Guide -- The Gobo Users' Integrated Development Environment [IDE]
+
+Based on the Gobo Eiffel project, and previously called 'edp' aka
+'The Eiffel Developers' Project', this is work to extend the Gobo
+tools to encompass a complete development environment, initially for Eiffel,
+and subsequently for other languages [C, C++, Java ...] with which Eiffel
+programs need to cooperate/link etc.
+
+----------------------------------------------------------------------------
+
 Gobo Eiffel, version 3.9
 
 One of the main concerns of Gobo Eiffel is to provide you with Eiffel
