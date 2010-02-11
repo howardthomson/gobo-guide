@@ -7,8 +7,8 @@ indexing
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 2006-2008, Eric Bezault and others"
 	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "$Date: 2008-04-16 11:20:22 +0100 (Wed, 16 Apr 2008) $"
+	revision: "$Revision: 6349 $"
 
 class ET_AGENT_KEYWORD
 
@@ -45,11 +45,11 @@ feature -- Access
 			Result := tokens.agent_keyword_name
 		end
 
-	hash_code: INTEGER is
-			-- Hash code
-		do
-			Result := code.code
-		end
+--	hash_code: INTEGER is
+--			-- Hash code
+--		do
+--			Result := code.code
+--		end
 
 feature -- Comparison
 

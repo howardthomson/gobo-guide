@@ -10,6 +10,10 @@ indexing
 	date: "$Date$"
 	revision: "$Revision$"
 
+	edp_mods: "[
+		Added has_same_text
+	]"
+
 deferred class ET_MANIFEST_STRING
 
 inherit
@@ -53,6 +57,19 @@ inherit
 			make_with_position as make_leaf_with_position
 		redefine
 			position, first_position, first_leaf
+		end
+
+feature -- Token comparison (EDP)
+
+	has_same_text (other: ET_AST_LEAF): BOOLEAN is
+		local
+			oc: like Current
+		do
+			oc ?= other
+			if oc /= Void then
+				Result := literal.is_equal (oc.literal)
+					and then value.is_equal (oc.value)
+			end
 		end
 
 feature -- Initialization

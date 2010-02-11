@@ -7,8 +7,12 @@ indexing
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 1999-2009, Eric Bezault and others"
 	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "$Date: 2009-03-11 13:13:29 +0000 (Wed, 11 Mar 2009) $"
+	revision: "$Revision: 6607 $"
+
+	edp_mods: "[
+		Added hash_code to implement HASHABLE for DIFF comparison
+	]"
 
 class ET_UNDERSCORED_INTEGER_CONSTANT
 
@@ -19,6 +23,13 @@ inherit
 create
 
 	make
+
+feature -- Hashing
+
+	hash_code: INTEGER is
+		do
+			-- TODO hash_code
+		end
 
 feature {NONE} -- Initialization
 

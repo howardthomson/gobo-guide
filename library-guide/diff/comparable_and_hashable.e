@@ -1,0 +1,9 @@
+class COMPARABLE_AND_HASHABLE
+
+inherit
+
+	COMPARABLE
+
+	HASHABLE
+
+end

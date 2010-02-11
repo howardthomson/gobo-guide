@@ -6,9 +6,14 @@ indexing
 
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 1999-2004, Eric Bezault and others"
-	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	license: "Eiffel Forum License v2 (see forum.txt)"
+	date: "$Date: 2005/07/13 19:39:28 $"
+	revision: "$Revision: 1.11 $"
+
+	edp_mods: "[
+		Added hash_code to implement HASHABLE for DIFF comparison
+		Added has_same_text
+	]"
 
 class ET_C3_CHARACTER_CONSTANT
 
@@ -19,6 +24,25 @@ inherit
 create
 
 	make
+
+feature -- Token comparison
+
+	has_same_text (other: ET_AST_LEAF): BOOLEAN is
+		local
+			oc: like Current
+		do
+			oc ?= other
+			if oc /= Void then
+				Result := literal = oc.literal
+			end
+		end
+
+feature -- Hashing
+
+	hash_code: INTEGER is
+		do
+			Result := value.code
+		end
 
 feature {NONE} -- Initialization
 

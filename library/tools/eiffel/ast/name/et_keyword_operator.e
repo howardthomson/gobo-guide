@@ -6,9 +6,11 @@ indexing
 
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 2002, Eric Bezault and others"
-	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	license: "Eiffel Forum License v2 (see forum.txt)"
+	date: "$Date: 2006/07/18 20:28:52 $"
+	revision: "$Revision: 1.11 $"
+
+	edp_mods: "hash_code changes"
 
 class ET_KEYWORD_OPERATOR
 
@@ -111,12 +113,6 @@ feature -- Access
 					-- Should never happen.
 				Result := tokens.unknown_name
 			end
-		end
-
-	hash_code: INTEGER is
-			-- Hash code
-		do
-			Result := code.code
 		end
 
 feature -- Comparison

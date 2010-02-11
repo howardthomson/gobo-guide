@@ -7,8 +7,13 @@ indexing
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 2002-2008, Eric Bezault and others"
 	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "$Date: 2008-08-04 08:17:18 +0100 (Mon, 04 Aug 2008) $"
+	revision: "$Revision: 6461 $"
+
+	edp_mods: "[
+		Added hash_code to implement HASHABLE for DIFF comparison
+		Added has_same_text
+	]"
 
 class ET_SYMBOL
 
@@ -48,6 +53,25 @@ create
 	make_right_bracket,
 	make_right_parenthesis,
 	make_tilde
+
+feature -- Token comparison (EDP)
+
+	has_same_text (other: ET_AST_LEAF): BOOLEAN is
+		local
+			oc: like Current
+		do
+			oc ?= other
+			if oc /= Void then
+				Result := hash_code = oc.hash_code
+			end
+		end
+
+feature -- Hashing (EDP)
+
+	hash_code: INTEGER is
+		do
+			Result := code.code
+		end
 
 feature {NONE} -- Initialization
 

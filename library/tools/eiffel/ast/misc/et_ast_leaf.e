@@ -6,9 +6,15 @@ indexing
 
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 2002-2004, Eric Bezault and others"
-	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	license: "Eiffel Forum License v2 (see forum.txt)"
+	date: "$Date: 2004/09/04 18:51:53 $"
+	revision: "$Revision: 1.7 $"
+
+	edp_mods: "[
+		Additional inheritance for EDP
+
+		New deferred feature: has_same_text for DIFF processing
+	]"
 
 deferred class ET_AST_LEAF
 
@@ -27,7 +33,16 @@ inherit
 			make_default as make
 		end
 
+	EDP_AST_LEAF	-- Added HAT for EDP Project
+
+	DIFF_SYMBOL
+
 feature -- Access
+
+	has_same_text (other: ET_AST_LEAF): BOOLEAN is
+			-- Do 'Current' and 'other' have the same 'text'
+		deferred
+		end
 
 	position: ET_POSITION is
 			-- Position of first character of

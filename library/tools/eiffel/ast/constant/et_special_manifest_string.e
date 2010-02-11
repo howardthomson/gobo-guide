@@ -6,9 +6,13 @@ indexing
 
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 1999-2002, Eric Bezault and others"
-	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	license: "Eiffel Forum License v2 (see forum.txt)"
+	date: "$Date: 2006/03/06 20:37:29 $"
+	revision: "$Revision: 1.14 $"
+
+	edp_mods: "[
+		Added hash_code to implement HASHABLE for DIFF comparison
+	]"
 
 class ET_SPECIAL_MANIFEST_STRING
 
@@ -19,6 +23,13 @@ inherit
 create
 
 	make
+
+feature -- Hashing
+
+	hash_code: INTEGER is
+		do
+			-- TODO hash_code
+		end
 
 feature {NONE} -- Initialization
 

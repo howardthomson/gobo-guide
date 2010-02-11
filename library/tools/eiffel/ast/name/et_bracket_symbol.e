@@ -6,9 +6,11 @@ indexing
 
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 2005, Eric Bezault and others"
-	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	license: "Eiffel Forum License v2 (see forum.txt)"
+	date: "$Date: 2006/07/18 20:28:52 $"
+	revision: "$Revision: 1.2 $"
+
+	edp_mods: "hash_code changes"
 
 class ET_BRACKET_SYMBOL
 
@@ -18,6 +20,7 @@ inherit
 		rename
 			make_left_bracket as make
 		redefine
+			hash_code,
 			process
 		end
 

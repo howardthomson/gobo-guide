@@ -10,6 +10,10 @@ indexing
 	date: "$Date$"
 	revision: "$Revision$"
 
+	edp_mods: "[
+		Added has_same_text
+	]"
+
 deferred class ET_INTEGER_CONSTANT
 
 inherit
@@ -40,6 +44,18 @@ inherit
 	ET_INDEXING_TERM
 		undefine
 			first_position, last_position
+		end
+
+feature -- Token comparison (EDP)
+
+	has_same_text (other: ET_AST_LEAF): BOOLEAN is
+		local
+			oc: like Current
+		do
+			oc ?= other
+			if oc /= Void then
+				Result := literal.is_equal (oc.literal)
+			end
 		end
 
 feature -- Initialization

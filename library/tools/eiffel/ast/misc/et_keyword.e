@@ -7,8 +7,12 @@ indexing
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 2002-2008, Eric Bezault and others"
 	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "$Date: 2009-03-14 13:12:37 +0000 (Sat, 14 Mar 2009) $"
+	revision: "$Revision: 6611 $"
+
+	edp_mods: "[
+		has_same_text and hash_code added
+	]"
 
 class ET_KEYWORD
 
@@ -88,6 +92,25 @@ create
 	make_until,
 	make_variant,
 	make_when
+
+feature -- Token comparison (EDP)
+
+	has_same_text (other: ET_AST_LEAF): BOOLEAN is
+		local
+			oc: like Current
+		do
+			oc ?= other
+			if oc /= Void then
+				Result := text.is_equal (oc.text)
+			end
+		end
+
+feature -- Hashing (EDP)
+
+	hash_code: INTEGER is
+		do
+			Result := code.code
+		end
 
 feature {NONE} -- Initialization
 

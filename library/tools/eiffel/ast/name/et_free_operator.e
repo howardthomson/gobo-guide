@@ -6,9 +6,9 @@ indexing
 
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 2002-2005, Eric Bezault and others"
-	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	license: "Eiffel Forum License v2 (see forum.txt)"
+	date: "$Date: 2005/07/17 22:37:41 $"
+	revision: "$Revision: 1.12 $"
 
 class ET_FREE_OPERATOR
 
@@ -43,6 +43,18 @@ create
 
 	make_infix,
 	make_prefix
+
+feature -- Token comparison
+
+	has_same_text (other: ET_AST_LEAF): BOOLEAN is
+		local
+			oc: like Current
+		do
+			oc ?= other
+			if oc /= Void then
+				Result := name.is_equal (oc.name)
+			end
+		end
 
 feature {NONE} -- Initialization
 

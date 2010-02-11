@@ -10,6 +10,8 @@ indexing
 	date: "$Date$"
 	revision: "$Revision$"
 
+	edp_mods: "unique_value, set_unique_value, saved_unique_value"
+
 class ET_UNIQUE_ATTRIBUTE
 
 inherit
@@ -23,6 +25,39 @@ inherit
 create
 
 	make
+
+feature -- Unique value (EDP TEMP !!)
+
+-- Move assignment of unique_value to edp_ast_factory ....
+-- Move this file to gobo-mods
+
+	saved_unique_value: INTEGER
+
+	unique_value: INTEGER is
+		local
+			p: like Current
+		do
+			if saved_unique_value /= 0 then
+				Result := saved_unique_value
+			elseif first_precursor /= Void then
+				p ?= first_precursor
+				Result := p.unique_value
+				saved_unique_value := Result
+			end
+		end
+
+	set_unique_value (i: INTEGER) is
+		require
+			saved_unique_value = 0
+		local
+			p: like Current
+		do
+			saved_unique_value := i
+			if first_precursor /= Void then
+				p ?= first_precursor
+				p.set_unique_value (i)
+			end
+		end
 
 feature {NONE} -- Initialization
 
