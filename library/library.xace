@@ -21,7 +21,9 @@
 	<mount location="${GOBO}/library/structure/library.xace"/>
 	<mount location="${GOBO}/library/test/library.xace"/>
 	<mount location="${GOBO}/library/time/library.xace"/>
-	<mount location="${GOBO}/library/tools/library.xace"/>
 	<mount location="${GOBO}/library/utility/library.xace"/>
 	<mount location="${GOBO}/library/xml/library.xace"/>
+
+	<mount location="${GOBO}/library/tools/library.xace"/>
+
 </library>

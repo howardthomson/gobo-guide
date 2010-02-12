@@ -26,105 +26,7 @@
 		<option name="line_generation" value="true"/>
 	</option>
 
-	<cluster name="tools" location="${GOBO}/library/tools">
-		<option name="abstract" value="true"/>
-		<cluster name="eiffel" prefix="eiffel_">
-			<option name="abstract" value="true"/>
-			<cluster name="ast">
-				<option name="abstract" value="true"/>
-				<cluster name="constant">
-					<option name="exclude" value="et_special_manifest_string.e"/>				<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_c1_character_constant.e"/>					<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_c2_character_constant.e"/>					<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_c3_character_constant.e"/>					<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_regular_real_constant.e"/>					<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_regular_integer_constant.e"/>				<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_integer_constant.e"/>						<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_octal_integer_constant.e"/>				<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_binary_integer_constant.e"/>				<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_real_constant.e"/>							<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_manifest_string.e"/>						<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_regular_manifest_string.e"/>				<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_underscored_integer_constant.e"/>			<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_underscored_real_constant.e"/>				<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_hexadecimal_integer_constant.e"/>			<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_verbatim_string.e"/>						<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_bit_constant.e"/>							<!-- .... EDP Mods: hash_code, has_same_text -->
-				</cluster>
-				<cluster name="name">
-					<option name="exclude" value="et_identifier.e"/>							<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_bracket_symbol.e"/>						<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_free_operator.e"/>							<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_symbol_operator.e"/>						<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_keyword_operator.e"/>						<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_precursor_keyword.e"/>						<!-- .... EDP Mods: hash_code, has_same_text -->
-					<option name="exclude" value="et_agent_keyword.e"/>							<!-- .... EDP Mods: hash_code, has_same_text -->
-				</cluster>
-				<cluster name="agent"/>
-				<cluster name="assertion"/>
-				<cluster name="class"/>
-				<cluster name="expression"/>
-				<cluster name="feature">
-					<option name="exclude" value="et_unique_attribute.e"/>						<!-- .... Has EDP Mods -->
-				</cluster>
-				<cluster name="group">
-					<!--option name="exclude" value="et_system.e"/-->								<!-- .... Has EDP Mods -->
-				</cluster>
-				<cluster name="instruction"/>
-				<cluster name="misc">
-					<option name="exclude" value="et_ast_leaf.e"/>								<!-- .... Has EDP Mods-->
-					<option name="exclude" value="et_keyword.e"/>								<!-- .... Has EDP Mods -->
-					<option name="exclude" value="et_symbol.e"/>								<!-- .... Has EDP Mods (hash_code, has_same_text) -->
-					<!--option name="exclude" value="et_token_constants.e"/-->					<!-- .... Has EDP Mods (default_ast_factory) -->
-				</cluster>
-				<cluster name="type"/>
-			</cluster>
-			<cluster name="compilation">
-				<option name="exclude" value="et_ancestor_builder.e"/>							<!-- .... EDP Mods ("__CLASS__", "__LINE__") -->
-			</cluster>
-			<cluster name="dynamic">
-				<option name="exclude" value="et_system.e"/>									<!-- .... Has EDP Mods: Retain C code generation -->
-				<option name="exclude" value="et_dynamic_type.e"/>								<!-- .... Has EDP Mods: Retain C code generation -->
-			</cluster>
-			<cluster name="error">
-				<option name="exclude" value="et_internal_error.e"/>							<!-- TODO EDP Mods ("__CLASS__", "__LINE__") -->
-				<option name="exclude" value="et_error_handler.e"/>								<!-- TODO -->
-				<!-- <option name="exclude" value="et_validity_error.e" -->						<!-- TODO Text formatting-->
-			</cluster>
-			<cluster name="generation">
-				<option name="exclude" value="et_c_generator.e"/>								<!-- TODO Has EDP Mods -->
-			</cluster>
-			<cluster name="parser">
-				<option name="exclude" value="et_eiffel_parser.e"/>								<!-- TODO Has EDP Mods -->
-			</cluster>
-			<cluster name="processor"/>
-		</cluster>
-		<cluster name="lace" prefix="lace_">
-			<option name="abstract" value="true"/>
-			<cluster name="ast"/>
-			<cluster name="error"/>
-			<cluster name="parser">
-				<option name="exclude" value="et_lace_parser.e"/>								<!-- TODO Has EDP Mods -->
-			</cluster>
-		</cluster>
-		<cluster name="ecf" prefix="ecf_">
-			<option name="abstract" value="true"/>
-			<cluster name="ast"/>
-			<cluster name="error"/>
-			<cluster name="parser"/>
-		</cluster>
-		<cluster name="xace" prefix="xace_">
-			<option name="abstract" value="true"/>
-			<cluster name="ast"/>
-			<cluster name="error"/>
-			<cluster name="generator"/>
-			<cluster name="parser"/>
-			<cluster name="support"/>
-		</cluster>
-	</cluster>
-
-	<mount location="${GUIDE}/library/tools/library.xace"/>
-
+	<mount location="${GOBO}/library/tools/library.xace"/>
 	<mount location="${GOBO}/library/argument/library.xace"/>
 	<mount location="${GOBO}/library/lexical/library.xace"/>
 	<mount location="${GOBO}/library/parse/library.xace"/>
@@ -165,26 +67,26 @@
 		<cluster name="support"/>
 	</cluster>
 
-	<cluster name="guide" location="${GUIDE}/src/guide"/>
+	<cluster name="guide" location="${GOBO}/src/guide"/>
 
-	<cluster name="edp_parse" 			location="${GUIDE}/library-guide/parse">
+	<cluster name="edp_parse" 			location="${GOBO}/library-guide/parse">
 		<option name="exclude" value="et_eiffel_parser.e"/>
 		<option name="exclude" value="et_eiffel_tokens.e"/>
 	</cluster>
-	<cluster name="edp_src" 			location="${GUIDE}/library-guide/edp-src"/>
-	<cluster name="edp_diff" 			location="${GUIDE}/library-guide/diff"/>
+	<cluster name="edp_src" 			location="${GOBO}/library-guide/edp-src"/>
+	<cluster name="edp_diff" 			location="${GOBO}/library-guide/diff"/>
 
-	<cluster name="edp_fec" 			location="${GUIDE}/library-guide/fec"/>
-	<cluster name="edp_sb" 				location="${GUIDE}/library-guide/sb-x11"/>
-	<cluster name="edp_sb_common" 		location="${GUIDE}/library-guide/sb-common"/>
-	<cluster name="edp_x11" 			location="${GUIDE}/library-guide/x11"/>
-	<cluster name="edp_x11_events" 		location="${GUIDE}/library-guide/x11/events"/>
-	<cluster name="edp_pointer" 		location="${GUIDE}/library-guide/pointer"/>
+	<cluster name="edp_fec" 			location="${GOBO}/library-guide/fec"/>
+	<cluster name="edp_sb" 				location="${GOBO}/library-guide/sb-x11"/>
+	<cluster name="edp_sb_common" 		location="${GOBO}/library-guide/sb-common"/>
+	<cluster name="edp_x11" 			location="${GOBO}/library-guide/x11"/>
+	<cluster name="edp_x11_events" 		location="${GOBO}/library-guide/x11/events"/>
+	<cluster name="edp_pointer" 		location="${GOBO}/library-guide/pointer"/>
 
-	<cluster name="gecmp" 				location="${GUIDE}/src/gecmp"/>
+	<cluster name="gecmp" 				location="${GOBO}/src/gecmp"/>
 
-	<cluster name="gec"					location="$GUIDE/src/gec"/>
-	
+	<cluster name="gec"					location="$GOBO/src/gec"/>
+
 	<cluster name="llvm" location="${LLVM}">
 		<cluster name="x86_64"/>
 		<cluster name="x86"/>
@@ -198,6 +100,6 @@
 	<option name="link" value="-lpthread"/>
 	<option name="link" value="-lrt"/>
 	<option name="link" value="-lm"/>
-	<option name="link" value="${GUIDE}/library-guide/c_code/pointer_access${bit_64}.o"/>
-	<option name="link" value="${GUIDE}/library-guide/c_code/x_error${bit_64}.o"/>
+	<option name="link" value="${GOBO}/library-guide/c_code/pointer_access${bit_64}.o"/>
+	<option name="link" value="${GOBO}/library-guide/c_code/x_error${bit_64}.o"/>
 </system>

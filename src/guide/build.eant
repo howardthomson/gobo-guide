@@ -23,7 +23,7 @@
 
 	<target name="init_system">
 		<set name="system" value="guide"/>
-		<set name="system_dir" value="${GUIDE}/src/${system}"/>
+		<set name="system_dir" value="${GOBO}/src/${system}"/>
 	</target>
 
 	<target name="compile_ge" depend="prepare_compile">
@@ -43,7 +43,7 @@
 		<set name="finalize" value="false" if="${debug}"/>
 		<gec ace="compile_ge.xace" finalize="${finalize}" c_compile="true" cat="false"/>
 	</target>
-	
+
 	<target name="compile_ge32" depend="prepare_compile">
 		<description>
 			Compile '${system}' with Gobo Eiffel.
@@ -80,11 +80,11 @@
 		<set name="finalize" value="false" if="${debug}"/>
 		<gec ace="compile_ge.ace" finalize="${finalize}" c_compile="true" cat="false" split="true"/>
 		<exec executable="mingw32-gcc -m32 -c guide.c" unless="${GOBO_OS}=windows"/>
-		<exec executable="mingw32-g++ -o edp_win32.exe guide.o 
-			-L/usr/X11R6/lib 
-			-lX11 -lrt 
-			-lm 
-			${GOBO}/guide/c_code/pointer_access.o 
+		<exec executable="mingw32-g++ -o edp_win32.exe guide.o
+			-L/usr/X11R6/lib
+			-lX11 -lrt
+			-lm
+			${GOBO}/guide/c_code/pointer_access.o
 			${GOBO}/guide/c_code/x_error.o" unless="${GOBO_OS}=windows"/>
 	</target>
 
