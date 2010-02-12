@@ -658,7 +658,7 @@ EIF_REFERENCE GE_check_void(EIF_REFERENCE obj)
 #endif
 		GE_raise(1);
 	} else {
-#if 1
+#ifdef EIF_EDP_GC
 		if (((gc_item_t *)obj)->id <= 0) {
 			printf("Accessing %x where id = %d\n", obj, ((gc_item_t *)obj)->id);
 		}

@@ -72,6 +72,11 @@ extern void GE_boehm_dispose(void*, void*);
  */
 #define GE_register_dispose(obj, disp) GC_REGISTER_FINALIZER((void*)(obj), (void (*) (void*, void*)) &GE_boehm_dispose, NULL, NULL, NULL)
 
+/*
+ * Routine for GC object validation
+ */
+#define GE_check_valid(obj) (obj)
+
 /*========================================================================================================*/
 
 #else
@@ -190,7 +195,7 @@ union page_info {
 		u_int16_t next_free;
 			/*
 			 * Index of first free object in this page
-			 * 
+			 *
 			 * Low (odd) bit defines validity:
 			 * 		0 => No free space [value == 0]
 			 * 		1 => 0 based byte offset of first free item ...
@@ -467,6 +472,11 @@ extern gc_item_t *GC__last_item_allocated;
  * Register dispose routine `disp' to be called on object `obj' when it will be collected.
  */
 #define GE_register_dispose(obj, disp) /* do nothing */
+
+/*
+ * Routine for GC object validation
+ */
+#define GE_check_valid(obj) (obj)
 
 #endif
 #endif
