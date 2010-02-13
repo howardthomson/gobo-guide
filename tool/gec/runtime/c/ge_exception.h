@@ -206,11 +206,17 @@ extern void* GE_check_null(void* ptr);
 #include <pthread.h>
 #include <signal.h>
 
+#ifdef EIF_EDP_GC
 extern pthread_key_t GE_rescue_key;
 extern pthread_key_t GE_stack_key;
 
 #define GE_stack_ptr()	(void *)(pthread_getspecific(GE_stack_key))
 #define GE_set_stack_ptr(x)	pthread_setspecific(GE_stack_key, (void *)(x))
+#else
+#define GE_stack_ptr()			GE_internal_stack
+#define GE_set_stack_ptr(x)		GE_internal_stack = (x)
+extern void *GE_internal_stack;
+#endif
 
 #else	/* ifndef WIN32 */
 

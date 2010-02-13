@@ -274,7 +274,7 @@ feature {NONE} -- Initialization
 			llvm_filenames.set_key_equality_tester (string_equality_tester)
 			make_rescue_data
 			make_external_regexps
-			set_use_edp_gc (True)	-- TEMP
+		--	set_use_edp_gc (True)	-- TEMP
 		--	create llvm_factory.make
 		--	llvm_factory.make_one_of_each
 		end
@@ -24962,6 +24962,7 @@ feature {NONE} -- Type generation
 					l_empty_struct := False
 				end
 				if use_edp_gc and then not a_type.is_expanded then	-- GC
+			--	if not a_type.is_expanded then						-- GC
 					a_file.put_character ('%T')						-- GC
 					a_file.put_string (c_int16_t)					-- GC
 					a_file.put_character (' ')						-- GC
@@ -25641,23 +25642,7 @@ feature {NONE} -- Default initialization values generation
 			l_query: ET_DYNAMIC_FEATURE
 			l_empty_struct: BOOLEAN
 		do
-			if
-				not a_type.is_expanded or else
-				(a_type /= current_dynamic_system.boolean_type and
-				a_type /= current_dynamic_system.character_8_type and
-				a_type /= current_dynamic_system.character_32_type and
-				a_type /= current_dynamic_system.integer_8_type and
-				a_type /= current_dynamic_system.integer_16_type and
-				a_type /= current_dynamic_system.integer_32_type and
-				a_type /= current_dynamic_system.integer_64_type and
-				a_type /= current_dynamic_system.natural_8_type and
-				a_type /= current_dynamic_system.natural_16_type and
-				a_type /= current_dynamic_system.natural_32_type and
-				a_type /= current_dynamic_system.natural_64_type and
-				a_type /= current_dynamic_system.real_32_type and
-				a_type /= current_dynamic_system.real_64_type and
-				a_type /= current_dynamic_system.pointer_type)
-			then
+			if not a_type.is_expanded or else not a_type.is_basic then
 				l_empty_struct := True
 				a_file.put_character ('{')
 				if not a_type.is_expanded or else a_type.is_generic then
@@ -25691,9 +25676,9 @@ feature {NONE} -- Default initialization values generation
 					if not l_empty_struct then
 						a_file.put_character (',')
 					end
-					a_file.put_character ('0')
+				--	a_file.put_character ('0')
 						-- Items.
-					a_file.put_character (',')
+				--	a_file.put_character (',')
 					a_file.put_character ('{')
 					print_default_attribute_value (l_special_type.item_type_set.static_type, a_file)
 					a_file.put_character ('}')
@@ -25958,8 +25943,15 @@ feature {NONE} -- Feature name generation
 			a_file_open_write: a_file.is_open_write
 		do
 			if short_names then
-				a_file.put_character ('z')
-				a_file.put_character ('1')
+				if a_type.attribute_count < 1 then
+						-- Internal error: class "SPECIAL" should have at least the
+						-- feature 'count' as first feature.
+						-- Already reported in ET_DYNAMIC_SYSTEM.compile_kernel.
+					set_fatal_error
+					error_handler.report_giaaa_error
+				else
+					print_attribute_name (a_type.queries.first, a_type, a_file)
+				end
 			else
 -- TODO: long names
 				short_names := True

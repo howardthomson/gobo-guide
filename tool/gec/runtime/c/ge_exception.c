@@ -52,6 +52,8 @@ void GE_raise(int code)
 	exit(1);
 }
 
+void *GE_internal_stack;
+
 #else /* EIF_EDP_GC */
 
 /* Raise an exception with code `code'. */
