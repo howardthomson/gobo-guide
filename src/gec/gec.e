@@ -256,12 +256,15 @@ feature {NONE} -- Processing
 				if l_generator.has_fatal_error then
 					Exceptions.die (1)
 				elseif not no_c_compile then
+					print ("Compiling ...%N")
 					if operating_system.is_windows then
 						l_filename := l_system_name + ".bat"
+						create l_command.make (file_system.absolute_pathname (l_filename))
 					else
-						l_filename := l_system_name + ".sh"
+						l_filename := l_system_name + ".Makefile"
+						create l_command.make ("make -j8 -f " + file_system.absolute_pathname (l_filename))
 					end
-					create l_command.make (file_system.absolute_pathname (l_filename))
+
 					l_command.execute
 					if l_command.exit_code /= 0 then
 						Exceptions.die (1)

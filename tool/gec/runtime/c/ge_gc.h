@@ -82,7 +82,7 @@ extern void GE_boehm_dispose(void*, void*);
 #else
 #ifdef EIF_EDP_GC
 
-#if 1
+#if 0
 #define EDP_GC_DEBUG
 #endif
 
@@ -104,7 +104,7 @@ extern void GE_boehm_dispose(void*, void*);
 
 #ifndef EDP_GC_DEBUG
 #define GC_PAGE_CYCLE 10000
-#define item__validate(x)
+#define item__validate(x) (x)
 #else
 #define GC_PAGE_CYCLE 1000	/* Reduce for debugging ... */
 #endif
@@ -159,7 +159,12 @@ extern void GE_init_gc();
 /*
  *	Memory allocation.
  */
+#if 0
 
+#define GE_alloc(x) GE_null(calloc((x),1))
+#define GE_alloc_cleared
+#define GE_alloc_atomic(x) GE_null(calloc((x),1))
+#else
 /*
  * GE_alloc allocates memory that can contain pointers to collectable objects.
  */
@@ -169,7 +174,7 @@ extern void GE_init_gc();
  * GE_alloc_atomic allocates memory that does not contain pointers to collectable objects.
  */
 #define GE_alloc_atomic(x) GE_null(gealloc_size_id(x,0))
-
+#endif
 /*
  * Register dispose routine `disp' to be called on object `obj' when it will be collected.
  */
@@ -200,10 +205,9 @@ union page_info {
 			 * 		0 => No free space [value == 0]
 			 * 		1 => 0 based byte offset of first free item ...
 			 */
-		u_int16_t free_link;
+		u_int16_t page_link;
 			/*
 			 * Index of next page, in this arena, of the same type
-			 * that has free space available.
 			 * 0 => NULL
 			 * 8..4095 page number link
 			 */
@@ -233,15 +237,19 @@ struct gc_arena {
 
 		/* 48 (6*8) bytes are available at the start of this page set */
 		struct ps1_6 {
+#if 0
 			u_int16_t first_free_pageXX;
 				/*
 				 */
+#endif
 			u_int16_t free_list [8];
 				/*
 				 * Index of first page in list with free space of
 				 * size corresponding to the index
 				 */
+#if 0
 			u_int8_t bb[8];
+#endif
 		} s;
 	} p1_6;
 
@@ -251,7 +259,11 @@ struct gc_arena {
 		char pad [4096];
 		struct ps7 {
 			int arena_magic;
+				/* Arena Magic Value; check for memory corruption ... */
 			gc_item_t *free_item_lists [ NO_FREESPACES ];
+				/* Cuurent block[s] of consecutive free item allocations */
+			gc_arena_t *arena_free_cache [ NO_FREESPACES ];
+				/* Indexes of blocks known to have free space */
 		} s;
 	} p7;
 };
@@ -303,9 +315,10 @@ struct gc_item {
 		/* Count of free items in this free block */
 	int16_t gc_item_next;
 		/* Offset, in bytes, of next free item in this block */
-	gc_item_t *gc_next_free;
-		/* Link to next block of free items, of this type */
-#define gc_reference gc_next_free
+#ifdef COMPILE_STANDALONE
+	gc_item_t *gc_reference;
+		/* XXXXX */
+#endif
 };
 
 struct gc_bitmap {

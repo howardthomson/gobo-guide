@@ -274,7 +274,7 @@ feature {NONE} -- Initialization
 			llvm_filenames.set_key_equality_tester (string_equality_tester)
 			make_rescue_data
 			make_external_regexps
-		--	set_use_edp_gc (True)	-- TEMP
+			set_use_edp_gc (True)	-- TEMP
 		--	create llvm_factory.make
 		--	llvm_factory.make_one_of_each
 		end

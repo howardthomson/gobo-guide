@@ -158,7 +158,7 @@ feature -- Compilation options
 			-- Should the generated code be able to provide instruction location info
 			-- for each routine stack frame, in the form class.feature / line_number ?
 		do
-			Result := True
+			Result := False
 		end
 
 	finalize_mode: BOOLEAN
