@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -7,8 +7,8 @@ indexing
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 1999-2009, Eric Bezault and others"
 	license: "MIT License"
-	date: "$Date: 2009-03-11 13:13:29 +0000 (Wed, 11 Mar 2009) $"
-	revision: "$Revision: 6607 $"
+	date: "$Date$"
+	revision: "$Revision$"
 
 	edp_mods: "[
 		Added hash_code to implement HASHABLE for DIFF comparison
@@ -26,14 +26,14 @@ create
 
 feature -- Hashing
 
-	hash_code: INTEGER is
+	hash_code: INTEGER
 		do
 			-- TODO hash_code
 		end
 
 feature {NONE} -- Initialization
 
-	make (a_literal: like literal) is
+	make (a_literal: like literal)
 			-- Create a new Integer constant.
 		require
 			a_literal_not_void: a_literal /= Void
@@ -50,7 +50,7 @@ feature {NONE} -- Initialization
 
 feature -- Processing
 
-	process (a_processor: ET_AST_PROCESSOR) is
+	process (a_processor: ET_AST_PROCESSOR)
 			-- Process current node.
 		do
 			a_processor.process_regular_integer_constant (Current)
@@ -58,7 +58,7 @@ feature -- Processing
 
 feature {NONE} -- Implementation
 
-	compute_value is
+	compute_value
 			-- Compute value of current integer constant.
 			-- Make result available in `value' or set
 			-- `has_overflow' to true if an overflow

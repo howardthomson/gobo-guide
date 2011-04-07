@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -7,8 +7,8 @@ indexing
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 2002-2009, Eric Bezault and others"
 	license: "MIT License"
-	date: "$Date: 2009-03-11 13:13:29 +0000 (Wed, 11 Mar 2009) $"
-	revision: "$Revision: 6607 $"
+	date: "$Date$"
+	revision: "$Revision$"
 
 	edp_mods: "[
 		Added hash_code to implement HASHABLE for DIFF comparison
@@ -37,14 +37,14 @@ create
 
 feature -- Hashing
 
-	hash_code: INTEGER is
+	hash_code: INTEGER
 		do
 			-- TODO hash_code
 		end
 
 feature {NONE} -- Initialization
 
-	make (a_literal: like literal) is
+	make (a_literal: like literal)
 			-- Create a new Integer constant.
 		require
 			a_literal_not_void: a_literal /= Void
@@ -61,7 +61,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	to_integer_8: INTEGER_8 is
+	to_integer_8: INTEGER_8
 			-- INTEGER_8 value of current integer constant
 		do
 			if sign /= Void and then sign.is_minus then
@@ -77,7 +77,7 @@ feature -- Access
 			end
 		end
 
-	to_integer_16: INTEGER_16 is
+	to_integer_16: INTEGER_16
 			-- INTEGER_16 value of current integer constant
 		do
 			if sign /= Void and then sign.is_minus then
@@ -93,7 +93,7 @@ feature -- Access
 			end
 		end
 
-	to_integer_32: INTEGER_32 is
+	to_integer_32: INTEGER_32
 			-- INTEGER_32 value of current integer constant
 		do
 			if sign /= Void and then sign.is_minus then
@@ -109,7 +109,7 @@ feature -- Access
 			end
 		end
 
-	to_integer_64: INTEGER_64 is
+	to_integer_64: INTEGER_64
 			-- INTEGER_64 value of current integer constant
 		do
 			if sign /= Void and then sign.is_minus then
@@ -127,10 +127,10 @@ feature -- Access
 
 feature -- Status report
 
-	is_hexadecimal: BOOLEAN is True
+	is_hexadecimal: BOOLEAN = True
 			-- Is current constant in hexadecimal format
 
-	is_integer_8: BOOLEAN is
+	is_integer_8: BOOLEAN
 			-- Is current integer constant representable as an INTEGER_8?
 		do
 			if has_overflow then
@@ -144,7 +144,7 @@ feature -- Status report
 			end
 		end
 
-	is_integer_16: BOOLEAN is
+	is_integer_16: BOOLEAN
 			-- Is current integer constant representable as an INTEGER_16?
 		do
 			if has_overflow then
@@ -158,7 +158,7 @@ feature -- Status report
 			end
 		end
 
-	is_integer_32: BOOLEAN is
+	is_integer_32: BOOLEAN
 			-- Is current integer constant representable as an INTEGER_32?
 		do
 			if has_overflow then
@@ -172,7 +172,7 @@ feature -- Status report
 			end
 		end
 
-	is_integer_64: BOOLEAN is
+	is_integer_64: BOOLEAN
 			-- Is current integer constant representable as an INTEGER_64?
 		do
 			if has_overflow then
@@ -188,7 +188,7 @@ feature -- Status report
 
 feature -- Processing
 
-	process (a_processor: ET_AST_PROCESSOR) is
+	process (a_processor: ET_AST_PROCESSOR)
 			-- Process current node.
 		do
 			a_processor.process_hexadecimal_integer_constant (Current)
@@ -196,7 +196,7 @@ feature -- Processing
 
 feature {NONE} -- Implementation
 
-	compute_value is
+	compute_value
 			-- Compute value of current integer constant.
 			-- Make result available in `value' or set
 			-- `has_overflow' to true if an overflow

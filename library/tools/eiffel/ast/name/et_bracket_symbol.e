@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,9 +6,9 @@ indexing
 
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 2005, Eric Bezault and others"
-	license: "Eiffel Forum License v2 (see forum.txt)"
-	date: "$Date: 2006/07/18 20:28:52 $"
-	revision: "$Revision: 1.2 $"
+	license: "MIT License"
+	date: "$Date$"
+	revision: "$Revision$"
 
 	edp_mods: "hash_code changes"
 
@@ -37,20 +37,20 @@ create
 
 feature -- Access
 
-	name: STRING is
+	name: STRING
 			-- Name of feature call
 		do
 			Result := tokens.alias_bracket_name
 		end
 
-	lower_name: STRING is
+	lower_name: STRING
 			-- Lower-name of feature call
 			-- (May return the same object as `name' if already in lower case.)
 		do
 			Result := name
 		end
 
-	hash_code: INTEGER is
+	hash_code: INTEGER
 			-- Hash code
 		do
 			Result := tokens.alias_bracket_code.code
@@ -58,12 +58,12 @@ feature -- Access
 
 feature -- Status report
 
-	is_bracket: BOOLEAN is True
+	is_bracket: BOOLEAN = True
 			-- Is current feature name of the form 'alias "[]"'?
 
 feature -- Comparison
 
-	same_call_name (other: ET_CALL_NAME): BOOLEAN is
+	same_call_name (other: ET_CALL_NAME): BOOLEAN
 			-- Are `Current' and `other' the same feature call name?
 			-- (case insensitive)
 		do
@@ -76,7 +76,7 @@ feature -- Comparison
 
 feature -- Processing
 
-	process (a_processor: ET_AST_PROCESSOR) is
+	process (a_processor: ET_AST_PROCESSOR)
 			-- Process current node.
 		do
 			a_processor.process_bracket_symbol (Current)

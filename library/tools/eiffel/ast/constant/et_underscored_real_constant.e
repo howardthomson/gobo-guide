@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,9 +6,9 @@ indexing
 
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 1999-2002, Eric Bezault and others"
-	license: "Eiffel Forum License v2 (see forum.txt)"
-	date: "$Date: 2005/07/13 19:39:28 $"
-	revision: "$Revision: 1.10 $"
+	license: "MIT License"
+	date: "$Date$"
+	revision: "$Revision$"
 
 	edp_mods: "[
 		Added hash_code to implement HASHABLE for DIFF comparison
@@ -26,14 +26,14 @@ create
 
 feature -- Hashing
 
-	hash_code: INTEGER is
+	hash_code: INTEGER
 		do
 			-- TODO hash_code
 		end
 
 feature {NONE} -- Initialization
 
-	make (a_literal: like literal) is
+	make (a_literal: like literal)
 			-- Create a new Real constant.
 		require
 			a_literal_not_void: a_literal /= Void
@@ -49,7 +49,7 @@ feature {NONE} -- Initialization
 
 feature -- Processing
 
-	process (a_processor: ET_AST_PROCESSOR) is
+	process (a_processor: ET_AST_PROCESSOR)
 			-- Process current node.
 		do
 			a_processor.process_underscored_real_constant (Current)

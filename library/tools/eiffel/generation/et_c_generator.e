@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -15,7 +15,7 @@ class ET_C_GENERATOR
 
 inherit
 
-	ET_LLVM_C_GENERATOR
+	ET_GOBO_C_GENERATOR
 
 create
 

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,9 +6,9 @@ indexing
 
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 1999-2002, Eric Bezault and others"
-	license: "Eiffel Forum License v2 (see forum.txt)"
-	date: "$Date: 2005/07/13 19:39:28 $"
-	revision: "$Revision: 1.14 $"
+	license: "MIT License"
+	date: "$Date$"
+	revision: "$Revision$"
 
 	edp_mods: "[
 		Added hash_code to implement HASHABLE for DIFF comparison
@@ -26,14 +26,14 @@ create
 
 feature -- Hashing
 
-	hash_code: INTEGER is
+	hash_code: INTEGER
 		do
 			-- TODO hash_code
 		end
 
 feature {NONE} -- Initialization
 
-	make (a_literal: like literal) is
+	make (a_literal: like literal)
 			-- Create a new manifest string.
 		require
 			a_literal_not_void: a_literal /= Void
@@ -52,13 +52,13 @@ feature -- Access
 	value: STRING
 			-- String value
 
-	literal: STRING is
+	literal: STRING
 			-- Literal value
 		do
 			Result := value
 		end
 
-	last_position: ET_POSITION is
+	last_position: ET_POSITION
 			-- Position of last character of current node in source code
 		do
 			create {ET_COMPRESSED_POSITION} Result.make (line, column + value.count + 1)
@@ -66,7 +66,7 @@ feature -- Access
 
 feature -- Processing
 
-	process (a_processor: ET_AST_PROCESSOR) is
+	process (a_processor: ET_AST_PROCESSOR)
 			-- Process current node.
 		do
 			a_processor.process_regular_manifest_string (Current)

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -7,8 +7,8 @@ indexing
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 2002-2008, Eric Bezault and others"
 	license: "MIT License"
-	date: "$Date: 2008-08-04 08:17:18 +0100 (Mon, 04 Aug 2008) $"
-	revision: "$Revision: 6461 $"
+	date: "$Date$"
+	revision: "$Revision$"
 
 	edp_mods: "[
 		Added hash_code to implement HASHABLE for DIFF comparison
@@ -56,7 +56,7 @@ create
 
 feature -- Token comparison (EDP)
 
-	has_same_text (other: ET_AST_LEAF): BOOLEAN is
+	has_same_text (other: ET_AST_LEAF): BOOLEAN
 		local
 			oc: like Current
 		do
@@ -68,14 +68,14 @@ feature -- Token comparison (EDP)
 
 feature -- Hashing (EDP)
 
-	hash_code: INTEGER is
+	hash_code: INTEGER
 		do
 			Result := code.code
 		end
 
 feature {NONE} -- Initialization
 
-	make_arrow is
+	make_arrow
 			-- Create a new '->' symbol.
 		do
 			code := tokens.arrow_symbol_code
@@ -86,7 +86,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_assign is
+	make_assign
 			-- Create a new ':=' symbol.
 		do
 			code := tokens.assign_symbol_code
@@ -97,7 +97,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_assign_attempt is
+	make_assign_attempt
 			-- Create a new '?=' symbol.
 		do
 			code := tokens.assign_attempt_symbol_code
@@ -108,7 +108,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_bang is
+	make_bang
 			-- Create a new '!' symbol.
 		do
 			code := tokens.bang_symbol_code
@@ -119,7 +119,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_colon is
+	make_colon
 			-- Create a new ':' symbol.
 		do
 			code := tokens.colon_symbol_code
@@ -130,7 +130,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_comma is
+	make_comma
 			-- Create a new ',' symbol.
 		do
 			code := tokens.comma_symbol_code
@@ -141,7 +141,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_div is
+	make_div
 			-- Create a new '//' symbol.
 		do
 			code := tokens.infix_div_code
@@ -152,7 +152,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_divide is
+	make_divide
 			-- Create a new '/' symbol.
 		do
 			code := tokens.infix_divide_code
@@ -163,7 +163,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_dollar is
+	make_dollar
 			-- Create a new '$' symbol.
 		do
 			code := tokens.dollar_symbol_code
@@ -174,7 +174,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_dot is
+	make_dot
 			-- Create a new '.' symbol.
 		do
 			code := tokens.dot_symbol_code
@@ -185,7 +185,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_dotdot is
+	make_dotdot
 			-- Create a new '..' symbol.
 		do
 			code := tokens.dotdot_symbol_code
@@ -196,7 +196,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_equal is
+	make_equal
 			-- Create a new '=' symbol.
 		do
 			code := tokens.equal_symbol_code
@@ -207,7 +207,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_ge is
+	make_ge
 			-- Create a new '>=' symbol.
 		do
 			code := tokens.infix_ge_code
@@ -218,7 +218,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_gt is
+	make_gt
 			-- Create a new '>' symbol.
 		do
 			code := tokens.infix_gt_code
@@ -229,7 +229,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_le is
+	make_le
 			-- Create a new '<=' symbol.
 		do
 			code := tokens.infix_le_code
@@ -240,7 +240,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_left_array is
+	make_left_array
 			-- Create a new '<<' symbol.
 		do
 			code := tokens.left_array_symbol_code
@@ -251,7 +251,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_left_brace is
+	make_left_brace
 			-- Create a new '{' symbol.
 		do
 			code := tokens.left_brace_symbol_code
@@ -262,7 +262,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_left_bracket is
+	make_left_bracket
 			-- Create a new '[' symbol.
 		do
 			code := tokens.left_bracket_symbol_code
@@ -273,7 +273,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_left_parenthesis is
+	make_left_parenthesis
 			-- Create a new '(' symbol.
 		do
 			code := tokens.left_parenthesis_symbol_code
@@ -284,7 +284,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_lt is
+	make_lt
 			-- Create a new '<' symbol.
 		do
 			code := tokens.infix_lt_code
@@ -295,7 +295,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_minus is
+	make_minus
 			-- Create a new '-' symbol.
 		do
 			code := tokens.prefix_minus_code
@@ -306,7 +306,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_mod is
+	make_mod
 			-- Create a new '\\' symbol.
 		do
 			code := tokens.infix_mod_code
@@ -317,7 +317,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_not_equal is
+	make_not_equal
 			-- Create a new '/=' symbol.
 		do
 			code := tokens.not_equal_symbol_code
@@ -328,7 +328,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_not_tilde is
+	make_not_tilde
 			-- Create a new '/~' symbol.
 		do
 			code := tokens.not_tilde_symbol_code
@@ -339,7 +339,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_plus is
+	make_plus
 			-- Create a new '+' symbol.
 		do
 			code := tokens.prefix_plus_code
@@ -350,7 +350,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_power is
+	make_power
 			-- Create a new '^' symbol.
 		do
 			code := tokens.infix_power_code
@@ -361,7 +361,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_question_mark is
+	make_question_mark
 			-- Create a new '?' symbol.
 		do
 			code := tokens.question_mark_symbol_code
@@ -372,7 +372,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_right_array is
+	make_right_array
 			-- Create a new '>>' symbol.
 		do
 			code := tokens.right_array_symbol_code
@@ -383,7 +383,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_right_brace is
+	make_right_brace
 			-- Create a new '}' symbol.
 		do
 			code := tokens.right_brace_symbol_code
@@ -394,7 +394,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_right_bracket is
+	make_right_bracket
 			-- Create a new ']' symbol.
 		do
 			code := tokens.right_bracket_symbol_code
@@ -405,7 +405,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_right_parenthesis is
+	make_right_parenthesis
 			-- Create a new ')' symbol.
 		do
 			code := tokens.right_parenthesis_symbol_code
@@ -416,7 +416,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_semicolon is
+	make_semicolon
 			-- Create a new ';' symbol.
 		do
 			code := tokens.semicolon_symbol_code
@@ -427,7 +427,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_tilde is
+	make_tilde
 			-- Create a new '~' symbol.
 		do
 			code := tokens.tilde_symbol_code
@@ -438,7 +438,7 @@ feature {NONE} -- Initialization
 			column_set: column = no_column
 		end
 
-	make_times is
+	make_times
 			-- Create a new '*' symbol.
 		do
 			code := tokens.infix_times_code
@@ -451,7 +451,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	text: STRING is
+	text: STRING
 			-- Textual representation of symbol
 		do
 			inspect code
@@ -533,7 +533,7 @@ feature -- Access
 			end
 		end
 
-	last_position: ET_POSITION is
+	last_position: ET_POSITION
 			-- Position of last character of current node in source code
 		do
 			create {ET_COMPRESSED_POSITION} Result.make (line, column + text.count - 1)
@@ -541,205 +541,205 @@ feature -- Access
 
 feature -- Status report
 
-	is_arrow: BOOLEAN is
+	is_arrow: BOOLEAN
 			-- Is current symbol '->'?
 		do
 			Result := (code = tokens.arrow_symbol_code)
 		end
 
-	is_assign: BOOLEAN is
+	is_assign: BOOLEAN
 			-- Is current symbol ':='?
 		do
 			Result := (code = tokens.assign_symbol_code)
 		end
 
-	is_assign_attempt: BOOLEAN is
+	is_assign_attempt: BOOLEAN
 			-- Is current symbol '?='?
 		do
 			Result := (code = tokens.assign_attempt_symbol_code)
 		end
 
-	is_bang: BOOLEAN is
+	is_bang: BOOLEAN
 			-- Is current symbol '!'?
 		do
 			Result := (code = tokens.bang_symbol_code)
 		end
 
-	is_colon: BOOLEAN is
+	is_colon: BOOLEAN
 			-- Is current symbol ':'?
 		do
 			Result := (code = tokens.colon_symbol_code)
 		end
 
-	is_comma: BOOLEAN is
+	is_comma: BOOLEAN
 			-- Is current symbol ','?
 		do
 			Result := (code = tokens.comma_symbol_code)
 		end
 
-	is_div: BOOLEAN is
+	is_div: BOOLEAN
 			-- Is current symbol '//'?
 		do
 			Result := (code = tokens.infix_div_code)
 		end
 
-	is_divide: BOOLEAN is
+	is_divide: BOOLEAN
 			-- Is current symbol '/'?
 		do
 			Result := (code = tokens.infix_divide_code)
 		end
 
-	is_dollar: BOOLEAN is
+	is_dollar: BOOLEAN
 			-- Is current symbol '$'?
 		do
 			Result := (code = tokens.dollar_symbol_code)
 		end
 
-	is_dot: BOOLEAN is
+	is_dot: BOOLEAN
 			-- Is current symbol '.'?
 		do
 			Result := (code = tokens.dot_symbol_code)
 		end
 
-	is_dotdot: BOOLEAN is
+	is_dotdot: BOOLEAN
 			-- Is current symbol '..'?
 		do
 			Result := (code = tokens.dotdot_symbol_code)
 		end
 
-	is_equal_symbol: BOOLEAN is
+	is_equal_symbol: BOOLEAN
 			-- Is current symbol '='?
 		do
 			Result := (code = tokens.equal_symbol_code)
 		end
 
-	is_ge: BOOLEAN is
+	is_ge: BOOLEAN
 			-- Is current symbol '>='?
 		do
 			Result := (code = tokens.infix_ge_code)
 		end
 
-	is_gt: BOOLEAN is
+	is_gt: BOOLEAN
 			-- Is current symbol '>'?
 		do
 			Result := (code = tokens.infix_gt_code)
 		end
 
-	is_le: BOOLEAN is
+	is_le: BOOLEAN
 			-- Is current symbol '<='?
 		do
 			Result := (code = tokens.infix_le_code)
 		end
 
-	is_left_array: BOOLEAN is
+	is_left_array: BOOLEAN
 			-- Is current symbol '<<'?
 		do
 			Result := (code = tokens.left_array_symbol_code)
 		end
 
-	is_left_brace: BOOLEAN is
+	is_left_brace: BOOLEAN
 			-- Is current symbol '{'?
 		do
 			Result := (code = tokens.left_brace_symbol_code)
 		end
 
-	is_left_bracket: BOOLEAN is
+	is_left_bracket: BOOLEAN
 			-- Is current symbol '['?
 		do
 			Result := (code = tokens.left_bracket_symbol_code)
 		end
 
-	is_left_parenthesis: BOOLEAN is
+	is_left_parenthesis: BOOLEAN
 			-- Is current symbol '('?
 		do
 			Result := (code = tokens.left_parenthesis_symbol_code)
 		end
 
-	is_lt: BOOLEAN is
+	is_lt: BOOLEAN
 			-- Is current symbol '<'?
 		do
 			Result := (code = tokens.infix_lt_code)
 		end
 
-	is_minus: BOOLEAN is
+	is_minus: BOOLEAN
 			-- Is current symbol '-'?
 		do
 			Result := (code = tokens.prefix_minus_code or code = tokens.infix_minus_code)
 		end
 
-	is_mod: BOOLEAN is
+	is_mod: BOOLEAN
 			-- Is current symbol '\\'?
 		do
 			Result := (code = tokens.infix_mod_code)
 		end
 
-	is_not_equal: BOOLEAN is
+	is_not_equal: BOOLEAN
 			-- Is current symbol '/='?
 		do
 			Result := (code = tokens.not_equal_symbol_code)
 		end
 
-	is_not_tilde: BOOLEAN is
+	is_not_tilde: BOOLEAN
 			-- Is current symbol '/~'?
 		do
 			Result := (code = tokens.not_tilde_symbol_code)
 		end
 
-	is_plus: BOOLEAN is
+	is_plus: BOOLEAN
 			-- Is current symbol '+'?
 		do
 			Result := (code = tokens.prefix_plus_code or code = tokens.infix_plus_code)
 		end
 
-	is_power: BOOLEAN is
+	is_power: BOOLEAN
 			-- Is current symbol '^'?
 		do
 			Result := (code = tokens.infix_power_code)
 		end
 
-	is_question_mark: BOOLEAN is
+	is_question_mark: BOOLEAN
 			-- Is current symbol '?'?
 		do
 			Result := (code = tokens.question_mark_symbol_code)
 		end
 
-	is_right_array: BOOLEAN is
+	is_right_array: BOOLEAN
 			-- Is current symbol '>>'?
 		do
 			Result := (code = tokens.right_array_symbol_code)
 		end
 
-	is_right_brace: BOOLEAN is
+	is_right_brace: BOOLEAN
 			-- Is current symbol '}'?
 		do
 			Result := (code = tokens.right_brace_symbol_code)
 		end
 
-	is_right_bracket: BOOLEAN is
+	is_right_bracket: BOOLEAN
 			-- Is current symbol ']'?
 		do
 			Result := (code = tokens.right_bracket_symbol_code)
 		end
 
-	is_right_parenthesis: BOOLEAN is
+	is_right_parenthesis: BOOLEAN
 			-- Is current symbol ')'?
 		do
 			Result := (code = tokens.right_parenthesis_symbol_code)
 		end
 
-	is_semicolon: BOOLEAN is
+	is_semicolon: BOOLEAN
 			-- Is current symbol ';'?
 		do
 			Result := (code = tokens.semicolon_symbol_code)
 		end
 
-	is_tilde: BOOLEAN is
+	is_tilde: BOOLEAN
 			-- Is current symbol '~'?
 		do
 			Result := (code = tokens.tilde_symbol_code)
 		end
 
-	is_times: BOOLEAN is
+	is_times: BOOLEAN
 			-- Is current symbol '*'?
 		do
 			Result := (code = tokens.infix_times_code)
@@ -747,7 +747,7 @@ feature -- Status report
 
 feature -- Processing
 
-	process (a_processor: ET_AST_PROCESSOR) is
+	process (a_processor: ET_AST_PROCESSOR)
 			-- Process current node.
 		do
 			a_processor.process_symbol (Current)

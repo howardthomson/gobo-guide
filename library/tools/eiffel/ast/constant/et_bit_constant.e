@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,9 +6,9 @@ indexing
 
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 1999-2002, Eric Bezault and others"
-	license: "Eiffel Forum License v2 (see forum.txt)"
-	date: "$Date: 2005/07/13 19:39:28 $"
-	revision: "$Revision: 1.12 $"
+	license: "MIT License"
+	date: "$Date$"
+	revision: "$Revision$"
 
 	edp_mods: "[
 		Added hash_code to implement HASHABLE for DIFF comparison
@@ -43,7 +43,7 @@ create
 
 feature -- Token comparison
 
-	has_same_text (other: ET_AST_LEAF): BOOLEAN is
+	has_same_text (other: ET_AST_LEAF): BOOLEAN
 		local
 			oc: like Current
 		do
@@ -62,7 +62,7 @@ feature -- Hashing
 
 feature {NONE} -- Initialization
 
-	make (a_literal: like literal) is
+	make (a_literal: like literal)
 			-- Create a new Bit constant.
 		require
 			a_literal_not_void: a_literal /= Void
@@ -78,7 +78,7 @@ feature {NONE} -- Initialization
 
 feature -- Status report
 
-	is_bit_constant: BOOLEAN is True
+	is_bit_constant: BOOLEAN = True
 			-- Is current constant a BIT constant?
 
 feature -- Access
@@ -86,7 +86,7 @@ feature -- Access
 	literal: STRING
 			-- Literal bit value
 
-	last_position: ET_POSITION is
+	last_position: ET_POSITION
 			-- Position of last character of current node in source code
 		do
 			create {ET_COMPRESSED_POSITION} Result.make (line, column + literal.count - 1)
@@ -94,7 +94,7 @@ feature -- Access
 
 feature -- Processing
 
-	process (a_processor: ET_AST_PROCESSOR) is
+	process (a_processor: ET_AST_PROCESSOR)
 			-- Process current node.
 		do
 			a_processor.process_bit_constant (Current)

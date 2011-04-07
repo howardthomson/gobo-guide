@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,9 +6,9 @@ indexing
 
 	library: "Gobo Eiffel Tools Library"
 	copyright: "Copyright (c) 2002-2004, Eric Bezault and others"
-	license: "Eiffel Forum License v2 (see forum.txt)"
-	date: "$Date: 2004/09/04 18:51:53 $"
-	revision: "$Revision: 1.7 $"
+	license: "MIT License"
+	date: "$Date$"
+	revision: "$Revision$"
 
 	edp_mods: "[
 		Additional inheritance for EDP
@@ -39,31 +39,31 @@ inherit
 
 feature -- Access
 
-	has_same_text (other: ET_AST_LEAF): BOOLEAN is
+	has_same_text (other: ET_AST_LEAF): BOOLEAN
 			-- Do 'Current' and 'other' have the same 'text'
 		deferred
 		end
 
-	position: ET_POSITION is
+	position: ET_POSITION
 			-- Position of first character of
 			-- current node in source code
 		do
 			Result := Current
 		end
 
-	first_position: ET_POSITION is
+	first_position: ET_POSITION
 			-- Position of first character of current node in source code
 		do
 			Result := Current
 		end
 
-	first_leaf: ET_AST_LEAF is
+	first_leaf: ET_AST_LEAF
 			-- First leaf node in current node
 		do
 			Result := Current
 		end
 
-	last_leaf: ET_AST_LEAF is
+	last_leaf: ET_AST_LEAF
 			-- Last leaf node in current node
 		do
 			Result := Current
@@ -74,7 +74,7 @@ feature -- Access
 
 feature -- Setting
 
-	set_break (a_break: like break) is
+	set_break (a_break: like break)
 			-- Set `break' to `a_break'.
 		do
 			break := a_break
