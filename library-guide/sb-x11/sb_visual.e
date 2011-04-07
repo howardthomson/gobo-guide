@@ -1091,7 +1091,7 @@ feature
 				--	FXTRACE((150,"%s::create: allocate colormap\n",getClassName()));
 				--	freemap := True;
 				else
-					colormap := display.default_colormap(display.default_screen);
+					colormap := display.default_colormap(display.default_screen)
 				--	fx_trace(150, <<class_name, "::create: use default colormap">>);
 				end
 				inspect visual.visual_class

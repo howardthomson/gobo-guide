@@ -197,6 +197,7 @@ union page_info {
 			 * 1-8 [maps to 0-7] => items of size 16 << x
 			 * 9+ [maps to 8+] => multi-page [1+ pages] single item
 			 */
+#if 1
 		u_int16_t next_free;
 			/*
 			 * Index of first free object in this page
@@ -205,9 +206,11 @@ union page_info {
 			 * 		0 => No free space [value == 0]
 			 * 		1 => 0 based byte offset of first free item ...
 			 */
-		u_int16_t page_link;
+#endif
+		u_int16_t free_link;
 			/*
 			 * Index of next page, in this arena, of the same type
+			 * that has free space available.
 			 * 0 => NULL
 			 * 8..4095 page number link
 			 */
@@ -237,19 +240,12 @@ struct gc_arena {
 
 		/* 48 (6*8) bytes are available at the start of this page set */
 		struct ps1_6 {
-#if 0
-			u_int16_t first_free_pageXX;
-				/*
-				 */
-#endif
+
 			u_int16_t free_list [8];
 				/*
 				 * Index of first page in list with free space of
 				 * size corresponding to the index
 				 */
-#if 0
-			u_int8_t bb[8];
-#endif
 		} s;
 	} p1_6;
 
@@ -270,13 +266,6 @@ struct gc_arena {
 
 #define PAGE_NOT_MAPPED (1 << 15)
 #define PAGE_TYPE_MASK ((1 << 12) - 1)
-
-#if 0
-inline int is_root (gc_arena_t *pgc)
-{
-	/* TODO */
-}
-#endif
 
 /*
  *	GC initialization.
@@ -344,60 +333,42 @@ typedef struct gc_bitmap gc_bitmap_t;
 #define ITEM_IS_BLACK		(1 << (29 + IS_32_IF_64_BITS))
 #define ITEM_ID_MASK		(~((~0) << 29))
 #else
-#define ITEM_IS_ALLOCATED	(1 << 0)	/* Item is GC allocated, not free */
-#define ITEM_IS_MARKED		(1 << 1)	/* GC Marked */
-#define ITEM_IS_BLACK		(1 << 2)	/* GC Marked and traced */
-#define ITEM_IS_ATOMIC		(1 << 3)	/* Item contains no references */
-#define ITEM_IS_SEPARATE	(1 << 4)	/* Thread context for references and allocation may differ */
-#define ITEM_IS_SHARED		(1 << 5)	/* References from multiple thread contexts */
-#define ITEM_IS_IMMUTABLE	(1 << 6)	/* Item attributes are mutation prohibited, aka read-only */
+#define ITEM_IS_ALLOCATED	(1 << 0)
+#define ITEM_IS_MARKED		(1 << 1)
+#define ITEM_IS_BLACK		(1 << 2)
+#define ITEM_IS_ATOMIC		(1 << 3)
 #endif
 /* card__ marking */
 inline				card__mark (void *);
 
 /* item__ ... routines */
-inline int 			item__is_free 		(gc_item_t *item);
-inline void 		item__set_free 		(gc_item_t *item);
-inline gc_arena_t *	item__to_arena 		(gc_item_t *item);
-inline int 			item__to_page_no 	(gc_item_t *item);
-inline void 		item__mark 			(gc_item_t *item);
-inline int 			item__is_marked 	(gc_item_t *item);
-inline void 		item__set_black 	(gc_item_t *item);
-inline int 			item__is_black 		(gc_item_t *item);
-inline int			item__is_atomic 	(gc_item_t *item);
-inline void 		item__unmark 		(gc_item_t *item);
-
-gc_item_t *			item__indexed 		(gc_item_t *item, int index, int size);
+inline int 			item__is_free (gc_item_t *item);
+inline void 		item__set_free (gc_item_t *item);
+inline gc_arena_t *	item__to_arena (gc_item_t *item);
+inline int 			item__to_page_no (gc_item_t *item);
+inline void 		item__mark (gc_item_t *item);
+inline int 			item__is_marked (gc_item_t *item);
+inline void 		item__set_black (gc_item_t *item);
+inline int 			item__is_black (gc_item_t *item);
+inline int			item__is_atomic (gc_item_t *item);
+inline void 		item__unmark (gc_item_t *p_item);
+gc_item_t *			item__indexed (gc_item_t *item, int index, int size);
 
 inline int page__type(gc_arena_t *, int);
-#if 0
-static inline void
-item__set_id (gc_item_t *item, int id) {
-		/* assign the type-id to this item */
-	/* do */
-#if 0
-		item->id = id;	/* Retain existing flags ??? */
-#else
-		item->id = (item->id & ITEM_ID_MASK) | id;	/* Retain existing flags ??? */
-#endif
-	}
-#endif
+
 /* ARENA__ ... routines */
 inline gc_item_t *	ARENA__address (gc_arena_t *, int, int);
 void				ARENA__clear_marks (gc_arena_t *pa);
 int 				ARENA__scan_mark (gc_arena_t *pa);
 int 				ARENA__mark_page (gc_arena_t *pa, int page_no);
-#if 1
-inline
-#endif
-void 				ARENA__free_multi_page_item (gc_arena_t *pa, int page_no);
+inline void			ARENA__free_multi_page_item (gc_arena_t *pa, int page_no);
 void 				ARENA__scan_free (gc_arena_t *pa);
 int 				ARENA__invariant (gc_arena_t *);
 inline int			ARENA__free_list(gc_arena_t *, int);
 inline void			ARENA__set_free_list(gc_arena_t *, int, int);
+
 /* GC__ ... routines */
 void GC__full_collect();
-
 
 long free_space;
 long used_space;
@@ -440,7 +411,7 @@ extern gc_item_t *gc__last_item_validated;
 
 extern gc_item_t *GC__last_item_allocated;
 		/* Most recently allocated item. Part of the Root Set
-		 * to fix the 'hidden' [from the GC] reference within
+		 * to fix the 'hidden' [grom the GC] reference within
 		 * the GE_ma... routines that generate Mainifest Arrays
 		 */
 

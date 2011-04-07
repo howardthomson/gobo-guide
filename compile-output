@@ -1,0 +1,4 @@
+Loading Project's configuration from build.eant
+Project 'gobo' does not contain a target named `compile_ge'
+
+BUILD FAILED!

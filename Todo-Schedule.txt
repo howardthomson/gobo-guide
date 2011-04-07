@@ -1,0 +1,9 @@
+GUIDE -- Gobo-eiffel Users' Integrated Development Environment
+
+ToDo Schedule:
+
+SHA1 encapsulation class
+
+Signature generator for generated code:
+	tools/eiffel/generation/et_signature_marker.e
+

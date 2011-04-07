@@ -1,0 +1,36 @@
+Changes needed to make it possible to mix separately compiled libraries into
+a single Eiffel process at run time ...
+
+Arrays indexed by class_id:
+
+	GE_types
+
+Explicit class_id used in:
+
+	GE_boxedXXX routines
+	default values (initialized structs)
+
+	polymorphic call routines
+	polymorphic attribute access
+		Use RCU for update of access data structures
+		Maybe use an AVL tree for this ?
+
+
+Initialization routines for:
+
+	once values, per thread/process
+	once status flags, per thread/process
+	inline constants
+
+	GE_const_init (strings ...)
+
+Other:
+
+	GE_dts[]	???
+
+
+Run-time target classifications:
+	single/multi threaded
+	whole-system vs separate compilation
+	dynamic class loading available true/false
+	

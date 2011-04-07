@@ -28,7 +28,7 @@
  * Need to track multi-page allocations, to enable unmap after the mutator reference is lost
  * 
  * Need some means of forcing/encouraging other threads to free memory,
- * especially when creating a new thread, or on failure to sys_allocate.
+ * especially when creating a new thread, or on failure ti sys_allocate.
  * 
  * Weak References ...
  * 
@@ -116,7 +116,7 @@ void GE_boehm_dispose(void* C, void* disp) {
 #include <sys/mman.h>
 #include <stdio.h>
 #include <sys/types.h>
-#include "ge_gc.h"
+#include "ge_gc_bitmap.h"
 
 /* GC Test routines */
 
@@ -491,9 +491,6 @@ inline void
 item__mark (gc_item_t *item) {
 	/* do */
 		if (item != NULL) {
-#if 0
-			assert_other(item__validate(item));
-#endif
 			if ((item->gc_flags & ITEM_IS_MARKED) == 0) {	/* Check for item__has_references ... TODO */
 				card__mark (item);
 				item->gc_flags |= ITEM_IS_MARKED;
@@ -677,61 +674,6 @@ EIF_REFERENCE GE_check_valid(EIF_REFERENCE obj) {
 #endif
 gc_item_t *gc__last_item_validated;
 
-#if 0
-item__mark_if_valid (gc_item_t *p_item) {
-		/* Used to conservatively mark references from the stack
-		 * No assumptions can be made about the validity of
-		 * the argument passed ...
-		 */
-	/* locals */
-		gc_arena_t *pa;
-		int page_no;
-		int page_type;
-		int item_size;
-	/* do */
-			/* Is it a possible pointer ? */
-		if (p_item != NULL && (((int_ptr_t) p_item) & (sizeof(int_ptr_t *) - 1)) == 0) {
-				/* Is the page no for this item possible ? */
-			page_no = item__to_page_no (p_item);
-			if (page_no >= 8) {
-					/* Is the corresponding arena valid for this thread ? */
-				pa = item__to_arena (p_item);
-				if (arena__exists (pa)) {
-						/* Check if page is in use ... */
-					page_type = page__type (pa, page_no);
-					if (page_type >= 0 && page_type <= 7) {
-							/* Check if item is on an item aligned boundary */
-						item_size = 16 << page_type;
-						if ((item__offset(p_item) & (item_size - 1)) == 0)
-							item__mark (p_item);
-					}
-					else if (page_type >= 8) {
-							/* Check if item is aligned on page */
-						if (item__offset (p_item) == 0 && page__type (pa, page_no) == page_no)
-							item__mark (p_item);
-					}
-				}
-			}
-		}
-	}
-
-int arena__exists (gc_arena_t *a_pa) {
-	gc_arena_t *pa;
-	int loop_count = 0;
-	pa = (struct gc_arena *) pthread_getspecific (gc_thread_key);
-	while (pa != NULL) {
-		if (pa == a_pa)
-			return (1);
-		pa = pa->p0.next_arena;
-		assert_loop(++loop_count < 10000);
-	}
-	return (0);
-}
-#endif
-
-/********************************************************************/
-
-
 /***************** page__XX *******************************/
 
 inline int
@@ -761,10 +703,14 @@ page__is_mapped (gc_arena_t *pa, int i) {
 		assert_require(i >= 8 && i <= 4095);
 		TRACE_ENTRY(1);
 	/* do */
+#if 0
 		if ((pa->p1_6.page_info[i].s.status & PAGE_NOT_MAPPED) == 0)	/* ???? */
 			Result = 1;
 		else
 			Result = 0;
+#else
+		Result = 1;	/* Not implemented ... */
+#endif
 	/* exit */
 		TRACE_EXIT(1);
 		assert_ensure(Result);
@@ -809,73 +755,6 @@ page__set_type (gc_arena_t *pa, int page_no, int p_type) {
 		pa->p1_6.page_info [page_no].s.status = status | ((p_type + 1) & PAGE_TYPE_MASK);
 	/* ensure */
 		
-	}
-
-inline int
-page__has_free (gc_arena_t *pa, int page_no) {
-		/* Does this page have any free space ? */
-	/* require */
-		assert_require(pa != NULL);
-		assert_require(page_no >= 8 && page_no <= 4095);
-	/* do */
-		return (pa->p1_6.page_info[page_no].s.next_free & 1);
-	}
-
-inline int
-page__next_free (gc_arena_t *pa, int page_no) {
-			/* Index of first free item for this page */
-	/* require */
-		assert_require(pa != NULL);
-		assert_require(page_no >= 8 && page_no <= 4095);
-		assert_require(pa->p1_6.page_info[page_no].s.next_free & 1);
-	/* do */
-		return (pa->p1_6.page_info[page_no].s.next_free & ~1);
-	}
-
-inline void
-page__set_next_free (gc_arena_t *pa, int page_no, int a_next_free) {
-			/* Set index of first free object for this page */
-	/* require */
-		assert_require(pa != NULL);
-		assert_require(page_no >= 8 && page_no <= 4095);
-		assert_require(a_next_free >= 0 && a_next_free < 4095);
-	/* do */
-		pa->p1_6.page_info[page_no].s.next_free = a_next_free | 1;
-	}
-
-inline void
-page__clear_next_free (gc_arena_t *pa, int page_no) {
-			/* Clear the available free item index for this page */
-	/* require */
-		assert_require(pa != NULL);
-		assert_require(page_no >= 8 && page_no <= 4095);
-	/* do */
-		pa->p1_6.page_info[page_no].s.next_free = 0;
-	}
-
-inline int
-page__free_link (gc_arena_t *pa, int page_no) {
-			/* Return the link to the next page with free item(s)
-			 * of the same type as this page
-			 */
-	/* require */
-		assert_require(pa != NULL);
-		assert_require(page_no >= 8 && page_no <= 4095);
-	/* do */
-		return(pa->p1_6.page_info[page_no].s.page_link);
-	}
-
-inline void
-page__set_free_link (gc_arena_t *pa, int page_no, int a_free_link) {
-			/* Set the link to the next page with free item(s)
-			 * of the same type as this page
-			 */
-	/* require */
-		assert_require(pa != NULL);
-		assert_require(page_no >= 8 && page_no <= 4095);
-		assert_require(a_free_link >= 0 && a_free_link <= 4095);
-	/* do */
-		pa->p1_6.page_info[page_no].s.page_link = a_free_link;
 	}
 
 inline int
@@ -1070,6 +949,9 @@ page__scan_free_single_page (gc_arena_t *pa, int page_no) {
 					if (previous_item_group != NULL) {
 						previous_item_group->gc_item_next = p_offset;
 					}
+#if 0
+					pa->p1_6.page_info[page_no].s.next_free = p_offset / i_size;	/* ???? */
+#endif
 				} else {
 					/* Extension of current item group */
 					assert_other(p_item == (gc_item_t *)(((char *)current_item_group)
@@ -1106,11 +988,20 @@ page__scan_free_single_page (gc_arena_t *pa, int page_no) {
 			 *		Link free page into metadata ???
 			 */
 		} else if (free_space_found >= 0) {
+			/**/assert_other(!page__has_free(pa, page_no));
 			page__set_next_free (pa, page_no, free_space_found);
+			if (ARENA__free_list (pa, p_type) != 0) {
+				page__set_free_link (pa, page_no, ARENA__free_list (pa, p_type));
+			}
+			ARENA__set_free_list (pa, p_type, page_no);
+			/**/assert_other (item__is_free (ARENA__address (pa, page_no, free_space_found)));
+			/**/assert_other(ARENA__free_list(pa, p_type) == 0 || page__has_free(pa, ARENA__free_list(pa, p_type)));
 		} else {
 			page__clear_next_free (pa, page_no);
 		}
 	/* ensure */
+		assert_ensure((free_space_found == -1) || pa->p1_6.s.free_list [p_type] == page_no);
+		assert_ensure(page__invariant(pa, page_no));
 	}
 
 inline int
@@ -1161,6 +1052,7 @@ page__invariant (gc_arena_t *pa, int page_no) {
 		int p_offset;
 		gc_item_t *p_item;
 	/* do */
+#if 0
 		Result = 1;
 		if (page__is_single (pa, page_no) && page__has_free (pa, page_no)) {
 			/* Check the free list for this page */
@@ -1179,6 +1071,9 @@ page__invariant (gc_arena_t *pa, int page_no) {
 				 	p_item = NULL;
 			}
 		}
+#else
+		Result = 1;
+#endif
 	/* return */
 		return (Result);
 	}
@@ -1190,7 +1085,6 @@ page__invariant (gc_arena_t *pa, int page_no) {
 ARENA__make (gc_arena_t *pgc) {
 	/* 'make' for GC_ARENA */
 
-	/* locals */
 	/* do */
 		pgc->p7.s.arena_magic = ARENA_MAGIC;
 		
@@ -1371,6 +1265,11 @@ ARENA__scan_mark (gc_arena_t *pa) {
 					R++;
 				}
 				i_base = i;
+#if 1 /* Debug ... */
+				if(page__type (pa, i) != i_base) {
+					printf("ARENA__scan_mark: i = %d, page__type(pa, i) = %d\n", i, page__type(pa, i));
+				}
+#endif
 				while (page__type (pa, i) == i_base) {
 					assert_other(page__is_mapped(pa, i));
 					i++;
@@ -1379,7 +1278,7 @@ ARENA__scan_mark (gc_arena_t *pa) {
 				assert_other(i > i_base);
 				TRACE_LINE_NO(__LINE__);
 			}
-			assert_loop(i > last_i);
+			assert_loop(i > last_i);	/* Assertion fail here 5-8-2009 */
 		}
 		TRACE_EXIT(0);
 		return (R);
@@ -1454,130 +1353,7 @@ ARENA__address (gc_arena_t *pa, int p, int b) {
 		return (Result);
 	}
 
-/* TODO: Fix page__free_link() */
 
-int
-ARENA__has_free_item (gc_arena_t *pa, gc_item_t *p_item) {
-		/* Has this arena an item in its free-list
-		 * info corresponding to p_item ?
-		 */
-	/* locals */
-		int Result = 0;
-		int i, j, k;
-		int l_item_page_no;
-		int l_item_offset;
-		int l_item_type;
-		int l_free_list_page_no;
-		int l_free_list_offset;
-		gc_item_t *l_item;
-	/* require */
-		assert_require (pa != NULL);
-		assert_require (p_item != NULL);
-	/* do */
-		if (pa == item__to_arena (p_item)) {
-			l_item_page_no = item__to_page_no (p_item);
-			l_item_offset = item__offset (p_item);
-			l_item_type = page__type (pa, l_item_page_no);
-			if (l_item_type == -1)
-					/* Page is free */
-				Result = 1;
-			else if (l_item_type >= 8)
-					/* Multi-page item */
-				Result = 0;
-			else {
-				l_free_list_page_no = ARENA__free_list (pa, l_item_type);
-				if (l_free_list_page_no != 0) {
-						/* There is a free list for this type */
-					assert_other (page__has_free (pa, l_free_list_page_no));
-					while (l_free_list_page_no != 0 && !Result) {
-						l_free_list_offset = page__free_link (pa, l_free_list_page_no);
-							/* Step through free items on this page */
-						assert_other (l_free_list_offset >= 0);
-						l_item = ARENA__address (pa, l_free_list_page_no, l_free_list_offset);
-						while (l_item != NULL && !Result) {
-							if (p_item == l_item)
-								Result = 1;
-							else if ((l_free_list_offset = l_item->gc_item_next) != 0) {
-if(l_free_list_offset < 0) printf("l_free_list_offset = %d at line_no %d\n", l_free_list_offset, __LINE__);
-								assert_other (l_free_list_offset >= 0);
-								l_item = ARENA__address (pa, l_free_list_page_no, l_free_list_offset);
-							} else
-								l_item = NULL;
-						}
-						l_free_list_page_no = page__free_link (pa, l_free_list_page_no);
-					}
-				}
-			}
-		}
-	/* return */
-		return (Result);
-	}
-
-int
-ARENA__invariant (gc_arena_t *pa) {
-		/* Check the Invariant of this Arena
-		 */
-	/* locals */
-		int Result;
-		int i;
-	/* do */
-		Result = 1;
-		if (pa->p7.s.arena_magic != ARENA_MAGIC)
-			Result = 0;
-		i = 8;
-		while (Result && i < 4096) {
-			if ( !page__invariant (pa, i))
-				Result = 0;
-			i++;
-		}
-		for(i = 0; i < 8; i++) {
-			if ( !ARENA__check_freelist_for_type (pa, i))
-				Result = 0;
-		}
-	/* return */
-		return (Result);
-	}
-
-/* TODO: Fix page__free_link() */
-
-int ARENA__check_freelist_for_type (gc_arena_t *pa, int type) {
-			/* Check for free list consistency for 'type'
-			 * Return True for [apparent] consistency
-			 */
-	/* locals */
-		int Result = 1;
-		int l_page;
-		int l_offset;
-		gc_item_t *l_item;
-		int l_next_page;
-		int l_next_offset;
-	/* do */
-		l_page = ARENA__free_list (pa, type);
-			/* loop through linked pages with free items of type 'type' */
-		while (l_page != 0 && Result) {
-			l_next_page = page__free_link (pa, l_page);
-				/* loop through free item groups on this page */
-			if (page__has_free (pa, l_page)) {
-				l_offset = page__next_free (pa, l_page);
-				l_item = ARENA__address (pa, l_page, l_offset);
-				while (l_item != NULL && Result) {
-					l_next_offset = l_item->gc_item_next;
-					if (l_next_offset > l_offset) {
-						if (l_next_offset >= 4096)
-							Result = 0;
-						else
-							l_item = ARENA__address (pa, l_page, l_next_offset);
-					} else {
-						Result = 0;
-					}
-				}
-			}
-			l_page = page__free_link (pa, l_page);
-		}
-
-	/* return */
-		return (Result);
-	}
 
 /************************** GC__ ... **************************/
 
@@ -1639,6 +1415,7 @@ GC__alloc_type (gc_arena_t *pgc, int type) {
 			 * 3/	A new page must be allocated, and one item removed.
 			 */
 		assert_other(pgc->p7.s.free_item_lists[type] == NULL);
+printf("XXX 1\n");
 		pa = pgc->p7.s.arena_free_cache[type];
 		if (pa != NULL) {
 			l_free_index = ARENA__free_list (pa, type);
@@ -1660,6 +1437,7 @@ GC__alloc_type (gc_arena_t *pgc, int type) {
 			}
 			/**/assert_other(invariant__arena_has_free_list(pgc));
 		}
+printf("XXX 4\n");
 		if (pa != NULL) {
 				/* Obtain next block of contiguous free items */
 			l_free_item_block = ARENA__address (pa, l_free_index, page__next_free (pa, l_free_index));
@@ -1667,30 +1445,44 @@ GC__alloc_type (gc_arena_t *pgc, int type) {
 
 				/* Update 'pointer' to first free */
 			if (l_free_item_block->gc_item_next != 0) {
+printf("XXX 5\n");
 					/* First free is in this page */
 				/**/assert_other(item__is_free(ARENA__address(pa, item__to_page_no (l_free_item_block), l_free_item_block->gc_item_next)));
 				/**/assert_other(page__next_free (pa, item__to_page_no(l_free_item_block)) == ((int_ptr_t)l_free_item_block & 4095));
 
 				page__set_next_free (pa, l_free_index, l_free_item_block->gc_item_next);
+#if 0
+				/**/assert_ensure ( GC__not_in_free_array (pgc, Result));
+				/**/assert_other(item__is_free(Result));
+				/**/assert_other(ARENA__free_list(item__to_arena(Result), type) == 0 || page__has_free(item__to_arena(Result), ARENA__free_list(item__to_arena(Result), type)));
+#endif
 				assert_other(invariant__arena_has_free_list(pgc));
 			} else {
+printf("XXX 6\n");
 				/**/assert_other(invariant__arena_has_free_list(pgc));
 					/* New first free is in linked page, or none */
-				l_next_free_index = page__free_link (pa, l_free_index);	/* FIXME */
+				l_next_free_index = page__free_link (pa, l_free_index);
 				ARENA__set_free_list (pa, type, l_next_free_index);
 				if (l_next_free_index == 0)
 					pgc->p7.s.arena_free_cache[type] = NULL;
 				else {
 					/**/assert_other(page__has_free (pa, l_free_index));
 				}
+#if 0
+				/**/assert_other(ARENA__free_list (pa, type) == 0 || page__has_free (pa, ARENA__free_list (pa, type)));
+#endif
 				page__clear_next_free(pa, l_free_index);
-
+#if 0
 				/**/assert_ensure ( GC__not_in_free_array (pgc, l_free_item_block));
 				/**/assert_other(item__is_free(l_free_item_block));
 				/**/assert_other(pa == item__to_arena(l_free_item_block));
+#endif
+printf("XXX 6+\n");
 				assert_other(invariant__arena_has_free_list(pgc));
 			}
+printf("XXX 3\n");
 			assert_other(invariant__arena_has_free_list(pgc));
+printf("XXX 3+\n");
 
 			if (l_free_item_block->gc_item_count > 1) {
 				l_free_item_block->gc_item_count -= 1;
@@ -1701,6 +1493,7 @@ GC__alloc_type (gc_arena_t *pgc, int type) {
 			}
 			item__mark_free (Result);
 			pgc->p7.s.free_item_lists[type] = l_free_item_block;
+printf("XXX 2\n");
 		} else {
 			/* Allocate a free page ... */
 			Result = GC__alloc_pages (pgc, 1, type);
@@ -1717,7 +1510,9 @@ GC__alloc_type (gc_arena_t *pgc, int type) {
 			item__mark_free (Result);
 			assert_other(item__is_free(Result));
 			assert_other(Result->gc_item_count > 0);
+#if 0
 			assert_ensure ( GC__not_in_free_array (pgc, Result));
+#endif
 		}
 	/* ensure */
 		assert_ensure(Result != NULL);
@@ -1727,10 +1522,9 @@ GC__alloc_type (gc_arena_t *pgc, int type) {
 		if (Result != NULL) {
 			assert_ensure(item__is_free (Result));
 #if 0
-			assert_other(ARENA__free_list(item__to_arena(Result), type) == 0 || page__has_free(item__to_arena(Result), ARENA__free_list(item__to_arena(Result), type)));
-#endif
 			assert_invariant(page__invariant (item__to_arena(Result), item__to_page_no(Result)));
 			assert_invariant(pa == NULL || ARENA__invariant (pa));
+#endif
 		}
 	/* return */
 		return(Result);
@@ -1878,15 +1672,11 @@ printf("Done GC__full_collect() ...\n"); fflush(stdout);
 int gc_collect_cycle;	/* TODO: Move to per-thread ... */
 
 report_start_full_collect() {
-#if 0
 	printf("Full Collection Starting ...\n");
-#endif
 }
 
 report_end_full_collect() {
-#if 0
 	printf("Full Collection Ended ...\n");
-#endif
 }
 
 int flag_track_generation_classes;
@@ -1928,7 +1718,7 @@ GC__full_collect (gc_arena_t *pgc) {
 		GC__clear_marks(pgc);
 		GC__mark_roots(pgc);
 		GC__scan_mark(pgc);
-		assert_other(free_space == 0 && used_space == 0);
+		/**/assert_other(free_space == 0 && used_space == 0);
 		GC__scan_free(pgc);
 		/**/assert_other(invariant__arena_has_free_list(pgc));
 #if 0
@@ -1948,7 +1738,7 @@ GC__full_collect (gc_arena_t *pgc) {
 			GC__dump_arenas(); exit(0);
 		}
 #endif
-		assert_other((free_space + used_space) == mapped_space);
+		/**/assert_other((free_space + used_space) == mapped_space);
 #ifdef COMPILE_STANDALONE
 		check_group_item();
 #endif
@@ -1967,10 +1757,10 @@ GC__alloc_pages (gc_arena_t *pgc, int no_pages, int type) {
 			 * may not exceed 4094
 			 */
 	/* require */
-		assert_require(pgc != NULL);
-		assert_require(no_pages < (4096 - 8));
-		assert_require(type == -1 || (type >= 0 && type <= 7));
-		assert_require(type == -1 || no_pages == 1);
+		/**/assert_require(pgc != NULL);
+		/**/assert_require(no_pages < (4096 - 8));
+		/**/assert_require(type == -1 || (type >= 0 && type <= 7));
+		/**/assert_require(type == -1 || no_pages == 1);
 	/* trace entry */
 		TRACE_ENTRY(0);
 	/* do */
@@ -1983,14 +1773,14 @@ GC__alloc_pages (gc_arena_t *pgc, int no_pages, int type) {
 			pa = pa->p0.next_arena;
 		}
 		if (Result == NULL) {
-			assert_other(pa == NULL);
+			/**/assert_other(pa == NULL);
 			pa = GC__make_arena (pgc);
 
 			Result = ARENA__alloc_pages (pa, no_pages, type);
-			assert_other (Result != NULL);
+			/**/assert_other (Result != NULL);
 		}
 		
-		assert_ensure (Result != NULL);
+		/**/assert_ensure (Result != NULL);
 		TRACE_EXIT (0);
 		return (Result);
 	}
@@ -2009,14 +1799,14 @@ gealloc_size_id (int size, int id) {
 		void *next_limit;
 
 	/* require */
-		assert_require(size <= ((1 << 24) - (4096 * 8)));
+		/**/assert_require(size <= ((1 << 24) - (4096 * 8)));
 		TRACE_ENTRY(0);
 	/* do */
 		/* Retrieve pointer to gc_root */
 		pgc = (struct gc_arena *) pthread_getspecific (gc_thread_key);
-		assert_require(pgc != NULL);
-		assert_require((((int_ptr_t)pgc) & 0xffffff) == 0);
-		assert_invariant(GC__invariant (pgc));
+		/**/assert_require(pgc != NULL);
+		/**/assert_require((((int_ptr_t)pgc) & 0xffffff) == 0);
+		/**/assert_invariant(GC__invariant (pgc));
 		/* Convert size into allocation type */
 		if (size > 2048) {
 
@@ -2029,34 +1819,34 @@ gealloc_size_id (int size, int id) {
 				size_type ++;
 				size_rounded <<= 1;
 			}
-			assert_other(size_type >= 0 && size_type <= 7);
+			/**/assert_other(size_type >= 0 && size_type <= 7);
 			Result = pgc->p7.s.free_item_lists [ size_type ];
 			if (Result != NULL) {
 					/* Multiple items in this block; return the last item */
-				assert_other(item__is_free (Result));
+				/**/assert_other(item__is_free (Result));
 				Result->gc_item_count -= 1;
 				if(Result->gc_item_count > 0)
 					Result = item__indexed (Result, Result->gc_item_count, size_rounded);
 				else
 					pgc->p7.s.free_item_lists [ size_type ] = NULL;
-				assert_ensure ( GC__not_in_free_array (pgc, Result));
+				/**/assert_ensure ( GC__not_in_free_array (pgc, Result));
 			} else {
 				Result = GC__alloc_type (pgc, size_type);
-				assert_ensure ( GC__not_in_free_array (pgc, Result));
+				/**/assert_ensure ( GC__not_in_free_array (pgc, Result));
 			}
 		}
-		assert_ensure(Result != NULL);
+		/**/assert_ensure(Result != NULL);
 		/* Clear the user area of the object */
 		memset (Result, 0, size);
 		Result->gc_flags = ITEM_IS_ALLOCATED;
 #if 0
 		item__set_id ((gc_item_t *)(Result), id);
 #endif
-		assert_ensure ( ! item__is_free(Result));
-		assert_ensure ( GC__not_in_free_array (pgc, Result));
+		/**/assert_ensure ( ! item__is_free(Result));
+		/**/assert_ensure ( GC__not_in_free_array (pgc, Result));
 		GC__last_item_allocated = Result;
 	/* invariant */
-		assert_invariant(GC__invariant (pgc));
+		/**/assert_invariant(GC__invariant (pgc));
 		TRACE_EXIT(0);
 	/* return*/
 		return ((void *) Result);
@@ -2069,54 +1859,6 @@ gc_item_t *GC__last_item_allocated;
 /*==================================================
  * Code solely existing for assertion monitoring ...
  *==================================================*/
-
-int
-GC__not_in_free_array (gc_arena_t *pgc, void *p_item) {
-	/* locals */
-		int i;
-		gc_arena_t *pa;
-		int Result = 1;
-	/* ensure */
-		assert_require(pgc != NULL);
-		assert_require(p_item != NULL);
-	/* do */
-		TRACE_ENTRY(0);
-		i = 0;
-		while (i <= 7) {
-			if (pgc->p7.s.free_item_lists [ i ] == p_item) {
-				Result = 0;
-				printf("In pgc->free_item_lists ...\n");
-			}
-			i++;
-		}
-		TRACE_EXIT(0);
-		return (Result);
-	}
-
-int
-GC__invariant (gc_arena_t *pgc) {
-	/* locals */
-		int i;
-		gc_item_t *p_item;
-		gc_arena_t *pa;
-	/* do */
-		i = 0;
-		while (i <= 7) {
-			p_item = pgc->p7.s.free_item_lists [ i ];
-			if (p_item != NULL) {
-				assert_other (item__is_free (p_item));
-				assert_other (p_item->gc_item_count >= 1);
-			}
-			i++;
-		}
-		pa = pgc;
-		while (pa != NULL) {
-			assert_other( ARENA__invariant (pa));
-			pa = pa->p0.next_arena;
-		}
-	/* return */
-		return (1);	/* TEMP */
-	}
 
 #define LINE_BUFFER_SIZE 1000
 
@@ -2205,7 +1947,7 @@ GC__dump_page_info(gc_arena_t *pa) {
 			printf("Status: %4x, next_free: %6x, free_link: %6x\n",
 				pa->p1_6.page_info[i].s.status,
 				pa->p1_6.page_info[i].s.next_free,
-				pa->p1_6.page_info[i].s.page_link);
+				pa->p1_6.page_info[i].s.free_link);
 		}
 	}
 

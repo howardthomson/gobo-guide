@@ -28,7 +28,7 @@
  * Need to track multi-page allocations, to enable unmap after the mutator reference is lost
  * 
  * Need some means of forcing/encouraging other threads to free memory,
- * especially when creating a new thread, or on failure to sys_allocate.
+ * especially when creating a new thread, or on failure ti sys_allocate.
  * 
  * Weak References ...
  * 
@@ -219,9 +219,15 @@ gc_test() {
 	}
 
 int main (int ac, char **av) {
+	/* local */
+		int i;
+		extern pthread_key_t gc_thread_key;
 	/* do */
 		GE_init_gc();
-		gc_test();
+		for(i = 0; i < 100000000; i++) {
+			(void) pthread_getspecific(gc_thread_key);
+			pthread_setspecific(gc_thread_key, (void *)(NULL));
+		}
 	}
 #endif /* COMPILE_STANDALONE */
 
