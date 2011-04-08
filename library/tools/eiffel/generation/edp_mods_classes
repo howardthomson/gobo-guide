@@ -25,3 +25,6 @@
 /ast/name/et_symbol_operator.e
 /dynamic/et_dynamic_type.e
 /error/et_internal_error.e
+
+
+/free_elks/support/internal.e
