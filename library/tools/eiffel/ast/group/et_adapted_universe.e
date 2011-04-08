@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -14,7 +14,7 @@ deferred class ET_ADAPTED_UNIVERSE
 
 feature {NONE} -- Initialization
 
-	make (a_name: STRING; a_universe: like universe) is
+	make (a_name: STRING; a_universe: like universe)
 			-- Create a new adapted view of `a_universe'.
 		require
 			a_name_not_void: a_name /= Void
@@ -33,7 +33,7 @@ feature -- Access
 	name: STRING
 			-- Name of universe
 
-	lower_name: STRING is
+	lower_name: STRING
 			-- Lower-name of universe
 			-- (May return the same object as `name' if already in lower case.)
 		local
@@ -70,7 +70,7 @@ feature -- Access
 
 feature -- Setting
 
-	set_classname_prefix (a_prefix: like classname_prefix) is
+	set_classname_prefix (a_prefix: like classname_prefix)
 			-- Set `classname_prefix' to `a_prefix'.
 		do
 			classname_prefix := a_prefix
@@ -78,7 +78,7 @@ feature -- Setting
 			classname_prefix_set: classname_prefix = a_prefix
 		end
 
-	set_class_renamings (a_renamings: like class_renamings) is
+	set_class_renamings (a_renamings: like class_renamings)
 			-- Set `class_renamings' to `a_renamings'.
 		require
 			no_void_old_class_renamings: a_renamings /= Void implies not a_renamings.has (Void)
@@ -91,7 +91,7 @@ feature -- Setting
 
 feature -- Exporting classes
 
-	export_classes (other_universe: ET_UNIVERSE) is
+	export_classes (other_universe: ET_UNIVERSE)
 			-- Export non-hidden classes locally declared in `universe'
 			-- so that they can be used in classes of `other_universe'.
 		require
@@ -106,8 +106,10 @@ feature -- Exporting classes
 			l_cursor := universe.master_classes.new_cursor
 			from l_cursor.start until l_cursor.after loop
 				l_class := l_cursor.item
-				if l_class.actual_intrinsic_class.universe = universe then
--- TODO: what to do with aliased classes?
+				if l_class.is_mapped then
+						-- Do not export mapped classes.
+						-- They will be exported under their actual name.
+				elseif l_class.actual_intrinsic_class.universe = universe then
 						-- Take into account class renaming and classname prefix.
 					l_class_name := l_cursor.key
 					l_old_class_name := l_class_name.upper_name

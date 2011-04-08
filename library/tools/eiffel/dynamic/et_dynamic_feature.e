@@ -1,11 +1,11 @@
-indexing
+note
 
 	description:
 
 		"Eiffel features equipped with dynamic type sets"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2004-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2004-2010, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -28,7 +28,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_feature: like static_feature; a_target_type: ET_DYNAMIC_TYPE; a_system: ET_DYNAMIC_SYSTEM) is
+	make (a_feature: like static_feature; a_target_type: ET_DYNAMIC_TYPE; a_system: ET_DYNAMIC_SYSTEM)
 			-- Create a new feature equipped with dynamic type sets,
 			-- associated with compilation time feature `a_feature' in
 			-- type `a_target_type' in the surrounding system `a_system'.
@@ -50,6 +50,8 @@ feature {NONE} -- Initialization
 		do
 			l_dynamic_type_set_builder := a_system.dynamic_type_set_builder
 			static_feature := a_feature
+			target_type := a_target_type
+			dynamic_type_sets := empty_dynamic_type_sets
 			l_external_routine ?= a_feature
 			if l_external_routine /= Void then
 				builtin_code := l_external_routine.builtin_code
@@ -80,10 +82,8 @@ feature {NONE} -- Initialization
 			else
 				builtin_code := builtin_not_builtin
 			end
-			target_type := a_target_type
 			l_type := a_feature.type
 			if l_type /= Void then
-				l_type := resolved_formal_parameters (l_type)
 				if a_feature.is_constant_attribute or a_feature.is_unique_attribute then
 					l_dynamic_type := a_system.dynamic_type (l_type, a_target_type.base_type)
 					result_type_set := l_dynamic_type
@@ -94,6 +94,17 @@ feature {NONE} -- Initialization
 						-- it is likely that the 'Result' will be Void at some
 						-- point after a GC cycle.
 					result_type_set := l_dynamic_type_set_builder.object_id_dynamic_type_set
+				elseif builtin_code = builtin_internal_feature (builtin_internal_type_of_type) then
+					if a_system.type_of_type_feature /= Void then
+						result_type_set := a_system.type_of_type_feature.result_type_set
+					else
+						l_dynamic_type := a_system.dynamic_type (l_type, a_target_type.base_type)
+						result_type_set := l_dynamic_type_set_builder.new_dynamic_type_set (l_dynamic_type)
+							-- Unless proven otherwise after possible attachments,
+							-- the result is assumed to be never Void.
+						result_type_set.set_never_void
+						a_system.set_type_of_type_feature (Current)
+					end
 				else
 					l_dynamic_type := a_system.dynamic_type (l_type, a_target_type.base_type)
 					result_type_set := l_dynamic_type_set_builder.new_dynamic_type_set (l_dynamic_type)
@@ -102,7 +113,6 @@ feature {NONE} -- Initialization
 					result_type_set.set_never_void
 				end
 			end
-			dynamic_type_sets := empty_dynamic_type_sets
 			args := a_feature.arguments
 			if args /= Void then
 				nb := args.count
@@ -115,7 +125,6 @@ feature {NONE} -- Initialization
 							l_dynamic_type_set := l_dynamic_type_set_builder.object_id_dynamic_type_set
 						else
 							l_type := arg.type
-							l_type := resolved_formal_parameters (l_type)
 							l_dynamic_type := a_system.dynamic_type (l_type, a_target_type.base_type)
 							l_dynamic_type_set := l_dynamic_type_set_builder.new_dynamic_type_set (l_dynamic_type)
 								-- Unless proven otherwise after possible attachments,
@@ -141,7 +150,7 @@ feature -- Access
 	target_type: ET_DYNAMIC_TYPE
 			-- Type of target
 
-	argument_type_set (i: INTEGER): ET_DYNAMIC_TYPE_SET is
+	argument_type_set (i: INTEGER): ET_DYNAMIC_TYPE_SET
 			-- Type set of `i'-th argument;
 			-- Void if unknown yet
 		do
@@ -154,7 +163,7 @@ feature -- Access
 			-- Dynamic type sets of expressions within current feature;
 			-- Dynamic type sets for arguments are stored first
 
-	dynamic_type_set (an_operand: ET_OPERAND): ET_DYNAMIC_TYPE_SET is
+	dynamic_type_set (an_operand: ET_OPERAND): ET_DYNAMIC_TYPE_SET
 			-- Dynamic type set associated with `an_operand';
 			-- Void if unknown yet
 		require
@@ -176,7 +185,7 @@ feature -- Access
 			-- Other precursors called from current feature;
 			-- May be void if zero or one precursor called
 
-	dynamic_precursor (a_feature: ET_FEATURE; a_parent_type: ET_DYNAMIC_TYPE; a_system: ET_DYNAMIC_SYSTEM): ET_DYNAMIC_PRECURSOR is
+	dynamic_precursor (a_feature: ET_FEATURE; a_parent_type: ET_DYNAMIC_TYPE; a_system: ET_DYNAMIC_SYSTEM): ET_DYNAMIC_PRECURSOR
 			-- Dynamic precursor of current feature;
 			-- `a_feature' is the precursor of the current feaure in `a_parent_type'
 		require
@@ -232,7 +241,7 @@ feature -- Access
 
 feature -- Setting
 
-	set_dynamic_type_sets (a_dynamic_type_sets: like dynamic_type_sets) is
+	set_dynamic_type_sets (a_dynamic_type_sets: like dynamic_type_sets)
 			-- Set `dynamic_type_sets' to `a_dynamic_type_sets'.
 		require
 			a_dynamic_type_sets_not_void: a_dynamic_type_sets /= Void
@@ -242,7 +251,7 @@ feature -- Setting
 			dynamic_type_sets_set: dynamic_type_sets = a_dynamic_type_sets
 		end
 
-	set_result_type_set (a_result_type_set: like result_type_set) is
+	set_result_type_set (a_result_type_set: like result_type_set)
 			-- Set `result_type_set' to `a_result_type_set'.
 		do
 			result_type_set := a_result_type_set
@@ -250,7 +259,7 @@ feature -- Setting
 			result_type_set_set: result_type_set = a_result_type_set
 		end
 
-	set_id (i: INTEGER) is
+	set_id (i: INTEGER)
 			-- Set `id' to `i'.
 		do
 			id := i
@@ -275,7 +284,7 @@ feature -- Status report
 	is_static: BOOLEAN
 			-- Is current feature used as a static feature?
 
-	is_function: BOOLEAN is
+	is_function: BOOLEAN
 			-- Is feature a function?
 		do
 			if static_feature.is_function then
@@ -290,7 +299,7 @@ feature -- Status report
 			query: Result implies is_query
 		end
 
-	is_attribute: BOOLEAN is
+	is_attribute: BOOLEAN
 			-- Is feature an attribute?
 		do
 			if not is_builtin then
@@ -302,7 +311,7 @@ feature -- Status report
 			query: Result implies is_query
 		end
 
-	is_constant_attribute: BOOLEAN is
+	is_constant_attribute: BOOLEAN
 			-- Is feature a constant attribute?
 		do
 			Result := static_feature.is_constant_attribute
@@ -310,7 +319,7 @@ feature -- Status report
 			query: Result implies is_query
 		end
 
-	is_unique_attribute: BOOLEAN is
+	is_unique_attribute: BOOLEAN
 			-- Is feature a unique attribute?
 		do
 			Result := static_feature.is_unique_attribute
@@ -318,7 +327,7 @@ feature -- Status report
 			query: Result implies is_query
 		end
 
-	is_query: BOOLEAN is
+	is_query: BOOLEAN
 			-- Is current feature a query?
 		do
 			Result := (result_type_set /= Void)
@@ -326,7 +335,7 @@ feature -- Status report
 			definition: Result = (result_type_set /= Void)
 		end
 
-	is_procedure: BOOLEAN is
+	is_procedure: BOOLEAN
 			-- Is current feature a procedure?
 		do
 			Result := (result_type_set = Void)
@@ -334,7 +343,7 @@ feature -- Status report
 			definition: Result = (result_type_set = Void)
 		end
 
-	is_once: BOOLEAN is
+	is_once: BOOLEAN
 			-- Is current feature a once-routine?
 		do
 			Result := static_feature.is_once
@@ -342,13 +351,13 @@ feature -- Status report
 			definition: Result = static_feature.is_once
 		end
 
-	is_precursor: BOOLEAN is
+	is_precursor: BOOLEAN
 			-- Is current feature a precursor?
 		do
 			-- Result := False
 		end
 
-	is_semistrict (a_system: ET_DYNAMIC_SYSTEM): BOOLEAN is
+	is_semistrict (a_system: ET_DYNAMIC_SYSTEM): BOOLEAN
 			-- Is current feature semistrict?
 		require
 			a_system_not_void: a_system /= Void
@@ -372,7 +381,7 @@ feature -- Status report
 	is_inlined: BOOLEAN
 			-- Is current feature inlined?
 
-	is_builtin: BOOLEAN is
+	is_builtin: BOOLEAN
 			-- Is current feature built-in?
 		do
 			Result := (builtin_code /= builtin_not_builtin)
@@ -385,7 +394,7 @@ feature -- Status report
 	builtin_code: INTEGER
 			-- Built-in code of current feature
 
-	is_builtin_routine_call: BOOLEAN is
+	is_builtin_routine_call: BOOLEAN
 			-- Is current feature the built-in feature 'ROUTINE.call'?
 		do
 			Result := (builtin_code = builtin_function_feature (builtin_function_call)) or
@@ -394,7 +403,7 @@ feature -- Status report
 			builtin: Result implies is_builtin
 		end
 
-	is_builtin_function_item: BOOLEAN is
+	is_builtin_function_item: BOOLEAN
 			-- Is current feature the built-in feature 'FUNCTION.item'?
 		do
 			Result := (builtin_code = builtin_function_feature (builtin_function_item))
@@ -402,7 +411,7 @@ feature -- Status report
 			builtin: Result implies is_builtin
 		end
 
-	is_builtin_procedure_call: BOOLEAN is
+	is_builtin_procedure_call: BOOLEAN
 			-- Is current feature the built-in feature 'PROCEDURE.call'?
 		do
 			Result := (builtin_code = builtin_procedure_feature (builtin_procedure_call))
@@ -412,7 +421,7 @@ feature -- Status report
 
 feature -- Status setting
 
-	set_built (b: BOOLEAN) is
+	set_built (b: BOOLEAN)
 			-- Set `is_built' to `b'.
 		do
 			is_built := b
@@ -420,7 +429,7 @@ feature -- Status setting
 			built_set: is_built = b
 		end
 
-	set_generated (b: BOOLEAN) is
+	set_generated (b: BOOLEAN)
 			-- Set `is_generated' to `b'.
 		do
 			is_generated := b
@@ -428,7 +437,7 @@ feature -- Status setting
 			generated_set: is_generated = b
 		end
 
-	set_creation (b: BOOLEAN) is
+	set_creation (b: BOOLEAN)
 			-- Set `is_creation' to `b'.
 		local
 			l_regular: BOOLEAN
@@ -450,7 +459,7 @@ feature -- Status setting
 			creation_set: is_creation = b
 		end
 
-	set_regular (b: BOOLEAN) is
+	set_regular (b: BOOLEAN)
 			-- Set `is_regular' to `b'.
 		local
 			l_regular: BOOLEAN
@@ -472,7 +481,7 @@ feature -- Status setting
 			regular_set: is_regular = b
 		end
 
-	set_static (b: BOOLEAN) is
+	set_static (b: BOOLEAN)
 			-- Set `is_static' to `b'.
 		local
 			i, nb: INTEGER
@@ -492,7 +501,7 @@ feature -- Status setting
 			static_set: is_static = b
 		end
 
-	set_inlined (b: BOOLEAN) is
+	set_inlined (b: BOOLEAN)
 			-- Set `is_inlined' to `b'.
 		do
 			is_inlined := b
@@ -500,7 +509,7 @@ feature -- Status setting
 			inlined_set: is_inlined = b
 		end
 
-	set_current_type_needed (b: BOOLEAN) is
+	set_current_type_needed (b: BOOLEAN)
 			-- Set `is_current_type_needed' to `b'.
 		do
 			is_current_type_needed := b
@@ -510,29 +519,15 @@ feature -- Status setting
 
 feature -- Output
 
-	debug_output: STRING is
+	debug_output: STRING
 			-- String that should be displayed in debugger to represent `Current'
 		do
 			Result := static_feature.debug_output
 		end
 
-feature {NONE} -- Implementation
-
-	resolved_formal_parameters (a_type: ET_TYPE): ET_TYPE is
-			-- Replace formal generic parameters in `a_type' (appearing
-			-- in the signature of `static_feature')  by their
-			-- corresponding actual parameters in `target_type'.
-		require
-			a_type_not_void: a_type /= Void
-		do
-			Result := a_type
-		ensure
-			resolved_type_not_void: Result /= Void
-		end
-
 feature {NONE} -- Constants
 
-	empty_dynamic_type_sets: ET_DYNAMIC_TYPE_SET_LIST is
+	empty_dynamic_type_sets: ET_DYNAMIC_TYPE_SET_LIST
 			-- Empty dynamic type set list
 		once
 			create Result.make

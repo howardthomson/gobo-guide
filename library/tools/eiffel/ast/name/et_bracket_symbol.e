@@ -10,8 +10,6 @@ note
 	date: "$Date$"
 	revision: "$Revision$"
 
-	edp_mods: "hash_code changes"
-
 class ET_BRACKET_SYMBOL
 
 inherit
@@ -20,7 +18,6 @@ inherit
 		rename
 			make_left_bracket as make
 		redefine
-			hash_code,
 			process
 		end
 

@@ -1,14 +1,14 @@
-indexing
+note
 
 	description:
 
 		"Testers: test harness to execute registered test cases"
 
 	library: "Gobo Eiffel Test Library"
-	copyright: "Copyright (c) 2000-2008, Eric Bezault and others"
+	copyright: "Copyright (c) 2000-2010, Eric Bezault and others"
 	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "$Date: 2010/12/24 $"
+	revision: "$Revision: #13 $"
 
 class TS_TESTER
 
@@ -32,14 +32,14 @@ create
 
 feature {NONE} -- Initialization
 
-	make_default is
+	make_default
 			-- Create a new tester.
 		do
 			create error_handler.make_standard
 			create variables.make
 		end
 
-	make is
+	make
 			-- Create a new tester, read command-line options and execute the tests.
 			-- This is meant to be the root creation procedure of a test harness
 			-- application. The application will be exited with different exit codes
@@ -55,7 +55,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	suite: TS_TEST_SUITE is
+	suite: TS_TEST_SUITE
 			-- Suite of tests to be run
 		do
 			if internal_suite = Void then
@@ -102,7 +102,7 @@ feature -- Status report
 
 feature -- Status setting
 
-	set_fail_on_rescue (b: BOOLEAN) is
+	set_fail_on_rescue (b: BOOLEAN)
 			-- Set `fail_on_rescue' to `b'.
 		do
 			fail_on_rescue := b
@@ -110,7 +110,7 @@ feature -- Status setting
 			fail_on_rescue_set: fail_on_rescue = b
 		end
 
-	set_progress_status (b: BOOLEAN) is
+	set_progress_status (b: BOOLEAN)
 			-- Set `progress_status' to `b'.
 		do
 			progress_status := b
@@ -118,7 +118,7 @@ feature -- Status setting
 			progress_status_set: progress_status = b
 		end
 
-	set_enabled_test_cases (a_regexp: like enabled_test_cases) is
+	set_enabled_test_cases (a_regexp: like enabled_test_cases)
 			-- Set `enabled_test_cases' to `a_regexp'.
 		require
 			compiled: a_regexp /= Void implies a_regexp.is_compiled
@@ -130,7 +130,7 @@ feature -- Status setting
 
 feature -- Element change
 
-	put_test (a_test: TS_TEST_CASE) is
+	put_test (a_test: TS_TEST_CASE)
 			-- Register `a_test' to be excuted by the current tester.
 			-- Note that if several test features need to be registered
 			-- for a given test case, a different instance of the test
@@ -144,14 +144,14 @@ feature -- Element change
 			suite.put_test (a_test)
 		end
 
-	build_suite is
+	build_suite
 			-- Add to `suite' the test cases that need to executed.
 		do
 		end
 
 feature -- Execution
 
-	execute is
+	execute
 			-- Execute the tests.
 			-- Output messages will be printed to `output_filename'
 			-- if specified, to standard output otherwise.
@@ -174,7 +174,7 @@ feature -- Execution
 			end
 		end
 
-	execute_with_output (a_file: KI_TEXT_OUTPUT_STREAM) is
+	execute_with_output (a_file: KI_TEXT_OUTPUT_STREAM)
 			-- Execute the tests.
 			-- Output messages will be printed to `a_file'.
 		require
@@ -188,14 +188,14 @@ feature -- Execution
 				a_file.put_integer (suite.count)
 				a_file.put_new_line
 				a_file.flush
-				create {TS_PROGRESS_SUMMARY} a_summary.make (a_file)
+				a_summary := new_progress_summary (a_file)
 			else
-				create a_summary.make
+				a_summary := new_summary
 			end
 			execute_with_summary (a_summary, a_file)
 		end
 
-	execute_with_summary (a_summary: TS_SUMMARY; a_file: KI_TEXT_OUTPUT_STREAM) is
+	execute_with_summary (a_summary: TS_SUMMARY; a_file: KI_TEXT_OUTPUT_STREAM)
 			-- Execute the tests.
 			-- Test results will be recorded in `a_summary'
 			-- and output messages will be printed to `a_file'.
@@ -216,7 +216,11 @@ feature -- Execution
 					a_file.put_new_line
 					a_summary.print_errors (a_file)
 				end
-				if exit_on_error then
+				if not exit_on_error then
+					-- Do nothing.
+				elseif a_summary.is_aborted then
+					Exceptions.die (4)
+				else
 					Exceptions.die (3)
 				end
 			end
@@ -224,7 +228,7 @@ feature -- Execution
 
 feature {NONE} -- Command line
 
-	read_command_line is
+	read_command_line
 			-- Read command line arguments.
 		local
 			i, nb: INTEGER
@@ -335,7 +339,7 @@ feature {NONE} -- Command line
 			end
 		end
 
-	set_defined_variable (arg: STRING) is
+	set_defined_variable (arg: STRING)
 			-- Set variable defined in `arg' with format <name>[=<value>].
 			-- Report usage error if invalid.
 		require
@@ -366,7 +370,7 @@ feature {NONE} -- Command line
 
 feature {NONE} -- Error handling
 
-	report_error (an_error: UT_ERROR) is
+	report_error (an_error: UT_ERROR)
 			-- Report `an_error'.
 			-- Terminate with exit status 1 if `exit_on_error' is True.
 		require
@@ -378,7 +382,7 @@ feature {NONE} -- Error handling
 			end
 		end
 
-	report_usage_error is
+	report_usage_error
 			-- Report usage error and then terminate
 			-- with exit status 1.
 		do
@@ -386,7 +390,7 @@ feature {NONE} -- Error handling
 			Exceptions.die (1)
 		end
 
-	Usage_message: UT_USAGE_MESSAGE is
+	Usage_message: UT_USAGE_MESSAGE
 			-- Tester usage message
 		once
 			create Result.make ("[-a][-p][-D <name>=<value>|--define=<name>=<value>]* [--filter=<regexp>][--filters=<filename>] [-o filename]")
@@ -398,6 +402,25 @@ feature {NONE} -- Implementation
 
 	internal_suite: TS_TEST_SUITE
 			-- Internal implementation of `suite'
+
+	new_summary: TS_SUMMARY
+			-- New test result summary
+		do
+			create Result.make
+		ensure
+			summary_not_void: Result /= Void
+		end
+
+	new_progress_summary (a_file: KI_TEXT_OUTPUT_STREAM): TS_PROGRESS_SUMMARY
+			-- New test result summary with progress status
+		require
+			a_file_not_void: a_file /= Void
+			a_file_open_write: a_file.is_open_write
+		do
+			create Result.make (a_file)
+		ensure
+			progress_summary_not_void: Result /= Void
+		end
 
 invariant
 

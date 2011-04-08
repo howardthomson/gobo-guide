@@ -1,11 +1,11 @@
-indexing
+note
 
 	description:
 
 		"Eiffel generic class types"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 1999-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 1999-2010, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -19,7 +19,6 @@ inherit
 			make as make_class_type
 		redefine
 			actual_parameters,
-			unresolved_type,
 			process
 		end
 
@@ -30,7 +29,7 @@ create
 feature {NONE} -- Initialization
 
 	make (a_type_mark: like type_mark; a_name: like name;
-		a_parameters: like actual_parameters; a_named_base_class: like named_base_class) is
+		a_parameters: like actual_parameters; a_named_base_class: like named_base_class)
 			-- Create a new generic class type.
 		require
 			a_name_not_void: a_name /= Void
@@ -53,22 +52,9 @@ feature -- Access
 	actual_parameters: ET_ACTUAL_PARAMETER_LIST
 			-- Actual generic parameters
 
-	unresolved_type: ET_CLASS_TYPE
-			-- Type from which current type is a resolved version
-
-feature -- Setting
-
-	set_unresolved_type (a_type: like unresolved_type) is
-			-- Set `unresolved_type' to `a_type'.
-		do
-			unresolved_type := a_type
-		ensure
-			unresolved_type_set: unresolved_type = a_type
-		end
-
 feature -- Processing
 
-	process (a_processor: ET_AST_PROCESSOR) is
+	process (a_processor: ET_AST_PROCESSOR)
 			-- Process current node.
 		do
 			a_processor.process_generic_class_type (Current)

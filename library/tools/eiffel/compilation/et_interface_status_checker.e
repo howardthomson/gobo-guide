@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -8,7 +8,7 @@ indexing
 	]"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2007-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2007-2010, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date: 2008-09-08 13:38:07 +0200 (Mon, 08 Sep 2008) $"
 	revision: "$Revision: 6501 $"
@@ -35,7 +35,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Create a new interface status checker for given classes.
 		do
 			precursor {ET_CLASS_PROCESSOR}
@@ -45,7 +45,7 @@ feature {NONE} -- Initialization
 
 feature -- Processing
 
-	process_class (a_class: ET_CLASS) is
+	process_class (a_class: ET_CLASS)
 			-- Check whether the interface of `a_class' needs to be checked again
 			-- after some classes have been modified in the Eiffel system.
 			-- Check whether none of the base classes of the anchors of qualified anchored types
@@ -70,6 +70,7 @@ feature -- Processing
 				a_processor.process_class (a_class)
 			elseif a_class.is_unknown then
 				set_fatal_error (a_class)
+				error_handler.report_giaaa_error
 			elseif not a_class.is_preparsed then
 				set_fatal_error (a_class)
 			else
@@ -81,7 +82,7 @@ feature -- Processing
 
 feature -- Error handling
 
-	set_fatal_error (a_class: ET_CLASS) is
+	set_fatal_error (a_class: ET_CLASS)
 			-- Report a fatal error to `a_class'.
 		require
 			a_class_not_void: a_class /= Void
@@ -93,7 +94,7 @@ feature -- Error handling
 
 feature {NONE} -- Processing
 
-	internal_process_class (a_class: ET_CLASS) is
+	internal_process_class (a_class: ET_CLASS)
 			-- Check whether the interface of `a_class' needs to be checked again
 			-- after some classes have been modified in the Eiffel system.
 			-- Check whether none of the base classes of the anchors of qualified anchored types
@@ -161,7 +162,7 @@ feature {NONE} -- Processing
 
 feature {NONE} -- Signature validity
 
-	check_qualified_anchored_signatures_validity is
+	check_qualified_anchored_signatures_validity
 			-- Check whether none of the base classes of the anchors of qualified anchored types
 			-- appearing in the types of all signatures of `current_class' has been modified.
 		do
@@ -176,7 +177,7 @@ feature {NONE} -- Signature validity
 
 feature {NONE} -- Formal parameters and parents validity
 
-	check_formal_parameters_validity is
+	check_formal_parameters_validity
 			-- Check whether none of the classes appearing in the
 			-- formal generic parameter constraints of `current_class'
 			-- has been modified.
@@ -209,7 +210,7 @@ feature {NONE} -- Formal parameters and parents validity
 			end
 		end
 
-	check_parents_validity is
+	check_parents_validity
 			-- Check whether none of the classes appearing in the
 			-- parent types of `current_class' has been modified.
 		local

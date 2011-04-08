@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -8,7 +8,7 @@ indexing
 	]"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2007-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2007-2010, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date: 2008-09-02 14:03:45 +0200 (Tue, 02 Sep 2008) $"
 	revision: "$Revision: 6495 $"
@@ -35,7 +35,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Create a new flattening status checker for given classes.
 		do
 			precursor {ET_CLASS_PROCESSOR}
@@ -44,7 +44,7 @@ feature {NONE} -- Initialization
 
 feature -- Processing
 
-	process_class (a_class: ET_CLASS) is
+	process_class (a_class: ET_CLASS)
 			-- Check whether the features of `a_class' need to be flattened again
 			-- after some classes have been modified in the Eiffel system. Also
 			-- check whether none of the classes appearing in the parent types
@@ -67,6 +67,7 @@ feature -- Processing
 				a_processor.process_class (a_class)
 			elseif a_class.is_unknown then
 				set_fatal_error (a_class)
+				error_handler.report_giaaa_error
 			elseif not a_class.is_preparsed then
 				set_fatal_error (a_class)
 			else
@@ -78,7 +79,7 @@ feature -- Processing
 
 feature -- Error handling
 
-	set_fatal_error (a_class: ET_CLASS) is
+	set_fatal_error (a_class: ET_CLASS)
 			-- Report a fatal error to `a_class'.
 		require
 			a_class_not_void: a_class /= Void
@@ -90,7 +91,7 @@ feature -- Error handling
 
 feature {NONE} -- Processing
 
-	internal_process_class (a_class: ET_CLASS) is
+	internal_process_class (a_class: ET_CLASS)
 			-- Check whether the features of `a_class' need to be flattened again
 			-- after some classes have been modified in the Eiffel system. Also
 			-- check whether none of the classes appearing in the parent types
@@ -156,7 +157,7 @@ feature {NONE} -- Processing
 
 feature {NONE} -- Formal parameters, parents and signatures validity
 
-	check_formal_parameters_validity is
+	check_formal_parameters_validity
 			-- Check whether none of the classes appearing in the
 			-- formal generic parameter constraints of `current_class'
 			-- has been modified.
@@ -184,7 +185,7 @@ feature {NONE} -- Formal parameters, parents and signatures validity
 			end
 		end
 
-	check_parents_validity is
+	check_parents_validity
 			-- Check whether none of the classes appearing in the
 			-- parent types of `current_class' has been modified.
 		local
@@ -207,7 +208,7 @@ feature {NONE} -- Formal parameters, parents and signatures validity
 			end
 		end
 
-	check_signatures_validity is
+	check_signatures_validity
 			-- Check whether none of the classes appearing in the
 			-- signatures of features of `current_class' has been modified.
 		do
@@ -219,7 +220,7 @@ feature {NONE} -- Formal parameters, parents and signatures validity
 			end
 		end
 
-	check_feature_signatures_validity (a_features: ET_FEATURE_LIST) is
+	check_feature_signatures_validity (a_features: ET_FEATURE_LIST)
 			-- Check whether none of the classes appearing in the
 			-- signatures of `a_features' has been modified.
 		require

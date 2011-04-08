@@ -1,11 +1,11 @@
-indexing
+note
 
 	description:
 
 		"Eiffel class ancestor builders"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2003-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2003-2010, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -32,7 +32,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Create a new ancestor builder for given classes.
 		do
 			precursor {ET_CLASS_PROCESSOR}
@@ -45,7 +45,7 @@ feature {NONE} -- Initialization
 
 feature -- Processing
 
-	process_class (a_class: ET_CLASS) is
+	process_class (a_class: ET_CLASS)
 			-- Parse `a_class' if not already done. Then search for
 			-- ancestors of `a_class'. Also process ancestors of
 			-- `a_class' and detect possible inheritance graph cycles.
@@ -65,6 +65,7 @@ feature -- Processing
 				a_processor.process_class (a_class)
 			elseif a_class.is_unknown then
 				set_fatal_error (a_class)
+				error_handler.report_giaaa_error
 			elseif not a_class.is_preparsed then
 				set_fatal_error (a_class)
 			else
@@ -76,7 +77,7 @@ feature -- Processing
 
 feature -- Error handling
 
-	set_fatal_error (a_class: ET_CLASS) is
+	set_fatal_error (a_class: ET_CLASS)
 			-- Report a fatal error to `a_class'.
 		require
 			a_class_not_void: a_class /= Void
@@ -90,7 +91,7 @@ feature -- Error handling
 
 feature {NONE} -- Processing
 
-	internal_process_class (a_class: ET_CLASS) is
+	internal_process_class (a_class: ET_CLASS)
 			-- Parse `a_class' if not already done. Then search for
 			-- ancestors of `a_class'. Also process ancestors of
 			-- `a_class' and detect possible inheritance graph cycles.
@@ -169,7 +170,7 @@ feature {NONE} -- Topological sort
 	class_sorter: DS_HASH_TOPOLOGICAL_SORTER [ET_CLASS]
 			-- Class sorter
 
-	add_class_to_sorter (a_class: ET_CLASS) is
+	add_class_to_sorter (a_class: ET_CLASS)
 			-- Add `a_class' and recursively its ancestors to
 			-- `class_sorter' if not already done and if its
 			-- `ancestors' has not been built yet.
@@ -251,7 +252,7 @@ feature {NONE} -- Topological sort
 			end
 		end
 
-	add_parents_to_sorter (an_heir: ET_CLASS; a_parents: ET_PARENT_LIST) is
+	add_parents_to_sorter (an_heir: ET_CLASS; a_parents: ET_PARENT_LIST)
 			-- Add `a_parents' and their ancestors to `class_sorter'
 			-- if not already done and if their ancestors have not
 			-- been built yet. `a_parents' are the parents of
@@ -282,7 +283,7 @@ feature {NONE} -- Ancestors
 	ancestors: DS_HASH_TABLE [ET_BASE_TYPE, ET_CLASS]
 			-- Ancestors of `current_class'
 
-	set_ancestors (a_parents: ET_PARENT_LIST) is
+	set_ancestors (a_parents: ET_PARENT_LIST)
 			-- Set the ancestors of `current_class' with `a_parents'
 			-- and their ancestors. `a_parents' are the parents of
 			-- `current_class'.
@@ -348,7 +349,7 @@ feature {NONE} -- Ancestors
 			current_class.set_ancestors (anc)
 		end
 
-	add_parent_to_ancestors (a_parent: ET_PARENT) is
+	add_parent_to_ancestors (a_parent: ET_PARENT)
 			-- Add `a_parent' and its ancestors to `ancestors'.
 			-- `a_parent' is a parent of `current_class'.
 		require
@@ -375,7 +376,7 @@ feature {NONE} -- Ancestors
 					error_handler.report_gvagp0a_error (current_class, l_ancestor_type, a_parent_type)
 				end
 			else
-				a_parameters := a_parent.actual_parameters
+				a_parameters := a_parent.type.actual_parameters
 				ancestors.force_new (a_parent_type, a_class)
 					-- Add proper ancestors of current parent
 					-- to the ancestors of `an_heir'.
@@ -419,7 +420,7 @@ feature {NONE} -- Ancestors
 
 feature {NONE} -- Error handling
 
-	set_parents_inheritance_error (a_parents: ET_PARENT_LIST) is
+	set_parents_inheritance_error (a_parents: ET_PARENT_LIST)
 			-- Set `has_inheritance_error' to true to `a_parents'
 			-- (and recursively to their parents) whose ancestors
 			-- has not been built yet.
@@ -446,7 +447,7 @@ feature {NONE} -- Error handling
 
 feature {NONE} -- Formal parameters validity
 
-	check_formal_parameters_validity is
+	check_formal_parameters_validity
 			-- Check validity of formal parameters of `current_class'.
 		do
 			formal_parameter_checker.check_formal_parameters_validity (current_class)
@@ -460,7 +461,7 @@ feature {NONE} -- Formal parameters validity
 
 feature {NONE} -- Parents validity
 
-	check_parents_validity is
+	check_parents_validity
 			-- Check validity of parents of `current_class'.
 		do
 			parent_checker.check_parents_validity (current_class)

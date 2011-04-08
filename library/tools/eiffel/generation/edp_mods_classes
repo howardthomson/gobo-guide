@@ -1,4 +1,3 @@
-/dynamic/et_dynamic_type.e
 /ast/constant/et_c1_character_constant.e
 /ast/constant/et_underscored_real_constant.e
 /ast/constant/et_verbatim_string.e
@@ -24,3 +23,5 @@
 /ast/name/et_identifier.e
 /ast/name/et_keyword_operator.e
 /ast/name/et_symbol_operator.e
+/dynamic/et_dynamic_type.e
+/error/et_internal_error.e

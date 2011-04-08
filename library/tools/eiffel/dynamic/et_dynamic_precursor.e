@@ -1,11 +1,11 @@
-indexing
+note
 
 	description:
 
 		"Eiffel feature precursors equipped with dynamic type sets"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2004, Eric Bezault and others"
+	copyright: "Copyright (c) 2004-2010, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -19,8 +19,7 @@ inherit
 			make as make_feature
 		redefine
 			is_precursor,
-			dynamic_precursor,
-			resolved_formal_parameters
+			dynamic_precursor
 		end
 
 create
@@ -29,7 +28,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_feature: like static_feature; a_parent_type: like parent_type; a_current_feature: like current_feature; a_system: ET_DYNAMIC_SYSTEM) is
+	make (a_feature: like static_feature; a_parent_type: like parent_type; a_current_feature: like current_feature; a_system: ET_DYNAMIC_SYSTEM)
 			-- Create a new feature equipped with dynamic type sets,
 			-- associated with compilation-time precursor feature
 			-- `a_feature' of `a_current_feature' from parent type
@@ -51,7 +50,7 @@ feature {NONE} -- Initialization
 
 feature -- Status report
 
-	is_precursor: BOOLEAN is True
+	is_precursor: BOOLEAN = True
 			-- Is current feature a precursor?
 
 feature -- Access
@@ -62,29 +61,11 @@ feature -- Access
 	current_feature: ET_DYNAMIC_FEATURE
 			-- Feature to which current precursor is a precursor
 
-	dynamic_precursor (a_feature: ET_FEATURE; a_parent_type: ET_DYNAMIC_TYPE; a_system: ET_DYNAMIC_SYSTEM): ET_DYNAMIC_PRECURSOR is
+	dynamic_precursor (a_feature: ET_FEATURE; a_parent_type: ET_DYNAMIC_TYPE; a_system: ET_DYNAMIC_SYSTEM): ET_DYNAMIC_PRECURSOR
 			-- Dynamic precursor of `current_feature';
 			-- `a_feature' is the precursor of `current_feaure' in `a_parent_type'
 		do
 			Result := current_feature.dynamic_precursor (a_feature, a_parent_type, a_system)
-		end
-
-feature {NONE} -- Implementation
-
-	resolved_formal_parameters (a_type: ET_TYPE): ET_TYPE is
-			-- Replace formal generic parameters in `a_type' (appearing
-			-- in the signature of `static_feature')  by their
-			-- corresponding actual parameters in `target_type'.
-		do
-			Result := type_checker.resolved_formal_parameters (a_type, parent_type.base_class, target_type.base_type)
-		end
-
-	type_checker: ET_TYPE_CHECKER is
-			-- Type checker
-		once
-			create Result.make
-		ensure
-			type_checker_not_void: Result /= Void
 		end
 
 invariant

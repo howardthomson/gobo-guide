@@ -10,10 +10,6 @@ note
 	date: "$Date$"
 	revision: "$Revision$"
 
-	edp_mods: "[
-		hash_code changes
-	]"
-
 class ET_SYMBOL_OPERATOR
 
 inherit
@@ -195,6 +191,12 @@ feature -- Access
 					-- Should never happen.
 				Result := tokens.unknown_name
 			end
+		end
+
+	hash_code: INTEGER
+			-- Hash code
+		do
+			Result := code.code
 		end
 
 feature -- Status setting

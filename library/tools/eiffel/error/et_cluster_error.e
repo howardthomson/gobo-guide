@@ -1,11 +1,11 @@
-indexing
+note
 
 	description:
 
 		"Eiffel cluster errors"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2003-2005, Eric Bezault and others"
+	copyright: "Copyright (c) 2003-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date: 2009/03/03 $"
 	revision: "$Revision: #10 $"
@@ -26,7 +26,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make_gcaaa (a_cluster: like cluster; a_dirname: STRING) is
+	make_gcaaa (a_cluster: like cluster; a_dirname: STRING)
 			-- Create a new GCAAA error: cannot read
 			-- `a_cluster''s directory `a_dirname'.
 		require
@@ -37,7 +37,7 @@ feature {NONE} -- Initialization
 			etl_code := gcaaa_etl_code
 			default_template := gcaaa_default_template
 			cluster := a_cluster
-			create parameters.make (1, 3)
+			create parameters.make_filled (empty_string, 1, 3)
 			parameters.put (etl_code, 1)
 			parameters.put (cluster.full_lower_name ('/'), 2)
 			parameters.put (a_dirname, 3)
@@ -49,7 +49,7 @@ feature {NONE} -- Initialization
 			-- dollar3: $3 = cluster full pathname
 		end
 
-	make_gcaab (a_cluster: like cluster; a_filename: STRING) is
+	make_gcaab (a_cluster: like cluster; a_filename: STRING)
 			-- Create a new GCAAB error: cannot read Eiffel file
 			-- `a_filename' in `a_cluster'.
 		require
@@ -60,7 +60,7 @@ feature {NONE} -- Initialization
 			etl_code := gcaab_etl_code
 			default_template := gcaab_default_template
 			cluster := a_cluster
-			create parameters.make (1, 3)
+			create parameters.make_filled (empty_string, 1, 3)
 			parameters.put (etl_code, 1)
 			parameters.put (cluster.full_lower_name ('/'), 2)
 			parameters.put (a_filename, 3)
@@ -72,7 +72,7 @@ feature {NONE} -- Initialization
 			-- dollar3: $3 = filename
 		end
 
-	make_gcdep (a_cluster: like cluster; a_class, a_dependant: ET_CLASS; a_constraint: ET_CLUSTER_DEPENDENCE_CONSTRAINT) is
+	make_gcdep (a_cluster: like cluster; a_class, a_dependant: ET_CLASS; a_constraint: ET_CLUSTER_DEPENDENCE_CONSTRAINT)
 			-- Create a new GCDEP error: class `a_class' (recursively) from cluster
 			-- `a_cluster' has a dependant class `a_dependant' which is not
 			-- contained in the dependence constraint `a_constraint'.
@@ -94,7 +94,7 @@ feature {NONE} -- Initialization
 			etl_code := gcdep_etl_code
 			default_template := gcdep_default_template
 			cluster := a_cluster
-			create parameters.make (1, 7)
+			create parameters.make_filled (empty_string, 1, 7)
 			parameters.put (etl_code, 1)
 			parameters.put (cluster.full_lower_name ('/'), 2)
 			parameters.put (a_class.upper_name, 3)
@@ -140,7 +140,7 @@ feature {NONE} -- Initialization
 			-- dollar7: $7 = constraint cluster list
 		end
 
-	make_gcpro (a_cluster: like cluster; a_class, a_provider: ET_CLASS; a_constraint: ET_CLUSTER_DEPENDENCE_CONSTRAINT) is
+	make_gcpro (a_cluster: like cluster; a_class, a_provider: ET_CLASS; a_constraint: ET_CLUSTER_DEPENDENCE_CONSTRAINT)
 			-- Create a new GCPRO error: class `a_class' (recursively) from cluster
 			-- `a_cluster' has a provider class `a_provider' which is not
 			-- contained in the dependence constraint `a_constraint'.
@@ -162,7 +162,7 @@ feature {NONE} -- Initialization
 			etl_code := gcpro_etl_code
 			default_template := gcpro_default_template
 			cluster := a_cluster
-			create parameters.make (1, 7)
+			create parameters.make_filled (empty_string, 1, 7)
 			parameters.put (etl_code, 1)
 			parameters.put (cluster.full_lower_name ('/'), 2)
 			parameters.put (a_class.upper_name, 3)
@@ -208,7 +208,7 @@ feature {NONE} -- Initialization
 			-- dollar7: $7 = constraint cluster list
 		end
 
-	make_gcscm (a_cluster: like cluster; a_message: STRING) is
+	make_gcscm (a_cluster: like cluster; a_message: STRING)
 			-- Create a new GCSCM error: there was an error when retrieving
 			-- the SCM mapping description for `a_cluster', as explained in
 			-- `a_message'.
@@ -220,7 +220,7 @@ feature {NONE} -- Initialization
 			etl_code := gcscm_etl_code
 			default_template := gcscm_default_template
 			cluster := a_cluster
-			create parameters.make (1, 3)
+			create parameters.make_filled (empty_string, 1, 3)
 			parameters.put (etl_code, 1)
 			parameters.put (cluster.full_lower_name ('/'), 2)
 			parameters.put (a_message, 3)
@@ -239,7 +239,7 @@ feature -- Access
 
 feature -- Setting
 
-	set_cluster (a_cluster: like cluster) is
+	set_cluster (a_cluster: like cluster)
 			-- Set `cluster' to `a_cluster'.
 		require
 			a_cluster_not_void: a_cluster /= Void
@@ -251,25 +251,25 @@ feature -- Setting
 
 feature {NONE} -- Implementation
 
-	gcaaa_default_template: STRING is "[$1] cluster $2: cannot read cluster directory '$3'."
-	gcaab_default_template: STRING is "[$1] cluster $2: cannot read Eiffel file '$3'."
-	gcdep_default_template: STRING is "[$1] cluster $2: class $3 (from cluster $4) is a provider of class $5 (from cluster $6) which is not contained in any of the clusters $7."
-	gcpro_default_template: STRING is "[$1] cluster $2: class $3 (from cluster $4) depends on class $5 (from cluster $6) which is not contained in any of the clusters $7."
-	gcscm_default_template: STRING is "[$1] cluster $2: $3"
+	gcaaa_default_template: STRING = "[$1] cluster $2: cannot read cluster directory '$3'."
+	gcaab_default_template: STRING = "[$1] cluster $2: cannot read Eiffel file '$3'."
+	gcdep_default_template: STRING = "[$1] cluster $2: class $3 (from cluster $4) is a provider of class $5 (from cluster $6) which is not contained in any of the clusters $7."
+	gcpro_default_template: STRING = "[$1] cluster $2: class $3 (from cluster $4) depends on class $5 (from cluster $6) which is not contained in any of the clusters $7."
+	gcscm_default_template: STRING = "[$1] cluster $2: $3"
 			-- Default templates
 
-	gcaaa_etl_code: STRING is "GCAAA"
-	gcaab_etl_code: STRING is "GCAAB"
-	gcdep_etl_code: STRING is "GCDEP"
-	gcpro_etl_code: STRING is "GCPRO"
-	gcscm_etl_code: STRING is "GCSCM"
+	gcaaa_etl_code: STRING = "GCAAA"
+	gcaab_etl_code: STRING = "GCAAB"
+	gcdep_etl_code: STRING = "GCDEP"
+	gcpro_etl_code: STRING = "GCPRO"
+	gcscm_etl_code: STRING = "GCSCM"
 			-- ETL validity codes
 
-	gcaaa_template_code: STRING is "gcaaa"
-	gcaab_template_code: STRING is "gcaab"
-	gcdep_template_code: STRING is "gcdep"
-	gcpro_template_code: STRING is "gcpro"
-	gcscm_template_code: STRING is "gcscm"
+	gcaaa_template_code: STRING = "gcaaa"
+	gcaab_template_code: STRING = "gcaab"
+	gcdep_template_code: STRING = "gcdep"
+	gcpro_template_code: STRING = "gcpro"
+	gcscm_template_code: STRING = "gcscm"
 			-- Template error codes
 
 invariant

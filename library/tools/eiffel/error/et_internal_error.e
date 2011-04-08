@@ -10,6 +10,10 @@ indexing
 	date: "$Date: 2006/04/15 22:03:14 $"
 	revision: "$Revision: 1.26 $"
 
+	edp_mods: "[
+		Added make_giaaa_cl with __CLASS__, __LINE__ arguments
+	]"
+
 class ET_INTERNAL_ERROR
 
 inherit

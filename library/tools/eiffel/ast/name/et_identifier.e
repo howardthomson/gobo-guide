@@ -10,10 +10,6 @@ note
 	date: "$Date$"
 	revision: "$Revision$"
 
-	edp_mods: "[
-		new query: has_same_text, deferred in ET_AST_LEAF
-	]"
-
 class ET_IDENTIFIER
 
 inherit
@@ -121,13 +117,6 @@ inherit
 			is_equal
 		end
 
-	KL_IMPORTED_CHARACTER_ROUTINES
-		export
-			{NONE} all
-		undefine
-			is_equal
-		end
-
 	KL_IMPORTED_ANY_ROUTINES
 		export
 			{NONE} all
@@ -138,19 +127,6 @@ inherit
 create
 
 	make, make_with_hash_code
-
-feature -- EDP Mods
-
-	has_same_text (other: ET_AST_LEAF): BOOLEAN
-			-- Do 'Current' and 'other' have the same text
-		local
-			id: like Current
-		do
-			id ?= other
-			if id /= Void then
-				Result := name = id.name
-			end
-		end
 
 feature {NONE} -- Initialization
 

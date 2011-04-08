@@ -1,14 +1,14 @@
-indexing
+note
 
 	description:
 
 		"Eiffel external-functions"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 1999-2004, Eric Bezault and others"
+	copyright: "Copyright (c) 1999-2010, Eric Bezault and others"
 	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "$Date: 2008/12/01 $"
+	revision: "$Revision: #11 $"
 
 class ET_EXTERNAL_FUNCTION
 
@@ -17,6 +17,8 @@ inherit
 	ET_FUNCTION
 		rename
 			make as make_function
+		undefine
+			is_external
 		end
 
 	ET_EXTERNAL_ROUTINE
@@ -32,7 +34,7 @@ create
 feature {NONE} -- Initialization
 
 	make (a_name: like extended_name; args: like arguments; a_type: like declared_type;
-		a_language: like language; a_class: like implementation_class) is
+		a_language: like language; a_class: like implementation_class)
 			-- Create a new external function.
 		require
 			a_name_not_void: a_name /= Void
@@ -61,7 +63,7 @@ feature {NONE} -- Initialization
 
 feature -- Duplication
 
-	new_synonym (a_name: like extended_name): like Current is
+	new_synonym (a_name: like extended_name): like Current
 			-- Synonym feature
 		do
 			create Result.make (a_name, arguments, declared_type, language, implementation_class)
@@ -88,7 +90,7 @@ feature -- Duplication
 
 feature -- Conversion
 
-	renamed_feature (a_name: like extended_name): like Current is
+	renamed_feature (a_name: like extended_name): like Current
 			-- Renamed version of current feature
 		do
 			create Result.make (a_name, arguments, declared_type, language, implementation_class)
@@ -116,7 +118,7 @@ feature -- Conversion
 
 feature -- Processing
 
-	process (a_processor: ET_AST_PROCESSOR) is
+	process (a_processor: ET_AST_PROCESSOR)
 			-- Process current node.
 		do
 			a_processor.process_external_function (Current)

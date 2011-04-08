@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -16,21 +16,20 @@ class KL_SPECIAL_ROUTINES [G]
 
 feature -- Initialization
 
-	make (n: INTEGER): SPECIAL [G] is
+	make (n: INTEGER): SPECIAL [G]
 			-- Create a new special object being able to contain `n' items.
 		require
 			non_negative_n: n >= 0
 		local
-			special_maker: TO_SPECIAL [G]
+			l_default: G
 		do
-			create special_maker.make_area (n)
-			Result := special_maker.area
+			create Result.make_filled (l_default, n)
 		ensure
 			special_not_void: Result /= Void
 			count_set: Result.count = n
 		end
 
-	make_from_array (an_array: ARRAY [G]): SPECIAL [G] is
+	make_from_array (an_array: ARRAY [G]): SPECIAL [G]
 			-- Create a new special object with items from `an_array'.
 		require
 			an_array_not_void: an_array /= Void
@@ -47,7 +46,7 @@ feature -- Initialization
 
 feature -- Conversion
 
-	to_special (an_array: ARRAY [G]): SPECIAL [G] is
+	to_special (an_array: ARRAY [G]): SPECIAL [G]
 			-- Fixed array filled with items from `an_array'.
 			-- The fixed array and `an_array' may share
 			-- internal data and/or `an_array' may be altered.
@@ -64,7 +63,7 @@ feature -- Conversion
 
 feature -- Status report
 
-	has (an_array: SPECIAL [G]; v: G): BOOLEAN is
+	has (an_array: SPECIAL [G]; v: G): BOOLEAN
 			-- Does `v' appear in `an_array'?
 		require
 			an_array_not_void: an_array /= Void
@@ -83,7 +82,7 @@ feature -- Status report
 
 feature -- Resizing
 
-	resize (an_array: SPECIAL [G]; n: INTEGER): SPECIAL [G] is
+	resize (an_array: SPECIAL [G]; n: INTEGER): SPECIAL [G]
 			-- Resize `an_array' so that it contains `n' items.
 			-- Do not lose any previously entered items.
 			-- Note: the returned special object might be `an_array'
@@ -92,9 +91,11 @@ feature -- Resizing
 		require
 			an_array_not_void: an_array /= Void
 			n_large_enough: n >= an_array.count
+		local
+			l_default: G
 		do
 			if n > an_array.count then
-				Result := an_array.aliased_resized_area (n)
+				Result := an_array.aliased_resized_area_with_default (l_default, n)
 			else
 				Result := an_array
 			end

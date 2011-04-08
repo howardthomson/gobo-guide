@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -16,6 +16,7 @@ inherit
 
 	ET_DYNAMIC_TYPES
 		undefine
+			index_of,
 			has_type, is_empty
 		end
 
@@ -32,25 +33,19 @@ create
 
 feature -- Element change
 
-	append_last (other: ET_DYNAMIC_TYPES) is
+	append_last (other: ET_DYNAMIC_TYPES)
 			-- Add items of `other' to the end of list.
 			-- Keep items of `other' in the same order.
 			-- Resize list if necessary.
 		require
 			other_not_void: other /= Void
 		local
-			new_capacity: INTEGER
 			i, nb: INTEGER
 			j: INTEGER
 		do
 			nb := other.count
 			if count + nb > capacity then
-				new_capacity := (capacity + nb) * 2
-				if storage = Void then
-					storage := fixed_array.make (new_capacity + 1)
-				else
-					storage := fixed_array.resize (storage, new_capacity + 1)
-				end
+				resize (new_capacity (count + nb))
 			end
 			j := count
 			from i := 1 until i > nb loop
@@ -65,7 +60,7 @@ feature -- Element change
 
 feature {NONE} -- Implementation
 
-	fixed_array: KL_SPECIAL_ROUTINES [ET_DYNAMIC_TYPE] is
+	fixed_array: KL_SPECIAL_ROUTINES [ET_DYNAMIC_TYPE]
 			-- Fixed array routines
 		once
 			create Result

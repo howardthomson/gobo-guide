@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,19 +24,19 @@ inherit
 
 feature -- Access
 
-	major_version: INTEGER is
+	major_version: INTEGER
 			-- Major version number of Unicode
 		once
 			Result := 5
 		end
 
-	minor_version: INTEGER is
+	minor_version: INTEGER
 			-- Minor version number of Unicode
 		once
 			Result := 0
 		end
 
-	update_version: INTEGER is
+	update_version: INTEGER
 			-- Update version number of Unicode
 		once
 			Result := 0
@@ -44,7 +44,7 @@ feature -- Access
 
 feature {NONE} -- Implementation
 
-	upper_code_plane_0_segment_0: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_0: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -79,7 +79,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_1: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_1: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -114,7 +114,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_2: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_2: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -149,7 +149,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_3: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_3: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -184,7 +184,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_4: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_4: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -219,7 +219,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_5: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_5: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -254,7 +254,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	empty_upper_code_segment: ARRAY [INTEGER] is
+	empty_upper_code_segment: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -289,7 +289,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_29: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_29: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -324,7 +324,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_30: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_30: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -359,7 +359,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_31: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_31: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -394,7 +394,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_33: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_33: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -429,7 +429,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_36: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_36: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -464,7 +464,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_44: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_44: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -499,7 +499,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_45: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_45: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -534,7 +534,7 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0_segment_255: ARRAY [INTEGER] is
+	upper_code_plane_0_segment_255: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -569,10 +569,10 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_0: SPECIAL [ARRAY [INTEGER]] is
+	upper_code_plane_0: SPECIAL [ARRAY [INTEGER]]
 			-- Generated array plane
 		once
-			create Result.make (256)
+			create Result.make_filled (Void, 256)
 			Result.put (upper_code_plane_0_segment_0, 0)
 			Result.put (upper_code_plane_0_segment_1, 1)
 			Result.put (upper_code_plane_0_segment_2, 2)
@@ -834,7 +834,7 @@ feature {NONE} -- Implementation
 			sub_arrays_not_void: True --not Result.has (Void)
 		end
 
-	upper_code_plane_1_segment_4: ARRAY [INTEGER] is
+	upper_code_plane_1_segment_4: ARRAY [INTEGER]
 			-- Generated array segment
 		once
 			Result := <<
@@ -869,10 +869,10 @@ feature {NONE} -- Implementation
 			result_not_void: Result /= Void
 		end
 
-	upper_code_plane_1: SPECIAL [ARRAY [INTEGER]] is
+	upper_code_plane_1: SPECIAL [ARRAY [INTEGER]]
 			-- Generated array plane
 		once
-			create Result.make (256)
+			create Result.make_filled (Void, 256)
 			Result.put (empty_upper_code_segment, 0)
 			Result.put (empty_upper_code_segment, 1)
 			Result.put (empty_upper_code_segment, 2)
@@ -1134,10 +1134,10 @@ feature {NONE} -- Implementation
 			sub_arrays_not_void: True --not Result.has (Void)
 		end
 
-	empty_upper_code_plane: SPECIAL [ARRAY [INTEGER]] is
+	empty_upper_code_plane: SPECIAL [ARRAY [INTEGER]]
 			-- Generated array plane
 		once
-			create Result.make (256)
+			create Result.make_filled (Void, 256)
 			Result.put (empty_upper_code_segment, 0)
 			Result.put (empty_upper_code_segment, 1)
 			Result.put (empty_upper_code_segment, 2)
@@ -1399,10 +1399,10 @@ feature {NONE} -- Implementation
 			sub_arrays_not_void: True --not Result.has (Void)
 		end
 
-	upper_codes: SPECIAL [SPECIAL [ARRAY [INTEGER]]] is
+	upper_codes: SPECIAL [SPECIAL [ARRAY [INTEGER]]]
 			-- Upper case code points for each code point
 		once
-			create Result.make (17)
+			create Result.make_filled (Void, 17)
 			Result.put (upper_code_plane_0, 0)
 			Result.put (upper_code_plane_1, 1)
 			Result.put (empty_upper_code_plane, 2)
