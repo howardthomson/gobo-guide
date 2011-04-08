@@ -10,6 +10,10 @@ note
 	date: "$Date$"
 	revision: "$Revision$"
 
+	edp_mods: "[
+		has_same_text implemented (from ET_AST_LEAF)
+	]"
+
 deferred class ET_TOKEN
 
 inherit
@@ -20,6 +24,19 @@ inherit
 			make_with_position as make_leaf_with_position
 		end
 
+feature -- edp_mods
+
+	has_same_text (other: ET_AST_LEAF): BOOLEAN
+			-- Do 'Current' and 'other' have the same 'text'
+		local
+			l_token: ET_TOKEN
+		do
+			l_token ?= other
+			if l_token /= Void then
+				Result := text.is_equal (l_token.text)
+			end
+		end
+	
 feature {NONE} -- Initialization
 
 	make (a_text: like text)

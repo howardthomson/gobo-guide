@@ -12,6 +12,7 @@ note
 
 	edp_mods: "[
 		has_same_text and hash_code added
+		has_same_text moved to ET_TOKEN
 	]"
 
 class ET_KEYWORD
@@ -95,7 +96,7 @@ create
 
 feature -- Token comparison (EDP)
 
-	has_same_text (other: ET_AST_LEAF): BOOLEAN
+	XXX_has_same_text (other: ET_AST_LEAF): BOOLEAN
 		local
 			oc: like Current
 		do
