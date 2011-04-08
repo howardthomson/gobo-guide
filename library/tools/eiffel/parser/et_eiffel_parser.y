@@ -1,12 +1,12 @@
 %{
-indexing
+note
 
 	description:
 
 		"Eiffel parsers"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 1999-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 1999-2010, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -638,63 +638,63 @@ Formal_parameter_comma: Formal_parameter ','
 
 Formal_parameter: Identifier
 		{
-			$$ := ast_factory.new_formal_parameter (Void, $1)
+			$$ := ast_factory.new_formal_parameter (Void, $1, last_class)
 			if $$ /= Void then
 				register_constraint (Void)
 			end
 		}
 	| E_EXPANDED Identifier
 		{
-			$$ := ast_factory.new_formal_parameter ($1, $2)
+			$$ := ast_factory.new_formal_parameter ($1, $2, last_class)
 			if $$ /= Void then
 				register_constraint (Void)
 			end
 		}
 	| E_REFERENCE Identifier
 		{
-			$$ := ast_factory.new_formal_parameter ($1, $2)
+			$$ := ast_factory.new_formal_parameter ($1, $2, last_class)
 			if $$ /= Void then
 				register_constraint (Void)
 			end
 		}
 	| Identifier E_ARROW Constraint_type
 		{
-			$$ := ast_factory.new_constrained_formal_parameter (Void, $1, $2, dummy_constraint ($3), Void)
+			$$ := ast_factory.new_constrained_formal_parameter (Void, $1, $2, dummy_constraint ($3), Void, last_class)
 			if $$ /= Void then
 				register_constraint ($3)
 			end
 		}
 	| E_EXPANDED Identifier E_ARROW Constraint_type
 		{
-			$$ := ast_factory.new_constrained_formal_parameter ($1, $2, $3, dummy_constraint ($4), Void)
+			$$ := ast_factory.new_constrained_formal_parameter ($1, $2, $3, dummy_constraint ($4), Void, last_class)
 			if $$ /= Void then
 				register_constraint ($4)
 			end
 		}
 	| E_REFERENCE Identifier E_ARROW Constraint_type
 		{
-			$$ := ast_factory.new_constrained_formal_parameter ($1, $2, $3, dummy_constraint ($4), Void)
+			$$ := ast_factory.new_constrained_formal_parameter ($1, $2, $3, dummy_constraint ($4), Void, last_class)
 			if $$ /= Void then
 				register_constraint ($4)
 			end
 		}
 	| Identifier E_ARROW Constraint_type Constraint_create
 		{
-			$$ := ast_factory.new_constrained_formal_parameter (Void, $1, $2, dummy_constraint ($3), $4)
+			$$ := ast_factory.new_constrained_formal_parameter (Void, $1, $2, dummy_constraint ($3), $4, last_class)
 			if $$ /= Void then
 				register_constraint ($3)
 			end
 		}
 	| E_EXPANDED Identifier E_ARROW Constraint_type Constraint_create
 		{
-			$$ := ast_factory.new_constrained_formal_parameter ($1, $2, $3, dummy_constraint ($4), $5)
+			$$ := ast_factory.new_constrained_formal_parameter ($1, $2, $3, dummy_constraint ($4), $5, last_class)
 			if $$ /= Void then
 				register_constraint ($4)
 			end
 		}
 	| E_REFERENCE Identifier E_ARROW Constraint_type Constraint_create
 		{
-			$$ := ast_factory.new_constrained_formal_parameter ($1, $2, $3, dummy_constraint ($4), $5)
+			$$ := ast_factory.new_constrained_formal_parameter ($1, $2, $3, dummy_constraint ($4), $5, last_class)
 			if $$ /= Void then
 				register_constraint ($4)
 			end
@@ -2937,7 +2937,7 @@ Qualified_anchored_type: E_LIKE '{' Type '}' '.' Identifier
 			if not current_system.qualified_anchored_types_enabled then
 				raise_error
 			else
-				$$ := ast_factory.new_qualified_like_braced_type (Void, $1, ast_factory.new_target_type ($2, $3, $4), ast_factory.new_dot_feature_name ($5, $6))
+				$$ := ast_factory.new_qualified_like_braced_type (Void, $1, $2, $3, $4, ast_factory.new_dot_feature_name ($5, $6))
 			end
 		}
 	| E_ATTACHED E_LIKE '{' Type '}' '.' Identifier
@@ -2945,7 +2945,7 @@ Qualified_anchored_type: E_LIKE '{' Type '}' '.' Identifier
 			if not current_system.qualified_anchored_types_enabled then
 				raise_error
 			else
-				$$ := ast_factory.new_qualified_like_braced_type ($1, $2, ast_factory.new_target_type ($3, $4, $5), ast_factory.new_dot_feature_name ($6, $7))
+				$$ := ast_factory.new_qualified_like_braced_type ($1, $2, $3, $4, $5, ast_factory.new_dot_feature_name ($6, $7))
 			end
 		}
 	| E_DETACHABLE E_LIKE '{' Type '}' '.' Identifier
@@ -2953,7 +2953,7 @@ Qualified_anchored_type: E_LIKE '{' Type '}' '.' Identifier
 			if not current_system.qualified_anchored_types_enabled then
 				raise_error
 			else
-				$$ := ast_factory.new_qualified_like_braced_type ($1, $2, ast_factory.new_target_type ($3, $4, $5), ast_factory.new_dot_feature_name ($6, $7))
+				$$ := ast_factory.new_qualified_like_braced_type ($1, $2, $3, $4, $5, ast_factory.new_dot_feature_name ($6, $7))
 			end
 		}
 	| '!' E_LIKE '{' Type '}' '.' Identifier
@@ -2963,7 +2963,7 @@ Qualified_anchored_type: E_LIKE '{' Type '}' '.' Identifier
 			elseif current_system.is_ise and then current_system.ise_version < ise_6_1_0 then
 				raise_error
 			else
-				$$ := ast_factory.new_qualified_like_braced_type ($1, $2, ast_factory.new_target_type ($3, $4, $5), ast_factory.new_dot_feature_name ($6, $7))
+				$$ := ast_factory.new_qualified_like_braced_type ($1, $2, $3, $4, $5, ast_factory.new_dot_feature_name ($6, $7))
 			end
 		}
 	| '?' E_LIKE '{' Type '}' '.' Identifier
@@ -2973,7 +2973,7 @@ Qualified_anchored_type: E_LIKE '{' Type '}' '.' Identifier
 			elseif current_system.is_ise and then current_system.ise_version < ise_6_1_0 then
 				raise_error
 			else
-				$$ := ast_factory.new_qualified_like_braced_type ($1, $2, ast_factory.new_target_type ($3, $4, $5), ast_factory.new_dot_feature_name ($6, $7))
+				$$ := ast_factory.new_qualified_like_braced_type ($1, $2, $3, $4, $5, ast_factory.new_dot_feature_name ($6, $7))
 			end
 		}
 	| Anchored_type '.' Identifier
@@ -4199,7 +4199,7 @@ Add_counter: { add_counter }
 
 feature -- Parsing
 
-	yyparse is
+	yyparse
 			-- (NOTE: THIS IS THE COPY/PASTE VERSION OF THE CODE IN
 			-- THE YY_PARSER_SKELETON CLASS, FOR OPTIMISATION WITH
 			-- ISE EIFFEL (ALLOW INLINING NOT POSSIBLE IN
