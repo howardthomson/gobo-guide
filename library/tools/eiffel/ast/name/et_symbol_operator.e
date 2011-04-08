@@ -193,7 +193,7 @@ feature -- Access
 			end
 		end
 
-	hash_code: INTEGER
+	XXX_hash_code: INTEGER
 			-- Hash code
 		do
 			Result := code.code
