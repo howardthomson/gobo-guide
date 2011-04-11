@@ -364,6 +364,23 @@ feature {NONE} -- Feature generation
 			end
 		end
 
+	print_agent_declaration (i: INTEGER; an_agent: ET_AGENT)
+			-- Print declaration of `i'-th agent `an_agent'.
+		deferred
+		end
+
+	print_object_test_function (i: INTEGER; a_object_test: ET_OBJECT_TEST)
+			-- Print function corresponding to `i'-th object-test `a_object_test'
+			-- to `current_file' and its signature to `header_file'.
+			-- This function will return True or False depending if it's
+			-- successful or not. And if the object-test has a local name,
+			-- then it will attach, when the object-test is successful,
+			-- the value of the expression passed as first argument to the
+			-- object-test local whose address is passed as second argument.
+		require
+			a_object_test_not_void: a_object_test /= Void
+		deferred
+		end
 
 	print_deferred_function (a_feature: ET_DEFERRED_FUNCTION) is
 			-- Print `a_feature' to `current_file' and its signature to `header_file'.

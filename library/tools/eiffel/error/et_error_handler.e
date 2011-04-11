@@ -7784,6 +7784,15 @@ feature -- Internal errors
 			report_internal_error (an_error)
 		end
 
+	report_giaaa_error_cl (a_class, a_line: STRING) is
+			-- Report GIAAA internal error.
+		local
+			an_error: ET_INTERNAL_ERROR
+		do
+			create an_error.make_giaaa
+			report_internal_error (an_error)
+		end
+
 feature -- Reporting
 
 	report_error_message (an_error: STRING)

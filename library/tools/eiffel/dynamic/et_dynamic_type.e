@@ -10,6 +10,11 @@ note
 	date: "$Date$"
 	revision: "$Revision$"
 
+	edp_mods: "[
+		c_declared
+		gc related
+	]"
+
 class ET_DYNAMIC_TYPE
 
 inherit
@@ -33,6 +38,42 @@ inherit
 create
 
 	make
+
+feature -- EDP mods for expanded declaration code-generation order
+
+	c_declared: BOOLEAN
+			-- Has this type been C declared in header file ?
+
+	set_c_declared (to: BOOLEAN) is
+			-- Set 'c_declared' to 'to'
+		do
+			c_declared := to
+		end
+
+feature -- EDP GC mods
+
+	gc_mark_type: INTEGER
+			-- -1:	Undefined
+			--	0:	Has no references
+			--	1:	Has contiguous refences, starting after the 'id' field
+			--	2:	SPECIAL [ some reference type ]
+			--	3:	Has marking routine, selected by the id field
+
+	set_gc_mark_type (a_mark_type: INTEGER) is
+			-- Set the GC mark type
+		require
+			valid_mark_type: a_mark_type >= 0 and a_mark_type <= 3
+		do
+			gc_mark_type := a_mark_type
+		ensure
+			assigned_gc_mark_type: gc_mark_type = a_mark_type
+		end
+
+	has_gc_mark_routine: BOOLEAN is
+			-- Has this dynamic type a generated GC marking routine ?
+		do
+			Result := gc_mark_type = 3
+		end
 
 feature {NONE} -- Initialization
 

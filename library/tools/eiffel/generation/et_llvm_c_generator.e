@@ -4554,7 +4554,8 @@ feature -- Internal routines
 				end
 				current_file.put_new_line
 			end
-			print_internal_routine_body_declaration (a_feature, l_result_type, a_static)
+--			print_internal_routine_body_declaration (a_feature, l_result_type, a_static)
+			print_internal_routine_body_declaration (a_feature, l_result_type)
 			if a_creation then
 				print_indentation
 				current_file.put_string (c_return)
@@ -12209,8 +12210,8 @@ feature {NONE} -- Object-test generation
 			-- then it will attach, when the object-test is successful,
 			-- the value of the expression passed as first argument to the
 			-- object-test local whose address is passed as second argument.
-		require
-			a_object_test_not_void: a_object_test /= Void
+--		require
+--			a_object_test_not_void: a_object_test /= Void
 		local
 			old_file: KI_TEXT_OUTPUT_STREAM
 			l_result_type: ET_DYNAMIC_TYPE
@@ -13673,8 +13674,8 @@ feature {NONE} -- Agent generation
 
 	print_agent_declaration (i: INTEGER; an_agent: ET_AGENT)
 			-- Print declaration of `i'-th agent `an_agent'.
-		require
-			an_agent_not_void: an_agent /= Void
+--		require
+--			an_agent_not_void: an_agent /= Void
 		local
 			l_target_type: ET_DYNAMIC_TYPE
 			l_open_operand: ET_IDENTIFIER
@@ -30028,6 +30029,7 @@ feature {NONE} -- Constants
 
 	c_eif_instruction_location_trace: STRING = "EIF_INSTRUCTION_LOCATION_TRACE"
 	c_eif_edp_gc: STRING = "EIF_EDP_GC"
+	c_gc_mark: STRING = "gc_mark"
 	
 	c_ac: STRING = "ac"
 	c_and_then: STRING = "&&"
