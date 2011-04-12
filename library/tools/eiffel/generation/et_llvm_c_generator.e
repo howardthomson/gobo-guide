@@ -286,6 +286,8 @@ feature {NONE} -- Initialization
 			create current_function_header_buffer.make (l_buffer)
 			create l_buffer.make (100000)
 			create current_function_body_buffer.make (l_buffer)
+			create l_buffer.make (1024)											-- GUIDE
+			create current_function_stack_descriptor_buffer.make (l_buffer)		-- GUIDE
 			create temp_variables.make (40)
 			create used_temp_variables.make (40)
 			create free_temp_variables.make (40)
@@ -365,6 +367,9 @@ print("Generating code ...%N")
 			generate_makefile (a_system_name)
 			c_filenames.wipe_out
 			llvm_filenames.wipe_out
+			if has_fatal_error then
+				print ("Fatal error during code generation ...%N")
+			end
 		end
 
 	enable_class_generation_tracking is
@@ -6302,6 +6307,7 @@ print ("ET_C_GENERATOR.print_inspect_instruction - range%N")
 								-- on `l_current_class' at this stage, and any error
 								-- should already heve been reported.
 							set_fatal_error
+							error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 						else
 							l_ancestor := l_current_class.ancestor (l_parent_type)
 							if l_ancestor = Void then
@@ -9986,6 +9992,7 @@ print ("ET_C_GENERATOR.print_old_expression%N")
 								-- on `l_current_class' at this stage, and any error
 								-- should already heve been reported.
 							set_fatal_error
+							error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 						else
 							l_ancestor := l_current_class.ancestor (l_parent_type)
 							if l_ancestor = Void then
@@ -28081,6 +28088,8 @@ feature {NONE} -- Include files
 			else
 -- TODO: report error.
 				set_fatal_error
+				report_cannot_read_error (a_filename)
+--				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
 		end
 
