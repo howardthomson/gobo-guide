@@ -18,6 +18,11 @@ extern "C" {
 #endif
 
 /*
+	Initialize data to keep track of object ids.
+*/
+extern void GE_init_identified(void);
+
+/*
 	Get a new id for `object', assuming it is NOT in the stack.
 */
 extern EIF_INTEGER GE_object_id(EIF_OBJECT object);

@@ -1899,7 +1899,7 @@ void enable_class_generation_tracking()
 void disable_class_generation_tracking()
 {
 	int i, nb;
-	
+#if 0	
 	flag_track_generation_classes = 0;
 #ifndef COMPILE_STANDALONE
 	nb = 1951;
@@ -1909,9 +1909,10 @@ void disable_class_generation_tracking()
 	for (i = 0; i < nb; i++) {
 		if (GE_types[i].gc_flags & 1) {
 			/* TODO: Assign a more appropriate flag in the GE_types array ... */
-			printf("Class: %s\n", GE_types[i].name);
+			printf("Class: %s\n", GE_types[i].a1);
 		}
 	}
+#endif
 #endif
 }
 

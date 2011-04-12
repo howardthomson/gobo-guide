@@ -59,6 +59,14 @@
 #else
 #define EIF_IS_MAC EIF_FALSE
 #endif
+/* VxWorks definition */
+#ifdef EIF_VXWORKS
+#define EIF_IS_VXWORKS EIF_TRUE
+#undef EIF_IS_UNIX
+#define EIF_IS_UNIX EIF_FALSE
+#else
+#define EIF_IS_VXWORKS EIF_FALSE
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -106,7 +114,7 @@ typedef struct {int16_t id;} EIF_ANY;
 #else
 typedef struct {int id;} EIF_ANY;
 #endif
-#define EIF_REFERENCE EIF_ANY*
+typedef EIF_ANY* EIF_REFERENCE;
 typedef char EIF_BOOLEAN;
 typedef unsigned char EIF_CHARACTER_8;
 typedef uint32_t EIF_CHARACTER_32;
@@ -156,14 +164,29 @@ typedef double EIF_REAL_64;
 	Interoperability with ISE.
 */
 #define RTI64C(x) GE_int64(x)
+#if 0
 #define EIF_PROCEDURE EIF_POINTER
+#endif
 #define EIF_OBJECT EIF_REFERENCE
 #define EIF_OBJ EIF_OBJECT
+#define EIF_INTEGER EIF_INTEGER_32
+#define EIF_CHARACTER EIF_CHARACTER_8
+#define EIF_REAL EIF_REAL_32
+#define EIF_DOUBLE EIF_REAL_64
 /* Function pointer call to make sure all arguments are correctly pushed onto stack. */
 /* FUNCTION_CAST is for standard C calls. */
 /* FUNCTION_CAST_TYPE is for non-standard C calls. */
 #define FUNCTION_CAST(r_type,arg_types) (r_type (*) arg_types)
 #define FUNCTION_CAST_TYPE(r_type,call_type,arg_types) (r_type (call_type *) arg_types)
+#define rt_public				/* default C scope */
+#define rt_private static		/* static outside a block means private */
+#define rt_shared				/* data shared between modules, but not public */
+typedef int32_t EIF_TYPE_ID;
+#define EIF_NO_TYPE (EIF_TYPE_ID)(-1)
+typedef uint16_t EIF_TYPE_INDEX;
+extern EIF_REFERENCE GE_ms8(char* s, EIF_INTEGER_32 c);
+#define RTMS(s) GE_ms8((s),strlen(s))
+#define RTMS_EX(s,c) GE_ms8((s),(c))
 
 #ifdef __cplusplus
 }

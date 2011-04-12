@@ -26392,10 +26392,7 @@ feature {NONE} -- Type generation
 			end															-- GC
 				-- Attribute `runtime_name'.
 			a_file.put_character ('%T')
-			a_file.put_string ("T0*")
-			a_file.put_character (' ')
-			a_file.put_string ("a1")
-			a_file.put_character (';')
+			a_file.put_string ("char *name;")
 			a_file.put_new_line
 			a_file.put_character ('}')
 			a_file.put_character (' ')
@@ -26510,7 +26507,7 @@ feature {NONE} -- Type generation
 						current_file.put_integer (l_type.id)					-- GC
 						current_file.put_character (')')						-- GC
 					else 														-- GC
-						current_file.put_integer (0)							-- GC
+						current_file.put_string ("(void (*)(EIF_REFERENCE))(0)")-- GC
 					end															-- GC
 				end																-- GC
 					-- Attribute `runtime_name'.

@@ -41,7 +41,7 @@
 		<delete file="${system}${exe}"/>
 		<set name="finalize" value="true"/>
 		<set name="finalize" value="false" if="${debug}"/>
-		<gec ace="compile_ge.xace" finalize="${finalize}" c_compile="true" cat="false"/>
+		<gec ace="compile_ge.xace" finalize="${finalize}" catcall="no" c_compile="true" cat="false"/>
 	</target>
 
 	<target name="compile_ge32" depend="prepare_compile">
