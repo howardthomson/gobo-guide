@@ -63,7 +63,7 @@ feature -- creation and resources
         	until
            		c = Void
         	loop
-print ("Creating resources (in SB_ROOT_WINDOW) for: "); print (c.generating_type); print ("%N")
+--print ("Creating resources (in SB_ROOT_WINDOW) for: "); print (c.generating_type); print ("%N")
            		c.create_resource
 
 				check c.is_attached end

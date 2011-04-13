@@ -120,7 +120,7 @@ feature -- Creation
          
          default_cursor := application.default_cursor (Def_text_cursor)
          drag_cursor	:= application.default_cursor (Def_text_cursor)
-print ("text_font being assigned ...%N")
+--print ("text_font being assigned ...%N")
          text_font		:= application.normal_font
          back_color		:= application.back_color
          text_color		:= application.fore_color

@@ -178,9 +178,9 @@ feature { EV_WIDGET_IMP } -- Creation special
 
 	set_parent (p: SB_COMPOSITE) is
 		do
-print ("set_parent -- generating_type = "); print (generating_type); print (" Current: "); print (($Current).out)
-	print (" new parent: "); print (($p).out); print ("%N")
---			print_run_time_stack
+--	print ("set_parent -- generating_type = "); print (generating_type); print (" Current: "); print (($Current).out)
+--	print (" new parent: "); print (($p).out); print ("%N")
+--	print_run_time_stack
 			if parent /= Void then
 				print ("set_parent called twice for same object !%N")
 				Exceptions.die (1)

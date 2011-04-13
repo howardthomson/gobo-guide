@@ -44,7 +44,7 @@ feature
 	create_resource is
 			-- Create resource
 		do
-print ("Create resource in SB_VISUAL_DEF%N")
+--print ("Create resource in SB_VISUAL_DEF%N")
 			if not is_attached then
 				if application.initialized then
 					create_resource_imp

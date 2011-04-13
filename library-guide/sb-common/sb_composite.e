@@ -41,12 +41,12 @@ feature -- resource creation/deletion
          	until
             	c = Void
          	loop
-print ("Creating resources (in SB_COMPOSITE ["); print (($Current).out); print ("]) for: ")
-print (c.generating_type); print (" ["); print (($c).out); print ("]%N")
+--print ("Creating resources (in SB_COMPOSITE ["); print (($Current).out); print ("]) for: ")
+--print (c.generating_type); print (" ["); print (($c).out); print ("]%N")
             	c.create_resource
             	c := c.next
          	end
-print ("Done creating resources in SB_COMPOSITE%N")
+--print ("Done creating resources in SB_COMPOSITE%N")
       	end
 
    	detach_resource is

@@ -1,0 +1,12 @@
+GUIDE -- TODO
+
+Fix 'resources' messages from SB_xx classes
+
+Compilation warning messages
+	print_registers_struct
+	print_line_no_trace
+	print_stack
+	GE_object_id
+	GE_id_object
+	swallow_nl
+	fscanf

@@ -103,7 +103,7 @@ feature -- Queries
 	create_resource is
 			-- Create the font
 		do
-print ("Create resource in SB_FONT_DEF%N")
+-- print ("Create resource in SB_FONT_DEF%N")
         	if not is_attached then
             	if application.initialized then
 					create_resource_imp
