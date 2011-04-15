@@ -68,6 +68,7 @@
 	</cluster>
 
 	<cluster name="guide" location="${GOBO}/src/guide"/>
+	<cluster name="gc_tests" location="${GOBO}/src/gctest"/>
 
 	<cluster name="edp_parse" 			location="${GOBO}/library-guide/parse">
 		<option name="exclude" value="et_eiffel_parser.e"/>

@@ -13,9 +13,9 @@
 	<cluster name="thread" location="${GOBO}/library-guide/thread">
 		<option name="abstract" value="true"/>
 		<cluster name="classic"/>
-		<cluster name="spec">
+		<!-- cluster name="spec">
 			<option name="abstract" value="true"/>
 			<cluster name="${GOBO_EIFFEL}" prefix="spec_"/>
-		</cluster>
+		</cluster -->
 	</cluster>
 </library>

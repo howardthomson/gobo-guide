@@ -33,12 +33,13 @@ feature
 			-- Startup for Eiffel Design Project Application
 		local
 			failed: BOOLEAN
+			gc_test: EDP_GC_TEST
 		do
 			if arguments.argument (0).is_equal ("gec")
 			or else arguments.argument (0).is_equal ("./gec") then
 				create gec.execute
 			elseif arguments.argument (0).is_equal ("./test_gc") then
-				test_gc
+				create gc_test.make
 			else
 				if not failed then
 				--	parse_arguments
@@ -69,22 +70,6 @@ feature
 			create np.make ("edp")
 			create pw.from_project (np)
 			pw.show
-		end
-
-	test_gc is
-			-- Test the GC ...
-		local
-			s: STRING
-		do
-			from
-			until false
-			loop
-				test_gc2
-			end
-		end
-
-	test_gc2 is
-		do
 		end
 
 end -- class GUIDE
