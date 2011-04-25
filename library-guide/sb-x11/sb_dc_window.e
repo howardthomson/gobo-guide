@@ -473,7 +473,7 @@ feature -- Creation
          	-- Draw focus rectangle
     	do
     		gcv.reset
-			gcv.set_stipple (get_app.stipples @ Stipple_gray)
+			gcv.set_stipple (application.stipples @ Stipple_gray)
 			gcv.set_fill_style (Fill_stippled)
 			gcv.set_background (0)
 			gcv.set_foreground (0xffffffff)
@@ -488,7 +488,7 @@ feature -- Creation
 			x_fill_rectangle(display.to_external, id, gc.to_external, x, y+1, 1, h-1);
 
 			gcv.reset
-			gcv.set_stipple (get_app.stipples @ Stipple_white)
+			gcv.set_stipple (application.stipples @ Stipple_white)
 			gcv.set_fill_style (fill)
 			gcv.set_background (devbg)
 			gcv.set_foreground (devfg)

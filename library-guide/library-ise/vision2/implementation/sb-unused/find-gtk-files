@@ -1,0 +1,7 @@
+for i in `find . -type f -print | grep '\.e$'`
+do
+if grep 'g[dt]k' < `grep -v '^--' $i` >/dev/null
+then
+echo $i
+fi
+done

@@ -29,8 +29,9 @@ inherit
 		end
 
 	SB_TREE_LIST_CONSTANTS
+	SB_SHARED_APPLICATION
 
-creation { SB_APPLICATION_DEF }
+create { SB_APPLICATION_DEF }
 	make
 
 feature -- Attributes
@@ -46,16 +47,16 @@ feature -- class name
 
 feature -- Creation
 
-	make is
+	make
 		do
-			make_top(get_app, "Windows and Widgets display tree",
+			make_top (application, "Windows and Widgets display tree",
 				Void,			-- Icon
 				Void,			-- Mini-icon
 				Decor_all,		-- Options
 				0,0, 100,100,	-- x,y,w,h
 				0,0,0,0,		-- pl,pr,pt,pb	(padding)
 				0,0)			-- hs,vs		(spacing ??)
-			create tree.make(Current, 20,
+			create tree.make (Current, 20,
 				Current, 0,
 				Layout_fill_x | Layout_fill_y | Treelist_normal
 				| Treelist_shows_lines | Treelist_shows_boxes | Treelist_root_boxes)
@@ -65,7 +66,7 @@ feature -- Creation
 
 feature -- creation implementation
 
-	add_tree_test is
+	add_tree_test
 			-- Add all the windows and components to
 			-- the display tree
 		local
@@ -77,7 +78,7 @@ feature -- creation implementation
 			c.set_expanded(True)
 		end
 
-	add_tree is
+	add_tree
 			-- Add all the windows and components to
 			-- the display tree
 		local
@@ -85,7 +86,7 @@ feature -- creation implementation
 			p, c: SB_TREE_LIST_ITEM
 		do
 			from
-				w := get_app.root_window.first_child
+				w := application.root_window.first_child
 			until
 				w = Void
 			loop
@@ -100,7 +101,7 @@ feature -- creation implementation
 			end
 		end
 
-	add_children(a_w: SB_WINDOW; a_p: SB_TREE_LIST_ITEM) is
+	add_children (a_w: SB_WINDOW; a_p: SB_TREE_LIST_ITEM)
 			-- Add child items for subwindows to parent item
 		require
 			valid_window: a_w /= Void
@@ -139,7 +140,7 @@ feature -- creation implementation
 
 feature -- Window tree modification
 
-	add_window(aw: SB_WINDOW) is
+	add_window (aw: SB_WINDOW)
 			-- add window into display tree
 		local
 			w: SB_WINDOW
@@ -147,7 +148,7 @@ feature -- Window tree modification
 			done: BOOLEAN
 			root_window: SB_WINDOW
 		do
-			root_window := get_app.root_window
+			root_window := application.root_window
 			if aw.parent = root_window then
 				new_i := tree.create_item_last(Void, "Window # " + aw.window_key.out + " (" + aw.class_name + ")",
 									Void, Void, Void, False)
@@ -179,7 +180,7 @@ feature -- Window tree modification
 			end
 		end
 
-	remove_window(aw: SB_WINDOW) is
+	remove_window (aw: SB_WINDOW)
 			-- Remove window item(s) on destruction
 		local
 			w: SB_WINDOW
@@ -202,7 +203,7 @@ feature -- Destruction, of this window
 
 feature -- Event handling
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, sel: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, sel: INTEGER; data: ANY): BOOLEAN
 		do
 			if sender = tree then
 				if match_function_2 (Sel_rightbuttonpress, 0, type, sel)

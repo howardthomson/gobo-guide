@@ -1683,7 +1683,7 @@ feature -- X error handling
 
 	c_x_io_error_handler (dspl: POINTER): INTEGER is
 		do
-			edp_trace.start(0, "SB_APPLICATION::x_io_error_handler").done
+--#			edp_trace.start(0, "SB_APPLICATION::x_io_error_handler").done
 		end
 
 	beep is

@@ -77,7 +77,7 @@ feature
 
 	display: X_DISPLAY is
 		do
-			Result := get_app.display
+			Result := application.display
 		end
 
 	create_resource_imp is

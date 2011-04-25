@@ -18,6 +18,7 @@ class X11_EXTERNAL_C_ROUTINES
 
 inherit
 	X_PORTABILITY_ROUTINES
+	SB_ANY
 
 feature -- X11 Routines and Functions
 

@@ -8,45 +8,36 @@ class SB_MESSAGE_REFFER
 
 feature -- make reference
 
-	ref_boolean(i: BOOLEAN): SE_REFERENCE [ BOOLEAN ] is
+	ref_boolean(i: BOOLEAN): SE_REFERENCE [ BOOLEAN ]
 		do
-	--		create Result
-	--		Result.set_item(i)
-	
-			create Result.set_item(i)
+			create Result.set_item (i)
 		end
 
-	ref_integer(i: INTEGER): SE_REFERENCE [ INTEGER ] is
+	ref_integer(i: INTEGER): SE_REFERENCE [ INTEGER ]
 		do
-	--		create Result
-	--		Result.set_item(i)
-
-			create Result.set_item(i)
+			create Result.set_item (i)
 		end
 
-	ref_real(i: REAL): SE_REFERENCE [ REAL ] is
+	ref_real(i: REAL): SE_REFERENCE [ REAL ]
 		do
-	--		create Result
-	--		Result.set_item(i)
-			
-			create Result.set_item(i)
+			create Result.set_item (i)
 		end
 
 feature -- make constant reference
 
---	ref_true: SE_REFERENCE [ BOOLEAN ] is
+--	ref_true: SE_REFERENCE [ BOOLEAN ]
 --		do
 --			Result := ref_boolean(True)
 --		end
 
---	ref_false: SE_REFERENCE [ BOOLEAN ] is	
+--	ref_false: SE_REFERENCE [ BOOLEAN ]
 --		do
 --			Result := ref_boolean(False)
 --		end
 
 feature -- dereference
 
-	deref_boolean(p: ANY): BOOLEAN is
+	deref_boolean (p: ANY): BOOLEAN
 		local
 			r: SE_REFERENCE [ BOOLEAN ]
 		do
@@ -55,7 +46,7 @@ feature -- dereference
 			Result := r.item
 		end
 
-	deref_integer(p: ANY): INTEGER is
+	deref_integer(p: ANY): INTEGER
 		local
 			r: SE_REFERENCE [ INTEGER ]
 		do
@@ -64,7 +55,7 @@ feature -- dereference
 			Result := r.item
 		end
 
-	deref_real(p: ANY): REAL is
+	deref_real(p: ANY): REAL
 		local
 			r: SE_REFERENCE [ REAL ]
 		do

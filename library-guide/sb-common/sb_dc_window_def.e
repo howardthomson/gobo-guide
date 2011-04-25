@@ -24,6 +24,7 @@ inherit
 		end
 
 	SB_COMMON_MACROS
+	SB_SHARED_APPLICATION
 
 feature { ANY } -- Require clause access
 

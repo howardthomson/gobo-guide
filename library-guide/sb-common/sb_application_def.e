@@ -18,6 +18,7 @@ deferred class SB_APPLICATION_DEF
 
 inherit
 
+--	SB_ANY
 	SB_MESSAGE_HANDLER
 		rename
 			Id_last as MESSAGE_HANDLER_ID_LAST
@@ -53,7 +54,7 @@ feature -- Creation
       	do
       
 			shared_app.set_value (Current)
-			shared_app2.set_value (Current)
+--			shared_app2.set_value (Current)
       	
         	dpy := ":0.0"
 	 		create event
@@ -492,9 +493,9 @@ feature -- Message processing
          	else Result := Precursor(sender, type, key, data) end
       	end
 
-	on_cmd_quit (object: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+	on_cmd_quit (object: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
 		do
-			fxerror ("SB_APPLICATION_DEF::on_cmd_quit -- exit()").discard_result
+			fxerror ("SB_APPLICATION_DEF::on_cmd_quit -- exit()").do_nothing
 			exit (0)
 			Result := True
 		end

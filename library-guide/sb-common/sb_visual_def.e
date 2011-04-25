@@ -17,6 +17,7 @@ inherit
    	SB_VISUAL_CONSTANTS
 
    	SB_COMMON_MACROS
+	SB_SHARED_APPLICATION
 
 feature { NONE } -- Creation
 

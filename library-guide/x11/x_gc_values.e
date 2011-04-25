@@ -199,10 +199,11 @@ feature -- flags
 			flags := 0
 		end
 
-	set_flag (f: INTEGER) is
+	set_flag (a_flag: INTEGER) is
+		require
+			valid_flag: a_flag /= 0
 		do
-			if f = 0 then edp_trace.simple(0, "X_GC_VALUES::set_flag - f = 0 !!!") end
-			flags := flags | f
+			flags := flags | a_flag
 		end
 
 feature {NONE}

@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<library name="vision2" prefix="v2_">
+	<description>
+		description: "Xace file for the ISE Vision2 Library"
+		library: "ISE Libraries"
+		copyright: "Copyright (c) 2001-2004, Eric Bezault and others"
+		license: "Eiffel Forum License v2 (see forum.txt)"
+		date: "$Date: 2006/03/16 14:10:34 $"
+		revision: "$Revision: 1.10 $"
+	</description>
+
+	<cluster name="vision2" location="/data/Eiffel66/library/vision2">
+		<option name="abstract" value="true"/>
+		<cluster name="contrib"/>
+		<cluster name="interface" recursive="true">
+			<cluster name="kernel"/>
+			<cluster name="events"/>
+			<cluster name="figures"/>
+			<cluster name="items"/>
+			<cluster name="model"/>
+			<cluster name="new_figures"/>
+			<cluster name="pick_and_drop"/>
+			<cluster name="properties"/>
+			<cluster name="support"/>
+			<cluster name="widgets">
+				<cluster name="containers"/>
+				<cluster name="dialogs"/>
+				<cluster name="primitives"/>
+			</cluster>
+		</cluster>
+		<cluster name="implementation" recursive="true">
+			<cluster name="implementation_interface">
+				<cluster name="events"/>
+				<cluster name="items"/>
+				<cluster name="kernel"/>
+				<cluster name="model"/>
+				<cluster name="pick_and_drop"/>
+				<cluster name="properties"/>
+				<cluster name="support"/>
+				<cluster name="widgets">
+					<cluster name="containers"/>
+					<cluster name="dialogs"/>
+					<cluster name="primitives"/>
+				</cluster>
+			</cluster>
+		</cluster>
+	</cluster>
+	<cluster name="slyboots" location="${GOBO}/library-guide/library-ise/vision2">
+		<cluster name="implementation" recursive="true">
+			<cluster name="sb">
+				<cluster name="events"/>
+				<cluster name="items"/>
+				<cluster name="kernel"/>
+				<cluster name="pick_and_drop"/>
+				<cluster name="properties"/>
+				<cluster name="support"/>
+				<cluster name="widgets">
+					<cluster name="containers"/>
+					<cluster name="dialogs"/>
+					<cluster name="primitives"/>
+					<cluster name="uncommon_widgets"/>
+				</cluster>
+			</cluster>
+		</cluster>
+	</cluster>
+	<cluster name="slyboots_imp" location="${GOBO}/library-guide">
+		<cluster name="sb-common"/>
+		<cluster name="edp-src">
+			<option name="exclude" value="any.e"/>
+		</cluster>
+		<cluster name="sb-x11"/>
+		<cluster name="x11">
+			<cluster name="events"/>
+		</cluster>
+		<cluster name="pointer"/>
+	</cluster>
+
+	<cluster name="ise-event" location="/data/Eiffel66/library/base/ise/event"/>
+	
+</library>

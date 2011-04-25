@@ -134,16 +134,6 @@ feature {ANY}
 		--	print_run_time_stack
 		end
 
-	get_app: SB_APPLICATION is
-    	do
-        	Result := shared_app.value
-      	end
-
-	shared_app: SB_APP_SHARED is
-    	once
-        	create Result
-      	end
-
 	todo (s: STRING) is
 			-- Notify incomplete routine
 			--| extend to report each instance only once ??

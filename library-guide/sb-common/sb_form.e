@@ -18,7 +18,8 @@ inherit
 		end
 		
 	SB_WIDGET_SELECTORS
-
+	SB_SHARED_APPLICATION
+	
 create
 	make_for_design
 
@@ -28,23 +29,23 @@ feature -- Attributes
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_FORM"
 		end
 
 feature -- Creation
 
-	make_for_design is
+	make_for_design
 		do
-			make_main_window (get_app, "NEW -- for Design")
+			make_main_window (application, "NEW -- for Design")
 			show
 			design_mode := True
 			flags := flags | Flag_enabled
 			make_design_menu
 		end
 
-	destruct is
+	destruct
 		do
 			design_menu.destruct
 			Precursor
@@ -54,39 +55,39 @@ feature -- Menu creation
 
 	design_menu: SB_MENU_PANE
 
-	make_design_menu is
+	make_design_menu
 			-- Popup menu pane for right click in design mode
 		local
 		--	sub_menu: SB_MENU_
 			command: SB_MENU_COMMAND
 		--	title: SB_MENU_TITLE
 		do
-			create design_menu.make(Current)
+			create design_menu.make (Current)
 
-			create command.make_sb (design_menu, "Open Widgets Window", get_app, 2)
+			create command.make_sb (design_menu, "Open Widgets Window", application, 2)
 		end
 			
 
 feature -- Event handling
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, sel: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, sel: INTEGER; data: ANY): BOOLEAN
 		local
 			ev: SB_EVENT
 		do
 			ev ?= data
 			if type = Sel_rightbuttonpress then
-				design_menu.pop_up(Void, ev.root_x, ev.root_y, 0,0)
+				design_menu.pop_up (Void, ev.root_x, ev.root_y, 0,0)
 				update
 			elseif type = Sel_rightbuttonrelease then
 				-- Do Nothing, at present
 			else
-				Result := Precursor(sender, type, sel, data)
+				Result := Precursor (sender, type, sel, data)
 			end
 		end
 
-	on_paint(sender: SB_MESSAGE_HANDLER; sel: INTEGER; data: ANY): BOOLEAN is
+	on_paint (sender: SB_MESSAGE_HANDLER; sel: INTEGER; data: ANY): BOOLEAN
 		do
-			Result := Precursor(sender, sel, data)
+			Result := Precursor (sender, sel, data)
 		end
 		
 end

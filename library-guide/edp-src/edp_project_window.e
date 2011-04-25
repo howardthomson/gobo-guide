@@ -69,6 +69,7 @@ inherit
 	SB_TREE_LIST_CONSTANTS
 
 	EDP_GLOBAL
+	SB_SHARED_APPLICATION
 
 creation
 
@@ -150,7 +151,7 @@ feature -- GUI elements
 			s: SB_Q_LIST_SORTER [ EDP_CLASS_LIST_ITEM ]
 			c: EDP_CLASS_LIST_ITEM_COMPARATOR
 		do
-			make_main_window (get_app, "Project Window")
+			make_main_window (application, "Project Window")
 			resize (550, 500)
 			set_title ("EDP_PROJECT_WINDOW No 1")
 

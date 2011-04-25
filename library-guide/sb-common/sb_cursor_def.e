@@ -15,6 +15,7 @@ inherit
       	end
 
 	SB_CURSOR_CONSTANTS
+	SB_SHARED_APPLICATION
 
 feature
 

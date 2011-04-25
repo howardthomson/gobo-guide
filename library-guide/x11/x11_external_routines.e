@@ -11,7 +11,8 @@ indexing
 class X11_EXTERNAL_ROUTINES
 
 inherit
-
+	
 	X11_EXTERNAL_ROUTINES_WRAPPED	-- X routines wrapped to trace / debug
 --	X11_EXTERNAL_ROUTINES_DIRECT	-- X routines direct to C external
+
 end

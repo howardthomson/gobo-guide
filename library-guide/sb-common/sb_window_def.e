@@ -233,7 +233,7 @@ feature { EV_WIDGET_IMP } -- Creation special
            		window_key := 1
            		parent.set_first_child (current_w)
          	end
-         	get_app.register_window (current_w)
+         	application.register_window (current_w)
 
          	default_cursor := application.get_default_cursor (Def_arrow_cursor)
          	drag_cursor    := application.get_default_cursor (Def_arrow_cursor)

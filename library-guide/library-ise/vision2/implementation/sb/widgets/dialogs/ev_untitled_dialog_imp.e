@@ -1,0 +1,59 @@
+indexing
+	description: "Eiffel Vision dialog. GTK+ implementation."
+	legal: "See notice at end of class."
+	status: "See notice at end of class."
+	date: "$Date: 2006-07-26 15:37:08 -0700 (Wed, 26 Jul 2006) $"
+	revision: "$Revision: 61655 $"
+
+class
+	EV_UNTITLED_DIALOG_IMP
+
+inherit
+	EV_DIALOG_IMP
+		redefine
+			interface,
+			default_wm_decorations,
+			initialize
+		end
+
+create
+	make
+
+feature {NONE} -- Initialization
+
+	initialize is
+			-- Initialize `Current'
+		do
+			Precursor {EV_DIALOG_IMP}
+			{EV_GTK_EXTERNALS}.gtk_window_set_skip_pager_hint (c_object, True)
+			{EV_GTK_EXTERNALS}.gtk_window_set_skip_taskbar_hint (c_object, True)
+		end
+
+feature {NONE} -- Implementation
+
+	default_wm_decorations: INTEGER is
+			-- Default Window Manager decorations of `Current'.
+		do
+			Result := 0
+		end
+
+	interface: EV_UNTITLED_DIALOG;
+			-- Provides a common user interface to platform dependent
+			-- functionality implemented by `Current'
+
+indexing
+	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
+	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
+	source: "[
+			 Eiffel Software
+			 356 Storke Road, Goleta, CA 93117 USA
+			 Telephone 805-685-1006, Fax 805-685-6869
+			 Website http://www.eiffel.com
+			 Customer support http://support.eiffel.com
+		]"
+
+
+
+
+end -- class EV_DIALOG_IMP
+
