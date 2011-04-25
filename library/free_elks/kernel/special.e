@@ -20,10 +20,16 @@ inherit
 
 create
 	make,
+	make_empty,
 	make_filled,
 	make_from_native_array
 
 feature {NONE} -- Initialization
+
+	make_empty (n: INTEGER)
+		do
+			make (n)
+		end
 
 	make (n: INTEGER)
 			-- Create a special object for `n' entries.
@@ -450,6 +456,55 @@ feature -- Element change
 
 feature -- Resizing
 
+	keep_head (n: INTEGER)
+			-- Keep the first `n' entries.
+		require
+			non_negative_argument: n >= 0
+			less_than_count: n <= count
+		do
+			set_count (n)
+		ensure
+			count_updated: count = n
+			kept: same_items (old twin, 0, 0, n)
+		end
+
+	keep_tail (n: INTEGER)
+			-- Keep the last `n' entries.
+		require
+			non_negative_argument: n >= 0
+			less_than_count: n <= count
+		do
+			overlapping_move (count - n, 0, n)
+			set_count (n)
+		ensure
+			count_updated: count = n
+			kept: same_items (old twin, n, 0, n)
+		end
+
+	remove_head (n: INTEGER)
+			-- Remove the first `n' entries.
+		require
+			non_negative_argument: n >= 0
+			less_than_count: n <= count
+		do
+			keep_tail (count - n)
+		ensure
+			count_updated: count = old count - n
+			kept: same_items (old twin, n, 0, count)
+		end
+
+	remove_tail (n: INTEGER)
+			-- Keep the first  `count - n' entries.
+		require
+			non_negative_argument: n >= 0
+			less_than_count: n <= count
+		do
+			keep_head (count - n)
+		ensure
+			count_updated: count = old count - n
+			kept: same_items (old twin, 0, 0, count)
+		end
+
 	resized_area (n: INTEGER): like Current
 			-- Create a copy of Current with a count of `n'
 		require
@@ -574,5 +629,19 @@ feature {NONE} -- Implementation
 		ensure
 			element_size_non_negative: Result >= 0
 		end
+
+	set_count (n: INTEGER)
+			-- Set `count' with `n'.
+		require
+			n_non_negative: n >= 0
+			valid_new_count: n <= count
+--		external
+--			"built_in"
+do
+		ensure
+			count_set: count = n
+			capacity_preserved: capacity = old capacity
+		end
+
 
 end

@@ -20,27 +20,28 @@ inherit
 
 	EV_CONTAINER_IMP
 		undefine
-			replace
+			replace,
+			interface_item
 		redefine
 			interface,
-			initialize
+--			initialize
 		end
 
 	EV_DYNAMIC_LIST_IMP [EV_WIDGET]
 		undefine
-			extend
+			extend,
+			initialize
 		redefine
 			interface,
-			initialize
 		end
 
 feature {NONE} -- Initialization
 
-	initialize is
+	make is
 			-- Initialize `Current'
 		do
-			Precursor {EV_CONTAINER_IMP}
-			Precursor {EV_DYNAMIC_LIST_IMP}
+--			Precursor {EV_CONTAINER_IMP}
+--			Precursor {EV_DYNAMIC_LIST_IMP}
 		end
 
 feature {NONE} -- Implementation

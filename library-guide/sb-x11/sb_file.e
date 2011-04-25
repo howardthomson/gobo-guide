@@ -41,7 +41,7 @@ feature
 	user_directory (user: STRING): STRING is
 			-- Return the home directory for a given user.
 		do
-			if nyi_test then not_yet_implemented end
+--			if nyi_test then not_yet_implemented end
 		--	create Result.make_empty
 			Result := (once "/").twin
 		end
@@ -59,7 +59,7 @@ feature
       	local
          	buffer: STRING;
 		do
-			if nyi_test then not_yet_implemented end
+--			if nyi_test then not_yet_implemented end
 		--	create Result.make_empty
 		--	Result := (once "/").twin
 			Result := current_working_directory

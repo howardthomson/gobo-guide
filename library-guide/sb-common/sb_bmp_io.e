@@ -21,6 +21,7 @@ inherit
 	SB_DEFS
 
 	SB_EXPANDED
+	SB_ANY
 
 feature -- Data
 
@@ -33,22 +34,22 @@ feature -- Data
 
 feature -- Actions
 
-	load(store: SB_STREAM): BOOLEAN is
+	load (store: SB_STREAM): BOOLEAN
 			-- Load image from stream
 		local
-			c1, c2: INTEGER;
+			c1, c2: INTEGER
 			bfSize, bfOffBits, biSize, biWidth, biHeight, biPlanes,
 			biBitCount, biCompression, biSizeImage, biXPelsPerMeter,
-			biYPelsPerMeter, biClrUsed, biClrImportant,bPad,maxpixels: INTEGER;
-			i, j, ix, ok, cmaplen: INTEGER;
-			colormap: ARRAY [INTEGER_8];
-			error: BOOLEAN;
+			biYPelsPerMeter, biClrUsed, biClrImportant,bPad,maxpixels: INTEGER
+			i, j, ix, ok, cmaplen: INTEGER
+			colormap: ARRAY [INTEGER_8]
+			error: BOOLEAN
 		do
 			if not error then
 				-- Check signature
 			--	fx_trace(0, <<"SB_BM_IO::load -- About to read first byte" >>)
-				c1 := store.read_uint8;
-				c2 := store.read_uint8;
+				c1 := store.read_uint8
+				c2 := store.read_uint8
 
 				if c1 /= 66 or else c2 /= 77 then	-- "bm"
 			--		fx_trace(0, <<"SB_BM_IO::load -- Not 'bm': ", c1.out, " ", c2.out >>)
@@ -57,39 +58,39 @@ feature -- Actions
 			--		fx_trace(0, <<"SB_BM_IO::load -- 'bm' OK" >>)
 				end
 
-				-- Get size and offset
-				bfSize := read32(store);
-				c1 := read16(store);
-				c1 := read16(store);
-				bfOffBits := read32(store);
-				biSize := read32(store);
+					-- Get size and offset
+				bfSize 		:= read32 (store)
+				c1			:= read16 (store)
+				c1 			:= read16 (store)
+				bfOffBits 	:= read32 (store)
+				biSize 		:= read32 (store)
 
 				if biSize = WIN_NEW or else biSize = OS2_NEW then
-					-- New bitmap format
-					biWidth         := read32(store);
-					biHeight        := read32(store);
-					biPlanes        := read16(store);
-					biBitCount      := read16(store);
-					biCompression   := read32(store);
-					biSizeImage     := read32(store);
-               		biXPelsPerMeter := read32(store);
-               		biYPelsPerMeter := read32(store);
-               		biClrUsed       := read32(store);
-               		biClrImportant  := read32(store);
+						-- New bitmap format
+					biWidth         := read32(store)
+					biHeight        := read32(store)
+					biPlanes        := read16(store)
+					biBitCount      := read16(store)
+					biCompression   := read32(store)
+					biSizeImage     := read32(store)
+               		biXPelsPerMeter := read32(store)
+               		biYPelsPerMeter := read32(store)
+               		biClrUsed       := read32(store)
+               		biClrImportant  := read32(store)
             	else
-               		-- Old format
+               			-- Old format
                		biWidth         := read16(store);
                		biHeight        := read16(store);
                		biPlanes        := read16(store);
                		biBitCount      := read16(store);
 
-               		-- Not in old versions so have to compute them
-               		biSizeImage := (((biPlanes * biBitCount * biWidth) + 31) // 32) * 4 * biHeight;
-               		biCompression   := BIH_RGB;
-               		biXPelsPerMeter := 0;
-               		biYPelsPerMeter := 0;
-               		biClrUsed       := 0;
-               		biClrImportant  := 0;
+               			-- Not in old versions so have to compute them
+               		biSizeImage := (((biPlanes * biBitCount * biWidth) + 31) // 32) * 4 * biHeight
+               		biCompression   := BIH_RGB
+               		biXPelsPerMeter := 0
+               		biYPelsPerMeter := 0
+               		biClrUsed       := 0
+               		biClrImportant  := 0
             	end
 
 			--	fx_trace(0, <<"SB_BMP_IO::load -- ",
@@ -111,10 +112,10 @@ feature -- Actions
 			--	>>)
 
 
-            	-- Ought to be 1
+            		-- Ought to be 1
             	if biPlanes /= 1 then
 				--	fx_trace(0, <<"SB_BM_IO::load -- biPlanes /= 1: ", biPlanes.out >>)
-            		sb_exceptions.raise("loadbmp")
+            		sb_exceptions.raise ("loadbmp")
             	end
 
             	-- Check for supported depths
@@ -124,51 +125,50 @@ feature -- Actions
             	and then biBitCount /= 24
             	and then biBitCount /= 32 then
 				--	fx_trace(0, <<"SB_BM_IO::load -- biBitCount /= 1 | 2 | 4 | 24 | 32" >>)
-               		sb_exceptions.raise("loadbmp");
+               		sb_exceptions.raise ("loadbmp")
             	end
 
-            	-- Check for supported compressions
+            		-- Check for supported compressions
             	if biCompression /= BIH_RGB and then biCompression /= BIH_RLE4 and then biCompression /= BIH_RLE8 then
 				--	fx_trace(0, <<"SB_BM_IO::load -- biCompression bad" >>)
-               		sb_exceptions.raise("loadbmp");
+               		sb_exceptions.raise ("loadbmp")
             	end
 
-            	-- Skip ahead to colormap
-            	bPad := 0;
+            		-- Skip ahead to colormap
+            	bPad := 0
             	if biSize /= WIN_OS2_OLD then
-
-               		-- 40 bytes read from biSize to biClrImportant
-               		j := biSize - 40;
+               			-- 40 bytes read from biSize to biClrImportant
+               		j := biSize - 40
                		from
-                  		i := 0;
+                  		i := 0
                		until
                   		i >= j
                		loop
-                  		c1 := store.read_uint8;
-                  		i := i + 1;
+                  		c1 := store.read_uint8
+                  		i := i + 1
                		end
-               		bPad := bfOffBits - (biSize + 14);
+               		bPad := bfOffBits - (biSize + 14)
             	end
 
-            	-- load up colormap, if any
+            		-- load up colormap, if any
             	if biBitCount <= 8 then
                		if biClrUsed /= 0 then
-                  		cmaplen := biClrUsed;
+                  		cmaplen := biClrUsed
                		else
                   		cmaplen := 1 |<< biBitCount.to_integer_8
                		end
-               		create colormap.make(1, 256 * 3);
+               		create colormap.make(1, 256 * 3)
                		from
                   		i := 0;
                		until
                   		i >= cmaplen
                		loop
-                  		colormap.put(store.read_int8, 3 * i + 3);
-                  		colormap.put(store.read_int8, 3 * i + 2);
-                  		colormap.put(store.read_int8, 3 * i + 1);
+                  		colormap.put(store.read_int8, 3 * i + 3)
+                  		colormap.put(store.read_int8, 3 * i + 2)
+                  		colormap.put(store.read_int8, 3 * i + 1)
                   		if biSize /= WIN_OS2_OLD then
-                     		c1 := store.read_uint8;
-                     		bPad := bPad - 4;
+                     		c1 := store.read_uint8
+                     		bPad := bPad - 4
                   		end
                   		i := i + 1
                		end
@@ -181,16 +181,16 @@ feature -- Actions
                		until
                   		bPad <= 0
                		loop
-                  		c1 := store.read_uint8;
-                  		bPad := bPad - 1;
+                  		c1 := store.read_uint8
+                  		bPad := bPad - 1
                		end
             	end
 
-            	-- Allocate memory
-            	maxpixels := biWidth * biHeight;
-            	create data.make(1, maxpixels * 3);
+            		-- Allocate memory
+            	maxpixels := biWidth * biHeight
+            	create data.make(1, maxpixels * 3)
 
-            	-- load up the image
+            		-- load up the image
             	inspect biBitCount
             	when 1 then
 				--	fx_trace(0, <<"SB_BM_IO::load -- load_bmp_1" >>)
@@ -214,37 +214,37 @@ feature -- Actions
 
             	if Result then
             	--	fx_trace(0, <<"SB_BMP_IO::load - load_bmp OK">>)
-               		width := biWidth;
-               		height := biHeight;
+               		width := biWidth
+               		height := biHeight
                		-- Apply colormap
                		if biBitCount <= 8 then
 						from
-							i := 0;
+							i := 0
 						until
 							i >= maxpixels
 						loop
-							ix := data.item(2*maxpixels+i+1).to_integer;
-                        	data.put(colormap.item(3*ix+1),3*i+1);
-                        	data.put(colormap.item(3*ix+2),3*i+2);
-                        	data.put(colormap.item(3*ix+3),3*i+3);
-                        	i := i + 1;
+							ix := data.item (2*maxpixels+i+1).to_integer
+                        	data.put (colormap.item(3*ix+1),3*i+1)
+                        	data.put (colormap.item(3*ix+2),3*i+2)
+                        	data.put (colormap.item(3*ix+3),3*i+3)
+                        	i := i + 1
                   		end
                		end
-               		-- No transparent color:- bitmaps are opaque
-               		clear_color := 0;
+               			-- No transparent color:- bitmaps are opaque
+               		clear_color := 0
             	end
          	--	fx_trace(0, << "SB_BMP_IO::load - SUCCEEDED !!" >> )
          	else
          	--	fx_trace(0, << "SB_BMP_IO::load - FAILED" >> )
-            	Result := False;
+            	Result := False
             	data := Void
 			end
 		rescue
-         	error := True;
-         	retry;
+         	error := True
+         	retry
 		end
 
-	save(store: SB_STREAM; dt: ARRAY[INTEGER_8]; clr, w, h: INTEGER): BOOLEAN is
+	save (store: SB_STREAM; dt: ARRAY[INTEGER_8]; clr, w, h: INTEGER): BOOLEAN is
 			-- Save a gif file to a stream
 		do
 		ensure
@@ -253,13 +253,13 @@ feature -- Actions
 
 feature {NONE} -- Implementation
 
-	BIH_RGB: INTEGER is 0;
-	BIH_RLE8: INTEGER is 1;
-	BIH_RLE4: INTEGER is 2;
+	BIH_RGB: INTEGER is 0
+	BIH_RLE8: INTEGER is 1
+	BIH_RLE4: INTEGER is 2
 
-	WIN_OS2_OLD: INTEGER is 12;
-	WIN_NEW: INTEGER is 40;
-	OS2_NEW: INTEGER is 64;
+	WIN_OS2_OLD: INTEGER is 12
+	WIN_NEW: INTEGER is 40
+	OS2_NEW: INTEGER is 64
 
 	-- MONO returns total intensity of r,g,b triple (i = .33R + .5G + .17B)
 	MONO (r,g,b: INTEGER): INTEGER is
@@ -291,13 +291,13 @@ feature {NONE} -- Implementation
 					| ((c2 |<< 8) & 0xff00)
       	end
 
-   	load_bmp_1(store: SB_STREAM; pic8: ARRAY[INTEGER_8]; start, w, h: INTEGER): BOOLEAN is
+   	load_bmp_1 (store: SB_STREAM; pic8: ARRAY[INTEGER_8]; start, w, h: INTEGER): BOOLEAN is
       	local
          	i, j, bitnum, padw: INTEGER;
          	pp, c: INTEGER;
          	b8: INTEGER	-- WAS BIT 32;
       	do
-			c := 0;
+			c := 0
 --         	padw := ((w+31)//32)*32;
 --
 --         	-- Read data

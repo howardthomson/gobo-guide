@@ -15,17 +15,12 @@ inherit
 		end
 	
 	EV_BUTTON_IMP
-		export
-			{NONE}
-		--		c_object
-			{EV_CONTAINER_IMP}
-		--		visual_widget
 		undefine
 			default_alignment
 		redefine
 			interface,
-			old_make	--,
---			initialize
+			old_make,
+			make
 		end
 
 	EV_RADIO_PEER_IMP

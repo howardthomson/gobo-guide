@@ -22,7 +22,7 @@ inherit
 	EV_BOX_IMP
 		redefine
 			interface,
-			make
+			old_make
 		end
 
 create
@@ -30,7 +30,7 @@ create
 
 feature {NONE} -- Initialization
 	
-	make (an_interface: like interface) is
+	old_make (an_interface: like interface) is
 			-- Create a Slyboots vertical box.
 		do	
 			base_make (an_interface)

@@ -24,7 +24,7 @@ class ANY
 
 feature {NONE}
 
-	int_abs (i: INTEGER): INTEGER is
+	unused_int_abs (i: INTEGER): INTEGER is
 			-- Replacement for faulty INTEGER_32.abs
 			-- Faulty as of 2007-08-13
 		do
@@ -35,28 +35,28 @@ feature {NONE}
 			end
 		end
 
-	die_with_code (i: INTEGER) is
+	unused_die_with_code (i: INTEGER) is
 			-- SE routine to exit (horribly!)
 			-- with specified exit code
 		do
 			-- TODO
 		end
 
-	print_run_time_stack is
+	unused_print_run_time_stack is
 		external "C"
 		alias "GE_print_stack"
 		end
 
-	not_yet_implemented is
+	unused_not_yet_implemented is
 		do
 			-- TODO
 		end
 
 feature {ANY}
 
-	trace_flag: BOOLEAN is True
+	unused_trace_flag: BOOLEAN is True
 
-	fx_trace (n: INTEGER; sa: ARRAY [STRING]) is
+	unused_fx_trace (n: INTEGER; sa: ARRAY [STRING]) is
     	local
         	i: INTEGER
          	s: STRING
@@ -77,7 +77,7 @@ feature {ANY}
         	end
       	end
 
-	fx_trace2 (s: STRING) is
+	unused_fx_trace2 (s: STRING) is
 		do
 			if trace_flag then
 				io.put_string (s)
@@ -85,12 +85,12 @@ feature {ANY}
 			end
 		end
 
-	edp_trace: EDP_TRACE is
+	unused_edp_trace: EDP_TRACE is
 		once
 			create Result
 		end
 
-	rq_trace (sa: ARRAY [ STRING ]): BOOLEAN is
+	unused_rq_trace (sa: ARRAY [ STRING ]): BOOLEAN is
 			-- Used to trace redefined routines by using the
 			-- require clause
 		do
@@ -98,7 +98,7 @@ feature {ANY}
 			Result := True
 		end
 
-	out_or_void (o: ANY): STRING is
+	unused_out_or_void (o: ANY): STRING is
 		do
 			if o = Void then
 				Result := once "Void"
@@ -107,34 +107,34 @@ feature {ANY}
 			end
 		end
 
-	trace_s (s: STRING) is
+	unused_trace_s (s: STRING) is
 		do
 			io.put_string (s)
 		end
 
-	trace_nl is
+	unused_trace_nl is
 		do
 			trace_s (once "%N")
 		end
 
-   trace_sa(sa: ARRAY[STRING]) is
+   unused_trace_sa(sa: ARRAY[STRING]) is
    	do
    		fx_trace (0, sa)
    	end
 
-	fxerror (s: STRING): BOOLEAN is
+	unused_fxerror (s: STRING): BOOLEAN is
 		do
 			io.put_string (s)
 			io.put_new_line
 			die_with_code (1)
 		end
 
-	once_stack_trace is
+	unused_once_stack_trace is
 		once
 		--	print_run_time_stack
 		end
 
-	todo (s: STRING) is
+	unused_todo (s: STRING) is
 			-- Notify incomplete routine
 			--| extend to report each instance only once ??
 			--| use dictonary of hashed values of generated report strings
@@ -146,20 +146,20 @@ feature {ANY}
 	         end
       	end
 
-	S_alpha:	INTEGER is 1
-	S_beta:		INTEGER is 2
-	S_gamma:	INTEGER is 3
+	unused_S_alpha:	INTEGER is 1
+	unused_S_beta:		INTEGER is 2
+	unused_S_gamma:	INTEGER is 3
 
-	implementation_status: INTEGER is
+	unused_implementation_status: INTEGER is
 		do
 			Result := S_alpha
 		end
 
 feature -- Tracing implementation
 
-	tracing: BOOLEAN is True
+	unused_tracing: BOOLEAN is True
 
-	report_trace: BOOLEAN is
+	unused_report_trace: BOOLEAN is
 		do
 			io.put_string ("Trace PC: ")
 			io.put_string (program_counter.out)
@@ -168,18 +168,18 @@ feature -- Tracing implementation
 			Result := True
 		end
 
-	program_counter: INTEGER is
+	unused_program_counter: INTEGER is
 		do
 --		external "C"
 --		alias "pc"
 		end
 
-	ggg: EDP_GLOBAL is
+	unused_ggg: EDP_GLOBAL is
 		once
 			create Result
 		end
 
-	discard_result is
+	unused_discard_result is
 			-- discard Result
 			-- Avoid the need to assign result to a
 			-- redundantly declared 'variable'
@@ -187,9 +187,9 @@ feature -- Tracing implementation
 		end
 
 
-	stop_on_unimplemented: BOOLEAN is True
+	unused_stop_on_unimplemented: BOOLEAN is True
 
-	implemented (ok: BOOLEAN): BOOLEAN is
+	unused_implemented (ok: BOOLEAN): BOOLEAN is
 		do
 			if (not ok) and then stop_on_unimplemented then
 				not_yet_implemented

@@ -626,7 +626,7 @@ feature -- EDP_DISPLAY_TARGET implementation
 	report_error (an_error: UT_ERROR) is
 		do
 			--	Add to errors tree
-			errors_list.create_item_last (Void, an_error.default_message, Void, Void, Void, False).discard_result
+--			errors_list.create_item_last (Void, an_error.default_message, Void, Void, Void, False).discard_result
 			--	Set current tab as errors tab
 		--	.... TODO	
 		end

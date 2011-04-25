@@ -20,16 +20,17 @@ inherit
 
 	EV_CELL_IMP
 		undefine
-			make
+			old_make
 		redefine
+			make,
 			interface,
-			initialize
+--			initialize
 		end
 
 	EV_FONTABLE_IMP
 		redefine
 			interface,
-			initialize
+--			initialize
 		end
 
 create
@@ -43,7 +44,7 @@ feature {NONE} -- Initialization
 			Result := True
 		end
 
-	make (an_interface: like interface) is
+	old_make (an_interface: like interface) is
 			-- Create frame.
 		do
 			base_make (an_interface)
@@ -52,12 +53,12 @@ feature {NONE} -- Initialization
 			todo_class_line ("__EV_FRAME_IMP__", "__LINE__")
 		end
 
-	initialize is
+	make is
 			-- Initialize `Current'.
 		do
 			set_style (Ev_frame_etched_in)
 			align_text_left
-			Precursor {EV_CELL_IMP}
+--			Precursor {EV_CELL_IMP}
 		end
 
 feature -- Access

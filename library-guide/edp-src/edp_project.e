@@ -183,7 +183,7 @@ feature -- Process -------------------------------------------------------------
 		require
 			--is_generated or is_compiled
 		do
-			trace_s("Execute -- Not Implemented%N")
+--			trace_s("Execute -- Not Implemented%N")
 		end
 
 ---------------------------------------------------------------------------------

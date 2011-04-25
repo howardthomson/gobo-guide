@@ -59,7 +59,7 @@ feature {NONE} -- Initialization
 			enable_word_wrapping
 			set_editable (True)
 			set_background_color ((create {EV_STOCK_COLORS}).white)
-			Precursor {EV_TEXT_COMPONENT_IMP}
+--			Precursor {EV_TEXT_COMPONENT_IMP}
 		end
 
 feature -- Access

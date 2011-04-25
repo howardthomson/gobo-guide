@@ -19,6 +19,7 @@ inherit
 	SB_DEFS
 
 	SB_EXPANDED
+	SB_ANY
 
 feature -- Data
 
@@ -102,7 +103,7 @@ feature -- Actions
             	end
             --	fx_trace(0, <<"SB_GIF_IO::load - DONE">>)
             else
-            	fx_trace(0, <<"SB_GIF_IO::load - signature BAD">>)
+--            	fx_trace(0, <<"SB_GIF_IO::load - signature BAD">>)
          	end
 		end
 
@@ -164,7 +165,7 @@ feature {NONE} -- Implementation
          then
             Result := True
          else
-         	fx_trace(0, <<"SB_GIF_IO::check_signature - FAIL">>)
+--         	fx_trace(0, <<"SB_GIF_IO::check_signature - FAIL">>)
          end
       end
 

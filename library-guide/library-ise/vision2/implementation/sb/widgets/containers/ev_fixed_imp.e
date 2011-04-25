@@ -22,8 +22,9 @@ inherit
 
 	EV_WIDGET_LIST_IMP
 		redefine
+			make,
 			interface,
-			initialize
+--			initialize
 		end
 
 create
@@ -31,7 +32,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	old_make (an_interface: like interface) is
 			-- Create the fixed container.
 		do
 			base_make (an_interface)
@@ -39,12 +40,12 @@ feature {NONE} -- Initialization
 --			set_c_object ({EV_GTK_DEPENDENT_EXTERNALS}.gtk_fixed_new)
 		end
 
-	initialize is
+	make is
 			-- Initialize `Current'.
 		do
 			todo_class_line ("__EV_FIXED_IMP__", "__LINE__")
 --			{EV_GTK_EXTERNALS}.gtk_fixed_set_has_window (container_widget, True)
-			Precursor
+--			Precursor
 		end
 
 feature -- Status setting
