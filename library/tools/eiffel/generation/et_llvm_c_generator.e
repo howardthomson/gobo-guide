@@ -23,8 +23,10 @@ note
 	]"
 	
 	todo: "[
+		Fix TYPE.name generating ->a1 references and assignments
+	
 		Generate timing code per routine, for selected classes, to report min,max,std_dev etc execution times
-		for a specific execution of a routine, to look for opportunities for parrallelism ...
+		for a specific execution of a routine, to look for opportunities for parallelism ...
 
 		Find all the class types that are reachable from the ET_C_GENERATOR and the ET_DYNAMIC_TYPEs, most
 		of which will need to be re-created when loading a previously generated .so library.
@@ -81,6 +83,9 @@ note
 			Adapt push_operand et al to assign reference arguments to local reference variables to ensure that
 			the GC stack marking code has access to all intermediate reference routine arguments.
 
+			Suppress GC tracking in routines for which the GC cannot be called ...
+				No creation calls, and no routines calls that could invoke the GC indirectly
+		
 		Write code to establish the set of dynamic types that are referenced during the code generation phase.
 		Establish whether and to what extent assertions will fail for these types when they are dynamically
 		recreated from previously generated code libraries.
