@@ -26,37 +26,37 @@ inherit
 		export {NONE} all
 		end
 
-creation
+create
 
 	make, make_sb, make_opts, make_ev
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_FRAME"
 		end
 
 feature -- Creation
 
-	make_ev is
+	make_ev
 			-- Make for Eiffel Vision
 		do
 			make (Void)
 		end
 
-   make (p: SB_COMPOSITE) is
+   make (p: SB_COMPOSITE)
          -- Construct frame window
       do
          make_opts (p, Frame_normal, 0,0,0,0, Default_pad, Default_pad, Default_pad, Default_pad)
       end
 
-	make_sb (p: SB_COMPOSITE; opts: INTEGER) is
+	make_sb (p: SB_COMPOSITE; opts: INTEGER)
 		do
 			make_opts (p, opts, 0,0,0,0,	Default_pad, Default_pad, Default_pad, Default_pad)
 		end
 
-	make_opts_ev (opts: INTEGER; x,y,w,h, pl,pr,pt,pb: INTEGER) is
+	make_opts_ev (opts: INTEGER; x,y,w,h, pl,pr,pt,pb: INTEGER)
     		-- Construct frame window
     	do
 	        make_window_ev
@@ -79,7 +79,7 @@ feature -- Creation
 	        end
 		end
 
-	make_opts (p: SB_COMPOSITE; opts: INTEGER; x,y,w,h, pl,pr,pt,pb: INTEGER) is
+	make_opts (p: SB_COMPOSITE; opts: INTEGER; x,y,w,h, pl,pr,pt,pb: INTEGER)
     		-- Construct frame window
     	do
 	        make_window (p, opts, x,y,w,h)
@@ -124,23 +124,23 @@ feature -- Data
 	border: INTEGER
 			-- Border width in pixels
 
-	Default_pad: INTEGER is 2
+	Default_pad: INTEGER = 2
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
     		-- Return default width
     	do
 			Result := pad_left + pad_right + (border*2)
 		end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       do
          Result := pad_top + pad_bottom + (border*2)
       end
 
-   get_frame_style: INTEGER is
+   get_frame_style: INTEGER
          -- Get current frame style
       do
          Result := (options & Frame_mask)
@@ -148,7 +148,7 @@ feature -- Queries
 
 feature -- Actions
 
-  set_frame_style (style: INTEGER) is
+  set_frame_style (style: INTEGER)
          -- Change frame style
       local
          opts: INTEGER
@@ -172,7 +172,7 @@ feature -- Actions
          end
       end
   
-   set_pad_top (pt: INTEGER) is
+   set_pad_top (pt: INTEGER)
          -- Change top padding
       do
          if pad_top /= pt then
@@ -182,7 +182,7 @@ feature -- Actions
          end
       end
 
-   set_pad_bottom (pb: INTEGER) is
+   set_pad_bottom (pb: INTEGER)
          -- Change bottom padding
       do
          if pad_bottom /= pb then
@@ -192,7 +192,7 @@ feature -- Actions
          end
       end
 
-   set_pad_left (pl: INTEGER) is
+   set_pad_left (pl: INTEGER)
          -- Change left padding
       do
          if pad_left /= pl then
@@ -202,7 +202,7 @@ feature -- Actions
          end
       end
 
-   set_pad_right (pr: INTEGER) is
+   set_pad_right (pr: INTEGER)
          -- Change right padding
       do
          if pad_right /= pr then
@@ -212,7 +212,7 @@ feature -- Actions
          end
       end
 
-  set_hilite_color (clr: INTEGER) is
+  set_hilite_color (clr: INTEGER)
          -- Change highlight color
       do
          if clr /= hilite_color then
@@ -221,7 +221,7 @@ feature -- Actions
          end
       end
 
-   set_shadow_color (clr: INTEGER) is
+   set_shadow_color (clr: INTEGER)
          -- Change shadow color
       do
          if clr /= shadow_color then
@@ -230,7 +230,7 @@ feature -- Actions
          end
       end
 
-  set_border_color (clr: INTEGER) is
+  set_border_color (clr: INTEGER)
          -- Change border color
       do
          if clr /= border_color then
@@ -239,7 +239,7 @@ feature -- Actions
          end
       end
 
-  set_base_color (clr: INTEGER) is
+  set_base_color (clr: INTEGER)
          -- Change base gui color
       do
          if clr /= base_color then
@@ -250,7 +250,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	on_paint (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN is
+	on_paint (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN
 		local
 			ev: SB_EVENT
 			dc: SB_DC_WINDOW
