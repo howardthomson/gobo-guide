@@ -40,26 +40,24 @@ create
 
 feature {NONE} -- Implementation
 
-	needs_event_box: BOOLEAN is
+	needs_event_box: BOOLEAN
 			-- Does `a_widget' need an event box?
 		do
 			Result := True
 		end
 
-	make (an_interface: like interface) is
+	old_make (an_interface: like interface)
 			-- Create the tool-bar.
 		do
-			base_make (an_interface)
+			assign_interface (an_interface)
 	--		set_c_object ({EV_GTK_EXTERNALS}.gtk_toolbar_new)
 		end
 
-	initialize is
+	make
 			-- Initialize `Current'.
-		local
-	--		a_cs: EV_GTK_C_STRING
 		do
-			Precursor {EV_ITEM_LIST_IMP}
-			Precursor {EV_PRIMITIVE_IMP}
+--			Precursor {EV_ITEM_LIST_IMP}
+--			Precursor {EV_PRIMITIVE_IMP}
 
 				-- Set widget name so that the style can be used as set in EV_GTK_DEPENDENT_APPLICATION_IMP
 	--		a_cs := once "v2toolbar"
@@ -68,6 +66,11 @@ feature {NONE} -- Implementation
 	--		{EV_GTK_EXTERNALS}.gtk_toolbar_set_show_arrow (list_widget, False)
 			has_vertical_button_style := True
 			disable_vertical
+		end
+
+	initialize
+		do
+			TODO_class_line ("EV_TOOL_BAR_IMP::initialize", "__LINE__")
 		end
 
 	list_widget: POINTER is
@@ -120,7 +123,7 @@ feature -- Status setting
 			-- Disable vertical toolbar style (ie: Horizontal).
 		do
 			is_vertical := False
-	--		{EV_GTK_DEPENDENT_EXTERNALS}.gtk_toolbar_set_orientation (list_widget, 0)
+			TODO_class_line ("EV_TOOLBAR_IMP::disable_vertical", "__LINE__")
 		end
 
 feature {EV_DOCKABLE_SOURCE_I} -- Implementation
@@ -192,7 +195,7 @@ feature -- Implementation
 			end
 		end
 
-	insertion_position: INTEGER is
+	insertion_position: INTEGER
 			-- `Result' is index - 1 of item beneath the
 			-- current mouse pointer or count + 1 if over the toolbar
 			-- and not over a button.
@@ -210,7 +213,7 @@ feature -- Implementation
 --			end
 		end
 
-	insert_i_th (v: like item; i: INTEGER) is
+	insert_i_th (v: like item; i: INTEGER)
 			-- Insert `v' at position `i'.
 		local
 			v_imp: EV_ITEM_IMP
@@ -233,7 +236,7 @@ feature -- Implementation
 --			end
 		end
 
-	remove_i_th (i: INTEGER) is
+	remove_i_th (i: INTEGER)
 			-- Remove item at `i'-th position.
 		local
 			imp: EV_ITEM_IMP

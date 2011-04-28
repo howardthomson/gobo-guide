@@ -58,7 +58,6 @@ feature {NONE} -- Initialization
 			Precursor
 
 			create sb_application.make ("", "")
-
 --			put ("localhost:0", "DISPLAY")
 				-- This line may be uncommented to allow for display
 				-- redirection to another machine for debugging purposes

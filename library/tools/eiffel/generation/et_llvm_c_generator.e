@@ -23,7 +23,11 @@ note
 	]"
 	
 	todo: "[
-		Fix TYPE.name generating ->a1 references and assignments
+		Fix TYPE.name generating ->a1 references and assignments [Done]
+
+		Implement __CLASS__ as the class name in which the source text resides, rather than the (current) type
+		for which code is being generated. Currently, for Precursor calls __CLASS__ becomes the descendant class
+		from which the Precursor call comes ... which is confusing!
 	
 		Generate timing code per routine, for selected classes, to report min,max,std_dev etc execution times
 		for a specific execution of a routine, to look for opportunities for parallelism ...
@@ -26397,7 +26401,7 @@ feature {NONE} -- Type generation
 			end															-- GC
 				-- Attribute `runtime_name'.
 			a_file.put_character ('%T')
-			a_file.put_string ("char *name;")
+			a_file.put_string ("char *a1;")	-- Was `char *name;'
 			a_file.put_new_line
 			a_file.put_character ('}')
 			a_file.put_character (' ')

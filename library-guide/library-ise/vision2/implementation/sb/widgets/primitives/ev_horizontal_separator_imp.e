@@ -25,10 +25,14 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	old_make (an_interface: like interface) is
 				-- Create a horizontal gtk separator.
 		do
-			base_make (an_interface)
+			assign_interface (an_interface)
+		end
+
+	make
+		do
 			create {SB_SEPARATOR} sb_widget.make_ev
 		end
 

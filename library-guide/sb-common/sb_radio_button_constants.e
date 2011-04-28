@@ -21,14 +21,4 @@ feature -- RadioButton flags
 			Result := JUSTIFY_NORMAL | ICON_BEFORE_TEXT
 		end
 
-feature -- BIT Version
-
---	RADIOBUTTON_AUTOGRAY: BIT 32 is  1000 0000 0000 0000 0000 0000B; 		-- Automatically gray out when not updated
---	RADIOBUTTON_AUTOHIDE: BIT 32 is  1 0000 0000 0000 0000 0000 0000B;		-- Automatically hide when not updated
-
---	RADIOBUTTON_NORMAL: BIT 32 is
---		once
---			Result := JUSTIFY_NORMAL or ICON_BEFORE_TEXT
---		end
-
 end

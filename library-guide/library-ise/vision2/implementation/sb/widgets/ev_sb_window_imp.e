@@ -84,9 +84,9 @@ feature {NONE} -- Implementation
 				-- Set constraints so that resize does not break existing minimum sizing.
 			l_width := a_width.max (minimum_width)
 			l_height := a_height.max (minimum_height)
---			{EV_GTK_EXTERNALS}.gtk_window_resize (c_object, l_width, l_height)
---			{EV_GTK_EXTERNALS}.gtk_window_set_default_size (c_object, l_width, l_height)
-
+			sb_window.resize (l_width, l_height)
+				-- {EV_GTK_EXTERNALS}.gtk_window_set_default_size (c_object, l_width, l_height)
+	--		sb_window.set_default_size (l_width, l_height)
 				-- Set configure_event_pending to True so that dimensions are updated immediately.
 			configure_event_pending := True
 

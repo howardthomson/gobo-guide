@@ -24,7 +24,7 @@ inherit
 	EV_ITEM_IMP
 		redefine
 			interface,
-			initialize
+--			initialize
 		end
 
 	EV_SENSITIVE_IMP
@@ -48,33 +48,26 @@ feature {NONE} -- Initialization
 
 	is_dockable: BOOLEAN is False
 
-	make (an_interface: like interface) is
+	old_make (an_interface: like interface) is
 			-- Create a menu.
 		do
-			base_make (an_interface)
+			assign_interface (an_interface)
 --			set_c_object ({EV_GTK_DEPENDENT_EXTERNALS}.gtk_image_menu_item_new)
 			pixmapable_imp_initialize
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_image_menu_item_set_image (c_object, pixmap_box)
 		end
 
-	initialize is
+	make is
 			-- Initialize `Current'
-		local
-			box: POINTER
 		do
-			Precursor {EV_ITEM_IMP}
---			real_signal_connect_after (visual_widget, once "activate", agent (App_implementation.gtk_marshal).menu_item_activate_intermediary (c_object), Void)
+--			Precursor {EV_ITEM_IMP}
 			textable_imp_initialize
 
---			box := {EV_GTK_EXTERNALS}.gtk_hbox_new (False, 0)
---			{EV_GTK_EXTERNALS}.gtk_container_add (c_object, box)
---			{EV_GTK_EXTERNALS}.gtk_widget_show (box)
 
 --			if pixmap_box = default_pointer then
 --				pixmapable_imp_initialize
 --				{EV_GTK_EXTERNALS}.gtk_box_pack_start (box, pixmap_box, False, True, 0)
 --			end
---			{EV_GTK_EXTERNALS}.gtk_box_pack_start (box, text_label, True, True, 0)
 		end
 
 feature -- Element change

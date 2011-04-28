@@ -19,33 +19,4 @@ feature
 
 	TABBOOK_MASK		: INTEGER is 0x00060000	-- Mask of used bits
 
-feature -- BIT Version
-
---	   TABBOOK_TOPTABS: BIT 32 is 0B;
-         -- Tabs on top (default)
-
---	   TABBOOK_BOTTOMTABS: BIT 32 is 100000000000000000B;
-         -- Tabs on bottom
-
---	   TABBOOK_SIDEWAYS: BIT 32 is 1000000000000000000B;
-         -- Tabs on left
-
---	   TABBOOK_LEFTTABS: BIT 32 is
-         -- Tabs on left
---	      once
---	         Result := TABBOOK_SIDEWAYS or TABBOOK_TOPTABS;
---	      end
-
---	   TABBOOK_RIGHTTABS: BIT 32 is
-         -- Tabs on right
---	      once
---	         Result := TABBOOK_SIDEWAYS or TABBOOK_BOTTOMTABS;
---	      end
-
---	   TABBOOK_NORMAL: BIT 32 is 0B;
-
---	   TABBOOK_MASK: BIT 32 is
---	      once
---	         Result := TABBOOK_SIDEWAYS or TABBOOK_BOTTOMTABS
---	      end
 end

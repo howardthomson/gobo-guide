@@ -26,6 +26,9 @@ inherit
 			dispose
 		end
 
+	SB_ANY
+	SB_SHARED_APPLICATION
+	
 feature {EV_INTERMEDIARY_ROUTINES, EV_ANY_I, EV_STOCK_PIXMAPS_IMP} -- Implementation
 
 	App_implementation: EV_APPLICATION_IMP is

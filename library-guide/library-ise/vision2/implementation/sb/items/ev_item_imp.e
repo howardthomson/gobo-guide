@@ -1,5 +1,5 @@
 indexing
-	description: "EiffelVision item, gtk implementation"
+	description: "EiffelVision item, Slyboots implementation"
 	legal: "See notice at end of class.";
 	status: "See notice at end of class."
 	date: "$Date: 2007-03-22 16:17:43 -0800 (Thu, 22 Mar 2007) $";

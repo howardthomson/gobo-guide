@@ -30,16 +30,16 @@ create
 
 feature -- Initialization
 
-	make (an_interface: like interface) is
+	old_make (an_interface: like interface)
 			-- Call base make only.
 		do
 			base_make (an_interface)
 		end
 
-	initialize is
+	make
 			-- Initialize `Current'.
 		do
-			timeout_agent_internal := agent (App_implementation.gtk_marshal).on_timeout_intermediary (object_id)
+--#			timeout_agent_internal := agent (App_implementation.gtk_marshal).on_timeout_intermediary (object_id)
 			on_timeout_agent := agent on_timeout
 			set_is_initialized (True)
 		end
@@ -55,16 +55,16 @@ feature -- Access
 			-- Zero disables.
 		do
 			interval := an_interval
-			if timeout_connection_id > 0 then
-				{EV_GTK_EXTERNALS}.gtk_timeout_remove (timeout_connection_id)
-				timeout_connection_id := 0
-			end
+--			if timeout_connection_id > 0 then
+--#				{EV_GTK_EXTERNALS}.gtk_timeout_remove (timeout_connection_id)
+--				timeout_connection_id := 0
+--			end
 
 			if an_interval > 0 then
-				timeout_connection_id :=
-					{EV_GTK_CALLBACK_MARSHAL}.c_ev_gtk_callback_marshal_timeout_connect (
-						an_interval.max (20), timeout_agent_internal
-					)
+--#				timeout_connection_id :=
+--#					{EV_GTK_CALLBACK_MARSHAL}.c_ev_gtk_callback_marshal_timeout_connect (
+--#						an_interval.max (20), timeout_agent_internal
+--#					)
 			end
 		end
 
@@ -84,12 +84,12 @@ feature {EV_INTERMEDIARY_ROUTINES, EV_ANY_I} -- Implementation
 
 feature {NONE} -- Implementation
 
-	timeout_object: POINTER
+--	timeout_object: POINTER
 
-	timeout_connection_id: INTEGER
+--	timeout_connection_id: INTEGER
 		-- GTK handle on timeout connection.
 
-	timeout_agent_internal: PROCEDURE [EV_GTK_CALLBACK_MARSHAL, TUPLE]
+--#	timeout_agent_internal: PROCEDURE [EV_GTK_CALLBACK_MARSHAL, TUPLE]
 		-- Reusable agent used for connecting timeout to gtk implementation.
 
 feature {EV_ANY_I} -- Implementation
@@ -106,9 +106,9 @@ feature {NONE} -- Implementation
 	dispose is
 			-- Clean up
 		do
-			if timeout_connection_id > 0 then
-				{EV_GTK_EXTERNALS}.gtk_timeout_remove (timeout_connection_id)
-			end
+--			if timeout_connection_id > 0 then
+--#				{EV_GTK_EXTERNALS}.gtk_timeout_remove (timeout_connection_id)
+--			end
 			Precursor
 		end
 

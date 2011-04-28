@@ -12,9 +12,4 @@ feature
 	STATUSBAR_WITH_DRAGCORNER: INTEGER is 0x00020000	--	100000000000000000B;
          -- Causes the DragCorner to be shown
 
-feature -- BIT version
-
---	STATUSBAR_WITH_DRAGCORNER: BIT 32 is 100000000000000000B;
-         -- Causes the DragCorner to be shown
-
 end

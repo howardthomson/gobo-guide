@@ -13,7 +13,8 @@ inherit
 	EV_TREE_I
 		redefine
 			interface,
-			initialize,
+			make,
+--			initialize,
 			call_pebble_function,
 			append
 		end
@@ -67,11 +68,25 @@ feature {NONE} -- Initialization
 			Result := True
 		end
 
-	make (an_interface: like interface) is
+	old_make (an_interface: like interface) is
 			-- Create an empty Tree.
 		do
-			base_make (an_interface)
+			assign_interface (an_interface)
+		end
+
+	make
+		do
 			create {SB_TREE_LIST} sb_widget.make_ev
+--			Precursor {EV_ITEM_LIST_IMP}
+--			Precursor {EV_PRIMITIVE_IMP}
+--			Precursor {EV_TREE_I}
+
+			-- TODO
+			initialize_pixmaps
+		end
+
+	initialize
+		do
 		end
 
 	call_selection_action_sequences is
@@ -104,17 +119,6 @@ feature {NONE} -- Initialization
 				end
 			end
 			previous_selected_item := a_selected_item
-		end
-
-	initialize is
-			-- 
-		do
-			Precursor {EV_ITEM_LIST_IMP}
-			Precursor {EV_PRIMITIVE_IMP}
-			Precursor {EV_TREE_I}
-
-			-- TODO
-			initialize_pixmaps
 		end
 
 	create_pointer_motion_actions: EV_POINTER_MOTION_ACTION_SEQUENCE is

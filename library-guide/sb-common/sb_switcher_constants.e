@@ -24,17 +24,4 @@ feature
 			Result := SWITCHER_HCOLLAPSE | SWITCHER_VCOLLAPSE;
 		end
 
-feature -- BIT version
-
---	SWITCHER_HCOLLAPSE: BIT 32 is 100000000000000000B;
-			-- Collapse horizontally to width of current child
-
---	SWITCHER_VCOLLAPSE: BIT 32 is 1000000000000000000B;
-			-- Collapse vertically to height of current child
-
---	SWITCHER_MASK: BIT 32 is
---		once
---			Result := SWITCHER_HCOLLAPSE or SWITCHER_VCOLLAPSE;
---		end
-
 end

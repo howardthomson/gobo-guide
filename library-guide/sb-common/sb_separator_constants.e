@@ -19,18 +19,6 @@ feature -- Separator Options
          	Result := SEPARATOR_GROOVE | SEPARATOR_RIDGE | SEPARATOR_LINE
       	end
 
-feature -- Separator Options, BIT Version
-
---	SEPARATOR_NONE	: BIT 32 is 0B;         -- Nothing visible
---	SEPARATOR_GROOVE: BIT 32 is 1000000000000000B;		-- Etched-in looking groove
---	SEPARATOR_RIDGE	: BIT 32 is 10000000000000000B;		-- Embossed looking ridge
---	SEPARATOR_LINE	: BIT 32 is 100000000000000000B;	-- Simple line
-
---	SEPARATOR_MASK: BIT 32 is
---		once
---			Result := SEPARATOR_GROOVE or SEPARATOR_RIDGE or SEPARATOR_LINE
---		end
-
 feature { NONE }
 
 	SEPARATOR_EXTRA: INTEGER is 2;

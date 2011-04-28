@@ -63,7 +63,6 @@ feature {NONE} -- Initialization
 			-- Create a pixmap of size (1 * 1) with no mask.
 		do
 			base_make (an_interface)
-			create sb_pixmap_window.make_ev
 		end
 
 	make is
@@ -76,6 +75,7 @@ feature {NONE} -- Initialization
 
 			todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ 2")
 
+			create sb_pixmap_window.make_ev
 			init_default_values
 			clear
 		end

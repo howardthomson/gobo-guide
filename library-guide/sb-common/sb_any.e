@@ -4,6 +4,10 @@ note
 
 class SB_ANY
 
+inherit
+
+--	SB_SHARED_APPLICATION
+
 feature {NONE}
 
 	int_abs (i: INTEGER): INTEGER is

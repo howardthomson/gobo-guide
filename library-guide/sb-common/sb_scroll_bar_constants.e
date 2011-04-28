@@ -12,8 +12,4 @@ feature -- ScrollBar styles
 	SCROLLBAR_HORIZONTAL: INTEGER is 0x00020000	-- Horizontally oriented
 	SCROLLBAR_VERTICAL	: INTEGER is 0			-- Vertically oriented
 
-feature -- ScrollBar styles, BIT Version
-
---	SCROLLBAR_HORIZONTAL: BIT 32 is 10 0000 0000 0000 0000B; -- Horizontally oriented
---	SCROLLBAR_VERTICAL	: BIT 32 is 0B;						 -- Vertically oriented
 end

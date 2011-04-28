@@ -38,20 +38,4 @@ feature -- Tab Item orientations which affect border
          	Result := JUSTIFY_LEFT | JUSTIFY_CENTER_Y | ICON_BEFORE_TEXT | TAB_RIGHT | Frame_raised | Frame_thick
       	end
 
-feature -- BIT Version
-
---	TAB_TOP: BIT 32 is 0B;
-         -- Top side tabs
-
---	TAB_LEFT: BIT 32 is 100000000000000000000000B;
-         -- Left side tabs
-
---	TAB_RIGHT: BIT 32 is 1000000000000000000000000B;
-         -- Right side tabs
-
---	TAB_BOTTOM: BIT 32 is 1100000000000000000000000B;
-         -- Bottom side tabs
-
-
-
 end

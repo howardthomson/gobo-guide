@@ -32,44 +32,4 @@ feature -- Scrollbar options
    SCROLLERS_TRACK		: INTEGER is 0			-- Scrollers track continuously for smooth scrolling
    SCROLLERS_DONT_TRACK	: INTEGER is 0x00080000	-- Scrollers don't track continuously
 
-feature -- Scrollbar options, BIT Version
-
---	SCROLLERS_NORMAL: BIT 32 is 0B;
-         -- Show the scrollbars when needed
-
---	HSCROLLER_ALWAYS: BIT 32 is 1000000000000000B;
-         -- Always show horizontal scrollers
-
---	HSCROLLER_NEVER: BIT 32 is 10000000000000000B;
-         -- Never show horizontal scrollers
-
---	VSCROLLER_ALWAYS: BIT 32 is 100000000000000000B;
-         -- Always show vertical scrollers
-
---	VSCROLLER_NEVER: BIT 32 is 1000000000000000000B;
-         -- Never show vertical scrollers
-
---	HSCROLLING_ON: BIT 32 is 0B;
-         -- Horizontal scrolling turned on (default)
-
---	HSCROLLING_OFF: BIT 32 is
-         -- Horizontal scrolling turned off
---		once
---			Result := (HSCROLLER_NEVER or HSCROLLER_ALWAYS)
---		end
-
---	VSCROLLING_ON: BIT 32 is 0B;
-         -- Vertical scrolling turned on (default)
-
---	VSCROLLING_OFF: BIT 32 is
-         -- Vertical scrolling turned off
---	  once
---	     Result := (VSCROLLER_NEVER or VSCROLLER_ALWAYS);
---	  end
-
---	SCROLLERS_TRACK: BIT 32 is 0B;
---			-- Scrollers track continuously for smooth scrolling
-
---	SCROLLERS_DONT_TRACK: BIT 32 is 10000000000000000000B;
---			-- Scrollers don't track continuously
 end

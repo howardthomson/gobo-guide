@@ -35,14 +35,12 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	make
 			-- Make a radio button with a default of selected.
 		do
 			todo_class_line ("__EV_TOOL_BAR_RADIO_BUTTON_IMP__", "__LINE__")
 
 			base_make (an_interface)
---			set_c_object ({EV_GTK_EXTERNALS}.gtk_radio_tool_button_new (NULL))
-				-- Needed to prevent calling of action sequence.
 		end
 
 feature -- Status setting

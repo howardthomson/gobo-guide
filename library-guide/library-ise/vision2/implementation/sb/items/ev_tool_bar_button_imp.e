@@ -23,7 +23,7 @@ inherit
 			update_for_pick_and_drop
 		redefine
 			interface,
-			initialize,
+--			initialize,
 			event_widget,
 			set_pixmap	--,
 	--		needs_event_box
@@ -62,17 +62,17 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	old_make (an_interface: like interface)
 			-- Create the tool bar button.
 		do
-			base_make (an_interface)
+			assign_interface (an_interface)
 --			set_c_object ({EV_GTK_EXTERNALS}.gtk_tool_button_new (NULL, NULL))
 		end
 
-	initialize is
+	make
 			-- Initialization of button box and events.
 		do
-			Precursor {EV_ITEM_IMP}
+--			Precursor {EV_ITEM_IMP}
 			pixmapable_imp_initialize
 			-- TODO ...
 			set_is_initialized (True)
@@ -193,7 +193,6 @@ feature -- Status report
 	is_sensitive: BOOLEAN is
 			-- Is the object sensitive to user input.
 		do
-			-- Shift to put bit in least significant place then take mod 2
 			if not is_destroyed then
 --				Result := {EV_GTK_EXTERNALS}.gtk_widget_is_sensitive (c_object)
 			end

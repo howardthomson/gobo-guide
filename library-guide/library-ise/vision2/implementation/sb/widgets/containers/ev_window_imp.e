@@ -1,5 +1,7 @@
-indexing
-	description: "Eiffel Vision window. Slyboots implementation."
+note
+
+		description: "Eiffel Vision window. Slyboots implementation."
+
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date$"
@@ -33,7 +35,6 @@ inherit
 			has
 		redefine
 			interface,
-			old_make,
 			make,
 			on_size_allocate,
 			hide,
@@ -61,12 +62,6 @@ create
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface)
-			-- Create the window.
-		do
-			assign_interface (an_interface)
-		end
-
 	make is
 			-- Create the vertical box `vbox' and horizontal box `container_widget'
 			-- to put in the window.
@@ -77,9 +72,7 @@ feature {NONE} -- Initialization
 			app_imp: like app_implementation
 		do
 			set_is_initialized (False)
-
-			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 2")
-
+			create {SB_TOP_WINDOW} sb_window.make_top_title (application, "Title ...")
 			internal_is_border_enabled := True
 			configure_event_pending := True
 			user_can_resize := True
@@ -235,9 +228,14 @@ feature -- Element change
 	set_title (new_title: STRING_GENERAL) is
 			-- Set `title' to `new_title'.
 		local
-			a_title: STRING_32
+			l_title_32: STRING_32
+			l_title: STRING
 		do
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 9")
+			l_title ?= new_title
+			if l_title /= Void then
+				sb_window.set_title (l_title)
+			end
 		end
 
 	set_menu_bar (a_menu_bar: EV_MENU_BAR) is

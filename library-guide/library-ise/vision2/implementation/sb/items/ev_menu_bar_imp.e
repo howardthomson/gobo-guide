@@ -38,9 +38,13 @@ feature {NONE} -- Implementation Attributes
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	old_make (an_interface: like interface) is
 		do
-			base_make (an_interface)
+			assign_interface (an_interface)
+		end
+
+	make
+		do
 			create {SB_MENU_BAR} sb_widget.make_ev
 		end
 

@@ -43,14 +43,10 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	make
 			-- Create a menu.
 		do
-			base_make (an_interface)
---			set_c_object ({EV_GTK_EXTERNALS}.gtk_menu_item_new)
---			{EV_GTK_EXTERNALS}.gtk_widget_show (c_object)
---			{EV_GTK_EXTERNALS}.gtk_widget_set_sensitive (c_object, False)
---			{EV_GTK_EXTERNALS}.gtk_widget_set_usize (c_object, -1, 8)
+--			base_make (an_interface)
 		end
 
 	initialize is

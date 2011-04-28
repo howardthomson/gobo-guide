@@ -51,10 +51,14 @@ feature {NONE} -- Initialization
 			set_is_destroyed (True)
 		end
 
-	make (an_interface: like interface) is
+	old_make (an_interface: like interface) is
 			-- Create the tree item.
 		do
-			base_make (an_interface)
+			assign_interface (an_interface)
+		end
+
+	make
+		do
 			internal_text := once "TEST"
 			create {SB_TREE_LIST_ITEM} sb_item.make_empty
 		end
