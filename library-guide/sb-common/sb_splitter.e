@@ -53,20 +53,20 @@ feature { NONE } -- Private Attributes
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_SPLITTER"
 		end
 
 feature -- Creation
 
-	make (p: SB_COMPOSITE) is
+	make (p: SB_COMPOSITE)
 			-- Construct new splitter widget
 		do
 			make_opts(p, Void, 0, SPLITTER_NORMAL, 0,0, 0,0)
 		end
 
-	make_sb(p: SB_COMPOSITE; o: INTEGER) is
+	make_sb(p: SB_COMPOSITE; o: INTEGER)
 		do
 			make_opts(p, Void,0, o, 0,0,0,0)
 		end
@@ -78,7 +78,7 @@ feature -- Creation
          	composite_make(p, opts, x,y, w,h)
          	flags := flags | Flag_enabled | Flag_shown
          
-         	if (options & SPLITTER_VERTICAL) /= Zero then
+         	if (options & SPLITTER_VERTICAL) /= 0 then
             	default_cursor := application.get_default_cursor (Def_vsplit_cursor)
          	else
             	default_cursor := application.get_default_cursor (Def_hsplit_cursor)
@@ -94,7 +94,7 @@ feature -- Creation
 
 feature -- Destruction
 
-	destruct is
+	destruct
 		do
 			window := Void
 			Precursor
@@ -105,13 +105,13 @@ feature -- Queries
 	bar_size: INTEGER
 		-- Size of the splitter bar
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Get default width
       local
          child: SB_WINDOW
          w, numc: INTEGER
       do
-         if (options & SPLITTER_VERTICAL) /= Zero then
+         if (options & SPLITTER_VERTICAL) /= 0 then
             from
                child := first_child
             until
@@ -141,13 +141,13 @@ feature -- Queries
          end
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Get default height
       local
          child: SB_WINDOW
          h, numc: INTEGER
       do
-         if (options & SPLITTER_VERTICAL) /= Zero then
+         if (options & SPLITTER_VERTICAL) /= 0 then
             from
                child := first_child
             until
@@ -177,7 +177,7 @@ feature -- Queries
          end
       end
 
-   set_splitter_style (style: INTEGER) is
+   set_splitter_style (style: INTEGER)
          -- Change splitter style
       local
          opts: INTEGER
@@ -198,7 +198,7 @@ feature -- Queries
                   end
                   child := child.next
                end
-               if (opts & SPLITTER_VERTICAL) /= Zero then
+               if (opts & SPLITTER_VERTICAL) /= 0 then
                   set_default_cursor (application.get_default_cursor (Def_vsplit_cursor))
                else
                   set_default_cursor (application.get_default_cursor (Def_hsplit_cursor))
@@ -220,13 +220,13 @@ feature -- Queries
          end
       end
 
-   get_splitter_style: INTEGER is
+   get_splitter_style: INTEGER
          -- Return current splitter style
       do
          Result := (options & SPLITTER_MASK)
       end
 
-   set_bar_size (bs: INTEGER) is
+   set_bar_size (bs: INTEGER)
          -- Change splitter bar size
       do
          if bs /= bar_size then
@@ -237,7 +237,7 @@ feature -- Queries
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
 --			if		match_function_2 (SEL_LEFTBUTTONPRESS,	0, type, key) then Result := on_left_btn_press (sender, key, data)
 --			elseif  match_function_2 (SEL_LEFTBUTTONRELEASE,0, type, key) then Result := on_left_btn_release (sender, key, data)
@@ -250,7 +250,7 @@ feature -- Message processing
          	else Result := Precursor(sender, type, key, data); end
 		end
 
-   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
       do
@@ -261,16 +261,16 @@ feature -- Message processing
                and then message_target.handle_2 (Current, SEL_LEFTBUTTONRELEASE, message, data)
              then 
                Result := True
-            elseif (options & SPLITTER_VERTICAL) /= Zero then
+            elseif (options & SPLITTER_VERTICAL) /= 0 then
                window := find_v_split (ev.win_y)
                if window /= Void then
-                  if (options & SPLITTER_REVERSED) /= Zero then
+                  if (options & SPLITTER_REVERSED) /= 0 then
                      split := window.y_pos
                   else
                      split := window.y_pos + window.height
                   end
                   offset := ev.win_y - split
-                  if (options & SPLITTER_TRACKING) = Zero then
+                  if (options & SPLITTER_TRACKING) = 0 then
                      draw_v_split (split)
                   end
                   flags := flags | Flag_pressed
@@ -279,13 +279,13 @@ feature -- Message processing
             else
                window := find_h_split (ev.win_x)
                if window /= Void then
-                  if (options & SPLITTER_REVERSED) /= Zero then
+                  if (options & SPLITTER_REVERSED) /= 0 then
                      split := window.x_pos
                   else
                      split := window.x_pos + window.width
                   end
                   offset := ev.win_x - split
-                  if (options & SPLITTER_TRACKING) = Zero then
+                  if (options & SPLITTER_TRACKING) = 0 then
                      draw_h_split (split)
                   end
                end
@@ -296,7 +296,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          flgs: INTEGER
       do
@@ -310,22 +310,22 @@ feature -- Message processing
                and then message_target.handle_2 (Current, SEL_LEFTBUTTONRELEASE, message, data)
              then 
                Result := True
-            elseif (flgs & Flag_pressed) /= Zero then
-               if (options & SPLITTER_TRACKING) = Zero then
-                  if (options & SPLITTER_VERTICAL) /= Zero then
+            elseif (flgs & Flag_pressed) /= 0 then
+               if (options & SPLITTER_TRACKING) = 0 then
+                  if (options & SPLITTER_VERTICAL) /= 0 then
                      draw_v_split(split)
                      adjust_v_layout
                   else
                      draw_h_split(split)
                      adjust_h_layout
                   end
-                  if (flgs & Flag_changed) /= Zero then
+                  if (flgs & Flag_changed) /= 0 then
                      if message_target /= Void then
                         message_target.do_handle_2 (Current, SEL_CHANGED, message, Void)
                      end
                   end
                end
-               if (flgs & Flag_changed) /= Zero then
+               if (flgs & Flag_changed) /= 0 then
                   if message_target /= Void then
                      message_target.do_handle_2 (Current, SEL_COMMAND, message, Void)
                   end
@@ -335,19 +335,19 @@ feature -- Message processing
          end
       end
 
-   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
          oldsplit: INTEGER
       do
          ev ?= data
          if ev /= Void then
-            if (flags & Flag_pressed) /= Zero then
+            if (flags & Flag_pressed) /= 0 then
                oldsplit := split
-               if (options & SPLITTER_VERTICAL) /= Zero then
+               if (options & SPLITTER_VERTICAL) /= 0 then
                   move_v_split(ev.win_y - offset)
                   if split /= oldsplit then
-                     if (options & SPLITTER_TRACKING) = Zero then
+                     if (options & SPLITTER_TRACKING) = 0 then
                         draw_v_split(oldsplit)
                         draw_v_split(split)
                      else
@@ -361,7 +361,7 @@ feature -- Message processing
                else
                   move_h_split (ev.win_x - offset)
                   if split /= oldsplit then
-                     if (options & SPLITTER_TRACKING) = Zero then
+                     if (options & SPLITTER_TRACKING) = 0 then
                         draw_h_split (oldsplit)
                         draw_h_split (split)
                      else
@@ -378,29 +378,29 @@ feature -- Message processing
          end
       end
 
-   on_focus_next (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN is
+   on_focus_next (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN
       do
-         if (options & SPLITTER_VERTICAL) /= Zero then
+         if (options & SPLITTER_VERTICAL) /= 0 then
             Result := on_focus_down (sender,selector,data)
          else
             Result := on_focus_right (sender,selector,data)
          end
       end
 
-   on_focus_prev (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN is
+   on_focus_prev (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN
       do
-         if (options & SPLITTER_VERTICAL) /= Zero then
+         if (options & SPLITTER_VERTICAL) /= 0 then
             Result := on_focus_up (sender,selector,data)
          else
             Result := on_focus_left (sender,selector,data)
          end
       end
 
-   on_focus_up (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN is
+   on_focus_up (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN
       local
          child: SB_WINDOW
       do
-         if (options & SPLITTER_VERTICAL) /= Zero then
+         if (options & SPLITTER_VERTICAL) /= 0 then
             from
                if focus_child /= Void then
                   child := focus_child.prev
@@ -424,11 +424,11 @@ feature -- Message processing
          end
       end
 
-   on_focus_down (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN is
+   on_focus_down (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN
       local
          child: SB_WINDOW
       do
-         if (options & SPLITTER_VERTICAL) /= Zero then
+         if (options & SPLITTER_VERTICAL) /= 0 then
             from
                if focus_child /= Void then
                   child := focus_child.next
@@ -452,11 +452,11 @@ feature -- Message processing
          end
       end
 
-   on_focus_left (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN is
+   on_focus_left (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN
       local
          child: SB_WINDOW
       do
-         if (options & SPLITTER_VERTICAL) = Zero then
+         if (options & SPLITTER_VERTICAL) = 0 then
             from
                if focus_child /= Void then
                   child := focus_child.prev
@@ -480,11 +480,11 @@ feature -- Message processing
          end
       end
 
-   on_focus_right (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN is
+   on_focus_right (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data : ANY): BOOLEAN
       local
          child: SB_WINDOW
       do
-         if (options & SPLITTER_VERTICAL) = Zero then
+         if (options & SPLITTER_VERTICAL) = 0 then
             from
                if focus_child /= Void then
                   child := focus_child.next
@@ -510,14 +510,14 @@ feature -- Message processing
 
 feature {NONE} -- Implementation
 
-   layout is
+   layout
       local
          pos,w,h: INTEGER
          child,stretcher: SB_WINDOW
       do  
-         if (options & SPLITTER_VERTICAL) /= Zero then
+         if (options & SPLITTER_VERTICAL) /= 0 then
             -- Vertical
-            if (options & SPLITTER_REVERSED) /= Zero then
+            if (options & SPLITTER_REVERSED) /= 0 then
                pos := height
                from
                   stretcher := first_child
@@ -576,7 +576,7 @@ feature {NONE} -- Implementation
             end
          else
             -- Horizontal
-            if (options & SPLITTER_REVERSED) /= Zero then
+            if (options & SPLITTER_REVERSED) /= 0 then
                pos := width
                from
                   stretcher := first_child
@@ -637,7 +637,7 @@ feature {NONE} -- Implementation
          unset_flags (Flag_dirty)
       end
 
-   adjust_h_layout is
+   adjust_h_layout
       local
          pos, w, h: INTEGER;
          child, stretcher: SB_WINDOW;
@@ -645,7 +645,7 @@ feature {NONE} -- Implementation
          if window = Void then
             -- TODO Error reporting
          else
-            if (options & SPLITTER_REVERSED) /= Zero then
+            if (options & SPLITTER_REVERSED) /= 0 then
                pos := window.x_pos + window.width;
                window.position(split,0,pos-split,height);
                pos := split-bar_size;
@@ -709,7 +709,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   adjust_v_layout is
+   adjust_v_layout
       local
          pos,w,h: INTEGER;
          child,stretcher: SB_WINDOW;
@@ -717,7 +717,7 @@ feature {NONE} -- Implementation
          if window = Void then
             -- TODO Error reporting
          else
-            if (options & SPLITTER_REVERSED) /= Zero then
+            if (options & SPLITTER_REVERSED) /= 0 then
                pos := window.y_pos + window.height;
                window.position(0,split,width,pos-split);
                pos := split - bar_size;
@@ -781,7 +781,7 @@ feature {NONE} -- Implementation
          end
       end
       
-   move_h_split (pos: INTEGER) is
+   move_h_split (pos: INTEGER)
          -- Move the horizontal split intelligently
       local
          smin,smax: INTEGER;
@@ -791,19 +791,19 @@ feature {NONE} -- Implementation
             -- TODO Error reporting
          else
             hints := window.layout_hints;
-            if (options & SPLITTER_REVERSED) /= Zero then
+            if (options & SPLITTER_REVERSED) /= 0 then
                smin := bar_size;
                smax := window.x_pos + window.width;
-               if (hints & Layout_fill_x) /= Zero 
-                  and then (hints & Layout_fix_width) /= Zero
+               if (hints & Layout_fill_x) /= 0 
+                  and then (hints & Layout_fix_width) /= 0
                 then 
                   smax := smax - window.default_width;
                end
             else
                smin := window.x_pos;
                smax := width - bar_size;
-               if (hints & Layout_fill_x) /= Zero 
-                  and then (hints & Layout_fix_width) /= Zero
+               if (hints & Layout_fill_x) /= 0 
+                  and then (hints & Layout_fix_width) /= 0
                 then 
                   smin := smin + window.default_width;
                end
@@ -814,7 +814,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   move_v_split (pos: INTEGER) is
+   move_v_split (pos: INTEGER)
          -- Move the vertical split intelligently
       local
          smin, smax: INTEGER
@@ -824,19 +824,19 @@ feature {NONE} -- Implementation
             -- TODO Error reporting
          else
             hints := window.layout_hints
-            if (options & SPLITTER_REVERSED) /= Zero then
+            if (options & SPLITTER_REVERSED) /= 0 then
                smin := bar_size
                smax := window.y_pos+window.height
-               if (hints & Layout_fill_y) /= Zero 
-                  and then (hints & Layout_fix_height) /= Zero
+               if (hints & Layout_fill_y) /= 0 
+                  and then (hints & Layout_fix_height) /= 0
                 then 
                   smax := smax - window.default_height
                end
             else
                smin := window.y_pos
                smax := height-bar_size
-               if (hints & Layout_fill_y) /= Zero 
-                  and then (hints & Layout_fix_height) /= Zero
+               if (hints & Layout_fill_y) /= 0 
+                  and then (hints & Layout_fix_height) /= 0
                 then 
                   smin := smin + window.default_height
                end
@@ -847,7 +847,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   draw_h_split (pos: INTEGER) is
+   draw_h_split (pos: INTEGER)
       local
          dc: SB_DC_WINDOW
       do
@@ -859,7 +859,7 @@ feature {NONE} -- Implementation
          dc.stop;
       end
 
-   draw_v_split (pos: INTEGER) is
+   draw_v_split (pos: INTEGER)
       local
          dc: SB_DC_WINDOW
       do
@@ -871,13 +871,13 @@ feature {NONE} -- Implementation
          dc.stop
       end
 
-   find_h_split (pos: INTEGER): SB_WINDOW is
+   find_h_split (pos: INTEGER): SB_WINDOW
          -- Find child just before split
       local
          done: BOOLEAN;
       do
          Result := first_child;
-         if (options & SPLITTER_REVERSED) /= Zero then
+         if (options & SPLITTER_REVERSED) /= 0 then
             from
                done := False;
             until
@@ -912,13 +912,13 @@ feature {NONE} -- Implementation
          end
       end
 
-   find_v_split (pos: INTEGER): SB_WINDOW is
+   find_v_split (pos: INTEGER): SB_WINDOW
          -- Find child just before split
       local
          done: BOOLEAN;
       do
          Result := first_child;
-         if (options & SPLITTER_REVERSED) /= Zero then
+         if (options & SPLITTER_REVERSED) /= 0 then
             from
                done := False;
             until

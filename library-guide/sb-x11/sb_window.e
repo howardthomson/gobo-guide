@@ -66,7 +66,7 @@ feature -- resource creation/deletion
 			end
 
 				-- If enabled, turn on some more events
-			if (flags & Flag_enabled) /= Zero then
+			if (flags & Flag_enabled) /= 0 then
 				mask := mask | enabled_event_mask
 			end
 			
@@ -169,7 +169,7 @@ feature -- resource creation/deletion
 	--		end
 
 				-- Show if it was supposed to be
-			if (flags & Flag_shown) /= b0 and then (0 < width) and then (0 < height) then
+			if (flags & Flag_shown) /= 0 and then (0 < width) and then (0 < height) then
 				xwin.map
 				flush
 			end
@@ -353,7 +353,7 @@ feature
          	-- Resize this window to the specified width and height
       	do
 			if 0 < w and 0 < h then
-				if (flags & Flag_shown) /= b0 and then (width <= 0 or height <= 0) then
+				if (flags & Flag_shown) /= 0 and then (width <= 0 or height <= 0) then
 	          		xwin.map
 	        	end
 	        	xwin.resize (w, h)
@@ -370,7 +370,7 @@ feature
          	resized: BOOLEAN
       	do
 	    	if 0 < w and 0 < h then
-	        	if (flags & Flag_shown) /= Zero and then (ow <= 0 or else oh <= 0) then
+	        	if (flags & Flag_shown) /= 0 and then (ow <= 0 or else oh <= 0) then
 	          		xwin.map
 	        	end
 	        	xwin.move_resize (x, y, w, h)

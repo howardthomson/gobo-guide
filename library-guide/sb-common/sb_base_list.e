@@ -63,18 +63,18 @@ feature -- Item access
       do
          if 0 < items_count then
             start := start_
-            if (flgs & SEARCH_IGNORECASE) /= Zero then
+            if (flgs & SEARCH_IGNORECASE) /= 0 then
                comp := compare
             else 
                comp := comparecase
             end
-            if (flgs & SEARCH_PREFIX) /= Zero then
+            if (flgs & SEARCH_PREFIX) /= 0 then
                len := text.count
             else
                len := 2147483647
             end
             nitems := items_count;
-            if (flgs & SEARCH_BACKWARD) = Zero then
+            if (flgs & SEARCH_BACKWARD) = 0 then
                if start < 1 then start := 1 end
                from
                   index := start
@@ -86,7 +86,7 @@ feature -- Item access
                   end
                   index := index + 1
                end
-               if Result = 0 and (flgs & SEARCH_WRAP) /= Zero then
+               if Result = 0 and (flgs & SEARCH_WRAP) /= 0 then
                   from
                      index := 1
                   until
@@ -109,7 +109,7 @@ feature -- Item access
                      end
                      index := index - 1
                   end
-                  if Result = 0 and (flgs & SEARCH_WRAP) /= Zero then
+                  if Result = 0 and (flgs & SEARCH_WRAP) /= 0 then
                      from
                         index := nitems
                      until
@@ -147,7 +147,7 @@ feature -- Sorting
 					until 
 						i > nitems
 					loop
-						if items.item(i) = c then
+						if items.item (i) = c then
 							current_item := i
 							i := nitems
 		    			end
@@ -168,7 +168,7 @@ feature -- Item actions
 			old_current: INTEGER
 --			ah: SB_ARRAY_HELPER [ G ]
 		do 
-			old_current := current_item;
+			old_current := current_item
 
 				-- Add item to list
 			array_insert (items, new_item, index)
@@ -180,13 +180,13 @@ feature -- Item actions
 
 				-- Notify item has been inserted
 			if notify and then message_target /= Void then
-				message_target.do_handle_2 (Current, SEL_INSERTED, message, ref_integer(index))
+				message_target.do_handle_2 (Current, SEL_INSERTED, message, ref_integer (index))
 			end
 
 				-- Current item may have changed
 			if old_current /= current_item then
 				if notify and then message_target /= Void then
-					message_target.do_handle_2 (Current, SEL_CHANGED, message, ref_integer(current_item))
+					message_target.do_handle_2 (Current, SEL_CHANGED, message, ref_integer (current_item))
 				end
 			end
 				-- Redo layout
@@ -203,7 +203,7 @@ feature -- Item actions
 
          -- Notify item will be deleted
          if notify and then message_target /= Void then
-            message_target.do_handle_2 (Current, SEL_DELETED, message, ref_integer(index))
+            message_target.do_handle_2 (Current, SEL_DELETED, message, ref_integer (index))
          end
 
          -- Remove item from list
@@ -217,19 +217,19 @@ feature -- Item actions
          -- Current item has changed
          if index <= old_current then
             if notify and then message_target /= Void then
-               message_target.do_handle_2 (Current, SEL_CHANGED, message, ref_integer(current_item))
+               message_target.do_handle_2 (Current, SEL_CHANGED, message, ref_integer (current_item))
             end
          end
 
          -- Deleted current_item item
          if 1 <= current_item and then index = old_current then
             if has_focus then
-               items.item(current_item).set_focus(True)
+               items.item (current_item).set_focus (True)
             end
             if (options & SELECT_MASK) = LIST_BROWSESELECT
-               and then items.item(current_item).is_enabled
+               and then items.item (current_item).is_enabled
              then
-               do_select_item(current_item, notify)
+               do_select_item (current_item, notify)
             end
          end
 
@@ -247,14 +247,14 @@ feature -- Item actions
          -- Did it change?
          if old_index /= new_index then
             old_current := current_item
-            old_item := items.item(old_index)
+            old_item := items.item (old_index)
             if new_index < old_index then
                from
                   ix := old_index
                until
                   ix <= new_index
                loop                  
-                  items.put(items.item(ix - 1), ix)
+                  items.put(items.item (ix - 1), ix)
                   ix := ix - 1
                end
             else
@@ -263,12 +263,12 @@ feature -- Item actions
                until
                   ix <= old_index
                loop
-                  items.put(items.item(ix), ix - 1)
+                  items.put(items.item (ix), ix - 1)
                   ix := ix - 1
                end
             end
             -- Put it back
-            items.put(old_item,new_index)
+            items.put (old_item,new_index)
             -- Adjust if it was equal
             if anchor_item = old_index then anchor_item := new_index end
             if extent_item = old_index then extent_item := new_index end
@@ -283,76 +283,67 @@ feature -- Item actions
          end
       end
 
-   clear_items_notify(notify: BOOLEAN) is
-         -- Remove all items from list
-      local
-         old_current: INTEGER
-         index: INTEGER
-      do
-         old_current := current_item
+	clear_items_notify(notify: BOOLEAN) is
+			-- Remove all items from list
+		local
+			old_current: INTEGER
+			index: INTEGER
+		do
+			old_current := current_item
+				-- Delete items
+			from index := items.count until index <= 0 loop
+				if notify and then message_target /= Void then
+					message_target.do_handle_2 (Current, SEL_DELETED, message, ref_integer (index))
+				end            
+				index := index - 1
+			end
+				-- Free array
+			create items.make (1, 0)
+				-- Adjust indices
+			current_item := 0
+			anchor_item := 0
+			extent_item := 0
+				-- Current item has changed
+			if old_current /= current_item then
+				if notify and then message_target /= Void then
+					message_target.do_handle_2 (Current, SEL_CHANGED, message, ref_integer (0))
+				end
+			end
+				-- Redo layout
+			recalc
+		end
 
-         -- Delete items
-         from 
-            index := items.count
-         until
-            index <= 0
-         loop
-            if notify and then message_target /= Void then
-               message_target.do_handle_2 (Current, SEL_DELETED, message, ref_integer(index));
-            end            
-            index := index - 1
-         end
-
-         -- Free array
-         create items.make(1, 0)
-         -- Adjust indices
-         current_item := 0
-         anchor_item := 0
-         extent_item := 0
-
-         -- Current item has changed
-         if old_current /= current_item then
-            if notify and then message_target /= Void
-             then
-               message_target.do_handle_2 (Current, SEL_CHANGED, message, ref_integer(0))
-            end
-         end
-
-         -- Redo layout
-         recalc
-      end
-
-   select_item(index: INTEGER; notify: BOOLEAN): BOOLEAN is
+   select_item (index: INTEGER; notify: BOOLEAN): BOOLEAN
          -- Select item
       local
-         t: INTEGER;
+         t: INTEGER
       do
-         if not items.item(index).is_selected then
-            t := options & SELECT_MASK;
+         if not items.item (index).is_selected then
+            t := options & SELECT_MASK
             if t = LIST_SINGLESELECT 
                or else t = LIST_BROWSESELECT
              then
-               do_kill_selection(notify);
+               do_kill_selection (notify)
             end
             if t = LIST_EXTENDEDSELECT
                or else t = LIST_MULTIPLESELECT
                or else t = LIST_SINGLESELECT 
                or else t = LIST_BROWSESELECT
              then
-               items.item(index).set_selected(True);
-               update_item(index);
+               items.item(index).set_selected (True)
+               update_item (index)
                if notify and then message_target /= Void then
-                  message_target.do_handle_2 (Current, SEL_SELECTED, message, ref_integer(index))
+                  message_target.do_handle_2 (Current, SEL_SELECTED, message, ref_integer (index))
                end
             end
-            Result := True;
+            Result := True
          end
       end
 
-   deselect_item(index: INTEGER; notify: BOOLEAN): BOOLEAN is
+   deselect_item (index: INTEGER; notify: BOOLEAN): BOOLEAN
          -- Deselect item
       local
-         t: INTEGER;
+         t: INTEGER
       do
          if items.item(index).is_selected then
             t:= options & SELECT_MASK;
@@ -360,29 +351,29 @@ feature -- Item actions
                or else t = LIST_EXTENDEDSELECT
                or else t = LIST_MULTIPLESELECT
              then
-               items.item(index).set_selected(False);
-               update_item(index);
+               items.item(index).set_selected (False)
+               update_item (index)
                if notify and then message_target /= Void then
-                  message_target.do_handle_2 (Current, SEL_DESELECTED, message, ref_integer(index))
+                  message_target.do_handle_2 (Current, SEL_DESELECTED, message, ref_integer (index))
                end
             end
-            Result := True;
+            Result := True
          end
       end
 
-   toggle_item(index: INTEGER; notify: BOOLEAN): BOOLEAN is
+   toggle_item (index: INTEGER; notify: BOOLEAN): BOOLEAN is
          -- Toggle item selection state
       local
-         t: INTEGER;
+         t: INTEGER
       do
-         t := options & SELECT_MASK;
+         t := options & SELECT_MASK
          if t =  LIST_BROWSESELECT then
             if not items.item(index).is_selected then
-               do_kill_selection(notify);
-               items.item(index).set_selected(True);
+               do_kill_selection (notify)
+               items.item(index).set_selected (True)
                update_item(index);
                if notify and then message_target /= Void then
-                  message_target.do_handle_2 (Current, SEL_SELECTED, message, ref_integer(index));
+                  message_target.do_handle_2 (Current, SEL_SELECTED, message, ref_integer (index))
                end
             end
          elseif t = LIST_SINGLESELECT then
@@ -394,31 +385,31 @@ feature -- Item actions
                   message_target.do_handle_2 (Current, SEL_SELECTED, message, ref_integer(index));
                end
             else
-               items.item(index).set_selected(False);
-               update_item(index);
+               items.item (index).set_selected(False)
+               update_item (index)
                if notify and then message_target /= Void then
-                  message_target.do_handle_2 (Current, SEL_DESELECTED, message, ref_integer(index));
+                  message_target.do_handle_2 (Current, SEL_DESELECTED, message, ref_integer (index))
                end
             end
          elseif t = LIST_EXTENDEDSELECT or else t = LIST_MULTIPLESELECT then
             if not items.item(index).is_selected then
-               items.item(index).set_selected(True);
-               update_item(index);
+               items.item (index).set_selected (True)
+               update_item (index)
                if notify and then message_target /= Void then
-                  message_target.do_handle_2 (Current, SEL_SELECTED, message, ref_integer(index));
+                  message_target.do_handle_2 (Current, SEL_SELECTED, message, ref_integer (index));
                end
             else
-               items.item(index).set_selected(False);
-               update_item(index);
+               items.item(index).set_selected (False)
+               update_item (index)
                if notify and then message_target /= Void then
-                  message_target.do_handle_2 (Current, SEL_DESELECTED, message, ref_integer(index));
+                  message_target.do_handle_2 (Current, SEL_DESELECTED, message, ref_integer (index))
                end
             end
          end
-         Result := True;
+         Result := True
       end
 
-   set_current_item(index: INTEGER; notify: BOOLEAN) is
+   set_current_item (index: INTEGER; notify: BOOLEAN)
          -- Change current item
       do
          if index /= current_item then
@@ -431,36 +422,36 @@ feature -- Item actions
                end
             end
 
-            current_item := index;
+            current_item := index
 
             -- Activate new item
             if 0 <= current_item then
                -- No visible_rows change if it doen't have the focus
                if has_focus then
-                  items.item(current_item).set_focus(True);
-                  update_item(current_item);
+                  items.item (current_item).set_focus (True)
+                  update_item (current_item)
                end
             end
 
             -- Notify item change
             if notify and then message_target /= Void then
-               message_target.do_handle_2 (Current, SEL_CHANGED, message, ref_integer(current_item));
+               message_target.do_handle_2 (Current, SEL_CHANGED, message, ref_integer (current_item))
             end
          end
 
          -- In browse select mode, select this item
          if (options & SELECT_MASK) = LIST_BROWSESELECT 
             and then 1 <= current_item
-            and then items.item(current_item).is_enabled
+            and then items.item (current_item).is_enabled
           then
-            do_select_item(current_item,notify);
+            do_select_item (current_item, notify)
          end
       end
 
-   extend_selection(index: INTEGER; notify: BOOLEAN): BOOLEAN is
+   extend_selection (index: INTEGER; notify: BOOLEAN): BOOLEAN is
          -- Extend selection from anchor item to index
       local
-         i1,i2,i3,i: INTEGER;
+         i1,i2,i3,i: INTEGER
       do
          if 1 <= index and then 1 <= anchor_item and then 1 <= extent_item then
             -- Find segments
@@ -468,7 +459,7 @@ feature -- Item actions
             if anchor_item<i1 then i2 := i1; i1 := anchor_item
             else i2 := anchor_item end
             if extent_item<i1 then i3 := i2;i2 := i1;i1 := extent_item
-            elseif extent_item<i2 then i3 := i2;i2 := extent_item
+            elseif extent_item < i2 then i3 := i2; i2 := extent_item
             else i3 := extent_item end
 
             -- First segment
@@ -479,20 +470,20 @@ feature -- Item actions
             loop
                if i1 = index then
                   if not items.item(i).is_selected then
-                     items.item(i).set_selected(True);
+                     items.item (i).set_selected (True)
                      update_item(i);
                      Result := True;
                      if notify and then message_target /= Void then
-                        message_target.do_handle_2 (Current, SEL_SELECTED, message, ref_integer(i));
+                        message_target.do_handle_2 (Current, SEL_SELECTED, message, ref_integer (i))
                      end
                   end
                elseif i1 = extent_item then
-                  if items.item(i).is_selected then
-                     items.item(i).set_selected(False);
-                     update_item(i);
-                     Result := True;
+                  if items.item (i).is_selected then
+                     items.item (i).set_selected (False)
+                     update_item (i)
+                     Result := True
                      if notify and then message_target /= Void then
-                        message_target.do_handle_2 (Current, SEL_DESELECTED, message, ref_integer(i));
+                        message_target.do_handle_2 (Current, SEL_DESELECTED, message, ref_integer (i))
                      end
                   end
                end

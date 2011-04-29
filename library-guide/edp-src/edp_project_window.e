@@ -81,20 +81,20 @@ feature -- Attributes
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "EDP_PROJECT_WINDOW"
 		end
 
 feature -- creation routines
 
-	make is
+	make
 			-- New blank project window
 		do
 			make_window
 		end
 
-	from_project (a_project: EDP_PROJECT) is
+	from_project (a_project: EDP_PROJECT)
 			-- Creation wrt a specific project
 		require
 			project_not_void: a_project /= Void
@@ -144,7 +144,7 @@ feature -- GUI elements
 	
 	tab_set: ARRAY [ EDP_TAB_WIDGETS_SET ]
 
-	make_window is
+	make_window
 		local
 			rs: SB_Q_LIST_SORTER [ SB_TREE_LIST_ITEM ]
 			rc: SB_TREE_LIST_ITEM_COMPARATOR
@@ -251,14 +251,14 @@ end
 				-- File menu
 			create menu_pane.make (Current)
 			create menu_command.make_sb (menu_pane, "&Quit",	Current, Tb_quit);
-			create menu_title.make_opts (Result, "&File", Void,	menu_pane, Zero);
+			create menu_title.make_opts (Result, "&File", Void,	menu_pane, 0);
 
 				-- Project menu
 			create menu_pane.make(Current)
 --			create menu_command.make_sb (menu_pane, "&New ...",		Current, Tb_new);
 			create menu_command.make_sb (menu_pane, "&Open ...",	Current, Tb_open);
 --			create menu_command.make_sb (menu_pane, "&Close",		Current, Tb_close);
-			create menu_title.make_opts (Result, "&Project", Void,	menu_pane, Zero);
+			create menu_title.make_opts (Result, "&Project", Void,	menu_pane, 0);
 
 --				-- Process menu
 --			create menu_pane.make (Current)
@@ -268,12 +268,12 @@ end
 --			create menu_command.make_sb (menu_pane, "&Generate",Current, Tb_generate);
 --			create menu_command.make_sb (menu_pane, "&Compile",	Current, Tb_compile);
 --			create menu_command.make_sb (menu_pane, "&Execute",	Current, Tb_execute);		
---			create menu_title.make_opts (Result, "&Process", Void, menu_pane, Zero);
+--			create menu_title.make_opts (Result, "&Process", Void, menu_pane, 0);
 
 				-- Test menu
 			create menu_pane.make (Current)
 			create menu_command.make_sb (menu_pane, "&Make Form ...", Current, Tb_make_form);
-			create menu_title.make_opts (Result, "&Test", Void, menu_pane, Zero);
+			create menu_title.make_opts (Result, "&Test", Void, menu_pane, 0);
 
 		end
 		---------------------------
@@ -309,20 +309,20 @@ end
 		local
 			b: SB_BUTTON
 		do
-			create Result.make (a_parent, Zero)
+			create Result.make (a_parent, 0)
 
 			create projects_list_box.make (Result, 10, 0)	-- Project Selector ListBox
 			projects_list_box.set_target_and_message (Current, Tb_project_select)
 			projects_list_box.append_item (once "NONE", Void, Void)
 			
-	--		create b.make_sb (Result, "Load",	 Current, Tb_load,	 	Zero)
-			create b.make_sb (Result, "PreParse",Current, Tb_pre_parse,	Zero)
-	--		create b.make_sb (Result, "Parse",	 Current, Tb_parse,	 	Zero)
-			create b.make_sb (Result, "Validate",Current, Tb_validate,	Zero)
-	--		create b.make_sb (Result, "Generate",Current, Tb_generate,	Zero)
-	--		create b.make_sb (Result, "Compile", Current, Tb_compile, 	Zero)
-	--		create b.make_sb (Result, "Execute", Current, Tb_execute, 	Zero)
-	--		create b.make_sb (Result, "Test",	 Current, Tb_test,	 	Zero)
+	--		create b.make_sb (Result, "Load",	 Current, Tb_load,	 	0)
+			create b.make_sb (Result, "PreParse",Current, Tb_pre_parse,	0)
+	--		create b.make_sb (Result, "Parse",	 Current, Tb_parse,	 	0)
+			create b.make_sb (Result, "Validate",Current, Tb_validate,	0)
+	--		create b.make_sb (Result, "Generate",Current, Tb_generate,	0)
+	--		create b.make_sb (Result, "Compile", Current, Tb_compile, 	0)
+	--		create b.make_sb (Result, "Execute", Current, Tb_execute, 	0)
+	--		create b.make_sb (Result, "Test",	 Current, Tb_test,	 	0)
 			Result.show
 		end
 
@@ -501,7 +501,7 @@ end
 			ucs.to_upper
 
 			-- Add to Classes tab
-			fc := classes_tree.find_item_by_name_opts (ucs, Void, Zero)
+			fc := classes_tree.find_item_by_name_opts (ucs, Void, 0)
 			if fc /= Void then
 				fc.set_has_expander (True)
 			else

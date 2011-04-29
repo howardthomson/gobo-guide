@@ -32,28 +32,28 @@ creation
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_TOOL_BAR"
 		end
 
 feature -- Creation
 
-   make (p: SB_COMPOSITE; opts: INTEGER) is
+   make (p: SB_COMPOSITE; opts: INTEGER)
          -- Construct a non-floatable toolbar.
          -- The toolbar cannot be undocked.
       local
          o: INTEGER
       do
-         if opts = Zero then
+         if opts = 0 then
             o := Layout_top | Layout_left | Layout_fill_x;
          else
             o := opts
          end
-         make_opts(p, Void, o, 0,0,0,0, 3,3,2,2, DEFAULT_SPACING, DEFAULT_SPACING);
+         make_opts (p, Void, o, 0,0,0,0, 3,3,2,2, DEFAULT_SPACING, DEFAULT_SPACING)
       end
 
-   make_float (p, q: SB_COMPOSITE; opts: INTEGER) is
+   make_float (p, q: SB_COMPOSITE; opts: INTEGER)
          -- Construct a floatable toolbar
          -- Normally, the toolbar is docked under window p.
          -- When floated, the toolbar can be docked under window q, which is
@@ -61,13 +61,13 @@ feature -- Creation
       local
          o: INTEGER
       do
-         if opts = Zero then
+         if opts = 0 then
             o := Layout_top | Layout_left | Layout_fill_x;
          end
          make_opts (p, q, o, 0,0,0,0, 3,3,2,2, DEFAULT_SPACING, DEFAULT_SPACING);
       end
 
-	make_opts (p, q: SB_COMPOSITE; opts: INTEGER; x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER) is
+	make_opts (p, q: SB_COMPOSITE; opts: INTEGER; x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER)
     		-- Construct a toolbar. Normally, the toolbar is docked under window p.
     		-- When floated, the toolbar can be docked under window q, which is
         	-- typically an SB_TOOL_BAR_SHELL window.
@@ -81,7 +81,7 @@ feature -- Creation
          	wet_dock := q
 		--#	create outline	-- Not needed: expanded class
          	dock_after := Void
-         	dock_side := b0
+         	dock_side := 0
          	docking := False
       	end
 
@@ -95,7 +95,7 @@ feature -- Data
 
 feature -- Queries
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Return default width
       local
          w, wcum, wmax, mw, n: INTEGER
@@ -103,7 +103,7 @@ feature -- Queries
          hints: INTEGER
          t: SB_TOOL_BAR_GRIP
       do
-         if (options & Pack_uniform_width) /= b0 then
+         if (options & Pack_uniform_width) /= 0 then
             mw := max_child_width
          end
          from
@@ -116,9 +116,9 @@ feature -- Queries
                t ?= child;
                if t /= Void then
                   w := child.default_width
-               elseif (hints & Layout_fix_width) /= Zero then
+               elseif (hints & Layout_fix_width) /= 0 then
                   w := child.width
-               elseif (options & Pack_uniform_width) /= Zero then
+               elseif (options & Pack_uniform_width) /= 0 then
                   w := mw
                else
                   w := child.default_width
@@ -131,7 +131,7 @@ feature -- Queries
             end
             child := child.next
          end
-         if (options & Layout_side_left) = Zero then
+         if (options & Layout_side_left) = 0 then
             -- Horizontal
             if n > 1 then
                wcum := wcum + (n-1)*h_spacing
@@ -141,7 +141,7 @@ feature -- Queries
          Result := pad_left + pad_right + wmax + (border*2)
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       local
          h, hcum, hmax, mh, n: INTEGER
@@ -149,7 +149,7 @@ feature -- Queries
          hints: INTEGER
          t: SB_TOOL_BAR_GRIP
       do
-         if (options & Pack_uniform_height) /= Zero then
+         if (options & Pack_uniform_height) /= 0 then
             mh := max_child_height
          end
          from
@@ -162,9 +162,9 @@ feature -- Queries
                t ?= child
                if t /= Void then
                   h := child.default_height
-               elseif (hints & Layout_fix_width) /= Zero then
+               elseif (hints & Layout_fix_width) /= 0 then
                   h := child.height
-               elseif (options & Pack_uniform_width) /= Zero then
+               elseif (options & Pack_uniform_width) /= 0 then
                   h := mh
                else
                   h := child.default_height
@@ -177,7 +177,7 @@ feature -- Queries
             end
             child := child.next
          end
-         if (options & Layout_side_left) /= Zero then
+         if (options & Layout_side_left) /= 0 then
             -- Vertical
             if n > 1 then
                hcum := hcum + (n-1)*v_spacing
@@ -187,7 +187,7 @@ feature -- Queries
          Result := pad_left + pad_right + hmax + (border*2)
       end
 
-   width_for_height (givenheight: INTEGER): INTEGER is
+   width_for_height (givenheight: INTEGER): INTEGER
          -- Return width for given height
       local
          wtot, wmax, hcum, w, h, mw, mh, space, ngalleys: INTEGER
@@ -199,10 +199,10 @@ feature -- Queries
          if space < 1 then
             space := 1
          end;
-         if (options & Pack_uniform_width) /= Zero then
+         if (options & Pack_uniform_width) /= 0 then
             mw := max_child_width
          end
-         if (options & Pack_uniform_height) /= Zero then
+         if (options & Pack_uniform_height) /= 0 then
             mh := max_child_height
          end
          from
@@ -215,18 +215,18 @@ feature -- Queries
                t ?= child
                if t /= Void then
                   w := child.default_width
-               elseif (hints & Layout_fix_width) /= Zero then
+               elseif (hints & Layout_fix_width) /= 0 then
                   w := child.width
-               elseif (options & Pack_uniform_width) /= Zero then
+               elseif (options & Pack_uniform_width) /= 0 then
                   w := mw
                else
                   w := child.default_width
                end
                if t /= Void then
                   h := child.default_height
-               elseif (hints & Layout_fix_height) /= Zero then
+               elseif (hints & Layout_fix_height) /= 0 then
                   h := child.height
-               elseif (options & Pack_uniform_height) /= Zero then
+               elseif (options & Pack_uniform_height) /= 0 then
                   h := mh
                else
                   h := child.default_height
@@ -248,7 +248,7 @@ feature -- Queries
          Result := pad_left + pad_right + wtot + (border*2)
       end
 
-   get_height_for_width (givenwidth: INTEGER): INTEGER is
+   get_height_for_width (givenwidth: INTEGER): INTEGER
          -- Return height for given width
       local
          htot, hmax, wcum, w, h, mw, mh, space, ngalleys: INTEGER
@@ -260,10 +260,10 @@ feature -- Queries
          if space < 1 then
             space := 1
          end;
-         if (options & Pack_uniform_width) /= Zero then
+         if (options & Pack_uniform_width) /= 0 then
             mw := max_child_width
          end
-         if (options & Pack_uniform_height) /= Zero then
+         if (options & Pack_uniform_height) /= 0 then
             mh := max_child_height
          end
          from
@@ -276,18 +276,18 @@ feature -- Queries
                t ?= child
                if t /= Void then
                   w := child.default_width
-               elseif (hints & Layout_fix_width) /= Zero then
+               elseif (hints & Layout_fix_width) /= 0 then
                   w := child.width
-               elseif (options & Pack_uniform_width) /= Zero then
+               elseif (options & Pack_uniform_width) /= 0 then
                   w := mw
                else
                   w := child.default_width
                end
                if t /= Void then
                   h := child.default_height
-               elseif (hints & Layout_fix_height) /= Zero then
+               elseif (hints & Layout_fix_height) /= 0 then
                   h := child.height
-               elseif (options & Pack_uniform_height) /= Zero then
+               elseif (options & Pack_uniform_height) /= 0 then
                   h := mh
                else
                   h := child.default_height
@@ -309,13 +309,13 @@ feature -- Queries
          Result := pad_top + pad_bottom + htot + (border*2)
       end
 
-   is_docked: BOOLEAN is
+   is_docked: BOOLEAN
          -- Return true if toolbar is docked
       do
          Result := parent /= wet_dock
       end
 
-   get_docking_side: INTEGER is
+   get_docking_side: INTEGER
          -- Return docking side
       do
          Result := (options & Layout_side_mask)
@@ -323,7 +323,7 @@ feature -- Queries
 
 feature -- Message processing
 
-   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       do
          if		match_function_2 (SEL_FOCUS_PREV,	0, 				type, key) then Result := on_focus_left		(sender, key, data)
          elseif match_function_2 (SEL_FOCUS_NEXT,	0,				type, key) then Result := on_focus_right	(sender, key, data)
@@ -343,13 +343,13 @@ feature -- Message processing
          else Result := Precursor(sender, type, key, data); end
       end
 
-   on_cmd_undock(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_undock(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          undock
          Result := True
       end
 
-   on_upd_undock (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_undock (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_docked then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_uncheck, Void)
@@ -364,13 +364,13 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_dock_top (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_dock_top (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          dock_inner (Layout_side_top)
          Result := True
       end
 
-   on_upd_dock_top (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_dock_top (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_docked and then (options & Layout_side_mask) = Layout_side_top then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void)
@@ -380,13 +380,13 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_dock_bottom (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_dock_bottom (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          dock_inner(Layout_side_bottom);
          Result := True;
       end
 
-   on_upd_dock_bottom(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_dock_bottom(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_docked and then (options & Layout_side_mask) = Layout_side_bottom then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void)
@@ -396,13 +396,13 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_dock_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_dock_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          dock_inner (Layout_side_left)
          Result := True
       end
 
-   on_upd_dock_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_dock_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_docked and then (options & Layout_side_mask) = Layout_side_left then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void)
@@ -412,13 +412,13 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_dock_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_dock_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          dock_inner (Layout_side_right)
          Result := True
       end
 
-   on_upd_dock_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_dock_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_docked and then (options & Layout_side_mask) = Layout_side_right then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void)
@@ -428,7 +428,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_begin_drag_grip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_begin_drag_grip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          x,y: INTEGER
@@ -459,7 +459,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_end_drag_grip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_end_drag_grip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          grip: SB_TOOL_BAR_GRIP
          event: SB_EVENT
@@ -491,7 +491,7 @@ feature -- Message processing
          Result := True
       end
 
-	on_dragged_grip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_dragged_grip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			grip: SB_TOOL_BAR_GRIP
 			event: SB_EVENT
@@ -554,7 +554,7 @@ feature -- Message processing
 					if (x - left).abs < PROXIMITY then
 						opts := options
 						options := (options & (Layout_side_mask).bit_not) | Layout_side_left
-						if (options & Layout_fix_height) /= b0 then
+						if (options & Layout_fix_height) /= 0 then
 							newoutline.set_h (height)
 						elseif (options & (Layout_fill_y | Layout_fill_x)) /= 0 then
 							newoutline.set_h (bottom-top)
@@ -576,15 +576,15 @@ feature -- Message processing
 					if (x - right).abs < PROXIMITY then
 						opts := options
 						options := (options & (Layout_side_mask).bit_not) | Layout_side_right
-						if (options & Layout_fix_height) /= b0 then
+						if (options & Layout_fix_height) /= 0 then
 							newoutline.set_h (height)
-						elseif (options & (Layout_fill_y | Layout_fill_x)) /= b0 then
+						elseif (options & (Layout_fill_y | Layout_fill_x)) /= 0 then
 							newoutline.set_h (bottom - top)
 							newoutline.set_y (top)
 						else
 							newoutline.set_h (default_height)
 						end
-						if (options & Layout_fix_width) /= b0 then
+						if (options & Layout_fix_width) /= 0 then
 							newoutline.set_w (width)
 						else
 							newoutline.set_w (width_for_height (newoutline.h))
@@ -600,15 +600,15 @@ feature -- Message processing
 					if (y - top).abs < PROXIMITY then
 						opts := options
 						options := (options & (Layout_side_mask).bit_not) | Layout_side_top
-						if (options & Layout_fix_width) /= b0 then
+						if (options & Layout_fix_width) /= 0 then
 							newoutline.set_w(width)
-						elseif (options & (Layout_fill_x | Layout_fill_y)) /= b0 then
+						elseif (options & (Layout_fill_x | Layout_fill_y)) /= 0 then
 							newoutline.set_w (right-left)
 							newoutline.set_x (left)
 						else
 							newoutline.set_w (default_width)
 						end
-						if (options & Layout_fix_height) /= b0 then
+						if (options & Layout_fix_height) /= 0 then
 							newoutline.set_h (height)
 						else
 							newoutline.set_h (height_for_width (newoutline.w))
@@ -622,15 +622,15 @@ feature -- Message processing
 					if (y - bottom).abs < PROXIMITY then
 						opts := options
 						options := (options & (Layout_side_mask).bit_not) | Layout_side_bottom
-						if (options & Layout_fix_width) /= b0 then
+						if (options & Layout_fix_width) /= 0 then
 							newoutline.set_w (width)
-						elseif (options & (Layout_fill_x | Layout_fill_y)) /= b0 then
+						elseif (options & (Layout_fill_x | Layout_fill_y)) /= 0 then
 							newoutline.set_w (right-left)
 							newoutline.set_x (left)
 						else
 							newoutline.set_w(default_width)
 						end
-						if (options & Layout_fix_height) /= b0 then
+						if (options & Layout_fix_height) /= 0 then
 							newoutline.set_h (height)
 						else
 							newoutline.set_h (height_for_width (newoutline.w))
@@ -648,16 +648,16 @@ feature -- Message processing
 						-- Get child hints
 					hints := child.layout_hints
 						-- Some final fully stretched child also marks the end
-					if (hints & Layout_fill_x) /= b0 and then (hints & Layout_fill_y) /= b0 then
+					if (hints & Layout_fill_x) /= 0 and then (hints & Layout_fill_y) /= 0 then
 						done := True
 					else
 							-- Advance inward
 						if child /= Current then
 							if child.is_shown then
-								if (hints & Layout_side_left) /= b0 then
+								if (hints & Layout_side_left) /= 0 then
 										-- Vertical
-									if (hints & Layout_right) = b0 or else (hints & Layout_center_x) = b0 then
-			                     		if (hints & Layout_side_bottom) /= b0 then
+									if (hints & Layout_right) = 0 or else (hints & Layout_center_x) = 0 then
+			                     		if (hints & Layout_side_bottom) /= 0 then
 											right := child.x_pos + pt.x
 			                     		else
 			                     			left := child.x_pos + child.width + pt.x
@@ -665,8 +665,8 @@ feature -- Message processing
 			                  		end
 			               		else
 			               				-- Horizontal
-			                  		if  (hints & Layout_bottom) = b0 or else (hints & Layout_center_y) = b0 then
-			                     		if (hints & Layout_side_bottom) /= b0 then
+			                  		if  (hints & Layout_bottom) = 0 or else (hints & Layout_center_y) = 0 then
+			                     		if (hints & Layout_side_bottom) /= 0 then
 			                     			bottom := child.y_pos + pt.y
 				                     	else
 				                     		top := child.y_pos + child.height + pt.y
@@ -702,7 +702,7 @@ feature -- Message processing
 
 feature -- Actions
 
-   set_dry_dock (dry: SB_COMPOSITE) is
+   set_dry_dock (dry: SB_COMPOSITE)
          -- Set parent when docked.
          -- If it was docked, reparent under the new docking window.
       local
@@ -719,7 +719,7 @@ feature -- Actions
                child = Void
             loop
                hints := child.layout_hints
-               if (hints & Layout_fill_x) /= b0  and then (hints & Layout_fill_y) /=b0 then
+               if (hints & Layout_fill_x) /= 0  and then (hints & Layout_fill_y) /=0 then
                   done := True;
                else
                   after := child
@@ -731,7 +731,7 @@ feature -- Actions
          dry_dock := dry
       end
 
-   set_wet_dock(wet: SB_COMPOSITE) is
+   set_wet_dock(wet: SB_COMPOSITE)
          -- Set parent when floating.
          -- If it was undocked, then reparent under the new floating window.
       do
@@ -741,7 +741,7 @@ feature -- Actions
          wet_dock := wet
       end
 
-   dock(side: INTEGER;after: SB_WINDOW) is
+   dock(side: INTEGER;after: SB_WINDOW)
          -- Dock the bar against the given side, after some other widget.
          -- However, if after is Void it will be docked as the outermost bar.
       do
@@ -753,7 +753,7 @@ feature -- Actions
          link_after (after)
       end
 
-   dock_inner(side: INTEGER) is
+   dock_inner(side: INTEGER)
          -- Dock the bar as the innermost bar just before the 
          -- work-area
       local
@@ -774,7 +774,7 @@ feature -- Actions
             done or child = Void
          loop
             hints := child.layout_hints
-            if (hints & Layout_fill_x) /= b0 and then (hints & Layout_fill_y) /= b0
+            if (hints & Layout_fill_x) /= 0 and then (hints & Layout_fill_y) /= 0
              then
                done := True
             else
@@ -785,7 +785,7 @@ feature -- Actions
          link_after (after)
       end
 
-   undock is
+   undock
          -- Undock or float the bar.
          -- The initial position of the wet dock is a few pixels
          -- below and to the right of the original docked position.
@@ -800,25 +800,25 @@ feature -- Actions
          end
       end
    
-   set_docking_side (side_: INTEGER) is
+   set_docking_side (side_: INTEGER)
          -- Set docking side
       local
          side: INTEGER
       do
          side := side_
          if (options & Layout_side_mask) /= side then
-            if (side & Layout_side_left) /= b0 then
+            if (side & Layout_side_left) /= 0 then
                	-- New orientation is vertical
-               if  (options & Layout_side_left) = b0 then
+               if  (options & Layout_side_left) = 0 then
                   	-- Was horizontal
-                  if (options & Layout_right) /= b0 and then (options & Layout_center_x) /= b0 then
+                  if (options & Layout_right) /= 0 and then (options & Layout_center_x) /= 0 then
                      side := side | Layout_fix_y
-                  elseif (options & Layout_right) /= b0 then
+                  elseif (options & Layout_right) /= 0 then
                      side := side | Layout_bottom
-                  elseif (options & Layout_center_x) /= b0 then
+                  elseif (options & Layout_center_x) /= 0 then
                      side := side | Layout_center_y
                   end
-                  if (options & Layout_fill_x) /= b0 then
+                  if (options & Layout_fill_x) /= 0 then
                      side := side | Layout_fill_y
                   end
                else
@@ -827,18 +827,18 @@ feature -- Actions
                end
             else
                	-- New orientation is horizontal
-               if (options & Layout_side_left) /= b0 then
+               if (options & Layout_side_left) /= 0 then
                   -- Was vertical
-                  if (options & Layout_bottom) /= b0 
-                     and then (options & Layout_center_y) /= b0 
+                  if (options & Layout_bottom) /= 0 
+                     and then (options & Layout_center_y) /= 0 
                    then
                      side := side | Layout_fix_x
-                  elseif (options & Layout_bottom) /= b0 then
+                  elseif (options & Layout_bottom) /= 0 then
                      side := side | Layout_right
-                  elseif (options & Layout_center_y) /= b0 then
+                  elseif (options & Layout_center_y) /= 0 then
                      side := side | Layout_center_x
                   end
-                  if (options & Layout_fill_y) /= b0 then
+                  if (options & Layout_fill_y) /= 0 then
                      side := side | Layout_fill_x
                   end
                else
@@ -855,7 +855,7 @@ feature -- Actions
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          dry_dock := Void
          wet_dock := Void
@@ -871,7 +871,7 @@ feature {NONE}-- Implementation
 	dock_side: INTEGER   -- Dock on Current side
 	docking: BOOLEAN		-- Dock it
 
-   layout is
+   layout
       local
          galleyleft, galleyright, galleytop, galleybottom, galleywidth, galleyheight: INTEGER
          tleft, tright, ttop, bleft, bright, bbottom: INTEGER
@@ -882,14 +882,14 @@ feature {NONE}-- Implementation
          t: SB_TOOL_BAR_GRIP
       do
          -- Get maximum child size
-         if (options & Pack_uniform_width) /= b0 then
+         if (options & Pack_uniform_width) /= 0 then
             mw := max_child_width
          end
-         if (options & Pack_uniform_height) /= b0 then
+         if (options & Pack_uniform_height) /= 0 then
             mh := max_child_height
          end
 
-         if (options & Layout_side_left) /= b0 then
+         if (options & Layout_side_left) /= 0 then
             -- Vertical toolbar
             galleywidth := 0
             from
@@ -902,9 +902,9 @@ feature {NONE}-- Implementation
                   t ?= child
                   if t /= Void then
                      w := child.default_width
-                  elseif (hints & Layout_fix_width) /= b0 then
+                  elseif (hints & Layout_fix_width) /= 0 then
                      w := child.width
-                  elseif (options & Pack_uniform_width) /= b0 then
+                  elseif (options & Pack_uniform_width) /= 0 then
                      w := mw;
                   else
                      w := child.default_width
@@ -938,22 +938,22 @@ feature {NONE}-- Implementation
                      w := galleywidth
                      h := child.default_height
                   else
-                     if (hints & Layout_fix_width) /= b0 then
+                     if (hints & Layout_fix_width) /= 0 then
                         w := child.width
-                     elseif (options & Pack_uniform_width) /= b0 then
+                     elseif (options & Pack_uniform_width) /= 0 then
                         w := mw;
                      else
                         w := child.default_width
                      end
-                     if (hints & Layout_fix_height) /= b0 then
+                     if (hints & Layout_fix_height) /= 0 then
                         h := child.height
-                     elseif (options & Pack_uniform_height) /= b0 then
+                     elseif (options & Pack_uniform_height) /= 0 then
                         h := mh
                      else
                         h := child.default_height
                      end
                   end
-                  if (hints & Layout_bottom) /= b0 then
+                  if (hints & Layout_bottom) /= 0 then
                      if bbottom - h < galleytop and then bbottom /= galleybottom then
                         bright := bleft
                         bleft := bleft - galleywidth
@@ -989,9 +989,9 @@ feature {NONE}-- Implementation
                   t ?= child
                   if t /= Void then
                      h := child.default_height
-                  elseif (hints & Layout_fix_height) /= b0 then
+                  elseif (hints & Layout_fix_height) /= 0 then
                      h := child.height
-                  elseif (options & Pack_uniform_height) /= b0 then
+                  elseif (options & Pack_uniform_height) /= 0 then
                      h := mh;
                   else
                      h := child.default_height;
@@ -1024,22 +1024,22 @@ feature {NONE}-- Implementation
                      w := child.default_width
                      h := galleyheight
                   else
-                     if (hints & Layout_fix_width) /= b0 then
+                     if (hints & Layout_fix_width) /= 0 then
                         w := child.width
-                     elseif (options & Pack_uniform_width) /= b0 then
+                     elseif (options & Pack_uniform_width) /= 0 then
                         w := mw
                      else
                         w := child.default_width
                      end
-                     if (hints & Layout_fix_height) /= b0 then
+                     if (hints & Layout_fix_height) /= 0 then
                         h := child.height
-                     elseif (options & Pack_uniform_height) /= b0 then
+                     elseif (options & Pack_uniform_height) /= 0 then
                         h := mh
                      else
                         h := child.default_height
                      end
                   end
-                  if (hints & Layout_right) /= b0 then
+                  if (hints & Layout_right) /= 0 then
                      if rright - w < galleyleft and then rright /= galleyright then
                         rbottom := rtop
                         rtop := rtop - galleyheight
@@ -1067,7 +1067,7 @@ feature {NONE}-- Implementation
       end
 
    -- How close to edge before considered docked
-   PROXIMITY: INTEGER is 30
-   FUDGE: INTEGER is 5
+   PROXIMITY: INTEGER = 30
+   FUDGE: INTEGER = 5
 
 end

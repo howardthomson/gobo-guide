@@ -80,34 +80,33 @@ feature
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_PACKER"
 		end
 
 feature -- Creation
 
-	make_ev is
+	make_ev
 			-- Eiffel Vision creation routine ...
 		do
-		--	make (Void)
 			make_sb (Void, Layout_fill_x | Layout_fill_y)
 		end
 
-	make (p: SB_COMPOSITE) is
+	make (p: SB_COMPOSITE)
          	-- Construct packer layout manager
       	do
-			make_opts (p, Zero, 0,0,0,0, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING,
+			make_opts (p, 0, 0,0,0,0, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING,
 				DEFAULT_SPACING, DEFAULT_SPACING)
 		end
 
-	make_sb (p: SB_COMPOSITE; opts: INTEGER) is
+	make_sb (p: SB_COMPOSITE; opts: INTEGER)
 		do
 			make_opts (p, opts, 0,0,0,0, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING,
 					DEFAULT_SPACING, DEFAULT_SPACING)
 		end
 
-   	make_opts (p: SB_COMPOSITE; opts: INTEGER; x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER) is
+   	make_opts (p: SB_COMPOSITE; opts: INTEGER; x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER)
          	-- Construct packer layout manager
       	do
          	make_composite (p, opts, x,y,w,h)
@@ -139,14 +138,14 @@ feature -- Creation
 
 feature -- Quieries
 
-	default_width: INTEGER is
+	default_width: INTEGER
 			-- Compute minimum width based on child layout hints
 		local
 			w, wcum, wmax, mw: INTEGER
 			side, hints: INTEGER
 			child: SB_WINDOW
 		do
-			if (options & Pack_uniform_width) /= b0 then
+			if (options & Pack_uniform_width) /= 0 then
 				mw := max_child_width
 			end
 
@@ -158,16 +157,16 @@ feature -- Quieries
 				if child.is_shown then
 					hints := child.layout_hints
 					side := hints & Layout_side_mask
-					if (hints & Layout_fix_width) /= b0 then
+					if (hints & Layout_fix_width) /= 0 then
 						w := child.width
-					elseif (options & Pack_uniform_width) /= b0 then
+					elseif (options & Pack_uniform_width) /= 0 then
 						w := mw
 					else
 						w := child.default_width
 					end
 
-					if (hints & Layout_right) /= b0
-						and then (hints & Layout_center_x) /= b0
+					if (hints & Layout_right) /= 0
+						and then (hints & Layout_center_x) /= 0
 					then
 						w := child.x_pos + w
 						if w > wmax then
@@ -189,14 +188,14 @@ feature -- Quieries
 			Result := pad_left + pad_right + (border*2) + wcum.max(wmax)
 		end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Compute minimum height based on child layout hints
       local
          h, hcum, hmax, mh: INTEGER
          side, hints: INTEGER
          child: SB_WINDOW
       do
-         if (options & Pack_uniform_height) /= b0 then
+         if (options & Pack_uniform_height) /= 0 then
             mh := max_child_height
          end
          from
@@ -207,15 +206,15 @@ feature -- Quieries
             if child.is_shown then
                hints := child.layout_hints
                side := hints & Layout_side_mask
-               if (hints & Layout_fix_height) /= b0 then
+               if (hints & Layout_fix_height) /= 0 then
                   h := child.height
-               elseif (options & Pack_uniform_height) /= b0 then
+               elseif (options & Pack_uniform_height) /= 0 then
                   h := mh
                else h := child.default_height
                end
 
-               if (hints & Layout_bottom) /= b0 and then
-                  (hints & Layout_center_y) /= b0 then
+               if (hints & Layout_bottom) /= 0 and then
+                  (hints & Layout_center_y) /= 0 then
                   h := child.y_pos+h
                   if h > hmax then
                      hmax := h
@@ -236,7 +235,7 @@ feature -- Quieries
          Result := pad_top + pad_bottom + (border * 2) + hcum.max (hmax)
       end
 
-   set_packing_hints (ph: INTEGER) is
+   set_packing_hints (ph: INTEGER)
          -- Change packing hints
       local
          opts: INTEGER
@@ -249,13 +248,13 @@ feature -- Quieries
          end
       end
 
-   get_packing_hints: INTEGER is
+   get_packing_hints: INTEGER
          -- Return packing hints
       do
          Result := (options & (Pack_uniform_height | Pack_uniform_width))
       end
 
-   set_h_spacing(hs: INTEGER) is
+   set_h_spacing(hs: INTEGER)
          -- Change horizontal inter-child spacing
       do
          if h_spacing /= hs then
@@ -265,7 +264,7 @@ feature -- Quieries
          end
       end
 
-   set_v_spacing(vs: INTEGER) is
+   set_v_spacing(vs: INTEGER)
          -- Change vertical inter-child spacing
       do
          if v_spacing /= vs then
@@ -277,7 +276,7 @@ feature -- Quieries
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (SEL_FOCUS_UP,		0, type, key) then Result := on_focus_up	(sender, key, data)
         	elseif match_function_2 (SEL_FOCUS_DOWN,	0, type, key) then Result := on_focus_down	(sender, key, data)
@@ -287,7 +286,7 @@ feature -- Message processing
 			end
 		end
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
          dc: SB_DC_WINDOW
@@ -305,7 +304,7 @@ feature -- Message processing
       end
 
 
-   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child, c: SB_WINDOW
          cury, childy: INTEGER
@@ -360,7 +359,7 @@ feature -- Message processing
                   elseif child.is_composite
                      and then child.handle_2 (Current, SEL_FOCUS_UP, selector, data)
                    then
-                     Result := True;
+                     Result := True
                   end
                end
                child := child.prev
@@ -368,7 +367,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child, c: SB_WINDOW
          cury, childy: INTEGER
@@ -431,7 +430,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child,c: SB_WINDOW
          curx,childx: INTEGER
@@ -460,7 +459,7 @@ feature -- Message processing
                if child = Void then
                   done := True
                elseif child.is_enabled and then child.can_focus then
-                  child.do_handle_2 (Current, SEL_FOCUS_SELF, 0, data);
+                  child.do_handle_2 (Current, SEL_FOCUS_SELF, 0, data)
                   done := True
                   Result := True
                elseif child.is_composite
@@ -494,7 +493,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child,c: SB_WINDOW
          curx,childx: INTEGER
@@ -560,7 +559,7 @@ feature -- Message processing
 
 feature {NONE} -- Implementation
 
-   layout is
+   layout
          -- Recalculate layout
       local
          left,right,top,bottom,x,y,w,h,mw,mh: INTEGER
@@ -580,10 +579,10 @@ feature {NONE} -- Implementation
 		end
 
          	-- Get maximum child size
-         if (options & Pack_uniform_width) /= b0 then
+         if (options & Pack_uniform_width) /= 0 then
             mw := max_child_width
          end
-         if (options & Pack_uniform_height) /= b0 then
+         if (options & Pack_uniform_height) /= 0 then
             mh := max_child_height;
          end
 
@@ -599,11 +598,11 @@ feature {NONE} -- Implementation
                y := child.y_pos
 
                		-- Height
-               if (hints & Layout_fix_height) /= b0 then
+               if (hints & Layout_fix_height) /= 0 then
                   h := child.height
-               elseif (options & Pack_uniform_height) /= b0 then
+               elseif (options & Pack_uniform_height) /= 0 then
                   h := mh
-               elseif (hints & Layout_fill_y) /= b0 then
+               elseif (hints & Layout_fill_y) /= 0 then
                   h := bottom - top;
                else
                   h := child.default_height
@@ -611,11 +610,11 @@ feature {NONE} -- Implementation
 				check h >= 0 end
 
                		-- Width
-               if (hints & Layout_fix_width) /= b0 then
+               if (hints & Layout_fix_width) /= 0 then
                   w := child.width
-               elseif (options & Pack_uniform_width) /= b0 then
+               elseif (options & Pack_uniform_width) /= 0 then
                   w := mw
-               elseif (hints & Layout_fill_x) /= b0 then
+               elseif (hints & Layout_fill_x) /= 0 then
                   w := right - left
                else
                   w := child.default_width
@@ -623,22 +622,22 @@ feature {NONE} -- Implementation
 				check w >= 0 end
 
                		-- Vertical
-               if (hints & Layout_side_left) /= b0 then
+               if (hints & Layout_side_left) /= 0 then
                   -- Y
-                  if (hints & Layout_bottom) = b0 or else (hints & Layout_center_y) = b0 then
-                     if (hints & Layout_center_y) /= b0 then
+                  if (hints & Layout_bottom) = 0 or else (hints & Layout_center_y) = 0 then
+                     if (hints & Layout_center_y) /= 0 then
                         y := top + (bottom - top - h) // 2
-                     elseif (hints & Layout_bottom) /= b0 then
+                     elseif (hints & Layout_bottom) /= 0 then
                         y := bottom - h
                      else
                         y := top;
                      end
                   end
                   	-- X
-                  if (hints & Layout_right) = b0 or else (hints & Layout_center_x) = b0 then
-                     if (hints & Layout_center_x) /= b0 then
+                  if (hints & Layout_right) = 0 or else (hints & Layout_center_x) = 0 then
+                     if (hints & Layout_center_x) /= 0 then
                         x := left + (right - left - w) // 2
-                     elseif (hints & Layout_side_bottom) /= b0 then
+                     elseif (hints & Layout_side_bottom) /= 0 then
                         x := right-w;
                         right := right - (w + h_spacing)
                      else
@@ -649,20 +648,20 @@ feature {NONE} -- Implementation
                   	-- Horizontal
                else
                   	-- X
-                  if (hints & Layout_right) = b0 or else (hints & Layout_center_x) = b0 then
-                     if (hints & Layout_center_x) /= b0 then
+                  if (hints & Layout_right) = 0 or else (hints & Layout_center_x) = 0 then
+                     if (hints & Layout_center_x) /= 0 then
                         x := left + (right - left - w) // 2;
-                     elseif (hints & Layout_right) /= b0 then
+                     elseif (hints & Layout_right) /= 0 then
                         x := right - w
                      else
                         x := left
                      end
                   end
                   	-- Y
-                  if (hints & Layout_bottom) = b0 or else (hints & Layout_center_y) = b0 then
-                     if (hints & Layout_center_y) /= b0 then
+                  if (hints & Layout_bottom) = 0 or else (hints & Layout_center_y) = 0 then
+                     if (hints & Layout_center_y) /= 0 then
                         y := top + (bottom - top - h) // 2
-                     elseif (hints & Layout_side_bottom) /= b0 then
+                     elseif (hints & Layout_side_bottom) /= 0 then
                         y := bottom - h
                         bottom := bottom - (h + v_spacing)
                      else

@@ -44,21 +44,21 @@ creation
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_TAB_BOOK"
 		end
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
     		-- Return default width
     	local
          	w, wtabs, wmaxtab, wpnls, t, ntabs: INTEGER
          	hints: INTEGER
          	tab, pane: SB_WINDOW
       	do
-         	if (options & TABBOOK_SIDEWAYS) /= Zero then
+         	if (options & TABBOOK_SIDEWAYS) /= 0 then
             		-- Left or right tabs
             	from
                		tab := first_child
@@ -68,7 +68,7 @@ feature -- Queries
                		pane := tab.next
                		if tab.is_shown then
                   		hints := tab.layout_hints
-                  		if (hints & Layout_fix_width) /= Zero then
+                  		if (hints & Layout_fix_width) /= 0 then
 							t := tab.width
 				  		else
 							t := tab.default_width
@@ -90,7 +90,7 @@ feature -- Queries
                		pane := tab.next
                		if tab.is_shown then
                 	  	hints := tab.layout_hints
-                	  	if (hints & Layout_fix_width) /= Zero then t := tab.width else t := tab.default_width end
+                	  	if (hints & Layout_fix_width) /= 0 then t := tab.width else t := tab.default_width end
                 	  	if t > wmaxtab then wmaxtab := t end
                 	  	wtabs := wtabs + t
                 	  	t := pane.default_width
@@ -99,21 +99,21 @@ feature -- Queries
                		end
                		tab := tab.next.next
             	end
-            	if (options & Pack_uniform_width) /= Zero then wtabs := ntabs * wmaxtab end
+            	if (options & Pack_uniform_width) /= 0 then wtabs := ntabs * wmaxtab end
             	wtabs := wtabs + 5
             	w := wtabs.max (wpnls)
          	end
          	Result := w + pad_left + pad_right + (border * 2)
 		end
 
-  default_height: INTEGER is
+  default_height: INTEGER
          -- Return default height
       local
          h, htabs, hmaxtab, hpnls, t, ntabs: INTEGER
          hints: INTEGER
          tab, pane: SB_WINDOW
       do
-         if (options & TABBOOK_SIDEWAYS) /= Zero then
+         if (options & TABBOOK_SIDEWAYS) /= 0 then
             -- Left or right tabs
             from
                tab := first_child
@@ -123,7 +123,7 @@ feature -- Queries
                pane := tab.next
                if tab.is_shown then
                   hints := tab.layout_hints
-                  if (hints & Layout_fix_height) /= Zero then t := tab.height else t := tab.default_height end
+                  if (hints & Layout_fix_height) /= 0 then t := tab.height else t := tab.default_height end
                   if t > hmaxtab then hmaxtab := t end
                   htabs := htabs + t
                   t := pane.default_height
@@ -132,7 +132,7 @@ feature -- Queries
                end
                tab := tab.next.next
             end
-            if (options & Pack_uniform_height) /= Zero then htabs := ntabs*hmaxtab end
+            if (options & Pack_uniform_height) /= 0 then htabs := ntabs*hmaxtab end
             htabs := htabs + 5
             h := htabs.max(hpnls)
          else
@@ -145,7 +145,7 @@ feature -- Queries
                pane := tab.next
                if tab.is_shown then
                   hints := tab.layout_hints
-                  if (hints & Layout_fix_height) /= Zero then t := tab.height else t := tab.default_height end
+                  if (hints & Layout_fix_height) /= 0 then t := tab.height else t := tab.default_height end
                   if t > htabs then htabs := t end
                   t := pane.default_height;
                   if t > hpnls then hpnls := t end
@@ -160,7 +160,7 @@ feature -- Queries
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, selector: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, selector: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (SEL_FOCUS_NEXT,	0,			 type, selector) then Result := on_focus_next		(sender, selector, data);
          	elseif 	match_function_2 (SEL_FOCUS_PREV,	0,			 type, selector) then Result := on_focus_prev 		(sender, selector, data);
@@ -174,7 +174,7 @@ feature -- Message processing
          	end
       	end
 
-   	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	local
          	ev: SB_EVENT;
          	dc: SB_DC_WINDOW;
@@ -192,7 +192,7 @@ feature -- Message processing
          	Result := True
       	end
 
-   	on_focus_next (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_focus_next (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	local
          	child: SB_WINDOW
          	which: INTEGER
@@ -228,7 +228,7 @@ feature -- Message processing
          	end
       	end
 
-   on_focus_prev (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_prev (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW
          which: INTEGER
@@ -270,23 +270,23 @@ feature -- Message processing
          end
       end
 
-   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW
       do
-         if (options & TABBOOK_SIDEWAYS) /= Zero then
+         if (options & TABBOOK_SIDEWAYS) /= 0 then
             Result := handle_2 (Current, SEL_FOCUS_PREV, 0, data)
          else
             if focus_child /= Void then
                child := Void;
                if index_of_child (focus_child) \\ 2 = 1 then
                   -- We're on a panel
-                  if (options & TABBOOK_BOTTOMTABS) = Zero then
+                  if (options & TABBOOK_BOTTOMTABS) = 0 then
                      child := focus_child.prev
                   end
                else
                   -- We're on a tab
-                  if (options & TABBOOK_BOTTOMTABS) /= Zero then
+                  if (options & TABBOOK_BOTTOMTABS) /= 0 then
                      child := focus_child.next;
                   end
                end
@@ -300,21 +300,21 @@ feature -- Message processing
          end
       end
 
-   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW
       do
-         if (options & TABBOOK_SIDEWAYS) /= Zero then
+         if (options & TABBOOK_SIDEWAYS) /= 0 then
             Result := handle_2 (Current, SEL_FOCUS_NEXT, 0, data)
          else
             if focus_child /= Void then
                child := Void
                if index_of_child (focus_child) \\ 2 = 1 then
                   -- We're on a panel
-                  if (options & TABBOOK_BOTTOMTABS) /= Zero then child := focus_child.prev end
+                  if (options & TABBOOK_BOTTOMTABS) /= 0 then child := focus_child.prev end
                else
                   -- We're on a tab
-                  if (options & TABBOOK_BOTTOMTABS) = Zero then child := focus_child.next end
+                  if (options & TABBOOK_BOTTOMTABS) = 0 then child := focus_child.next end
                end
                if child /= Void and then
                   (child.handle_2 (Current, SEL_FOCUS_SELF, 0, data)
@@ -326,21 +326,21 @@ feature -- Message processing
          end
       end
 
-   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW
       do
-         if (options & TABBOOK_SIDEWAYS)= Zero then
+         if (options & TABBOOK_SIDEWAYS)= 0 then
             Result := handle_2 (Current, SEL_FOCUS_PREV, 0, data)
          else
             if focus_child /= Void then
                child := Void
                if index_of_child (focus_child)\\2 = 1 then
                   -- We're on a panel
-                  if (options & TABBOOK_BOTTOMTABS) = Zero then child := focus_child.prev end
+                  if (options & TABBOOK_BOTTOMTABS) = 0 then child := focus_child.prev end
                else
                   -- We're on a tab
-                  if (options & TABBOOK_BOTTOMTABS) /= Zero then child := focus_child.next end
+                  if (options & TABBOOK_BOTTOMTABS) /= 0 then child := focus_child.next end
                end
                if child /= Void and then
                   (child.handle_2 (Current, SEL_FOCUS_SELF, 0, data)
@@ -352,21 +352,21 @@ feature -- Message processing
          end
       end
 
-   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW;
       do
-         if (options & TABBOOK_SIDEWAYS) = Zero then
+         if (options & TABBOOK_SIDEWAYS) = 0 then
             Result := handle_2 (Current, SEL_FOCUS_NEXT, 0, data);
          else
             if focus_child /= Void then
                child := Void
                if index_of_child (focus_child) \\ 2 = 1 then
                   -- We're on a panel
-                  if (options & TABBOOK_BOTTOMTABS) = Zero then child := focus_child.prev end
+                  if (options & TABBOOK_BOTTOMTABS) = 0 then child := focus_child.prev end
                else
                   -- We're on a tab
-                  if (options & TABBOOK_BOTTOMTABS) /= Zero then child := focus_child.next end
+                  if (options & TABBOOK_BOTTOMTABS) /= 0 then child := focus_child.next end
                end
                if child /= Void and then
                   (child.handle_2 (Current, SEL_FOCUS_SELF, 0, data)
@@ -378,7 +378,7 @@ feature -- Message processing
          end
       end
 
-	on_cmd_open_item (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_open_item (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	local
          	child: SB_WINDOW
       	do
@@ -413,8 +413,8 @@ feature {NONE} -- Implementation
             pane := tab.next;
             if tab.is_shown then
                hints := tab.layout_hints
-               if (hints & Layout_fix_width ) /= Zero then w := tab.width  else w := tab.default_width  end
-               if (hints & Layout_fix_height) /= Zero then h := tab.height else h := tab.default_height end
+               if (hints & Layout_fix_width ) /= 0 then w := tab.width  else w := tab.default_width  end
+               if (hints & Layout_fix_height) /= 0 then h := tab.height else h := tab.default_height end
                if w > wmaxtab then wmaxtab := w end
                if h > hmaxtab then hmaxtab := h end
                if newcurrent < 0 or else i <= top_child then newcurrent := i end
@@ -426,14 +426,14 @@ feature {NONE} -- Implementation
          	-- This will change only if current now invisible
          top_child := newcurrent
 
-         if (options & TABBOOK_SIDEWAYS) /= Zero then
+         if (options & TABBOOK_SIDEWAYS) /= 0 then
             -- Left or right tabs
             -- Placements for tab items and tab panels
             y := border + pad_top
             py := y
             pw := width  - pad_left - pad_right  - (border*2) - wmaxtab
             ph := height - pad_top  - pad_bottom - (border*2)
-            if (options & TABBOOK_BOTTOMTABS) /= Zero then
+            if (options & TABBOOK_BOTTOMTABS) /= 0 then
                -- Right tabs
                x := width - pad_right - border - wmaxtab
                px := border + pad_left
@@ -453,12 +453,12 @@ feature {NONE} -- Implementation
                pane := tab.next;
                if tab.is_shown then
                   hints := tab.layout_hints
-                  if (hints & Layout_fix_height) /= Zero then h := tab.height
-                  elseif (options & Pack_uniform_height) /= Zero then h := hmaxtab;
+                  if (hints & Layout_fix_height) /= 0 then h := tab.height
+                  elseif (options & Pack_uniform_height) /= 0 then h := hmaxtab;
                   else h := tab.default_height end
                   pane.position (px,py, pw,ph)
                   if top_child = i then
-                     if (options & TABBOOK_BOTTOMTABS) /= Zero then   -- Right tabs
+                     if (options & TABBOOK_BOTTOMTABS) /= 0 then   -- Right tabs
                         tab.position (x - 2, y, wmaxtab + 2, h + 3)
                      else
                         tab.position (x, y, wmaxtab + 2, h + 3)
@@ -468,7 +468,7 @@ feature {NONE} -- Implementation
                      raisetab := tab
                      raisepane := pane
                   else
-                     if (options & TABBOOK_BOTTOMTABS) /= Zero then     -- Right tabs
+                     if (options & TABBOOK_BOTTOMTABS) /= 0 then     -- Right tabs
                         tab.position (x - 2, y + 2, wmaxtab, h)
                      else
                         tab.position (x + 2, y + 2, wmaxtab, h)
@@ -494,7 +494,7 @@ feature {NONE} -- Implementation
             px := x
             pw := width - pad_left - pad_right - (border * 2)
             ph := height - pad_top - pad_bottom - (border * 2) - hmaxtab
-            if (options & TABBOOK_BOTTOMTABS) /= Zero then         -- Bottom tabs
+            if (options & TABBOOK_BOTTOMTABS) /= 0 then         -- Bottom tabs
                y := height - pad_bottom - border - hmaxtab
                py := border + pad_top
             else
@@ -512,12 +512,12 @@ feature {NONE} -- Implementation
                pane := tab.next
                if tab.is_shown then
                   hints := tab.layout_hints
-                  if (hints & Layout_fix_width) /= Zero then w := tab.width
-                  elseif (options & Pack_uniform_width) /= Zero then w := wmaxtab
+                  if (hints & Layout_fix_width) /= 0 then w := tab.width
+                  elseif (options & Pack_uniform_width) /= 0 then w := wmaxtab
                   else w := tab.default_width end
                   pane.position (px, py, pw, ph)
                   if top_child = i then
-                     if (options & TABBOOK_BOTTOMTABS) /= Zero then      -- Bottom tabs
+                     if (options & TABBOOK_BOTTOMTABS) /= 0 then      -- Bottom tabs
                         tab.position (x, y - 2, w + 3, hmaxtab + 2)
                      else
                         tab.position (x, y, w + 3, hmaxtab + 2)
@@ -527,7 +527,7 @@ feature {NONE} -- Implementation
                      raisepane := pane
                      raisetab := tab
                   else
-                     if (options & TABBOOK_BOTTOMTABS) /= Zero then      -- Bottom tabs
+                     if (options & TABBOOK_BOTTOMTABS) /= 0 then      -- Bottom tabs
                         tab.position (x + 2, y - 2, w, hmaxtab)
                      else
                         tab.position (x + 2, y + 2, w, hmaxtab)

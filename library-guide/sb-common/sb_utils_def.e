@@ -24,28 +24,28 @@ inherit
 
 feature
 
-	is_separator(c: CHARACTER): BOOLEAN is
+	is_separator (c: CHARACTER): BOOLEAN
 		do
 			Result := c = '+' or else c = '-' or else c = ' ';
 		end
 
-	is_digit(c: CHARACTER): BOOLEAN is
+	is_digit (c: CHARACTER): BOOLEAN
 		do
 			Result := c.code >= ('0').code and then c.code <= ('9').code;
 		end
 
-	is_alpha(c: CHARACTER): BOOLEAN is
+	is_alpha (c: CHARACTER): BOOLEAN
 		do
          	Result := (c.code >= ('a').code and then c.code <= ('z').code)
               or else (c.code >= ('A').code and then c.code <= ('Z').code);
       	end
 
-	is_alnum(c: CHARACTER): BOOLEAN is
+	is_alnum (c: CHARACTER): BOOLEAN
       	do
          	Result := is_digit(c) or else is_alpha(c);
       	end
 
-   	is_lower(c: CHARACTER): BOOLEAN is
+   	is_lower (c: CHARACTER): BOOLEAN
          	-- Is it some lowercase letter ('a'..'z')?
       	do
          	inspect
@@ -56,7 +56,7 @@ feature
          	end
       	end
 
-   	is_upper(c: CHARACTER): BOOLEAN is
+   	is_upper (c: CHARACTER): BOOLEAN
          	-- Is it some uppercase letter ('A'..'Z')?
       	do
          	inspect
@@ -67,22 +67,22 @@ feature
          	end
       	end
 
-	to_lower(c: CHARACTER): CHARACTER is
+	to_lower (c: CHARACTER): CHARACTER
 		do
          	Result := as_lower(c)
       	end
 
-   	to_upper(c: CHARACTER): CHARACTER is
+   	to_upper (c: CHARACTER): CHARACTER
       	do
          	Result := as_upper(c)	-- c.to_upper;
       	end
 
-   	is_space(c: CHARACTER): BOOLEAN is
+   	is_space (c: CHARACTER): BOOLEAN
       	do
          	Result := c = ' ' or else c = '%T'
       	end
 
-	parse_accel(s: STRING): INTEGER is
+	parse_accel (s: STRING): INTEGER
 			-- Parse for accelerator key codes in a string
       	local
          	i, len, code: INTEGER
@@ -135,7 +135,7 @@ feature
                   		elseif i >= len or else s.item(i+1)  = '%T' or else s.item(i+1) = '%N'
                    		then
                      		-- One final character
-                     		if (mods & sm.SHIFTMASK) /= b0 then
+                     		if (mods & sm.SHIFTMASK) /= 0 then
                         		code := (s.item(i).as_upper).code + sbk.key_space - (' ').code;
                      		else
                         		code := (s.item(i).as_lower).code + sbk.key_space - (' ').code;
@@ -150,7 +150,7 @@ feature
          	end
 		end
 
-	parse_hot_key (s: STRING): INTEGER is
+	parse_hot_key (s: STRING): INTEGER
         	 -- Parse for hot key in a string
       	local
          	i, len, code: INTEGER
@@ -180,7 +180,7 @@ feature
          	end
       	end
 
-   find_hot_key_offset (s: STRING): INTEGER is
+   find_hot_key_offset (s: STRING): INTEGER
          -- Locate hot key underline offset from begin of string
       local
          len,pos: INTEGER
@@ -205,7 +205,7 @@ feature
          end
       end
 
-   strip_hot_key (s: STRING): STRING is
+   strip_hot_key (s: STRING): STRING
          -- Strip hot key combination from the string.
          -- For example, stripHotKey("Salt && &Pepper") should
          -- yield "Salt & Pepper".
@@ -236,7 +236,7 @@ feature
          end
       end
 
-   section (str: STRING; delim: CHARACTER; start, num: INTEGER): STRING is
+   section (str: STRING; delim: CHARACTER; start, num: INTEGER): STRING
          -- Return num partition(s) of string separated by delimiter delim
       local
           len,i,s,e: INTEGER
@@ -275,7 +275,7 @@ feature
          end
       end
 
-   mid (str: STRING; start, num: INTEGER): STRING is
+   mid (str: STRING; start, num: INTEGER): STRING
          -- Get some part in the middle
       require
          str /= Void
@@ -292,7 +292,7 @@ feature
          end
       end
 
-   rfind (str: STRING; c: CHARACTER; start: INTEGER): INTEGER is
+   rfind (str: STRING; c: CHARACTER; start: INTEGER): INTEGER
          -- Get some part in the middle
       require
          str /= Void
@@ -312,7 +312,7 @@ feature
          end
       end
 
-   extract_string (s: STRING; p: INTEGER; delim: CHARACTER): STRING is
+   extract_string (s: STRING; p: INTEGER; delim: CHARACTER): STRING
          -- Extract partition of string, interpreting escapes
       local
          part, i, len: INTEGER
@@ -344,7 +344,7 @@ feature
          end
       end
 
-   extract_string_esc (s: STRING; p: INTEGER; delim, esc: CHARACTER): STRING is
+   extract_string_esc (s: STRING; p: INTEGER; delim, esc: CHARACTER): STRING
          -- Extract partition of string, interpreting escapes
       local
          part, i, len: INTEGER
@@ -387,7 +387,7 @@ feature
          end
       end
 
-   find_forward (s: STRING; cc: CHARACTER; start: INTEGER): INTEGER is
+   find_forward (s: STRING; cc: CHARACTER; start: INTEGER): INTEGER
          -- Find a character, searching forward; return position or 0
       local
          len, pos: INTEGER
@@ -408,7 +408,7 @@ feature
          end
       end
 
-	make_hilite_color (clr: INTEGER): INTEGER is
+	make_hilite_color (clr: INTEGER): INTEGER
 			-- Get highlight color
 		local
 			r, g, b: INTEGER
@@ -426,7 +426,7 @@ feature
       end
 
 
-   make_shadow_color (clr: INTEGER): INTEGER is
+   make_shadow_color (clr: INTEGER): INTEGER
          -- Get shadow color
       local
          r,g,b: INTEGER

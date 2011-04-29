@@ -160,23 +160,23 @@ feature -- Queries
 
 	is_opened: BOOLEAN is
 		do
-			Result := (state & OPENED) /= Zero
+			Result := (state & OPENED) /= 0
 		end
 
 	is_expanded: BOOLEAN is
 		do
-			Result := (state & EXPANDED_MASK) /= Zero
+			Result := (state & EXPANDED_MASK) /= 0
 		end
 
    has_items: BOOLEAN is
       do
-         Result := (state & HASITEMS) /= Zero
+         Result := (state & HASITEMS) /= 0
             or else first_child /= Void
       end
 
 	is_multi_line: BOOLEAN is
 		do
-			Result := (state & Multi_line) /= Zero
+			Result := (state & Multi_line) /= 0
 		end
 
 feature -- setter routines (modified)
@@ -233,7 +233,7 @@ feature {SB_GENERIC_TREE_LIST}
          xx := x_;
          yy := y_;
          font := list.font;
-         if (state & OPENED) /= Zero then
+         if (state & OPENED) /= 0 then
             icon := open_icon
          else
             icon := closed_icon;

@@ -724,10 +724,10 @@ feature {NONE} -- Implementation
 		check left >= 0 and right >= left and top >= 0 and bottom >= top end
 
          -- Get maximum child size
-         if (options & Pack_uniform_width) /= b0 then
+         if (options & Pack_uniform_width) /= 0 then
             mw := max_child_width
          end
-         if (options & Pack_uniform_height) /= b0 then
+         if (options & Pack_uniform_height) /= 0 then
             mh := max_child_height
          end
 
@@ -743,13 +743,13 @@ feature {NONE} -- Implementation
                y := child.y_pos;
                
                	-- Vertical
-               if (hints & Layout_side_left) /= b0 then
+               if (hints & Layout_side_left) /= 0 then
                   	-- Height
-                  if (hints & Layout_fix_height) /= b0 then
+                  if (hints & Layout_fix_height) /= 0 then
                      h := child.height
-                  elseif (options & Pack_uniform_height) /= b0 then
+                  elseif (options & Pack_uniform_height) /= 0 then
                      h := mh
-                  elseif (hints & Layout_fill_y) /= b0 then
+                  elseif (hints & Layout_fill_y) /= 0 then
                      h := bottom-top
                   else 
                      h := child.default_height
@@ -758,11 +758,11 @@ feature {NONE} -- Implementation
 					check h >= 0 end
 					
                  	 -- Width
-                  if (hints & Layout_fix_width) /= b0 then
+                  if (hints & Layout_fix_width) /= 0 then
                      w := child.width
-                  elseif (options & Pack_uniform_width) /= b0 then
+                  elseif (options & Pack_uniform_width) /= 0 then
                      w := mw
-                  elseif (hints & Layout_fill_x) /= b0 then
+                  elseif (hints & Layout_fill_x) /= 0 then
                      w := right - left
                   else
                      w := child.width_for_height(h); -- Width is a function of height!
@@ -771,7 +771,7 @@ feature {NONE} -- Implementation
 					check w >= 0 end
 					
                  	 -- Y
-                  if (hints & Layout_bottom) = b0 or else (hints & Layout_center_y) /= b0
+                  if (hints & Layout_bottom) = 0 or else (hints & Layout_center_y) /= 0
                    then
                      if (hints & Layout_center_y) = Layout_center_y then
                         y := top+(bottom-top-h)//2;
@@ -783,11 +783,11 @@ feature {NONE} -- Implementation
                   end
 
                   	--  X
-                  if (hints & Layout_right) = b0 or else (hints & Layout_center_x) = b0
+                  if (hints & Layout_right) = 0 or else (hints & Layout_center_x) = 0
                    then
                      if (hints & Layout_center_x) = Layout_center_x then
                         x := left + (right - left - w) // 2
-                     elseif (hints & Layout_side_bottom) /= b0 then
+                     elseif (hints & Layout_side_bottom) /= 0 then
                         x := right - w
                         right := right - (w+h_spacing)
                      else
@@ -797,11 +797,11 @@ feature {NONE} -- Implementation
                   end
                else
                   	-- Width
-                  if (hints & Layout_fix_width) /= b0 then
+                  if (hints & Layout_fix_width) /= 0 then
                      w := child.width
-                  elseif (options & Pack_uniform_width) /= b0 then
+                  elseif (options & Pack_uniform_width) /= 0 then
                      w := mw
-                  elseif (hints & Layout_fill_x) /= b0 then
+                  elseif (hints & Layout_fill_x) /= 0 then
                      w := right - left
                   else
                      w := child.default_width
@@ -810,11 +810,11 @@ feature {NONE} -- Implementation
 					check w >= 0 end
 
                   	-- Height
-                  if (hints & Layout_fix_height) /= b0 then
+                  if (hints & Layout_fix_height) /= 0 then
                      h := child.height
-                  elseif (options & Pack_uniform_height) /= b0 then
+                  elseif (options & Pack_uniform_height) /= 0 then
                      h := mh
-                  elseif (hints & Layout_fill_y) /= b0 then
+                  elseif (hints & Layout_fill_y) /= 0 then
                      h := bottom - top
                   else 
                      h := child.height_for_width (w) -- Height is a function of width!
@@ -823,22 +823,22 @@ feature {NONE} -- Implementation
 					check h >= 0 end
 
                   	--  X
-                  if (hints & Layout_right) = b0 or else (hints & Layout_center_x) = b0
+                  if (hints & Layout_right) = 0 or else (hints & Layout_center_x) = 0
                    then
-                     if (hints & Layout_center_x) /= b0 then
+                     if (hints & Layout_center_x) /= 0 then
                         x := left + (right - left - w) // 2
-                     elseif (hints & Layout_right) /= b0 then
+                     elseif (hints & Layout_right) /= 0 then
                         x := right - w
                      else
                         x := left
                      end
                   end
                   	-- Y
-                  if (hints & Layout_bottom) = b0 or else (hints & Layout_center_y) = b0
+                  if (hints & Layout_bottom) = 0 or else (hints & Layout_center_y) = 0
                    then
-                     if (hints & Layout_center_y) /= b0 then
+                     if (hints & Layout_center_y) /= 0 then
                         y := top + (bottom - top - h) // 2
-                     elseif (hints & Layout_side_bottom) /= b0 then
+                     elseif (hints & Layout_side_bottom) /= 0 then
                         y := bottom - h
                         bottom := bottom - (h + v_spacing)
                      else

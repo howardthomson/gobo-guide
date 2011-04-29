@@ -350,7 +350,7 @@ feature -- Message processing
                if index < 1 then index := 1 end
                inspect event.code
                when key_control_l,  key_control_r,  key_shift_l,  key_shift_r,  key_alt_l, key_alt_r then
-                  if (flags & Flag_dodrag) /= Zero then do_handle_2 (Current, SEL_DRAGGED, 0, data) end
+                  if (flags & Flag_dodrag) /= 0 then do_handle_2 (Current, SEL_DRAGGED, 0, data) end
                when key_page_up,  key_kp_page_up then
                   create lookup_string.make_empty
                   set_scroll_position(pos_x, pos_y+v_scroll_bar.page_size)
@@ -374,14 +374,14 @@ feature -- Message processing
                   if 1 <= current_item and then items.item(current_item).is_enabled then
                      t := options & SELECT_MASK
                      if t = LIST_EXTENDEDSELECT then
-                        if (event.state & SHIFTMASK) /= Zero then
+                        if (event.state & SHIFTMASK) /= 0 then
                            if 1 <= anchor_item then
                               do_select_item(anchor_item, True)
                               do_extend_selection(current_item, True)
                            else
                               do_select_item(current_item, True)
                            end
-                        elseif (event.state & CONTROLMASK) /= Zero then
+                        elseif (event.state & CONTROLMASK) /= 0 then
                            do_toggle_item(current_item, True)
                         else
                            do_kill_selection(True)
@@ -403,7 +403,7 @@ feature -- Message processing
                      do_handle_2 (Current, SEL_COMMAND, 0, ref_integer(current_item))
                   end
                else
-                  if (event.state & (CONTROLMASK | ALTMASK)) /= Zero
+                  if (event.state & (CONTROLMASK | ALTMASK)) /= 0
                      or else event.text.is_empty or else event.text.item(1).code < 32
                    then
                      Result := False
@@ -449,7 +449,7 @@ feature -- Message processing
 
             if message_target = Void
                or else not message_target.handle_2 (Current, SEL_LEFTBUTTONPRESS, message, data)
-               or else (options & LIST_AUTOSELECT) = Zero
+               or else (options & LIST_AUTOSELECT) = 0
              then
                -- Locate item
                index := item_at(event.win_x,  event.win_y);
@@ -465,7 +465,7 @@ feature -- Message processing
                   state := items.item(index).is_selected;
                   t := options & SELECT_MASK
                   if t = LIST_EXTENDEDSELECT then
-                     if (event.state & SHIFTMASK) /= Zero then
+                     if (event.state & SHIFTMASK) /= 0 then
                         if 1 <= anchor_item then
                            if items.item(anchor_item).is_enabled then do_select_item(anchor_item,  True) end
                            do_extend_selection(index,  True);
@@ -473,7 +473,7 @@ feature -- Message processing
                            if items.item(index).is_enabled then do_select_item(index, True) end
                            set_anchor_item(index);
                         end
-                     elseif (event.state & CONTROLMASK) /= Zero then
+                     elseif (event.state & CONTROLMASK) /= 0 then
                         if items.item(index).is_enabled and then not state then do_select_item(index, True) end
                         set_anchor_item(index);
                      else
@@ -517,10 +517,10 @@ feature -- Message processing
 
             if (message_target /= Void
                 and then message_target.handle_2 (Current, SEL_LEFTBUTTONRELEASE, message, data))
-               or else ((flg & Flag_pressed) = Zero and then (options & LIST_AUTOSELECT) = Zero)
+               or else ((flg & Flag_pressed) = 0 and then (options & LIST_AUTOSELECT) = 0)
              then
                Result := True
-            elseif (flg & Flag_dodrag) /= Zero then
+            elseif (flg & Flag_dodrag) /= 0 then
                do_handle_2 (Current, SEL_ENDDRAG, 0, data)
                Result := True
             else
@@ -528,9 +528,9 @@ feature -- Message processing
                t := options & SELECT_MASK
                if t = LIST_EXTENDEDSELECT then
                   if 1 <= current_item and then items.item(current_item).is_enabled then
-                     if (event.state & CONTROLMASK) /= Zero then
+                     if (event.state & CONTROLMASK) /= 0 then
                         if state then do_deselect_item(current_item, True) end
-                     elseif (event.state & SHIFTMASK) = Zero then
+                     elseif (event.state & SHIFTMASK) = 0 then
                         if state then do_kill_selection(True); do_select_item(current_item, True) end
                      end
                   end
@@ -606,17 +606,17 @@ feature -- Message processing
          -- Kill the tip timer
          if timer /= Void then application.remove_timeout(timer); timer := Void end
 
-         if (flags & Flag_scrolling) /= Zero then
+         if (flags & Flag_scrolling) /= 0 then
             -- Right mouse scrolling
             set_scroll_position(event.win_x-grab_x, event.win_y-grab_y)
             Result := True;
-         elseif (flags & Flag_dodrag) /= Zero then
+         elseif (flags & Flag_dodrag) /= 0 then
             -- Drag and drop mode
             if not start_auto_scroll(event.win_x, event.win_y, True) then
                do_handle_2 (Current, SEL_DRAGGED, 0, data)
             end
             Result := True;
-         elseif (flags & Flag_trydrag) /= Zero and then event.moved then
+         elseif (flags & Flag_trydrag) /= 0 and then event.moved then
             -- Tentative drag and drop
             unset_flags (Flag_trydrag)
             if handle_2 (Current, SEL_BEGINDRAG, 0, data) then
@@ -625,7 +625,7 @@ feature -- Message processing
             Result := True;
          else
             -- Normal operation
-            if (flags & Flag_pressed) /= Zero or else (options & LIST_AUTOSELECT) /= Zero then
+            if (flags & Flag_pressed) /= 0 or else (options & LIST_AUTOSELECT) /= 0 then
                -- Start auto scrolling?
                if start_auto_scroll(event.win_x,  event.win_y,  False) then
                   Result := True
@@ -651,7 +651,7 @@ feature -- Message processing
                -- Get item we're over
                cursor_item := item_at(event.win_x, event.win_y)
                -- Force GUI update only when needed
-               if cursor_item /= oldcursor or else (flg & Flag_tip) /= Zero then
+               if cursor_item /= oldcursor or else (flg & Flag_tip) /= 0 then
                   Result := True
                end
             end
@@ -667,10 +667,10 @@ feature -- Message processing
          event ?= data
          Result := Precursor (sender, selector, data);
          -- Drag and drop mode
-         if(flags & Flag_dodrag) /= Zero then
+         if(flags & Flag_dodrag) /= 0 then
             do_handle_2 (Current, SEL_DRAGGED, 0, data)
             Result := True;
-         elseif event /= Void and then ((flags & Flag_pressed) /= Zero or else (options & LIST_AUTOSELECT) /= Zero) then
+         elseif event /= Void and then ((flags & Flag_pressed) /= 0 or else (options & LIST_AUTOSELECT) /= 0) then
 
 --## What should happen if event = Void ???
 --## Should this be called from a Timer event ???
@@ -709,7 +709,7 @@ feature -- Message processing
       local
          string: STRING;
       do
-         if (flags & Flag_tip) /= Zero and then (options & LIST_AUTOSELECT) = Zero then
+         if (flags & Flag_tip) /= 0 and then (options & LIST_AUTOSELECT) = 0 then
             -- No tip when autoselect!
             if 1 <= cursor_item then
                sender.do_handle_2 (Current, SEL_COMMAND, Id_setstringvalue, items.item(cursor_item).label)
@@ -796,7 +796,7 @@ feature {NONE} -- Implementation
                         do_select_item(index, True)
                         set_anchor_item(index)
                      end
-                  elseif (event.state & CONTROLMASK) = Zero then
+                  elseif (event.state & CONTROLMASK) = 0 then
                      do_kill_selection(True)
                      do_select_item(index, True)
                      set_anchor_item(index)

@@ -46,27 +46,27 @@ feature -- Queries
 
 	has_focus: BOOLEAN is
 		do 
-         	Result := (state & FOCUS) /= Zero
+         	Result := (state & FOCUS) /= 0
       	end
 
    	is_selected: BOOLEAN is
       	do
-         	Result := (state & SELECTED) /= Zero
+         	Result := (state & SELECTED) /= 0
       	end
 
    	is_enabled: BOOLEAN is
       	do
-         	Result := (state & DISABLED) = Zero
+         	Result := (state & DISABLED) = 0
       	end
 
    	is_draggable: BOOLEAN is
       	do 
-         	Result := (state & DRAGGABLE) /= Zero
+         	Result := (state & DRAGGABLE) /= 0
       	end
 
 	has_expander: BOOLEAN is
 		do
-			Result := (state & EXPANDABLE) /= Zero
+			Result := (state & EXPANDABLE) /= 0
 		end
 
 feature -- Settings
@@ -151,7 +151,7 @@ feature -- Resource management
 
 	destroy_resource is
       	do
-	--		if (state & Icon_owned) /= Zero and then icon /= Void then
+	--		if (state & Icon_owned) /= 0 and then icon /= Void then
 	--			icon.destroy_resource
 	--		end
       	ensure implemented: false

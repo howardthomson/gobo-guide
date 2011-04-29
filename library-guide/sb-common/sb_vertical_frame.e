@@ -27,21 +27,21 @@ creation
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_VERTICAL_FRAME"
 		end
 
 feature -- Queries
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Return default width
       local
          w, wmax, mw: INTEGER
          child: SB_WINDOW
          hints: INTEGER
       do
-         if (options & Pack_uniform_width) /= Zero then
+         if (options & Pack_uniform_width) /= 0 then
             mw := max_child_width
          end
          from
@@ -51,15 +51,15 @@ feature -- Queries
          loop
             if child.is_shown then
                hints := child.layout_hints
-               if (hints & Layout_fix_width) /= Zero then
+               if (hints & Layout_fix_width) /= 0 then
                   w := child.width
-               elseif (options & Pack_uniform_width) /= Zero then
+               elseif (options & Pack_uniform_width) /= 0 then
                   w := mw
                else
                   w := child.default_width
                end
-               if (hints & Layout_right) /= Zero
-                  and then (hints & Layout_center_x) /= Zero
+               if (hints & Layout_right) /= 0
+                  and then (hints & Layout_center_x) /= 0
                 then
                   w := child.x_pos + w
                end
@@ -72,14 +72,14 @@ feature -- Queries
          Result := pad_left + pad_right + wmax + (border * 2)
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       local
          h, hcum, hmax, numc, mh: INTEGER
          child: SB_WINDOW
          hints: INTEGER
       do
-         if (options & Pack_uniform_height) /= Zero then
+         if (options & Pack_uniform_height) /= 0 then
             mh := max_child_height
          end
          from
@@ -89,15 +89,15 @@ feature -- Queries
          loop
             if child.is_shown then
                hints := child.layout_hints
-               if (hints & Layout_fix_height) /= Zero then
+               if (hints & Layout_fix_height) /= 0 then
                   h := child.height
-               elseif (options & Pack_uniform_height) /= Zero then
+               elseif (options & Pack_uniform_height) /= 0 then
                   h := mh
                else
                   h := child.default_height
                end
-               if (hints & Layout_bottom) /= Zero
-                  and then (hints & Layout_center_y) /= Zero
+               if (hints & Layout_bottom) /= 0
+                  and then (hints & Layout_center_y) /= 0
                 then
                   -- Layout_fix_y
                   h := child.y_pos + h
@@ -122,7 +122,7 @@ feature -- Queries
 
 feature {NONE} -- Implementation
 
-	layout is
+	layout
 		local
 			left, right, top, bottom, mw, mh,
 			remain, extra_space, total_space, t,
@@ -138,10 +138,10 @@ feature {NONE} -- Implementation
 			remain := bottom - top
 
 				-- Get maximum child size
-			if (options & Pack_uniform_width) /= Zero then
+			if (options & Pack_uniform_width) /= 0 then
 				mw := max_child_width
 			end
-			if (options & Pack_uniform_height) /= Zero then
+			if (options & Pack_uniform_height) /= 0 then
 				mh := max_child_height
 			end
 
@@ -153,13 +153,13 @@ feature {NONE} -- Implementation
 			loop
 				if child.is_shown then
 					hints := child.layout_hints
-					if (hints & Layout_bottom) = Zero
-						or else (hints & Layout_center_y) = Zero
+					if (hints & Layout_bottom) = 0
+						or else (hints & Layout_center_y) = 0
 					then
 							-- Layout_fix_y
-						if (hints & Layout_fix_height) /= Zero then
+						if (hints & Layout_fix_height) /= 0 then
 							h := child.height
-						elseif (options & Pack_uniform_width) /= Zero then
+						elseif (options & Pack_uniform_width) /= 0 then
 							h := mh
 						else
 							h := child.default_height
@@ -167,8 +167,8 @@ feature {NONE} -- Implementation
 						check
 							h >= 0
 						end
-						if (hints & Layout_center_y) /= Zero
-						or else ((hints & Layout_fill_y) /= Zero and then (hints & Layout_fix_height) = Zero)
+						if (hints & Layout_center_y) /= 0
+						or else ((hints & Layout_fill_y) /= 0 and then (hints & Layout_fix_height) = 0)
 						then
 							sumexpand := sumexpand + h
 							numexpand := numexpand + 1
@@ -195,22 +195,22 @@ feature {NONE} -- Implementation
 					hints := child.layout_hints
 
 						-- Determine child width
-					if (hints & Layout_fix_width) /= Zero then
+					if (hints & Layout_fix_width) /= 0 then
 						w := child.width
-					elseif (options & Pack_uniform_width) /= Zero then
+					elseif (options & Pack_uniform_width) /= 0 then
 						w := mw
-					elseif (hints & Layout_fill_x) /= Zero then
+					elseif (hints & Layout_fill_x) /= 0 then
 						w := right - left
 					else
 						w := child.default_width
 					end
 
 						-- Determine child x-position
-					if (hints & Layout_right) /= Zero and then (hints & Layout_center_x) /= Zero then
+					if (hints & Layout_right) /= 0 and then (hints & Layout_center_x) /= 0 then
 						x := child.x_pos
-					elseif (hints & Layout_center_x) /= Zero then
+					elseif (hints & Layout_center_x) /= 0 then
 						x := left + (right - left - w) // 2
-					elseif (hints & Layout_right) /= Zero then
+					elseif (hints & Layout_right) /= 0 then
 						x := right - w
 					else
 						x := left
@@ -218,18 +218,18 @@ feature {NONE} -- Implementation
 
 						-- Layout child in Y
 					y := child.y_pos
-					if (hints & Layout_fix_height) /= Zero then
+					if (hints & Layout_fix_height) /= 0 then
 						h := child.height
-					elseif (options & Pack_uniform_width) /= Zero then
+					elseif (options & Pack_uniform_width) /= 0 then
 						h := mh
 					else
 						h := child.default_height
 					end
-					if (hints & Layout_bottom) = Zero or else (hints & Layout_center_y) = Zero then
+					if (hints & Layout_bottom) = 0 or else (hints & Layout_center_y) = 0 then
 							-- Layout_fix_y
 						extra_space := 0
 						total_space := 0
-						if (hints & Layout_fill_y) /= Zero and then (hints & Layout_fix_height) = Zero then
+						if (hints & Layout_fill_y) /= 0 and then (hints & Layout_fix_height) = 0 then
 							if sumexpand > 0 then
 									-- Divide space proportionally to width
 								t := h * remain
@@ -251,7 +251,7 @@ feature {NONE} -- Implementation
 									e := e - numexpand
 								end
 							end
-						elseif (hints & Layout_center_y) /= Zero then
+						elseif (hints & Layout_center_y) /= 0 then
 							if sumexpand > 0 then
 									-- Divide space proportionally to width
 								t := h * remain
@@ -275,7 +275,7 @@ feature {NONE} -- Implementation
 							end
 							extra_space := total_space // 2
 						end
-						if (hints & Layout_bottom) /= Zero then
+						if (hints & Layout_bottom) /= 0 then
 							y := bottom - h - extra_space
 							bottom := bottom - h - v_spacing - total_space
 						else

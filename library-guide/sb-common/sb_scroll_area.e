@@ -130,14 +130,14 @@ feature -- Queries
       	local
          	w: INTEGER
       	do
-         	if (options & HSCROLLER_NEVER) /= Zero 
-            	and then (options & HSCROLLER_ALWAYS) /= Zero
+         	if (options & HSCROLLER_NEVER) /= 0 
+            	and then (options & HSCROLLER_ALWAYS) /= 0
           	then
           	--	fx_trace(0, <<"SB_SCROLL_AREA::default_width">> )
             	w := content_width
          	end
-         	if (options & VSCROLLER_NEVER) = Zero then w := w + v_scroll_bar.default_width end
-         	if (options & HSCROLLER_NEVER) = Zero then w := w + h_scroll_bar.default_width end
+         	if (options & VSCROLLER_NEVER) = 0 then w := w + v_scroll_bar.default_width end
+         	if (options & HSCROLLER_NEVER) = 0 then w := w + h_scroll_bar.default_width end
          	Result := w.max(1)
       	end
 
@@ -146,13 +146,13 @@ feature -- Queries
 		local
          	h: INTEGER
       	do
-         	if (options & VSCROLLER_NEVER) /= Zero 
-            	and then (options & VSCROLLER_ALWAYS) /= Zero
+         	if (options & VSCROLLER_NEVER) /= 0 
+            	and then (options & VSCROLLER_ALWAYS) /= 0
           	then
             	h := content_height
          	end
-         	if (options & VSCROLLER_NEVER) = Zero then h := h + v_scroll_bar.default_height end
-         	if (options & HSCROLLER_NEVER) = Zero then h := h + h_scroll_bar.default_height end
+         	if (options & VSCROLLER_NEVER) = 0 then h := h + v_scroll_bar.default_height end
+         	if (options & HSCROLLER_NEVER) = 0 then h := h + h_scroll_bar.default_height end
          	Result := h.max(1)
       	end
 
@@ -189,15 +189,15 @@ feature -- Queries
 	is_h_scrollable: BOOLEAN is
     		-- Return True if horizontally scrollable
 		do
-        	Result :=  (options & HSCROLLER_NEVER ) = Zero 
-        	   or else (options & HSCROLLER_ALWAYS) = Zero
+        	Result :=  (options & HSCROLLER_NEVER ) = 0 
+        	   or else (options & HSCROLLER_ALWAYS) = 0
       	end
 
 	is_v_scrollable: BOOLEAN is
     		-- Return True if vertically scrollable
 		do
-			Result := (options & VSCROLLER_NEVER ) = Zero
-			  or else (options & VSCROLLER_ALWAYS) = Zero
+			Result := (options & VSCROLLER_NEVER ) = 0
+			  or else (options & VSCROLLER_ALWAYS) = 0
       	end
 
 feature -- Actions
@@ -333,7 +333,7 @@ feature -- Message processing
 	       	i: INTEGER
 	       	new_x: INTEGER;
 	   	do
-	       	if (options & SCROLLERS_DONT_TRACK) = Zero then
+	       	if (options & SCROLLERS_DONT_TRACK) = 0 then
 	       		i := deref_integer (data)
 	           	new_x := - i
 	           	if new_x /= pos_x then
@@ -349,7 +349,7 @@ feature -- Message processing
 			i: INTEGER
 	       	new_y: INTEGER
 	   	do
-	       	if (options & SCROLLERS_DONT_TRACK) = Zero then
+	       	if (options & SCROLLERS_DONT_TRACK) = 0 then
 				i := deref_integer (data)
 	           	new_y := - i
 	           	if new_y /= pos_y then
@@ -361,11 +361,11 @@ feature -- Message processing
 	   	end
 
 	on_auto_scroll (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
-    	local
-        	dx,dy: INTEGER
-        	cp: SB_CURSOR_POSITION
-        	xx, yy: INTEGER
-        	oldposx, oldposy: INTEGER
+		local
+			dx, dy: INTEGER
+			cp: SB_CURSOR_POSITION
+			xx, yy: INTEGER
+			oldposx, oldposy: INTEGER
       	do
          	scroll_timer := Void
 
@@ -379,7 +379,7 @@ feature -- Message processing
             	xx := cp.x; yy := cp.y
          	end
          		-- If scrolling only while inside, and not inside, we stop scrolling
-         	if (flags & Flag_scrollinside) = Zero
+         	if (flags & Flag_scrollinside) = 0
             	or else (0 <= xx and then 0 <= yy and then xx < viewport_w and then yy < viewport_h)
           	then
             		-- Figure scroll amount x
@@ -400,7 +400,7 @@ feature -- Message processing
             	if dx /= 0 or else dy /= 0 then
                		oldposx := pos_x
                		oldposy := pos_y
-               		if (flags & Flag_scrollinside) /= Zero then
+               		if (flags & Flag_scrollinside) /= 0 then
 	                  	check
 	                     	dx.abs  <= AUTOSCROLL_FUDGE
 	                     	dy.abs  <= AUTOSCROLL_FUDGE
@@ -410,7 +410,7 @@ feature -- Message processing
 	               	end
 
 	               		-- Scroll a bit
-	               	set_scroll_position(pos_x + dx, pos_y + dy)
+	               	set_scroll_position (pos_x + dx, pos_y + dy)
 
 						-- Setup next timer if we can still scroll some more
 					if (pos_x /= oldposx) or else (pos_y /= oldposy) then
@@ -466,27 +466,27 @@ feature { NONE } -- Implementation
          	content_w := content_width
          	content_h := content_height
          		-- Get dimensions of the scroll bars
-         	if (options & HSCROLLER_NEVER) = Zero then sh_h := h_scroll_bar.default_height end
-         	if (options & VSCROLLER_NEVER) = Zero then sv_w := v_scroll_bar.default_width end
+         	if (options & HSCROLLER_NEVER) = 0 then sh_h := h_scroll_bar.default_height end
+         	if (options & VSCROLLER_NEVER) = 0 then sv_w := v_scroll_bar.default_width end
          		-- Should we disable the scroll bars?
          		-- A bit tricky as the scrollbars may influence each other's presence
-         	if (options & (HSCROLLER_ALWAYS | VSCROLLER_ALWAYS)) = Zero
+         	if (options & (HSCROLLER_ALWAYS | VSCROLLER_ALWAYS)) = 0
             	and then (content_w <= viewport_w)
             	and then (content_h <= viewport_h)
           	then
             	sh_h := 0; sv_w := 0
          	end
-         	if (options & HSCROLLER_ALWAYS) = Zero and then (content_w <= viewport_w - sv_w) then sh_h := 0 end
-         	if (options & VSCROLLER_ALWAYS) = Zero and then (content_h <= viewport_h - sh_h) then sv_w := 0 end
-         	if (options & HSCROLLER_ALWAYS) = Zero and then (content_w <= viewport_w - sv_w) then sh_h := 0 end
+         	if (options & HSCROLLER_ALWAYS) = 0 and then (content_w <= viewport_w - sv_w) then sh_h := 0 end
+         	if (options & VSCROLLER_ALWAYS) = 0 and then (content_h <= viewport_h - sh_h) then sv_w := 0 end
+         	if (options & HSCROLLER_ALWAYS) = 0 and then (content_w <= viewport_w - sv_w) then sh_h := 0 end
          		-- Viewport size with scroll bars taken into account
          	viewport_w := viewport_w - sv_w
          	viewport_h := viewport_h - sh_h
          		-- Adjust content size, now that we know about those scroll bars
-         	if (options & HSCROLLER_NEVER) /= Zero and then (options & HSCROLLER_ALWAYS) /= Zero then
+         	if (options & HSCROLLER_NEVER) /= 0 and then (options & HSCROLLER_ALWAYS) /= 0 then
             	content_w := viewport_w
          	end
-         	if (options & VSCROLLER_NEVER) /= Zero and then (options & VSCROLLER_ALWAYS) /= Zero then
+         	if (options & VSCROLLER_NEVER) /= 0 and then (options & VSCROLLER_ALWAYS) /= 0 then
             	content_h := viewport_h
          	end
          		-- Furthermore, content size won't be smaller than the viewport

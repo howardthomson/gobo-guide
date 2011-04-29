@@ -66,7 +66,7 @@ feature -- Creation
 		local
 			o: INTEGER
 		do
-			if opts = Zero then
+			if opts = 0 then
 				o := Popup_vertical | Frame_raised | Frame_thick
 			else
 				o := opts
@@ -85,9 +85,9 @@ feature -- Creation
          	hilite_color := application.hilite_color
          	shadow_color := application.shadow_color
          	border_color := application.border_color
-         	if (options & Frame_thick) /= Zero then
+         	if (options & Frame_thick) /= 0 then
             	border := 2
-         	elseif (options & (Frame_sunken | Frame_raised)) /= Zero then
+         	elseif (options & (Frame_sunken | Frame_raised)) /= 0 then
             	border := 1
          	else
            		border := 0
@@ -122,7 +122,7 @@ feature -- Queries
          loop
             if child.is_shown then
                hints := child.layout_hints
-               if (hints & Layout_fix_width) /= Zero then
+               if (hints & Layout_fix_width) /= 0 then
                   w := child.width
                else
                   w := child.default_width
@@ -134,10 +134,10 @@ feature -- Queries
             child := child.next
          end
 
-         if (options & Pack_uniform_width) /= Zero then 
+         if (options & Pack_uniform_width) /= 0 then 
             wcum := n*wmax;
          end
-         if (options & Popup_horizontal) /= Zero then
+         if (options & Popup_horizontal) /= 0 then
             wmax := wcum;
          end
          Result := wmax + border*2
@@ -157,7 +157,7 @@ feature -- Queries
          loop
             if child.is_shown then
                hints := child.layout_hints
-               if (hints & Layout_fix_height) /= Zero then
+               if (hints & Layout_fix_height) /= 0 then
                   h := child.height
                else
                   h := child.default_height
@@ -168,10 +168,10 @@ feature -- Queries
             end
             child := child.next
          end
-         if (options & Pack_uniform_height) /= Zero then
+         if (options & Pack_uniform_height) /= 0 then
             hcum := n*hmax
          end
-         if (options & Popup_horizontal) = Zero then
+         if (options & Popup_horizontal) = 0 then
             hmax := hcum;
          end
          Result := hmax + border*2
@@ -192,7 +192,7 @@ feature -- Queries
    shrink_wrap: BOOLEAN is
          -- Return shrinkwrap mode
       do
-         if (options & Popup_shrinkwrap) /= Zero then
+         if (options & Popup_shrinkwrap) /= 0 then
             Result := True
          end
       end
@@ -214,7 +214,7 @@ feature -- Actions
 		local
 			c: SB_POPUP
 		do
-        	if (flags & Flag_shown) = Zero then
+        	if (flags & Flag_shown) = 0 then
             	Precursor
             	prev_active := application.popup_window
             	c ?= Current
@@ -226,7 +226,7 @@ feature -- Actions
 
    hide is
       do
-         if (flags & Flag_shown) /= Zero then
+         if (flags & Flag_shown) /= 0 then
             Precursor
             if application.popup_window = Current then application.set_popup_window (prev_active) end
             if prev_active /= Void then prev_active.set_next_active (next_active) end
@@ -245,9 +245,9 @@ feature -- Actions
       do
          opts := new_options (style, Frame_mask)
          if options /= opts then
-            if (opts & Frame_thick) /= Zero then
+            if (opts & Frame_thick) /= 0 then
                b := 2
-            elseif (opts & (Frame_sunken | Frame_raised)) /= Zero then
+            elseif (opts & (Frame_sunken | Frame_raised)) /= 0 then
                b := 1
             else
                b := 0
@@ -337,10 +337,10 @@ feature -- Actions
          	rw := get_root.width
          	rh := get_root.height
          	grab_owner := grabto
-         	if (options & Popup_shrinkwrap) /= Zero or else w <= 1 then
+         	if (options & Popup_shrinkwrap) /= 0 or else w <= 1 then
             	w := default_width
          	end
-         	if (options & Popup_shrinkwrap) /= Zero or else h <= 1 then
+         	if (options & Popup_shrinkwrap) /= 0 or else h <= 1 then
             	h := default_height
          	end
          	if x + w > rw then
@@ -426,28 +426,28 @@ feature -- Message processing
 
    on_focus_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         if (options & Popup_horizontal) = Zero then
+         if (options & Popup_horizontal) = 0 then
             Result := on_focus_prev (sender, selector, data)
          end
       end
 
    on_focus_down(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         if (options & Popup_horizontal) = Zero then
+         if (options & Popup_horizontal) = 0 then
             Result := on_focus_next (sender, selector, data)
          end
       end
 
    on_focus_left(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         if (options & Popup_horizontal) /= Zero then
+         if (options & Popup_horizontal) /= 0 then
             Result := on_focus_prev (sender, selector, data)
          end
       end
 
    on_focus_right(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         if (options & Popup_horizontal) /= Zero then
+         if (options & Popup_horizontal) /= 0 then
             Result := on_focus_prev (sender, selector, data)
          end
       end
@@ -706,11 +706,11 @@ feature {NONE}-- Implementation
          	w,h,x,y,remain,t: INTEGER
          	mh,mw,sumexpand,numexpand,e: INTEGER
       	do
-         	if (options & Popup_horizontal) /= Zero then
+         	if (options & Popup_horizontal) /= 0 then
             	-- Horizontal
 
             	-- Get maximum size if uniform packed
-            	if (options & Pack_uniform_width) /= Zero then
+            	if (options & Pack_uniform_width) /= 0 then
                		mh := max_child_width
             	end
             	-- Space available
@@ -724,9 +724,9 @@ feature {NONE}-- Implementation
             	loop
                		if child.is_shown then
                   		hints := child.layout_hints;
-                  		if (hints & Layout_fix_width) /= Zero then
+                  		if (hints & Layout_fix_width) /= 0 then
                      		w := child.width;
-                  		elseif (options & Pack_uniform_width) /= Zero then
+                  		elseif (options & Pack_uniform_width) /= 0 then
                      		w := mw
                   		else
                      		w := child.default_width
@@ -734,7 +734,7 @@ feature {NONE}-- Implementation
                   		check
                      		w >= 0
                   		end
-                  		if (hints & Layout_fill_x) /= Zero and then (hints & Layout_fix_width) = Zero then
+                  		if (hints & Layout_fill_x) /= 0 and then (hints & Layout_fix_width) = 0 then
                      		sumexpand := sumexpand + w
                      		numexpand := numexpand + 1
                   		else
@@ -753,14 +753,14 @@ feature {NONE}-- Implementation
             	loop
                		if child.is_shown then
                   		hints := child.layout_hints
-                  		if (hints & Layout_fix_width) /= Zero then
+                  		if (hints & Layout_fix_width) /= 0 then
                      		w := child.width
-                  		elseif (options & Pack_uniform_width) /= Zero then
+                  		elseif (options & Pack_uniform_width) /= 0 then
                      		w := mw
                   		else
                      		w := child.default_width
                   		end
-                  		if (hints & Layout_fill_x) /= Zero and then (hints & Layout_fix_width) = Zero then
+                  		if (hints & Layout_fill_x) /= 0 and then (hints & Layout_fix_width) = 0 then
                      		if sumexpand > 0 then 
                         		t := w * remain
                         		w := t // sumexpand
@@ -789,7 +789,7 @@ feature {NONE}-- Implementation
          	else
             	-- Vertical
             	-- Get maximum size if uniform packed
-            	if (options & Pack_uniform_height) /= Zero then
+            	if (options & Pack_uniform_height) /= 0 then
                		mh := max_child_height
             	end
 
@@ -804,9 +804,9 @@ feature {NONE}-- Implementation
             	loop
                		if child.is_shown then
                   		hints := child.layout_hints
-                  		if (hints & Layout_fix_height) /= Zero then
+                  		if (hints & Layout_fix_height) /= 0 then
                      		h := child.height;
-                  		elseif (options & Pack_uniform_height) /= Zero then
+                  		elseif (options & Pack_uniform_height) /= 0 then
                      		h := mh;
                   		else
                      		h := child.default_height
@@ -814,7 +814,7 @@ feature {NONE}-- Implementation
                   		check
                      		h >= 0
                   		end
-                  		if (hints & Layout_fill_y) /= Zero and then (hints & Layout_fix_height) = Zero then
+                  		if (hints & Layout_fill_y) /= 0 and then (hints & Layout_fix_height) = 0 then
                      		sumexpand := sumexpand + h
                      		numexpand := numexpand + 1
                   		else
@@ -833,14 +833,14 @@ feature {NONE}-- Implementation
             	loop
                		if child.is_shown then
                   		hints := child.layout_hints
-                  		if (hints & Layout_fix_height) /= Zero then
+                  		if (hints & Layout_fix_height) /= 0 then
                      		h := child.height
-                  		elseif (options & Pack_uniform_height) /= Zero then
+                  		elseif (options & Pack_uniform_height) /= 0 then
                      		h := mh
                   		else
                      		h := child.default_height
                   		end
-                  		if (hints & Layout_fill_y) /= Zero and then (hints & Layout_fix_height) = Zero then
+                  		if (hints & Layout_fill_y) /= 0 and then (hints & Layout_fix_height) = 0 then
                      		if sumexpand > 0 then
                         		t := h * remain
                         		h := t // sumexpand

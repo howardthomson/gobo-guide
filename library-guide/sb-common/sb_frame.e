@@ -70,9 +70,9 @@ feature -- Creation
 	        pad_bottom := pb
 	        pad_left := pl
 	        pad_right := pr
-	        if (options & Frame_thick) /= b0 then
+	        if (options & Frame_thick) /= 0 then
 	        	border := 2
-	        elseif (options & (Frame_sunken | Frame_raised)) /= b0 then
+	        elseif (options & (Frame_sunken | Frame_raised)) /= 0 then
 	        	border := 1
 	        else
 	        	border := 0
@@ -93,9 +93,9 @@ feature -- Creation
 	        pad_bottom := pb
 	        pad_left := pl
 	        pad_right := pr
-	        if (options & Frame_thick) /= b0 then
+	        if (options & Frame_thick) /= 0 then
 	        	border := 2
-	        elseif (options & (Frame_sunken | Frame_raised)) /= b0 then
+	        elseif (options & (Frame_sunken | Frame_raised)) /= 0 then
 	        	border := 1
 	        else
 	        	border := 0

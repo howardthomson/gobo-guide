@@ -41,40 +41,40 @@ feature -- Queries
 
 feature { SB_LIST }
 
-   draw(list: SB_LIST; dc: SB_DC; x_, y_, w, h: INTEGER) is
+   draw (list: SB_LIST; dc: SB_DC; x_, y_, w, h: INTEGER) is
       local
          ih: INTEGER -- Icon Height
          th: INTEGER -- text Height (?)
          xx,yy: INTEGER;
       do
-         xx := x_;
-         yy := y_;
+         xx := x_
+         yy := y_
          if icon /= Void then ih := icon.height end
          if not label.is_empty then th := list.font.get_font_height end
          if is_selected then
-            dc.set_foreground(list.sel_back_color);
+            dc.set_foreground(list.sel_back_color)
          else
-            dc.set_foreground(list.back_color);
+            dc.set_foreground(list.back_color)
          end
-         dc.fill_rectangle(xx, yy, w, h);
+         dc.fill_rectangle(xx, yy, w, h)
          if has_focus then
-            dc.draw_focus_rectangle(xx+1, yy+1, w-2, h-2);
+            dc.draw_focus_rectangle(xx+1, yy+1, w-2, h-2)
          end
-         xx := xx + SIDE_SPACING // 2;
+         xx := xx + SIDE_SPACING // 2
          if icon /= Void then
-            dc.draw_icon(icon, xx, yy + (h-ih) // 2);
-            xx := xx + ICON_SPACING + icon.width;
+            dc.draw_icon(icon, xx, yy + (h-ih) // 2)
+            xx := xx + ICON_SPACING + icon.width
          end
          if not label.is_empty then
-            dc.set_font(list.font);
+            dc.set_font(list.font)
             if not is_enabled then
-               dc.set_foreground(u.make_shadow_color(list.back_color));
-            elseif (state & SELECTED) /= Zero then
-               dc.set_foreground(list.sel_text_color);
+               dc.set_foreground (u.make_shadow_color (list.back_color))
+            elseif (state & SELECTED) /= 0 then
+               dc.set_foreground (list.sel_text_color)
             else
-               dc.set_foreground(list.text_color);
+               dc.set_foreground(list.text_color)
             end
-            dc.draw_text(xx, yy + (h-th) // 2 + list.font.get_font_ascent, label);
+            dc.draw_text (xx, yy + (h-th) // 2 + list.font.get_font_ascent, label)
          end
       end
 

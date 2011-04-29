@@ -177,9 +177,9 @@ feature {NONE} -- Implementation
             loop
                l_end := l_end + 1
             end
-            if (options & JUSTIFY_LEFT) /= b0 then
+            if (options & JUSTIFY_LEFT) /= 0 then
                xx := tx
-            elseif (options & JUSTIFY_RIGHT) /= b0 then
+            elseif (options & JUSTIFY_RIGHT) /= 0 then
                xx := tx + tw - font.get_text_width_offset (text, l_start, l_end - l_start)
             else
                xx := tx + (tw - font.get_text_width_offset (text, l_start, l_end - l_start )) // 2
@@ -203,33 +203,33 @@ feature {NONE} -- Implementation
          if iw /= 0 and then tw /= 0 then
             s := 4
          end
-         if (options & JUSTIFY_LEFT) /= b0  and then  (options & JUSTIFY_RIGHT) /= b0 then
-            if (options & ICON_BEFORE_TEXT) /= b0 then
+         if (options & JUSTIFY_LEFT) /= 0  and then  (options & JUSTIFY_RIGHT) /= 0 then
+            if (options & ICON_BEFORE_TEXT) /= 0 then
                ix := pad_left+border;
                tx := width-pad_right-border-tw
-            elseif (options & ICON_AFTER_TEXT) /= b0 then
+            elseif (options & ICON_AFTER_TEXT) /= 0 then
                tx := pad_left+border;
                ix := width-pad_right-border-iw
             else
                ix := border+pad_left
                tx := border+pad_left
             end
-         elseif (options & JUSTIFY_LEFT) /= b0 then
-            if (options & ICON_BEFORE_TEXT) /= b0 then
+         elseif (options & JUSTIFY_LEFT) /= 0 then
+            if (options & ICON_BEFORE_TEXT) /= 0 then
                ix := pad_left+border
                tx := ix+iw+s
-            elseif (options & ICON_AFTER_TEXT) /= b0 then
+            elseif (options & ICON_AFTER_TEXT) /= 0 then
                tx := pad_left+border;
                ix := tx+tw+s
             else 
                ix := border+pad_left
                tx := border+pad_left
             end
-         elseif (options & JUSTIFY_RIGHT) /= b0 then
-            if (options & ICON_BEFORE_TEXT) /= b0 then
+         elseif (options & JUSTIFY_RIGHT) /= 0 then
+            if (options & ICON_BEFORE_TEXT) /= 0 then
                tx := width-pad_right-border-tw
                ix := tx-iw-s;
-            elseif (options & ICON_AFTER_TEXT) /= b0 then
+            elseif (options & ICON_AFTER_TEXT) /= 0 then
                ix := width-pad_right-border-iw
                tx := ix-tw-s;
             else
@@ -237,10 +237,10 @@ feature {NONE} -- Implementation
                tx := width-pad_right-border-tw
             end
          else
-            if (options & ICON_BEFORE_TEXT) /= b0 then
+            if (options & ICON_BEFORE_TEXT) /= 0 then
                ix := border+pad_left+(width-pad_left-pad_right-(border*2)-tw-iw-s) // 2
                tx := ix+iw+s
-            elseif (options & ICON_AFTER_TEXT) /= b0 then
+            elseif (options & ICON_AFTER_TEXT) /= 0 then
                tx := border+pad_left+(width-pad_left-pad_right-(border*2)-tw-iw-s) // 2
                ix := tx+tw+s
             else
@@ -256,33 +256,33 @@ feature {NONE} -- Implementation
       local
          iy, ty: INTEGER
       do
-         if (options & JUSTIFY_TOP) /= b0 and then (options & JUSTIFY_BOTTOM) /= b0 then
-            if (options & ICON_ABOVE_TEXT) /= b0 then
+         if (options & JUSTIFY_TOP) /= 0 and then (options & JUSTIFY_BOTTOM) /= 0 then
+            if (options & ICON_ABOVE_TEXT) /= 0 then
                iy :=pad_top+border
                ty := height-pad_bottom-border-th
-            elseif (options & ICON_BELOW_TEXT) /= b0 then
+            elseif (options & ICON_BELOW_TEXT) /= 0 then
                ty := pad_top+border
                iy := height-pad_bottom-border-ih
             else
                iy := border+pad_top
                ty := border+pad_top
             end
-         elseif (options & JUSTIFY_TOP) /= b0 then
-            if (options & ICON_ABOVE_TEXT) /= b0 then
+         elseif (options & JUSTIFY_TOP) /= 0 then
+            if (options & ICON_ABOVE_TEXT) /= 0 then
                iy := pad_top+border
                ty := iy+ih
-            elseif (options & ICON_BELOW_TEXT) /= b0 then
+            elseif (options & ICON_BELOW_TEXT) /= 0 then
                ty := pad_top+border
                iy := ty+th
             else
                iy := border+pad_top
                ty := border+pad_top
             end
-         elseif (options & JUSTIFY_BOTTOM) /= b0 then
-            if (options & ICON_ABOVE_TEXT) /= b0 then 
+         elseif (options & JUSTIFY_BOTTOM) /= 0 then
+            if (options & ICON_ABOVE_TEXT) /= 0 then 
                ty := height-pad_bottom-border-th
                iy := ty-ih
-            elseif (options & ICON_BELOW_TEXT) /= b0 then
+            elseif (options & ICON_BELOW_TEXT) /= 0 then
                iy := height-pad_bottom-border-ih
                ty := iy-th
             else
@@ -290,10 +290,10 @@ feature {NONE} -- Implementation
                ty := height-pad_bottom-border-th
             end
          else
-            if (options & ICON_ABOVE_TEXT) /= b0 then
+            if (options & ICON_ABOVE_TEXT) /= 0 then
                iy := border+pad_top+(height-pad_bottom-pad_top-(border*2)-th-ih)//2
                ty := iy+ih
-            elseif (options & ICON_BELOW_TEXT) /= b0 then
+            elseif (options & ICON_BELOW_TEXT) /= 0 then
                ty := border+pad_top+(height-pad_bottom-pad_top-(border*2)-th-ih)//2
                iy := ty+th
             else
@@ -420,7 +420,7 @@ feature -- Message processing
 
    on_query_help (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         if not help.is_empty and then (flags & Flag_help) /= b0 then
+         if not help.is_empty and then (flags & Flag_help) /= 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_setstringvalue, help)
             Result := True
          end
@@ -428,7 +428,7 @@ feature -- Message processing
 
    on_query_tip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         if not tip.is_empty and then (flags & Flag_tip) /= b0 then
+         if not tip.is_empty and then (flags & Flag_tip) /= 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_setstringvalue, tip)
             Result := True
          end
@@ -457,7 +457,7 @@ feature -- Message processing
    enable is
          -- Enable the window
       do
-         if (flags & Flag_enabled) = b0 then
+         if (flags & Flag_enabled) = 0 then
             Precursor
             update;
          end
@@ -466,7 +466,7 @@ feature -- Message processing
    disable is
          -- Disable the window
       do
-         if (flags & Flag_enabled) /= b0 then
+         if (flags & Flag_enabled) /= 0 then
             Precursor
             update;
          end
@@ -486,7 +486,7 @@ feature -- Message processing
          if (iw /=0 and then tw /= 0 ) then
             s := 4;
          end
-         if (options & (ICON_AFTER_TEXT | ICON_BEFORE_TEXT)) = b0 then
+         if (options & (ICON_AFTER_TEXT | ICON_BEFORE_TEXT)) = 0 then
             w := tw.max(iw)
          else
             w := tw+iw+s
@@ -507,7 +507,7 @@ feature -- Message processing
             ih := icon.height
          end
 
-         if (options & (ICON_ABOVE_TEXT | ICON_BELOW_TEXT)) = b0 then
+         if (options & (ICON_ABOVE_TEXT | ICON_BELOW_TEXT)) = 0 then
             h := th.max (ih)
          else
             h := th + ih

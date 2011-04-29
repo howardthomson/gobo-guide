@@ -48,7 +48,7 @@ feature -- Creation
 	make (p: SB_COMPOSITE; text: STRING) is
 			-- Construct a menu caption
 		do
-			make_opts (p, text, Void, Zero)
+			make_opts (p, text, Void, 0)
 		end
 
 	make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; opts: INTEGER) is
@@ -126,7 +126,7 @@ feature -- Actions
 	enable is
          -- Enable the menu
       do
-         if (flags & Flag_enabled) = Zero then
+         if (flags & Flag_enabled) = 0 then
             Precursor
             update
          end
@@ -135,7 +135,7 @@ feature -- Actions
    disable is
          -- Disable the menu
       do
-         if (flags & Flag_enabled) /= Zero then
+         if (flags & Flag_enabled) /= 0 then
             Precursor
             update
          end
@@ -290,7 +290,7 @@ feature -- Message processing
 
 	on_query_help (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         if not help_text.is_empty and then (flags & Flag_help) /= Zero then
+         if not help_text.is_empty and then (flags & Flag_help) /= 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_setvalue, help_text)
          end
          Result := True;
@@ -299,13 +299,13 @@ feature -- Message processing
    on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
          if not Precursor (sender, selector, data) then
-            if (options & MENU_AUTOHIDE) /= Zero then
+            if (options & MENU_AUTOHIDE) /= 0 then
                if is_shown then
                   hide
                   recalc
                end
             end
-            if (options & MENU_AUTOGRAY) /= Zero then
+            if (options & MENU_AUTOGRAY) /= 0 then
                disable
             end
          end

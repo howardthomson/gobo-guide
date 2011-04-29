@@ -1,4 +1,5 @@
-indexing
+note
+
 	description: "[
 		Window for browsing/editing the source text(s) for an Eiffel Class.
 		Highlight differences between multiple source texts for the class.

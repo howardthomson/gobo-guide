@@ -65,7 +65,7 @@ feature -- Creation
       local
          o: INTEGER;
       do
-         if opts = Zero then
+         if opts = 0 then
             o := Frame_sunken | Frame_thick | LISTBOX_NORMAL
          else
             o := opts;
@@ -193,7 +193,7 @@ feature -- Actions
    enable is
          -- Enable widget
       do
-         if (flags & Flag_enabled) = Zero then
+         if (flags & Flag_enabled) = 0 then
             Precursor
             field.set_back_color(application.back_color)
             field.enable
@@ -204,7 +204,7 @@ feature -- Actions
    disable is
          -- Disable widget
       do
-         if (flags & Flag_enabled) /= Zero then
+         if (flags & Flag_enabled) /= 0 then
             Precursor
             field.set_back_color(application.base_color)
             field.disable

@@ -45,21 +45,21 @@ creation
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_TAB_ITEM"
 		end
 
 feature -- Creation
 
---	make(p: SB_COMPOSITE; text: STRING; opts: INTEGER) is
-	make(p: SB_COMPOSITE; text: STRING) is
+--	make (p: SB_COMPOSITE; text: STRING; opts: INTEGER)
+	make (p: SB_COMPOSITE; text: STRING)
          	-- Construct a tab item
       	local
       		opts: INTEGER -- WAS an argument
          	o: INTEGER
       	do
-         	if opts = Zero then
+         	if opts = 0 then
             	o := TAB_TOP_NORMAL
          	else
             	o := opts
@@ -68,23 +68,23 @@ feature -- Creation
                    DEFAULT_PAD, DEFAULT_PAD,DEFAULT_PAD, DEFAULT_PAD);
       	end
 
-	make_opts(p: SB_COMPOSITE; text: STRING; ic: SB_ICON; opts: INTEGER;
-            		x, y, w, h, pl, pr,pt, pb: INTEGER) is
+	make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; opts: INTEGER;
+            		x, y, w, h, pl, pr,pt, pb: INTEGER)
          	-- Construct a tab item
     	do
-        	label_make_opts(p, text, ic, opts, x,y,w,h, pl,pr,pt,pb);
+        	label_make_opts (p, text, ic, opts, x,y,w,h, pl,pr,pt,pb)
         	border := 2;
       	end
 
 feature -- Queries
 
-	can_focus: BOOLEAN is
+	can_focus: BOOLEAN
          	-- Returns true because a tab item can receive focus
     	once
         	Result := True;
       	end
 
-	get_tab_orientation: INTEGER is
+	get_tab_orientation: INTEGER
     		-- Return current radio button style
       	do
         	Result := (options & TAB_ORIENT_MASK);
@@ -92,7 +92,7 @@ feature -- Queries
 
 feature -- Actions
 
-   set_tab_orientation(style: INTEGER) is
+   set_tab_orientation (style: INTEGER)
          -- Change radio button style
       local
          opts: INTEGER
@@ -107,7 +107,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	on_paint(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 		 event: SB_EVENT;
          dc: SB_DC_WINDOW;
@@ -206,21 +206,21 @@ feature -- Message processing
          Result := True
       end
 
-   on_focus_in(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender,selector,data);
          update_rectangle(border,border,width-(border*2),height-(border*2));
          Result := True
       end
 
-   on_focus_out(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender,selector,data);
          update_rectangle(border,border,width-(border*2),height-(border*2));
          Result := True
       end
 
-   on_ungrabbed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender,selector,data);
          unset_flags (Flag_pressed);
@@ -228,7 +228,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_left_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          tbc: SB_TAB_BAR_COMMANDS
       do
@@ -242,7 +242,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not Precursor(sender,selector,data) then
             if is_enabled then
@@ -253,7 +253,7 @@ feature -- Message processing
          end
       end
 
-   on_key_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          tbc: SB_TAB_BAR_COMMANDS
@@ -276,7 +276,7 @@ feature -- Message processing
          end
       end
 
-	on_key_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	local
         	event: SB_EVENT
       	do
@@ -293,7 +293,7 @@ feature -- Message processing
          	end
       	end
 
-	on_hot_key_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			tbc: SB_TAB_BAR_COMMANDS
 		do
@@ -305,14 +305,14 @@ feature -- Message processing
          	Result := True
       	end
 
-	on_hot_key_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		do
 			Result := True
 		end
 
 feature {NONE} -- Implementation
 
-	TAB_ORIENT_MASK: INTEGER is
+	TAB_ORIENT_MASK: INTEGER
 		once
 			Result := (TAB_TOP | TAB_LEFT | TAB_RIGHT | TAB_BOTTOM)
 		end

@@ -18,17 +18,17 @@ feature -- Data
 	help_text: STRING
 		-- Help text
 
-	on_query_help(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_query_help (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
          	wc: SB_WINDOW_COMMANDS
       	do
-         	if help_text /= Void and then not help_text.is_empty and then (flags & Flag_help) /= Zero then
+         	if help_text /= Void and then not help_text.is_empty and then (flags & Flag_help) /= 0 then
             	sender.do_handle_2 (Current, SEL_COMMAND, wc.Id_setstringvalue, help_text)
             	Result := True
          	end
       	end
 
-   	set_help_text(text: STRING) is
+   	set_help_text (text: STRING)
          	-- Set the status line help text for Current list
       	do
          	help_text := text

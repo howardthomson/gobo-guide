@@ -149,7 +149,7 @@ feature -- Queries
    content_width: INTEGER is
          -- Compute and return content width
       do
-         if (flags & Flag_recalc) /= Zero then
+         if (flags & Flag_recalc) /= 0 then
             recompute
          end
          Result := tree_width
@@ -158,7 +158,7 @@ feature -- Queries
    content_height: INTEGER is
          -- Return content height
       do
-         if (flags & Flag_recalc) /= Zero then
+         if (flags & Flag_recalc) /= 0 then
             recompute
          end
          Result := tree_height
@@ -275,7 +275,7 @@ feature -- Item queries
          i := first_item
          ix := pos_x
          iy := pos_y
-         if (options & Treelist_root_boxes) /= Zero then ix := ix + (4+indent) end
+         if (options & Treelist_root_boxes) /= 0 then ix := ix + (4+indent) end
          from
          until
             i = Void or else iy > y or else Result /= Void
@@ -287,7 +287,7 @@ feature -- Item queries
             else
                iy := iy + ih
                if i.first_child /= Void 
-                  and then ((options & TREELIST_AUTOSELECT) /= Zero or else i.is_expanded)
+                  and then ((options & TREELIST_AUTOSELECT) /= 0 or else i.is_expanded)
                 then
                   ix := ix + (indent + ih // 2)
                   i := i.first_child
@@ -316,20 +316,20 @@ feature -- Item queries
          reverse_prefix: BOOLEAN
       do
          if first_item /= Void then
-            if (flgs & SEARCH_IGNORECASE) /= Zero then
+            if (flgs & SEARCH_IGNORECASE) /= 0 then
                comp := comparecase
             else 
                comp := compare
             end
-            if (flgs & SEARCH_REV_PREFIX) /= Zero then
+            if (flgs & SEARCH_REV_PREFIX) /= 0 then
             	reverse_prefix := True
             end
-            if (flgs & SEARCH_PREFIX) /= Zero then
+            if (flgs & SEARCH_PREFIX) /= 0 then
                len := text.count
             else
                len := 2147483647
             end
-            if (flags & SEARCH_BACKWARD) = Zero then
+            if (flags & SEARCH_BACKWARD) = 0 then
             	-- Search forward
                s := first_item
                f := first_item
@@ -353,7 +353,7 @@ feature -- Item queries
                      i := i.next
                   end
                end
-               if Result = Void and then (flags & SEARCH_WRAP) /= Zero then
+               if Result = Void and then (flags & SEARCH_WRAP) /= 0 then
                   from
                      i := f
                   until
@@ -392,7 +392,7 @@ feature -- Item queries
                      i := i.prev
                   end
                end
-               if Result = Void and then (flags & SEARCH_WRAP) /= Zero then
+               if Result = Void and then (flags & SEARCH_WRAP) /= 0 then
                   from
                      i := l
                   until
@@ -435,7 +435,7 @@ feature -- Item queries
             iw := i.width (Current)
             ih := i.height (Current)
             if iy <= y and then y < iy+ih then
-               if (options & Treelist_shows_boxes) /= Zero and then
+               if (options & Treelist_shows_boxes) /= 0 and then
                   (i.has_items or else i.first_child /= Void)
                 then
                   xh := ix - indent + (SIDE_SPACING // 2)
@@ -888,7 +888,7 @@ feature -- Item actions
       do
          if i /= Void then
             -- Expand parents of Current node
-            if (options & TREELIST_AUTOSELECT) = Zero then
+            if (options & TREELIST_AUTOSELECT) = 0 then
                from
                   par := i.parent
                until
@@ -906,7 +906,7 @@ feature -- Item actions
             if is_attached then
 
                -- Force layout if dirty
-               if (flags & Flag_recalc) /= Zero then layout end
+               if (flags & Flag_recalc) /= 0 then layout end
                x := pos_x
                y := pos_y
 
@@ -1060,7 +1060,7 @@ feature -- Item actions
       do
          if tree.is_expanded then
             tree.set_expanded (False);
-            if (options & TREELIST_AUTOSELECT) = Zero then
+            if (options & TREELIST_AUTOSELECT) = 0 then
                -- In autoselect, already is_shown as expanded!
                if tree.first_child /= Void then
                   recalc
@@ -1089,7 +1089,7 @@ feature -- Item actions
       do
          if not tree.is_expanded then
             tree.set_expanded (True)
-            if (options & TREELIST_AUTOSELECT) = Zero then
+            if (options & TREELIST_AUTOSELECT) = 0 then
                -- In autoselect, already is_shown as expanded not 
                if tree.first_child /= Void then
                   recalc
@@ -1373,7 +1373,7 @@ feature -- Message processing
          	dc.set_font(font)
          	x := pos_x	-- Start at top left of visible scrolled area
          	y := pos_y
-         	if (options & Treelist_root_boxes) /= Zero then  x := x + (4+indent) end
+         	if (options & Treelist_root_boxes) /= 0 then  x := x + (4+indent) end
          	from
             	i := first_item
          	until
@@ -1392,9 +1392,9 @@ feature -- Message processing
 				-- vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
                		-- Show other paraphernalia such as dotted lines and expand-boxes
                		if true
-               			and then (options & (Treelist_shows_lines | Treelist_shows_boxes)) /= Zero
+               			and then (options & (Treelist_shows_lines | Treelist_shows_boxes)) /= 0
                   		and then (i.parent /= Void
-                  				or else (options & Treelist_root_boxes) /= Zero
+                  				or else (options & Treelist_root_boxes) /= 0
                 --#  				or else i.has_expander
                   				)
 				-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1409,7 +1409,7 @@ feature -- Message processing
                   		py := pos_y & 1
 
                   		dc.set_stipple_pattern (dc.Stipple_gray, px, py)
-                  		if (options & Treelist_shows_lines) /= Zero then
+                  		if (options & Treelist_shows_lines) /= 0 then
 
                   			-- Connect items with lines
                      		dc.set_fill_style (dc.Fill_opaque_stippled)	-- Fill_opaque_stippled ???
@@ -1425,7 +1425,7 @@ feature -- Message processing
                         		end
                         		p := p.parent
                      		end
-                     		if (options & Treelist_shows_boxes) /= Zero
+                     		if (options & Treelist_shows_boxes) /= 0
                         	and then (i.has_items or else i.first_child /= Void)
                       		then
                         		if i.prev /= Void or else i.parent /= Void then
@@ -1452,9 +1452,9 @@ feature -- Message processing
 					-- vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
                   		-- Boxes before items for expand/collapse of i
                   		if true
-                  			and then ((options & Treelist_shows_boxes) /= Zero
+                  			and then ((options & Treelist_shows_boxes) /= 0
                      		and then (i.has_items or else i.first_child /= Void)
-                    --#		and then (options & Treelist_boxes_item_opt) = Zero
+                    --#		and then (options & Treelist_boxes_item_opt) = 0
                      		)
 					--#	or else i.has_expander
 					-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1465,7 +1465,7 @@ feature -- Message processing
                      		dc.draw_rectangle (xh - 4, yh - 4, 8, 8)
                      		dc.set_foreground (text_color)
                      		dc.fill_rectangle (xh - 2, yh, 5, 1)
-                     		if (options & TREELIST_AUTOSELECT) = Zero 
+                     		if (options & TREELIST_AUTOSELECT) = 0 
                         	and then not i.is_expanded
                       		then
                         		dc.fill_rectangle (xh, yh - 2, 1, 5)
@@ -1477,7 +1477,7 @@ feature -- Message processing
 	            	-- Move on to the next i
             	y := y + h
             	if i.first_child /= Void
-               	and then ((options & TREELIST_AUTOSELECT) /= Zero or else i.is_expanded)
+               	and then ((options & TREELIST_AUTOSELECT) /= 0 or else i.is_expanded)
              	then
                		x := x + (indent + h // 2)
                		i := i.first_child
@@ -1554,25 +1554,25 @@ feature -- Message processing
          		timer := Void
          	end
 
-         	if (flags & Flag_scrolling) /= Zero then
+         	if (flags & Flag_scrolling) /= 0 then
             		-- Right mouse scrolling
             	set_scroll_position (event.win_x - grab_x, event.win_y - grab_y)
             	Result := True
-         	elseif (flags & Flag_dodrag) /= Zero then
+         	elseif (flags & Flag_dodrag) /= 0 then
             		-- Drag and drop mode
             	if not start_auto_scroll (event.win_x, event.win_y, True) then
             		do_handle_2 (Current, SEL_DRAGGED, 0, data)
             	end
             	Result := True
-         	elseif (flags & Flag_trydrag) /= Zero and then event.moved then
+         	elseif (flags & Flag_trydrag) /= 0 and then event.moved then
             		-- Tentative drag and drop
             	unset_flags (Flag_trydrag)
             	if handle_2 (Current, SEL_BEGINDRAG, 0, data) then
                		flags := flags | Flag_dodrag
             	end
             	Result := True
-         	elseif (flags & Flag_pressed) /= Zero 
-            or else (options & TREELIST_AUTOSELECT) /= Zero then
+         	elseif (flags & Flag_pressed) /= 0 
+            or else (options & TREELIST_AUTOSELECT) /= 0 then
             		-- Normal operation
             	if not start_auto_scroll (event.win_x, event.win_y, False) then
                			-- Find i
@@ -1595,7 +1595,7 @@ feature -- Message processing
             		-- Get i we're over
             	cursor_item := get_item_at (event.win_x, event.win_y)
             		-- Force GUI update only when needed
-            	if cursor_item /= oldcursoritem or else (flg & Flag_tip) /= Zero then
+            	if cursor_item /= oldcursoritem or else (flg & Flag_tip) /= 0 then
                		Result := True
             	end
          	end
@@ -1623,7 +1623,7 @@ feature -- Message processing
                when key_control_l, key_control_r,
                		key_shift_l, key_shift_r,
                		key_alt_l, key_alt_r then
-                  if (flags & Flag_dodrag) /= Zero 
+                  if (flags & Flag_dodrag) /= 0 
                    then
                      do_handle_2 (Current, SEL_DRAGGED, 0, data)
                   end
@@ -1643,7 +1643,7 @@ feature -- Message processing
                         from
                         until 
                            i.first_child = Void
-                              or else ((options & TREELIST_AUTOSELECT) = Zero
+                              or else ((options & TREELIST_AUTOSELECT) = 0
                                        and then not i.is_expanded)
                         loop
                            i := i.last_child
@@ -1657,7 +1657,7 @@ feature -- Message processing
                when key_down, key_kp_down then
                   if i /= Void then
                      if i.first_child /= Void 
-                        and then ((options & TREELIST_AUTOSELECT) /= Zero or else i.is_expanded)
+                        and then ((options & TREELIST_AUTOSELECT) /= 0 or else i.is_expanded)
                       then
                         i := i.first_child
                      else
@@ -1674,7 +1674,7 @@ feature -- Message processing
 
                when key_right, key_kp_right then
                   if i /= Void then
-                     if (options & TREELIST_AUTOSELECT) = Zero 
+                     if (options & TREELIST_AUTOSELECT) = 0 
                         and then not i.is_expanded
                         and then (i.has_items or else i.first_child /= Void)
                       then
@@ -1695,7 +1695,7 @@ feature -- Message processing
 
                when key_left, key_kp_left then
                   if i /= Void then
-                     if (options & TREELIST_AUTOSELECT) = Zero
+                     if (options & TREELIST_AUTOSELECT) = 0
                         and then i.is_expanded
                         and then (i.has_items or else i.first_child /= Void)
                       then
@@ -1718,7 +1718,7 @@ feature -- Message processing
                   until
                      i = Void or else done
                   loop
-                     if i.last_child /= Void and then ((options & TREELIST_AUTOSELECT) /= Zero or else i.is_expanded) then
+                     if i.last_child /= Void and then ((options & TREELIST_AUTOSELECT) /= 0 or else i.is_expanded) then
                         i := i.last_child
                      elseif i.next /= Void then
                         i := i.next
@@ -1733,14 +1733,14 @@ feature -- Message processing
                   if i /= Void and then i.is_enabled then
                      t := options & SELECT_MASK
                      if t = TREELIST_EXTENDEDSELECT then
-                        if (event.state & SHIFTMASK) /= Zero then
+                        if (event.state & SHIFTMASK) /= 0 then
                            if anchor_item /= Void then
                               do_select_item (anchor_item,True)
                               do_extend_selection (i,True)
                            else
                               do_select_item(i,True)
                            end
-                        elseif (event.state & CONTROLMASK) /= Zero then
+                        elseif (event.state & CONTROLMASK) /= 0 then
                            do_toggle_item (i,True)
                         else
                            do_kill_selection (True)
@@ -1763,7 +1763,7 @@ feature -- Message processing
                      do_handle_2 (Current, SEL_COMMAND, 0, current_item)
                   end
                else
-                  if (event.state & (CONTROLMASK | ALTMASK)) /= Zero 
+                  if (event.state & (CONTROLMASK | ALTMASK)) /= 0 
                      or else event.text.is_empty or else event.text.item (1).code < 32
                    then
                      Result := False
@@ -1811,7 +1811,7 @@ feature -- Message processing
                when key_shift_l, key_shift_r, key_control_l,
                   key_control_r, key_alt_l, key_alt_r
                 then
-                  if (flags & Flag_dodrag) /= Zero then
+                  if (flags & Flag_dodrag) /= 0 then
                      do_handle_2 (Current, SEL_DRAGGED, 0, data)
                   end
                   Result := True
@@ -1838,7 +1838,7 @@ feature -- Message processing
             unset_flags (Flag_update);
             if message_target = Void 
                or else not message_target.handle_2 (Current, SEL_LEFTBUTTONPRESS, message, data)
-               or else (options & TREELIST_AUTOSELECT) = Zero
+               or else (options & TREELIST_AUTOSELECT) = 0
              then
                -- Locate i
                i := get_item_at (event.win_x, event.win_y);
@@ -1860,7 +1860,7 @@ feature -- Message processing
                      state := i.is_selected;
                      t := options & SELECT_MASK
                      if t = TREELIST_EXTENDEDSELECT then
-                        if (event.state & SHIFTMASK) /= Zero then
+                        if (event.state & SHIFTMASK) /= 0 then
                            if anchor_item /= Void then
                               if anchor_item.is_enabled then do_select_item (anchor_item, True) end
                               do_extend_selection (i, True);
@@ -1868,7 +1868,7 @@ feature -- Message processing
                               if i.is_enabled then do_select_item (i, True) end
                               set_anchor_item (i)
                            end
-                        elseif (event.state & CONTROLMASK) /= Zero then
+                        elseif (event.state & CONTROLMASK) /= 0 then
                            if i.is_enabled and then not state then do_select_item (i, True) end
                            set_anchor_item(i)
                         else
@@ -1914,19 +1914,19 @@ feature -- Message processing
             	-- First chance callback
             if (message_target = Void 
                or else not message_target.handle_2 (Current, SEL_LEFTBUTTONRELEASE, message, data))
-               and then ((flg & Flag_pressed) /= Zero or else (options & TREELIST_AUTOSELECT) /= Zero)
+               and then ((flg & Flag_pressed) /= 0 or else (options & TREELIST_AUTOSELECT) /= 0)
              then
                	-- Was dragging
-               if (flg & Flag_dodrag) /= Zero then
+               if (flg & Flag_dodrag) /= 0 then
                   do_handle_2 (Current, SEL_ENDDRAG, 0, data)
                else
                   	-- Select only enabled i
                   t := (options & SELECT_MASK);
                   if t =  TREELIST_EXTENDEDSELECT then
                      if current_item /= Void and then current_item.is_enabled then
-                        if (event.state & CONTROLMASK) /= Zero then
+                        if (event.state & CONTROLMASK) /= 0 then
                            if state then do_deselect_item (current_item, True) end
-                        elseif (event.state & SHIFTMASK) = Zero then
+                        elseif (event.state & SHIFTMASK) = 0 then
                            if state then do_kill_selection (True); do_select_item (current_item, True) end
                         end
                      end
@@ -1997,7 +1997,7 @@ feature -- Message processing
          cp: SB_CURSOR_POSITION
          i: G
       do
-         if (flags & Flag_tip) /= Zero and then (options & TREELIST_AUTOSELECT) = Zero then
+         if (flags & Flag_tip) /= 0 and then (options & TREELIST_AUTOSELECT) = 0 then
             	-- No tip when autoselect!
             cp := get_cursor_position
             if cp /= Void then
@@ -2047,10 +2047,10 @@ feature -- Message processing
          Result := Precursor (sender, selector, data)
 
          	-- Drag and drop mode
-         if (flags & Flag_dodrag) /= Zero then
+         if (flags & Flag_dodrag) /= 0 then
             do_handle_2 (Current, SEL_DRAGGED, 0, data)
             Result := True
-         elseif event /= Void and then ((flags & Flag_pressed) /= Zero or else (options & TREELIST_AUTOSELECT) /= Zero) then
+         elseif event /= Void and then ((flags & Flag_pressed) /= 0 or else (options & TREELIST_AUTOSELECT) /= 0) then
             	-- In autoselect mode, stop scrolling when mouse outside window
             	-- Validated position
             xx := event.win_x; if xx < 0 then xx := 0 elseif xx >= viewport_w then xx := viewport_w - 1 end
@@ -2183,7 +2183,7 @@ feature {NONE} -- Implementation
             make_item_visible (i)
             if (options & SELECT_MASK) = TREELIST_EXTENDEDSELECT then
                if i.is_enabled then
-                  if (event.state & SHIFTMASK) /= Zero then
+                  if (event.state & SHIFTMASK) /= 0 then
                      if anchor_item /= Void then
                         do_select_item (anchor_item, True)
                         do_extend_selection (i, True)
@@ -2191,7 +2191,7 @@ feature {NONE} -- Implementation
                         do_select_item (i, True)
                         set_anchor_item (i)
                      end
-                  elseif (event.state & CONTROLMASK) = Zero then
+                  elseif (event.state & CONTROLMASK) = 0 then
                      do_kill_selection (True)
                      do_select_item (i, True)
                      set_anchor_item (i)
@@ -2231,7 +2231,7 @@ feature {NONE} -- Implementation
       	do
          	tree_width := 0
          	tree_height := 0
-         	if (options & Treelist_root_boxes) /= Zero then x := x + (4+indent) end
+         	if (options & Treelist_root_boxes) /= 0 then x := x + (4+indent) end
          	from
             	i := first_item
          	until
@@ -2244,7 +2244,7 @@ feature {NONE} -- Implementation
             	if x+w > tree_width then tree_width := x+w end
             	y := y + h
             	if i.first_child /= Void
-               	and then ((options & TREELIST_AUTOSELECT) /= Zero or else i.is_expanded)
+               	and then ((options & TREELIST_AUTOSELECT) /= 0 or else i.is_expanded)
              	then
                		x := x + (indent + h // 2)
                		i := i.first_child

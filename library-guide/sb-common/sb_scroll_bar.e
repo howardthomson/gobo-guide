@@ -65,7 +65,7 @@ creation
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_SCROLL_BAR"
 		end
@@ -98,12 +98,12 @@ feature -- Attributes
 
 feature -- Creation
 
-   make (p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER) is
+   make (p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER)
          -- Construct scroll bar
       local
          o: INTEGER
       do
-         if opts = Zero then
+         if opts = 0 then
             o := SCROLLBAR_VERTICAL
          else
             o := opts
@@ -111,7 +111,7 @@ feature -- Creation
          make_opts (p, tgt,selector, o, 0,0,0,0)
       end
 
-	make_opts (p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER; x,y,w,h: INTEGER) is
+	make_opts (p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER; x,y,w,h: INTEGER)
 			-- Construct scroll bar
 		do
          	window_make (p, opts, x,y, w,h)
@@ -137,20 +137,20 @@ feature -- Creation
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
 			-- Get default width
 		do
-			if (options & SCROLLBAR_HORIZONTAL) /= Zero then
+			if (options & SCROLLBAR_HORIZONTAL) /= 0 then
 				Result := BAR_SIZE + BAR_SIZE + THUMB_MINIMUM
 			else 
 				Result := BAR_SIZE
 			end
 		end
 
-   default_height: INTEGER is
+   default_height: INTEGER
       do
          -- Get default height
-         if (options & SCROLLBAR_HORIZONTAL) /= Zero then
+         if (options & SCROLLBAR_HORIZONTAL) /= 0 then
             Result := BAR_SIZE
          else 
             Result := BAR_SIZE + BAR_SIZE + THUMB_MINIMUM
@@ -165,7 +165,7 @@ feature -- Queries
 
 feature -- Actions
 
-	set_range(r: INTEGER) is
+	set_range (r: INTEGER)
     		-- Set content size range
     	local
          	rr: INTEGER
@@ -180,7 +180,7 @@ feature -- Actions
 			range >= 1
       	end
 
-	set_page_size (p: INTEGER) is
+	set_page_size (p: INTEGER)
     		-- Set viewport page_size size
       	local
         	pp: INTEGER
@@ -194,7 +194,7 @@ feature -- Actions
          	end
       	end
 
-	set_line_size (l: INTEGER) is
+	set_line_size (l: INTEGER)
          -- Set scoll increment for line
       do
          if l < 1 then
@@ -204,7 +204,7 @@ feature -- Actions
          end
       end
 
-	set_scroll_position (p: INTEGER) is
+	set_scroll_position (p: INTEGER)
     		-- Change current scroll position
       	local
         	total, travel, lo, hi, l, h: INTEGER
@@ -215,7 +215,7 @@ feature -- Actions
      -- 	if scroll_position > (range - 1) then scroll_position := range - 1 end
          	lo := thumb_position
          	hi := thumb_position + thumb_size
-         	if (options & SCROLLBAR_HORIZONTAL) /= Zero then
+         	if (options & SCROLLBAR_HORIZONTAL) /= 0 then
             	total := width - height - height
             	thumb_size := (total * page_size) // range
             	if thumb_size < THUMB_MINIMUM then thumb_size := THUMB_MINIMUM end
@@ -248,7 +248,7 @@ feature -- Actions
          	end
       	end
 
-  set_hilite_color (clr: INTEGER) is
+  set_hilite_color (clr: INTEGER)
          -- Change highlight color
       do
          if hilite_color /= clr then
@@ -257,7 +257,7 @@ feature -- Actions
          end
       end
 
-   set_shadow_color (clr: INTEGER) is
+   set_shadow_color (clr: INTEGER)
          -- Change shadow color
       do
          if shadow_color /= clr then
@@ -266,7 +266,7 @@ feature -- Actions
          end
       end
 
-  set_border_color (clr: INTEGER) is
+  set_border_color (clr: INTEGER)
          -- Change border color
       do
          if border_color /= clr then
@@ -275,7 +275,7 @@ feature -- Actions
          end
       end
 
-  set_arrow_color (clr: INTEGER) is
+  set_arrow_color (clr: INTEGER)
          -- Change arrow color
       do
          if arrow_color /= clr then
@@ -284,7 +284,7 @@ feature -- Actions
          end
       end
    
-   set_scrollbar_style (style: INTEGER) is
+   set_scrollbar_style (style: INTEGER)
          -- Set the scrollbar style
       local
          opts: INTEGER
@@ -299,7 +299,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (Sel_timeout,ID_TIMEWHEEL, 	type, key) then Result := on_time_wheel 		(sender, key, data)
         	elseif	match_function_2 (Sel_timeout,ID_AUTOINC_PIX,  	type, key) then Result := on_time_inc_pix 		(sender, key, data)
@@ -317,7 +317,7 @@ feature -- Message processing
         	end
       	end
 
-	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	local
         	total: INTEGER
         	ev: SB_EVENT
@@ -329,7 +329,7 @@ feature -- Message processing
          	end
          	dc := paint_dc
          	dc.make_event (Current, ev)
-         	if (options & SCROLLBAR_HORIZONTAL) /= Zero then
+         	if (options & SCROLLBAR_HORIZONTAL) /= 0 then
          			-- Horizontal
             	total := width - height - height
             	if thumb_size < total then
@@ -410,7 +410,7 @@ feature -- Message processing
          	Result := True
       	end
 
-   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
          travel,hi,lo,t,p: INTEGER;
@@ -420,14 +420,14 @@ feature -- Message processing
             event /= Void
          end
          if is_enabled then
-            if (flags & Flag_pressed) /= Zero then
+            if (flags & Flag_pressed) /= 0 then
                p := 0;
-               if (event.state & (CONTROLMASK | SHIFTMASK | ALTMASK)) /= Zero then
+               if (event.state & (CONTROLMASK | SHIFTMASK | ALTMASK)) /= 0 then
                   pressed := PRESSED_FINETHUMB;
                end
                if pressed = PRESSED_THUMB then
                   -- Coarse movements
-                  if (options & SCROLLBAR_HORIZONTAL) /= Zero then
+                  if (options & SCROLLBAR_HORIZONTAL) /= 0 then
                      travel := width - height - height - thumb_size;
                      t := event.win_x - drag_point;
                      if t<height then t := height end
@@ -456,7 +456,7 @@ feature -- Message processing
                   end
                elseif (pressed = PRESSED_FINETHUMB) then
                   -- Fine movements
-                  if (options & SCROLLBAR_HORIZONTAL) /= Zero then
+                  if (options & SCROLLBAR_HORIZONTAL) /= 0 then
                      travel := width - height - height - thumb_size;
                      p := scroll_position + event.win_x - event.last_x;
                      if p < 0 then p := 0 end
@@ -502,7 +502,7 @@ feature -- Message processing
          end
       end
 
-	on_mouse_wheel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_mouse_wheel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	local
         	ev: SB_EVENT;
         	jump: INTEGER;
@@ -516,10 +516,10 @@ feature -- Message processing
             		application.remove_timeout(timer)
 					timer := Void
             	end
-            	if (ev.state & (LEFTBUTTONMASK | MIDDLEBUTTONMASK | RIGHTBUTTONMASK)) = Zero then
-               		if (ev.state & ALTMASK) /= Zero then
+            	if (ev.state & (LEFTBUTTONMASK | MIDDLEBUTTONMASK | RIGHTBUTTONMASK)) = 0 then
+               		if (ev.state & ALTMASK) /= 0 then
                			jump := line_size  -- Fine scrolling
-               		elseif (ev.state & CONTROLMASK) /= Zero then
+               		elseif (ev.state & CONTROLMASK) /= 0 then
                			jump := page_size   -- Coarse scrolling
                		else
                			jump := page_size.min(application.wheel_lines * line_size)
@@ -538,7 +538,7 @@ feature -- Message processing
          	end
 		end
 
-   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
          p: INTEGER;
@@ -560,7 +560,7 @@ feature -- Message processing
                Result := True;
             else
                unset_flags (Flag_update);
-               if (options & SCROLLBAR_HORIZONTAL) /= Zero then
+               if (options & SCROLLBAR_HORIZONTAL) /= 0 then
                   -- Horizontal scrollbar
                   if event.win_x < height then
                      -- Left arrow
@@ -621,7 +621,7 @@ feature -- Message processing
                   else
                      -- Grabbed the puck
                      pressed := PRESSED_THUMB;
-                     if (event.state & (CONTROLMASK | SHIFTMASK | ALTMASK)) /= Zero then
+                     if (event.state & (CONTROLMASK | SHIFTMASK | ALTMASK)) /= 0 then
                         pressed := PRESSED_FINETHUMB;
                      end
                      drag_point := event.win_y - thumb_position;
@@ -642,7 +642,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          flgs: INTEGER
       do
@@ -665,7 +665,7 @@ feature -- Message processing
              then 
                Result := True
             else
-               if (flgs & Flag_changed) /= Zero then
+               if (flgs & Flag_changed) /= 0 then
                   if message_target /= Void then
                      message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_integer(scroll_position))
                   end
@@ -675,7 +675,7 @@ feature -- Message processing
          end
       end
 
-   on_middle_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_middle_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
          p: INTEGER;
@@ -701,7 +701,7 @@ feature -- Message processing
                flags := flags | Flag_pressed;
                unset_flags (Flag_update);
                drag_point := thumb_size // 2;
-               if (options & SCROLLBAR_HORIZONTAL) /= Zero then
+               if (options & SCROLLBAR_HORIZONTAL) /= 0 then
                   travel := width - height - height - thumb_size;
                   t := event.win_x - drag_point;
                   if t < height then  t := height end
@@ -746,7 +746,7 @@ feature -- Message processing
          end
       end
 
-   on_middle_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_middle_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          flgs: INTEGER;
       do
@@ -769,7 +769,7 @@ feature -- Message processing
              then 
                Result := True;
             else
-               if (flgs & Flag_changed) /= Zero then
+               if (flgs & Flag_changed) /= 0 then
                   if message_target /= Void then
                      message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_integer (scroll_position))
                   end
@@ -779,7 +779,7 @@ feature -- Message processing
          end
       end
 
-   on_right_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_right_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
          p: INTEGER;
@@ -800,7 +800,7 @@ feature -- Message processing
                   Result := True;
                else
                   unset_flags (Flag_update);
-                  if (options & SCROLLBAR_HORIZONTAL) /= Zero then
+                  if (options & SCROLLBAR_HORIZONTAL) /= 0 then
                      -- Horizontal scrollbar
                      if event.win_x<height then
                         -- Left arrow
@@ -879,39 +879,39 @@ feature -- Message processing
          end
       end
 
-   on_right_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_right_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          flgs: INTEGER
       do
          flgs := flags;
          if is_enabled then
             release_mouse;
-            unset_flags (Flag_pressed);
-            unset_flags (Flag_changed);
-            flags := flags | Flag_update;
-            drag_point := 0;
-            pressed := 0;
-            set_scroll_position(scroll_position);
-            update;
+            unset_flags (Flag_pressed)
+            unset_flags (Flag_changed)
+            flags := flags | Flag_update
+            drag_point := 0
+            pressed := 0
+            set_scroll_position (scroll_position)
+            update
             if timer /= Void then
-            	application.remove_timeout(timer)
+            	application.remove_timeout (timer)
             	timer := Void
             end
             if message_target /= Void
                and then message_target.handle_2 (Current, Sel_rightbuttonrelease, message, data) then
-               Result := True;
+               Result := True
             else
-               if (flgs & Flag_changed) /= Zero then
+               if (flgs & Flag_changed) /= 0 then
                   if message_target /= Void
-                   then message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_integer(scroll_position));
+                   then message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_integer (scroll_position))
                   end
                end
-               Result := True;
+               Result := True
             end
          end
       end
 
-   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender, selector, data);
          if timer /= Void then
@@ -926,7 +926,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_time_inc_pix (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_time_inc_pix (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          p: INTEGER;
       do
@@ -947,7 +947,7 @@ feature -- Message processing
          end
       end
 
-   on_time_inc_line (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_time_inc_line (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          p: INTEGER;
       do
@@ -968,7 +968,7 @@ feature -- Message processing
          end
       end
 
-   on_time_inc_page (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_time_inc_page (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          p: INTEGER;
       do
@@ -989,7 +989,7 @@ feature -- Message processing
          end
       end
 
-   on_time_dec_pix (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_time_dec_pix (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          p: INTEGER;
       do
@@ -1010,7 +1010,7 @@ feature -- Message processing
          end
       end
 
-   on_time_dec_line (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_time_dec_line (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          p: INTEGER;
       do
@@ -1031,7 +1031,7 @@ feature -- Message processing
          end
       end
 
-   on_time_dec_page (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_time_dec_page (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          p: INTEGER;
       do
@@ -1052,47 +1052,46 @@ feature -- Message processing
          end
       end
 
-   on_time_wheel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_time_wheel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          p: INTEGER
       do
-      -- fx_trace(0, <<"SB_SCROLL_BAR::on_time_wheel: ",  application.next_ev_sequence.out>>)
          timer := Void;
          if drag_point < scroll_position then
-            p := scroll_position + drag_jump;
+            p := scroll_position + drag_jump
             if p <= drag_point then
-               set_scroll_position(drag_point);
+               set_scroll_position (drag_point)
                if message_target /= Void then
-                  message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_integer(scroll_position));
+                  message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_integer (scroll_position))
                end
-               drag_point := 0;
+               drag_point := 0
             else
-               set_scroll_position(p);
+               set_scroll_position (p)
                if message_target /= Void then
-                  message_target.do_handle_2 (Current, SEL_CHANGED, message, ref_integer(scroll_position));
+                  message_target.do_handle_2 (Current, SEL_CHANGED, message, ref_integer (scroll_position))
                end
-               timer := application.add_timeout(5, Current, ID_TIMEWHEEL);
+               timer := application.add_timeout (5, Current, ID_TIMEWHEEL)
             end
          else
-            p := scroll_position + drag_jump;
+            p := scroll_position + drag_jump
             if p >= drag_point then
-               set_scroll_position(drag_point);
+               set_scroll_position (drag_point)
                if message_target /= Void then
-                  message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_integer(scroll_position));
+                  message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_integer(scroll_position))
                end
-               drag_point := 0;
+               drag_point := 0
             else
-               set_scroll_position(p);
+               set_scroll_position (p)
                if message_target /= Void then
                   message_target.do_handle_2 (Current, SEL_CHANGED, message, ref_integer(scroll_position));
                end
-               timer := application.add_timeout(5, Current, ID_TIMEWHEEL);
+               timer := application.add_timeout (5, Current, ID_TIMEWHEEL)
             end
          end
-         Result := True;
+         Result := True
       end
 
-   on_cmd_set_value, on_cmd_set_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_value, on_cmd_set_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          p: INTEGER_REF
       do
@@ -1100,11 +1099,11 @@ feature -- Message processing
          check
             p /= Void
          end
-         set_scroll_position(p.item);
-         Result := True;
+         set_scroll_position (p.item)
+         Result := True
       end
 
-   on_cmd_get_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          p: INTEGER_REF
       do
@@ -1112,41 +1111,41 @@ feature -- Message processing
          check
             p /= Void
          end
-         p.set_item(scroll_position);
-         Result := True;
+         p.set_item (scroll_position)
+         Result := True
       end
 
-   on_cmd_set_int_range (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_int_range (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
-         p: SB_POINT;
+         p: SB_POINT
       do
          p ?= data
          check
             p /= Void
          end
-         set_scroll_position(p.y);
+         set_scroll_position (p.y)
          Result := True;
       end
 
-   on_cmd_get_int_range (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_int_range (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
-         p: SB_POINT;
+         p: SB_POINT
       do
          p ?= data
          check
             p /= Void
          end
-         p.set_x(0);
-         p.set_y(scroll_position);
-         Result := True;
+         p.set_x (0)
+         p.set_y (scroll_position)
+         Result := True
       end
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          if timer /= Void then
-            application.remove_timeout(timer)
+            application.remove_timeout (timer)
             timer := Void
          end
          Precursor
@@ -1155,164 +1154,164 @@ feature -- Destruction
 
 feature {NONE} -- Implementation
 
-   THUMB_MINIMUM: INTEGER is 8;
-   BAR_SIZE: INTEGER is 15;
+   THUMB_MINIMUM: INTEGER = 8
+   BAR_SIZE: INTEGER = 15
    
-   PRESSED_INC		: INTEGER_8 is 1
-   PRESSED_DEC		: INTEGER_8 is 2
-   PRESSED_PAGEINC	: INTEGER_8 is 4
-   PRESSED_PAGEDEC	: INTEGER_8 is 8
-   PRESSED_THUMB	: INTEGER_8 is 16
-   PRESSED_FINETHUMB: INTEGER_8 is 32
+   PRESSED_INC		: INTEGER_8 = 1
+   PRESSED_DEC		: INTEGER_8 = 2
+   PRESSED_PAGEINC	: INTEGER_8 = 4
+   PRESSED_PAGEDEC	: INTEGER_8 = 8
+   PRESSED_THUMB	: INTEGER_8 = 16
+   PRESSED_FINETHUMB: INTEGER_8 = 32
 
-   SCROLLBAR_MASK: INTEGER is
+   SCROLLBAR_MASK: INTEGER
       once
          Result := SCROLLBAR_HORIZONTAL
       end
 
-   thumb_size		: INTEGER;	-- Thumb size
-   thumb_position	: INTEGER;	-- Thumb scroll_position
+   thumb_size		: INTEGER	-- Thumb size
+   thumb_position	: INTEGER	-- Thumb scroll_position
    
-   timer			: SB_TIMER;	-- Autoscroll timer
+   timer			: SB_TIMER	-- Autoscroll timer
    
-   drag_point		: INTEGER;  -- Point where is_mouse_grabbed
-   drag_jump		: INTEGER;  -- Jump Current much
+   drag_point		: INTEGER  -- Point where is_mouse_grabbed
+   drag_jump		: INTEGER  -- Jump Current much
    
-   pressed			: INTEGER_8;	-- Action being undertaken
+   pressed			: INTEGER_8	-- Action being undertaken
 
-   draw_button(dc: SB_DC_WINDOW; x,y, w,h: INTEGER; down: BOOLEAN) is
+   draw_button (dc: SB_DC_WINDOW; x,y, w,h: INTEGER; down: BOOLEAN)
       do
-         dc.set_foreground(back_color);
-         dc.fill_rectangle(x+2, y+2, w-4, h-4);
+         dc.set_foreground (back_color)
+         dc.fill_rectangle (x+2, y+2, w-4, h-4)
          if not down then
-            dc.set_foreground(back_color);
-            dc.fill_rectangle(x, y, w-1, 1);
-            dc.fill_rectangle(x, y, 1, h-1);
-            dc.set_foreground(hilite_color);
-            dc.fill_rectangle(x+1, y+1, w-2, 1);
-            dc.fill_rectangle(x+1, y+1, 1, h-2);
-            dc.set_foreground(shadow_color);
-            dc.fill_rectangle(x+1, y+h-2, w-2, 1);
-            dc.fill_rectangle(x+w-2, y+1, 1, h-2);
-            dc.set_foreground(border_color);
-            dc.fill_rectangle(x, y+h-1, w, 1);
-            dc.fill_rectangle(x+w-1, y, 1, h);
+            dc.set_foreground (back_color)
+            dc.fill_rectangle (x, y, w-1, 1)
+            dc.fill_rectangle (x, y, 1, h-1)
+            dc.set_foreground (hilite_color)
+            dc.fill_rectangle (x+1, y+1, w-2, 1)
+            dc.fill_rectangle (x+1, y+1, 1, h-2)
+            dc.set_foreground (shadow_color)
+            dc.fill_rectangle (x+1, y+h-2, w-2, 1)
+            dc.fill_rectangle (x+w-2, y+1, 1, h-2)
+            dc.set_foreground (border_color)
+            dc.fill_rectangle (x, y+h-1, w, 1)
+            dc.fill_rectangle (x+w-1, y, 1, h)
          else
-            dc.set_foreground(border_color);
-            dc.fill_rectangle(x, y, w-2, 1);
-            dc.fill_rectangle(x, y, 1, h-2);
-            dc.set_foreground(shadow_color);
-            dc.fill_rectangle(x+1, y+1, w-3, 1);
-            dc.fill_rectangle(x+1, y+1, 1, h-3);
-            dc.set_foreground(hilite_color);
-            dc.fill_rectangle(x, y+h-1, w-1, 1);
-            dc.fill_rectangle(x+w-1, y+1, 1, h-1);
-            dc.set_foreground(back_color);
-            dc.fill_rectangle(x+1, y+h-2, w-1, 1);
-            dc.fill_rectangle(x+w-2, y+2, 1, h-2);
+            dc.set_foreground (border_color)
+            dc.fill_rectangle (x, y, w-2, 1)
+            dc.fill_rectangle (x, y, 1, h-2)
+            dc.set_foreground (shadow_color)
+            dc.fill_rectangle (x+1, y+1, w-3, 1)
+            dc.fill_rectangle (x+1, y+1, 1, h-3)
+            dc.set_foreground (hilite_color)
+            dc.fill_rectangle (x, y+h-1, w-1, 1)
+            dc.fill_rectangle (x+w-1, y+1, 1, h-1)
+            dc.set_foreground (back_color)
+            dc.fill_rectangle (x+1, y+h-2, w-1, 1)
+            dc.fill_rectangle (x+w-2, y+2, 1, h-2)
          end
       end
 
-   draw_left_arrow(dc: SB_DC_WINDOW; x_, y_, w, h: INTEGER; down: BOOLEAN) is
+   draw_left_arrow (dc: SB_DC_WINDOW; x_, y_, w, h: INTEGER; down: BOOLEAN)
       local
-         points: ARRAY[SB_POINT]
-         ah,ab: INTEGER;
-         pt: SB_POINT;
-         x,y: INTEGER;
+         points: ARRAY [ SB_POINT ]
+         ah,ab: INTEGER
+         pt: SB_POINT
+         x,y: INTEGER
       do
-         x := x_; y := y_;  
-         create points.make(0, 2);
+         x := x_; y := y_
+         create points.make (0, 2)
          ab := (h-7) | 1
-         ah := ab // 2;
-         x := x+((w-ah) // 2);
-         y := y+((h-ab) // 2);
+         ah := ab // 2
+         x := x+((w-ah) // 2)
+         y := y+((h-ab) // 2)
          if down then x := x + 1; y := y + 1 end
-         create pt.make(x+ah, y);
-         points.put(pt, 0);
-         create pt.make(x+ah, y+ab-1);
-         points.put(pt, 1);
-         create pt.make(x, y+(ab//2));
-         points.put(pt, 2);
-         dc.set_foreground(arrow_color);
-         dc.fill_polygon(points);
+         create pt.make (x+ah, y)
+         points.put (pt, 0)
+         create pt.make (x+ah, y+ab-1)
+         points.put (pt, 1)
+         create pt.make (x, y+(ab//2))
+         points.put (pt, 2)
+         dc.set_foreground (arrow_color)
+         dc.fill_polygon (points)
       end
 
-   draw_right_arrow(dc: SB_DC_WINDOW; x_, y_, w, h: INTEGER; down: BOOLEAN) is
+   draw_right_arrow (dc: SB_DC_WINDOW; x_, y_, w, h: INTEGER; down: BOOLEAN)
       local
-         points: ARRAY[SB_POINT]
-         ah,ab: INTEGER;
-         pt: SB_POINT;
-         x,y: INTEGER;
+         points: ARRAY [ SB_POINT ]
+         ah,ab: INTEGER
+         pt: SB_POINT
+         x,y: INTEGER
       do
-         x := x_; y := y_;  
-         create points.make(0, 2);
+         x := x_; y := y_
+         create points.make (0, 2)
          ab := (h-7) | 1
-         ah := ab // 2;
-         x := x+((w-ah) // 2);
-         y := y+((h-ab) // 2);
-         if down then x := x +1; y := y + 1 end
-         create pt.make(x,y);
-         points.put(pt, 0);
-         create pt.make(x, y+ab-1);
-         points.put(pt, 1);
-         create pt.make(x+ah, y+(ab // 2));
-         points.put(pt, 2);
-         dc.set_foreground(arrow_color);
-         dc.fill_polygon(points);
+         ah := ab // 2
+         x := x+((w-ah) // 2)
+         y := y+((h-ab) // 2)
+         if down then x := x + 1; y := y + 1 end
+         create pt.make (x,y)
+         points.put (pt, 0)
+         create pt.make (x, y+ab-1)
+         points.put (pt, 1)
+         create pt.make (x+ah, y+(ab // 2))
+         points.put (pt, 2)
+         dc.set_foreground (arrow_color)
+         dc.fill_polygon (points)
       end
 
-   draw_up_arrow(dc: SB_DC_WINDOW; x_, y_, w, h: INTEGER; down: BOOLEAN) is
+   draw_up_arrow (dc: SB_DC_WINDOW; x_, y_, w, h: INTEGER; down: BOOLEAN)
       local
-         points: ARRAY[SB_POINT]
-         ah,ab: INTEGER;
-         pt: SB_POINT;
-         x,y: INTEGER;
+         points: ARRAY [ SB_POINT ]
+         ah,ab: INTEGER
+         pt: SB_POINT
+         x,y: INTEGER
       do
-         x := x_; y := y_;  
-         create points.make(0, 2);
+         x := x_; y := y_
+         create points.make(0, 2)
          ab := (w - 7) | 1
-         ah := ab // 2;
-         x := x + ((w-ab) // 2);
-         y := y + ((h-ah) // 2);
+         ah := ab // 2
+         x := x + ((w-ab) // 2)
+         y := y + ((h-ah) // 2)
          if down then x := x + 1; y := y + 1 end
-         create pt.make(x + (ab // 2), y-1);
-         points.put(pt, 0);
-         create pt.make(x, y+ah);
-         points.put(pt, 1);
-         create pt.make(x+ab, y+ah);
-         points.put(pt, 2);
-         dc.set_foreground(arrow_color);
-         dc.fill_polygon(points);
+         create pt.make (x + (ab // 2), y-1)
+         points.put (pt, 0);
+         create pt.make (x, y+ah)
+         points.put (pt, 1)
+         create pt.make (x+ab, y+ah)
+         points.put (pt, 2)
+         dc.set_foreground (arrow_color)
+         dc.fill_polygon (points)
       end
 
-   draw_down_arrow(dc: SB_DC_WINDOW; x_, y_, w, h: INTEGER; down: BOOLEAN) is
+   draw_down_arrow (dc: SB_DC_WINDOW; x_, y_, w, h: INTEGER; down: BOOLEAN)
       local
-         points: ARRAY[SB_POINT]
-         ah,ab: INTEGER;
-         pt: SB_POINT;
-         x,y: INTEGER;
+         points: ARRAY [ SB_POINT ]
+         ah,ab: INTEGER
+         pt: SB_POINT
+         x,y: INTEGER
       do
-         x := x_; y := y_;  
-         create points.make(0, 2);
+         x := x_; y := y_
+         create points.make (0, 2)
          ab := (w - 7) | 1
-         ah := ab // 2;
-         x := x + ((w - ab) // 2);
-         y := y + ((h - ah) // 2);
+         ah := ab // 2
+         x := x + ((w - ab) // 2)
+         y := y + ((h - ah) // 2)
          if down then x := x + 1; y := y + 1 end
-         create pt.make(x + 1, y);
-         points.put(pt, 0);
-         create pt.make(x + ab - 1, y);
-         points.put(pt, 1);
-         create pt.make(x + ab // 2, y + ah);
-         points.put(pt, 2);
-         dc.set_foreground(arrow_color);
-         dc.fill_polygon(points);
+         create pt.make (x + 1, y)
+         points.put (pt, 0)
+         create pt.make (x + ab - 1, y)
+         points.put (pt, 1);
+         create pt.make (x + ab // 2, y + ah)
+         points.put (pt, 2)
+         dc.set_foreground (arrow_color)
+         dc.fill_polygon (points)
       end
 
    layout is
       do
-         set_scroll_position(scroll_position);
-         unset_flags (Flag_dirty);
+         set_scroll_position (scroll_position)
+         unset_flags (Flag_dirty)
       end
 
 end

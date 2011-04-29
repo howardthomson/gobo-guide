@@ -51,22 +51,22 @@ feature -- class name
 
 feature -- Creation
 
-	make(p: SB_COMPOSITE; text: STRING) is
+	make (p: SB_COMPOSITE; text: STRING)
 		do
-			make_sb(p, text, Void, Zero)
+			make_sb (p, text, Void, 0)
 		end
 
-   	make_sb(p: SB_COMPOSITE; text: STRING; tgt: SB_MESSAGE_HANDLER; selector: INTEGER) is
+   	make_sb (p: SB_COMPOSITE; text: STRING; tgt: SB_MESSAGE_HANDLER; selector: INTEGER)
     		-- Construct a menu command
       	do
-         	make_opts (p, text, Void, tgt, selector, Zero)
+         	make_opts (p, text, Void, tgt, selector, 0)
       	end
 
-   	make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER) is
+   	make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER)
          	-- Construct a menu command
       	local
-         	table: SB_ACCEL_TABLE;
-         	ownr: SB_WINDOW;
+         	table: SB_ACCEL_TABLE
+         	ownr: SB_WINDOW
       	do
          	caption_make_opts(p,text,ic,opts)
          	flags := flags | Flag_enabled
@@ -80,7 +80,7 @@ feature -- Creation
             	if ownr /= Void then
                		table := ownr.accel_table
                		if table /= Void then
-                  		table.add_accel (acckey, Current, mksel(SEL_COMMAND, Id_accel), 0)
+                  		table.add_accel (acckey, Current, mksel (SEL_COMMAND, Id_accel), 0)
                		end
             	end
          	end
@@ -96,7 +96,7 @@ feature -- Data
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
 			-- Return default width
 		local
         	tw,aw,iw: INTEGER
@@ -116,7 +116,7 @@ feature -- Queries
          	Result := iw.max(LEADSPACE) + tw + aw + TRAILSPACE
       	end
 
-	default_height: INTEGER is
+	default_height: INTEGER
 			-- Return default height
 		local
 			th,ih,h: INTEGER
@@ -130,7 +130,7 @@ feature -- Queries
 			Result := th.max(ih)
 		end
 
-	can_focus: BOOLEAN is
+	can_focus: BOOLEAN
     		-- Yes it can receive the focus
 		once
 			Result := True
@@ -138,7 +138,7 @@ feature -- Queries
 
 feature -- Actions
 
-   set_focus is
+   set_focus
          -- Move the focus to this window
       do
          Precursor
@@ -147,7 +147,7 @@ feature -- Actions
          update
       end
 
-   kill_focus is
+   kill_focus
          -- Remove the focus from this window
       do
          Precursor
@@ -156,7 +156,7 @@ feature -- Actions
          update
       end
 
-   set_accel_text(text: STRING) is
+   set_accel_text(text: STRING)
   		-- Set accelerator text
       do
          if not accel.is_equal(text) then
@@ -168,7 +168,7 @@ feature -- Actions
 
 feature -- Message processing
 
-   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       do
          if		match_function_2 (SEL_LEFTBUTTONPRESS,		0, 			type, key) then Result := on_button_press 	(sender, key, data);
          elseif match_function_2 (SEL_LEFTBUTTONRELEASE,	0, 			type, key) then Result := on_button_release (sender, key, data);
@@ -183,7 +183,7 @@ feature -- Message processing
          end
       end
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          dc: SB_DC_WINDOW
@@ -201,85 +201,85 @@ feature -- Message processing
 
          if not is_enabled then
             -- Grayed out
-            dc.set_foreground(back_color);
-            dc.fill_rectangle(0,0,width,height);
+            dc.set_foreground(back_color)
+            dc.fill_rectangle(0,0,width,height)
             if icon /= Void then
-               dc.draw_icon_sunken(icon,3,(height-icon.height)//2);
+               dc.draw_icon_sunken(icon,3,(height-icon.height)//2)
                if icon.width+5>xx then
-                  xx := icon.width+5;
+                  xx := icon.width+5
                end
             end
             if not label.is_empty then
                yy := font.get_font_ascent+(height-font.get_font_height)//2;
-               dc.set_font(font);
-               dc.set_foreground(hilite_color);
+               dc.set_font(font)
+               dc.set_foreground(hilite_color)
                dc.draw_text(xx+1,yy+1,label)
-               dc.set_foreground(shadow_color);
+               dc.set_foreground(shadow_color)
                dc.draw_text(xx,yy,label)
                if not accel.is_empty then
                   dc.draw_text(width-TRAILSPACE-font.get_text_width(accel),yy,accel);
                end
                if 1 <= hot_off then
                   dc.fill_rectangle(xx+font.get_text_width_offset(label,1,hot_off-1),yy+1,
-                                    font.get_text_width_offset(label,hot_off,1),1);
+                                    font.get_text_width_offset(label,hot_off,1),1)
                end
             end
          elseif is_active then
             -- Active
-            dc.set_foreground(sel_back_color);
-            dc.fill_rectangle(0,0,width,height);
+            dc.set_foreground(sel_back_color)
+            dc.fill_rectangle(0,0,width,height)
             if icon /= Void then
-               dc.draw_icon(icon,3,(height-icon.height)//2);
+               dc.draw_icon(icon,3,(height-icon.height)//2)
                if icon.width+5>xx then
-                  xx := icon.width+5;
+                  xx := icon.width+5
                end
             end
             if  not label.is_empty then
-               yy := font.get_font_ascent+(height-font.get_font_height)//2;
-               dc.set_font(font);
+               yy := font.get_font_ascent+(height-font.get_font_height)//2
+               dc.set_font(font)
                if is_enabled then
                   dc.set_foreground(sel_text_color)
                else
-                  dc.set_foreground(shadow_color);
+                  dc.set_foreground(shadow_color)
                end
-               dc.draw_text(xx,yy,label);
+               dc.draw_text(xx,yy,label)
                if  not accel.is_empty then
-                  dc.draw_text(width-TRAILSPACE-font.get_text_width(accel),yy,accel);
+                  dc.draw_text(width-TRAILSPACE-font.get_text_width(accel),yy,accel)
                   if 1 <= hot_off then
                      dc.fill_rectangle(xx+font.get_text_width_offset(label,1,hot_off-1),
-                                       yy+1,font.get_text_width_offset(label,hot_off,1),1);
+                                       yy+1,font.get_text_width_offset(label,hot_off,1),1)
                   end
                end
             end
          else
             -- Normal
-            dc.set_foreground(back_color);
-            dc.fill_rectangle(0,0,width,height);
+            dc.set_foreground(back_color)
+            dc.fill_rectangle(0,0,width,height)
             if icon /= Void then
-               dc.draw_icon(icon,3,(height-icon.height)//2);
+               dc.draw_icon(icon,3,(height-icon.height)//2)
                if icon.width+5>xx then
-                  xx := icon.width+5;
+                  xx := icon.width+5
                end
             end
             if  not label.is_empty then
                yy := font.get_font_ascent+(height-font.get_font_height)//2;
-               dc.set_font(font);
-               dc.set_foreground(text_color);
-               dc.draw_text(xx,yy,label);
+               dc.set_font(font)
+               dc.set_foreground(text_color)
+               dc.draw_text(xx,yy,label)
                if not accel.is_empty then
-                  dc.draw_text(width-TRAILSPACE-font.get_text_width(accel),yy,accel);
+                  dc.draw_text(width-TRAILSPACE-font.get_text_width(accel),yy,accel)
                end
                if 1 <= hot_off then
                   dc.fill_rectangle(xx+font.get_text_width_offset(label,1,hot_off-1),
-                                    yy+1,font.get_text_width_offset(label,hot_off,1),1);
+                                    yy+1,font.get_text_width_offset(label,hot_off,1),1)
                end
             end
          end
-         dc.stop;
-         Result := True;
+         dc.stop
+         Result := True
       end
 
-   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data);
          if is_enabled and then can_focus then
@@ -288,7 +288,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data);
          if is_enabled and then can_focus then
@@ -297,14 +297,14 @@ feature -- Message processing
          Result := True
       end
 
-   on_button_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_button_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_enabled then
             Result := True
          end
       end
 
-   on_button_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_button_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          active: BOOLEAN
       do
@@ -318,7 +318,7 @@ feature -- Message processing
          end
       end
 
-   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -337,9 +337,9 @@ feature -- Message processing
          end
       end
 
-   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
-         event: SB_EVENT;
+         event: SB_EVENT
       do
          event ?= data;
          check
@@ -351,59 +351,59 @@ feature -- Message processing
                or else event.code = sbk.key_space
                or else event.code = sbk.key_kp_space
              then
-               parent.do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void);
+               parent.do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
                if message_target /= Void
-                then message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_true);
+                then message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_true)
                end
-               Result := True;
+               Result := True
             end
          end
       end
 
-   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
-         do_handle_2 (Current, SEL_FOCUS_SELF, 0, data);
-         Result := True;
+         do_handle_2 (Current, SEL_FOCUS_SELF, 0, data)
+         Result := True
       end
 
-   on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_enabled then
-            parent.do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void);
+            parent.do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
             if message_target /= Void then
-               message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_true);
+               message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_true)
             end
          end
-         Result := True;
+         Result := True
       end
 
-   on_cmd_accel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_accel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_enabled then
             if message_target /= Void then
-               message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_true);
-               Result := True;
+               message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_true)
+               Result := True
             end
          end
       end
 
 feature -- Destruction
 
-   destruct is
+   destruct
       local
-         table: SB_ACCEL_TABLE;
-         ownr: SB_WINDOW;
+         table: SB_ACCEL_TABLE
+         ownr: SB_WINDOW
       do
          if acckey /= 0 then
-            ownr := get_shell.owner;
+            ownr := get_shell.owner
             if owner /= Void then
-               table := ownr.accel_table;
+               table := ownr.accel_table
                if table /= Void then
-                  table.remove_accel(acckey);
+                  table.remove_accel (acckey)
                end
             end
          end
-         Precursor;
+         Precursor
       end
 
 

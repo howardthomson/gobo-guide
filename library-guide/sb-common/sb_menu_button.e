@@ -75,7 +75,7 @@ feature -- Creation
       	local
          	o: INTEGER
       	do
-         	if opts = Zero then
+         	if opts = 0 then
             	o := JUSTIFY_NORMAL | ICON_BEFORE_TEXT | MENUBUTTON_DOWN;
          	else
             	o := opts
@@ -120,8 +120,8 @@ feature -- Queries
             tw := label_width(label);
             s := 4;
          end
-         if (options & MENUBUTTON_NOARROWS) = Zero then
-            if (options & MENUBUTTON_LEFT) /= Zero then
+         if (options & MENUBUTTON_NOARROWS) = 0 then
+            if (options & MENUBUTTON_LEFT) /= 0 then
                iw := MENUBUTTONARROW_HEIGHT;
             else
                iw := MENUBUTTONARROW_WIDTH;
@@ -130,15 +130,15 @@ feature -- Queries
          if icon /= Void then
             iw := icon.width;
          end
-         if (options & (ICON_AFTER_TEXT | ICON_BEFORE_TEXT)) = Zero then
+         if (options & (ICON_AFTER_TEXT | ICON_BEFORE_TEXT)) = 0 then
             Result := tw.max(iw);
          else
             Result := tw+iw+s;
          end
          Result := pad_left+pad_right+border*2+Result;
-         if (options & MENUBUTTON_LEFT) = Zero and then 
-            (options & MENUBUTTON_ATTACH_RIGHT) /= Zero 
-               and then (options & MENUBUTTON_ATTACH_CENTER) /= Zero
+         if (options & MENUBUTTON_LEFT) = 0 and then 
+            (options & MENUBUTTON_ATTACH_RIGHT) /= 0 
+               and then (options & MENUBUTTON_ATTACH_CENTER) /= 0
           then
             if menu /= Void then
                pw := menu.default_width;
@@ -155,8 +155,8 @@ feature -- Queries
          if not label.is_empty then
             th := label_height(label);
          end
-         if (options & MENUBUTTON_NOARROWS) = Zero then
-            if (options & MENUBUTTON_LEFT) /= Zero then
+         if (options & MENUBUTTON_NOARROWS) = 0 then
+            if (options & MENUBUTTON_LEFT) /= 0 then
                ih := MENUBUTTONARROW_WIDTH;
             else
                ih := MENUBUTTONARROW_HEIGHT;
@@ -165,16 +165,16 @@ feature -- Queries
          if icon /= Void then
             ih := icon.height;
          end
-         if (options & (ICON_ABOVE_TEXT | ICON_BELOW_TEXT)) = Zero then
+         if (options & (ICON_ABOVE_TEXT | ICON_BELOW_TEXT)) = 0 then
             Result := th.max(ih);
          else
             Result := th+ih;
          end
 
          Result := pad_top+pad_bottom+border*2+Result;
-         if (options & MENUBUTTON_LEFT) /= Zero 
-            and then (options & MENUBUTTON_ATTACH_BOTTOM) /= Zero
-            and then (options & MENUBUTTON_ATTACH_CENTER) /= Zero
+         if (options & MENUBUTTON_LEFT) /= 0 
+            and then (options & MENUBUTTON_ATTACH_BOTTOM) /= 0
+            and then (options & MENUBUTTON_ATTACH_CENTER) /= 0
           then
             if menu /= Void then
                ph := menu.default_height;
@@ -303,15 +303,15 @@ feature -- Message processing
          dc := paint_dc
          dc.make_event (Current, ev)
 
-         if (options & (Frame_raised | Frame_sunken)) /= Zero then
+         if (options & (Frame_raised | Frame_sunken)) /= 0 then
             -- Got a border at all?
-            if (options & MENUBUTTON_TOOLBAR) /= Zero then
+            if (options & MENUBUTTON_TOOLBAR) /= 0 then
                -- Toolbar style
                if is_enabled and then is_under_cursor and then not state then
                   -- Enabled and cursor inside, and not popped up
                   dc.set_foreground(back_color);
                   dc.fill_rectangle(border,border,width-border*2,height-border*2);
-                  if (options & Frame_thick) /= Zero then
+                  if (options & Frame_thick) /= 0 then
                      draw_double_raised_rectangle(dc,0,0,width,height);
                   else
                      draw_raised_rectangle(dc,0,0,width,height);
@@ -320,7 +320,7 @@ feature -- Message processing
                   -- Enabled and popped up
                   dc.set_foreground(hilite_color);
                   dc.fill_rectangle(border,border,width-border*2,height-border*2);
-                  if (options & Frame_thick) /= Zero then
+                  if (options & Frame_thick) /= 0 then
                      draw_double_sunken_rectangle(dc,0,0,width,height);
                   else 
                      draw_sunken_rectangle(dc,0,0,width,height);
@@ -336,7 +336,7 @@ feature -- Message processing
                   -- Draw in up state if disabled or up
                   dc.set_foreground(back_color);
                   dc.fill_rectangle(border,border,width-border*2,height-border*2);
-                  if (options & Frame_thick) /= Zero then
+                  if (options & Frame_thick) /= 0 then
                      draw_double_raised_rectangle(dc,0,0,width,height);
                   else
                      draw_raised_rectangle(dc,0,0,width,height);
@@ -345,7 +345,7 @@ feature -- Message processing
                   -- Draw sunken if enabled and either checked or pressed
                   dc.set_foreground(hilite_color);
                   dc.fill_rectangle(border,border,width-border*2,height-border*2);
-                  if (options & Frame_thick) /= Zero then
+                  if (options & Frame_thick) /= 0 then
                      draw_double_sunken_rectangle(dc,0,0,width,height);
                   else
                      draw_sunken_rectangle(dc,0,0,width,height);
@@ -373,9 +373,9 @@ feature -- Message processing
             -- Icon?
             iw := icon.width;
             ih := icon.height;
-         elseif (options & MENUBUTTON_NOARROWS) = Zero then
+         elseif (options & MENUBUTTON_NOARROWS) = 0 then
             -- Arrows?
-            if (options & MENUBUTTON_LEFT) /= Zero then
+            if (options & MENUBUTTON_LEFT) /= 0 then
                ih := MENUBUTTONARROW_WIDTH;
                iw := MENUBUTTONARROW_HEIGHT;
             else
@@ -403,7 +403,7 @@ feature -- Message processing
             else
                dc.draw_icon_sunken(icon,ix,iy);
             end
-         elseif (options & MENUBUTTON_NOARROWS) = Zero then
+         elseif (options & MENUBUTTON_NOARROWS) = 0 then
             -- Draw arrows
             if (options & MENUBUTTON_RIGHT) = MENUBUTTON_RIGHT then
                -- Right arrow
@@ -420,7 +420,7 @@ feature -- Message processing
                create pt.make(ix+MENUBUTTONARROW_HEIGHT,iy+MENUBUTTONARROW_WIDTH//2);
                points.put(pt,2);
                dc.fill_polygon(points);
-            elseif (options & MENUBUTTON_LEFT) /= Zero then
+            elseif (options & MENUBUTTON_LEFT) /= 0 then
                -- Left arrow
                if is_enabled then
                   dc.set_foreground(text_color);
@@ -435,7 +435,7 @@ feature -- Message processing
                create pt.make(ix, iy+MENUBUTTONARROW_WIDTH // 2);
                points.put(pt, 2);
                dc.fill_polygon(points);
-            elseif (options & MENUBUTTON_UP) /= Zero then
+            elseif (options & MENUBUTTON_UP) /= 0 then
                -- Up arrow
                if is_enabled then
                   dc.set_foreground(text_color);
@@ -491,13 +491,13 @@ feature -- Message processing
    on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
          if Precursor(sender,selector,data) then
-            if (options & MENUBUTTON_AUTOHIDE) /= Zero then
+            if (options & MENUBUTTON_AUTOHIDE) /= 0 then
                if is_shown then
                   hide;
                   recalc;
                end
             end
-            if (options & MENUBUTTON_AUTOGRAY) /= Zero then
+            if (options & MENUBUTTON_AUTOGRAY) /= 0 then
                disable;
             end
          end
@@ -508,7 +508,7 @@ feature -- Message processing
       do
          Result := Precursor(sender,selector,data);
          if is_enabled then
-            if (options & MENUBUTTON_TOOLBAR) /= Zero then
+            if (options & MENUBUTTON_TOOLBAR) /= 0 then
                update;
             end
          end
@@ -519,7 +519,7 @@ feature -- Message processing
       do
          Result := Precursor (sender, selector, data)
          if is_enabled then
-            if (options & MENUBUTTON_TOOLBAR) /= Zero then
+            if (options & MENUBUTTON_TOOLBAR) /= 0 then
                update
             end
          end
@@ -696,55 +696,55 @@ feature -- Message processing
                   w := menu.width;
                   h := menu.height;
                end
-               if (options & MENUBUTTON_LEFT) /= Zero and then (options & MENUBUTTON_UP) /= Zero 
+               if (options & MENUBUTTON_LEFT) /= 0 and then (options & MENUBUTTON_UP) /= 0 
                 then
                   -- Right
-                  if (options & MENUBUTTON_ATTACH_BOTTOM) /= Zero
-                     and then (options & MENUBUTTON_ATTACH_CENTER) /= Zero
+                  if (options & MENUBUTTON_ATTACH_BOTTOM) /= 0
+                     and then (options & MENUBUTTON_ATTACH_CENTER) /= 0
                    then
                      h := height;
-                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= Zero then
+                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
                      y := y+(height-h)//2;
-                  elseif (options & MENUBUTTON_ATTACH_BOTTOM) /= Zero then
+                  elseif (options & MENUBUTTON_ATTACH_BOTTOM) /= 0 then
                      y := y+height-h;
                   end
                   x := x+offset_x+width;
                   y := y+offset_y;
-               elseif (options & MENUBUTTON_LEFT) /= Zero then
+               elseif (options & MENUBUTTON_LEFT) /= 0 then
                   -- Left
-                  if (options & MENUBUTTON_ATTACH_BOTTOM) /= Zero 
-                     and then(options & MENUBUTTON_ATTACH_CENTER) /= Zero 
+                  if (options & MENUBUTTON_ATTACH_BOTTOM) /= 0 
+                     and then(options & MENUBUTTON_ATTACH_CENTER) /= 0 
                    then
                      h := height;
-                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= Zero  then
+                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0  then
                      y := y+(height-h)//2;
-                  elseif (options & MENUBUTTON_ATTACH_BOTTOM) /= Zero then
+                  elseif (options & MENUBUTTON_ATTACH_BOTTOM) /= 0 then
                      y := y+height-h;
                   end
                   x := x-offset_x-menu.width;
                   y := y+offset_y;
-               elseif (options & MENUBUTTON_UP) /= Zero then
+               elseif (options & MENUBUTTON_UP) /= 0 then
                   -- Up
-                  if (options & MENUBUTTON_ATTACH_RIGHT) /= Zero
-                     and then (options & MENUBUTTON_ATTACH_CENTER) /= Zero
+                  if (options & MENUBUTTON_ATTACH_RIGHT) /= 0
+                     and then (options & MENUBUTTON_ATTACH_CENTER) /= 0
                    then
                      w := width;
-                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= Zero then
+                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
                      x := x+(width-w)//2;
-                  elseif (options & MENUBUTTON_ATTACH_RIGHT) /= Zero then
+                  elseif (options & MENUBUTTON_ATTACH_RIGHT) /= 0 then
                      x := x+width-w;
                   end
                   x := x+offset_x;
                   y := y-offset_y-menu.height;
                else
                   -- Down
-                  if (options & MENUBUTTON_ATTACH_RIGHT) /= Zero 
-                     and then (options & MENUBUTTON_ATTACH_CENTER) /= Zero
+                  if (options & MENUBUTTON_ATTACH_RIGHT) /= 0 
+                     and then (options & MENUBUTTON_ATTACH_CENTER) /= 0
                    then
                      w := width;
-                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= Zero then
+                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
                      x := x+(width-w)//2;
-                  elseif (options & MENUBUTTON_ATTACH_RIGHT) /= Zero then
+                  elseif (options & MENUBUTTON_ATTACH_RIGHT) /= 0 then
                      x := x+width-w;
                   end
                   x := x+offset_x;

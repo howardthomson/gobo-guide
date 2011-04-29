@@ -37,7 +37,7 @@ feature
 		--	todo("SB_FONT::create_resource_imp")
 
 			-- X11 font specification
-			if (hints & FONTHINT_X11) /= b0 then
+			if (hints & FONTHINT_X11) /= 0 then
 
 				check
 					-- Should have non-NULL font name
@@ -493,12 +493,12 @@ feature
 --
 --						-- Check pitch
 --					    pitch := pitch_from_text(fields @ XLFD_SPACING);
---					    if (hints & FONTPITCH_FIXED) /= b0 then
---					        if (pitch & FONTPITCH_FIXED) /= b0 then
+--					    if (hints & FONTPITCH_FIXED) /= 0 then
+--					        if (pitch & FONTPITCH_FIXED) /= 0 then
 --								value := value + PITCH_FACTOR;
 --					   		end
---					    elseif (hints & FONTPITCH_VARIABLE) /= b0 then
---					        if (pitch & FONTPITCH_VARIABLE) /= b0 then
+--					    elseif (hints & FONTPITCH_VARIABLE) /= 0 then
+--					        if (pitch & FONTPITCH_VARIABLE) /= 0 then
 --								value := value + PITCH_FACTOR;
 --							end
 --					    else
@@ -510,7 +510,7 @@ feature
 --					        value := value + SCALABLE_FACTOR;
 --					        scalable := 1;
 --					    else
---					        if (hints & FONTHINT_SCALABLE) = b0 then
+--					        if (hints & FONTHINT_SCALABLE) = 0 then
 --								value := value + SCALABLE_FACTOR;
 --							end
 --					    end
@@ -520,7 +520,7 @@ feature
 --					        value := value + POLY_FACTOR;
 --					        polymorphic := 1;
 --					    else
---					        if (hints & FONTHINT_POLYMORPHIC) = b0 then
+--					        if (hints & FONTHINT_POLYMORPHIC) = 0 then
 --								value := value + POLY_FACTOR;
 --							end
 --					    end
@@ -650,22 +650,22 @@ feature
 			end
 
 			-- Try swiss if we didn't have a match yet
-			if match = Void and then ((hints & (FONTHINT_SWISS | FONTHINT_SYSTEM)) /= b0 or else (hints & FONTHINT_MASK) = b0) then
+			if match = Void and then ((hints & (FONTHINT_SWISS | FONTHINT_SYSTEM)) /= 0 or else (hints & FONTHINT_MASK) = 0) then
 				match := find_match(fontname, application.registry.read_string_entry("FONTSUBSTITUTIONS", "helvetica", "helvetica"));
 			end
 
 			-- Try roman if we didn't have a match yet
-			if match = Void and then ((hints & FONTHINT_ROMAN) /= b0 or else (hints & FONTHINT_MASK) = b0) then
+			if match = Void and then ((hints & FONTHINT_ROMAN) /= 0 or else (hints & FONTHINT_MASK) = 0) then
 				match := find_match(fontname, application.registry.read_string_entry("FONTSUBSTITUTIONS", "times", "times"));
 			end
 
 			-- Try modern if we didn't have a match yet
-			if match = Void and then ((hints & FONTHINT_MODERN) /= b0 or else (hints & FONTHINT_MASK) = b0) then
+			if match = Void and then ((hints & FONTHINT_MODERN) /= 0 or else (hints & FONTHINT_MASK) = 0) then
 			    match := find_match(fontname, application.registry.read_string_entry("FONTSUBSTITUTIONS", "courier", "courier"));
 			end
 
 			-- Try decorative if we didn't have a match yet
-			if match = Void and then ((hints & FONTHINT_DECORATIVE) /= b0 or else (hints & FONTHINT_MASK) = b0) then
+			if match = Void and then ((hints & FONTHINT_DECORATIVE) /= 0 or else (hints & FONTHINT_MASK) = 0) then
 				match := find_match(fontname, application.registry.read_string_entry("FONTSUBSTITUTIONS", "gothic", "gothic"));
 			end
 
@@ -749,7 +749,7 @@ feature
 
 	if false then --###
 			-- Try modern if we wanted modern, or if we don't care
-			if fname = Void and then ((hints & FONTHINT_MODERN) /= b0 or else (hints & FONTHINT_MASK) = b0) then
+			if fname = Void and then ((hints & FONTHINT_MODERN) /= 0 or else (hints & FONTHINT_MASK) = 0) then
 				from
 					i := 1
 					fname := modern_fallback @ i
@@ -1043,7 +1043,7 @@ feature
 --			end
 --
 --			-- Define pattern to match against
---			if (h & FONTHINT_X11) /= b0 then
+--			if (h & FONTHINT_X11) /= 0 then
 --				facename := "*";
 --			    if face.count /= 0 then
 --					facename := face
@@ -1054,7 +1054,7 @@ feature
 --			-- some of the info we already have acquired.
 --			else
 --				scal := "*";
---			    if (h & FONTHINT_SCALABLE) /= b0 then
+--			    if (h & FONTHINT_SCALABLE) /= 0 then
 --					scal := "0";
 --				end
 --			    facename := "*";
@@ -1104,11 +1104,11 @@ feature
 --						flags := flags or pitch_from_text(fields @ XLFD_SPACING);
 --
 --						-- Skip this font if pitch does not match
---						if ((h & FONTPITCH_FIXED) /= b0 and then (flags & FONTPITCH_FIXED) = b0) then
+--						if ((h & FONTPITCH_FIXED) /= 0 and then (flags & FONTPITCH_FIXED) = 0) then
 --							continue;
 --						end
 --
---						if((h & FONTPITCH_VARIABLE) /= b0 and then (flags & FONTPITCH_VARIABLE) = b0) then
+--						if((h & FONTPITCH_VARIABLE) /= 0 and then (flags & FONTPITCH_VARIABLE) = 0) then
 --							--continue;
 --						end
 --
@@ -1150,7 +1150,7 @@ feature
 --			      		end
 --
 --						-- Get size, corrected for screen resolution
---						if((flags and FONTHINT_SCALABLE) = b0) then
+--						if((flags and FONTHINT_SCALABLE) = 0) then
 --							l_size := (yres * atoi(fields @ XLFD_POINTSIZE)) / screenres;
 --			      		else
 --			        		l_size := 0;

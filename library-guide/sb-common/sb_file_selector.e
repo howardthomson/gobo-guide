@@ -43,13 +43,13 @@ feature -- Data
          
 feature -- Creation
 
-	make (p: SB_COMPOSITE; opts: INTEGER) is
+	make (p: SB_COMPOSITE; opts: INTEGER)
 			-- Construct a file selector
 		do
-			make_opts(p, Void, 0, opts, 0,0,0,0)
+			make_opts (p, Void, 0, opts, 0,0,0,0)
 		end
 
-	make_opts (p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER; x,y, w,h: INTEGER) is
+	make_opts (p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER; x,y, w,h: INTEGER)
 			-- Construct a file selector
 		local
          	table: SB_ACCEL_TABLE
@@ -112,8 +112,8 @@ feature -- Creation
          	create dirbox.make_opts(buttons, 5, Current, ID_DIRTREE,
          				Frame_sunken | Frame_thick | Layout_fill_x | Layout_center_y, 0,0,0,0, 1,1,1,1)
          	create bookmarks.make_opts (Current, Popup_shrinkwrap)
-	       	create mc.make_opts (bookmarks, "&Set bookmark%T%TBookmark current directory.", mark_icon, Current, ID_BOOKMARK, Zero)
-	       	create mc.make_opts (bookmarks, "&Clear bookmarks%T%TClear bookmarks.", clear_icon, mrufiles, rfc.ID_CLEAR, Zero)
+	       	create mc.make_opts (bookmarks, "&Set bookmark%T%TBookmark current directory.", mark_icon, Current, ID_BOOKMARK, 0)
+	       	create mc.make_opts (bookmarks, "&Clear bookmarks%T%TClear bookmarks.", clear_icon, mrufiles, rfc.ID_CLEAR, 0)
          	create sep1.make(bookmarks)
          	sep1.set_target_and_message(mrufiles, rfc.ID_ANYFILES)
          	create mc.make_sb (bookmarks, Void, mrufiles, rfc.ID_FILE_1)
@@ -173,13 +173,13 @@ feature -- Creation
 
 feature -- Queries
 
-   filename: STRING is
+   filename: STRING
          -- Return file name, if any
       do
          Result := ff.absolute_with_base (filebox.directory, filename_entry.contents);
       end
 
-	filenames: ARRAY [ STRING ] is
+	filenames: ARRAY [ STRING ]
          	-- Return array of strings containing the selected file names.
          	-- If no files were selected, a Void is returned.
       	local
@@ -245,13 +245,13 @@ feature -- Queries
          	end
 		end
 
-   pattern: STRING is
+   pattern: STRING
          -- Return file pattern
       do
          Result := filebox.pattern;
       end
 
-   pattern_list: STRING is
+   pattern_list: STRING
          -- Return list of patterns
       local
          pat: STRING
@@ -270,18 +270,18 @@ feature -- Queries
          end
       end
 
-   current_pattern: INTEGER is
+   current_pattern: INTEGER
          -- Return current pattern number
       do
          Result := filefilter.current_item;
       end
 
-   patterns_count: INTEGER is
+   patterns_count: INTEGER
       do
          Result := filefilter.items_count
       end
       
-   pattern_text(patno: INTEGER): STRING is
+   pattern_text(patno: INTEGER): STRING
          -- Get pattern text for given pattern number
       require
          patno > 0 and then patno <= patterns_count
@@ -289,7 +289,7 @@ feature -- Queries
          Result := filefilter.item_text(patno);
       end
 
-   directory: STRING is
+   directory: STRING
          -- Return directory
       do
          Result := filebox.directory;
@@ -301,19 +301,19 @@ feature -- Queries
          Result := filebox.item_space;
       end
 
-   file_box_style: INTEGER is
+   file_box_style: INTEGER
          -- Return file list style
       do
          Result := filebox.get_list_style;
       end
 
-   read_only_shown: BOOLEAN is
+   read_only_shown: BOOLEAN
          -- Return True if readonly is is_shown
       do
          Result := readonly.is_shown;
       end
 
-   read_only_state: INTEGER is
+   read_only_state: INTEGER
          -- Get readonly state
       do
          Result := readonly.state
@@ -321,7 +321,7 @@ feature -- Queries
 
 feature -- Actions
 
-	set_filename(path: STRING) is
+	set_filename(path: STRING)
 			-- Change file name
 		require
 			path /= Void
@@ -342,7 +342,7 @@ feature -- Actions
 --			implemented: false
       	end
 
-   set_pattern(ptrn: STRING) is
+   set_pattern(ptrn: STRING)
          -- Change file pattern
       do
          filefilter.set_text(ptrn);
@@ -350,7 +350,7 @@ feature -- Actions
       end
 
 
-   set_pattern_list(ptrns: STRING) is
+   set_pattern_list(ptrns: STRING)
          -- Change the list of file patterns is_shown in the file dialog.
          -- Each pattern comprises an optional name, followed by a pattern in
          -- parentheses.  The patterns are separated by newlines.
@@ -389,7 +389,7 @@ feature -- Actions
          set_current_pattern(1);
       end
 
-   set_pattern_list_arr(ptrns: ARRAY[STRING]) is
+   set_pattern_list_arr(ptrns: ARRAY[STRING])
          -- Set list of patterns as name, pattern pairs.
          -- (DEPRECATED)
       local
@@ -413,7 +413,7 @@ feature -- Actions
          set_current_pattern(1);
       end
 
-	set_current_pattern(n: INTEGER) is
+	set_current_pattern(n: INTEGER)
 			-- After setting the list of patterns, this call will
 			-- initially select pattern n as the active one.
 		require
@@ -434,7 +434,7 @@ feature -- Actions
          end
       end
 
-	set_directory(path: STRING) is
+	set_directory(path: STRING)
 			-- Change directory
 		require
 			path /= Void
@@ -450,19 +450,19 @@ feature -- Actions
 			end
 		end
 
-   set_item_space(s: INTEGER) is
+   set_item_space(s: INTEGER)
          -- Set the inter-item spacing (in pixels)
       do
          filebox.set_item_space(s);
       end
 
-	set_file_box_style(style: INTEGER) is
+	set_file_box_style(style: INTEGER)
 			-- Change file list style
 		do
 			filebox.set_list_style(style);
 		end
 
-	set_select_mode(mode: INTEGER) is
+	set_select_mode(mode: INTEGER)
 			-- Change file selection mode
 		do
          	inspect mode
@@ -482,7 +482,7 @@ feature -- Actions
          	select_mode := mode;
       	end
 
-	show_read_only(sh: BOOLEAN) is
+	show_read_only(sh: BOOLEAN)
 			-- Show readonly button
       	do
            	if sh then
@@ -492,7 +492,7 @@ feature -- Actions
            	end
       	end
 
-	set_read_only_state(st: INTEGER) is
+	set_read_only_state(st: INTEGER)
     		-- Set initial state of readonly button
     	do
         	readonly.set_state(st)
@@ -530,7 +530,7 @@ feature -- Message processing
         	end
       	end
 
-   on_cmd_accept(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_accept (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          msg: INTEGER
          tgt: SB_MESSAGE_HANDLER
@@ -629,7 +629,7 @@ feature -- Message processing
          end
       end
 
-   on_cmd_filter(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_filter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          pat, ext, name: STRING
       do
@@ -646,7 +646,7 @@ feature -- Message processing
          Result := True
       end
 
-	on_cmd_item_dbl_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_item_dbl_clicked (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			index: SE_REFERENCE [ INTEGER ]
 		do
@@ -667,7 +667,7 @@ feature -- Message processing
 			Result := True
 		end
 
-   on_cmd_item_selected(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_item_selected (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
 		 index: SE_REFERENCE [ INTEGER ]
          text,file: STRING;
@@ -688,7 +688,7 @@ feature -- Message processing
                end
                i := i + 1
             end
-            filename_entry.set_text(text)
+            filename_entry.set_text (text)
          elseif select_mode = SELECTFILE_MULTIPLE_ALL then
             from
                i := 1
@@ -718,9 +718,9 @@ feature -- Message processing
          Result := True;
       end
 
-	on_cmd_item_deselected(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_item_deselected (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
-         	text, file: STRING;
+         	text, file: STRING
          	i, e: INTEGER
       	do
          	if select_mode = SELECTFILE_MULTIPLE then
@@ -737,11 +737,11 @@ feature -- Message processing
                		end
                		i := i+1
             	end
-            	filename_entry.set_text(text);
+            	filename_entry.set_text(text)
          	elseif select_mode = SELECTFILE_MULTIPLE_ALL then
             	from
                		i := 1
-               		e := filebox.items_count;
+               		e := filebox.items_count
                		create text.make_empty
             	until
                		i > e
@@ -752,75 +752,75 @@ feature -- Message processing
                		end
                		i := i+1
             	end
-            	filename_entry.set_text(text);
+            	filename_entry.set_text(text)
          	end
-         	Result := True;
+         	Result := True
       	end
 
-   on_cmd_directory_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_directory_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
-         set_directory(ff.up_level(filebox.directory));
-         Result := True;
+         set_directory (ff.up_level (filebox.directory))
+         Result := True
       end
 
-   on_upd_directory_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_directory_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          dir: STRING
       do
-         dir := filebox.directory;
-         if ff.is_top_directory(dir) then
-            sender.do_handle_2 (Current, SEL_COMMAND, Id_disable, Void);
+         dir := filebox.directory
+         if ff.is_top_directory (dir) then
+            sender.do_handle_2 (Current, SEL_COMMAND, Id_disable, Void)
          else
-            sender.do_handle_2 (Current, SEL_COMMAND, Id_enable, Void);
+            sender.do_handle_2 (Current, SEL_COMMAND, Id_enable, Void)
          end
          Result := True;
       end
 
-   on_cmd_dir_tree(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_dir_tree (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          s: STRING
       do
          s ?= data check s /= Void end
-         filebox.set_directory(s);
+         filebox.set_directory(s)
          if select_mode = SELECTFILE_DIRECTORY then
-            filename_entry.set_text("")
+            filename_entry.set_text ("")
          end
-         Result := True;
+         Result := True
       end
 
-   on_cmd_home(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_home(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
-         set_directory(ff.home_directory);
-         Result := True;
+         set_directory (ff.home_directory)
+         Result := True
       end
 
-   on_cmd_work(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_work (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
-         set_directory(ff.current_directory);
-         Result := True;
+         set_directory (ff.current_directory)
+         Result := True
       end
 
-   on_cmd_bookmark(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_bookmark (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
-         mrufiles.append_file(filebox.directory);
-         Result := True;
+         mrufiles.append_file (filebox.directory)
+         Result := True
       end
 
-   on_cmd_visit(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_visit (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          s: STRING
       do
          s ?= data check s /= Void end
-         set_directory(s);
-         Result := True;
+         set_directory (s)
+         Result := True
       end
 
-   on_cmd_new(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_new (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
 --         dir, name, dirname: STRING
---         new_dir_icon: SB_GIF_ICON;
---         input_server: SB_INPUT_DIALOG_SERVER;
---         message_server: SB_MESSAGE_SERVER;
+--         new_dir_icon: SB_GIF_ICON
+--         input_server: SB_INPUT_DIALOG_SERVER
+--         message_server: SB_MESSAGE_SERVER
       do
 --         dir := filebox.directory;
 --         name := "DirectoryName";
@@ -833,77 +833,77 @@ feature -- Message processing
 --               message_server.show_error(Current, "Cannot Create", "Cannot create directory "+dirname+".%N", MBOX_OK);
 --            end
 --         end
-         Result := True;
+         Result := True
       end
 
-   on_upd_new(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_new (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
-         dir: STRING;
+         dir: STRING
       do
-         dir := filebox.directory;
-         if ff.is_writable(dir) then
-            sender.do_handle_2 (Current, SEL_COMMAND, Id_enable, Void);
+         dir := filebox.directory
+         if ff.is_writable (dir) then
+            sender.do_handle_2 (Current, SEL_COMMAND, Id_enable, Void)
          else
-            sender.do_handle_2 (Current, SEL_COMMAND, Id_disable, Void);
+            sender.do_handle_2 (Current, SEL_COMMAND, Id_disable, Void)
          end
-         Result := True;
+         Result := True
       end
 
-   on_cmd_move(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_move (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
       end
 
-   on_cmd_copy(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_copy (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
       end
 
-   on_cmd_link(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_link (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
       end
 
-   on_cmd_delete(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_delete (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
       end
 
-   on_upd_selected(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_selected (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
-         i,e: INTEGER;
-         done: BOOLEAN;
+         i, e: INTEGER
+         done: BOOLEAN
       do
          from
-            i := 1;
+            i := 1
             e := filebox.items_count
          until
             i > e or else done
          loop
             if filebox.item(i).is_selected then
-               sender.do_handle_2 (Current, SEL_COMMAND, Id_enable, Void);
+               sender.do_handle_2 (Current, SEL_COMMAND, Id_enable, Void)
                done := True
             else
-               i := i+1;
+               i := i+1
             end
          end
          if not done then
-            sender.do_handle_2 (Current, SEL_COMMAND, Id_disable, Void);
+            sender.do_handle_2 (Current, SEL_COMMAND, Id_disable, Void)
          end
          Result := True;
       end
 
-	on_popup_menu(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_popup_menu (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
-         	event : SB_EVENT;
-         	filemenu, sortmenu, viewmenu, bkmarks: SB_MENU_PANE;
-         	mc: SB_MENU_COMMAND;
-         	ms: SB_MENU_SEPARATOR;
-         	mcs: SB_MENU_CASCADE;
-         	sep1: SB_MENU_SEPARATOR;
+         	event : SB_EVENT
+         	filemenu, sortmenu, viewmenu, bkmarks: SB_MENU_PANE
+         	mc: SB_MENU_COMMAND
+         	ms: SB_MENU_SEPARATOR
+         	mcs: SB_MENU_CASCADE
+         	sep1: SB_MENU_SEPARATOR
       	do
          	event ?= data check event /= Void end
          	if not event.moved then
             	create filemenu.make(Current);
-            --	create mc.make_opts(filemenu, "Up one level",   up_dir_icon, Current, ID_DIRECTORY_UP, Zero);
-            --	create mc.make_opts(filemenu, "Home directory", home_icon,   Current, ID_HOME, Zero);
-            --	create mc.make_opts(filemenu, "Work directory", work_icon,   Current, ID_WORK, Zero);
+            --	create mc.make_opts(filemenu, "Up one level",   up_dir_icon, Current, ID_DIRECTORY_UP, 0);
+            --	create mc.make_opts(filemenu, "Home directory", home_icon,   Current, ID_HOME, 0);
+            --	create mc.make_opts(filemenu, "Work directory", work_icon,   Current, ID_WORK, 0);
             	create ms.make(filemenu);
 
             	create sortmenu.make(Current);
@@ -927,27 +927,27 @@ feature -- Message processing
 
             	create bkmarks.make(Current);
             	create mcs.make(filemenu,"Bkmarks",bkmarks);
-            --	create mc.make_opts(bkmarks, "Set bookmark",  mark_icon, Current, ID_BOOKMARK, Zero);
-            --	create mc.make_opts(bkmarks, "Clear bkmarks", clear_icon, mrufiles, mrufiles.ID_CLEAR, Zero);
-            	create sep1.make(bkmarks);
+            --	create mc.make_opts(bkmarks, "Set bookmark",  mark_icon, Current, ID_BOOKMARK, 0);
+            --	create mc.make_opts(bkmarks, "Clear bkmarks", clear_icon, mrufiles, mrufiles.ID_CLEAR, 0);
+            	create sep1.make (bkmarks)
             	sep1.set_target_and_message(mrufiles,mrufiles.ID_ANYFILES);
-            --	create mc.make_opts(bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_1, Zero);
-            --	create mc.make_opts(bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_2, Zero);
-            --	create mc.make_opts(bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_3, Zero);
-            --	create mc.make_opts(bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_4, Zero);
-            --	create mc.make_opts(bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_5, Zero);
-            --	create mc.make_opts(bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_6, Zero);
-            --	create mc.make_opts(bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_7, Zero);
-            --	create mc.make_opts(bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_8, Zero);
-            --	create mc.make_opts(bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_9, Zero);
-            --	create mc.make_opts(bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_10,Zero);
+            --	create mc.make_opts (bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_1, 0);
+            --	create mc.make_opts (bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_2, 0);
+            --	create mc.make_opts (bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_3, 0);
+            --	create mc.make_opts (bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_4, 0);
+            --	create mc.make_opts (bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_5, 0);
+            --	create mc.make_opts (bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_6, 0);
+            --	create mc.make_opts (bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_7, 0);
+            --	create mc.make_opts (bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_8, 0);
+            --	create mc.make_opts (bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_9, 0);
+            --	create mc.make_opts (bkmarks, Void, Void, mrufiles, mrufiles.ID_FILE_10,0);
 
-            	create sep1.make(filemenu);
-            --	create mc.make_opts(filemenu, "New directory...", new_dir_icon,Current, ID_NEW,   Zero);
-            --	create mc.make_opts(filemenu, "Copy...",		  copy_icon,  Current, ID_COPY,  Zero);
-            --	create mc.make_opts(filemenu, "Move...",		  move_icon,  Current, ID_MOVE,  Zero);
-            --	create mc.make_opts(filemenu, "Link...",		  link_icon,	 Current, ID_LINK,  Zero);
-            --	create mc.make_opts(filemenu, "Delete...",		  delete_icon,Current, Id_delete,Zero);
+            	create sep1.make (filemenu)
+            --	create mc.make_opts (filemenu, "New directory...", new_dir_icon,	Current, ID_NEW,   0)
+            --	create mc.make_opts (filemenu, "Copy...",		  copy_icon,	Current, ID_COPY,  0)
+            --	create mc.make_opts (filemenu, "Move...",		  move_icon,	Current, ID_MOVE,  0)
+            --	create mc.make_opts (filemenu, "Link...",		  link_icon,	Current, ID_LINK,  0)
+            --	create mc.make_opts (filemenu, "Delete...",		  delete_icon,	Current, Id_delete, 0)
 
             	filemenu.create_resource;
             	filemenu.pop_up(Void, event.root_x, event.root_y,0,0);
@@ -956,13 +956,13 @@ feature -- Message processing
          	end
       	end
 
-   on_file_changed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_file_changed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
       end
 
 feature { NONE } -- Implementation
 
-	FILELISTMASK: INTEGER is
+	FILELISTMASK: INTEGER
 		once
 			Result := (ICONLIST_EXTENDEDSELECT
 					 | ICONLIST_SINGLESELECT
@@ -993,40 +993,40 @@ feature { NONE } -- Implementation
 	copy_icon	: SB_ICON;	-- Copy file icon
 	link_icon	: SB_ICON;	-- Link file icon
 
-   mrufiles: SB_RECENT_FILES;
+   mrufiles: SB_RECENT_FILES
          -- Recently visited places
 
-   pattern_from_text(txt: STRING): STRING is
+   pattern_from_text (txt: STRING): STRING
          -- Strip pattern from text if present
       local
          b,e: INTEGER;
       do
-         e := rfind(txt,')',txt.count);  -- Search from the end so we can allow ( ) in the pattern name itself
-         b:= rfind(txt,'(',e-1);
+         e := rfind (txt, ')', txt.count)  -- Search from the end so we can allow ( ) in the pattern name itself
+         b:= rfind (txt, '(', e-1)
          if 0 < b and then b < e then
-            Result := txt.substring(b,e)
+            Result := txt.substring (b, e)
          else
-            create Result.make_from_string(txt);
+            create Result.make_from_string (txt)
          end
       end
 
-	extension_from_pattern(ptrn: STRING): STRING is
+	extension_from_pattern (ptrn: STRING): STRING is
 			-- Return the first extension "ext1" found in the pattern if the
          	-- pattern is of the form "*.ext1,*.ext2,..." or the is_empty string
          	-- if the pattern contains other wildcard combinations.
       	require
          	ptrn /= Void
       	local
-         	b, e: INTEGER;
-         	c: CHARACTER;
-         	done: BOOLEAN;
+         	b, e: INTEGER
+         	c: CHARACTER
+         	done: BOOLEAN
       	do
-         	b := 1;
-         	if ptrn.item(b) = '*' then
-            	b := b+1;
-            	if ptrn.item(b) = '.' then
-               		b := b+1;
-               		e := b;
+         	b := 1
+         	if ptrn.item (b) = '*' then
+            	b := b+1
+            	if ptrn.item (b) = '.' then
+               		b := b+1
+               		e := b
                		from
                		until
                   	e > ptrn.count or else done or else Result /= Void
@@ -1039,9 +1039,9 @@ feature { NONE } -- Implementation
                    		then
                      		create Result.make_empty
                   		else
-                     		e := e+1;
+                     		e := e+1
                   		end
-                  		Result := mid(pattern,b,e-b);
+                  		Result := mid (pattern, b, e-b)
                		end
             	end
          	end
@@ -1052,7 +1052,7 @@ feature { NONE } -- Implementation
    
 	tbuplevel: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xF1, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 
@@ -1065,12 +1065,12 @@ feature { NONE } -- Implementation
 				0x28, 0xFC, 0xBA, 0xF8, 0x27, 0xFB, 0xF5, 0x36, 
 				0x44, 0xCE, 0xE5, 0x88, 0x44, 0x14, 0x00, 0x00, 
 				0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	tbnewfolder: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xF1, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 
@@ -1082,12 +1082,12 @@ feature { NONE } -- Implementation
 				0xF5, 0xB5, 0x2D, 0xB9, 0xBA, 0xF2, 0xB8, 0xD9, 
 				0xFA, 0x55, 0xCB, 0x22, 0xA3, 0x9B, 0x31, 0x4E, 
 				0x44, 0xDE, 0x24, 0x51, 0x00, 0x00, 0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	tbbigicons: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xF1, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0x80, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 
@@ -1098,12 +1098,12 @@ feature { NONE } -- Implementation
 				0x1E, 0x5E, 0x28, 0x7D, 0xD0, 0x15, 0x80, 0xAC, 
 				0x7B, 0x86, 0x21, 0x59, 0xCA, 0x46, 0x01, 0x00, 
 				0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	tbdetails: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xF1, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 
@@ -1114,12 +1114,12 @@ feature { NONE } -- Implementation
 				0x7C, 0x0F, 0x24, 0x52, 0x64, 0x62, 0xA6, 0xA8, 
 				0xBA, 0x1E, 0x6D, 0x48, 0x43, 0xB1, 0x6C, 0x9C, 
 				0xE0, 0x7E, 0x1B, 0x05, 0x00, 0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	tblist: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xF1, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0x80, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 
@@ -1131,12 +1131,12 @@ feature { NONE } -- Implementation
 				0xF3, 0x8C, 0xF2, 0x7C, 0x76, 0x92, 0xCA, 0xB1, 
 				0x5B, 0x17, 0x9B, 0xF5, 0x6C, 0x28, 0x00, 0x00, 
 				0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	home: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xC2, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0x00, 0x84, 0x00, 0x00, 0xFF, 0xFF, 
@@ -1151,12 +1151,12 @@ feature { NONE } -- Implementation
 				0x1B, 0x29, 0x27, 0x5C, 0x69, 0x7C, 0x35, 0xE0, 
 				0x71, 0xF8, 0x1B, 0x06, 0x91, 0x10, 0x9E, 0x54, 
 				0x6A, 0xA9, 0x02, 0x12, 0x00, 0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	fileshown: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xF2, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0x00, 0xC0, 0xC0, 0xFF, 0xFF, 0xFF, 
@@ -1172,12 +1172,12 @@ feature { NONE } -- Implementation
 				0x87, 0x18, 0x08, 0xAE, 0x68, 0x84, 0x1E, 0xE1, 
 				0x99, 0xC3, 0x08, 0x60, 0x47, 0xE4, 0xA7, 0x64, 
 				0xE2, 0x78, 0xB9, 0x09, 0x00, 0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	filehidden: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xF1, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0xA0, 0xA0, 0xA4, 0xC0, 0xC0, 0xFF, 0xFF, 0xFF, 
@@ -1189,12 +1189,12 @@ feature { NONE } -- Implementation
 				0xD6, 0xBE, 0x70, 0xF8, 0xC6, 0xB2, 0x5D, 0xD3, 
 				0x2B, 0xBE, 0xEB, 0x26, 0x9A, 0xC2, 0x08, 0x81, 
 				0x05, 0x00, 0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	mark: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xF2, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00, 
@@ -1208,12 +1208,12 @@ feature { NONE } -- Implementation
 				0x33, 0xF4, 0x60, 0x4B, 0xD5, 0x78, 0x47, 0x04, 
 				0x0B, 0x2F, 0x44, 0x2C, 0x1A, 0x8F, 0x8A, 0x04, 
 				0x00, 0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	clear: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xF2, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0xFF, 0xAD, 0xD8, 0xE6, 0x00, 0x00, 
@@ -1229,12 +1229,12 @@ feature { NONE } -- Implementation
 				0xA2, 0xB8, 0x38, 0x26, 0x95, 0x25, 0xD0, 0x13, 
 				0xD6, 0x94, 0x0C, 0x7E, 0x2A, 0xDB, 0xC2, 0x70, 
 				0xDD, 0x78, 0x23, 0x09, 0x00, 0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	work: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xF1, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0x00, 0x80, 0x80, 0x00, 0x80, 0x00, 
@@ -1245,12 +1245,12 @@ feature { NONE } -- Implementation
 				0x0C, 0x4E, 0x46, 0x9A, 0x46, 0x38, 0x46, 0xEA, 
 				0x95, 0xB6, 0x50, 0x29, 0xC7, 0x1F, 0xF3, 0x7E, 
 				0xCD, 0xCD, 0xF7, 0x4A, 0x01, 0x00, 0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	dlgnewfolder: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x20, 0x00, 
 				0x20, 0x00, 0xF2, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x80, 0x80, 0x80, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -1274,12 +1274,12 @@ feature { NONE } -- Implementation
 				0x91, 0x92, 0x93, 0x94, 0x95, 0x96, 0x91, 0x3F, 
 				0x46, 0x9A, 0x9B, 0x9C, 0x9D, 0x9E, 0x9A, 0x2E, 
 				0xA1, 0xA2, 0x13, 0x09, 0x00, 0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	deletefile: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x42, 0x4D, 0x7E, 0x00, 0x00, 0x00, 0x00, 0x00, 
 				0x00, 0x00, 0x3E, 0x00, 0x00, 0x00, 0x28, 0x00, 
 				0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x10, 0x00, 
@@ -1296,12 +1296,12 @@ feature { NONE } -- Implementation
 				0x00, 0x00, 0x0E, 0x60, 0x00, 0x00, 0x3C, 0x30, 
 				0x00, 0x00, 0x78, 0x18, 0x00, 0x00, 0x70, 0x04, 
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-			>>		-- SE 1.1
+			>>
 		end
 
 	copyfile: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xA1, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -1315,12 +1315,12 @@ feature { NONE } -- Implementation
 				0x3F, 0xE1, 0xC1, 0x06, 0x74, 0x19, 0x2F, 0xC4, 
 				0xDD, 0x72, 0x91, 0x54, 0x3E, 0x7C, 0x29, 0x40, 
 				0x01, 0x00, 0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	movefile: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xC2, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x7F, 0x7F, 0x65, 0xB3, 0xB3, 0x8E, 0x00, 0x00, 
@@ -1336,12 +1336,12 @@ feature { NONE } -- Implementation
 				0x0F, 0x69, 0x3C, 0x3A, 0x92, 0x2E, 0xDE, 0xB3, 
 				0x39, 0x1B, 0x20, 0x95, 0x4A, 0x40, 0x02, 0x00, 
 				0x3B
-			>>		-- SE 1.1
+			>>
 		end
 
 	linkfile: ARRAY [ INTEGER_8 ] is
 		once
-			Result := <<							-- SE 1.1
+			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
 				0x10, 0x00, 0xA1, 0x00, 0x00, 0xB2, 0xC0, 0xDC, 
 				0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 
@@ -1351,6 +1351,6 @@ feature { NONE } -- Implementation
 				0x82, 0xD8, 0xFB, 0x6A, 0x3E, 0x09, 0x1E, 0x48, 
 				0x89, 0x1F, 0x59, 0x82, 0xD9, 0x65, 0x51, 0xD1, 
 				0x0B, 0xC7, 0xF2, 0x8C, 0x14, 0x00, 0x3B
-			>>		-- SE 1.1
+			>>
 		end
 end

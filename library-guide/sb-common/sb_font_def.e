@@ -58,7 +58,7 @@ feature -- Creation
 			-- slant, character set encoding, setwidth, and hints
 		do
 			make_opts(a, face, sz, FONTWEIGHT_NORMAL, FONTSLANT_REGULAR, FONTENCODING_DEFAULT,
-				FONTSETWIDTH_DONTCARE, Zero);
+				FONTSETWIDTH_DONTCARE, 0)
 		end
 
 	make_opts (a: SB_APPLICATION; face: STRING; sz, wt, sl, enc,
@@ -103,7 +103,6 @@ feature -- Queries
 	create_resource is
 			-- Create the font
 		do
--- print ("Create resource in SB_FONT_DEF%N")
         	if not is_attached then
             	if application.initialized then
 					create_resource_imp
@@ -224,13 +223,13 @@ feature -- Queries
    get_text_height (text: STRING): INTEGER is
          -- Calculate height of given text in this font
       do
-         Result := get_text_height_offset (text, 1, text.count);
+         Result := get_text_height_offset (text, 1, text.count)
       end
 
    get_text_height_length (text: STRING; count: INTEGER): INTEGER is
          -- Calculate height of given text in this font
       do
-         Result := get_text_height_offset (text, 1, count);
+         Result := get_text_height_offset (text, 1, count)
       end
 
 	get_text_height_offset (text: STRING; strt, count: INTEGER): INTEGER is

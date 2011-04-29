@@ -81,7 +81,7 @@ feature -- Creation
          	message_target := tgt
          	message := sel
          	state := STATE_UP
-         	if (options & BUTTON_INITIAL) /= Zero then
+         	if (options & BUTTON_INITIAL) /= 0 then
             	set_initial (True)
             	set_default (1)
          	end
@@ -98,7 +98,7 @@ feature -- Creation
 		local
 			o: INTEGER
 		do
-			if opts = Zero then
+			if opts = 0 then
 				o := BUTTON_NORMAL
 			else
 				o := opts
@@ -116,7 +116,7 @@ feature -- Creation
          	message_target := tgt
          	message := sel
          	state := STATE_UP
-         	if (options & BUTTON_INITIAL) /= Zero then
+         	if (options & BUTTON_INITIAL) /= 0 then
             	set_initial (True)
             	set_default (1)
          	end
@@ -154,15 +154,15 @@ feature -- Message processing
 			dc := paint_dc         
 			dc.make_event (Current, event)
 
-			if (options & (Frame_raised | Frame_sunken)) /= b0 then
+			if (options & (Frame_raised | Frame_sunken)) /= 0 then
 					-- Got a border at all?
-				if (options & BUTTON_TOOLBAR) /= b0 then
+				if (options & BUTTON_TOOLBAR) /= 0 then
 						-- Toolbar style
 					if is_enabled and then is_under_cursor and then state = STATE_UP then
 							-- Enabled and cursor inside, and up
 						dc.set_foreground (back_color)
 						dc.fill_rectangle (border, border, width-border * 2, height-border * 2)
-						if (options & Frame_thick) /= b0 then
+						if (options & Frame_thick) /= 0 then
 							draw_double_raised_rectangle (dc, 0,0, width, height)
 						else
 							draw_raised_rectangle (dc, 0, 0, width, height);
@@ -171,7 +171,7 @@ feature -- Message processing
 							-- Enabled and cursor inside and down
 						dc.set_foreground (back_color)
 						dc.fill_rectangle (border, border, width - border * 2, height - border * 2)
-						if (options & Frame_thick) /= b0 then
+						if (options & Frame_thick) /= 0 then
 							draw_double_sunken_rectangle (dc, 0, 0, width, height)
 						else
 							draw_sunken_rectangle (dc, 0, 0, width, height)
@@ -180,7 +180,7 @@ feature -- Message processing
 							-- Enabled and checked
 						dc.set_foreground (hilite_color)
 						dc.fill_rectangle (border, border, width - border * 2, height - border * 2)
-						if (options & Frame_thick) /= b0 then
+						if (options & Frame_thick) /= 0 then
 							draw_double_sunken_rectangle (dc, 0, 0, width, height)
 						else
 							draw_sunken_rectangle(dc, 0, 0, width, height)
@@ -198,7 +198,7 @@ feature -- Message processing
 								-- Draw in up state if disabled or up
 							dc.set_foreground (back_color)
 							dc.fill_rectangle (border + 1, border + 1, width - border * 2 - 1, height - border * 2 - 1)
-							if (options & Frame_thick) /= b0 then
+							if (options & Frame_thick) /= 0 then
 								draw_double_raised_rectangle (dc, 1, 1, width-1, height-1)
 							else
 								draw_raised_rectangle (dc, 1, 1, width-1, height-1)
@@ -211,7 +211,7 @@ feature -- Message processing
 								dc.set_foreground (back_color)
 							end
 							dc.fill_rectangle (border, border, width - border * 2 - 1, height - border * 2 - 1)
-							if (options & Frame_thick) /= b0 then
+							if (options & Frame_thick) /= 0 then
 								draw_double_sunken_rectangle (dc, 0, 0, width - 1, height - 1)
 							else
 								draw_sunken_rectangle (dc, 0, 0, width - 1, height - 1)
@@ -225,7 +225,7 @@ feature -- Message processing
 								-- Draw in up state if disabled or up
 							dc.set_foreground (back_color)
 							dc.fill_rectangle (border, border, width - border * 2, height - border * 2)
-							if (options & Frame_thick) /= b0 then
+							if (options & Frame_thick) /= 0 then
 								draw_double_raised_rectangle (dc, 0, 0, width, height)
 							else
 								draw_raised_rectangle (dc, 0, 0, width, height)
@@ -238,7 +238,7 @@ feature -- Message processing
 								dc.set_foreground (back_color)
 							end
 							dc.fill_rectangle (border, border, width - border * 2, height - border * 2)
-							if (options & Frame_thick) /= b0 then
+							if (options & Frame_thick) /= 0 then
 								draw_double_sunken_rectangle (dc, 0, 0, width, height)
 							else
 								draw_sunken_rectangle (dc, 0, 0, width, height)
@@ -269,7 +269,7 @@ feature -- Message processing
 			pt := just_y (th,ih); iy := pt.x; ty := pt.y
 
 				-- Shift a bit when pressed
-			if state /= 0 and then (options & (Frame_raised | Frame_sunken)) /= b0 then
+			if state /= 0 and then (options & (Frame_raised | Frame_sunken)) /= 0 then
 				tx := tx+1
 				ty := ty+1
 				ix := ix+1
@@ -308,13 +308,13 @@ feature -- Message processing
    on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
          if not Precursor(sender,selector,data) then
-            if (options & BUTTON_AUTOHIDE) /= b0 then
+            if (options & BUTTON_AUTOHIDE) /= 0 then
                if is_shown then
                   hide
                   recalc
                end
             end
-            if (options & BUTTON_AUTOGRAY) /= b0 then
+            if (options & BUTTON_AUTOGRAY) /= 0 then
                disable
             end
          end
@@ -325,10 +325,10 @@ feature -- Message processing
       do
          Result := Precursor (sender, selector, data)
          if is_enabled then
-            if (flags & Flag_pressed) /= b0 and then state /= STATE_ENGAGED then
+            if (flags & Flag_pressed) /= 0 and then state /= STATE_ENGAGED then
                set_state(STATE_DOWN);
             end
-            if (options & BUTTON_TOOLBAR) /= b0 then
+            if (options & BUTTON_TOOLBAR) /= 0 then
                update
             end
          end
@@ -339,10 +339,10 @@ feature -- Message processing
       do
          Result := Precursor (sender, selector, data)
          if is_enabled then
-            if (flags & Flag_pressed) /= b0 and then state /= STATE_ENGAGED then
+            if (flags & Flag_pressed) /= 0 and then state /= STATE_ENGAGED then
                set_state(STATE_UP)
             end
-            if (options & BUTTON_TOOLBAR) /= b0 then
+            if (options & BUTTON_TOOLBAR) /= 0 then
                update
             end
          end
@@ -378,7 +378,7 @@ feature -- Message processing
       do
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data);
          unset_flags (Flag_tip)
-         if is_enabled and then (flags & Flag_pressed) = b0 then
+         if is_enabled and then (flags & Flag_pressed) = 0 then
             grab_mouse
             if message_target /= Void and then 
                message_target.handle_2 (Current, SEL_LEFTBUTTONPRESS, message, data) then
@@ -398,7 +398,7 @@ feature -- Message processing
          click: BOOLEAN
       do
          click := state = STATE_DOWN
-         if is_enabled and then (flags & Flag_pressed) /= Zero then
+         if is_enabled and then (flags & Flag_pressed) /= 0 then
             release_mouse;
             if message_target /= Void and then 
                message_target.handle_2 (Current, SEL_LEFTBUTTONRELEASE, message, data) then
@@ -424,12 +424,12 @@ feature -- Message processing
       do
          event ?= data
          unset_flags (Flag_tip)
-         if is_enabled and then (flags & Flag_pressed) = b0 then
+         if is_enabled and then (flags & Flag_pressed) = 0 then
             if message_target /= Void and then message_target.handle_2 (Current, SEL_KEYPRESS, message, data)
              then
                Result := True
             elseif event /= Void and then (event.code = sbk.key_space or event.code = sbk.key_kp_space)
-               or ((options & BUTTON_DEFAULT) /= b0 
+               or ((options & BUTTON_DEFAULT) /= 0 
                    and then (event.code = sbk.key_return or event.code = sbk.key_kp_enter))
              then
                if state /= STATE_ENGAGED then
@@ -449,12 +449,12 @@ feature -- Message processing
       do
          click := state = STATE_DOWN
          event ?= data
-         if is_enabled and then (flags & Flag_pressed) /= Zero then
+         if is_enabled and then (flags & Flag_pressed) /= 0 then
             if message_target /= Void 
                and then message_target.handle_2 (Current, SEL_KEYRELEASE, message, data) then
                Result := True;
             elseif event /= Void and then (event.code = sbk.key_space or event.code = sbk.key_kp_space)
-               or ((options & BUTTON_DEFAULT) /= b0 
+               or ((options & BUTTON_DEFAULT) /= 0 
                    and then (event.code = sbk.key_return or event.code = sbk.key_kp_enter))
              then
                if state /= STATE_ENGAGED then

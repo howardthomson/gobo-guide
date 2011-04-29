@@ -55,181 +55,179 @@ creation
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_TOGGLE_BUTTON"
 		end
 
 feature -- Creation
 
-   make(p: SB_COMPOSITE; text1,text2: STRING) is
+   make (p: SB_COMPOSITE; text1,text2: STRING)
          -- Construct toggle button with two text labels one for each state
       do
-         make_opts(p, text1, text2, Void, Void, Void, 0, TOGGLEBUTTON_NORMAL, 0, 0, 0, 0,
+         make_opts (p, text1, text2, Void, Void, Void, 0, TOGGLEBUTTON_NORMAL, 0, 0, 0, 0,
                    DEFAULT_PAD, DEFAULT_PAD,DEFAULT_PAD, DEFAULT_PAD);
       end
 
-   make_opts(p: SB_COMPOSITE; text1,text2: STRING; icon1,icon2: SB_ICON;tgt: SB_MESSAGE_HANDLER;
-             sel: INTEGER; opts: INTEGER; x, y, w, h, pl, pr,pt, pb: INTEGER) is
+   make_opts (p: SB_COMPOSITE; text1,text2: STRING; icon1,icon2: SB_ICON;tgt: SB_MESSAGE_HANDLER;
+             sel: INTEGER; opts: INTEGER; x, y, w, h, pl, pr,pt, pb: INTEGER)
          -- Construct toggle button with two text labels, and two icons, one for each 
          -- state
-      local
-      --   u: expanded SB_UTILS
       do
-         label_make_opts(p,text1,icon1,opts,x,y,w,h,pl,pr,pt,pb);
-         message_target := tgt;
-         message := sel;
-         alt_label := u.extract_string_esc(text2,0,'%T','&');
-         alt_tip := u.extract_string(text2,1,'%T');
-         alt_help := u.extract_string(text2,2,'%T');
-         alt_hot_key := u.parse_hot_key(text2);
-         alt_hot_off := u.find_hot_key_offset(text2);
-         add_hot_key(alt_hot_key);
-         state := False;
+         label_make_opts(p,text1,icon1,opts,x,y,w,h,pl,pr,pt,pb)
+         message_target := tgt
+         message := sel
+         alt_label := u.extract_string_esc(text2,0,'%T','&')
+         alt_tip := u.extract_string(text2,1,'%T')
+         alt_help := u.extract_string(text2,2,'%T')
+         alt_hot_key := u.parse_hot_key(text2)
+         alt_hot_off := u.find_hot_key_offset(text2)
+         add_hot_key(alt_hot_key)
+         state := False
          down := False
       end
 
 feature -- Data
 
-	alt_label	: STRING;
-	alt_icon	: SB_ICON;
-	alt_tip		: STRING;
-	alt_help	: STRING;
+	alt_label	: STRING
+	alt_icon	: SB_ICON
+	alt_tip		: STRING
+	alt_help	: STRING
 
-	state		: BOOLEAN;
+	state		: BOOLEAN
 
 feature --Queries
 
-   can_focus: BOOLEAN is
+   can_focus: BOOLEAN
          -- Returns true because a toggle button can receive focus
       once
          Result := True;
       end
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Get default width
       local
-         tw, iw, s, w1, w2: INTEGER;
+         tw, iw, s, w1, w2: INTEGER
       do
          if not label.is_empty then
-            tw := label_width(label);
+            tw := label_width (label)
          end
          if icon /= Void then
-            iw := icon.width;
+            iw := icon.width
          end
          if iw /= 0 and then tw /= 0 then
-            s := 4;
+            s := 4
          end
-         if (options & (ICON_AFTER_TEXT | ICON_BEFORE_TEXT)) = Zero then
-            w1 := tw.max(iw);
+         if (options & (ICON_AFTER_TEXT | ICON_BEFORE_TEXT)) = 0 then
+            w1 := tw.max (iw)
          else
-            w1 := tw+iw+s;
+            w1 := tw+iw+s
          end
 
          if not alt_label.is_empty then
-            tw := label_width(alt_label);
+            tw := label_width (alt_label)
          elseif not label.is_empty then
-            tw := label_width(label);
+            tw := label_width (label)
          end
          if alt_icon /= Void then
-            iw := alt_icon.width;
+            iw := alt_icon.width
          elseif icon /= Void then
-            iw := icon.width;
+            iw := icon.width
          end
          if iw /= 0 and then tw /= 0 then
-            s := 4;
+            s := 4
          end
-         if (options & (ICON_AFTER_TEXT | ICON_BEFORE_TEXT)) = Zero then
-            w2 := tw.max(iw);
+         if (options & (ICON_AFTER_TEXT | ICON_BEFORE_TEXT)) = 0 then
+            w2 := tw.max (iw)
          else
-            w2 := tw+iw+s;
+            w2 := tw+iw+s
          end
 
-         Result := w1.max(w2) + pad_left+pad_right+(border*2);
+         Result := w1.max(w2) + pad_left+pad_right+(border*2)
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Get default width
       local
-         th, ih, h1, h2: INTEGER;
+         th, ih, h1, h2: INTEGER
       do
          if not label.is_empty then
-            th := label_height(label);
+            th := label_height (label)
          end
          if icon /= Void then
-            ih := icon.height;
+            ih := icon.height
          end
-         if (options & (ICON_ABOVE_TEXT | ICON_BELOW_TEXT)) = Zero then
-            h1 := th.max(ih);
+         if (options & (ICON_ABOVE_TEXT | ICON_BELOW_TEXT)) = 0 then
+            h1 := th.max (ih)
          else 
-            h1 := th+ih;
+            h1 := th+ih
          end
          if not alt_label.is_empty then
-            th := label_height(alt_label)
+            th := label_height (alt_label)
          elseif not label.is_empty then
-            th := label_height(label);
+            th := label_height (label)
          end
          if alt_icon /= Void then
-            ih := alt_icon.height;
+            ih := alt_icon.height
          elseif icon /= Void then
-            ih := icon.height;
+            ih := icon.height
          end
-         if (options & (ICON_ABOVE_TEXT | ICON_BELOW_TEXT)) = Zero then
-            h2 := th.max(ih);
+         if (options & (ICON_ABOVE_TEXT | ICON_BELOW_TEXT)) = 0 then
+            h2 := th.max(ih)
          else 
-            h2 := th+ih;
+            h2 := th+ih
          end
-         Result := h1.max(h2) + pad_top+pad_bottom+(border*2);
+         Result := h1.max(h2) + pad_top+pad_bottom+(border*2)
       end
 
-   get_toggle_button_style: INTEGER is
+   get_toggle_button_style: INTEGER
          -- Return current check button style
       do
-         Result := (options & TOGGLEBUTTON_MASK);
+         Result := (options & TOGGLEBUTTON_MASK)
       end
 
 feature -- Actions
 
-   set_alt_text(text: STRING) is
+   set_alt_text (text: STRING)
          -- Change alternate text shown when toggled
       do
-         if not alt_label.is_equal(text) then
-            alt_label := text;
-            hot_off := -1;
-            recalc;
-            update;
+         if not alt_label.is_equal (text) then
+            alt_label := text
+            hot_off := -1
+            recalc
+            update
          end
       end
 
-   set_alt_icon(ic: SB_ICON) is
+   set_alt_icon (ic: SB_ICON)
          -- Change alternate icon shown when toggled
       do
          if alt_icon /= ic then
-            alt_icon := ic;
-            recalc;
-            update;
+            alt_icon := ic
+            recalc
+            update
          end
       end
 
-   set_state(s: BOOLEAN) is
+   set_state (s: BOOLEAN)
          -- Change toggled state
       do
          if state /= s then
-            state := s;
-            update;
+            state := s
+            update
          end
       end
 
-   set_alt_help_text(text: STRING) is
+   set_alt_help_text (text: STRING)
          -- Change alternate help text shown when toggled
       do
-         alt_help := text;
+         alt_help := text
       end
 
-   set_alt_tip_text(text: STRING) is
+   set_alt_tip_text(text: STRING)
          -- Change alternate tip text shown when toggled
       do
-         alt_tip := text;
+         alt_tip := text
       end
 
    set_toggle_button_style(style: INTEGER) is
@@ -239,195 +237,193 @@ feature -- Actions
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
       do
          Precursor;
          if alt_icon /= Void then
-            alt_icon.create_resource;
+            alt_icon.create_resource
          end
       end
 
-   detach_resource is
+   detach_resource
          -- Detach server-side resources
       do
          Precursor;
          if alt_icon /= Void then
-            alt_icon.detach_resource;
+            alt_icon.detach_resource
          end
       end
 
 feature -- Message processing
 
-   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       do
-         if		match_function_2 (SEL_COMMAND,Id_check,			type, key) then Result := on_check				(sender, key, data);
-         elseif match_function_2 (SEL_COMMAND,Id_uncheck,		type, key) then Result := on_uncheck			(sender, key, data);
-         elseif match_function_2 (SEL_COMMAND,Id_setvalue,		type, key) then Result := on_cmd_set_value 		(sender, key, data);
-         elseif match_function_2 (SEL_COMMAND,Id_setintvalue,	type, key) then Result := on_cmd_set_int_value	(sender, key, data);
-         elseif match_function_2 (SEL_COMMAND,Id_getintvalue,	type, key) then Result := on_cmd_get_int_value	(sender, key, data);
+         if		match_function_2 (SEL_COMMAND,Id_check,			type, key) then Result := on_check				(sender, key, data)
+         elseif match_function_2 (SEL_COMMAND,Id_uncheck,		type, key) then Result := on_uncheck			(sender, key, data)
+         elseif match_function_2 (SEL_COMMAND,Id_setvalue,		type, key) then Result := on_cmd_set_value 		(sender, key, data)
+         elseif match_function_2 (SEL_COMMAND,Id_setintvalue,	type, key) then Result := on_cmd_set_int_value	(sender, key, data)
+         elseif match_function_2 (SEL_COMMAND,Id_getintvalue,	type, key) then Result := on_cmd_get_int_value	(sender, key, data)
          else Result := Precursor(sender, type, key, data)
          end
       end
 
-   XXon_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
-   	do
-   		Result := True
-   	end
+--	XXon_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
+--		do
+--			Result := True
+--		end
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
-         event: SB_EVENT;
-         dc: SB_DC_WINDOW;
+         event: SB_EVENT
+         dc: SB_DC_WINDOW
          tw,th,iw,ih,tx,ty,ix,iy: INTEGER
          pt: SB_POINT;
       do
-         event ?= data;
+         event ?= data
          check
-            event /= Void;
+            event /= Void
          end
          dc := paint_dc
-         dc.make_event(Current,event);
-         if (options & (Frame_raised | Frame_sunken)) /= Zero then
+         dc.make_event (Current, event)
+         if (options & (Frame_raised | Frame_sunken)) /= 0 then
             -- Got a border at all?
-            if (options & TOGGLEBUTTON_TOOLBAR) /= Zero then
+            if (options & TOGGLEBUTTON_TOOLBAR) /= 0 then
                -- Toolbar style
                if down then
                   -- Enabled and cursor inside and down
-                  dc.set_foreground(hilite_color);
-                  dc.fill_rectangle(border,border,width-border*2,height-border*2);
-                  if (options & Frame_thick) /= Zero then
-                     draw_double_sunken_rectangle(dc,0,0,width,height);
+                  dc.set_foreground (hilite_color)
+                  dc.fill_rectangle (border, border, width-border*2, height-border*2)
+                  if (options & Frame_thick) /= 0 then
+                     draw_double_sunken_rectangle (dc, 0, 0, width, height)
                   else
-                     draw_sunken_rectangle(dc,0,0,width,height);
+                     draw_sunken_rectangle (dc, 0, 0, width, height)
                   end
                elseif is_enabled and then is_under_cursor then
                   -- Enabled and cursor inside, and up
-                  dc.set_foreground(back_color);
-                  dc.fill_rectangle(border,border,width-border*2,height-border*2);
-                  if (options & Frame_thick) /= Zero then
-                     draw_double_raised_rectangle(dc,0,0,width,height);
+                  dc.set_foreground (back_color)
+                  dc.fill_rectangle (border, border, width-border*2, height-border*2)
+                  if (options & Frame_thick) /= 0 then
+                     draw_double_raised_rectangle (dc, 0, 0, width, height)
                   else
-                     draw_raised_rectangle(dc,0,0,width,height);
+                     draw_raised_rectangle (dc, 0, 0, width, height)
                   end
                else
                   -- Disabled or unchecked or not under cursor
-                  dc.set_foreground(back_color);
-                  dc.fill_rectangle(0,0,width,height);
+                  dc.set_foreground(back_color)
+                  dc.fill_rectangle (0, 0, width, height)
                end
             else
                -- Normal style
                if down then
                   -- Draw sunken if pressed
-                  dc.set_foreground(hilite_color);
-                  dc.fill_rectangle(border,border,width-border*2,height-border*2);
-                  if (options & Frame_thick) /= Zero then
-                     draw_double_sunken_rectangle(dc,0,0,width,height);
+                  dc.set_foreground (hilite_color)
+                  dc.fill_rectangle (border, border, width-border*2, height-border*2);
+                  if (options & Frame_thick) /= 0 then
+                     draw_double_sunken_rectangle (dc, 0, 0, width, height)
                   else
-                     draw_sunken_rectangle(dc,0,0,width,height);
+                     draw_sunken_rectangle (dc, 0, 0, width, height)
                   end
                else
                   -- Draw raised if not currently pressed down
-                  dc.set_foreground(back_color);
-                  dc.fill_rectangle(border,border,width-border*2,height-border*2);
-                  if (options & Frame_thick) /= Zero then
-                     draw_double_raised_rectangle(dc,0,0,width,height);
+                  dc.set_foreground (back_color)
+                  dc.fill_rectangle (border, border, width-border*2, height-border*2)
+                  if (options & Frame_thick) /= 0 then
+                     draw_double_raised_rectangle (dc, 0, 0, width, height)
                   else
-                     draw_raised_rectangle(dc,0,0,width,height);
+                     draw_raised_rectangle (dc, 0, 0, width, height)
                   end
                end
             end
          else
             -- No borders
-            dc.set_foreground(back_color);
-            dc.fill_rectangle(0,0,width,height);
+            dc.set_foreground (back_color)
+            dc.fill_rectangle (0, 0, width, height)
          end
 
          -- Place text & icon
          if state and then not alt_label.is_empty then
-            tw := label_width(alt_label);
-            th := label_height(alt_label);
+            tw := label_width (alt_label)
+            th := label_height (alt_label)
          elseif not label.is_empty then
-            tw := label_width(label);
-            th := label_height(label);
+            tw := label_width (label)
+            th := label_height (label)
          end
          if state and then alt_icon /= Void then
-            iw := alt_icon.width;
-            ih := alt_icon.height;
+            iw := alt_icon.width
+            ih := alt_icon.height
          elseif icon /= Void then
-            iw := icon.width;
-            ih := icon.height;
+            iw := icon.width
+            ih := icon.height
          end
 
-         pt := just_x(tw,iw);ix := pt.x; tx := pt.y;
-         pt := just_y(th,ih);iy := pt.x; ty := pt.y;
+         pt := just_x (tw,iw); ix := pt.x; tx := pt.y;
+         pt := just_y (th,ih); iy := pt.x; ty := pt.y;
 
          -- Shift a bit when pressed
-         if down and then  (options & (Frame_raised | Frame_sunken)) /= Zero then
-            tx := tx + 1;
-            ty := ty + 1; 
-            ix := ix + 1;
-            iy := iy + 1;
+         if down and then (options & (Frame_raised | Frame_sunken)) /= 0 then
+            tx := tx + 1
+            ty := ty + 1
+            ix := ix + 1
+            iy := iy + 1
          end
 
          if is_enabled then
             -- Draw enabled state
             if state and then alt_icon /= Void then
-               dc.draw_icon(alt_icon,ix,iy);
+               dc.draw_icon (alt_icon, ix,iy)
             elseif icon /= Void then
-               dc.draw_icon(icon,ix,iy);
+               dc.draw_icon (icon, ix,iy)
             end
             if state and then not alt_label.is_empty then
-               dc.set_font(font);
-               dc.set_foreground(text_color);
-               draw_label(dc,alt_label,alt_hot_off,tx,ty,tw,th);
+               dc.set_font (font)
+               dc.set_foreground (text_color)
+               draw_label (dc, alt_label, alt_hot_off, tx,ty, tw,th)
                if has_focus then
-                  dc.draw_focus_rectangle(border+2,border+2,width-2*border-4,
-                                          height-2*border-4);
+                  dc.draw_focus_rectangle (border+2, border+2, width-2*border-4, height-2*border-4)
                end
             elseif not label.is_empty then
-               dc.set_font(font);
-               dc.set_foreground(text_color);
-               draw_label(dc,label,hot_off,tx,ty,tw,th);
+               dc.set_font (font)
+               dc.set_foreground (text_color)
+               draw_label (dc, label, hot_off, tx,ty, tw,th)
                if has_focus then
-                  dc.draw_focus_rectangle(border+2,border+2,width-2*border-4,
-                                          height-2*border-4);
+                  dc.draw_focus_rectangle (border+2, border+2, width-2*border-4, height-2*border-4)
                end
             end
          else
             -- Draw grayed-out state
             if state and then alt_icon /= Void then
-               dc.draw_icon_sunken(alt_icon,ix,iy);
+               dc.draw_icon_sunken (alt_icon, ix,iy)
             elseif icon /= Void then
-               dc.draw_icon_sunken(icon,ix,iy);
+               dc.draw_icon_sunken (icon, ix,iy)
             end
             if state and then not alt_label.is_empty then
-               dc.set_font(font);
-               dc.set_foreground(hilite_color);
-               draw_label(dc,alt_label,alt_hot_off,tx+1,ty+1,tw,th);
-               dc.set_foreground(shadow_color);
-               draw_label(dc,alt_label,alt_hot_off,tx,ty,tw,th);
+               dc.set_font (font)
+               dc.set_foreground (hilite_color)
+               draw_label (dc, alt_label, alt_hot_off, tx+1,ty+1, tw,th)
+               dc.set_foreground (shadow_color)
+               draw_label (dc, alt_label, alt_hot_off, tx,ty, tw,th)
             elseif not label.is_empty then
-               dc.set_font(font);
-               dc.set_foreground(hilite_color);
-               draw_label(dc,label,hot_off,tx+1,ty+1,tw,th);
-               dc.set_foreground(shadow_color);
-               draw_label(dc,label,hot_off,tx,ty,tw,th);
+               dc.set_font (font)
+               dc.set_foreground (hilite_color)
+               draw_label (dc, label, hot_off, tx+1,ty+1, tw,th)
+               dc.set_foreground (shadow_color)
+               draw_label (dc, label, hot_off, tx,ty, tw,th)
             end
          end
-         dc.stop;
-         Result := True;
+         dc.stop
+         Result := True
       end
 
    on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
          if not Precursor(sender, selector, data) then
-            if (options & TOGGLEBUTTON_AUTOHIDE) /= Zero then
+            if (options & TOGGLEBUTTON_AUTOHIDE) /= 0 then
                if is_shown then
                   hide;
                   recalc
                end
             end
-            if (options & TOGGLEBUTTON_AUTOGRAY) /= Zero then
+            if (options & TOGGLEBUTTON_AUTOGRAY) /= 0 then
                disable
             end
          end
@@ -438,10 +434,10 @@ feature -- Message processing
       do
          Result := Precursor (sender,selector,data);
          if is_enabled then
-            if (flags & Flag_pressed) /= Zero then
+            if (flags & Flag_pressed) /= 0 then
                press(True);
             end
-            if (options & TOGGLEBUTTON_TOOLBAR) /= Zero then
+            if (options & TOGGLEBUTTON_TOOLBAR) /= 0 then
                update;
             end
          end
@@ -452,10 +448,10 @@ feature -- Message processing
       do
          Result := Precursor (sender,selector,data);
          if is_enabled then
-            if (flags & Flag_pressed) /= Zero then
+            if (flags & Flag_pressed) /= 0 then
                press(False);
             end
-            if (options & TOGGLEBUTTON_TOOLBAR) /= Zero then
+            if (options & TOGGLEBUTTON_TOOLBAR) /= 0 then
                update;
             end
          end
@@ -489,7 +485,7 @@ feature -- Message processing
       do
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data);
          unset_flags (Flag_tip);
-         if is_enabled and then (flags & Flag_pressed) = Zero then
+         if is_enabled and then (flags & Flag_pressed) = 0 then
             grab_mouse;
             if message_target /= Void and then 
                message_target.handle_2 (Current, SEL_LEFTBUTTONPRESS, message, data) then
@@ -506,7 +502,7 @@ feature -- Message processing
       local
          click: BOOLEAN;
       do
-         if is_enabled and then (flags & Flag_pressed) /= Zero then
+         if is_enabled and then (flags & Flag_pressed) /= 0 then
             click := down;
             release_mouse;
             if message_target/= Void and then 
@@ -536,7 +532,7 @@ feature -- Message processing
             event /= Void;
          end
          unset_flags (Flag_tip);
-         if is_enabled and then (flags & Flag_pressed) = Zero then
+         if is_enabled and then (flags & Flag_pressed) = 0 then
             if message_target /= Void and then message_target.handle_2 (Current, SEL_KEYPRESS, message, data)
              then
                Result := True;
@@ -559,7 +555,7 @@ feature -- Message processing
          check
             event /= Void;
          end
-         if is_enabled and then (flags & Flag_pressed) /= Zero then
+         if is_enabled and then (flags & Flag_pressed) /= 0 then
             if message_target /= Void 
                and then message_target.handle_2 (Current, SEL_KEYRELEASE, message, data) then
                Result := True;
@@ -580,7 +576,7 @@ feature -- Message processing
       do
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data);
          unset_flags (Flag_tip);
-         if is_enabled and (flags & Flag_pressed) = Zero then
+         if is_enabled and (flags & Flag_pressed) = 0 then
             press(True);
             flags := flags | Flag_pressed;
             unset_flags (Flag_update);
@@ -590,7 +586,7 @@ feature -- Message processing
 
    on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         if is_enabled  and (flags & Flag_pressed) /= Zero then
+         if is_enabled  and (flags & Flag_pressed) /= 0 then
             flags := flags | Flag_update;
             unset_flags (Flag_pressed);
             press(False);
@@ -616,7 +612,7 @@ feature -- Message processing
 
    on_query_help (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         if (flags & Flag_help) /= Zero then
+         if (flags & Flag_help) /= 0 then
             if state then
                if not alt_help.is_empty then
                   sender.do_handle_2 (Current, SEL_COMMAND, Id_setstringvalue, alt_help);
@@ -634,7 +630,7 @@ feature -- Message processing
 
    on_query_tip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         if (flags & Flag_tip) /= Zero then
+         if (flags & Flag_tip) /= 0 then
             if state then
                if not alt_tip.is_empty then
                   sender.do_handle_2 (Current, SEL_COMMAND, Id_setstringvalue, alt_tip);

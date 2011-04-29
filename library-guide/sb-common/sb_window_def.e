@@ -323,7 +323,7 @@ end
 		do
          	if is_attached then
             	if application.initialized then
-					if (flags & Flag_owned) /= Zero then
+					if (flags & Flag_owned) /= 0 then
 						destroy_resource_imp
 					end
             	end
@@ -921,14 +921,14 @@ feature -- actions (cont'd)
     		-- Move this window to the specified position in the parent's
 			-- coordinates
 		do
-        	if (flags & Flag_dirty) /= Zero or else x /= x_pos or else y /= y_pos then
+        	if (flags & Flag_dirty) /= 0 or else x /= x_pos or else y /= y_pos then
             	x_pos := x
             	y_pos := y
             	if is_attached then
                		-- Similar as for position(), we have to generate protocol
                		-- here so as to make the display reflect reality...
 					move_imp(x, y)
-               		if (flags & Flag_dirty) /= Zero then
+               		if (flags & Flag_dirty) /= 0 then
                   		layout
                		end
             	end
@@ -952,7 +952,7 @@ feature -- actions (cont'd)
          if h < 0 then
             h := 0
          end
-         if (flags & Flag_dirty) /= Zero or else w /= width or else h /= height then
+         if (flags & Flag_dirty) /= 0 or else w /= width or else h /= height then
             if is_attached then
                		-- Similar as for position(), we have to generate protocol here..
 				resize_imp (w, h)
@@ -1204,7 +1204,7 @@ feature -- actions (cont'd)
    	grab_keyboard is
       	do
          	if is_attached then
-            	if (flags & Flag_shown) = b0 then
+            	if (flags & Flag_shown) = 0 then
                		-- TODO warning
             	else
 					grab_keyboard_imp
@@ -1649,11 +1649,11 @@ feature -- Message processing
          Result := True
 
          -- Do layout
-         if (flags & Flag_dirty) /= Zero then
+         if (flags & Flag_dirty) /= 0 then
             layout
          end
          	-- Do GUI update
-         if (flags & Flag_update) /= Zero then
+         if (flags & Flag_update) /= 0 then
             if message_target = Void then
                	-- No target, so we're done
                Result := False
@@ -1692,7 +1692,7 @@ feature -- Message processing
             if event.code /= sbd.CROSSINGGRAB then
                application.set_cursor_window (current_w)
                if (event.state & (sbd.SHIFTMASK | sbd.CONTROLMASK | sbd.LEFTBUTTONMASK
-                                     | sbd.MIDDLEBUTTONMASK | sbd.RIGHTBUTTONMASK)) = b0
+                                     | sbd.MIDDLEBUTTONMASK | sbd.RIGHTBUTTONMASK)) = 0
                 then
                   flags := flags | Flag_tip
                end

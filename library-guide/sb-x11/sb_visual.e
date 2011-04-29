@@ -93,7 +93,7 @@ feature
 				visual := display.default_visual (application.display.default_screen)
 				depth := XDefaultDepth (display.to_external, x_default_screen (display.to_external))
 				
-			    if (flags & VISUAL_TRUECOLOR) /= b0 then
+			    if (flags & VISUAL_TRUECOLOR) /= 0 then
 					-- True color
 			--      vitemplate.screen=DefaultScreen(DISPLAY(getApp()));
 			--      vi := XGetVisualInfo(DISPLAY(getApp()),VisualScreenMask,&vitemplate,&nvi);
@@ -114,7 +114,7 @@ feature
 			--      }
 			--
 				-- Index color
-				elseif (flags & VISUAL_INDEXCOLOR) /= b0 then
+				elseif (flags & VISUAL_INDEXCOLOR) /= 0 then
 			--      vitemplate.screen=DefaultScreen(DISPLAY(getApp()));
 			--      vi=XGetVisualInfo(DISPLAY(getApp()),VisualScreenMask,&vitemplate,&nvi);
 			--      if(vi){
@@ -134,7 +134,7 @@ feature
 			--      }
 			--
 				--    // Gray scale color
-				elseif (flags & VISUAL_GRAYSCALE) /= b0 then
+				elseif (flags & VISUAL_GRAYSCALE) /= 0 then
 			--      vitemplate.screen=DefaultScreen(DISPLAY(getApp()));
 			--      vi=XGetVisualInfo(DISPLAY(getApp()),VisualScreenMask,&vitemplate,&nvi);
 			--      if(vi){
@@ -153,7 +153,7 @@ feature
 			--        }
 			--      }
 				-- Get the best (deepest) visual
-				elseif (flags & VISUAL_BEST) /= b0 then
+				elseif (flags & VISUAL_BEST) /= 0 then
 			--		vitemplate.screen := DefaultScreen(DISPLAY(getApp()));
 			--		vi := XGetVisualInfo(DISPLAY(getApp()),VisualScreenMask,&vitemplate,&nvi);
 			--		if(vi) then
@@ -170,7 +170,7 @@ feature
 			--		end
 
 				-- Monochrome visual (for masks and stipples, not for windows)
-				elseif (flags & VISUAL_MONOCHROME) /= b0 then
+				elseif (flags & VISUAL_MONOCHROME) /= 0 then
 					numcolors := 2
 					depth := 1
 				else
@@ -205,7 +205,7 @@ feature
 			mask := Gc_fill_style | Gc_graphics_exposures
 
 			-- Monochrome gc; create a temporary pixmap of depth 1
-			if (flags & VISUAL_MONOCHROME) /= b0 then
+			if (flags & VISUAL_MONOCHROME) /= 0 then
 				create drawable.make(display.default_root_window, 1, 1, 1);
 				create Result.from_pixmap(drawable, display.default_screen, mask, gcv)
 			--	drawable.free
@@ -1081,12 +1081,12 @@ feature
 		local
 			i: INTEGER
 		do
-			if (flags & VISUAL_MONOCHROME) /= b0 then
+			if (flags & VISUAL_MONOCHROME) /= 0 then
 			--	colormap := None;
 			--	fx_trace(150, <<class_name, "::create: need no colormap">>);
 			--	setup_pixmap_mono;
 			else
-				if false then --((flags & VISUAL_OWNCOLORMAP) /= b0 or else (visual /= DefaultVisual(DISPLAY(getApp()),DefaultScreen(DISPLAY(getApp()))))) then
+				if false then --((flags & VISUAL_OWNCOLORMAP) /= 0 or else (visual /= DefaultVisual(DISPLAY(getApp()),DefaultScreen(DISPLAY(getApp()))))) then
 				--	colormap := x_create_colormap(application.display.to_external, RootWindow(DISPLAY(getApp()),0),((Visual*)visual),AllocNone);
 				--	FXTRACE((150,"%s::create: allocate colormap\n",getClassName()));
 				--	freemap := True;

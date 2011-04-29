@@ -43,19 +43,19 @@ creation
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_MENU_TITLE"
 		end
 
 feature -- Creation
 
-   make_sb (p: SB_COMPOSITE; text: STRING; pup: SB_POPUP; opts: INTEGER) is
+   make_sb (p: SB_COMPOSITE; text: STRING; pup: SB_POPUP; opts: INTEGER)
       do
          make_opts(p, text, Void, pup, opts)
       end
 
-   make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; pup: SB_POPUP; opts: INTEGER) is
+   make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; pup: SB_POPUP; opts: INTEGER)
       do
          caption_make_opts(p, text, ic, opts)
          flags := flags | Flag_enabled
@@ -71,7 +71,7 @@ feature -- Data
 
 feature -- Queries
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Return default width
       local
          tw,iw: INTEGER
@@ -88,7 +88,7 @@ feature -- Queries
          Result := tw + iw + 12
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       local
          th,ih: INTEGER;
@@ -98,13 +98,13 @@ feature -- Queries
          Result := th.max(ih) + 4
       end
 
-   can_focus: BOOLEAN is
+   can_focus: BOOLEAN
          -- Yes it can receive the focus
       once
          Result := True
       end
 
-   contains (parentx,parenty: INTEGER): BOOLEAN is
+   contains (parentx,parenty: INTEGER): BOOLEAN
          -- Return true if window logically contains the given point
       local
          pt: SB_POINT
@@ -121,7 +121,7 @@ feature -- Queries
 
 feature -- Actions
 
-   set_focus is
+   set_focus
          -- Move the focus to this window
       local
          menuitem: SB_WINDOW
@@ -135,14 +135,14 @@ feature -- Actions
          end
       end
 
-   kill_focus is
+   kill_focus
          -- Remove the focus from this window
       do
          Precursor;
          do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
       end
 
-   set_menu (pup: SB_POPUP) is
+   set_menu (pup: SB_POPUP)
          -- Change the popup menu
       do
          menu := pup
@@ -150,7 +150,7 @@ feature -- Actions
 
 feature -- Message processing
 
-   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       do
          if		match_function_2 (SEL_MIDDLEBUTTONPRESS,	0,			type, key) then Result := on_default		(sender, key, data)
          elseif match_function_2 (SEL_MIDDLEBUTTONRELEASE,	0,			type, key) then Result := on_default		(sender, key, data)
@@ -166,7 +166,7 @@ feature -- Message processing
          end;
       end
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          dc: SB_DC_WINDOW
@@ -252,7 +252,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          if is_enabled then
@@ -264,7 +264,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender,selector,data);
          if is_enabled then
@@ -273,14 +273,14 @@ feature -- Message processing
          Result := True;
       end
 
-   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data)
          if is_enabled then
             if message_target = Void 
                or else not message_target.handle_2 (Current, SEL_LEFTBUTTONPRESS, message, data)
              then
-               if (flags & Flag_active) /= Zero then
+               if (flags & Flag_active) /= 0 then
                   do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
                else
                   do_handle_2 (Current, SEL_COMMAND, Id_post, Void)
@@ -290,7 +290,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -310,7 +310,7 @@ feature -- Message processing
          end
       end
 
-   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -329,7 +329,7 @@ feature -- Message processing
          end
       end
 
-   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -348,16 +348,16 @@ feature -- Message processing
          end
       end
 
-   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data)
          Result := True
       end
 
-   on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_enabled then
-            if (flags & Flag_active) /= Zero then
+            if (flags & Flag_active) /= 0 then
                do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
             else
                do_handle_2 (Current, SEL_COMMAND, Id_post, Void)
@@ -366,7 +366,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if menu /= Void and then menu.is_shown then
             do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
@@ -374,7 +374,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if menu /= Void and then not menu.is_shown then
             do_handle_2 (Current, SEL_COMMAND, Id_post, Void)
@@ -382,21 +382,21 @@ feature -- Message processing
          end
       end
 
-   on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          update
          Result := True
       end
 
-   on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          update
          Result := True
       end
 
-	on_cmd_post (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_post (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	local
         	pt: SB_POINT
       	do
@@ -416,7 +416,7 @@ feature -- Message processing
          	Result := True
       	end
 
-   on_cmd_unpost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_unpost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if menu /= Void and then menu.is_shown then
             menu.pop_down
@@ -431,7 +431,7 @@ feature -- Message processing
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       do
          Precursor;
@@ -440,7 +440,7 @@ feature -- Resource management
          end
       end
 
-   detach_resource is
+   detach_resource
          -- Detach server-side resources
       do
          Precursor;
@@ -451,7 +451,7 @@ feature -- Resource management
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          menu := Void
          Precursor

@@ -234,7 +234,7 @@ feature -- Element change
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 9")
 			l_title ?= new_title
 			if l_title /= Void then
-				sb_window.set_title (l_title)
+--				sb_window.set_title (l_title)
 			end
 		end
 

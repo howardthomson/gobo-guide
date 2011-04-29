@@ -57,19 +57,19 @@ inherit
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_ICON_LIST"
 		end
 
 feature -- Creation
 
-	make(p: SB_COMPOSITE; opts: INTEGER) is
+	make (p: SB_COMPOSITE; opts: INTEGER)
 			-- Construct icon list
 		local
 			o: INTEGER
 		do
-			if opts = Zero then
+			if opts = 0 then
 				o := ICONLIST_NORMAL
 			else
 				o := opts
@@ -77,7 +77,7 @@ feature -- Creation
 			make_opts(p, Void, 0, o, 0,0,0,0)
 		end
 
-	make_opts(p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER; x,y,w,h: INTEGER) is
+	make_opts (p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER; x,y,w,h: INTEGER)
 		do
 			scroll_area_make_opts(p, opts, x,y, w,h)
 			set_flags (Flag_enabled);
@@ -134,45 +134,45 @@ feature -- Data
 
 feature -- Queries
 
-   	content_width: INTEGER is
+   	content_width: INTEGER
     		--  Return content width
       	do
-         	if (flags & Flag_recalc) /= Zero then
+         	if (flags & Flag_recalc) /= 0 then
             	recompute
          	end
-         	if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) /= Zero then
+         	if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) /= 0 then
             	Result := columns_count * item_space
          	else
             	Result := header.default_width
          	end
       	end
 
-   	content_height: INTEGER is
+   	content_height: INTEGER
          	-- Return content height
       	do
-         	if (flags & Flag_recalc) /= Zero then
+         	if (flags & Flag_recalc) /= 0 then
             	recompute
          	end
          	Result := rows_count * item_height
       	end
 
-   	can_focus: BOOLEAN is
+   	can_focus: BOOLEAN
          	-- Icon list can receive focus
       	once
          	Result := True
       	end
 
-   	viewport_height: INTEGER is
+   	viewport_height: INTEGER
          	-- Return viewport size
       	do
-         	if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) /= Zero then
+         	if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) /= 0 then
             	Result := height
          	else
             	Result := height - header.default_height
          	end
       	end
 
-   	ascending(a, b: SB_ICON_LIST_ITEM): INTEGER is
+   	ascending (a, b: SB_ICON_LIST_ITEM): INTEGER
          	-- Compare items in ascending order
       	local
          	s1,s2: STRING
@@ -180,7 +180,7 @@ feature -- Queries
          	done: BOOLEAN
       	do
          	s1 := a.label
-         	s2 := b.label;        
+         	s2 := b.label;       
          	from
             	i := 1
             	e1 := s1.count
@@ -208,9 +208,9 @@ feature -- Queries
          	end
       	end
 
-   	descending(a, b: SB_ICON_LIST_ITEM): INTEGER is
+   	descending (a, b: SB_ICON_LIST_ITEM): INTEGER
       	do
-         	Result := ascending(b, a)
+         	Result := ascending (b, a)
       	end
 
    	get_list_style: INTEGER is
@@ -221,13 +221,13 @@ feature -- Queries
 
 feature -- Header queries
 
-	headers_count: INTEGER is
+	headers_count: INTEGER
     		-- Return number of headers
     	do
         	Result := header.items_count
       	end
 
-	header_text(index: INTEGER): STRING is
+	header_text (index: INTEGER): STRING
     		-- Return text of header at index
     	require
         	index > 0 and then index <= headers_count
@@ -235,7 +235,7 @@ feature -- Header queries
          	Result := header.item(index).label
       	end
 
-	header_icon(index: INTEGER): SB_ICON is
+	header_icon (index: INTEGER): SB_ICON
     		-- Return icon of header at index
     	require
         	index > 0 and then index <= headers_count
@@ -243,7 +243,7 @@ feature -- Header queries
          	Result := header.item(index).icon
       	end
 
-	header_size(index: INTEGER): INTEGER is
+	header_size (index: INTEGER): INTEGER
     		-- Return width of header at index
     	require
         	index > 0 and then index <= headers_count
@@ -253,18 +253,18 @@ feature -- Header queries
 
 feature -- Item access
 
-	item_at(x_, y_: INTEGER): INTEGER is
+	item_at (x_, y_: INTEGER): INTEGER
     		-- Return index of item at x,y, or 0 if none
     	local
         	x,y, ix,iy, r,c,index: INTEGER
       	do
          	y := y_ - pos_y
          	x := x_ - pos_x
-         	if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= Zero then
+         	if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= 0 then
             	c := x // item_space
             	r := y // item_height
             	if(c >= 0 and then c < columns_count and then r >= 0 and then r < rows_count) then
-               		if (options & ICONLIST_COLUMNS) /= Zero then
+               		if (options & ICONLIST_COLUMNS) /= 0 then
                   		index := columns_count * r + c + 1
                		else 
                   		index := rows_count * c + r + 1
@@ -286,7 +286,7 @@ feature -- Item access
          	end
       	end
 
-   item_big_icon(index: INTEGER): SB_ICON is
+   item_big_icon(index: INTEGER): SB_ICON
          -- Return big icon of item at index
       require
          index > 0 and then index <= items_count
@@ -294,15 +294,15 @@ feature -- Item access
          Result := items.item(index).big_icon
       end
 
-   is_item_visible(index: INTEGER): BOOLEAN is
+   is_item_visible (index: INTEGER): BOOLEAN
          -- Return True if item at index is (partially) visible
       require
          index > 0 and then index <= items_count
       local
          x,y,hh: INTEGER;
       do
-         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= Zero then
-            if (options & ICONLIST_COLUMNS) /= Zero then
+         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= 0 then
+            if (options & ICONLIST_COLUMNS) /= 0 then
                check
                   columns_count > 0
                end
@@ -328,7 +328,7 @@ feature -- Item access
          end
       end
 
-   item_hit(index, x_, y_, ww, hh: INTEGER): INTEGER is
+   item_hit (index, x_, y_, ww, hh: INTEGER): INTEGER
          -- Return item hit code: 0 outside, 1 icon, 2 text
       require
          index > 0 and then index <= items_count
@@ -337,13 +337,13 @@ feature -- Item access
       do
          x := x_ - pos_x
          y := y_ - pos_y
-         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) = Zero then
+         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) = 0 then
             y := y - header.default_height
          end
          w := items.item(index).width(Current)
          h := items.item(index).height(Current)
-         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= Zero then
-            if (options & ICONLIST_COLUMNS) /= Zero then
+         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= 0 then
+            if (options & ICONLIST_COLUMNS) /= 0 then
                r := (index - 1) // columns_count
                c := (index - 1) \\ columns_count
             else
@@ -361,7 +361,7 @@ feature -- Item access
 
 feature -- Actions
 
-   move_contents(x,y: INTEGER) is
+   move_contents (x,y: INTEGER)
          -- Move contents to the specified position
       local
          dx,dy,top: INTEGER;
@@ -370,14 +370,14 @@ feature -- Actions
          dy := y - pos_y
          pos_x := x
          pos_y := y
-         if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) = Zero then
+         if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) = 0 then
             top := header.default_height
             header.move(x,0)
          end
          scroll(0, top, viewport_w, viewport_h, dx, dy)
       end
 
-   resize(w,h: INTEGER) is
+   resize (w,h: INTEGER)
          -- Resize this window to the specified width and height
       local
          nr,nc: INTEGER
@@ -396,7 +396,7 @@ feature -- Actions
          Precursor(w,h)
       end
 
-   position(x,y,w,h: INTEGER) is
+   position (x,y,w,h: INTEGER)
          -- Move and resize this window in the parent's coordinates
       local
          nr,nc: INTEGER
@@ -418,7 +418,7 @@ feature -- Actions
          Precursor(x,y,w,h)
       end
 
-   set_item_space(s_: INTEGER) is
+   set_item_space(s_: INTEGER)
          -- Change maximum item space for each item
       local
          s: INTEGER
@@ -430,7 +430,7 @@ feature -- Actions
          end
       end
 
-   set_list_style (style: INTEGER) is
+   set_list_style (style: INTEGER)
          -- Set the current icon list style.
       local
          opts: INTEGER
@@ -444,13 +444,13 @@ feature -- Actions
 
 feature -- Header actions
 
-   append_header (text: STRING; icon: SB_ICON; size: INTEGER) is
+   append_header (text: STRING; icon: SB_ICON; size: INTEGER)
          -- Append header with given text and optional icon
       do
          header.append_new_item (text, icon, size, Void, False)
       end
 
-   remove_header(index: INTEGER) is
+   remove_header(index: INTEGER)
          -- Remove header at index
       require
          index > 0 and then index <= headers_count
@@ -458,7 +458,7 @@ feature -- Header actions
          header.remove_item (index)
       end
 
-   set_header_text (index: INTEGER; txt: STRING) is
+   set_header_text (index: INTEGER; txt: STRING)
          -- Change text of header at index
       require
          index > 0 and then index <= headers_count
@@ -466,7 +466,7 @@ feature -- Header actions
          header.set_item_text (index, txt)
       end
 
-   set_header_icon (index: INTEGER; icon: SB_ICON) is
+   set_header_icon (index: INTEGER; icon: SB_ICON)
          -- Change icon of header at index
       require
          index > 0 and then index <= headers_count
@@ -474,7 +474,7 @@ feature -- Header actions
          header.set_item_icon (index, icon)
       end
 
-   set_header_size (index, size: INTEGER) is
+   set_header_size (index, size: INTEGER)
          -- Change size of header at index
       require
          index > 0 and then index <= headers_count
@@ -485,7 +485,7 @@ feature -- Header actions
 feature -- Item actions
 
    replace_item_with_new (index: INTEGER; txt: STRING;big,mini: SB_ICON; 
-                         data: ANY; notify: BOOLEAN) is
+                         data: ANY; notify: BOOLEAN)
          -- Replace items text, icons, and user-data pointer
       require
          index > 0 and then index <= items_count
@@ -494,7 +494,7 @@ feature -- Item actions
       end
 
    insert_new_item (index: INTEGER; txt: STRING; big,mini: SB_ICON;
-                   data: ANY; notify: BOOLEAN) is
+                   data: ANY; notify: BOOLEAN)
          -- Insert item at index with given text, icons, and user-data 
          -- pointer
       require
@@ -503,21 +503,21 @@ feature -- Item actions
          insert_item (index, create_item (txt, big, mini, data), notify);
       end
 
-   append_new_item(txt: STRING; big,mini: SB_ICON; data: ANY; notify: BOOLEAN) is
+   append_new_item(txt: STRING; big,mini: SB_ICON; data: ANY; notify: BOOLEAN)
          -- Append new item with given text and optional icons, and user-data 
          -- pointer
       do
          insert_item (items_count+1, create_item (txt, big, mini, data), notify);
       end
 
-   prepend_new_item (txt: STRING; big,mini: SB_ICON; data: ANY; notify: BOOLEAN) is
+   prepend_new_item (txt: STRING; big,mini: SB_ICON; data: ANY; notify: BOOLEAN)
          -- Prepend new item with given text and optional icons, and user-data 
          -- pointer
       do
          insert_item (1, create_item (txt, big, mini, data), notify)
       end
 
-   make_item_visible(index: INTEGER) is
+   make_item_visible(index: INTEGER)
          -- Scroll to make item at index visible
       local
          x,y,hh,px,py: INTEGER;
@@ -527,8 +527,8 @@ feature -- Item actions
             if 0 < index and then index <= items_count then
                px := pos_x
                py := pos_y
-               if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= Zero then
-                  if (options & ICONLIST_COLUMNS) /= Zero then
+               if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= 0 then
+                  if (options & ICONLIST_COLUMNS) /= 0 then
                      check columns_count > 0 end
                      x := item_space  * ((index - 1) \\ columns_count);
                      y := item_height * ((index - 1) // columns_count);
@@ -552,7 +552,7 @@ feature -- Item actions
          end
       end
 
-   set_item_big_icon (index: INTEGER; icon: SB_ICON) is
+   set_item_big_icon (index: INTEGER; icon: SB_ICON)
          -- Change item big icon
       require
          index > 0 and then index <= items_count
@@ -561,12 +561,12 @@ feature -- Item actions
          recalc
       end
 
-   update_item (index: INTEGER) is
+   update_item (index: INTEGER)
          -- Repaint item at index
       do
          if is_attached and then 0 < index and then index <= items_count then
-            if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= Zero then
-               if (options & ICONLIST_COLUMNS) /= Zero then
+            if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= 0 then
+               if (options & ICONLIST_COLUMNS) /= 0 then
                   check columns_count > 0 end
                   update_rectangle(pos_x + item_space  * ((index - 1) \\ columns_count),
                                    pos_y + item_height * ((index - 1) // columns_count), item_space, item_height);
@@ -581,13 +581,13 @@ feature -- Item actions
          end
       end
 
-   select_in_rectangle(x,y,w,h: INTEGER; notify: BOOLEAN) is
+   select_in_rectangle(x,y,w,h: INTEGER; notify: BOOLEAN)
          -- Select items in rectangle
       local
          r,c,index: INTEGER;
          changed: BOOLEAN;
       do
-         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= Zero then
+         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= 0 then
             from
                r := 0;
             until
@@ -598,7 +598,7 @@ feature -- Item actions
                until
                   c >= columns_count
                loop
-                  if (options & ICONLIST_COLUMNS) /= Zero then
+                  if (options & ICONLIST_COLUMNS) /= 0 then
                      index := columns_count*r+c+1
                   else
                      index := rows_count*c+r+1;
@@ -629,7 +629,7 @@ feature -- Item actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (SEL_PAINT,				0,					type, key) then Result := on_paint						(sender, key, data);
         	elseif  match_function_2 (SEL_MOTION,				0,					type, key) then Result := on_motion						(sender, key, data);
@@ -675,7 +675,7 @@ feature -- Message processing
          	end
       end
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          rlo,rhi,clo,chi,yy,xx: INTEGER;
          x,y,r,c,index: INTEGER;
@@ -687,7 +687,7 @@ feature -- Message processing
          dc.make_event (Current, event)
          dc.set_font (font)
 
-         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= Zero then
+         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= 0 then
             -- Icon mode
 
             -- Exposed rows
@@ -702,7 +702,7 @@ feature -- Message processing
             if clo<0 then clo := 0 end
             if chi >= columns_count then chi := columns_count-1 end
 
-            if (options & ICONLIST_BIG_ICONS) /= Zero then
+            if (options & ICONLIST_BIG_ICONS) /= 0 then
                -- Big Icons
                from
                   r := rlo
@@ -716,7 +716,7 @@ feature -- Message processing
                      c > chi
                   loop
                      x := pos_x + c * item_space
-                     if (options & ICONLIST_COLUMNS) /= Zero then
+                     if (options & ICONLIST_COLUMNS) /= 0 then
                         index := columns_count * r + c + 1
                      else
                         index := rows_count * c + r + 1
@@ -744,7 +744,7 @@ feature -- Message processing
                      c > chi
                   loop
                      x := pos_x + c * item_space
-                     if (options & ICONLIST_COLUMNS) /= Zero then 
+                     if (options & ICONLIST_COLUMNS) /= 0 then 
                         index := columns_count * r + c + 1
                      else
                         index := rows_count * c + r + 1
@@ -802,7 +802,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_key_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          index: INTEGER
@@ -819,7 +819,7 @@ feature -- Message processing
                if index < 1 then index := 1 end
                inspect event.code
                when key_control_l, key_control_r, key_shift_l, key_shift_r, key_alt_l,key_alt_r then
-                  if (flags & Flag_dodrag) /= Zero then do_handle_2 (Current, SEL_DRAGGED, 0, data) end
+                  if (flags & Flag_dodrag) /= 0 then do_handle_2 (Current, SEL_DRAGGED, 0, data) end
                when key_page_up, key_kp_page_up then
                   create lookup_string.make_empty
                   set_scroll_position(pos_x, pos_y + v_scroll_bar.page_size)
@@ -827,24 +827,24 @@ feature -- Message processing
                   create lookup_string.make_empty;
                   set_scroll_position(pos_x, pos_y - v_scroll_bar.page_size)
                when key_right, key_kp_right then
-                  if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) = Zero then
+                  if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) = 0 then
                      set_scroll_position(pos_x - 10, pos_y)
                   else
-                     if (options & ICONLIST_COLUMNS) /= Zero then index := index + 1 else index := index + rows_count end
+                     if (options & ICONLIST_COLUMNS) /= 0 then index := index + 1 else index := index + rows_count end
                      do_hop(event, index)
                   end
                when key_left, key_kp_left then
-                  if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) = Zero then
+                  if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) = 0 then
                      set_scroll_position(pos_x + 10, pos_y)
                   else
-                     if (options & ICONLIST_COLUMNS) /= Zero then index:= index - 1 else index := index - rows_count end
+                     if (options & ICONLIST_COLUMNS) /= 0 then index:= index - 1 else index := index - rows_count end
                      do_hop(event, index);
                   end
                when key_up, key_kp_up then
-                  if (options & ICONLIST_COLUMNS) /= Zero then index:= index - columns_count else index := index-1 end
+                  if (options & ICONLIST_COLUMNS) /= 0 then index:= index - columns_count else index := index-1 end
                   do_hop(event,index);
                when key_down, key_kp_down then
-                  if (options & ICONLIST_COLUMNS) /= Zero then index := index + columns_count else index := index+1 end
+                  if (options & ICONLIST_COLUMNS) /= 0 then index := index + columns_count else index := index+1 end
                   do_hop (event, index);
 
                when key_home,key_kp_home then
@@ -858,14 +858,14 @@ feature -- Message processing
                   if 1 <= current_item and then items.item(current_item).is_enabled then
                      t := options & SELECT_MASK;
                      if t = ICONLIST_EXTENDEDSELECT then
-                        if (event.state & SHIFTMASK) /= Zero then
+                        if (event.state & SHIFTMASK) /= 0 then
                            if 1 <= anchor_item then
                               do_select_item (anchor_item, True)
                               do_extend_selection (current_item, True);
                            else
                               do_select_item (current_item, True)
                            end
-                        elseif (event.state & CONTROLMASK) /= Zero then
+                        elseif (event.state & CONTROLMASK) /= 0 then
                            do_toggle_item (current_item, True)
                         else
                            do_kill_selection (True)
@@ -887,7 +887,7 @@ feature -- Message processing
                      do_handle_2 (Current, SEL_COMMAND, 0, ref_integer(current_item))
                   end
                else
-                  if (event.state & (CONTROLMASK | ALTMASK)) /= Zero
+                  if (event.state & (CONTROLMASK | ALTMASK)) /= 0
                      or else event.text.is_empty or else event.text.item(1).code < 32
                    then
                      Result := False;
@@ -917,7 +917,7 @@ feature -- Message processing
          end
       end
 
-   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -941,7 +941,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          index,code: INTEGER
@@ -967,7 +967,7 @@ feature -- Message processing
                   -- Start lasso
                   if (options & SELECT_MASK) = ICONLIST_EXTENDEDSELECT then
                      -- Kill selection
-                     if (event.state & (SHIFTMASK | CONTROLMASK)) = Zero then
+                     if (event.state & (SHIFTMASK | CONTROLMASK)) = 0 then
                         do_kill_selection (True)
                      end
                      current_x := event.win_x - pos_x
@@ -988,7 +988,7 @@ feature -- Message processing
                   state := items.item(index).is_selected;
                   opts := options & SELECT_MASK;
                   if opts = ICONLIST_EXTENDEDSELECT then
-                     if (event.state & SHIFTMASK) /= Zero then
+                     if (event.state & SHIFTMASK) /= 0 then
                         if 0 < anchor_item then
                            if items.item(anchor_item).is_enabled then do_select_item (anchor_item, True) end
                            do_extend_selection (index, True)
@@ -996,7 +996,7 @@ feature -- Message processing
                            if items.item(index).is_enabled then do_select_item (index, True) end
                            set_anchor_item(index)
                         end
-                     elseif (event.state & CONTROLMASK) /= Zero then
+                     elseif (event.state & CONTROLMASK) /= 0 then
                         if items.item(index).is_enabled and then not state then do_select_item(index, True) end
                         set_anchor_item(index)
                      else
@@ -1020,7 +1020,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          opt,flg: INTEGER
@@ -1037,22 +1037,22 @@ feature -- Message processing
             if message_target = Void 
                or else not message_target.handle_2 (Current, SEL_LEFTBUTTONRELEASE, message, data)
              then
-               if (flg & Flag_lasso) /= Zero then
+               if (flg & Flag_lasso) /= 0 then
                   -- Was lassoing
                   draw_lasso (anchor_x, anchor_y, current_x, current_y);
-               elseif (flg & Flag_dodrag) /= Zero then
+               elseif (flg & Flag_dodrag) /= 0 then
                   -- Was dragging
                   do_handle_2 (Current, SEL_ENDDRAG, 0, data);
-               elseif (flg & Flag_pressed) /= Zero then
+               elseif (flg & Flag_pressed) /= 0 then
                   -- Must have pressed
 
                   -- Selection change
                   opt := options & SELECT_MASK
                   if opt = ICONLIST_EXTENDEDSELECT then
                      if 0 < current_item and then items.item(current_item).is_enabled then
-                        if (event.state & CONTROLMASK) /= Zero then
+                        if (event.state & CONTROLMASK) /= 0 then
                            if state then do_deselect_item (current_item, True) end
-                        elseif (event.state & SHIFTMASK) = Zero then
+                        elseif (event.state & SHIFTMASK) = 0 then
                            if state then
                               do_kill_selection (True)
                               do_select_item (current_item, True)
@@ -1089,7 +1089,7 @@ feature -- Message processing
          end
       end
 
-   on_right_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_right_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -1110,7 +1110,7 @@ feature -- Message processing
          end
       end
 
-   on_right_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_right_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_enabled then
             Result := True
@@ -1123,7 +1123,7 @@ feature -- Message processing
          end
       end
 
-   on_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          olx,orx,oty,oby,nlx,nrx,nty,nby: INTEGER
          event: SB_EVENT
@@ -1140,11 +1140,11 @@ feature -- Message processing
          -- Kill the tip timer
          if timer /= Void then application.remove_timeout(timer); timer := Void end
 
-         if (flags & Flag_scrolling) /= Zero then
+         if (flags & Flag_scrolling) /= 0 then
             -- Right mouse scrolling
             set_scroll_position (event.win_x - grab_x, event.win_y - grab_y)
             Result := True
-         elseif (flags & Flag_lasso) /= Zero then
+         elseif (flags & Flag_lasso) /= 0 then
             -- Lasso selection mode
             if not start_auto_scroll (event.win_x, event.win_y, False) then
                -- Hide lasso
@@ -1166,13 +1166,13 @@ feature -- Message processing
                draw_lasso(anchor_x, anchor_y, current_x, current_y)
             end
             Result := True
-         elseif (flags & Flag_dodrag) /= Zero then
+         elseif (flags & Flag_dodrag) /= 0 then
             -- Drag and drop mode
             if not start_auto_scroll (event.win_x, event.win_y, True) then
                do_handle_2 (Current, SEL_DRAGGED, 0, data)
             end
             Result := True
-         elseif (flags & Flag_trydrag) /= Zero then
+         elseif (flags & Flag_trydrag) /= 0 then
             -- Tentative drag and drop
             if event.moved then
                unset_flags (Flag_trydrag)
@@ -1183,23 +1183,23 @@ feature -- Message processing
             Result := True
          else
             -- Reset tip timer if nothing's going on
-            timer := application.add_timeout(application.menu_pause,Current,ID_TIPTIMER);
+            timer := application.add_timeout(application.menu_pause,Current,ID_TIPTIMER)
 
             -- Get item we're over
             cursor_item := item_at(event.win_x,event.win_y)
 
             -- Force GUI update only when needed
-            if (cursor_item /= oldcursor) or else (flg & Flag_tip) /= Zero then
+            if (cursor_item /= oldcursor) or else (flg & Flag_tip) /= 0 then
                Result := True
             end
          end
       end
 
-   on_query_tip(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_query_tip(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
       --   u: expanded SB_UTILS;
       do
-         if (flags & Flag_tip) /= Zero then
+         if (flags & Flag_tip) /= 0 then
             if 0 < cursor_item then               
                sender.do_handle_2 (Current, SEL_COMMAND, Id_setstringvalue,
                                 u.section(items.item(cursor_item).label,'%T',0,1))
@@ -1208,7 +1208,7 @@ feature -- Message processing
          end
       end
 
-   on_cmd_select_all(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_select_all(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          i,e: INTEGER
       do
@@ -1224,7 +1224,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_deselect_all(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_deselect_all(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          i,e: INTEGER
       do
@@ -1240,7 +1240,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_select_inverse(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_select_inverse(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          i,e: INTEGER
       do
@@ -1256,16 +1256,16 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_arrange_by_rows (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_arrange_by_rows (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          unset_options (ICONLIST_COLUMNS)
          recalc
          Result := True
       end
 
-   on_upd_arrange_by_rows (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_arrange_by_rows (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
-         if (options & ICONLIST_COLUMNS) /= Zero then
+         if (options & ICONLIST_COLUMNS) /= 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_uncheck, Void)
          else
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void)
@@ -1273,16 +1273,16 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_arrange_by_columns(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_arrange_by_columns(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          options := options | ICONLIST_COLUMNS
          recalc
          Result := True
       end
 
-   on_upd_arrange_by_columns(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_arrange_by_columns(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
-         if (options & ICONLIST_COLUMNS) /= Zero then
+         if (options & ICONLIST_COLUMNS) /= 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void)
          else
             sender.do_handle_2 (Current, SEL_COMMAND, Id_uncheck, Void)
@@ -1290,7 +1290,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_show_details (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_show_details (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          unset_options (ICONLIST_MINI_ICONS)
          unset_options (ICONLIST_BIG_ICONS)
@@ -1298,9 +1298,9 @@ feature -- Message processing
          Result := True
       end
 
-   on_upd_show_details (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_show_details (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
-         if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) /= Zero then
+         if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) /= 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_uncheck, Void)
          else
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void)
@@ -1308,7 +1308,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_show_big_icons (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_show_big_icons (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          unset_options (ICONLIST_MINI_ICONS)
          options := options | ICONLIST_BIG_ICONS
@@ -1316,9 +1316,9 @@ feature -- Message processing
          Result := True
       end
 
-   on_upd_show_big_icons (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_show_big_icons (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
-         if (options & ICONLIST_BIG_ICONS) /= Zero then
+         if (options & ICONLIST_BIG_ICONS) /= 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void)
          else
             sender.do_handle_2 (Current, SEL_COMMAND, Id_uncheck, Void)
@@ -1326,7 +1326,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_show_mini_icons (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_show_mini_icons (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          options := options | ICONLIST_MINI_ICONS
          unset_options (ICONLIST_BIG_ICONS)
@@ -1334,9 +1334,9 @@ feature -- Message processing
          Result := True
       end
 
-   on_upd_show_mini_icons (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_show_mini_icons (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
-         if (options & ICONLIST_MINI_ICONS) /= Zero then
+         if (options & ICONLIST_MINI_ICONS) /= 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void)
          else
             sender.do_handle_2 (Current, SEL_COMMAND, Id_uncheck, Void)
@@ -1344,13 +1344,13 @@ feature -- Message processing
          Result := True
       end
 
-   on_header_changed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_header_changed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          unset_flags (Flag_recalc)
          Result := True
       end
 
-   on_header_resize(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_header_resize(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          -- Header subdivision resize has been requested;
          -- we want to set the width of the header column
          -- to that of the widest item.
@@ -1363,7 +1363,7 @@ feature -- Message processing
          hi_ ?= data check hi_ /= Void end
          hi := hi_.item
          -- For detailed icon list
-         if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) = Zero then
+         if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) = 0 then
             from
                i := items.lower
                e := items.upper
@@ -1409,12 +1409,12 @@ feature -- Message processing
       end
 
 
-   on_auto_scroll(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_auto_scroll (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
-         olx,orx,oty,oby,nlx,nrx,nty,nby: INTEGER;
+         olx,orx,oty,oby,nlx,nrx,nty,nby: INTEGER
       do
-         if (flags & Flag_lasso) /= Zero then
+         if (flags & Flag_lasso) /= 0 then
             -- Lasso mode
 
 			event ?= data
@@ -1445,7 +1445,7 @@ feature -- Message processing
             Result := Precursor(sender,selector,data);
 
             -- Content scrolled, so perhaps something else under cursor_item
-            if (flags & Flag_dodrag) /= Zero then
+            if (flags & Flag_dodrag) /= 0 then
                do_handle_2 (Current, SEL_DRAGGED, 0, data)
                Result := True
             end
@@ -1454,7 +1454,7 @@ feature -- Message processing
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       local
          i,e: INTEGER
@@ -1472,7 +1472,7 @@ feature -- Resource management
          font.create_resource
       end
 
-   detach_resource is
+   detach_resource
          -- Detach server-side resources
       local
          i,e: INTEGER
@@ -1492,7 +1492,7 @@ feature -- Resource management
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          if timer /= Void then application.remove_timeout(timer); timer := Void end
          if lookup_timer /= Void then application.remove_timeout(lookup_timer); lookup_timer := Void end
@@ -1505,30 +1505,30 @@ feature {NONE} -- Implementation
 
    ITEM_TYPE: SB_ICON_LIST_ITEM is do end
 
-   ITEM_SPACE_: INTEGER is 128;
+   ITEM_SPACE_: INTEGER = 128
          -- Default space for item
 
-   ICONLIST_MASK: INTEGER is
+   ICONLIST_MASK: INTEGER
       once
          Result := SELECT_MASK | ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS 
             | ICONLIST_COLUMNS | ICONLIST_AUTOSIZE
       end
 
-	draw_lasso(a_x0, a_y0, a_x1, a_y1: INTEGER) is
+	draw_lasso (a_x0, a_y0, a_x1, a_y1: INTEGER) is
     	local
         	dc: SB_DC_WINDOW
         	x0, y0, x1, y1: INTEGER
       	do
 		 	dc := paint_dc
-         	dc.set_function(dc.Blt_not_dst)
+         	dc.set_function (dc.Blt_not_dst)
          	x0 := a_x0 + pos_x
          	x1 := a_x1 + pos_x
          	y0 := a_y0 + pos_y
          	y1 := a_y1 + pos_y
-         	dc.draw_line(x0, y0, x1, y0)
-         	dc.draw_line(x1, y0, x1, y1)
-         	dc.draw_line(x1, y1, x0, y1)
-         	dc.draw_line(x0, y1, x0, y0)
+         	dc.draw_line (x0, y0, x1, y0)
+         	dc.draw_line (x1, y0, x1, y1)
+         	dc.draw_line (x1, y1, x0, y1)
+         	dc.draw_line (x0, y1, x0, y0)
          	dc.stop
       	end
 
@@ -1539,22 +1539,22 @@ feature {NONE} -- Implementation
          -- Update scroll bars
          Precursor
 
-         if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) = Zero then
-            -- In detail mode
+         if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) = 0 then
+            	-- In detail mode
             ww := header.default_width
             if ww < viewport_w then ww := viewport_w end
-            header.position(pos_x, 0, ww, header.default_height)
+            header.position (pos_x, 0, ww, header.default_height)
             header.show
          else
             header.hide
          end
 
-         -- Set line size
+         	-- Set line size
          v_scroll_bar.set_line_size(item_height)
          h_scroll_bar.set_line_size(item_space)
 
-         -- Force repaint
-         update;
+         	-- Force repaint
+         update
          unset_flags (Flag_dirty)
       end
 
@@ -1566,7 +1566,7 @@ feature {NONE} -- Implementation
          item_width := 1
          item_height := 1
 
-         -- Measure the items
+         	-- Measure the items
          from
             i := items.lower
             e := items.upper
@@ -1580,30 +1580,30 @@ feature {NONE} -- Implementation
             i := i+1
          end
 
-         -- Automatically size item spacing
-         if (options & ICONLIST_AUTOSIZE) /= Zero then 
+         	-- Automatically size item spacing
+         if (options & ICONLIST_AUTOSIZE) /= 0 then 
             item_space := item_width.max(1)
          end
 
-         -- Adjust for detail mode
-         if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) = Zero then
+         	-- Adjust for detail mode
+         if (options & (ICONLIST_MINI_ICONS | ICONLIST_BIG_ICONS)) = 0 then
             item_width := header.default_width
          end
 
-         -- Get number of rows or columns
+         	-- Get number of rows or columns
          sbp := getrowscols(width, height)
          rows_count := sbp.x
          columns_count := sbp.y
-         -- Done
+         	-- Done
          unset_flags (Flag_recalc)
       end
 
-   getrowscols(w,h: INTEGER): SB_POINT is
+   getrowscols (w, h: INTEGER): SB_POINT is
       local
          nr,nc: INTEGER
       do
-         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= Zero then
-            if (options & ICONLIST_COLUMNS) /= Zero then
+         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= 0 then
+            if (options & ICONLIST_COLUMNS) /= 0 then
                nc := w // item_space
                if nc < 1 then nc := 1 end
                nr := (items_count+nc-1) // nc
@@ -1635,14 +1635,14 @@ feature {NONE} -- Implementation
 		deferred
 		end
 
-   lasso_changed(ox,oy,ow,oh,nx,ny,nw,nh: INTEGER; notify: BOOLEAN) is
+   lasso_changed (ox,oy,ow,oh, nx,ny,nw,nh: INTEGER; notify: BOOLEAN) is
       local
-         r,c: INTEGER;
-         ohit,nhit,index,e: INTEGER;
+         r,c: INTEGER
+         ohit, nhit, index, e: INTEGER
       do
-         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= Zero then
+         if (options & (ICONLIST_BIG_ICONS | ICONLIST_MINI_ICONS)) /= 0 then
             from
-               r := 0;
+               r := 0
             until
                r >= rows_count
             loop
@@ -1651,20 +1651,20 @@ feature {NONE} -- Implementation
                until
                   c >= columns_count
                loop
-                  if (options & ICONLIST_COLUMNS) /= Zero then
-                     index := columns_count*r+c+1;
+                  if (options & ICONLIST_COLUMNS) /= 0 then
+                     index := columns_count*r+c+1
                   else 
-                     index := rows_count*c+r+1;
+                     index := rows_count*c+r+1
                   end
                   if index <= items_count then
-                     ohit := item_hit(index,ox,oy,ow,oh);
-                     nhit := item_hit(index,nx,ny,nw,nh);
+                     ohit := item_hit (index,ox,oy,ow,oh)
+                     nhit := item_hit (index,nx,ny,nw,nh)
                      if ohit /= 0 and then nhit = 0 then
                         -- In old rectangle and not in new rectangle
-                        do_deselect_item(index,notify);
+                        do_deselect_item (index, notify)
                      elseif ohit = 0 and then nhit /= 0 then
                         -- Not in old rectangle and in new rectangle
-                        do_select_item(index,notify);
+                        do_select_item (index, notify)
                      end
                   end
                   c := c+1;
@@ -1678,46 +1678,46 @@ feature {NONE} -- Implementation
             until
                index > e
             loop 
-               ohit := item_hit(index,ox,oy,ow,oh);
-               nhit := item_hit(index,nx,ny,nw,nh);
+               ohit := item_hit(index, ox, oy, ow, oh)
+               nhit := item_hit(index, nx, ny, nw, nh)
                if ohit /= 0 and then nhit = 0 then
                   -- Was in old, not in new
-                  do_deselect_item(index,notify);
+                  do_deselect_item (index,notify)
                elseif ohit = 0 and then nhit /= 0 then
                   -- Not in old, but in new
-                  do_select_item(index,notify);
+                  do_select_item (index,notify)
                end
                index := index+1
             end
          end
       end
 
-   do_hop(event: SB_EVENT; index: INTEGER) is
+   do_hop (event: SB_EVENT; index: INTEGER) is
       do
-         create lookup_string.make_empty;
+         create lookup_string.make_empty
          if 1 <= index and then index <= items_count then
-            set_current_item(index, True);
-            make_item_visible(index);
-            if items.item(index).is_enabled then
+            set_current_item (index, True)
+            make_item_visible (index)
+            if items.item (index).is_enabled then
                if (options & SELECT_MASK) = ICONLIST_EXTENDEDSELECT then
-                  if (event.state & SHIFTMASK) /= Zero then
+                  if (event.state & SHIFTMASK) /= 0 then
                      if 1 <= anchor_item then
-                        do_select_item(anchor_item, True);
-                        do_extend_selection(index, True);
+                        do_select_item (anchor_item, True)
+                        do_extend_selection (index, True)
                      else
-                        do_select_item(index,True);
+                        do_select_item (index,True)
                      end
-                  elseif (event.state & CONTROLMASK) = Zero then
-                     do_kill_selection(True);
-                     do_select_item(index,True);
-                     set_anchor_item(index);
+                  elseif (event.state & CONTROLMASK) = 0 then
+                     do_kill_selection (True)
+                     do_select_item (index,True)
+                     set_anchor_item (index)
                   end
                end
             end
          end
-         do_handle_2 (Current, SEL_CLICKED, 0, ref_integer(current_item));
-         if 1 <= current_item and then items.item(current_item).is_enabled then
-            do_handle_2 (Current, SEL_COMMAND, 0, ref_integer(current_item));
+         do_handle_2 (Current, SEL_CLICKED, 0, ref_integer (current_item))
+         if 1 <= current_item and then items.item (current_item).is_enabled then
+            do_handle_2 (Current, SEL_COMMAND, 0, ref_integer (current_item))
          end
       end
 

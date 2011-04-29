@@ -24,35 +24,35 @@ creation
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_SCROLL_CORNER"
 		end
 
 feature -- Creation
 
-	make (p: SB_COMPOSITE) is
+	make (p: SB_COMPOSITE)
 		do
-			window_make (p, Zero, 0,0, 0,0)
+			window_make (p, 0, 0,0, 0,0)
 			back_color := application.base_color
 			flags := flags | Flag_enabled | Flag_shown
 		end
 
 feature -- Actions
 
-   	enable is
+   	enable
          	-- Can not be enabled
       	do
       	end
 
-   	disable is
+   	disable
          	-- Can not be disabled
       	do
       	end
 
 feature -- Message processing
 
-   	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	local
          	ev: SB_EVENT
          	dc: SB_DC_WINDOW
