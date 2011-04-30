@@ -79,7 +79,20 @@
 
 	<cluster name="edp_fec" 			location="${GOBO}/library-guide/fec"/>
 	<cluster name="edp_sb" 				location="${GOBO}/library-guide/sb-x11"/>
-	<cluster name="edp_sb_common" 		location="${GOBO}/library-guide/sb-common"/>
+	<cluster name="edp_sb_common" 		location="${GOBO}/library-guide/sb-common">
+		<cluster name="icons"/>
+		<cluster name="constants"/>
+		<cluster name="commands"/>
+		<cluster name="internal"/>
+		<cluster name="kernel"/>
+		<cluster name="properties"/>
+		<cluster name="widgets">
+			<cluster name="containers"/>
+			<cluster name="primitives"/>
+			<cluster name="dialogs"/>
+			<cluster name="uncommon_widgets"/>
+		</cluster>		
+	</cluster>
 	<cluster name="edp_x11" 			location="${GOBO}/library-guide/x11"/>
 	<cluster name="edp_x11_events" 		location="${GOBO}/library-guide/x11/events"/>
 	<cluster name="edp_pointer" 		location="${GOBO}/library-guide/pointer"/>

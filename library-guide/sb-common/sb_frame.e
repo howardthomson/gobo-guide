@@ -11,6 +11,7 @@ class SB_FRAME
 inherit
 
 	SB_WIDGET
+--	SB_WINDOW
     	rename
         	make as make_window,
         	make_ev as make_window_ev
