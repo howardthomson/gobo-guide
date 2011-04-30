@@ -51,9 +51,13 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES, EV_APPLICATION_IMP} -- Implemen
 
 	call_window_state_event (a_changed_mask, a_new_state: INTEGER) is
 			-- Handle either minimize, maximize or restore event for `Current'.
+			-- Call minimize_actions, maximize_actions, restore_actions as appropriate
+			-- Set is_minimized, is_maximised as appropriate
 		local
 			l_call_restore: BOOLEAN
 		do
+			TODO_class_line ("EV_TITLED_WINDOW_IMP", "__LINE__")
+
 --			if a_changed_mask & {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_iconified_enum = {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_iconified_enum then
 --				if a_new_state & {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_iconified_enum = {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_iconified_enum then
 --					is_minimized := True
@@ -192,7 +196,7 @@ feature {NONE} -- Implementation
 	default_wm_decorations: INTEGER is
 			-- Default WM decorations of `Current'.?
 		do
---			Result := {EV_GTK_EXTERNALS}.gdk_decor_all_enum
+			TODO_class_line ("EV_TITLED_WINDOW_IMP", "__LINE__")
 		end
 
 feature {EV_ANY_I} -- Implementation

@@ -231,7 +231,7 @@ feature -- Element change
 			l_title_32: STRING_32
 			l_title: STRING
 		do
-			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 9")
+			todo_class_line ("EV_WINDOW_IMP", "__LINE__")
 			l_title ?= new_title
 			if l_title /= Void then
 --				sb_window.set_title (l_title)

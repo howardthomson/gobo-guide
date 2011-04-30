@@ -65,7 +65,20 @@
 		</cluster>
 	</cluster>
 	<cluster name="slyboots_imp" location="${GOBO}/library-guide">
-		<cluster name="sb-common"/>
+		<cluster name="sb-common">
+			<cluster name="icons"/>
+			<cluster name="constants"/>
+			<cluster name="commands"/>
+			<cluster name="internal"/>
+			<cluster name="kernel"/>
+			<cluster name="properties"/>
+			<cluster name="widgets">
+				<cluster name="containers"/>
+				<cluster name="primitives"/>
+				<cluster name="dialogs"/>
+				<cluster name="uncommon_widgets"/>
+			</cluster>
+		</cluster>
 		<cluster name="edp-src">
 			<option name="exclude" value="any.e"/>
 		</cluster>
