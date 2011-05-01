@@ -1,8 +1,8 @@
-indexing
+note
 
 	description:
-		"EiffelVision multi-column list row, gtk implementation."
-	legal: "See notice at end of class."gtk
+		"EiffelVision multi-column list row, Slyboots implementation."
+	legal: "See notice at end of class."
 	status: "See notice at end of class.";
 	date: "$Date: 2007-03-22 16:17:43 -0800 (Thu, 22 Mar 2007) $";
 	revision: "$Revision: 67481 $"
@@ -33,10 +33,11 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	make
 			-- Create a row with one empty column.
 		do
-			base_make (an_interface)
+--			base_make (an_interface)
+			TODO_class_line ("EV_MULTI_COLUMN_LIST_ROW_IMP", "__LINE__")
 		end
 
 	initialize is
@@ -315,16 +316,6 @@ feature {EV_ANY_I} -- Implementation
 			-- Do nothing
 		end
 
---	set_list_iter (a_iter: EV_GTK_TREE_ITER_STRUCT) is
---			-- Set `list_iter' to `a_iter'
---		do
---			list_iter := a_iter
---		end
-
---	list_iter: EV_GTK_TREE_ITER_STRUCT
-		-- Object representing position of `Current' in parent tree model
-
-
 	set_parent_imp (par_imp: EV_MULTI_COLUMN_LIST_IMP) is
 			-- Set the rows parent to `par_imp'.
 		do
@@ -346,7 +337,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_MULTI_COLUMN_LIST_ROW;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

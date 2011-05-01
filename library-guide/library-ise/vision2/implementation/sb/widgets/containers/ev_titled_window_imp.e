@@ -59,8 +59,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES, EV_APPLICATION_IMP} -- Implemen
 		do
 			TODO_class_line ("EV_TITLED_WINDOW_IMP", "__LINE__")
 
---			if a_changed_mask & {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_iconified_enum = {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_iconified_enum then
---				if a_new_state & {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_iconified_enum = {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_iconified_enum then
+--			if this_is_a_minimize_event then
 --					is_minimized := True
 --					is_maximized := False
 --					if minimize_actions_internal /= Void then
@@ -69,8 +68,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES, EV_APPLICATION_IMP} -- Implemen
 --				else
 --					l_call_restore := True
 --				end
---			elseif a_changed_mask & {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_maximized_enum = {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_maximized_enum then
---				if a_new_state & {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_maximized_enum = {EV_GTK_DEPENDENT_EXTERNALS}.gdk_window_state_maximized_enum then
+--			elseif this_is_a_maximize_event then
 --					is_maximized := True
 --					is_minimized := False
 --					if maximize_actions_internal /= Void then

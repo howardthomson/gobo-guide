@@ -56,6 +56,7 @@ feature {NONE} -- Initialization
 	make
 			-- Initialize `Current'
 		do
+			create {SB_TEXT_FIELD} sb_widget.make_ev
 			enable_word_wrapping
 			set_editable (True)
 			set_background_color ((create {EV_STOCK_COLORS}).white)

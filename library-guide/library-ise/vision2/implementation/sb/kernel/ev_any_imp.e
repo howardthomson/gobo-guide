@@ -42,6 +42,11 @@ feature {EV_INTERMEDIARY_ROUTINES, EV_ANY_I, EV_STOCK_PIXMAPS_IMP} -- Implementa
 
 feature {NONE}
 
+--	frozen old_make (an_interface: like interface)
+--		do
+--			assign_interface (an_interface)
+--		end			
+
 	dispose is
 		do
 		end

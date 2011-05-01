@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"EiffelVision box. Slyboots implementation."
 	legal: "See notice at end of class."
@@ -99,7 +99,7 @@ feature {EV_ANY_I, EV_ANY} -- Implementation
 			-- Provides a common user interface to platform dependent
 			-- functionality implemented by `Current'
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

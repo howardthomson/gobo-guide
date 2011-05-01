@@ -1,6 +1,6 @@
 indexing
 	description:
-		"Eiffel Vision Split Area, GTK+ implementation."
+		"Eiffel Vision Split Area, Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2007-01-19 17:27:25 -0800 (Fri, 19 Jan 2007) $"
@@ -28,11 +28,11 @@ create
 
 feature -- initialization
 
-	make (an_interface: like interface) is
+	make
 			-- Connect interface and initialize `c_object'.
 		do
 			base_make (an_interface)
-			-- TODO
+			TODO_class_line ("EV_HORIZONTAL_SPLIT_AREA_IMP", "__LINE__")
 		end
 
 feature {EV_ANY_I} -- Implementation
@@ -51,9 +51,6 @@ indexing
 			 Website http://www.eiffel.com
 			 Customer support http://support.eiffel.com
 		]"
-
-
-
 
 end -- class EV_HORIZONTAL_SPLIT_AREA_IMP
 

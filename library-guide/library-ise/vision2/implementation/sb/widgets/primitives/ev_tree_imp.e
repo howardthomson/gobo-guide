@@ -147,7 +147,7 @@ feature {NONE} -- Initialization
 		do
 			Precursor {EV_PRIMITIVE_IMP} (a_type, a_x, a_y, a_button, a_x_tilt, a_y_tilt, a_pressure, a_screen_x, a_screen_y)
 
-			-- TODO
+			TODO_class_line ("EV_TREE_IMP", "__LINE__")
 		end
 
 	on_pointer_motion (a_motion_tuple: TUPLE [INTEGER, INTEGER, DOUBLE, DOUBLE, DOUBLE, INTEGER, INTEGER]) is
@@ -176,36 +176,8 @@ feature -- Status report
 			a_tree_path: POINTER
 			a_tree_node_imp: EV_TREE_NODE_IMP
 		do
-			a_selection := {EV_GTK_EXTERNALS}.gtk_tree_view_get_selection (tree_view)
-			a_tree_path_list := {EV_GTK_EXTERNALS}.gtk_tree_selection_get_selected_rows (a_selection, $a_model)
-
-			if a_tree_path_list /= NULL then
-					a_tree_path := {EV_GTK_EXTERNALS}.glist_struct_data (a_tree_path_list)
-					a_tree_node_imp := node_from_tree_path (a_tree_path)
-					{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_path_list_free_contents (a_tree_path_list)
-					{EV_GTK_EXTERNALS}.g_list_free (a_tree_path_list)
-					Result := a_tree_node_imp.interface
-			end
-		end
-
-	XXnode_from_tree_path (a_tree_path: POINTER): EV_TREE_NODE_IMP is
-			-- Retrieve node from `a_tree_path'
-		local
-			i, a_depth: INTEGER
-			a_tree_node: EV_TREE_NODE
-		do
---			a_depth := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_path_get_depth (a_tree_path)
---			from
---				create mp.share_from_pointer (a_int_ptr, App_implementation.integer_bytes * a_depth)
---				a_tree_node := i_th (mp.read_integer_32 (0) + 1)
---				i := 1
---			until
---				i = a_depth
---			loop
---				a_tree_node := a_tree_node.i_th (mp.read_integer_32 (i * App_implementation.integer_bytes) + 1)
---				i := i + 1
---			end
---			Result ?= a_tree_node.implementation
+			TODO_class_line ("EV_TREE_IMP", "__LINE__")
+			Result := a_tree_node_imp.interface
 		end
 
 	selected: BOOLEAN is
@@ -221,12 +193,9 @@ feature -- Implementation
 			-- Tree nodes may be expanded to achieve this.
 		local
 			tree_item_imp: EV_TREE_NODE_IMP
-			a_path: POINTER
 		do
 			tree_item_imp ?= an_item.implementation
-	--		a_path := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_model_get_path (tree_store, tree_item_imp.list_iter.item)
-	--		{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_scroll_to_cell (tree_view, a_path, NULL, False, 0, 0)
-	--		{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_path_free (a_path)
+			TODO_class_line ("EV_TREE_IMP", "__LINE__")
 		end
 
 	set_to_drag_and_drop: BOOLEAN is
