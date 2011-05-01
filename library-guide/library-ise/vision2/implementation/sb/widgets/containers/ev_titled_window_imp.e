@@ -44,6 +44,7 @@ feature {NONE} -- Initialization
 	make
 			-- Create the titled window.
 		do
+	--		Precursor
 			create {SB_TOP_WINDOW} sb_window.make_top_title (app_implementation.sb_application, once "Default Title")
 		end
 

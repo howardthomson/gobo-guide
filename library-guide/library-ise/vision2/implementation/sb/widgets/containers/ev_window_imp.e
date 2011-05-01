@@ -73,10 +73,16 @@ feature {NONE} -- Initialization
 		do
 			set_is_initialized (False)
 			create {SB_TOP_WINDOW} sb_window.make_top_title (application, "Title ...")
+
+			create accel_list.make (10)
+			create upper_bar
+			create lower_bar
+
 			internal_is_border_enabled := True
 			configure_event_pending := True
 			user_can_resize := True
 			set_is_initialized (True)
+print ("EV_WINDOW_IMP::make%N")
 		end
 
 feature  -- Access
