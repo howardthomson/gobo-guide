@@ -23,7 +23,7 @@ inherit
 		redefine
 			sb_pixmap_window,
 			interface,
-			old_make,
+--			old_make,
 			width,
 			height,
 			destroy,
@@ -59,11 +59,11 @@ feature {NONE} -- Implementation Attributes
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface) is
-			-- Create a pixmap of size (1 * 1) with no mask.
-		do
-			base_make (an_interface)
-		end
+--	old_make (an_interface: like interface) is
+--			-- Create a pixmap of size (1 * 1) with no mask.
+--		do
+--			base_make (an_interface)
+--		end
 
 	make is
 			-- Initialize `Current'

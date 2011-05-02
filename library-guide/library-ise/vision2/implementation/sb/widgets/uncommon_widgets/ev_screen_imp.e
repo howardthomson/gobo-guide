@@ -30,11 +30,11 @@ create
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface)
-			-- Create an empty drawing area.
-		do
-			base_make (an_interface)
-		end
+--	old_make (an_interface: like interface)
+--			-- Create an empty drawing area.
+--		do
+--			base_make (an_interface)
+--		end
 
 	make
 			-- Set up action sequence connections and create graphics context.

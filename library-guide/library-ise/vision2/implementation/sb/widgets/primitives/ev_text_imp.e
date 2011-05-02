@@ -40,12 +40,12 @@ create
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface) is
-			-- Create a gtk text view.
-		do
-			base_make (an_interface)
-			create {SB_TEXT_FIELD} sb_widget.make_ev
-		end
+--	old_make (an_interface: like interface) is
+--			-- Create a gtk text view.
+--		do
+--			base_make (an_interface)
+--			create {SB_TEXT_FIELD} sb_widget.make_ev
+--		end
 
 	create_change_actions: EV_NOTIFY_ACTION_SEQUENCE is
 			-- Hook up the change actions for the text widget

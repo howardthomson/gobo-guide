@@ -19,7 +19,7 @@ inherit
 			default_alignment
 		redefine
 			interface,
-			old_make,
+--			old_make,
 			make
 		end
 
@@ -34,19 +34,20 @@ create
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface) is
-			-- Create radio button.
-		do
-			base_make (an_interface)
+--	old_make (an_interface: like interface) is
+--			-- Create radio button.
+--		do
+--			base_make (an_interface)
 --			set_c_object ({EV_GTK_EXTERNALS}.gtk_radio_button_new (NULL))
-			enable_select
-		end
+--			enable_select
+--		end
 
 	make is
 			-- Initialize `Current'
 		do
 			Precursor
 			align_text_left
+			enable_select
 		end
 
 feature -- Status report

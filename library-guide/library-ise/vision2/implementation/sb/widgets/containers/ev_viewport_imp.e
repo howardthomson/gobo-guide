@@ -21,7 +21,7 @@ inherit
 	EV_CELL_IMP
 		redefine
 			interface,
-			old_make,
+	--		old_make,
 	--		container_widget,
 	--		visual_widget,
 			on_removed_item,
@@ -41,18 +41,18 @@ feature {NONE} -- Initialization
 			Result := False
 		end
 
-	old_make (an_interface: like interface) is
-			-- Initialize.
-		do
-			todo_class_line ("__EV_VIEWPORT_IMP__", "__LINE__")
-
-			base_make (an_interface)
+--	old_make (an_interface: like interface) is
+--			-- Initialize.
+--		do
+--			todo_class_line ("__EV_VIEWPORT_IMP__", "__LINE__")
+--
+--			base_make (an_interface)
 --			viewport := {EV_GTK_EXTERNALS}.gtk_viewport_new (NULL, NULL)
 --			set_c_object (viewport)
 --			{EV_GTK_EXTERNALS}.gtk_viewport_set_shadow_type (viewport, {EV_GTK_EXTERNALS}.Gtk_shadow_none_enum)
 --			{EV_GTK_EXTERNALS}.gtk_widget_set_minimum_size (viewport, 1, 1) -- Hack needed to prevent viewport resize on item resize.
 --			container_widget := viewport
-		end
+--		end
 
 feature -- Access
 

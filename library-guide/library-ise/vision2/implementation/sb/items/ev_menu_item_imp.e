@@ -48,19 +48,20 @@ feature {NONE} -- Initialization
 
 	is_dockable: BOOLEAN is False
 
-	old_make (an_interface: like interface) is
-			-- Create a menu.
-		do
-			assign_interface (an_interface)
+--	old_make (an_interface: like interface) is
+--			-- Create a menu.
+--		do
+--			assign_interface (an_interface)
 --			set_c_object ({EV_GTK_DEPENDENT_EXTERNALS}.gtk_image_menu_item_new)
-			pixmapable_imp_initialize
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_image_menu_item_set_image (c_object, pixmap_box)
-		end
+--		end
 
 	make is
 			-- Initialize `Current'
 		do
 --			Precursor {EV_ITEM_IMP}
+
+			pixmapable_imp_initialize
 			textable_imp_initialize
 
 

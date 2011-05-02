@@ -34,11 +34,11 @@ create
 
 feature -- initialization
 
-	old_make (an_interface: like interface)
-			-- Connect interface and initialize `c_object'.
-		do
-			assign_interface (an_interface)
-		end
+--	old_make (an_interface: like interface)
+--			-- Connect interface and initialize `c_object'.
+--		do
+--			assign_interface (an_interface)
+--		end
 
 --	make (an_interface: like interface)
 	make

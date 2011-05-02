@@ -42,19 +42,17 @@ feature {NONE} -- Attributes
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface) is
-			-- Create a gtk label.
-		local
-			int_value: INTEGER
-		do
-			base_make (an_interface)
-			textable_imp_initialize
-			create {SB_LABEL} sb_widget.make_ev
-			align_text_center
-		end
+--	old_make (an_interface: like interface) is
+--			-- Create a gtk label.
+--		do
+--			base_make (an_interface)
+--		end
 
 	make
 		do
+			textable_imp_initialize
+			create {SB_LABEL} sb_widget.make_ev
+			align_text_center
 		end
 
 feature -- Access

@@ -25,11 +25,11 @@ create
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface) is
-			-- Create an empty Tree.
-		do
-			assign_interface (an_interface)
-		end
+--	old_make (an_interface: like interface) is
+--			-- Create an empty Tree.
+--		do
+--			assign_interface (an_interface)
+--		end
 
 	make
 			-- Create a window with a parent.

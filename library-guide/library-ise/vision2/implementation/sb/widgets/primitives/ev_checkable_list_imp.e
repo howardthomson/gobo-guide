@@ -26,8 +26,6 @@ inherit
 			initialize,
 			initialize_model
 		end
-
-	EV_GTK_TREE_VIEW
 		
 	EV_CHECKABLE_LIST_ACTION_SEQUENCES_IMP
 	
@@ -38,19 +36,9 @@ feature -- Initialization
 
 	initialize is
 			-- Setup `Current'
-		local
-			a_column, a_cell_renderer: POINTER
-			a_gtk_c_str: EV_GTK_C_STRING
 		do
 			Precursor {EV_LIST_IMP}
-			a_column := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_get_column (tree_view, 0)
-			
-			a_cell_renderer := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_cell_renderer_toggle_new
-			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_column_pack_start (a_column, a_cell_renderer, False)				
-			a_gtk_c_str :=  "active"
-			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_column_add_attribute (a_column, a_cell_renderer, a_gtk_c_str.item, boolean_tree_model_column)
-			
-			real_signal_connect (a_cell_renderer, "toggled", agent (app_implementation.gtk_marshal).boolean_cell_renderer_toggle_intermediary (internal_id, ?, ?), Void)
+			TODO_class_line ("EV_CHECKABLE_LIST_IMP", "__LINE__")
 		end
 
 	boolean_tree_model_column: INTEGER is 2
@@ -98,14 +86,9 @@ feature -- Initialization
 
 	initialize_model is
 			-- Create our data model for `Current'
-		local
-			a_type_array: MANAGED_POINTER 
 		do
-			create a_type_array.make (3 * {EV_GTK_DEPENDENT_EXTERNALS}.sizeof_gtype)
-			{EV_GTK_DEPENDENT_EXTERNALS}.add_gdk_type_pixbuf (a_type_array.item, 0)
-			{EV_GTK_DEPENDENT_EXTERNALS}.add_g_type_string (a_type_array.item, 1 * {EV_GTK_DEPENDENT_EXTERNALS}.sizeof_gtype)
-			{EV_GTK_DEPENDENT_EXTERNALS}.add_g_type_boolean (a_type_array.item, 2 * {EV_GTK_DEPENDENT_EXTERNALS}.sizeof_gtype)
-			list_store := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_list_store_newv (3, a_type_array.item)			end
+			TODO_class_line ("EV_CHECKABLE_LIST_IMP", "__LINE__")
+		end
 
 feature -- Access
 
@@ -113,13 +96,11 @@ feature -- Access
 			--
 		local
 			item_imp: EV_LIST_ITEM_IMP
-			a_gvalue: POINTER
 		do
 			item_imp ?= list_item.implementation
-			a_gvalue := {EV_GTK_DEPENDENT_EXTERNALS}.c_g_value_struct_allocate
-			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_model_get_value (list_store, item_imp.list_iter.item, boolean_tree_model_column,  a_gvalue)
-			Result := {EV_GTK_DEPENDENT_EXTERNALS}.g_value_get_boolean (a_gvalue)
-			a_gvalue.memory_free
+
+			TODO_class_line ("EV_CHECKABLE_LIST_IMP", "__LINE__")
+						
 		end
 
 feature -- Status setting
@@ -129,14 +110,11 @@ feature -- Status setting
 			-- checked.
 		local
 			item_imp: EV_LIST_ITEM_IMP
-			a_gvalue: POINTER
 		do
 			item_imp ?= list_item.implementation
-			a_gvalue := {EV_GTK_DEPENDENT_EXTERNALS}.c_g_value_struct_allocate
-			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_model_get_value (list_store, item_imp.list_iter.item, boolean_tree_model_column,  a_gvalue)
-			{EV_GTK_DEPENDENT_EXTERNALS}.g_value_set_boolean (a_gvalue, True)
-			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_list_store_set_value (list_store, item_imp.list_iter.item, boolean_tree_model_column, a_gvalue)
-			a_gvalue.memory_free
+
+			TODO_class_line ("EV_CHECKABLE_LIST_IMP", "__LINE__")
+
 			if check_actions_internal /= Void then
 				check_actions_internal.call ([list_item])
 			end
@@ -147,14 +125,11 @@ feature -- Status setting
 			-- checked.
 		local
 			item_imp: EV_LIST_ITEM_IMP
-			a_gvalue: POINTER
 		do
 			item_imp ?= list_item.implementation
-			a_gvalue := {EV_GTK_DEPENDENT_EXTERNALS}.c_g_value_struct_allocate
-			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_model_get_value (list_store, item_imp.list_iter.item, boolean_tree_model_column,  a_gvalue)
-			{EV_GTK_DEPENDENT_EXTERNALS}.g_value_set_boolean (a_gvalue, False)
-			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_list_store_set_value (list_store, item_imp.list_iter.item, boolean_tree_model_column, a_gvalue)
-			a_gvalue.memory_free
+
+			TODO_class_line ("EV_CHECKABLE_LIST_IMP", "__LINE__")
+
 			if uncheck_actions_internal /= Void then
 				uncheck_actions_internal.call ([list_item])
 			end

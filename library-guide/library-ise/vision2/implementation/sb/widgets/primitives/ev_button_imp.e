@@ -23,7 +23,7 @@ inherit
 			sb_button,
 			interface,
 --			initialize,
-			old_make,
+--			old_make,
 			set_foreground_color,
 			on_focus_changed	--,
 --			event_widget
@@ -64,15 +64,11 @@ feature {NONE} -- Implementation Attributes
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface) is
-			-- Connect interface and initialize `c_object'.
-		do
-print ("EV_BUTTON_IMP::make #1%N")
-			base_make (an_interface)
-print ("EV_BUTTON_IMP::make #2%N")
-			create sb_button.make_ev
-print ("EV_BUTTON_IMP::make completed%N")
-		end
+--	old_make (an_interface: like interface) is
+--			-- Connect interface and initialize `c_object'.
+--		do
+--			base_make (an_interface)
+--		end
 
 	make is
 			-- `Precursor' initialization,
@@ -80,6 +76,7 @@ print ("EV_BUTTON_IMP::make completed%N")
 		local
 --			l_composite: SB_COMPOSITE
 		do
+			create sb_button.make_ev
 --			if parent_imp /= Void then
 --				l_composite ?= parent_imp.sb_widget
 --			end

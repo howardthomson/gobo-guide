@@ -35,7 +35,7 @@ create
 
 feature -- Initialize
 
-	make (an_interface: like interface) is
+	make
 			-- Create a list widget with `par' as parent.
 			-- By default, a list allow only one selection.
 		do

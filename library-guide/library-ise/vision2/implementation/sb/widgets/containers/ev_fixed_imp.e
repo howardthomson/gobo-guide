@@ -32,13 +32,13 @@ create
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface) is
-			-- Create the fixed container.
-		do
-			base_make (an_interface)
-			todo_class_line ("__EV_FIXED_IMP__", "__LINE__")
+--	old_make (an_interface: like interface) is
+--			-- Create the fixed container.
+--		do
+--			base_make (an_interface)
+--			todo_class_line ("__EV_FIXED_IMP__", "__LINE__")
 --			set_c_object ({EV_GTK_DEPENDENT_EXTERNALS}.gtk_fixed_new)
-		end
+--		end
 
 	make is
 			-- Initialize `Current'.

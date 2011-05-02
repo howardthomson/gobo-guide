@@ -25,11 +25,11 @@ create
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface) is
-				-- Create a horizontal gtk separator.
-		do
-			assign_interface (an_interface)
-		end
+--	old_make (an_interface: like interface) is
+--				-- Create a horizontal gtk separator.
+--		do
+--			assign_interface (an_interface)
+--		end
 
 	make
 		do

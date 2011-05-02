@@ -62,12 +62,12 @@ create
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface)
-			-- Create the tool bar button.
-		do
-			assign_interface (an_interface)
+--	old_make (an_interface: like interface)
+--			-- Create the tool bar button.
+--		do
+--			assign_interface (an_interface)
 --			set_c_object ({EV_GTK_EXTERNALS}.gtk_tool_button_new (NULL, NULL))
-		end
+--		end
 
 	make
 			-- Initialization of button box and events.

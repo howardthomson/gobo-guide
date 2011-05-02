@@ -21,6 +21,7 @@ inherit
 
 	EV_WIDGET_LIST_IMP
 		redefine
+			make,
 			interface,
 			replace,
 			initialize,
@@ -40,23 +41,19 @@ create
 
 feature {NONE} -- Initialization
 
-	needs_event_box: BOOLEAN is
+	needs_event_box: BOOLEAN
 			-- Does `a_widget' need an event box?
 		do
 			Result := True
 		end
 
-	make (an_interface: like interface) is
-			-- Create a fixed widget.
-		do
-			base_make (an_interface)
---			set_c_object ({EV_GTK_EXTERNALS}.gtk_notebook_new ())
---			{EV_GTK_EXTERNALS}.gtk_notebook_set_show_border (visual_widget, True)
---			{EV_GTK_EXTERNALS}.gtk_notebook_set_scrollable (visual_widget, True)
---			real_signal_connect (visual_widget, "switch-page", agent (App_implementation.gtk_marshal).on_notebook_page_switch_intermediary (c_object, ?), agent (App_implementation.gtk_marshal).page_switch_translate)
-		end
+--	make
+--			-- Create a fixed widget.
+--		do
+--			base_make (an_interface)
+--		end
 
-	initialize is
+	make is
 			-- Initialize the notebook.
 		do
 			Precursor {EV_WIDGET_LIST_IMP}

@@ -22,7 +22,7 @@ inherit
 	EV_TITLED_WINDOW_IMP
 		redefine
 			make,
-			old_make,
+--			old_make,
 			interface,
 			call_close_request_actions,
 --			initialize	--,
@@ -34,18 +34,18 @@ create
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface) is
-			-- Create empty dialog box.
-		do
-			base_make (an_interface)
-			create {SB_DIALOG_BOX} sb_window.make_ev
-			-- TODO
-		end
+--	old_make (an_interface: like interface) is
+--			-- Create empty dialog box.
+--		do
+--			base_make (an_interface)
+--			-- TODO
+--		end
 
 	make is
 			-- Initialize 'Current'
 		do
 			Precursor {EV_TITLED_WINDOW_IMP}
+			create {SB_DIALOG_BOX} sb_window.make_ev
 			enable_closeable
 		end
 

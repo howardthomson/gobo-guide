@@ -38,10 +38,10 @@ feature {NONE} -- Implementation Attributes
 
 feature {NONE} -- Initialization
 
-	old_make (an_interface: like interface) is
-		do
-			assign_interface (an_interface)
-		end
+--	old_make (an_interface: like interface) is
+--		do
+--			assign_interface (an_interface)
+--		end
 
 	make
 		do

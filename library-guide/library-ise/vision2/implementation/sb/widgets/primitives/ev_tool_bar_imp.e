@@ -46,12 +46,12 @@ feature {NONE} -- Implementation
 			Result := True
 		end
 
-	old_make (an_interface: like interface)
-			-- Create the tool-bar.
-		do
-			assign_interface (an_interface)
-	--		set_c_object ({EV_GTK_EXTERNALS}.gtk_toolbar_new)
-		end
+--	old_make (an_interface: like interface)
+--			-- Create the tool-bar.
+--		do
+--			assign_interface (an_interface)
+--	--		set_c_object ({EV_GTK_EXTERNALS}.gtk_toolbar_new)
+--		end
 
 	make
 			-- Initialize `Current'.
