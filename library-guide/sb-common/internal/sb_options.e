@@ -1,9 +1,5 @@
 deferred class SB_OPTIONS
 
---create
-
-	-- No creation
-
 feature { NONE }
 
 	options: INTEGER

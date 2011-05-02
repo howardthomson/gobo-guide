@@ -25,15 +25,10 @@ create
 
 feature {NONE} -- Initialization
 
---	old_make (an_interface: like interface) is
---				-- Create a horizontal gtk separator.
---		do
---			assign_interface (an_interface)
---		end
-
 	make
 		do
 			create {SB_SEPARATOR} sb_widget.make_ev
+--			sb_widget.set_options ({SB_CONSTANTS}.Layout_fill_x)
 		end
 
 feature {EV_ANY_I} -- Implementation

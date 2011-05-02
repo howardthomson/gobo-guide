@@ -25,7 +25,7 @@ feature {NONE} -- Implementation
 			set_is_initialized (True)
 		end
 
-feature {EV_ANY_I, EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Position retrieval
+feature {EV_ANY_I} -- Position retrieval
 
 	screen_x: INTEGER is
 			-- Horizontal position of the client area on screen,
