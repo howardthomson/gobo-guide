@@ -26,10 +26,10 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	make
 			-- Create a gtk toggle button.
 		do
-			base_make (an_interface)
+--			base_make (an_interface)
 --			set_c_object ({EV_GTK_EXTERNALS}.gtk_toggle_button_new)
 		end
 

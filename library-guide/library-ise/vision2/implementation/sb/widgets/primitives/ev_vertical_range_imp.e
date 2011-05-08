@@ -25,12 +25,12 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	make
 			-- Create the vertical range.
 		do
 			todo_class_line ("__EV_VERTICAL_RANGE_IMP__", "__LINE__")
 
-			Precursor {EV_RANGE_IMP} (an_interface)
+--			Precursor {EV_RANGE_IMP} (an_interface)
 --			set_c_object ({EV_GTK_EXTERNALS}.gtk_vscale_new (adjustment))
 		end
 

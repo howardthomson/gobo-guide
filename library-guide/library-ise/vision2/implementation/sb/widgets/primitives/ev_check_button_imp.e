@@ -1,10 +1,12 @@
-indexing
-	description: "EiffelVision check button, gtk implementation."
+note
+
+		description: "EiffelVision check button, Slyboots implementation."
+
 	legal: "See notice at end of class.";
 	status: "See notice at end of class.";
 	id: "$Id: ev_check_button_imp.e 57641 2006-03-23 07:29:03Z manus $";
-	date: "$Date: 2006-03-22 23:29:03 -0800 (Wed, 22 Mar 2006) $";
-	revision: "$Revision: 57641 $"
+	date: "$Date$";
+	revision: "$Revision"
 	
 class
 	EV_CHECK_BUTTON_IMP
@@ -21,26 +23,18 @@ inherit
 		redefine
 			make,
 			set_text,
-			interface,
-			initialize
+			interface
 		end
 
 create
 	make
 
 feature {NONE} -- Initialization
-
-	make (an_interface: like interface) is
-			-- Create a gtk check button.
-		do
-			base_make (an_interface)
-	--		set_c_object ({EV_GTK_EXTERNALS}.gtk_check_button_new)
-		end
 		
-	initialize is
+	make is
 			-- Initialize 'Current'
 		do
-			Precursor {EV_TOGGLE_BUTTON_IMP}
+--			Precursor {EV_TOGGLE_BUTTON_IMP}
 			align_text_left
 		end
 
@@ -51,13 +45,7 @@ feature -- Element change
 			-- Redefined because we want the text to be left-aligned.
 		do
 			Precursor {EV_TOGGLE_BUTTON_IMP} (txt)
-
-				-- We left-align and vertical_center-position the text
---			{EV_GTK_EXTERNALS}.gtk_misc_set_alignment (text_label, 0.0, 0.5)
-
-	--		if gtk_pixmap /= NULL then
-	--			{EV_GTK_EXTERNALS}.gtk_misc_set_alignment (pixmap_box, 0.0, 0.5)
-	--		end				
+			TODO_class_line ("EV_CHECK_BUTTON_IMP::set_text", "__LINE__")
 		end
 
 feature {EV_ANY_I}

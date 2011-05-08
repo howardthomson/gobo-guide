@@ -68,25 +68,19 @@ feature {NONE} -- Initialization
 			Result := True
 		end
 
-	old_make (an_interface: like interface) is
-			-- Create an empty Tree.
-		do
-			assign_interface (an_interface)
-		end
-
 	make
 		do
 			create {SB_TREE_LIST} sb_widget.make_ev
---			Precursor {EV_ITEM_LIST_IMP}
---			Precursor {EV_PRIMITIVE_IMP}
---			Precursor {EV_TREE_I}
-
-			-- TODO
+			initialize
+				-- TODO
 			initialize_pixmaps
 		end
 
 	initialize
 		do
+			Precursor {EV_ITEM_LIST_IMP}
+--			Precursor {EV_PRIMITIVE_IMP}
+--			Precursor {EV_TREE_I}
 		end
 
 	call_selection_action_sequences is
@@ -462,7 +456,7 @@ feature {NONE} -- Implementation
 			child_array.go_i_th (i)
 			child_array.put_left (v)
 
-			item_imp.add_item_and_children_to_parent_tree (Current, Void, i)
+--			item_imp.add_item_and_children_to_parent_tree (Current, Void, i)
 			update_row_pixmap (item_imp)
 
 			if item_imp.is_transport_enabled_iterator then

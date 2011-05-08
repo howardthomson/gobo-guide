@@ -72,13 +72,13 @@ feature {NONE} -- Initialization
 			Result := True
 		end
 
-	make (an_interface: like interface) is
+	make
 			-- Create a combo-box.
 		local
 			a_vbox: POINTER
 			a_focus_list: POINTER
 		do
-			base_make (an_interface)
+--			base_make (an_interface)
 --			a_vbox := {EV_GTK_EXTERNALS}.gtk_vbox_new (False, 0)
 --			set_c_object (a_vbox)
 --			container_widget := {EV_GTK_EXTERNALS}.gtk_combo_box_entry_new
@@ -206,19 +206,19 @@ feature -- Status report
 	select_item (an_index: INTEGER) is
 			-- Select an item at the one-based `index' of the list.
 		do
---			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_combo_box_set_active (container_widget, an_index - 1)
+			TODO_class_line ("EV_COMBO_BOX_IMP::select_item", "__LINE__")
 		end
 
 	deselect_item (an_index: INTEGER) is
 			-- Unselect the item at the one-based `index'.
 		do
---			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_combo_box_set_active (container_widget, -1)
+			TODO_class_line ("EV_COMBO_BOX_IMP::deselect_item", "__LINE__")
 		end
 
 	clear_selection is
 			-- Clear the item selection of `Current'.
 		do
---			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_combo_box_set_active (container_widget, -1)
+			TODO_class_line ("EV_COMBO_BOX_IMP::clear_selection", "__LINE__")
 		end
 
 feature -- Status setting
@@ -226,7 +226,7 @@ feature -- Status setting
 	set_maximum_text_length (len: INTEGER) is
 			-- Set the length of the longest text size in characters that `Current' can display.
 		do
-			{EV_GTK_EXTERNALS}.gtk_entry_set_max_length (entry_widget, len)
+			TODO_class_line ("EV_COMBO_BOX_IMP::set_maximum_text_length", "__LINE__")
 		end
 
 feature {NONE} -- Implementation
@@ -268,9 +268,6 @@ feature {NONE} -- Implementation
 
 	is_list_shown: BOOLEAN
 		-- Is combo list current shown?
-
-	retrieve_toggle_button_signal_connection_id: INTEGER
-		-- Signal connection id used when finding the toggle button of `Current'.
 
 feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Event handling
 
@@ -318,24 +315,6 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Event handling
 				end
 			end
 		end
-
-feature {NONE} -- Externals
-
---	frozen return_combo_toggle (a_combo: POINTER; a_toggle_button: TYPED_POINTER [POINTER]) is
---		external
---			"C inline use %"ev_c_util.h%""
---		alias
---			"[
---				{
---				gtk_container_forall (GTK_CONTAINER ($a_combo), (GtkCallback) c_gtk_return_combo_toggle, (GtkWidget**) $a_toggle_button);
---				}
---			]"
---		end
-
-feature {EV_LIST_ITEM_IMP, EV_INTERMEDIARY_ROUTINES} -- Implementation
-
-	container_widget: POINTER
-			-- Gtk combo struct
 
 feature {NONE} -- Implementation
 

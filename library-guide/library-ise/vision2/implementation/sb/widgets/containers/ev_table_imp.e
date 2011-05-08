@@ -36,7 +36,7 @@ feature {NONE} -- Implementation
 
 	needs_event_box: BOOLEAN is True
 
-	make (an_interface: like interface) is
+	make
                         -- Create a table widget with `par' as
                         -- parent.
 		do

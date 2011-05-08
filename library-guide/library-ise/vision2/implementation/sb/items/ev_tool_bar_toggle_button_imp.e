@@ -26,11 +26,10 @@ create
 
 feature -- Initialization
 
-	make (an_interface: like interface) is
-		-- Create the tool-bar toggle button.
+	make
+			-- Create the tool-bar toggle button.
 		do
-			base_make (an_interface)
-			set_c_object ({EV_GTK_EXTERNALS}.gtk_toggle_tool_button_new)
+			TODO_class_line ("EV_TOOL_BAR_TOGGLE_BUTTON_IMP::make", "__LINE__")
 		end
 
 feature -- Status setting
@@ -39,7 +38,7 @@ feature -- Status setting
 			-- Unselect `Current'.
 		do
 			if is_selected then
-				{EV_GTK_EXTERNALS}.gtk_toggle_tool_button_set_active (visual_widget, False)
+				TODO_class_line ("EV_TOOL_BAR_TOGGLE_BUTTON_IMP::disable_select", "__LINE__")
 			end
 		end
 
@@ -47,7 +46,7 @@ feature -- Status setting
 			-- Select `Current'.
 		do
 			if not is_selected then
-				{EV_GTK_EXTERNALS}.gtk_toggle_tool_button_set_active (visual_widget, True)
+				TODO_class_line ("EV_TOOL_BAR_TOGGLE_BUTTON_IMP::enable_select", "__LINE__")
 			end
 		end
 
@@ -56,7 +55,7 @@ feature -- Status report
 	is_selected: BOOLEAN is
 			-- Is `Current' selected.
 		do
-			Result := {EV_GTK_EXTERNALS}.gtk_toggle_tool_button_get_active (visual_widget)
+				TODO_class_line ("EV_TOOL_BAR_TOGGLE_BUTTON_IMP::is_selected", "__LINE__")
 		end
 
 feature {EV_ANY_I} -- Implementation

@@ -25,14 +25,10 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	make
 			-- Create the horizontal scroll bar.
 		do
 			todo_class_line ("__EV_VERTICAL_SCROLL_BAR_IMP__", "__LINE__")
-
-			base_make (an_interface)
---			adjustment := {EV_GTK_EXTERNALS}.gtk_adjustment_new (0, 0, 100 + 10, 1, 10, 10)
---			set_c_object ({EV_GTK_EXTERNALS}.gtk_vscrollbar_new (adjustment))
 		end
 
 feature {EV_ANY_I} -- Implementation

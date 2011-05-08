@@ -1,5 +1,6 @@
-indexing 
-	description: "Eiffel Vision Progress bar. GTK+ implementation."
+note 
+		description: "Eiffel Vision Progress bar. Slyboots implementation."
+
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2006-01-22 18:25:44 -0800 (Sun, 22 Jan 2006) $"
@@ -27,12 +28,12 @@ feature {NONE} -- Attributes
 
 feature {NONE} -- Implementation
 
-	make (an_interface: like interface) is
+	make
 			-- Create the progress bar.
 		do
-			Precursor {EV_GAUGE_IMP} (an_interface)
-			create {SB_PROGRESS_BAR} sb_widget.make_ev
-			enable_segmentation
+--			Precursor {EV_GAUGE_IMP} (an_interface)
+--			create {SB_PROGRESS_BAR} sb_widget.make_ev
+--			enable_segmentation
 		end
 
 feature -- Status report
@@ -71,9 +72,6 @@ indexing
 			 Website http://www.eiffel.com
 			 Customer support http://support.eiffel.com
 		]"
-
-
-
 
 end -- class EV_PROGRESS_BAR_IMP
 

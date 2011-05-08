@@ -1,5 +1,7 @@
-indexing
-	description: "Eiffel Vision scrollable area. GTK+ implementation."
+note
+
+		description: "Eiffel Vision scrollable area. GTK+ implementation."
+
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2007-02-13 11:20:25 -0800 (Tue, 13 Feb 2007) $"
@@ -41,13 +43,11 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	make
 			-- Create scrollable area.
 		do
-			base_make (an_interface)
---			create {SB_SCROLL_AREA} sb_widget.make_ev (0, 0,0,0,0)
 			create {SB_SCROLL_AREA} sb_widget.make_ev
-			-- TODO
+			TODO_class_line ("EV_SCROLLABLE_AREA_IMP", "__LINE__")
 		end
 
 	needs_event_box: BOOLEAN is True
@@ -231,7 +231,7 @@ feature {EV_ANY_I} -- Implementation
 			-- Provides a common user interface to platform dependent
 			-- functionality implemented by `Current'
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[
@@ -241,9 +241,6 @@ indexing
 			 Website http://www.eiffel.com
 			 Customer support http://support.eiffel.com
 		]"
-
-
-
 
 end -- class EV_SCROLLABLE_AREA_IMP
 

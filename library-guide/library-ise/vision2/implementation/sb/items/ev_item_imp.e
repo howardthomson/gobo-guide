@@ -35,6 +35,10 @@ inherit
 
 feature {NONE} -- Initialization
 
+--	old_make (an_interface: like interface)
+--		do
+--		end
+
 	call_button_event_actions (
 			a_type: INTEGER;
 			a_x, a_y, a_button: INTEGER;

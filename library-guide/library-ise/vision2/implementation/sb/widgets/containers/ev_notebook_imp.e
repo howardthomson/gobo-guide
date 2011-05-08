@@ -24,7 +24,7 @@ inherit
 			make,
 			interface,
 			replace,
-			initialize,
+--			initialize,
 			remove_i_th	--,
 --			needs_event_box
 		end

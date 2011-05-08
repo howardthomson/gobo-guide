@@ -31,7 +31,7 @@ feature -- initialization
 	make
 			-- Connect interface and initialize `c_object'.
 		do
-			base_make (an_interface)
+--			base_make (an_interface)
 			TODO_class_line ("EV_HORIZONTAL_SPLIT_AREA_IMP", "__LINE__")
 		end
 

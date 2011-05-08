@@ -1,6 +1,8 @@
-indexing
+note
+
 	description:
 		"Eiffel Vision dynamic list. Slyboots implementation."
+
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date$"
@@ -66,7 +68,7 @@ invariant
 
 	child_array_not_void: is_usable implies child_array /= Void
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[
@@ -76,9 +78,6 @@ indexing
 			 Website http://www.eiffel.com
 			 Customer support http://support.eiffel.com
 		]"
-
-
-
 
 end -- class EV_DYNAMIC_LIST_IMP
 

@@ -39,7 +39,7 @@ feature -- Initialize
 			-- Create a list widget with `par' as parent.
 			-- By default, a list allow only one selection.
 		do
-			base_make (an_interface)
+--			base_make (an_interface)
 --			scrollable_area := {EV_GTK_EXTERNALS}.gtk_scrolled_window_new (NULL, NULL)
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_scrolled_window_set_shadow_type (scrollable_area, {EV_GTK_EXTERNALS}.gtk_shadow_in_enum)
 --			set_c_object (scrollable_area)

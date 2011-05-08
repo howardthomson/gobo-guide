@@ -28,17 +28,18 @@ create
 
 feature -- initialization
 
-	old_make (an_interface: like interface) is
-			-- Connect interface and initialize `c_object'.
-		do
-			assign_interface (an_interface)
+--	old_make (an_interface: like interface) is
+--			-- Connect interface and initialize `c_object'.
+--		do
+--			assign_interface (an_interface)
 --			container_widget := {EV_GTK_EXTERNALS}.gtk_vpaned_new
 --			set_c_object (container_widget)
-		end
+--		end
 
 	make
 		do
 			-- TODO
+			TODO_class_line ("EV_VERTICAL_SPLIT_AREA_IMP", "__LINE__")
 		end
 
 feature {EV_ANY_I} -- Implementation

@@ -1,6 +1,6 @@
 indexing
 	description:
-		"Eiffel Vision vertical separator. GTK+ implementation"
+		"Eiffel Vision vertical separator. Slyboots implementation"
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2006-01-22 18:25:44 -0800 (Sun, 22 Jan 2006) $"
@@ -25,11 +25,11 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
-			-- Create a GTK vertical seperator in an event box.
+	make
+			-- Create a Slyboots vertical seperator in an event box.
 		do
-			base_make (an_interface)
 			create {SB_SEPARATOR} sb_widget.make_ev
+			TODO_class_line ("EV_VERTICAL_SEPARATOR_IMP", "__LINE__")
 		end
 
 feature {EV_ANY_I} -- Implementation

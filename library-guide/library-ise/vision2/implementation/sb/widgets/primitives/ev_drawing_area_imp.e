@@ -22,8 +22,8 @@ inherit
 
 	EV_PRIMITIVE_IMP
 		undefine
-			foreground_color,
-			background_color,
+			foreground_color_internal,
+			background_color_internal,
 			set_foreground_color,
 			set_background_color
 		redefine
@@ -47,10 +47,10 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	make
 			-- Create an empty drawing area.
 		do
-			base_make (an_interface)
+--			base_make (an_interface)
 --			set_c_object ({EV_GTK_EXTERNALS}.gtk_drawing_area_new)
 		end
 

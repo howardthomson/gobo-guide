@@ -1,6 +1,7 @@
-indexing
-	description:
-		"Eiffel Vision container, Slyboots implementation."
+note
+
+	description: "Eiffel Vision container, Slyboots implementation."
+
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	keywords: "container"
@@ -39,11 +40,6 @@ feature {NONE} -- Initialization
 		end
 
 feature -- Access
-
---	container_widget: POINTER is
---		do
---			Result := visual_widget
---		end
 
 	client_width: INTEGER is
 			-- Width of the client area of container.
@@ -230,9 +226,6 @@ indexing
 			 Website http://www.eiffel.com
 			 Customer support http://support.eiffel.com
 		]"
-
-
-
 
 end -- class EV_CONTAINER_IMP
 

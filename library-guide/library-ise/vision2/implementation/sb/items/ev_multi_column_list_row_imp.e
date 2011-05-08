@@ -1,7 +1,7 @@
 note
 
-	description:
-		"EiffelVision multi-column list row, Slyboots implementation."
+		description:  "EiffelVision multi-column list row, Slyboots implementation."
+
 	legal: "See notice at end of class."
 	status: "See notice at end of class.";
 	date: "$Date: 2007-03-22 16:17:43 -0800 (Thu, 22 Mar 2007) $";
@@ -14,6 +14,11 @@ inherit
 	EV_MULTI_COLUMN_LIST_ROW_I
 		redefine
 			parent_imp,
+			interface
+		end
+
+	EV_ANY_IMP
+		redefine
 			interface
 		end
 
@@ -33,14 +38,14 @@ create
 
 feature {NONE} -- Initialization
 
-	make
-			-- Create a row with one empty column.
-		do
+--	old_make (an_interface: like interface)
+--			-- Create a row with one empty column.
+--		do
 --			base_make (an_interface)
-			TODO_class_line ("EV_MULTI_COLUMN_LIST_ROW_IMP", "__LINE__")
-		end
+--			TODO_class_line ("EV_MULTI_COLUMN_LIST_ROW_IMP", "__LINE__")
+--		end
 
-	initialize is
+	make is
 			-- Create the linked lists.
 		do
 			tooltip := ""

@@ -1,6 +1,7 @@
-indexing
-	description:
-		"EiffelVision multi-column-list, implementation interface."
+note
+
+		description: "EiffelVision multi-column-list, Slyboots implementation."
+
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2007-03-22 16:26:20 -0800 (Thu, 22 Mar 2007) $"
@@ -15,8 +16,9 @@ inherit
 			{EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES}
 				column_widths, update_column_width
 		redefine
+			make,
 			interface,
-			initialize,
+--			initialize,
 			call_pebble_function,
 			wipe_out,
 			pixmaps_size_changed,
@@ -70,12 +72,12 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
-			-- Create a list widget with `par' as
-			-- parent and `col_nb' columns.
-			-- By default, a list allow only one selection.
-		do
-			base_make (an_interface)
+--	old_make (an_interface: like interface) is
+--			-- Create a list widget with `par' as
+--			-- parent and `col_nb' columns.
+--			-- By default, a list allow only one selection.
+--		do
+--			base_make (an_interface)
 --			scrollable_area := {EV_GTK_EXTERNALS}.gtk_scrolled_window_new (NULL, NULL)
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_scrolled_window_set_shadow_type (scrollable_area, {EV_GTK_EXTERNALS}.gtk_shadow_in_enum)
 --			set_c_object (scrollable_area)
@@ -88,16 +90,16 @@ feature {NONE} -- Initialization
 --			tree_view := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_new
 --			{EV_GTK_EXTERNALS}.gtk_container_add (scrollable_area, tree_view)
 --			{EV_GTK_EXTERNALS}.gtk_widget_show (tree_view)
-		end
+--		end
 
-	initialize is
+	make is
 			-- Initialize `Current'
 		local
 			l_release_actions: EV_POINTER_BUTTON_ACTION_SEQUENCE
 		do
-			Precursor {EV_ITEM_LIST_IMP}
-			Precursor {EV_PRIMITIVE_IMP}
-			Precursor {EV_MULTI_COLUMN_LIST_I}
+--			Precursor {EV_ITEM_LIST_IMP}
+--			Precursor {EV_PRIMITIVE_IMP}
+--			Precursor {EV_MULTI_COLUMN_LIST_I}
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_set_enable_search (tree_view, False)
 --			resize_model_if_needed (25)
 --				-- Create our model with 25 columns to avoid recomputation each time the column count increases
@@ -110,6 +112,10 @@ feature {NONE} -- Initialization
 --				-- Needed so that we can query if the mouse button is down for column resize actions
 --			l_release_actions := pointer_button_release_actions
 --			connect_selection_actions
+		end
+
+	initialize
+		do
 		end
 
 feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Implementation

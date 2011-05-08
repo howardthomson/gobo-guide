@@ -48,7 +48,7 @@ feature {NONE} -- Initialization
 			create {SB_TOP_WINDOW} sb_window.make_top_title (app_implementation.sb_application, once "Default Title")
 		end
 
-feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES, EV_APPLICATION_IMP} -- Implementation
+feature {EV_APPLICATION_IMP} -- Implementation
 
 	call_window_state_event (a_changed_mask, a_new_state: INTEGER) is
 			-- Handle either minimize, maximize or restore event for `Current'.

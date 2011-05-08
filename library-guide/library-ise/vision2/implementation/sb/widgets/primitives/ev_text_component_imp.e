@@ -1,12 +1,9 @@
-indexing
+note
 
 	description:
-		"EiffelVision text component, gtk implementation."
+		"EiffelVision text component, Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
-	id: "$Id: ev_text_component_imp.e 65793 2007-01-05 01:20:35Z king $"
-	date: "$Date: 2007-01-04 17:20:35 -0800 (Thu, 04 Jan 2007) $"
-	revision: "$Revision: 65793 $"
 
 deferred class
 	EV_TEXT_COMPONENT_IMP
@@ -33,8 +30,8 @@ feature -- Initialization
 	initialize is
 			-- Initialize `Current'.
 		do
-			set_minimum_width_in_characters (4)
 				-- Set default width to 4 characters, as on Windows.
+			set_minimum_width_in_characters (4)
 			Precursor {EV_PRIMITIVE_IMP}
 		end
 
@@ -65,21 +62,11 @@ feature -- Resizing
 		deferred
 		end
 
-feature {NONE} -- Implementation
-
---	foreground_color_pointer: POINTER is
---			-- Pointer to fg color for `a_widget'.
---		do
---			Result := {EV_GTK_EXTERNALS}.gtk_style_struct_text (
---				{EV_GTK_EXTERNALS}.gtk_rc_get_style (visual_widget)
---			)
---		end
-
 feature {EV_ANY_I} -- Implementation		
 
 	interface: EV_TEXT_COMPONENT;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

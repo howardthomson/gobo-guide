@@ -1,6 +1,6 @@
-indexing
-	description: 
-		"EiffelVision horizontal box. Slyboots implementation."
+note
+		description: "EiffelVision horizontal box. Slyboots implementation."
+
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	keywords: "container, horizontal. box"
@@ -21,6 +21,7 @@ inherit
 		
 	EV_BOX_IMP
 		redefine
+			make,
 			interface
 		end
 
@@ -29,18 +30,19 @@ create
 
 feature {NONE} -- Initialization
 	
---	old_make (an_interface: like interface) is
---			-- Create a Slyboots horizontal box.
---		do	
+	make
+			-- Create a horizontal box.
+		do	
 --			base_make (an_interface)
---			create {SB_HORIZONTAL_FRAME} sb_widget.make_ev
---		end
+			create {SB_HORIZONTAL_FRAME} sb_widget.make_ev
+			Precursor {EV_BOX_IMP}
+		end
 
 feature {EV_ANY_I} -- Implementation
 
 	interface: EV_HORIZONTAL_BOX;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

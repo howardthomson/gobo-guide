@@ -20,6 +20,11 @@ inherit
 			interface
 		end
 
+	EV_ANY_IMP
+		redefine
+			interface
+		end
+	
 	EV_ITEM_ACTION_SEQUENCES_IMP
 
 	EV_PICK_AND_DROPABLE_ACTION_SEQUENCES_IMP
@@ -36,13 +41,13 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
-			-- Create a list item with an empty name.
-		do
-			base_make (an_interface)
-		end
+--	old_make (an_interface: like interface) is
+--			-- Create a list item with an empty name.
+--		do
+--			base_make (an_interface)
+--		end
 
-	initialize is
+	make is
 			-- Initialize `Current'
 		do
 			internal_text := once ""

@@ -394,16 +394,20 @@ print ("(a_parent_node.sb_item = Void) = "); print ((a_parent_node.sb_item = Voi
 			end
 		--	a_parent_tree.set_text_on_position (Current, text)
 			sb_item.set_text (text)
+print ("EV_TREE_NODE_IMP -- 0 %N")
 			a_parent_tree.update_row_pixmap (Current)
+print ("EV_TREE_NODE_IMP -- 1 %N")
 			from
 				i := 1
 			until
 				i > child_array.count
 			loop
+print ("EV_TREE_NODE_IMP -- 2 %N")
 				item_imp ?= (child_array @ i).implementation
 				item_imp.add_item_and_children_to_parent_tree (a_parent_tree, Current, i)
 				i := i + 1
 			end
+print ("EV_TREE_NODE_IMP -- 3 %N")
 		end
 
 feature {EV_TREE_IMP, EV_TREE_NODE_IMP} -- Implementation
@@ -530,6 +534,7 @@ feature {EV_TREE_IMP, EV_TREE_NODE_IMP} -- Implementation
 			l_parent_tree_imp: EV_TREE_IMP
 		do
 print ("EV_TREE_NODE_IMP::insert_i_th ...%N")
+if false then
 			item_imp ?= v.implementation
 			item_imp.set_parent_imp (Current)
 			child_array.go_i_th (i)
@@ -553,6 +558,7 @@ print ("EV_TREE_NODE_IMP::insert_i_th ...%N")
 					expand_actions_internal.resume
 				end
 			end
+end
 		end
 
 	remove_i_th (a_position: INTEGER) is

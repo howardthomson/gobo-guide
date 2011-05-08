@@ -23,7 +23,7 @@ inherit
 		--	needs_event_box,
 			on_key_event,
 			set_minimum_width_in_characters,
-			initialize
+--			initialize
 		end
 
 	EV_FONTABLE_IMP
@@ -51,32 +51,19 @@ feature {NONE} -- Initialization
 			Result := True
 		end
 
-	make (an_interface: like interface) is
-			-- Create a gtk entry.
-		local
-			a_vbox: POINTER
-		do
-			base_make (an_interface)
-		--	TODO
-			set_text (once "")
-		end
-
-	initialize
+	make
 			-- Initialize `Current'.
 		do
 			align_text_left
-			Precursor
+--			Precursor
 		end
 
 feature -- Access
 
 	text: STRING_32 is
 			-- Text displayed in field.
-		local
-	--		a_cs: EV_GTK_C_STRING
 		do
-	--		create a_cs.share_from_pointer ({EV_GTK_EXTERNALS}.gtk_entry_get_text (entry_widget))
-	--		Result := a_cs.string
+			TODO_class_line ("EV_TEXT_FIELD_IMP::text", "__LINE__")
 		end
 
 feature -- Status setting
@@ -84,55 +71,52 @@ feature -- Status setting
 	set_minimum_width_in_characters (nb: INTEGER) is
 			-- Make `nb' characters visible on one line.
 		do
-	--		{EV_GTK_EXTERNALS}.gtk_widget_set_minimum_size (entry_widget, (nb + 1) * maximum_character_width, -1)
+			TODO_class_line ("EV_TEXT_FIELD_IMP::set_minimum_width_in_characters", "__LINE__")
 		end
 
 	set_text (a_text: STRING_GENERAL) is
 			-- Assign `a_text' to `text'.
 		do
-			-- TODO
+			TODO_class_line ("EV_TEXT_FIELD_IMP::set_text", "__LINE__")
 			on_change_actions
 		end
 
 	append_text (a_text: STRING_GENERAL) is
 			-- Append `a_text' to the end of the text.
 		do
-		--	TODO
+			TODO_class_line ("EV_TEXT_FIELD_IMP::append_text", "__LINE__")
 			on_change_actions
 		end
 
 	prepend_text (a_text: STRING_GENERAL) is
 			-- Prepend `a_text' to the end of the text.
 		do
-		--	TODO	
+			TODO_class_line ("EV_TEXT_FIELD_IMP::prepend_text", "__LINE__")
 			on_change_actions
 		end
 
-	set_capacity (len: INTEGER) is
+	set_capacity (a_capacity: INTEGER) is
 			-- Set the maximum number of characters that `Current' can hold to `len'.
 		do
-	--		{EV_GTK_DEPENDENT_EXTERNALS}.gtk_entry_set_max_length (entry_widget, len)
+			TODO_class_line ("EV_TEXT_FIELD_IMP::set_capacity", "__LINE__")
 		end
 
 	align_text_left
 			-- Make text left aligned.
 		do
-			text_alignment := {EV_TEXT_ALIGNMENT_CONSTANTS}.ev_text_alignment_left
-	--		{EV_GTK_EXTERNALS}.gtk_entry_set_alignment (entry_widget, 0.0)
+			TODO_class_line ("EV_TEXT_FIELD_IMP::align_text_left", "__LINE__")
 		end
 
 	align_text_right
 			-- Make text right aligned.
 		do
-			text_alignment := {EV_TEXT_ALIGNMENT_CONSTANTS}.ev_text_alignment_right
---			{EV_GTK_EXTERNALS}.gtk_entry_set_alignment (entry_widget, 1.0)
+			TODO_class_line ("EV_TEXT_FIELD_IMP::align_text_right", "__LINE__")
 		end
 
 	align_text_center
 			-- Make text center aligned.
 		do
-			text_alignment := {EV_TEXT_ALIGNMENT_CONSTANTS}.ev_text_alignment_center
-	--		{EV_GTK_EXTERNALS}.gtk_entry_set_alignment (entry_widget, 0.5)
+			TODO_class_line ("EV_TEXT_FIELD_IMP::align_text_center", "__LINE__")
 		end
 
 feature -- Status Report
@@ -143,14 +127,14 @@ feature -- Status Report
 	caret_position: INTEGER is
 			-- Current position of the caret.
 		do
-	--		Result := {EV_GTK_EXTERNALS}.gtk_editable_get_position (entry_widget) + 1
+			TODO_class_line ("EV_TEXT_FIELD_IMP::caret_position", "__LINE__")
 		end
 
 	capacity: INTEGER is
 			-- Return the maximum number of characters that the
 			-- user may enter.
 		do
-	--		Result := {EV_GTK_EXTERNALS}.gtk_entry_struct_text_max_length (entry_widget)
+			TODO_class_line ("EV_TEXT_FIELD_IMP::capacity", "__LINE__")
 		end
 
 feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation

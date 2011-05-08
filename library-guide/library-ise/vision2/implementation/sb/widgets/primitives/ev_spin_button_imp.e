@@ -1,9 +1,11 @@
-indexing
-	description: "Eiffel Vision spin button. GTK+ Implementation."
+note
+
+		description: "Eiffel Vision spin button. Slyboots Implementation."
+
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
-	date: "$Date: 2006-08-25 12:15:40 -0700 (Fri, 25 Aug 2006) $"
-	revision: "$Revision: 62970 $"
+	date: "$Date$"
+	revision: "$Revision$"
 
 class
 	EV_SPIN_BUTTON_IMP
@@ -43,23 +45,15 @@ create
 
 feature {NONE} -- Implementation
 
-	make (an_interface: like interface) is
-			-- Create the spin button.
-		local
-			a_vbox: POINTER
-		do
-			Precursor {EV_GAUGE_IMP} (an_interface)
-	--		a_vbox := {EV_GTK_EXTERNALS}.gtk_vbox_new (False, 0)
-	--		set_c_object (a_vbox)
-	--		entry_widget := {EV_GTK_EXTERNALS}.gtk_spin_button_new (adjustment, 0, 0)
-	--		{EV_GTK_EXTERNALS}.gtk_widget_show (entry_widget)
-	--		{EV_GTK_EXTERNALS}.gtk_box_pack_start (a_vbox, entry_widget, False, False, 0)
-		end
-
-	initialize is
+	make is
 		do
 			Precursor {EV_TEXT_FIELD_IMP}
 			ev_gauge_imp_initialize --| {EV_GAUGE} Precursor
+		end
+
+	initialize
+		do
+			TODO_class_line ("EV_SPIN_BUTTON_IMP::initialize", "__LINE__")
 		end
 
 feature {NONE} -- Implementation
@@ -76,7 +70,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_SPIN_BUTTON;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

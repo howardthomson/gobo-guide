@@ -17,23 +17,16 @@ inherit
 	EV_PRIMITIVE_IMP
 		redefine
 			interface,
-			initialize
+--			initialize
 		end
 
 	EV_GAUGE_ACTION_SEQUENCES_IMP
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
-			-- Create the horizontal scroll bar.
+	make is
 		do
-			base_make (an_interface)
-	--		adjustment := {EV_GTK_EXTERNALS}.gtk_adjustment_new (0.0, 0.0, 100.0, 1.0, 10.0, 0.0)
-		end
-
-	initialize is
-		do
-			Precursor {EV_PRIMITIVE_IMP}
+--			Precursor {EV_PRIMITIVE_IMP}
 			ev_gauge_imp_initialize
 		end
 
@@ -45,12 +38,6 @@ feature {NONE} -- Initialization
 		do
 			create value_range.make (0, 100)
 			value_range.change_actions.extend (agent set_range)
-	--		real_signal_connect (
-	--			adjustment,
-	--			once "value-changed",
-	--			agent (App_implementation.gtk_marshal).on_gauge_value_changed_intermediary (c_object),
-	--			Void
-	--		)
 			set_range
 		end
 

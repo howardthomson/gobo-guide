@@ -49,7 +49,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 			-- Horizontal offset relative to parent `x_position'.
 			-- Unit of measurement: screen pixels.
 		do
-			-- TODO
+			Result := sb_widget.x_pos
 			Result := Result.max (0)
 		end
 
@@ -57,7 +57,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 			-- Vertical offset relative to parent `y_position'.
 			-- Unit of measurement: screen pixels.
 		do
-			-- TODO
+			Result := sb_widget.y_pos
 			Result := Result.max (0)
 		end
 
@@ -88,10 +88,11 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 		do
 			if a_pointer /= pointer_style then
 				pointer_style := a_pointer
-				if is_displayed or else previous_gdk_cursor /= default_pointer then
-					internal_set_pointer_style (a_pointer)
-						-- `internal_set_pointer_style' will get called in `on_widget_mapped'
-				end
+				TODO_class_line ("EV_SB_WIDGET_IMP::set_pointer_style", "__LINE__")
+--				if is_displayed or else previous_gdk_cursor /= default_pointer then
+--					internal_set_pointer_style (a_pointer)
+--						-- `internal_set_pointer_style' will get called in `on_widget_mapped'
+--				end
 			end
 		end
 
@@ -107,9 +108,6 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 			-- TODO
 --			previous_gdk_cursor := a_cursor_ptr
 		end
-
---	previous_gdk_cursor: POINTER
-			-- Pointer to the previously create GdkCursor.
 
 	pointer_style: EV_POINTER_STYLE
 			-- Cursor displayed when the pointer is over this widget.
@@ -232,8 +230,5 @@ indexing
 			 Website http://www.eiffel.com
 			 Customer support http://support.eiffel.com
 		]"
-
-
-
 
 end -- class EV_SB_WIDGET_IMP
