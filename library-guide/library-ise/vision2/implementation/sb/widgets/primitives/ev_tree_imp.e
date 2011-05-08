@@ -21,6 +21,7 @@ inherit
 
 	EV_PRIMITIVE_IMP
 		redefine
+			make,
 			sb_widget,
 			interface,
 			initialize,
@@ -39,6 +40,7 @@ inherit
 
 	EV_ITEM_LIST_IMP [EV_TREE_NODE]
 		redefine
+			make,
 			interface,
 			insert_i_th,
 			remove_i_th,
@@ -71,16 +73,15 @@ feature {NONE} -- Initialization
 	make
 		do
 			create {SB_TREE_LIST} sb_widget.make_ev
-			initialize
-				-- TODO
+
+			Precursor {EV_ITEM_LIST_IMP}
+			Precursor {EV_PRIMITIVE_IMP}
+			Precursor {EV_TREE_I}
 			initialize_pixmaps
 		end
 
 	initialize
 		do
-			Precursor {EV_ITEM_LIST_IMP}
---			Precursor {EV_PRIMITIVE_IMP}
---			Precursor {EV_TREE_I}
 		end
 
 	call_selection_action_sequences is

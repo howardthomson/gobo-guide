@@ -19,6 +19,7 @@ inherit
 			{EV_TREE_IMP}
 				child_array
 		redefine
+			make,
 			interface
 		end
 

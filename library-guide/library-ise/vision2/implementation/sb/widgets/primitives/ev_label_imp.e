@@ -19,6 +19,7 @@ inherit
 
 	EV_PRIMITIVE_IMP
 		redefine
+			make,
 			interface,
 			sb_widget
 		end

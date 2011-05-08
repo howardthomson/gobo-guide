@@ -27,6 +27,7 @@ inherit
 
 	EV_PRIMITIVE_IMP
 		redefine
+			make,
 			disable_transport,
 			pre_pick_steps,
 			call_pebble_function,
@@ -46,6 +47,7 @@ inherit
 
 	EV_ITEM_LIST_IMP [EV_MULTI_COLUMN_LIST_ROW]
 		redefine
+			make,
 			i_th,
 			count,
 			insert_i_th,

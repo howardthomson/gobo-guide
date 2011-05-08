@@ -19,11 +19,16 @@ inherit
 
 feature -- Initialization
 
-	initialize is
+	make
 			-- Initialize the dynamic list.
 		do
 			create child_array.make (0)
 			set_is_initialized (True)
+		end
+
+	initialize is
+			-- Initialize the dynamic list.
+		do
 		end
 
 feature -- Access

@@ -21,6 +21,7 @@ inherit
 
 	EV_MENU_ITEM_LIST_IMP
 		redefine
+			make,
 			interface
 		end
 

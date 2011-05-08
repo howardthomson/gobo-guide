@@ -17,6 +17,7 @@ inherit
 
 	EV_TEXT_COMPONENT_IMP
 		redefine
+			make,
 			interface,
 		--	visual_widget,
 			create_change_actions,

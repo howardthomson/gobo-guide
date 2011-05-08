@@ -18,6 +18,7 @@ inherit
 		undefine
 			parent
 		redefine
+			make,
 			interface,
 			initialize,
 			on_activate,
@@ -27,6 +28,7 @@ inherit
 
 	EV_MENU_ITEM_LIST_IMP
 		redefine
+			make,
 			interface,
 			initialize,
 			destroy
@@ -36,6 +38,10 @@ create
 	make
 
 feature {NONE} -- Initialization
+
+	make
+		do
+		end
 
 	initialize is
 		do

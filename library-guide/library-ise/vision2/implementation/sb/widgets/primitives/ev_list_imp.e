@@ -21,6 +21,7 @@ inherit
 
 	EV_LIST_ITEM_LIST_IMP
 		redefine
+			make,
 			interface,
 --			visual_widget,
 			initialize,

@@ -39,6 +39,7 @@ inherit
 			set_foreground_color,
 			set_background_color
 		redefine
+			make,
 			sb_pixmap_window,
 			interface,
 			width,

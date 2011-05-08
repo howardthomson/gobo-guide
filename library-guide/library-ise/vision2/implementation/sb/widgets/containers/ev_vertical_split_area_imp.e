@@ -20,6 +20,7 @@ inherit
 
 	EV_SPLIT_AREA_IMP
 		redefine
+			make,
 			interface
 		end
 

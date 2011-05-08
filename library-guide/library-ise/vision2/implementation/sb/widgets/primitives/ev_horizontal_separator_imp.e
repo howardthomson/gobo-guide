@@ -17,6 +17,7 @@ inherit
 
 	EV_SEPARATOR_IMP
 		redefine
+			make,
 			interface
 		end
 

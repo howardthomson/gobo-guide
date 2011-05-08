@@ -20,6 +20,7 @@ inherit
 
 	EV_CONTAINER_IMP
 		redefine
+			make,
 			interface,
 			replace
 		end

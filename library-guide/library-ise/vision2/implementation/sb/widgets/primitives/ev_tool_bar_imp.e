@@ -18,6 +18,7 @@ inherit
 		undefine
 			update_for_pick_and_drop
 		redefine
+			make,
 			interface,
 			initialize,
 	--		needs_event_box,
@@ -28,6 +29,7 @@ inherit
 		undefine
 			item_by_data
 		redefine
+			make,
 			interface,
 			insert_i_th,
 			initialize

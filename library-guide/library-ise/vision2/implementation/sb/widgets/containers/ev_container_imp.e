@@ -21,6 +21,7 @@ inherit
 
 	EV_WIDGET_IMP
 		redefine
+			make,
 			interface,
 			initialize,
 			destroy,
@@ -32,6 +33,10 @@ inherit
 	PLATFORM
 
 feature {NONE} -- Initialization
+
+	make
+		do
+		end
 
 	initialize is
 			-- Create `shared_pointer' for radio groups.

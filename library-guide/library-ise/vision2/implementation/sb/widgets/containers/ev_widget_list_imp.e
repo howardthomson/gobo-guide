@@ -25,6 +25,7 @@ inherit
 			replace,
 			interface_item
 		redefine
+			make,
 			interface,
 --			initialize
 		end
@@ -34,6 +35,7 @@ inherit
 			extend,
 			initialize
 		redefine
+			make,
 			interface,
 		end
 
@@ -42,8 +44,8 @@ feature {NONE} -- Initialization
 	make is
 			-- Initialize `Current'
 		do
---			Precursor {EV_CONTAINER_IMP}
---			Precursor {EV_DYNAMIC_LIST_IMP}
+			Precursor {EV_CONTAINER_IMP}
+			Precursor {EV_DYNAMIC_LIST_IMP}
 		end
 
 feature {NONE} -- Implementation

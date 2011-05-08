@@ -50,6 +50,10 @@ inherit
 
 feature {NONE} -- Initialization
 
+	make
+		do
+		end
+
 	initialize is
 			-- Show non window widgets.
 			-- Initialize default options, colors and sizes.

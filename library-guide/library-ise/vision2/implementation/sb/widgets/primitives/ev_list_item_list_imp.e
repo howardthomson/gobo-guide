@@ -17,6 +17,7 @@ inherit
 
 	EV_PRIMITIVE_IMP
 		redefine
+			make,
 			call_pebble_function,
 			initialize,
 			interface,
@@ -25,6 +26,7 @@ inherit
 
 	EV_ITEM_LIST_IMP [EV_LIST_ITEM]
 		redefine
+			make,
 			interface,
 			insert_i_th,
 			remove_i_th,
@@ -39,13 +41,17 @@ inherit
 
 feature {NONE} -- Initialization
 
-	initialize is
+	make
 			-- Set up `Current'
 		do
 			Precursor {EV_ITEM_LIST_IMP}
 			Precursor {EV_PRIMITIVE_IMP}
 			initialize_pixmaps
 			initialize_model
+		end
+
+	initialize
+		do
 		end
 
 	initialize_model is

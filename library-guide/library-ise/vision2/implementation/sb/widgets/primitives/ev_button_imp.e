@@ -20,6 +20,7 @@ inherit
 		rename
 			sb_widget as sb_button
 		redefine
+			make,
 			sb_button,
 			interface,
 --			initialize,

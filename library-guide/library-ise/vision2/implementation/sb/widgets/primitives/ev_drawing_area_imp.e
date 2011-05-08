@@ -27,6 +27,7 @@ inherit
 			set_foreground_color,
 			set_background_color
 		redefine
+			make,
 			interface,
 			dispose,
 			destroy,

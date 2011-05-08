@@ -16,6 +16,7 @@ inherit
 
 	EV_PRIMITIVE_IMP
 		redefine
+			make,
 			interface,
 --			initialize
 		end
