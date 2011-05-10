@@ -20,7 +20,8 @@ inherit
 				child_array
 		redefine
 			make,
-			interface
+			interface,
+			dispose
 		end
 
 	EV_ITEM_ACTION_SEQUENCES_IMP
@@ -52,16 +53,11 @@ feature {NONE} -- Initialization
 			set_is_destroyed (True)
 		end
 
-	old_make (an_interface: like interface) is
-			-- Create the tree item.
-		do
-			assign_interface (an_interface)
-		end
-
-	make
+	frozen make
 		do
 			internal_text := once "TEST"
 			create {SB_TREE_LIST_ITEM} sb_item.make_empty
+			Precursor {EV_ITEM_LIST_IMP}
 		end
 
 feature -- Status report

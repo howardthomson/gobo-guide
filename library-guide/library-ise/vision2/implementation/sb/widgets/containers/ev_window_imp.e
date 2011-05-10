@@ -49,6 +49,7 @@ inherit
 			initialize,
 			parent_imp
 		redefine
+			make,
 			interface,
 			has_focus,
 			show,

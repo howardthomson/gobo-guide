@@ -14,7 +14,6 @@ inherit
 		redefine
 			interface,
 			make,
---			initialize,
 			call_pebble_function,
 			append
 		end
@@ -70,7 +69,7 @@ feature {NONE} -- Initialization
 			Result := True
 		end
 
-	make
+	frozen make
 		do
 			create {SB_TREE_LIST} sb_widget.make_ev
 
@@ -457,7 +456,7 @@ feature {NONE} -- Implementation
 			child_array.go_i_th (i)
 			child_array.put_left (v)
 
---			item_imp.add_item_and_children_to_parent_tree (Current, Void, i)
+			item_imp.add_item_and_children_to_parent_tree (Current, Void, i)
 			update_row_pixmap (item_imp)
 
 			if item_imp.is_transport_enabled_iterator then
@@ -522,9 +521,6 @@ feature {NONE} -- Implementation
 		end
 
 feature {EV_ANY_I} -- Implementation
-
-	scrollable_area: POINTER
-		-- Pointer to the GtkScrolledWindow widget used for scrolling the tree view
 
 	interface: EV_TREE;
 

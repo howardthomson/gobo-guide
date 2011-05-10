@@ -24,7 +24,6 @@ inherit
 			make,
 			interface,
 			insert_text,
-		--	initialize,
 			create_change_actions,
 			dispose,
 			text_length,
@@ -41,13 +40,6 @@ create
 
 feature {NONE} -- Initialization
 
---	old_make (an_interface: like interface) is
---			-- Create a gtk text view.
---		do
---			base_make (an_interface)
---			create {SB_TEXT_FIELD} sb_widget.make_ev
---		end
-
 	create_change_actions: EV_NOTIFY_ACTION_SEQUENCE is
 			-- Hook up the change actions for the text widget
 		do
@@ -61,7 +53,7 @@ feature {NONE} -- Initialization
 			enable_word_wrapping
 			set_editable (True)
 			set_background_color ((create {EV_STOCK_COLORS}).white)
---			Precursor {EV_TEXT_COMPONENT_IMP}
+			Precursor {EV_TEXT_COMPONENT_IMP}
 		end
 
 feature -- Access

@@ -23,6 +23,7 @@ inherit
 
 	EV_PICK_AND_DROPABLE_IMP
 		redefine
+			make,
 			interface,
 			initialize,
 			call_button_event_actions,
@@ -52,6 +53,8 @@ feature {NONE} -- Initialization
 
 	make
 		do
+			Precursor {EV_PICK_AND_DROPABLE_IMP}
+			set_is_initialized (True)
 		end
 
 	initialize is
@@ -59,8 +62,6 @@ feature {NONE} -- Initialization
 			-- Initialize default options, colors and sizes.
 			-- Connect action sequences to Slyboots events.
 		do
-			Precursor {EV_PICK_AND_DROPABLE_IMP}
-			set_is_initialized (True)
 		end
 
 feature {EV_WINDOW_IMP, EV_INTERMEDIARY_ROUTINES, EV_ANY_I, EV_APPLICATION_IMP} -- Implementation

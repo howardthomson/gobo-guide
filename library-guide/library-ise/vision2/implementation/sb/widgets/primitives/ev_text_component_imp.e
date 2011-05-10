@@ -16,8 +16,8 @@ inherit
 
 	EV_PRIMITIVE_IMP
 		redefine
-			interface,
-			initialize
+			make,
+			interface
 		end
 
 	EV_TEXT_COMPONENT_ACTION_SEQUENCES_IMP
@@ -27,7 +27,7 @@ inherit
 
 feature -- Initialization
 
-	initialize is
+	make
 			-- Initialize `Current'.
 		do
 				-- Set default width to 4 characters, as on Windows.

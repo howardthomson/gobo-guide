@@ -212,13 +212,17 @@ feature -- Resource management
    create_resource is
       do
          Precursor
-         if closed_icon /= Void then closed_icon.create_resource end
+         if closed_icon /= Void then
+         	closed_icon.create_resource
+         end
       end
 
    detach_resource is
       do
-         Precursor;
-         if closed_icon /= Void then closed_icon.detach_resource; end
+         Precursor
+         if closed_icon /= Void then
+         	closed_icon.detach_resource
+         end
       end
 
 feature {SB_GENERIC_TREE_LIST}

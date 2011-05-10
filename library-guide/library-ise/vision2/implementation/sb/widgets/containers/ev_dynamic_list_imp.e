@@ -17,6 +17,11 @@ inherit
 			interface
 		end
 
+	EV_ANY_IMP
+		redefine
+			interface
+		end
+
 feature -- Initialization
 
 	make

@@ -23,6 +23,7 @@ inherit
 
 	EV_ITEM_IMP
 		redefine
+			make,
 			interface,
 --			initialize
 		end

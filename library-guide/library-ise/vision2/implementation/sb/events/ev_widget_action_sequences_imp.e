@@ -125,26 +125,14 @@ feature -- Event handling
 
 feature {EV_ANY_I} -- Implementation
 
---	internal_id: INTEGER
---		deferred
---		end
-
 	app_implementation: EV_APPLICATION_IMP
 		deferred
 		end
 
---	visual_widget: POINTER
+--	event_widget: POINTER is
+--			-- Pointer to the gtk event widget
 --		deferred
 --		end
-
---	c_object: POINTER
---		deferred
---		end
-
-	event_widget: POINTER is
-			-- Pointer to the gtk event widget
-		deferred
-		end
 
 indexing
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"

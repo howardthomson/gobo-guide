@@ -1,7 +1,7 @@
-indexing
-	description:
-		"EiffelVision2 Toolbar button,%
+note
+	description: "EiffelVision2 Toolbar button,%
 		%a specific button that goes in a tool-bar."
+
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2007-03-22 16:17:43 -0800 (Thu, 22 Mar 2007) $"
@@ -22,11 +22,9 @@ inherit
 		undefine
 			update_for_pick_and_drop
 		redefine
+			make,
 			interface,
---			initialize,
-			event_widget,
-			set_pixmap	--,
-	--		needs_event_box
+			set_pixmap
 		end
 
 	EV_DOCKABLE_SOURCE_IMP
@@ -62,13 +60,6 @@ create
 
 feature {NONE} -- Initialization
 
---	old_make (an_interface: like interface)
---			-- Create the tool bar button.
---		do
---			assign_interface (an_interface)
---			set_c_object ({EV_GTK_EXTERNALS}.gtk_tool_button_new (NULL, NULL))
---		end
-
 	make
 			-- Initialization of button box and events.
 		do
@@ -76,12 +67,6 @@ feature {NONE} -- Initialization
 			pixmapable_imp_initialize
 			-- TODO ...
 			set_is_initialized (True)
-		end
-
-	event_widget: POINTER is
-			-- Pointer to the Gtk widget that handles the events
-		do
---			Result := {EV_GTK_EXTERNALS}.gtk_widget_struct_parent (pixmap_box)
 		end
 
 feature -- Access
@@ -230,7 +215,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Implementation
 		end
 
 	in_select_actions_call: BOOLEAN
-		-- Is `Current' in the process of having its select actions called
+		-- Is `Current' in the process of having its select actions called ?
 
 feature {EV_ANY_I, EV_GTK_CALLBACK_MARSHAL} -- Implementation
 
@@ -252,7 +237,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_TOOL_BAR_BUTTON;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[
@@ -262,9 +247,6 @@ indexing
 			 Website http://www.eiffel.com
 			 Customer support http://support.eiffel.com
 		]"
-
-
-
 
 end -- class EV_TOOL_BAR_BUTTON_IMP
 

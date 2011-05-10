@@ -44,7 +44,6 @@ feature {NONE}
 
 	frozen old_make (an_interface: like interface)
 		do
---			assign_interface (an_interface)
 			TODO_class_line ("EV_ANY_IMP::old_make -- make redundant ...", "__LINE__")
 		end			
 

@@ -18,8 +18,9 @@ inherit
 
 	EV_WIDGET_IMP
 		redefine
-			interface,
-			initialize
+			make,
+			interface
+
 		end
 
 	EV_TOOLTIPABLE_IMP
@@ -29,7 +30,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	initialize
+	make
 			-- Initialize `Current'.
 		do
 			Precursor {EV_WIDGET_IMP}

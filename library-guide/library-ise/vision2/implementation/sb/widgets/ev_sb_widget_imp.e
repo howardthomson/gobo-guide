@@ -1,5 +1,7 @@
-indexing
+note
+
 	description: "Objects that ..."
+
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	author: ""
@@ -18,11 +20,16 @@ feature {EV_SB_WIDGET_IMP, EV_TREE_NODE_IMP, EV_ANY, EV_ANY_I} -- Implementation
 
 feature {NONE} -- Implementation
 
-	initialize is
+	make
 			-- Initialize `sb_widget'.
 			-- Redefine in descendants, if necessary
 		do
 			set_is_initialized (True)
+		end
+
+
+	initialize is
+		do
 		end
 
 feature {EV_ANY_I} -- Position retrieval
@@ -31,7 +38,7 @@ feature {EV_ANY_I} -- Position retrieval
 			-- Horizontal position of the client area on screen,
 		do
 			if is_displayed then
-				-- TODO
+				TODO_class_line ("EV_SB_WIDGET_IMP::screen_x", "__LINE__")
 			end
 		end
 
@@ -39,7 +46,7 @@ feature {EV_ANY_I} -- Position retrieval
 			-- Vertical position of the client area on screen,
 		do
 			if is_displayed then
-				-- TODO
+				TODO_class_line ("EV_SB_WIDGET_IMP::screen_y", "__LINE__")
 			end
 		end
 
@@ -216,9 +223,9 @@ feature {EV_ANY_I} -- Implementation
 			end
 		end
 
-	event_widget: POINTER is	-- ???
-		do
-		end
+--	event_widget: POINTER is	-- ???
+--		do
+--		end
 
 indexing
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
