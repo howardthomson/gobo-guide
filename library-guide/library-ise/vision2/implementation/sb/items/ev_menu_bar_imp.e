@@ -1,5 +1,5 @@
-indexing
-	description: "Eiffel Vision menu bar. GTK+ implementation."
+note
+	description: "Eiffel Vision menu bar. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2006-12-29 15:13:47 -0800 (Fri, 29 Dec 2006) $"
@@ -39,11 +39,6 @@ feature {NONE} -- Implementation Attributes
 
 feature {NONE} -- Initialization
 
---	old_make (an_interface: like interface) is
---		do
---			assign_interface (an_interface)
---		end
-
 	make
 		do
 			create {SB_MENU_BAR} sb_widget.make_ev
@@ -54,11 +49,13 @@ feature -- Measurement
 	x_position: INTEGER is
 			-- Horizontal offset relative to parent `x_position' in pixels.
 		do
+			TODO_class_line ("EV_MENU_BAR_IMP::x_position", "__LINE__")
 		end
 
 	y_position: INTEGER is
 			-- Vertical offset relative to parent `y_position' in pixels.
 		do
+			TODO_class_line ("EV_MENU_BAR_IMP::y_position", "__LINE__")
 		end
 
 	screen_x: INTEGER is
@@ -127,7 +124,7 @@ feature {NONE} -- Implementation
 		do
 		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

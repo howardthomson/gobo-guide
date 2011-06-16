@@ -70,17 +70,16 @@ feature -- Actions: Split key
 
 feature
 
-	process_event (an_event: SB_EVENT): BOOLEAN is
+	process_event (an_event: SB_EVENT)
 		do
-			Result := handle_2 (an_event.event_originator, an_event.type, an_event.event_id, an_event.data)
+			handled := handle_2 (an_event.event_originator, an_event.type, an_event.event_id, an_event.data)
 		end
-
---	handle_2 (sender: SB_MESSAGE_HANDLER; cmd, id: INTEGER; data: ANY): BOOLEAN is
---		deferred
---		end
 
 	message_target: SB_MESSAGE_HANDLER
     		-- Message target object
+
+	handled: BOOLEAN
+			-- Was the last event 'handled' ?
 
 feature
 

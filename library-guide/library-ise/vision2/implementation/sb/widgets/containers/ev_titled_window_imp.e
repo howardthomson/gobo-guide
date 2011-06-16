@@ -25,6 +25,7 @@ inherit
 			sb_window,
 			interface,
 			make,
+			create_sb_window,
 			default_wm_decorations,
 			is_displayed,
 			call_window_state_event
@@ -44,7 +45,11 @@ feature {NONE} -- Initialization
 	make
 			-- Create the titled window.
 		do
-	--		Precursor
+			Precursor
+		end
+
+	create_sb_window
+		do
 			create {SB_TOP_WINDOW} sb_window.make_top_title (app_implementation.sb_application, once "Default Title")
 		end
 

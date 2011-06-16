@@ -287,19 +287,18 @@ feature -- Timers implementation
 		local
 			t: SB_TIMER
 		do
-			-- Handle all past due timers
+				-- Handle all past due timers
 			sus_time.make_from_now	-- Moved after blocking call in get_next_event
-
 			from
 				t := timers
 			until
 				t = Void or else not t.is_due (sus_time)
 			loop
-			--	fx_trace(0, <<"SB_APPLICATION::process_timers -- timer firing!">>)
 				timers := t.next
-				if t.target /= Void and then t.target.handle_2 (Current, Sel_timeout, t.message, event) then
-																								--   ^^^^ was event XXX
-			--		refresh
+				if t.target /= Void then
+					if event_timeout.process_with_id_and_event (t.message) then
+				--		refresh
+					end
 				end
 				t.set_next (free_timers)
 				free_timers := t
@@ -461,9 +460,8 @@ feature {NONE}
 					Result := ev
 			--	end
 
-			-- Repaints
+				-- Repaints
 			elseif repaints /= Void then
-		--		edp_trace.start(0, "SB_APPLICATION::get_next_event - processing repaint").done
 				Result := repaints
 				repaints := repaints.next
 
@@ -723,6 +721,7 @@ feature {SB_RAW_EVENT_DEF}
 			ev_configure: X_CONFIGURE_EVENT
 			b: BOOLEAN
 			s: STRING
+			l_event: SB_EVENT
 		do
 			window := find_window_with_id (ev.window)	-- re implement as: window := ev.window
 			if window /= Void then
@@ -732,10 +731,20 @@ feature {SB_RAW_EVENT_DEF}
 					-- Repaint event
 				when Graphics_expose, Expose then
 					ev_xexpose := ev.to_x_expose_event
+if true then					
+					l_event := event_paint
+					l_event.set_event_target (window)
+					l_event.set_rect_xywh (ev_xexpose.x, ev_xexpose.y, ev_xexpose.width, ev_xexpose.height)
+					l_event.set_synthetic (ev_xexpose.send_event)
+					l_event.set_data (l_event)
+					window.process_event (l_event)
+				--	l_event.process
+else
 					event.set_type (SEL_PAINT)
 					event.set_rect_xywh (ev_xexpose.x, ev_xexpose.y, ev_xexpose.width, ev_xexpose.height)
 					event.set_synthetic (ev_xexpose.send_event)
 					window.do_handle_2 (Current, SEL_PAINT, 0, event)
+end
 
 					-- Not interested in this event
 				when No_expose then

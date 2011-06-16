@@ -80,7 +80,7 @@ inherit
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_TREE_LIST"
 		end
@@ -98,7 +98,7 @@ feature -- Attributes
 
 feature -- Creation
 
-	make_ev is
+	make_ev
 		do
 			make (Void, 20, Void,0, Layout_fill_x | Layout_fill_y
 				 | Treelist_root_boxes
@@ -106,13 +106,13 @@ feature -- Creation
 				 | Treelist_boxes_item_opt)
 		end
 				 
-	make (p: SB_COMPOSITE; nvis: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER) is
+	make (p: SB_COMPOSITE; nvis: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER)
 			-- Construct a tree list with nvis visible_rows items; the tree list is initially is_empty
 		do
 			make_opts (p, nvis, tgt,sel, opts, 0,0,0,0)
 		end
 
-	make_opts (p: SB_COMPOSITE; nvis: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER; x,y, w,h: INTEGER) is
+	make_opts (p: SB_COMPOSITE; nvis: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER; x,y, w,h: INTEGER)
          -- Construct a list with nvis visible items; the list is initially is_empty
 		do
          	scroll_area_make_opts (p, opts, x,y,w,h)
@@ -136,7 +136,7 @@ feature -- Creation
 
 feature -- Queries
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       do
          if visible_rows /= 0 then
@@ -146,7 +146,7 @@ feature -- Queries
          end
       end
 
-   content_width: INTEGER is
+   content_width: INTEGER
          -- Compute and return content width
       do
          if (flags & Flag_recalc) /= 0 then
@@ -155,7 +155,7 @@ feature -- Queries
          Result := tree_width
       end
 
-   content_height: INTEGER is
+   content_height: INTEGER
          -- Return content height
       do
          if (flags & Flag_recalc) /= 0 then
@@ -164,13 +164,13 @@ feature -- Queries
          Result := tree_height
       end
 
-   get_list_style: INTEGER is
+   get_list_style: INTEGER
          -- Return list style
       do
          Result := (options & TREELIST_MASK);
       end
 
-   can_focus: BOOLEAN is
+   can_focus: BOOLEAN
          -- Tree List widget can receive focus
       once
          Result := True
@@ -178,7 +178,7 @@ feature -- Queries
 
 feature -- Actions
 
-	recalc is
+	recalc
 			-- Recalculate layout
 		local
 			void_g: G
@@ -188,21 +188,21 @@ feature -- Actions
 			cursor_item := void_g
 		end
 
-   set_focus is
+   set_focus
          -- Move the focus to this window
       do
          Precursor
          set_default (SB_TRUE)
       end
 
-   kill_focus is
+   kill_focus
          -- Remove the focus from this window
       do
          Precursor
          set_default(SB_MAYBE)
       end
 
-   set_visible_rows (a_nvis: INTEGER) is
+   set_visible_rows (a_nvis: INTEGER)
          -- Change number of visible_rows items
       local
          nvis: INTEGER
@@ -218,7 +218,7 @@ feature -- Actions
          end
       end
 
-   set_indent (in: INTEGER) is
+   set_indent (in: INTEGER)
          -- Change parent-child indent amount
       do
          if indent /= in then
@@ -227,7 +227,7 @@ feature -- Actions
          end
       end
 
-   set_line_color (clr: INTEGER) is
+   set_line_color (clr: INTEGER)
          -- Change line color
       do
          if clr /= line_color then
@@ -236,7 +236,7 @@ feature -- Actions
          end
       end
 
-   set_list_style (style: INTEGER) is
+   set_list_style (style: INTEGER)
          -- Change list style
       local
          opts: INTEGER
@@ -250,7 +250,7 @@ feature -- Actions
 
 feature -- Item queries
 
-   item_width (i: G): INTEGER is
+   item_width (i: G): INTEGER
          -- Return i width
       require
          valid_accessor (i)
@@ -258,7 +258,7 @@ feature -- Item queries
          Result := i.width (Current)
       end
 
-   item_height (i: G): INTEGER is
+   item_height (i: G): INTEGER
          -- Return i height
       require
          valid_accessor (i)
@@ -266,7 +266,7 @@ feature -- Item queries
          Result := i.height (Current)
       end
 
-   get_item_at (x, y: INTEGER): G is
+   get_item_at (x, y: INTEGER): G
          -- Get i at x,y, if any
       local 
          i: G
@@ -305,7 +305,7 @@ feature -- Item queries
          end
       end
 
-   find_item_by_name_opts (text: STRING; start: G; flgs: INTEGER): G is
+   find_item_by_name_opts (text: STRING; start: G; flgs: INTEGER): G
          -- Search items for i by name, starting from start i; the
          -- flags argument controls the search direction, and case sensitivity.
       local
@@ -412,7 +412,7 @@ feature -- Item queries
          end
       end
 
-   is_item_visible (i: G): BOOLEAN is
+   is_item_visible (i: G): BOOLEAN
          -- Return True if i is visible_rows
       require
          valid_accessor (i)
@@ -421,7 +421,7 @@ feature -- Item queries
          	and then pos_y + i.y < viewport_h
       end
 
-   item_hit (i: G; x_, y_: INTEGER): INTEGER is
+   item_hit (i: G; x_, y_: INTEGER): INTEGER
          -- Return i hit code: 0 outside, 1 icon, 2 text, 3 box
       local
          x,y,ix,iy,iw,ih,xh,yh: INTEGER
@@ -454,7 +454,7 @@ feature -- Item queries
 
 feature -- Item actions
 
-   add_item_first (p, i: G; notify: BOOLEAN) is
+   add_item_first (p, i: G; notify: BOOLEAN)
          -- Prepend new [possibly subclassed] i as first child of p
       require
          i /= Void
@@ -524,8 +524,7 @@ feature -- Item actions
          recalc
       end
 
-   create_item_first (p: G; text: STRING; oi, ci: SB_ICON; data: ANY; 
-                     notify: BOOLEAN): G is
+   create_item_first (p: G; text: STRING; oi, ci: SB_ICON; data: ANY; notify: BOOLEAN): G
          -- Prepend new i with given text and optional icon, and 
          -- user-data pointer as first child of p
       do
@@ -533,7 +532,7 @@ feature -- Item actions
          add_item_first (p, Result, notify)
       end
 
-	add_item_last (p, i: G; notify: BOOLEAN) is
+	add_item_last (p, i: G; notify: BOOLEAN)
     		-- Append new [possibly subclassed] i as first child of p
     	require
          	i /= Void
@@ -595,14 +594,14 @@ feature -- Item actions
          	recalc
 		end
 
-	create_item_last (p: G; text: STRING; oi, ci: SB_ICON; data: ANY; notify: BOOLEAN): G is
+	create_item_last (p: G; text: STRING; oi, ci: SB_ICON; data: ANY; notify: BOOLEAN): G
 			-- Append new i with given text and optional icon, and user-data pointer as first child of p
 		do
 			Result := create_item (text, oi, ci, data)
 			add_item_last (p, Result, notify)
 		end
 
-	add_item_after (other, i: G; notify: BOOLEAN) is
+	add_item_after (other, i: G; notify: BOOLEAN)
 			-- Append new [possibly subclassed] i after to other i
 		require         
 			other_not_void: other /= Void
@@ -632,8 +631,7 @@ feature -- Item actions
 			recalc
 		end
 
-   create_item_after (other: G; text: STRING; oi, ci: SB_ICON;
-                     data: ANY; notify: BOOLEAN): G is
+   create_item_after (other: G; text: STRING; oi, ci: SB_ICON; data: ANY; notify: BOOLEAN): G
          -- Append new i with given text and optional icon, and user-data pointer after to other 
          -- i
       do
@@ -641,7 +639,7 @@ feature -- Item actions
          add_item_after (other, Result, notify)
       end
 
-	add_item_before (other, i: G; notify: BOOLEAN) is
+	add_item_before (other, i: G; notify: BOOLEAN)
 			-- Prepend new [possibly subclassed] i prior to other i
 		require         
 			other_not_void: other /= Void
@@ -674,8 +672,7 @@ feature -- Item actions
          recalc
       end
 
-   create_item_before (other: G; text: STRING; oi, ci: SB_ICON; data: ANY;
-                      notify: BOOLEAN): G is
+   create_item_before (other: G; text: STRING; oi, ci: SB_ICON; data: ANY; notify: BOOLEAN): G
          -- Prepend new i with given text and optional icon, and 
          -- user-data pointer prior to other i
       do
@@ -683,13 +680,13 @@ feature -- Item actions
          add_item_before (other, Result, notify)
       end
 
-   remove_item(index: G) is
+   remove_item(index: G)
          -- Remove item from container
       do
          remove_item_notify (index, False)
       end
 
-   remove_item_notify(i: G; notify: BOOLEAN) is
+   remove_item_notify(i: G; notify: BOOLEAN)
          -- Remove i
       local
          f, l, olditem: G
@@ -779,7 +776,7 @@ feature -- Item actions
          end
       end
 
-   remove_items (fm, to: G; notify: BOOLEAN) is
+   remove_items (fm, to: G; notify: BOOLEAN)
          -- Remove items in range [fm, to] inclusively
       local
          i, fm_: G
@@ -802,13 +799,13 @@ feature -- Item actions
          end
       end
 
-   clear_items_notify (notify: BOOLEAN) is
+   clear_items_notify (notify: BOOLEAN)
          -- Remove all items from list
       do
          remove_items(first_item, last_item, notify)
       end
 
-   move_item_after (new_index, old_index: G) is
+   move_item_after (new_index, old_index: G)
          -- Remove item from container
       require
          valid_accessor(old_index)
@@ -817,7 +814,7 @@ feature -- Item actions
          move_item_after_notify (new_index, old_index, False)
       end
 
-   move_item_after_notify (other, moved: G; notify: BOOLEAN) is
+   move_item_after_notify (other, moved: G; notify: BOOLEAN)
          -- Move 'moved' item after other
       require
          valid_accessor (other)
@@ -849,7 +846,7 @@ feature -- Item actions
          end
       end
 
-   move_item_before_notify (other, moved: G; notify: BOOLEAN) is
+   move_item_before_notify (other, moved: G; notify: BOOLEAN)
          -- Move 'moved' item before other
       do
          -- Did it change?
@@ -880,7 +877,7 @@ feature -- Item actions
       end
 
 
-   make_item_visible (i: G) is
+   make_item_visible (i: G)
          -- Scroll to make i visible_rows
       local
          par: G
@@ -925,7 +922,7 @@ feature -- Item actions
          end
       end
 
-   set_item_closed_icon (i: G; icon: SB_ICON) is
+   set_item_closed_icon (i: G; icon: SB_ICON)
          -- Change items's closed icon
       require
          valid_accessor (i)
@@ -934,7 +931,7 @@ feature -- Item actions
          recalc
       end
 
-   update_item (i: G) is
+   update_item (i: G)
          -- Repaint i
       do
          if i /= Void then
@@ -942,7 +939,7 @@ feature -- Item actions
          end
       end
 
-   select_item (i: G; notify: BOOLEAN): BOOLEAN is
+   select_item (i: G; notify: BOOLEAN): BOOLEAN
          -- Select i
       local
          t: INTEGER
@@ -962,7 +959,7 @@ feature -- Item actions
       end
 
 
-   deselect_item (i: G; notify: BOOLEAN): BOOLEAN is
+   deselect_item (i: G; notify: BOOLEAN): BOOLEAN
          -- Deselect i
       local
          t: INTEGER
@@ -980,7 +977,7 @@ feature -- Item actions
          end
       end
 
-   toggle_item (i: G; notify: BOOLEAN): BOOLEAN is
+   toggle_item (i: G; notify: BOOLEAN): BOOLEAN
          -- Toggle i selection
       local
          t: INTEGER
@@ -1018,7 +1015,7 @@ feature -- Item actions
          Result := True
       end
 
-   open_item (i: G; notify: BOOLEAN) is
+   open_item (i: G; notify: BOOLEAN)
          -- Open i
       require
          valid_accessor(i)
@@ -1032,7 +1029,7 @@ feature -- Item actions
          end
       end
 
-   close_item (i: G; notify: BOOLEAN) is
+   close_item (i: G; notify: BOOLEAN)
          -- Close i
       require
          valid_accessor(i)
@@ -1046,14 +1043,14 @@ feature -- Item actions
          end
       end
 
-   do_collapse_tree (tree: G; notify: BOOLEAN) is
+   do_collapse_tree (tree: G; notify: BOOLEAN)
       local
          t: BOOLEAN;
       do
          t := collapse_tree(tree, notify);
       end
 
-   collapse_tree (tree: G; notify: BOOLEAN): BOOLEAN is
+   collapse_tree (tree: G; notify: BOOLEAN): BOOLEAN
          -- Collapse tree
       require
          tree /= Void
@@ -1075,14 +1072,14 @@ feature -- Item actions
          end
       end
 
-   do_expand_tree(tree: G; notify: BOOLEAN) is
+   do_expand_tree(tree: G; notify: BOOLEAN)
       local
          t: BOOLEAN
       do
          t := expand_tree (tree, notify)
       end
 
-   expand_tree (tree: G; notify: BOOLEAN): BOOLEAN is
+   expand_tree (tree: G; notify: BOOLEAN): BOOLEAN
          -- Expand tree
       require
          tree /= Void
@@ -1104,7 +1101,7 @@ feature -- Item actions
          end
       end
 
-   reparent_item (i, p: G) is
+   reparent_item (i, p: G)
          -- Reparent i under parent p
       require
          valid_accessor (i)
@@ -1148,7 +1145,7 @@ feature -- Item actions
          end
       end
 
-   set_current_item (i: G; notify: BOOLEAN) is
+   set_current_item (i: G; notify: BOOLEAN)
          -- Change current i
       do
          if i /= current_item then
@@ -1190,7 +1187,7 @@ feature -- Item actions
          end
       end
 
-   extend_selection (i: G; notify: BOOLEAN): BOOLEAN is
+   extend_selection (i: G; notify: BOOLEAN): BOOLEAN
          -- Extend selection from anchor_item i to i
       local
          it,i1,i2,i3: G
@@ -1265,7 +1262,7 @@ feature -- Item actions
          end
       end
 
-   kill_selection (notify: BOOLEAN): BOOLEAN is
+   kill_selection (notify: BOOLEAN): BOOLEAN
          -- Deselect all items
       local
          i: G
@@ -1289,7 +1286,7 @@ feature -- Sorting
 
    items_sorter: SB_LIST_SORTER [ G ]
 
-	sort_root_items is
+	sort_root_items
 			-- Sort root items
 		local
 			a: ARRAY [ G ]
@@ -1305,7 +1302,7 @@ feature -- Sorting
 			end
 		end
 
-   sort_child_items (i: G) is
+   sort_child_items (i: G)
          -- Sort children of i
       require
          valid_accessor(i)
@@ -1320,7 +1317,7 @@ feature -- Sorting
          if i.is_expanded then recalc end -- No need to recalc if it ain't visible!
       end
 
-	sort_recursive is
+	sort_recursive
 			-- Sort each node of tree
 		local
 			i: G
@@ -1337,13 +1334,13 @@ feature -- Sorting
 			end
 		end
 	
-	sort_recursive_at (i: G) is
+	sort_recursive_at (i: G)
 		do
 		end
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, selector: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, selector: INTEGER; data: ANY): BOOLEAN
       	do
          	if		match_function_2 (Sel_timeout,			ID_TIPTIMER,	type, selector) then Result := on_tip_timer 		(sender,selector,data)
          	elseif  match_function_2 (Sel_timeout,			ID_LOOKUPTIMER,	type, selector) then Result := on_lookup_timer 		(sender,selector,data)
@@ -1357,7 +1354,7 @@ feature -- Message processing
          	end
       	end
 
-	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	local
          	event: SB_EVENT
          	dc: SB_DC_WINDOW
@@ -1501,7 +1498,7 @@ feature -- Message processing
          	Result := True
 		end
 
-	on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			void_g: G
 		do
@@ -1513,7 +1510,7 @@ feature -- Message processing
 			Result := True
 		end
 
-	on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
    	  	local
    	  		void_g: G
       	do
@@ -1526,7 +1523,7 @@ feature -- Message processing
          	Result := True
       	end
 
-   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          unset_flags (Flag_dodrag | Flag_trydrag | Flag_pressed | Flag_changed | Flag_scrolling)
@@ -1535,7 +1532,7 @@ feature -- Message processing
          Result := True
       end
 
-	on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	local
          	event: SB_EVENT
          	flg: INTEGER
@@ -1601,7 +1598,7 @@ feature -- Message processing
          	end
       	end
 
-   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          i: G
@@ -1796,7 +1793,7 @@ feature -- Message processing
          end
       end
 
-   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
       do
@@ -1821,65 +1818,65 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
-         event: SB_EVENT;
-         code: INTEGER;
-         i: G;
-         t: INTEGER;
+         event: SB_EVENT
+         code: INTEGER
+         i: G
+         t: INTEGER
          do_update: BOOLEAN
       do
          event ?= data check event /= Void end
-         unset_flags (Flag_tip);
-         do_handle_2 (Current, SEL_FOCUS_SELF, 0, data);
+         unset_flags (Flag_tip)
+         do_handle_2 (Current, SEL_FOCUS_SELF, 0, data)
          if is_enabled then
-            Result := True;
-            grab_mouse;
-            unset_flags (Flag_update);
+            Result := True
+            grab_mouse
+            unset_flags (Flag_update)
             if message_target = Void 
                or else not message_target.handle_2 (Current, SEL_LEFTBUTTONPRESS, message, data)
                or else (options & TREELIST_AUTOSELECT) = 0
              then
-               -- Locate i
-               i := get_item_at (event.win_x, event.win_y);
+               	-- Locate i
+               i := get_item_at (event.win_x, event.win_y)
                if i /= Void then
-                  -- Find out where hit
-                  code := item_hit (i, event.win_x, event.win_y);
-                  -- Maybe clicked on box
+                  	-- Find out where hit
+                  code := item_hit (i, event.win_x, event.win_y)
+                  	-- Maybe clicked on box
                   if code = 3 then
                      if i.is_expanded then
-                        do_collapse_tree (i, True);
+                        do_collapse_tree (i, True)
                      else
-                        do_expand_tree (i, True);
+                        do_expand_tree (i, True)
                      end
                      do_update := True
                   else
                      	-- Change current_item i
                      set_current_item (i, True)
                      	-- Change i selection
-                     state := i.is_selected;
+                     state := i.is_selected
                      t := options & SELECT_MASK
                      if t = TREELIST_EXTENDEDSELECT then
                         if (event.state & SHIFTMASK) /= 0 then
                            if anchor_item /= Void then
                               if anchor_item.is_enabled then do_select_item (anchor_item, True) end
-                              do_extend_selection (i, True);
+                              do_extend_selection (i, True)
                            else
                               if i.is_enabled then do_select_item (i, True) end
                               set_anchor_item (i)
                            end
                         elseif (event.state & CONTROLMASK) /= 0 then
                            if i.is_enabled and then not state then do_select_item (i, True) end
-                           set_anchor_item(i)
+                           set_anchor_item (i)
                         else
                            if i.is_enabled and then not state then do_kill_selection (True); do_select_item (i, True); end
-                           set_anchor_item(i)
+                           set_anchor_item (i)
                         end
                      elseif t = TREELIST_MULTIPLESELECT or else t = TREELIST_SINGLESELECT then
                         if i.is_enabled and then not state then do_select_item (i, True) end
                      end
 
-                     -- Start drag if actually pressed text or icon only
+                     	-- Start drag if actually pressed text or icon only
                      if code /= 0 and then i.is_selected and then i.is_draggable then
                         flags := flags | Flag_trydrag
                      end
@@ -1894,7 +1891,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          code: INTEGER
@@ -1959,7 +1956,7 @@ feature -- Message processing
          end
       end
 
-	on_right_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_right_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			event: SB_EVENT
 		do
@@ -1980,7 +1977,7 @@ feature -- Message processing
 			end
 		end
 
-	on_right_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_right_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		do
 			if is_enabled then
 				release_mouse
@@ -1991,7 +1988,7 @@ feature -- Message processing
          	end
       	end
 
-   on_query_tip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_query_tip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          x,y: INTEGER
          cp: SB_CURSOR_POSITION
@@ -2010,14 +2007,14 @@ feature -- Message processing
          end
       end
 
-   on_tip_timer (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_tip_timer (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          timer := Void
          flags := flags | Flag_tip
          Result := True
       end
 
-   on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          if current_item /= Void then
@@ -2027,7 +2024,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          if current_item /= Void then
@@ -2037,7 +2034,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_auto_scroll (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_auto_scroll (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          i: G
@@ -2072,7 +2069,7 @@ feature -- Message processing
          end
       end
 
-	on_double_clicked (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_double_clicked (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     		-- Double click anywhere in the widget
     	local
     		i: G
@@ -2097,7 +2094,7 @@ feature -- Message processing
          	end
       	end
 
-   on_lookup_timer (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_lookup_timer (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          create lookup_string.make_empty
          lookup_timer := Void
@@ -2106,7 +2103,7 @@ feature -- Message processing
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       local
          i: G
@@ -2133,7 +2130,7 @@ feature -- Resource management
          font.create_resource
       end
 
-   detach_resource is
+   detach_resource
          -- Detach server-side resources
       local
          i: G
@@ -2175,7 +2172,7 @@ feature {NONE} -- Implementation
    
    state: BOOLEAN         	-- State of i
 
-   do_hop (event: SB_EVENT; i: G) is
+   do_hop (event: SB_EVENT; i: G)
       do
          create lookup_string.make_empty
          if i /= Void then
@@ -2205,7 +2202,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   layout is
+   layout
       do
          	-- Calculate contents
          Precursor
@@ -2220,11 +2217,11 @@ feature {NONE} -- Implementation
          unset_flags (Flag_dirty)
       end
 
-	create_item (text: STRING; oi, ci: SB_ICON; data: ANY): G is
+	create_item (text: STRING; oi, ci: SB_ICON; data: ANY): G
 		deferred
 		end
 
-	recompute is
+	recompute
     	local
          	i: G;
          	x,y,w,h: INTEGER
@@ -2282,18 +2279,18 @@ feature {NONE} -- Implementation
    
    	SELECT_MASK: INTEGER is once Result := Treelist_singleselect | Treelist_browseselect end
    
-   	Treelist_mask: INTEGER is
+   	Treelist_mask: INTEGER
       	once
          	Result := Select_mask | Treelist_autoselect
             	| Treelist_shows_lines | Treelist_shows_boxes | Treelist_root_boxes
       	end
 
-   	compare: SB_STRING_COMPARATOR is
+   	compare: SB_STRING_COMPARATOR
       	once
 			create { SB_NOCASE_STRING_COMPARATOR } Result;
       	end
 
-	comparecase: SB_STRING_COMPARATOR is
+	comparecase: SB_STRING_COMPARATOR
     	once
         	create { SB_CASE_STRING_COMPARATOR } Result;
       	end

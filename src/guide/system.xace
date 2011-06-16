@@ -104,6 +104,7 @@
 	<cluster name="llvm" location="${LLVM}">
 		<cluster name="x86_64"/>
 		<cluster name="x86"/>
+		<cluster name="misc"/>
 		<cluster name="instr_def" location="${LLVM}/instr-def"/>
 	</cluster>
 	<option name="c_compiler_options" value="-m32" if="${m32}"/>

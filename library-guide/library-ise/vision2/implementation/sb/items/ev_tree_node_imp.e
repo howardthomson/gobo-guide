@@ -90,10 +90,7 @@ feature -- Measurement
 				-- Return parents horizontal scrollbar offset.
 			l_tree_imp := parent_tree_imp
 			if l_tree_imp /= Void then
-	--			l_h_adjust := {EV_GTK_EXTERNALS}.gtk_scrolled_window_get_hadjustment (l_tree_imp.scrollable_area)
-	--			if l_h_adjust /= default_pointer then
-	--				Result := - {EV_GTK_EXTERNALS}.gtk_adjustment_struct_value (l_h_adjust).rounded
-	--			end
+				TODO_class_line ("EV_TREE_NODE_IMP::x_position", "__LINE__")
 			end
 		end
 
@@ -105,11 +102,8 @@ feature -- Measurement
 		do
 			l_tree_imp := parent_tree_imp
 			if l_tree_imp /= Void then
-				Result := (index - 1) * l_tree_imp.row_height
-	--			l_v_adjust := {EV_GTK_EXTERNALS}.gtk_scrolled_window_get_vadjustment (l_tree_imp.scrollable_area)
-	--			if l_v_adjust /= default_pointer then
-	--				Result := Result - {EV_GTK_EXTERNALS}.gtk_adjustment_struct_value (l_v_adjust).rounded
-	--			end
+--				Result := (index - 1) * l_tree_imp.row_height
+				TODO_class_line ("EV_TREE_NODE_IMP::y_position", "__LINE__")
 			end
 		end
 
@@ -378,9 +372,9 @@ feature {EV_TREE_IMP, EV_TREE_NODE_IMP} -- Implementation
 			discard_item: SB_TREE_LIST_ITEM
 		do
 -- TODO: use a_index !
-print ("EV_TREE_NODE_IMP::add_item_and_children_to_parent_tree ... "); print (text); print ("%N")
+--print ("EV_TREE_NODE_IMP::add_item_and_children_to_parent_tree ... "); print (text); print ("%N")
 			if a_parent_node /= Void then
-print ("(a_parent_node.sb_item = Void) = "); print ((a_parent_node.sb_item = Void).out); print ("%N")
+--print ("(a_parent_node.sb_item = Void) = "); print ((a_parent_node.sb_item = Void).out); print ("%N")
 			--	sb_item := a_parent_tree.sb_widget.create_item_after (a_parent_node.sb_item, text, Void, Void, Void, False)
 				a_parent_tree.sb_widget.add_item_last (a_parent_node.sb_item, sb_item, False)
 			--	a_parent_node.sb_item.set_has_expander (True)
@@ -391,20 +385,20 @@ print ("(a_parent_node.sb_item = Void) = "); print ((a_parent_node.sb_item = Voi
 			end
 		--	a_parent_tree.set_text_on_position (Current, text)
 			sb_item.set_text (text)
-print ("EV_TREE_NODE_IMP -- 0 %N")
+--print ("EV_TREE_NODE_IMP -- 0 %N")
 			a_parent_tree.update_row_pixmap (Current)
-print ("EV_TREE_NODE_IMP -- 1 %N")
+--print ("EV_TREE_NODE_IMP -- 1 %N")
 			from
 				i := 1
 			until
 				i > child_array.count
 			loop
-print ("EV_TREE_NODE_IMP -- 2 %N")
+--print ("EV_TREE_NODE_IMP -- 2 %N")
 				item_imp ?= (child_array @ i).implementation
 				item_imp.add_item_and_children_to_parent_tree (a_parent_tree, Current, i)
 				i := i + 1
 			end
-print ("EV_TREE_NODE_IMP -- 3 %N")
+--print ("EV_TREE_NODE_IMP -- 3 %N")
 		end
 
 feature {EV_TREE_IMP, EV_TREE_NODE_IMP} -- Implementation
@@ -530,8 +524,6 @@ feature {EV_TREE_IMP, EV_TREE_NODE_IMP} -- Implementation
 			item_imp: EV_TREE_NODE_IMP
 			l_parent_tree_imp: EV_TREE_IMP
 		do
-print ("EV_TREE_NODE_IMP::insert_i_th ...%N")
-if false then
 			item_imp ?= v.implementation
 			item_imp.set_parent_imp (Current)
 			child_array.go_i_th (i)
@@ -555,7 +547,6 @@ if false then
 					expand_actions_internal.resume
 				end
 			end
-end
 		end
 
 	remove_i_th (a_position: INTEGER) is

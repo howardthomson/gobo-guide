@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Objects that ..."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -100,7 +100,7 @@ feature {NONE} -- Implementation
 			-- Width of `Current'.
 		do
 			if configure_event_pending then
---				{EV_GTK_EXTERNALS}.gtk_window_get_default_size (c_object, $Result, default_pointer)
+				Result := sb_window.width
 				Result := Result.max (minimum_width)
 			else
 				Result := Precursor
@@ -111,7 +111,7 @@ feature {NONE} -- Implementation
 			-- Height of `Current'.
 		do
 			if configure_event_pending then
---				{EV_GTK_EXTERNALS}.gtk_window_get_default_size (c_object, default_pointer, $Result)
+				Result := sb_window.height
 				Result := Result.max (minimum_height)
 			else
 				Result := Precursor
@@ -134,7 +134,7 @@ feature {NONE} -- Implementation
 			-- Set horizontal offset to parent to `a_x'.
 			-- Set vertical offset to parent to `a_y'.
 		do
---			{EV_GTK_EXTERNALS}.gtk_window_move (c_object, a_x, a_y)
+			sb_window.move (a_x, a_y)
 		end
 
 	configure_event_pending: BOOLEAN
@@ -145,7 +145,7 @@ feature {NONE} -- Implementation
 		local
 			temp_y: INTEGER
 		do
---			{EV_GTK_EXTERNALS}.gtk_window_get_position (c_object, $Result, $temp_y)
+			Result := sb_window.x_pos
 		end
 
 	y_position, screen_y: INTEGER is
@@ -153,7 +153,7 @@ feature {NONE} -- Implementation
 		local
 			temp_x: INTEGER
 		do
---			{EV_GTK_EXTERNALS}.gtk_window_get_position (c_object, $temp_x, $Result)
+			Result := sb_window.y_pos
 		end
 
 	default_wm_decorations: INTEGER is
@@ -392,7 +392,7 @@ feature {EV_ANY_I} -- Implementation
 			-- TODO
 		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

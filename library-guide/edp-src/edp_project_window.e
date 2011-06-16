@@ -4,11 +4,11 @@
 --| Ashford, Middlesex TW15 3EB								|
 --| United Kingdom											|
 --|---------------------------------------------------------|
-indexing
+note
 
 	todo: "[
 		Close project
-	
+
 		Layout (of SB_PACKER ?) is currently incorrectly dependent on the order of creation of the GUI elements.
 		Specifically, if the SB_STATUS_LINE is created after a widget that is assigned to fill the
 		vertical space, then the fill size is calculated incorrectly, and the status line overlaps
@@ -29,7 +29,7 @@ indexing
 -- Project centred information and edit window
 
 -- Information
---		
+--
 -- Actions
 --		Cluster Add (from Repository)
 --		Cluster Remove (from Search Paths)
@@ -71,7 +71,7 @@ inherit
 	EDP_GLOBAL
 	SB_SHARED_APPLICATION
 
-creation
+create
 
 	make, from_project
 
@@ -114,7 +114,7 @@ feature -- GUI elements
 	hbox:			SB_HORIZONTAL_FRAME
 	hsplit:			SB_SPLITTER
 	menu_bar:		SB_MENU_BAR
-	
+
 
 	toolbar: SB_TOOL_BAR
 
@@ -123,7 +123,7 @@ feature -- GUI elements
 	tab_bar: SB_TAB_BAR
 	tab_book: SB_TAB_BOOK
 	tab_item: SB_TAB_ITEM
-	
+
 	projects,
 	config_tree,
 	features_tree,
@@ -135,13 +135,13 @@ feature -- GUI elements
 	repository_tree: SB_TREE_LIST
 
 	classes_tree: EDP_CLASS_TREE_LIST
-	
+
 	tree_list_box: SB_TREE_LIST_BOX
-	
+
 	status_line: SB_STATUS_LINE
-	
+
 --	file_list: SB_FILE_LIST	--###
-	
+
 	tab_set: ARRAY [ EDP_TAB_WIDGETS_SET ]
 
 	make_window
@@ -157,7 +157,7 @@ feature -- GUI elements
 
 			create tab_set.make (1, 1)
 			tab_set.put (create {EDP_TAB_WIDGETS_SET}, 1)
-			
+
 			create vbox.make (Current)
 
 			menu_bar := make_menu_bar
@@ -171,8 +171,8 @@ feature -- GUI elements
 	--		create file_list.make_opts (hsplit, Void, 0, Layout_fill_y, 0,0,0,0)	--###
 
 			create tab_book.make (hsplit,
-				--	Layout_side_left | 
-				--	Layout_fill_x | 
+				--	Layout_side_left |
+				--	Layout_fill_x |
 					Layout_fill_y)
 		--	create tab_bar.make (Current, Layout_side_left | Layout_fill_x | Layout_fill_y)
 if false then
@@ -183,7 +183,7 @@ if false then
 			create rs; repository_tree.set_items_sorter (rs)
 			create rc; repository_tree.set_item_comparator (rc)
 			tab_item.set_target_and_message (tab_book, ID_OPEN_ITEM)
-			
+
 			create tab_item.make (tab_book, "Windows")
 			create windows_list.make (tab_book, 10, Void, 0, Layout_fill_x | Layout_fill_y)
 			tab_item.set_target_and_message (tab_book, ID_OPEN_ITEM)
@@ -194,7 +194,7 @@ if false then
 			(tab_set @ 1).set_ace_tab (config_tree)
 end
 
--- Working version, without splitter			
+-- Working version, without splitter
 --			create tab_item.make (tab_book, "Classes")
 --			create classes_tree.make (tab_book, 10, Void, 0,
 --					Layout_fill_x | Layout_fill_y
@@ -267,7 +267,7 @@ end
 --			create menu_command.make_sb (menu_pane, "&Validate",Current, Tb_validate);
 --			create menu_command.make_sb (menu_pane, "&Generate",Current, Tb_generate);
 --			create menu_command.make_sb (menu_pane, "&Compile",	Current, Tb_compile);
---			create menu_command.make_sb (menu_pane, "&Execute",	Current, Tb_execute);		
+--			create menu_command.make_sb (menu_pane, "&Execute",	Current, Tb_execute);
 --			create menu_title.make_opts (Result, "&Process", Void, menu_pane, 0);
 
 				-- Test menu
@@ -282,7 +282,7 @@ end
 	Tb_new		: INTEGER is 1	-- New Project ...
 	Tb_open		: INTEGER is 2	-- Open Project ...
 	Tb_close	: INTEGER is 3	-- Close Project
-	
+
 	Tb_load		: INTEGER is 4	-- Identify Eiffel files in repository
 	Tb_scan		: INTEGER is 5	-- Load and Scan all files
 	Tb_pre_parse: INTEGER is 6	-- Pre-parse clusters and locate/identify classes
@@ -291,7 +291,7 @@ end
 	Tb_generate	: INTEGER is 9	-- Generate interpretable (byte)code
 	Tb_compile	: INTEGER is 10	-- Compile to target machine
 	Tb_execute	: INTEGER is 11	-- Run the project
-	
+
 --	Tb_stop		: INTEGER is 12	-- Stop long-running action
 	Tb_quit		: INTEGER is 13	-- Quit EDP
 	Tb_test		: INTEGER is 14	-- TEMP Test tag
@@ -304,7 +304,7 @@ end
 	Tb_last		: INTEGER is 17
 
 	projects_list_box: SB_LIST_BOX
-	
+
 	make_toolbar (a_parent: SB_COMPOSITE): SB_TOOL_BAR is
 		local
 			b: SB_BUTTON
@@ -314,7 +314,7 @@ end
 			create projects_list_box.make (Result, 10, 0)	-- Project Selector ListBox
 			projects_list_box.set_target_and_message (Current, Tb_project_select)
 			projects_list_box.append_item (once "NONE", Void, Void)
-			
+
 	--		create b.make_sb (Result, "Load",	 Current, Tb_load,	 	0)
 			create b.make_sb (Result, "PreParse",Current, Tb_pre_parse,	0)
 	--		create b.make_sb (Result, "Parse",	 Current, Tb_parse,	 	0)
@@ -333,7 +333,7 @@ end
 		do
 			if the_project /= Void then
 				inspect tag
-				
+
 		--		when Tb_load then
 		--			set_status ("Get Universe ...")
 		--			the_project.get_universe
@@ -390,10 +390,10 @@ end
 					set_status(s)
 				end
 			end
-			
+
 			inspect tag
 			when Tb_new then
-				
+
 			when Tb_open then
 				open_project
 			when Tb_make_form then
@@ -468,7 +468,7 @@ end
 		do
 --			s := c.directory_path
 --			repository_tree.create_item_last (Void, s, Void, Void, c, False).discard_result
-		end			
+		end
 
 	classes_wipe_out is
 			-- Clear classes list for current project
@@ -526,7 +526,7 @@ end
 	--		--	fx_trace(0, <<"EDP_PROJECT_WINDOW::add_class ", fi.label>>)
 	--			repository_tree.create_item_last (fi, c.filename, Void, Void, Void, False).discard_result
 	--		else
-	--		--	fx_trace(0, <<"EDP_PROJECT_WINDOW::add_class, cluster not found: ", c.file_name>>) 
+	--		--	fx_trace(0, <<"EDP_PROJECT_WINDOW::add_class, cluster not found: ", c.file_name>>)
 	--		end
 		end
 
@@ -577,7 +577,7 @@ end
 
 				-- Ancestors
 			-- TODO
-			
+
 				-- Features
 			from
 				i := classes_tree.create_item_last (ti, "Queries", Void, Void, Void, False)
@@ -628,7 +628,7 @@ feature -- EDP_DISPLAY_TARGET implementation
 			--	Add to errors tree
 --			errors_list.create_item_last (Void, an_error.default_message, Void, Void, Void, False).discard_result
 			--	Set current tab as errors tab
-		--	.... TODO	
+		--	.... TODO
 		end
 
 	report_warning (a_warning: UT_ERROR) is
@@ -640,7 +640,7 @@ feature -- EDP_DISPLAY_TARGET implementation
 		do
 			print ("EDP_PROJECT_WINDOW.report_info called%N")
 		end
-	
+
 feature {NONE} -- Save file names if in-system classes
 
 	in_system_file: PLAIN_TEXT_FILE
@@ -650,7 +650,7 @@ feature {NONE} -- Save file names if in-system classes
 		do
 			create {PLAIN_TEXT_FILE} in_system_file.make_create_read_write ("in_system_filenames")
 		end
-	
+
 	close_in_system_report_file is
 			-- Close file for in_system filenames
 		do
@@ -658,7 +658,7 @@ feature {NONE} -- Save file names if in-system classes
 				in_system_file.close
 			end
 		end
-	
+
 	report_to_file (c: ET_CLASS) is
 			-- Report filenames of classes in_system
 			-- to file

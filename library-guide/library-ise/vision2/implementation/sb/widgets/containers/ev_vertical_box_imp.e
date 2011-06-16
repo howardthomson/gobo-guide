@@ -21,21 +21,13 @@ inherit
 		
 	EV_BOX_IMP
 		redefine
-			interface,
---			old_make
+			interface
 		end
 
 create
 	make
 
 feature {NONE} -- Initialization
-	
---	old_make (an_interface: like interface) is
---			-- Create a Slyboots vertical box.
---		do	
---			base_make (an_interface)
---			create {SB_VERTICAL_FRAME} sb_widget.make_ev
---		end
 
 feature {EV_ANY_I} -- Implementation
 

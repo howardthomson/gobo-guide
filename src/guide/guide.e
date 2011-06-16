@@ -48,9 +48,9 @@ feature
 					launch	-- SB_APPLICATION.launch
 				end
 			end
-		rescue
-			failed := True
-			retry
+--		rescue
+--			failed := True
+--			retry
 		end
 
 	prepare is

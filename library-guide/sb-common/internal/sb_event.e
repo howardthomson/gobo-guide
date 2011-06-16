@@ -5,6 +5,17 @@ indexing
 	license:	"Eiffel Forum Freeware License v2 (see forum.txt)"
 	status:		"Mostly complete"
 
+	TODO: "[
+		Change event processing to:
+		
+			event.process
+			if event.handled then
+				...
+			end
+
+			How to pass the event iteself to targeted routines ?
+		]"
+
 class SB_EVENT
 
 inherit
@@ -220,6 +231,11 @@ feature
 			target := a_target
 		end
 
+	set_data (a_data: like data)
+		do
+			data := a_data
+		end
+
 feature -- Event processing
 
 	reset is
@@ -241,7 +257,8 @@ feature -- Event processing
 	process: BOOLEAN is
 			-- Process event where message_target = sender
 		do
-			Result := event_target.process_event (Current)
+			event_target.process_event (Current)
+			Result := event_target.handled
 		end
 
 	process_with_id (an_id: INTEGER): BOOLEAN is
@@ -263,6 +280,12 @@ feature -- Event processing
 			Result := process
 		end
 
+	process_with_id_and_event (an_id: INTEGER): BOOLEAN
+		do
+			event_id := an_id
+			data := Current
+			Result := process
+		end
 
 feature -- Target event processing
 

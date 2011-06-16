@@ -35,6 +35,7 @@ inherit
 			has
 		redefine
 			interface,
+			sb_window,
 			make,
 			on_size_allocate,
 			hide,
@@ -49,6 +50,7 @@ inherit
 			initialize,
 			parent_imp
 		redefine
+			sb_window,
 			make,
 			interface,
 			has_focus,
@@ -60,6 +62,10 @@ inherit
 
 create
 	make
+
+feature {NONE} -- Attributes
+
+	sb_window: SB_TOP_WINDOW
 
 feature {NONE} -- Initialization
 
@@ -73,17 +79,23 @@ feature {NONE} -- Initialization
 			app_imp: like app_implementation
 		do
 			set_is_initialized (False)
-			create {SB_TOP_WINDOW} sb_window.make_top_title (application, "Title ...")
+			create_sb_window
 
 			create accel_list.make (10)
 			create upper_bar
 			create lower_bar
 
+			create vbox.make (sb_window)
+			
 			internal_is_border_enabled := True
 			configure_event_pending := True
 			user_can_resize := True
 			set_is_initialized (True)
-print ("EV_WINDOW_IMP::make%N")
+		end
+
+	create_sb_window
+		do
+			create {SB_TOP_WINDOW} sb_window.make_top_title (application, "Title ...")
 		end
 
 feature  -- Access
@@ -251,6 +263,9 @@ feature -- Element change
 			mb_imp: EV_MENU_BAR_IMP
 		do
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 10")
+			
+			mb_imp ?= a_menu_bar.implementation
+--			mb_imp.set_parent_window_imp (vbox.sb_window)	-- ???
 		end
 
 	remove_menu_bar is
@@ -445,7 +460,7 @@ feature {EV_MENU_BAR_IMP, EV_ACCELERATOR_IMP, EV_APPLICATION_IMP} -- Implementat
 
 feature {EV_ACCELERATOR_IMP} -- Implementation
 
-	vbox: POINTER
+	vbox: SB_VERTICAL_FRAME
 			-- Vertical_box to have a possibility for a menu on the
 			-- top and a status bar at the bottom.
 

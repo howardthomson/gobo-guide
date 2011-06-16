@@ -58,6 +58,7 @@ feature -- Creation
       	
         	dpy := ":0.0"
 	 		create event
+	 		event.set_event_originator (Current)
         	create registry.make (a_name, a_vendor)
         	again := True
         	create mono_visual.make (application, VISUAL_MONOCHROME)

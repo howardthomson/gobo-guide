@@ -3130,6 +3130,9 @@ Instruction: Creation_instruction
 		{ $$ := new_check_instruction ($1, $2) }
 	| E_CHECK Assertions E_END
 		{ $$ := new_check_instruction ($1, $3) }
+	| E_CHECK Expression Then_compound E_END
+--		{ $$ := new_check_instruction ($1, $5) }	-- FIXME
+		{ $$ := ast_factory.new_if_instruction (ast_factory.new_conditional ($1, $2), $3, Void, Void, $4) }
 	| E_RETRY
 		{ $$ := $1 }
 	| ';'

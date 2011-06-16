@@ -16,6 +16,7 @@ inherit
 
 	EV_STANDARD_DIALOG_IMP
 		redefine
+			make,
 			interface,
 			initialize
 		end

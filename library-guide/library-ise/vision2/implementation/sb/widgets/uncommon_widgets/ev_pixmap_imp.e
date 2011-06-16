@@ -23,7 +23,6 @@ inherit
 		redefine
 			sb_pixmap_window,
 			interface,
---			old_make,
 			width,
 			height,
 			destroy,
@@ -59,12 +58,6 @@ feature {NONE} -- Implementation Attributes
 		-- Implementation link
 
 feature {NONE} -- Initialization
-
---	old_make (an_interface: like interface) is
---			-- Create a pixmap of size (1 * 1) with no mask.
---		do
---			base_make (an_interface)
---		end
 
 	make is
 			-- Initialize `Current'
@@ -261,14 +254,6 @@ feature -- Duplication
 
 feature {EV_ANY_I} -- Implementation
 
---	drawable: POINTER
-			-- Pointer to the Pixmap image data.
-
---	mask: POINTER
-			-- Pointer to the Bitmap used for masking.
-
-feature {EV_ANY_I} -- Implementation
-
 --	internal_xpm_data: POINTER
 		-- Pointer to the appropriate XPM image used for the default stock cursor if any
 
@@ -345,10 +330,10 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Constants
 
-	Default_color_depth: INTEGER is -1
+	Default_color_depth: INTEGER = -1
 			-- Default color depth, use the one from gdk_root_parent.
 
-	Monochrome_color_depth: INTEGER is 1
+	Monochrome_color_depth: INTEGER = 1
 			-- Black and White color depth (for mask).
 
 feature {EV_ANY_I} -- Implementation

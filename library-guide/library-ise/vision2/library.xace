@@ -10,7 +10,7 @@
 		revision: "$Revision: 1.10 $"
 	</description>
 
-	<cluster name="vision2" location="/data/Eiffel60/library/vision2">
+	<cluster name="vision2" location="/data/Eiffel66/library/vision2">
 		<option name="abstract" value="true"/>
 		<cluster name="contrib"/>
 		<cluster name="interface" recursive="true">

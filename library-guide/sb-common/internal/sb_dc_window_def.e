@@ -36,9 +36,6 @@ feature { NONE } -- Implementation
 	visual: SB_VISUAL
 			-- Visual of drawable
 
---	rect: SB_RECTANGLE
-			-- Paint rectangle inside drawable
-
 	rect_x,
 	rect_y,
 	rect_w,

@@ -43,12 +43,6 @@ feature {NONE} -- Attributes
 
 feature {NONE} -- Initialization
 
---	old_make (an_interface: like interface) is
---			-- Create a gtk label.
---		do
---			base_make (an_interface)
---		end
-
 	make
 		do
 			textable_imp_initialize
