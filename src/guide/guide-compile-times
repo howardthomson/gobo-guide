@@ -1,0 +1,5 @@
+Eiffel compile:		29:11	0:49s	49
+Generate C code:	30:00	0:25s	25
+Compile C:			30:25	4:34	274
+Link:				34:59	0:02s	2
+Done:				35:01	
