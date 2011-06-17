@@ -20,6 +20,9 @@ inherit
 	EDP_GLOBAL
 
 	GEC
+		redefine
+			report_version_number
+		end
 
 creation
 
@@ -70,6 +73,15 @@ feature
 			create np.make ("edp")
 			create pw.from_project (np)
 			pw.show
+		end
+
+feature -- Version reporting
+
+	report_version_number
+			-- Indicate 'guide' version of gec
+		do
+			Precursor
+			print ("Guide derivative of gec%N")
 		end
 
 end -- class GUIDE
