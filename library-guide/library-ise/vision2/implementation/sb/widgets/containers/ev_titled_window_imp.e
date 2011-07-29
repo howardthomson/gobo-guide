@@ -51,6 +51,8 @@ feature {NONE} -- Initialization
 	create_sb_window
 		do
 			create {SB_TOP_WINDOW} sb_window.make_top_title (app_implementation.sb_application, once "Default Title")
+				-- TEMP: track windows created so far ...
+			app_implementation.sb_application.open_widgets_display_window
 		end
 
 feature {EV_APPLICATION_IMP} -- Implementation
@@ -210,7 +212,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_TITLED_WINDOW;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[
@@ -220,9 +222,6 @@ indexing
 			 Website http://www.eiffel.com
 			 Customer support http://support.eiffel.com
 		]"
-
-
-
 
 end -- class EV_TITLED_WINDOW_IMP
 

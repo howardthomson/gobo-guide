@@ -164,7 +164,8 @@ note
 			print_adapted_named_query_call
 			print_query_call
 			print_non_inlined_query_call
-			
+
+			Check for duplication of inline constants [strings]
 			]"
 
 	done: "[

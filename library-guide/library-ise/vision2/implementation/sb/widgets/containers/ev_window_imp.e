@@ -118,7 +118,8 @@ feature  -- Access
 			-- Application name to be displayed by
 			-- the window manager.
 		do
-			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 3")
+				-- TODO: should this we .twin ?
+			Result := sb_window.title
 		end
 
 	menu_bar: EV_MENU_BAR
@@ -142,6 +143,14 @@ feature -- Status setting
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 5")
 		end
 
+	internal_enable_border is
+			-- Ensure a border is displayed around `Current'.
+		local
+			l_decor: INTEGER
+		do
+			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 7")
+		end
+
 	internal_disable_border is
 			-- Ensure no border is displayed around `Current'.
 		local
@@ -150,14 +159,6 @@ feature -- Status setting
 			l_temp: INTEGER
 		do
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 6")
-		end
-
-	internal_enable_border is
-			-- Ensure a border is displayed around `Current'.
-		local
-			l_decor: INTEGER
-		do
-			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 7")
 		end
 
 	disable_user_resize_called: BOOLEAN
@@ -250,28 +251,28 @@ feature -- Element change
 			l_title_32: STRING_32
 			l_title: STRING
 		do
-			todo_class_line ("EV_WINDOW_IMP", "__LINE__")
 			l_title ?= new_title
 			if l_title /= Void then
---				sb_window.set_title (l_title)
+				sb_window.set_title (l_title)
 			end
 		end
 
 	set_menu_bar (a_menu_bar: EV_MENU_BAR) is
 			-- Set `menu_bar' to `a_menu_bar'.
 		local
-			mb_imp: EV_MENU_BAR_IMP
+			mb_imp: detachable EV_MENU_BAR_IMP
 		do
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 10")
 			
 			mb_imp ?= a_menu_bar.implementation
---			mb_imp.set_parent_window_imp (vbox.sb_window)	-- ???
+--			mb_imp.set_parent_window_imp (vbox)	-- ???
+			mb_imp.sb_widget.set_parent (vbox)
 		end
 
 	remove_menu_bar is
 			-- Set `menu_bar' to `Void'.
 		local
-			mb_imp: EV_MENU_BAR_IMP
+			mb_imp: detachable EV_MENU_BAR_IMP
 		do
 			if menu_bar /= Void then
 				todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 11")
@@ -469,7 +470,9 @@ feature {EV_INTERMEDIARY_ROUTINES}
 	call_close_request_actions is
 			-- Call the close request actions.
 		do
-			if close_request_actions_internal /= Void and then not app_implementation.is_in_transport and then not has_modal_window then
+			if close_request_actions_internal /= Void
+			and then not app_implementation.is_in_transport
+			and then not has_modal_window then
 				close_request_actions_internal.call (Void)
 			end
 		end
@@ -479,7 +482,7 @@ feature {EV_ANY_I} -- Implementation
 	interface: EV_WINDOW;
 		-- Interface object of `Current'
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

@@ -260,7 +260,7 @@ feature {EV_INTERMEDIARY_ROUTINES, EV_APPLICATION_IMP}
 		deferred
 		end
 
-	process_key_event (a_key_event: POINTER)
+	XX_process_key_event (a_key_event: POINTER)
 			-- Translation routine used for key events
 		local
 			keyval: NATURAL_32
@@ -313,18 +313,18 @@ feature {EV_INTERMEDIARY_ROUTINES, EV_APPLICATION_IMP}
 	--					end
 	--				end
 	--			end
-	--			if a_key /= Void and then a_key.out.count /= 1 and then not a_key.is_numpad then
-	--				inspect a_key.code
-	--				when {EV_KEY_CONSTANTS}.key_space then
-	--					a_key_string := once " "
-	--				when {EV_KEY_CONSTANTS}.key_enter then
-	--					a_key_string := once "%N"
-	--				when {EV_KEY_CONSTANTS}.key_tab then
-	--					a_key_string := once "%T"
-	--				else
-	--					a_key_string := Void
-	--				end
-	--			end
+				if a_key /= Void and then a_key.out.count /= 1 and then not a_key.is_numpad then
+					inspect a_key.code
+					when {EV_KEY_CONSTANTS}.key_space then
+						a_key_string := once " "
+					when {EV_KEY_CONSTANTS}.key_enter then
+						a_key_string := once "%N"
+					when {EV_KEY_CONSTANTS}.key_tab then
+						a_key_string := once "%T"
+					else
+						a_key_string := Void
+					end
+				end
 	--		end
 
 	--		a_focus_widget ?= l_app_imp.eif_object_from_gtk_object ({EV_GTK_EXTERNALS}.gtk_window_struct_focus_widget (c_object))

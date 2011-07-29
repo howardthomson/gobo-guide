@@ -451,152 +451,152 @@ feature -- Message processing
 
 feature {NONE} -- Implementation
 
-   num: INTEGER;
+	num: INTEGER
 
    layout is
       local
-         ncol, nrow, nzcol, nzrow, r, c, x,y, w,h, n, e, t: INTEGER;
-         rowh, colw: ARRAY [ INTEGER ];
-         srow,scol: ARRAY [ BOOLEAN ];
-         left, right, top, bottom, cw, rh: INTEGER;
+         ncol, nrow, nzcol, nzrow, r, c, x,y, w,h, n, e, t: INTEGER
+         rowh, colw: ARRAY [ INTEGER ]
+         srow,scol: ARRAY [ BOOLEAN ]
+         left, right, top, bottom, cw, rh: INTEGER
          mw,mh,hremain,vremain, hsumexpand,hnumexpand,
          vsumexpand, vnumexpand: INTEGER
          child: SB_WINDOW
-         hints: INTEGER;
+         hints: INTEGER
       do
 
          -- Placement rectangle; right/bottom non-inclusive
-         left := border+pad_left;
-         right := width-border-pad_right;
-         top := border+pad_top;
-         bottom := height-border-pad_bottom;
-         hremain := right-left;
-         vremain := bottom-top;
+         left := border+pad_left
+         right := width-border-pad_right
+         top := border+pad_top
+         bottom := height-border-pad_bottom
+         hremain := right-left
+         vremain := bottom-top
 
          -- Non-Zero rows/columns
-         nzrow := 0;
-         nzcol := 0;
+         nzrow := 0
+         nzcol := 0
 
          -- Clear column/row sizes
-         !!colw.make(0,MAXNUM);
-         !!rowh.make(0,MAXNUM);
-         !!srow.make(0,MAXNUM);
-         !!scol.make(0,MAXNUM);
+         !!colw.make(0,MAXNUM)
+         !!rowh.make(0,MAXNUM)
+         !!srow.make(0,MAXNUM)
+         !!scol.make(0,MAXNUM)
          from
-            n := 0;
+            n := 0
          until
             n >= MAXNUM
          loop
-            srow.put(True,n);
-            scol.put(True,n);
-            n := n + 1;
+            srow.put(True,n)
+            scol.put(True,n)
+            n := n + 1
          end
 
          -- Get maximum child size
          if (options & Pack_uniform_width) /= Zero then
-            mw := max_child_width;
+            mw := max_child_width
          end
          if (options & Pack_uniform_height) /= Zero then
             mh := max_child_height;
          end
          -- Find expandable columns and rows
          from
-            child := first_child;
-            n := 0;
+            child := first_child
+            n := 0
          until
             child = Void
          loop
             if child.is_shown then
-               hints := child.layout_hints;
+               hints := child.layout_hints
                if (options & MATRIX_BY_COLUMNS) /= Zero then
-                  r := n // num;
-                  c := n \\ num;
+                  r := n // num
+                  c := n \\ num
                else
-                  r := n \\ num;
-                  c := n // num;
+                  r := n \\ num
+                  c := n // num
                end
                -- FXASSERT(r<MAXNUM && c<MAXNUM);
                if (hints & Layout_fix_width) /= Zero then
                   w := child.width
                elseif (options & Pack_uniform_width) /= Zero then
-                  w := mw;
+                  w := mw
                else
                   w := child.default_width;
                end
                if (hints & Layout_fix_height) /= Zero then
-                  h := child.height;
+                  h := child.height
                elseif (options & Pack_uniform_height) /= Zero then
-                  h := mh;
+                  h := mh
                else
-                  h := child.default_height;
+                  h := child.default_height
                end
-               --FXASSERT(w>=0);
-               --FXASSERT(h>=0);
+               --FXASSERT(w>=0)
+               --FXASSERT(h>=0)
                if w > colw.item(c) then
                   if colw.item(c) = 0 then
-                     nzcol := nzcol + 1;
+                     nzcol := nzcol + 1
                   end
                   colw.put(w,c)
                end
                if h > rowh.item(r) then
                   if rowh.item(r) = 0 then
-                     nzrow := nzrow + 1;
+                     nzrow := nzrow + 1
                   end
                   rowh.put(h,r)
                end
                if (hints & Layout_fill_column) = Zero then
-                  scol.put(False,c);
+                  scol.put(False,c)
                end
                if (hints & Layout_fill_row) = Zero then
-                  srow.put(False,r);
+                  srow.put(False,r)
                end
             end
-            child := child.next;
+            child := child.next
             n := n + 1
          end
 
          -- Get number of rows and columns
          if (options & MATRIX_BY_COLUMNS) /= Zero then
-            ncol := num;
-            nrow := (n+num-1)//num;
+            ncol := num
+            nrow := (n+num-1)//num
          else
-            ncol := (n+num-1)//num;
+            ncol := (n+num-1)//num
             nrow := num;
          end
 
          -- Find stretch in columns
          from
             c := 0;
-            hsumexpand := 0;
-            hnumexpand :=0;
+            hsumexpand := 0
+            hnumexpand :=0
          until
             c >= ncol
          loop
             if colw.item(c) /= 0 then
                if scol.item(c) then
-                  hsumexpand := hsumexpand + colw.item(c);
-                  hnumexpand := hnumexpand + 1;
+                  hsumexpand := hsumexpand + colw.item(c)
+                  hnumexpand := hnumexpand + 1
                else
-                  hremain := hremain - colw.item(c);
+                  hremain := hremain - colw.item(c)
                end
             end
-            c := c + 1;
+            c := c + 1
          end
 
          -- Find stretch in rows
          from
-            r := 0;
-            vsumexpand := 0;
-            vnumexpand := 0;
+            r := 0
+            vsumexpand := 0
+            vnumexpand := 0
          until
             r >= nrow
          loop
             if rowh.item(r) /= 0 then
                if srow.item(r) then
-                  vsumexpand := vsumexpand + rowh.item(r);
-                  vnumexpand := vnumexpand + 1;
+                  vsumexpand := vsumexpand + rowh.item(r)
+                  vnumexpand := vnumexpand + 1
                else
-                  vremain := vremain - rowh.item(r);
+                  vremain := vremain - rowh.item(r)
                end
             end
             r := r + 1
@@ -614,31 +614,31 @@ feature {NONE} -- Implementation
          from
             c := 0;
             e := 0;
-            x := border+pad_left;
+            x := border+pad_left
          until
             c >= ncol
          loop
-            w := colw.item(c);
+            w := colw.item(c)
             colw.put(x,c)
             if w /= 0 then
                if scol.item(c) then
                   if hsumexpand > 0 then
                      -- Divide proportionally
-                     t := w*hremain;
-                     w := t//hsumexpand;
-                     e := e + t\\hsumexpand;
+                     t := w*hremain
+                     w := t//hsumexpand
+                     e := e + t\\hsumexpand
                      if e >= hsumexpand then
-                        w := w+1;
-                        e := e- hsumexpand;
+                        w := w+1
+                        e := e- hsumexpand
                      end
                   else 
                      -- Divide equally
-                     -- FXASSERT(hnumexpand>0);
-                     w := hremain//hnumexpand;
-                     e := e + hremain\\hnumexpand;
+                     -- FXASSERT(hnumexpand>0)
+                     w := hremain//hnumexpand
+                     e := e + hremain\\hnumexpand
                      if e >= hnumexpand then
-                        w := w+1;
-                        e := e- hnumexpand;
+                        w := w+1
+                        e := e- hnumexpand
                      end
                   end
                end
@@ -646,64 +646,64 @@ feature {NONE} -- Implementation
             end
             c := c + 1
          end
-         colw.put(x,ncol);
+         colw.put(x,ncol)
 
          -- Disburse space vertically
          from
-            r := 0;
-            e := 0;
-            y := border+pad_top;
+            r := 0
+            e := 0
+            y := border+pad_top
          until
             r >= nrow
          loop
-            h := rowh.item(r);
-            rowh.put(y,r);
+            h := rowh.item (r)
+            rowh.put (y, r)
             if h /= 0 then
-               if srow.item(r) then
+               if srow.item (r) then
                   if vsumexpand > 0 then
                      -- Divide proportionally
-                     t := h*vremain;
-                     h := t//vsumexpand;
-                     e := e+t\\vsumexpand;
+                     t := h * vremain
+                     h := t // vsumexpand
+                     e := e + t \\ vsumexpand
                      if e >= vsumexpand then
-                        h := h + 1;
-                        e := e - vsumexpand;
+                        h := h + 1
+                        e := e - vsumexpand
                      end
                   else
                      -- Divide equally
-                     -- FXASSERT(vnumexpand>0);
-                     h := vremain//vnumexpand;
-                     e := e + vremain\\vnumexpand;
+                     -- FXASSERT(vnumexpand>0)
+                     h := vremain // vnumexpand
+                     e := e + vremain \\ vnumexpand
                      if e >= vnumexpand then
-                        h := h + 1;
-                        e := e-vnumexpand;
+                        h := h + 1
+                        e := e-vnumexpand
                      end
                   end
                end
-               y := y + h + v_spacing;
+               y := y + h + v_spacing
             end
             r := r + 1
          end
-         rowh.put(y,nrow);
+         rowh.put(y,nrow)
 
          -- Do the layout
          from
-            child := first_child;
-            n := 0;
+            child := first_child
+            n := 0
          until
             child = Void
          loop
             if child.is_shown then
-               hints := child.layout_hints;
+               hints := child.layout_hints
                if (options & MATRIX_BY_COLUMNS) /= Zero then
-                  r := n//num;
-                  c := n\\num;
+                  r := n // num
+                  c := n \\ num
                else
-                  r := n\\num;
-                  c := n//num;
+                  r := n \\ num
+                  c := n // num
                end
-               cw := colw.item(c+1)-colw.item(c)-h_spacing;
-               rh := rowh.item(r+1)-rowh.item(r)-v_spacing;
+               cw := colw.item (c + 1) - colw.item (c) - h_spacing
+               rh := rowh.item (r + 1) - rowh.item (r) - v_spacing
 
                if (hints & Layout_fix_width) /= Zero then
                   w := child.width
@@ -712,15 +712,15 @@ feature {NONE} -- Implementation
                elseif (options & Pack_uniform_width) /= Zero then
                   w := mw;
                else
-                  w := child.default_width;
+                  w := child.default_width
                end
 
                if (hints & Layout_center_x) /= Zero then
-                  x := colw.item(c)+(cw-w)//2;
+                  x := colw.item (c) + (cw - w) // 2
                elseif (hints & Layout_right) /= Zero then
-                  x := colw.item(c)+cw-w;
+                  x := colw.item (c) + cw - w
                else
-                  x := colw.item(c);
+                  x := colw.item (c)
                end
 
                if (hints & Layout_fix_height) /= Zero then
@@ -728,23 +728,23 @@ feature {NONE} -- Implementation
                elseif (hints & Layout_fill_y) /= Zero then
                   h := rh;
                elseif (options & Pack_uniform_height) /= Zero then
-                  h := mh;
+                  h := mh
                else
-                  h := child.default_height;
+                  h := child.default_height
                end
 
                if (hints & Layout_center_y) /= Zero then
-                  y := rowh.item(r)+(rh-h)//2;
+                  y := rowh.item (r) + (rh - h) // 2
                elseif (hints & Layout_bottom) /= Zero then
-                  y := rowh.item(r)+rh-h;
+                  y := rowh.item (r) + rh - h
                else
-                  y := rowh.item(r);
+                  y := rowh.item (r)
                end
-               child.position(x,y,w,h);
+               child.position (x,y, w,h)
             end
             child := child.next
-            n := n+1
+            n := n + 1
          end
-         unset_flags (Flag_dirty);
+         unset_flags (Flag_dirty)
       end
 end

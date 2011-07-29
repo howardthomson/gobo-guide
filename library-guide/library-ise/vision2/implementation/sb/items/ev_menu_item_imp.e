@@ -60,6 +60,7 @@ feature {NONE} -- Initialization
 	make is
 			-- Initialize `Current'
 		do
+print ("EV_MENU_ITEM_IMP::make ...%N")
 --			Precursor {EV_ITEM_IMP}
 
 			pixmapable_imp_initialize

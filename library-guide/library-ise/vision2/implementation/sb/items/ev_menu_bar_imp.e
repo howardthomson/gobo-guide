@@ -33,7 +33,7 @@ inherit
 create
 	make
 
-feature {NONE} -- Implementation Attributes
+feature {EV_SB_WIDGET_IMP} -- Implementation Attributes
 
 	sb_widget: SB_WIDGET
 
@@ -42,6 +42,7 @@ feature {NONE} -- Initialization
 	make
 		do
 			create {SB_MENU_BAR} sb_widget.make_ev
+			sb_widget.show
 		end
 
 feature -- Measurement

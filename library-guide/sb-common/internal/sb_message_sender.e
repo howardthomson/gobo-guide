@@ -22,9 +22,6 @@ inherit
 		end
 
 feature -- Data
-
---	message_target: SB_MESSAGE_HANDLER
---		-- Message target object
          
 	message: INTEGER
 		-- Message ID

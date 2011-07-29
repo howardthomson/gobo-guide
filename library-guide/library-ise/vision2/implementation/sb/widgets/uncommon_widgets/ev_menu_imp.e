@@ -1,5 +1,5 @@
 indexing
-	description: "Eiffel Vision menu. GTK+ implementation."
+	description: "Eiffel Vision menu. SLyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2006-09-28 15:05:06 -0700 (Thu, 28 Sep 2006) $"
@@ -37,19 +37,21 @@ inherit
 create
 	make
 
+feature {EV_SB_WIDGET_IMP} -- Attributes
+
+	sb_menu: SB_MENU_TITLE
+
 feature {NONE} -- Initialization
 
 	make
 		do
+print ("EV_MENU_IMP::make ...%N")
 		end
 
 	initialize is
 		do
---			list_widget := {EV_GTK_EXTERNALS}.gtk_menu_new
---			{EV_GTK_EXTERNALS}.gtk_widget_show (list_widget)
---			{EV_GTK_EXTERNALS}.gtk_menu_item_set_submenu (
---				c_object, list_widget
---			)
+print ("EV_MENU_IMP::initialize ...%N")
+			TODO_class_line ("EV_MENU_IMP", "#1")
 			Precursor {EV_MENU_ITEM_LIST_IMP}
 			Precursor {EV_MENU_ITEM_IMP}
 		end

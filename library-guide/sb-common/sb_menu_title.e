@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		A menu title is a child of a menu bar which is
 		responsible for popping up a pulldown menu.
@@ -8,32 +8,32 @@ class SB_MENU_TITLE
 
 inherit
 
-   SB_MENU_CAPTION
-      rename
-         make as caption_make,
-         make_opts as caption_make_opts
-      redefine
-         default_width,
-         default_height,
-         can_focus,
-         contains,
-         set_focus,
-         kill_focus,
-         handle_2,
-         on_paint,
-         on_enter,
-         on_leave,
-         on_focus_in,
-         on_focus_out,
-         on_key_press,
-         on_key_release,
-         on_left_btn_press,
-         on_left_btn_release,
-      -- on_cmd_post,
-         create_resource,
-         detach_resource,
-         destruct,
-         class_name
+	SB_MENU_CAPTION
+		rename
+			make as caption_make,
+			make_opts as caption_make_opts
+		redefine
+			default_width,
+			default_height,
+			can_focus,
+			contains,
+			set_focus,
+			kill_focus,
+			handle_2,
+			on_paint,
+			on_enter,
+			on_leave,
+			on_focus_in,
+			on_focus_out,
+			on_key_press,
+			on_key_release,
+			on_left_btn_press,
+			on_left_btn_release,
+		--	on_cmd_post,
+			create_resource,
+			detach_resource,
+			destruct,
+			class_name
       end
 
 creation
@@ -57,7 +57,7 @@ feature -- Creation
 
    make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; pup: SB_POPUP; opts: INTEGER)
       do
-         caption_make_opts(p, text, ic, opts)
+         caption_make_opts (p, text, ic, opts)
          flags := flags | Flag_enabled
          text_color := application.fore_color
          sel_text_color := application.fore_color

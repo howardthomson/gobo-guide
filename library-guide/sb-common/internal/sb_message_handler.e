@@ -9,8 +9,7 @@ indexing
 		Rename as SB_EVENT_PROCESSOR ?
 	]"
 
---	deferred
-class SB_MESSAGE_HANDLER
+deferred class SB_MESSAGE_HANDLER
 
 inherit
 
@@ -25,10 +24,6 @@ inherit
 	SB_MESSAGE_REFFER
 
 	SB_SEL_TYPE	-- For event_ ...
-
-create
-
-	-- No creation
 
 feature -- Actions
 

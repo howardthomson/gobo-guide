@@ -199,19 +199,19 @@ feature -- Queries
    get_button_style: INTEGER is
          -- Get menu button style
       do
-         Result := (options & MENUBUTTON_MASK);
+         Result := (options & MENUBUTTON_MASK)
       end
 
    get_popup_style: INTEGER is
          -- Get popup style
       do
-         Result := (options & POPUP_MASK);
+         Result := (options & POPUP_MASK)
       end
 
    get_attachment: INTEGER is
          -- Get attachment
       do
-         Result := (options & ATTACH_MASK);
+         Result := (options & ATTACH_MASK)
       end
 
 feature -- Actions
@@ -220,29 +220,29 @@ feature -- Actions
          -- Remove the focus from this window
       do
          Precursor;
-         do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void);
+         do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
       end
 
 
-   set_menu (pup: SB_POPUP) is
+   set_menu (a_popup: SB_POPUP) is
          -- Change the popup menu
       do
-         menu := pup
+         menu := a_popup
       end
 
-   set_offset_x(offx: INTEGER) is
+   set_offset_x (offx: INTEGER) is
          -- Set X offset where menu pops up relative to button
       do
          offset_x := offx
       end
 
-   set_offset_y(offy: INTEGER) is
+   set_offset_y (offy: INTEGER) is
          -- Set Y offset where menu pops up relative to button
       do
          offset_y := offy
       end
 
-   set_button_style(style: INTEGER) is
+   set_button_style (style: INTEGER) is
          -- Change menu button style
       local
          opts: INTEGER
@@ -254,7 +254,7 @@ feature -- Actions
          end
       end
 
-   set_popup_style(style: INTEGER) is
+   set_popup_style (style: INTEGER) is
          -- Change popup style
       local
          opts: INTEGER;
@@ -266,10 +266,10 @@ feature -- Actions
          end
       end
 
-   set_attachment(att: INTEGER) is
+   set_attachment (att: INTEGER) is
          -- Change attachment
       local
-         opts: INTEGER;
+         opts: INTEGER
       do
          opts := new_options (att, ATTACH_MASK)
          if options /= opts then
@@ -506,13 +506,13 @@ feature -- Message processing
 
    on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         Result := Precursor(sender,selector,data);
+         Result := Precursor (sender,selector,data)
          if is_enabled then
             if (options & MENUBUTTON_TOOLBAR) /= 0 then
-               update;
+               update
             end
          end
-         Result := True;
+         Result := True
       end
 
    on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
@@ -642,8 +642,7 @@ feature -- Message processing
 
    on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       local
-         event: SB_EVENT;
-       --  sbk: expanded SB_KEYS;
+         event: SB_EVENT
       do
          event ?= data;
          check
@@ -663,117 +662,112 @@ feature -- Message processing
 
    on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
-         unset_flags (Flag_tip);
-         do_handle_2 (Current, SEL_FOCUS_SELF, 0, data);
+         unset_flags (Flag_tip)
+         do_handle_2 (Current, SEL_FOCUS_SELF, 0, data)
          if is_enabled then
             if state then
-               do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void);
+               do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
             else
-               do_handle_2 (Current, SEL_COMMAND, Id_post, Void);
+               do_handle_2 (Current, SEL_COMMAND, Id_post, Void)
             end
          end
-         Result := True;
+         Result := True
       end
 
-   on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
-      do
-         Result := True;
-      end
+	on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+		do
+			Result := True
+		end
 
-   on_cmd_post(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
-      local
-         x,y,w,h: INTEGER;
-         pt: SB_POINT;
-      do
-         if not state then
-            if menu /= Void then
-               pt := translate_coordinates_to(get_root,0,0);
-               x := pt.x; y := pt.y;
-               if menu.shrink_wrap then
-                  w := menu.default_width
-                  h := menu.default_height
-               else 
-                  w := menu.width;
-                  h := menu.height;
-               end
-               if (options & MENUBUTTON_LEFT) /= 0 and then (options & MENUBUTTON_UP) /= 0 
-                then
-                  -- Right
-                  if (options & MENUBUTTON_ATTACH_BOTTOM) /= 0
-                     and then (options & MENUBUTTON_ATTACH_CENTER) /= 0
-                   then
-                     h := height;
-                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
-                     y := y+(height-h)//2;
-                  elseif (options & MENUBUTTON_ATTACH_BOTTOM) /= 0 then
-                     y := y+height-h;
-                  end
-                  x := x+offset_x+width;
-                  y := y+offset_y;
-               elseif (options & MENUBUTTON_LEFT) /= 0 then
-                  -- Left
-                  if (options & MENUBUTTON_ATTACH_BOTTOM) /= 0 
-                     and then(options & MENUBUTTON_ATTACH_CENTER) /= 0 
-                   then
-                     h := height;
-                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0  then
-                     y := y+(height-h)//2;
-                  elseif (options & MENUBUTTON_ATTACH_BOTTOM) /= 0 then
-                     y := y+height-h;
-                  end
-                  x := x-offset_x-menu.width;
-                  y := y+offset_y;
-               elseif (options & MENUBUTTON_UP) /= 0 then
-                  -- Up
-                  if (options & MENUBUTTON_ATTACH_RIGHT) /= 0
-                     and then (options & MENUBUTTON_ATTACH_CENTER) /= 0
-                   then
-                     w := width;
-                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
-                     x := x+(width-w)//2;
-                  elseif (options & MENUBUTTON_ATTACH_RIGHT) /= 0 then
-                     x := x+width-w;
-                  end
-                  x := x+offset_x;
-                  y := y-offset_y-menu.height;
-               else
-                  -- Down
-                  if (options & MENUBUTTON_ATTACH_RIGHT) /= 0 
-                     and then (options & MENUBUTTON_ATTACH_CENTER) /= 0
-                   then
-                     w := width;
-                  elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
-                     x := x+(width-w)//2;
-                  elseif (options & MENUBUTTON_ATTACH_RIGHT) /= 0 then
-                     x := x+width-w;
-                  end
-                  x := x+offset_x;
-                  y := y+offset_y+height;
-               end
-               menu.pop_up(Current,x,y,w,h);
-               if  not is_mouse_grabbed then
-                  grab_mouse;
-               end
-            end
-            state := True;
-            update;
-         end
-         Result := True;
-      end
+	on_cmd_post (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+		local
+			x,y, w,h: INTEGER
+			pt: SB_POINT
+		do
+			if not state then
+				if menu /= Void then
+					pt := translate_coordinates_to (get_root,0,0)
+					x := pt.x; y := pt.y
+					if menu.shrink_wrap then
+						w := menu.default_width
+						h := menu.default_height
+					else 
+						w := menu.width
+						h := menu.height
+					end
+               		if (options & MENUBUTTON_LEFT) /= 0 and then (options & MENUBUTTON_UP) /= 0 then
+                  			-- Right
+                  		if 		 (options & MENUBUTTON_ATTACH_BOTTOM) /= 0
+                     	and then (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
+                    		h := height;
+                  		elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
+                     		y := y + (height - h) // 2
+                  		elseif (options & MENUBUTTON_ATTACH_BOTTOM) /= 0 then
+                     		y := y + height - h
+                  		end
+						x := x + offset_x + width
+						y := y + offset_y
+               		elseif (options & MENUBUTTON_LEFT) /= 0 then
+                  			-- Left
+                  		if 		 (options & MENUBUTTON_ATTACH_BOTTOM) /= 0 
+                     	and then (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
+                     		h := height;
+                  		elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0  then
+                     		y := y+(height-h)//2;
+                  		elseif (options & MENUBUTTON_ATTACH_BOTTOM) /= 0 then
+                     		y := y+height-h;
+                  		end
+                  		x := x-offset_x-menu.width;
+                  		y := y+offset_y;
+               		elseif (options & MENUBUTTON_UP) /= 0 then
+                  			-- Up
+                  		if 		 (options & MENUBUTTON_ATTACH_RIGHT) /= 0
+                     	and then (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
+                     		w := width;
+                  		elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
+                     		x := x+(width-w)//2;
+                  		elseif (options & MENUBUTTON_ATTACH_RIGHT) /= 0 then
+                     		x := x+width-w;
+                  		end
+                  		x := x + offset_x
+                  		y := y - offset_y - menu.height
+               		else
+                  			-- Down
+                  		if 		 (options & MENUBUTTON_ATTACH_RIGHT) /= 0 
+                     	and then (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
+                     		w := width
+                  		elseif (options & MENUBUTTON_ATTACH_CENTER) /= 0 then
+                     		x := x + (width - w) // 2
+                  		elseif (options & MENUBUTTON_ATTACH_RIGHT) /= 0 then
+                     		x := x + width - w
+                  		end
+                  		x := x + offset_x
+                  		y := y + offset_y + height
+               		end
+               		menu.pop_up (Current, x,y, w,h)
+               		if  not is_mouse_grabbed then
+                  		grab_mouse
+               		end
+            	end
+            	state := True
+				update
+			end
+			Result := True
+		end
 
-   on_cmd_unpost(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_unpost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
          if state then
             if menu /= Void then
-               menu.pop_down;
+               menu.pop_down
                if is_mouse_grabbed then
-                  release_mouse;
+                  release_mouse
                end
             end
-            state := False;
-            update;
+            state := False
+            update
          end
-         Result := True;
+         Result := True
       end
 
 feature -- Destruction
@@ -792,7 +786,7 @@ feature -- Resource management
       do
          Precursor;
          if menu /= Void then
-            menu.create_resource;
+            menu.create_resource
          end
       end
 
@@ -801,29 +795,29 @@ feature -- Resource management
       do
          Precursor;
          if menu /= Void then
-            menu.detach_resource;
+            menu.detach_resource
          end
       end
 
 feature {NONE} -- Implementation
 
-   MENUBUTTONARROW_WIDTH: INTEGER is 11;
+   MENUBUTTONARROW_WIDTH: INTEGER is 11
    
-   MENUBUTTONARROW_HEIGHT: INTEGER is 5;
+   MENUBUTTONARROW_HEIGHT: INTEGER is 5
    
    MENUBUTTON_MASK: INTEGER is
       once
-         Result := (MENUBUTTON_AUTOGRAY | MENUBUTTON_AUTOHIDE | MENUBUTTON_TOOLBAR | MENUBUTTON_NOARROWS);
+         Result := (MENUBUTTON_AUTOGRAY | MENUBUTTON_AUTOHIDE | MENUBUTTON_TOOLBAR | MENUBUTTON_NOARROWS)
       end
 
    POPUP_MASK: INTEGER is
       once
-         Result := (MENUBUTTON_UP | MENUBUTTON_LEFT);
+         Result := (MENUBUTTON_UP | MENUBUTTON_LEFT)
       end
 
    ATTACH_MASK: INTEGER is
       once
-         Result := (MENUBUTTON_ATTACH_RIGHT | MENUBUTTON_ATTACH_CENTER);
+         Result := (MENUBUTTON_ATTACH_RIGHT | MENUBUTTON_ATTACH_CENTER)
       end
 
 end

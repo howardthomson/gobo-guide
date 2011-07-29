@@ -1,0 +1,111 @@
+				generate_ids
+					
+				print_types (header_file)
+			--	print_default_declarations
+				print_polymorphic_query_call_functions
+				print_polymorphic_procedure_call_functions
+				print_object_allocation_functions
+				print_feature (l_dynamic_feature)
+				print_polymorphic_tuple_label_call_functions
+				
+				print_manifest_array_function (manifest_array_types.item_for_iteration)
+				print_big_manifest_array_function (big_manifest_array_types.item_for_iteration)
+				print_manifest_tuple_function (manifest_tuple_types.item_for_iteration)
+				
+			--	print_constants_declaration
+				print_const_init_function
+				print_dynamic_type_id_set_constants
+				print_edp_gc_mark_routines
+				print_gc_mark_once_values_and_inline_constants
+				print_types_array
+				print_main_function
+
+
+					-- Include runtime C files.
+				from included_runtime_c_files.start until included_runtime_c_files.after loop
+					print_end_extern_c (current_file)
+					include_runtime_c_file (included_runtime_c_files.item_for_iteration, current_file)
+					print_start_extern_c (current_file)
+					flush_to_c_file
+					included_runtime_c_files.forth
+				end
+
+
+
+=========================================================================================================
+
+
+Entry_executable
+
+Implementation_1.so
+Implementation_2.so
+...
+
+Despatch.so
+GE_runtime.s
+
+============================================================================================================
+Order of code generation:
+
+	GE_boxedNNN			-- Boxing routines for expanded types
+	GE_defaultNNN		-- Default static data for each dynamic type
+
+	GE_ms8				-- Manifest CHARACTER_8  allocation
+	GE_ms32				-- Manifest CHARACTER_32 allocation
+
+	TNNNxNNN			-- Polymorphic call routines
+	GE_newNNN			-- Instance allocation
+
+	TNNNcNNN			-- Creation feature
+	TNNNfNNN			-- Feature
+	TNNNsNNN			-- Static feature
+
+	geNNNovNNN			-- once values
+	geicNNN				-- inline constants
+
+	GE_const_init
+	gc_markNNN			-- GC mark routines
+
+	gc_mark_constants	-- GC mark once values, inline constants
+	GE_types			-- Table of in_syatem dynamic types
+
+	main				-- C main entry point
+
+	runtime				-- Eiffel C runtime
+
+============================================================================================================
+
+Code groupings:
+
+	Fully Regenerated [system dependent]
+
+		main				-- C main entry point
+		GE_types			-- Table of in_system dynamic types
+		GE_boxedNNN			-- Boxing routines for expanded types
+		GE_defaultNNN		-- Default static data for each dynamic type
+		GE_newNNN			-- Instance allocation
+		GE_const_init
+		gc_mark_constants	-- GC mark once values, inline constants
+		TNNNxNNN			-- Polymorphic call routines
+		iTNNNcNNN			-- Indirect jump table, creation features
+		iTNNNfNNN			-- Indirect jump table, normal features
+		iTNNNsNNN			-- Indirect jump table, static features
+
+		???					-- Dynamic type sets ...
+
+	Partially Regenerated [system dependent]
+
+		TNNNcNNN			-- Creation feature
+		TNNNfNNN			-- Feature
+		TNNNsNNN			-- Static feature
+
+		geNNNovNNN			-- once values
+		geicNNN				-- inline constants
+
+		gc_markNNN			-- GC mark routines
+
+	Static [system independent]
+	
+		GE_ms8				-- Manifest CHARACTER_8  allocation
+		GE_ms32				-- Manifest CHARACTER_32 allocation
+		runtime				-- Eiffel C runtime

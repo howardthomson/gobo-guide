@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Window showing the complete structure of windows and attached widgets
 		in the application, including (read-only ??!) the windows and dialogs, etc
@@ -14,6 +14,10 @@ indexing
 	todo: "[
 		Update tree on window closure/deletion to ensure continuing
 		mapping between window tree from root window and tree display
+
+		Note that removing the handle_2 processing causes a seg-fault ...
+
+		Currently [used in 'efb'] closing this window causes application exit ... !
 	]"
 
 class SB_WIDGETS_DISPLAY_TREE
@@ -72,10 +76,10 @@ feature -- creation implementation
 		local
 			p, c: SB_TREE_LIST_ITEM
 		do
-			tree.create_item_last(p, "Item 1", Void, Void, Void, False).discard_result
-			p := tree.create_item_last(Void, "Item 2", Void, Void, Void, False)
-			c := tree.create_item_last(p, "Item 2 Child", Void, Void, Void, False)
-			c.set_expanded(True)
+			tree.create_item_last (p, "Item 1", Void, Void, Void, False).discard_result
+			p := tree.create_item_last (Void, "Item 2", Void, Void, Void, False)
+			c := tree.create_item_last (p, "Item 2 Child", Void, Void, Void, False)
+			c.set_expanded (True)
 		end
 
 	add_tree
@@ -93,10 +97,8 @@ feature -- creation implementation
 				p := tree.create_item_last(Void,
 									"Window # " + w.window_key.out + " (" + w.class_name + ")",
 									Void, Void, Void, False)
-			--	fx_trace(0, <<"Root window # ", w.window_key.out, " (", w.class_name, ")">>)
-			--	p.set_expanded(True)
-				p.set_data(w)
-				add_children(w, p)
+				p.set_data (w)
+				add_children (w, p)
 				w := w.next
 			end
 		end
@@ -117,10 +119,8 @@ feature -- creation implementation
 				w = Void
 			loop
 				c := tree.create_item_last(p, w.class_name, Void, Void, Void, False)	-- .discard_result
-			--	fx_trace(0, <<"Child window: ", w.class_name>>)
 				w.trace_values
-			--	c.set_expanded(True)
-				c.set_data(w)
+				c.set_data (w)
 				if w.first_child /= Void then
 					w := w.first_child
 					p := c
@@ -152,7 +152,7 @@ feature -- Window tree modification
 			if aw.parent = root_window then
 				new_i := tree.create_item_last(Void, "Window # " + aw.window_key.out + " (" + aw.class_name + ")",
 									Void, Void, Void, False)
-				new_i.set_data(aw)
+				new_i.set_data (aw)
 			else
 				from
 					i := tree.first_item
@@ -161,8 +161,8 @@ feature -- Window tree modification
 				loop
 					if aw.parent = i.data then
 						done := True
-						new_i := tree.create_item_last(i, aw.class_name, Void, Void, Void, False)
-						new_i.set_data(aw)
+						new_i := tree.create_item_last (i, aw.class_name, Void, Void, Void, False)
+						new_i.set_data (aw)
 					else
 						if i.first_child /= Void then
 							i := i.first_child
@@ -216,7 +216,10 @@ feature -- Event handling
 				--											>>)
 				end
 			else
-				Result := Precursor(sender, type, sel, data)
+				if type = Sel_close then
+					print ("SB_WIDGETS_DISPLY_TREE::handle_2: type: " + type.out + " sel: " + sel.out + "%N")
+				end
+				Result := Precursor (sender, type, sel, data)
 			end
 		end
 
