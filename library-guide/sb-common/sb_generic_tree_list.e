@@ -218,30 +218,30 @@ feature -- Actions
          end
       end
 
-   set_indent (in: INTEGER)
+   set_indent (an_indent: INTEGER)
          -- Change parent-child indent amount
       do
-         if indent /= in then
-            indent := in
+         if indent /= an_indent then
+            indent := an_indent
             recalc
          end
       end
 
-   set_line_color (clr: INTEGER)
+   set_line_color (a_colour: INTEGER)
          -- Change line color
       do
-         if clr /= line_color then
-            line_color := clr
+         if a_colour /= line_color then
+            line_color := a_colour
             update
          end
       end
 
-   set_list_style (style: INTEGER)
+   set_list_style (a_style: INTEGER)
          -- Change list style
       local
          opts: INTEGER
       do
-         opts := new_options (style, TREELIST_MASK)
+         opts := new_options (a_style, TREELIST_MASK)
          if options /= opts then
             options := opts
             recalc

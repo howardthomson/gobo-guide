@@ -20,13 +20,19 @@ inherit
 				pointer_button_release_actions_internal
 			{EV_ANY_I, EV_INTERMEDIARY_ROUTINES}
 				is_destroyed
-		undefine
---			dispose
 		redefine
 			launch, focused_widget, make
 		end
 
 	EV_APPLICATION_ACTION_SEQUENCES_IMP
+
+	SB_APPLICATION
+		rename
+			make as make_sb,
+			class_name as class_name_sb,
+			sleep as sleep_sb,
+			launch as launch_sb
+		end
 
 create
 	make
@@ -34,6 +40,9 @@ create
 feature -- Attributes
 
 	sb_application: SB_APPLICATION
+		do
+			Result := Current
+		end
 
 feature -- TODO
 
@@ -57,7 +66,8 @@ feature {NONE} -- Initialization
 		do
 			Precursor
 
-			create sb_application.make ("", "")
+			make_sb ("", "")
+
 --			put ("localhost:0", "DISPLAY")
 				-- This line may be uncommented to allow for display
 				-- redirection to another machine for debugging purposes

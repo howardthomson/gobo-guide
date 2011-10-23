@@ -37,6 +37,12 @@ inherit
 
 	MATH_CONST
 
+	SB_DRAWABLE
+		rename
+			width as width_sb,
+			height as height_sb
+		end
+
 feature {NONE} -- Implementation Attribute(s)
 
 	sb_drawable: SB_DRAWABLE

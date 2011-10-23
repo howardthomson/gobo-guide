@@ -19,7 +19,10 @@ inherit
 
 	EV_DRAWABLE_IMP
 		rename
-			sb_drawable as sb_pixmap_window
+			sb_drawable as sb_pixmap_window,
+			make as make_drawable
+		undefine
+			
 		redefine
 			sb_pixmap_window,
 			interface,
@@ -251,11 +254,6 @@ feature -- Duplication
 		do
 			todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ 12")
 		end
-
-feature {EV_ANY_I} -- Implementation
-
---	internal_xpm_data: POINTER
-		-- Pointer to the appropriate XPM image used for the default stock cursor if any
 
 feature {EV_STOCK_PIXMAPS_IMP, EV_PIXMAPABLE_IMP, EV_PIXEL_BUFFER_IMP} -- Implementation
 

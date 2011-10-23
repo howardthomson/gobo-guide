@@ -1,5 +1,5 @@
 indexing
-	description: "Eiffel Vision menu item. GTK+ implementation."
+	description: "Eiffel Vision menu item. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2006-11-09 14:46:06 -0800 (Thu, 09 Nov 2006) $"
@@ -25,7 +25,7 @@ inherit
 		redefine
 			make,
 			interface,
---			initialize
+			set_item_parent_imp
 		end
 
 	EV_SENSITIVE_IMP
@@ -49,28 +49,15 @@ feature {NONE} -- Initialization
 
 	is_dockable: BOOLEAN is False
 
---	old_make (an_interface: like interface) is
---			-- Create a menu.
---		do
---			assign_interface (an_interface)
---			set_c_object ({EV_GTK_DEPENDENT_EXTERNALS}.gtk_image_menu_item_new)
---			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_image_menu_item_set_image (c_object, pixmap_box)
---		end
-
 	make is
 			-- Initialize `Current'
 		do
 print ("EV_MENU_ITEM_IMP::make ...%N")
---			Precursor {EV_ITEM_IMP}
+			Precursor {EV_ITEM_IMP}
 
 			pixmapable_imp_initialize
 			textable_imp_initialize
 
-
---			if pixmap_box = default_pointer then
---				pixmapable_imp_initialize
---				{EV_GTK_EXTERNALS}.gtk_box_pack_start (box, pixmap_box, False, True, 0)
---			end
 		end
 
 feature -- Element change
@@ -90,6 +77,12 @@ feature -- Element change
 		end
 
 feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
+
+	set_item_parent_imp (a_parent: EV_ITEM_LIST_IMP [EV_ITEM])
+		do
+			Precursor (a_parent)
+		--	TODO
+			end
 
 	accelerators_enabled: BOOLEAN is True
 

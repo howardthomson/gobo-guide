@@ -731,20 +731,12 @@ feature {SB_RAW_EVENT_DEF}
 					-- Repaint event
 				when Graphics_expose, Expose then
 					ev_xexpose := ev.to_x_expose_event
-if true then					
 					l_event := event_paint
 					l_event.set_event_target (window)
 					l_event.set_rect_xywh (ev_xexpose.x, ev_xexpose.y, ev_xexpose.width, ev_xexpose.height)
 					l_event.set_synthetic (ev_xexpose.send_event)
 					l_event.set_data (l_event)
 					window.process_event (l_event)
-				--	l_event.process
-else
-					event.set_type (SEL_PAINT)
-					event.set_rect_xywh (ev_xexpose.x, ev_xexpose.y, ev_xexpose.width, ev_xexpose.height)
-					event.set_synthetic (ev_xexpose.send_event)
-					window.do_handle_2 (Current, SEL_PAINT, 0, event)
-end
 
 					-- Not interested in this event
 				when No_expose then
@@ -752,21 +744,26 @@ end
 					-- Keyboard
 				when Key_press, Key_release then
 					ev_key := ev.to_x_key_event
-					event.set_type (SEL_KEYPRESS + ev_key.type - Key_press);
-					event.set_time (ev_key.time)
-					event.set_win_x (ev_key.x)
-					event.set_win_y (ev_key.y)
-					event.set_root_x (ev_key.x_root)
-					event.set_root_y (ev_key.y_root)
+					if ev_key.type = Key_press then
+						l_event := event_key_press
+					else
+						l_event := event_key_release
+					end
+				--	l_event.set_type (SEL_KEYPRESS + ev_key.type - Key_press);
+					l_event.set_time (ev_key.time)
+					l_event.set_win_x (ev_key.x)
+					l_event.set_win_y (ev_key.y)
+					l_event.set_root_x (ev_key.x_root)
+					l_event.set_root_y (ev_key.y_root)
 					state := ev_key.state & (Button4Mask | Button5Mask).bit_not     -- Exclude wheel buttons
 					s := ev_key.lookup_string
 					sym := ev_key.last_key_symbol
 					if s /= Void then
-						event.set_text (s)
+						l_event.set_text (s)
 					else
-						event.set_text (once "")
+						l_event.set_text (once "")
 					end
-					event.set_code (sym)
+					l_event.set_code (sym)
 					if ev_key.type = Key_press then
 						if sym = key_shift_l	then state := state | SHIFTMASK;	end
 						if sym = key_shift_r	then state := state | SHIFTMASK;	end
@@ -782,9 +779,7 @@ end
 						if sym = key_alt_l		then state := state & (ALTMASK	  ).bit_not; end
 						if sym = key_alt_r		then state := state & (ALTMASK	  ).bit_not; end
 					end
-					event.set_state(state)
-
-				--	edp_trace.start(100, "code = %02x(%c) state=%04x char=(%s)\n",event.code,event.code,event.state,buf));
+					l_event.set_state (state)
 
 					-- Rules:
 
@@ -794,9 +789,8 @@ end
 					-- 4) modal dialog
 					-- 5) focus window
 
-
 			        if keyboard_grab_window /= Void then
-			        	if keyboard_grab_window.handle_2 (Current, event.type, 0, event) then refresh end
+			        	if keyboard_grab_window.handle_2 (Current, l_event.type, 0, l_event) then refresh end
 			        else
 			          	if ev.xkey.type = Key_press then
 			            	key_window := focus_window;
@@ -808,10 +802,9 @@ end
 			            	-- FIXME perhaps pass modal event when key window is below or equal to modal window
 			            	if invocation = Void	-- was /=
 			            	or else invocation.modality = MODAL_FOR_NONE
-			            	or else (invocation.window /= Void and then invocation.window.contains_child(key_window))
+			            	or else (invocation.window /= Void and then invocation.window.contains_child (key_window))
 			            	or else key_window.get_shell.does_save_under then
-			            	--	edp_trace.start(0, "SB_APPLICATION::dispatch_event - key_window = ").next(key_window.out).done
-			             		key_window.do_handle_2 (Current, event.type, 0, event);
+			             		key_window.do_handle_2 (Current, l_event.type, 0, l_event)
 			              		refresh
 			            	else
 			            		if ev.xany.type = Key_press then

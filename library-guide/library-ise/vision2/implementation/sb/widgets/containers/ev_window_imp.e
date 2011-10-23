@@ -32,7 +32,12 @@ inherit
 			width,
 			height,
 			show,
-			has
+			has,
+				-- SB_ ...
+			class_name,
+			default_width_sb,
+			default_height_sb,
+			on_paint
 		redefine
 			interface,
 			sb_window,
@@ -46,6 +51,8 @@ inherit
 		end
 
 	EV_SB_WINDOW_IMP
+		rename
+			make_ev as make_window_ev
 		undefine
 			initialize,
 			parent_imp
@@ -265,8 +272,9 @@ feature -- Element change
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 10")
 			
 			mb_imp ?= a_menu_bar.implementation
---			mb_imp.set_parent_window_imp (vbox)	-- ???
-			mb_imp.sb_widget.set_parent (vbox)
+			mb_imp.set_parent_window_imp (Current)	-- ???
+--			mb_imp.sb_widget.set_parent (vbox)
+			menu_bar := a_menu_bar
 		end
 
 	remove_menu_bar is
@@ -459,7 +467,7 @@ feature {EV_MENU_BAR_IMP, EV_ACCELERATOR_IMP, EV_APPLICATION_IMP} -- Implementat
 			end
 		end
 
-feature {EV_ACCELERATOR_IMP} -- Implementation
+feature {EV_ACCELERATOR_IMP, EV_MENU_BAR_IMP} -- Implementation
 
 	vbox: SB_VERTICAL_FRAME
 			-- Vertical_box to have a possibility for a menu on the

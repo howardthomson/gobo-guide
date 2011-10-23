@@ -21,9 +21,12 @@ inherit
 		end
 
 	EV_PICK_AND_DROPABLE_IMP
+		rename
+			sb_widget as sb_item
 		redefine
 			interface,
-			destroy
+			destroy,
+			sb_item
 		end
 
 	EV_PIXMAPABLE_IMP
@@ -33,11 +36,11 @@ inherit
 
 	EV_ITEM_ACTION_SEQUENCES_IMP
 
-feature {NONE} -- Initialization
+feature {NONE} -- Attributes
 
---	old_make (an_interface: like interface)
---		do
---		end
+	sb_item: SB_WINDOW
+
+feature {NONE} -- Initialization
 
 	call_button_event_actions (
 			a_type: INTEGER;

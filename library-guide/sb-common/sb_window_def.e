@@ -25,9 +25,6 @@ deferred class SB_WINDOW_DEF
 inherit
 
 	SB_MESSAGE_SENDER
-		rename
-		--	Id_last as Message_sender_id_last
-		end
 
 	SB_MESSAGE_HANDLER
     	rename
@@ -174,7 +171,7 @@ feature -- Creation
          	drag_cursor /= Void
 		end
 
-feature { EV_WIDGET_IMP } -- Creation special
+feature { EV_WIDGET_IMP, EV_MENU_BAR_IMP } -- Creation special
 
 	set_parent (p: SB_COMPOSITE) is
 		do
@@ -197,6 +194,8 @@ feature { EV_WIDGET_IMP } -- Creation special
            		window_key := 1
            		parent.set_first_child (current_w)
          	end
+         	application.register_window (current_w)	-- ??
+         	application.set_do_create_resource
 		ensure
          	parent /= Void
          	owner /= Void
@@ -445,11 +444,6 @@ feature
 	set_width (w: INTEGER) is
 			-- Set the window width
 		do
---			if w < 0 then
---				width := 0
---			else
---				width := w
---			end
 			width := w.max (minimum_width)
 			recalc
 		end

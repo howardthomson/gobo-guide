@@ -185,7 +185,10 @@ feature -- Event handling
 			-- Called after `an_item' is added.
 		do
 			add_radio_button (an_item_imp)
---print ("EV_CONTAINER_IMP::on_new_item ... Calling set_parent_imp%N")
+print ("EV_CONTAINER_IMP::on_new_item ... Calling set_parent_imp%N")
+if an_item_imp = Void then
+print ("EV_CONTAINER_IMP::on_new_item ... an_item_imp = Void%N")
+end
 			an_item_imp.set_parent_imp (Current)
 --			if new_item_actions_internal /= Void then
 --				new_item_actions_internal.call ([an_item])

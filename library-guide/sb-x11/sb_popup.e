@@ -3,7 +3,8 @@ class SB_POPUP
 inherit
 	 SB_POPUP_DEF
 	 
-creation
+create
+
 	make,
 	make_opts
 

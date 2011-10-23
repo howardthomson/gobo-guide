@@ -18,12 +18,28 @@ inherit
          	default_width,
          	default_height,
          	layout,
-         	class_name
+         	class_name,
+         	make, make_ev
       	end
 
-creation
+create
 
 	make, make_sb, make_opts, make_ev
+
+feature -- TEMP trace creation
+
+	make_ev
+		do
+			Precursor
+			print ("SB_VERTICAL_FRAME make_ev called ...%N")
+		end
+
+	make (a_window: SB_COMPOSITE)
+		do
+			Precursor (a_window)
+			print ("SB_VERTICAL_FRAME make called ...%N")
+			options := options | Frame_line	-- TEMP
+		end
 
 feature -- class name
 

@@ -23,23 +23,18 @@ inherit
 			make,
 			sb_button,
 			interface,
---			initialize,
---			old_make,
 			set_foreground_color,
-			on_focus_changed	--,
---			event_widget
+			on_focus_changed
 		end
 
 	EV_PIXMAPABLE_IMP
 		redefine
-			interface	--,
---			initialize
+			interface
 		end
 
 	EV_TEXTABLE_IMP
 		redefine
 			interface,
---			initialize,
 			align_text_left,
 			align_text_center,
 			align_text_right
@@ -47,8 +42,7 @@ inherit
 
 	EV_FONTABLE_IMP
 		redefine
-			interface	--,
---			initialize
+			interface
 		end
 
 	EV_BUTTON_ACTION_SEQUENCES_IMP
@@ -64,12 +58,6 @@ feature {NONE} -- Implementation Attributes
 	sb_button: SB_BUTTON
 
 feature {NONE} -- Initialization
-
---	old_make (an_interface: like interface) is
---			-- Connect interface and initialize `c_object'.
---		do
---			base_make (an_interface)
---		end
 
 	make is
 			-- `Precursor' initialization,
@@ -89,12 +77,6 @@ feature {NONE} -- Initialization
 --			textable_imp_initialize
 --			align_text_center
 --			Precursor {EV_PRIMITIVE_IMP}
-		end
-
-	XXfontable_widget: POINTER is
-			-- Pointer to the widget that may have fonts set.
-		do
-			Result := text_label
 		end
 
 feature -- Access
@@ -194,15 +176,15 @@ feature {NONE} -- implementation
 			end
 		end
 
-	XXforeground_color_pointer: POINTER is
-			-- Pointer to fg color for `Current'.
-		do
-			TODO_class_line ("__EV_BUTTON_IMP__", "foreground_color_pointer")
-			
+--	XXforeground_color_pointer: POINTER is
+--			-- Pointer to fg color for `Current'.
+--		do
+--			TODO_class_line ("__EV_BUTTON_IMP__", "foreground_color_pointer")
+--			
 --			Result := {EV_GTK_EXTERNALS}.gtk_style_struct_text (
 --				{EV_GTK_EXTERNALS}.gtk_rc_get_style (text_label)
 --			)
-		end
+--		end
 
 feature {EV_ANY_I} -- implementation
 

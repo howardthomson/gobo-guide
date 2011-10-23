@@ -24,7 +24,7 @@ inherit
          	class_name
       	end
 
-creation
+create
 
    	make,
    	make_opts,

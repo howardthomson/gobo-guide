@@ -310,9 +310,9 @@ feature -- Message processing
       do
          active := is_active
          if is_enabled then
-            parent.do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void);
+            parent.do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
             if active and then message_target /= Void then
-               message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_true);
+               message_target.do_handle_2 (Current, SEL_COMMAND, message, ref_true)
             end
             Result := True
          end

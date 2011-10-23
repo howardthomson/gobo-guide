@@ -318,7 +318,7 @@ static void GE_handle_exception(int signum, siginfo_t *a_context, ucontext_t *a_
 #if 0
 	print_registers_struct(a_context);
 #endif
-#if 1
+#if 0
 	print_line_no_trace();
 #endif
 	exit(1);
@@ -348,6 +348,7 @@ static void print_stack()
 	while (p != NULL) {
 		printf("gestack_ptr = %x\n", p);
 		if (p->current != NULL) {
+			printf("   Current = %x\n", p->current);
 			printf("   Current->id = %d\n", *((int16_t *)(p->current)));
 		}
 #ifdef EIF_INSTRUCTION_LOCATION_TRACE
@@ -363,8 +364,8 @@ static void print_stack()
 		printf("Last item validated: id = %d\n", item->id);
 		printf("Last item validated: flags = %x\n", item->gc_flags);
 	}
-	printf("About to call gc__dump_arenas() ... ?\n");
 #ifdef EDP_GC_DEBUG
+	printf("About to call gc__dump_arenas() ... ?\n");
 	GC__dump_arenas();
 #endif
 }

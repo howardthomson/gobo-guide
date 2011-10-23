@@ -28,8 +28,8 @@ feature {NONE} -- Initialization
 
 	make
 		do
-			create {SB_SEPARATOR} sb_widget.make_ev
---			sb_widget.set_options ({SB_CONSTANTS}.Layout_fill_x)
+			make_window_ev
+			set_options ({SB_CONSTANTS}.Layout_fill_x)
 		end
 
 feature {EV_ANY_I} -- Implementation

@@ -31,6 +31,7 @@ feature {NONE} -- Initialization
 
 	initialize is
 		do
+print ("EV_SPLIT_AREA_IMP::initialize called ...%N")
 			Precursor {EV_CONTAINER_IMP}
 --			{EV_GTK_EXTERNALS}.gtk_widget_show (container_widget)
 --			second_expandable := True
@@ -117,11 +118,6 @@ feature -- Access
 		end
 
 feature {NONE} -- Implementation
-
-	needs_event_box: BOOLEAN is True
-
---	container_widget: POINTER
-		-- Pointer to the GtkPaned widget.
 
 	splitter_width: INTEGER is
 			-- Width of splitter.

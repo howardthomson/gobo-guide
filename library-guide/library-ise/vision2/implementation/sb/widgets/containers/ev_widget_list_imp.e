@@ -55,10 +55,12 @@ feature {NONE} -- Implementation
 		local
 			v_imp: EV_WIDGET_IMP
 		do
+print ("EV_WIDGET_LIST_IMP::insert_ith ...%N")
 			v_imp ?= v.implementation
 			child_array.go_i_th (i)
 			child_array.put_left (v)
 			on_new_item (v_imp)
+print ("EV_WIDGET_LIST_IMP::insert_ith exit ...%N")
 		end
 
 	remove_i_th (i: INTEGER) is

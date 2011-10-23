@@ -61,7 +61,7 @@ creation
 
 feature -- Creation
 
-	make(ownr: SB_WINDOW; opts: INTEGER) is
+	make (ownr: SB_WINDOW; opts: INTEGER) is
 			-- Construct popup pane
 		local
 			o: INTEGER
@@ -71,14 +71,14 @@ feature -- Creation
 			else
 				o := opts
 			end
-			make_opts(ownr, o, 0,0,0,0)
+			make_opts (ownr, o, 0,0,0,0)
 		end
 
-	make_opts(ownr: SB_WINDOW; opts: INTEGER; x, y, w, h: INTEGER) is
+	make_opts (ownr: SB_WINDOW; opts: INTEGER; x, y, w, h: INTEGER) is
       	do
-         	shell_make_child(ownr, opts, x,y,w,h)
-         	default_cursor := application.default_cursor(Def_rarrow_cursor)
-         	drag_cursor := application.default_cursor(Def_rarrow_cursor)
+         	shell_make_child (ownr, opts, x,y,w,h)
+         	default_cursor := application.default_cursor (Def_rarrow_cursor)
+         	drag_cursor := application.default_cursor (Def_rarrow_cursor)
          	set_flags (Flag_enabled)
          	grab_owner := Void
          	base_color := application.base_color
@@ -114,7 +114,6 @@ feature -- Queries
          w,wmax,wcum,n: INTEGER
          hints: INTEGER
       do
-
          from
             child := first_child
          until
@@ -135,10 +134,10 @@ feature -- Queries
          end
 
          if (options & Pack_uniform_width) /= 0 then 
-            wcum := n*wmax;
+            wcum := n*wmax
          end
          if (options & Popup_horizontal) /= 0 then
-            wmax := wcum;
+            wmax := wcum
          end
          Result := wmax + border*2
       end
@@ -172,7 +171,7 @@ feature -- Queries
             hcum := n*hmax
          end
          if (options & Popup_horizontal) = 0 then
-            hmax := hcum;
+            hmax := hcum
          end
          Result := hmax + border*2
       end
@@ -319,14 +318,12 @@ feature -- Actions
          end
       end
 
-	pop_up(grabto: SB_WINDOW; x_, y_, w_, h_: INTEGER) is
+	pop_up (grabto: SB_WINDOW; x_, y_, w_, h_: INTEGER) is
     		-- Popup the menu and grab to the given owner
       	local
          	rw, rh: INTEGER
          	x,y, w,h: INTEGER
       	do
-   		--	fx_trace(0, <<"SB_POPUP_DEF::pop_up -- entry">> )
-
 			-- ### Temp 
 			if not is_attached then
 				create_resource
@@ -356,8 +353,7 @@ feature -- Actions
          	if y < 0 then
             	y := 0
          	end
-         	position(x,y,w,h)
-         --	fx_trace(0, <<"SB_POPUP_DEF::pop_up: x,y,w,h = ", x.out," ", y.out," ", w.out," ", h.out>>)
+         	position (x,y, w,h)
          
          	show
          	raise
@@ -365,8 +361,6 @@ feature -- Actions
          	if grab_owner = Void then
             	grab_mouse
          	end
-        --	fx_trace(0, <<"SB_POPUP_DEF::pop_up -- is_attached: ", is_attached.out>>)
-   		--	fx_trace(0, <<"SB_POPUP_DEF::pop_up -- exit">> )
       	end
 
 	pop_down is
@@ -382,77 +376,77 @@ feature -- Actions
 
 feature -- Message processing
 
-   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
-      do
-         if		match_function_2 (SEL_FOCUS_UP,			0, type, key) then Result := on_focus_up		(sender, key, data)
-         elseif match_function_2 (SEL_FOCUS_DOWN,			0, type, key) then Result := on_focus_down		(sender, key, data)
-         elseif match_function_2 (SEL_FOCUS_LEFT,			0, type, key) then Result := on_focus_left		(sender, key, data)
-         elseif match_function_2 (SEL_FOCUS_RIGHT,		0, type, key) then Result := on_focus_right		(sender, key, data)
-         elseif match_function_2 (SEL_FOCUS_NEXT,			0, type, key) then Result := on_default			(sender, key, data)
-         elseif match_function_2 (SEL_FOCUS_PREV,			0, type, key) then Result := on_default			(sender, key, data)
-         elseif match_function_2 (SEL_LEFTBUTTONPRESS,	0, type, key) then Result := on_button_press	(sender, key, data)
-         elseif match_function_2 (SEL_LEFTBUTTONRELEASE,	0, type, key) then Result := on_button_release	(sender, key, data)
-         elseif match_function_2 (SEL_MIDDLEBUTTONPRESS,	0, type, key) then Result := on_button_press	(sender, key, data)
-         elseif match_function_2 (SEL_MIDDLEBUTTONRELEASE,0, type, key) then Result := on_button_release	(sender, key, data)
-         elseif match_function_2 (Sel_rightbuttonpress,	0, type, key) then Result := on_button_press 	(sender, key, data)
-         elseif match_function_2 (Sel_rightbuttonrelease,	0, type, key) then Result := on_button_release	(sender, key, data)
-         
-         elseif match_function_2 (SEL_COMMAND,	Id_unpost, type, key) then Result := on_cmd_unpost(sender, key, data)
-         
-         elseif match_functions_2 (SEL_COMMAND,ID_CHOICE,ID_CHOICE+999,type, key) then Result := on_cmd_choice (sender, key, data)
-         
-         else Result := Precursor(sender, type, key, data)
-         end
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+		do
+			if	   match_function_2 (SEL_FOCUS_UP,			 0, type, key) then Result := on_focus_up		(sender, key, data)
+			elseif match_function_2 (SEL_FOCUS_DOWN,		 0, type, key) then Result := on_focus_down		(sender, key, data)
+			elseif match_function_2 (SEL_FOCUS_LEFT,		 0, type, key) then Result := on_focus_left		(sender, key, data)
+			elseif match_function_2 (SEL_FOCUS_RIGHT,		 0, type, key) then Result := on_focus_right	(sender, key, data)
+			elseif match_function_2 (SEL_FOCUS_NEXT,		 0, type, key) then Result := on_default		(sender, key, data)
+			elseif match_function_2 (SEL_FOCUS_PREV,		 0, type, key) then Result := on_default		(sender, key, data)
+			elseif match_function_2 (SEL_LEFTBUTTONPRESS,	 0, type, key) then Result := on_button_press	(sender, key, data)
+			elseif match_function_2 (SEL_LEFTBUTTONRELEASE,	 0, type, key) then Result := on_button_release	(sender, key, data)
+			elseif match_function_2 (SEL_MIDDLEBUTTONPRESS,	 0, type, key) then Result := on_button_press	(sender, key, data)
+			elseif match_function_2 (SEL_MIDDLEBUTTONRELEASE,0, type, key) then Result := on_button_release	(sender, key, data)
+			elseif match_function_2 (Sel_rightbuttonpress,	 0, type, key) then Result := on_button_press 	(sender, key, data)
+			elseif match_function_2 (Sel_rightbuttonrelease, 0, type, key) then Result := on_button_release	(sender, key, data)
+
+			elseif match_function_2 (SEL_COMMAND,	Id_unpost, type, key) then Result := on_cmd_unpost(sender, key, data)
+
+			elseif match_functions_2 (SEL_COMMAND, ID_CHOICE, ID_CHOICE + 999, type, key) then Result := on_cmd_choice (sender, key, data)
+
+			else Result := Precursor (sender, type, key, data)
+			end
       end
 
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
-      local
-         ev: SB_EVENT
-         dc: SB_DC_WINDOW
-      do
-         ev ?= data;
-         check
-            ev /= Void
-         end
-         dc := paint_dc
-         dc.make_event(Current, ev)
-         dc.set_foreground(back_color)
-         dc.fill_rectangle(border, border, width - border*2, height - border*2)
-         draw_frame(dc, 0, 0, width, height)
-         dc.stop
-         Result := True
+	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+		local
+			ev: SB_EVENT
+			dc: SB_DC_WINDOW
+		do
+			ev ?= data
+			check
+				ev /= Void
+			end
+			dc := paint_dc
+			dc.make_event (Current, ev)
+			dc.set_foreground (back_color)
+			dc.fill_rectangle (border, border, width - border*2, height - border*2)
+			draw_frame (dc, 0, 0, width, height)
+			dc.stop
+			Result := True
       end
 
-   on_focus_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
          if (options & Popup_horizontal) = 0 then
             Result := on_focus_prev (sender, selector, data)
          end
       end
 
-   on_focus_down(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
          if (options & Popup_horizontal) = 0 then
             Result := on_focus_next (sender, selector, data)
          end
       end
 
-   on_focus_left(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
          if (options & Popup_horizontal) /= 0 then
             Result := on_focus_prev (sender, selector, data)
          end
       end
 
-   on_focus_right(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       do
          if (options & Popup_horizontal) /= 0 then
             Result := on_focus_prev (sender, selector, data)
          end
       end
 
-   on_focus_next(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_next (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       local
          child: SB_WINDOW;
          done: BOOLEAN
@@ -487,7 +481,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_prev(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_prev (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       local
          child: SB_WINDOW;
          done: BOOLEAN
@@ -522,10 +516,10 @@ feature -- Message processing
          end
       end
 
-   on_enter(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       local
-         event: SB_EVENT;
-         sbp: SB_POINT;
+         event: SB_EVENT
+         sbp: SB_POINT
       do
          Result := Precursor (sender, selector, data)
          event ?= data;
@@ -541,7 +535,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_leave(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       local
          event: SB_EVENT;
          sbp: SB_POINT;
@@ -562,7 +556,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       local
          event: SB_EVENT;
          p: SB_POINT;
@@ -696,7 +690,7 @@ feature -- Destruction
 
 feature {NONE}-- Implementation
 
-   grab_owner: SB_WINDOW;
+   grab_owner: SB_WINDOW
          -- Window which will get grabbed when outside
 
 	layout is
@@ -882,60 +876,58 @@ feature {NONE}-- Implementation
 			Result := True
 		end
 
-
 	class_name: STRING is
 		do
 			Result := "SB_POPUP"
 		end
 
-
-	draw_groove_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+	draw_groove_rectangle (dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
       	do
          	dc.set_foreground(shadow_color)
-         	dc.fill_rectangle(x,y,w,1)
-         	dc.fill_rectangle(x,y,1,h)
-         	dc.fill_rectangle(x+1,y+h-2,w-2,1)
-         	dc.fill_rectangle(x+w-2,y+1,1,h-2)
+         	dc.fill_rectangle(x, y, w, 1)
+         	dc.fill_rectangle(x, y, 1, h)
+         	dc.fill_rectangle(x + 1, y + h - 2, w - 2, 1)
+         	dc.fill_rectangle(x + w - 2, y + 1, 1, h - 2)
          	dc.set_foreground(hilite_color)
-         	dc.fill_rectangle(x+1,y+1,w-2,1)
-         	dc.fill_rectangle(x+1,y+1,1,h-2)
-         	dc.fill_rectangle(x+1,y+h-1,w,1)
-         	dc.fill_rectangle(x+w-1,y+1,1,h)
+         	dc.fill_rectangle(x + 1, y + 1, w - 2, 1)
+         	dc.fill_rectangle(x + 1, y + 1, 1, h - 2)
+         	dc.fill_rectangle(x + 1, y + h - 1, w, 1)
+         	dc.fill_rectangle(x + w - 1, y + 1, 1, h)
       	end
 
-	draw_double_raised_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+	draw_double_raised_rectangle (dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
 		do
 			dc.set_foreground(base_color)
-         	dc.fill_rectangle(x,y,w-1,1)
-         	dc.fill_rectangle(x,y,1,h-1)
+         	dc.fill_rectangle(x, y, w - 1, 1)
+         	dc.fill_rectangle(x, y, 1, h - 1)
          	dc.set_foreground(hilite_color)
-         	dc.fill_rectangle(x+1,y+1,w-2,1)
-         	dc.fill_rectangle(x+1,y+1,1,h-2)
+         	dc.fill_rectangle(x + 1, y + 1, w - 2, 1)
+         	dc.fill_rectangle(x + 1, y + 1, 1, h - 2)
          	dc.set_foreground(shadow_color)
-         	dc.fill_rectangle(x+1,y+h-2,w-2,1)
-         	dc.fill_rectangle(x+w-2,y+1,1,h-1)
+         	dc.fill_rectangle(x + 1, y + h - 2, w - 2, 1)
+         	dc.fill_rectangle(x + w - 2, y + 1, 1, h - 1)
          	dc.set_foreground(border_color)
-         	dc.fill_rectangle(x,y+h-1,w,1)
-         	dc.fill_rectangle(x+w-1,y,1,h)
+         	dc.fill_rectangle(x, y + h - 1, w, 1)
+         	dc.fill_rectangle(x + w - 1, y, 1, h)
       	end
 
 feature {SB_POPUP_DEF}
 
-	prev_active: SB_POPUP;
+	prev_active: SB_POPUP
 		-- Popup below this one in stack
 
-	next_active: SB_POPUP;
+	next_active: SB_POPUP
 		-- Popup above this one in stack
 
-	set_prev_active(pa: SB_POPUP) is
+	set_prev_active (pa: SB_POPUP) is
 		do
-			prev_active := pa;
+			prev_active := pa
 		end
 
 	set_next_active(na: SB_POPUP) is
 			-- Popup above this one in stack
 		do
-			next_active := na;
+			next_active := na
 		end
 
 invariant

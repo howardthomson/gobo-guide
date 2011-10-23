@@ -1,5 +1,5 @@
 indexing
-	description: "Eiffel Vision radio button. GTK+ implementation."
+	description: "Eiffel Vision radio button. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2006-01-22 18:25:44 -0800 (Sun, 22 Jan 2006) $"
@@ -19,28 +19,18 @@ inherit
 			default_alignment
 		redefine
 			interface,
---			old_make,
 			make
 		end
 
 	EV_RADIO_PEER_IMP
 		redefine
-			interface,
---			widget_object
+			interface
 		end
 
 create
 	make
 
 feature {NONE} -- Initialization
-
---	old_make (an_interface: like interface) is
---			-- Create radio button.
---		do
---			base_make (an_interface)
---			set_c_object ({EV_GTK_EXTERNALS}.gtk_radio_button_new (NULL))
---			enable_select
---		end
 
 	make is
 			-- Initialize `Current'

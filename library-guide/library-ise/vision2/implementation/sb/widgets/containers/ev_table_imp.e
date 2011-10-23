@@ -264,24 +264,6 @@ feature {EV_ANY_I, EV_ANY} -- Status Settings
 			put (v, a_column, a_row, column_span, row_span)
 		end
 
-feature {NONE} -- Externals
-
---	c_gtk_table_row_spacing (a_table_struct: POINTER): INTEGER is
---			-- Spacing between two rows.
---		external
---			"C [struct <gtk/gtk.h>] (GtkTable): EIF_INTEGER"
---		alias
---			"row_spacing"
---		end
-
---	c_gtk_table_column_spacing (a_table_struct: POINTER): INTEGER is
---			-- Spacing between two columns.
---		external
---			"C [struct <gtk/gtk.h>] (GtkTable): EIF_INTEGER"
---		alias
---			"column_spacing"
---		end
-
 feature {EV_ANY_I} -- Implementation
 
 	interface: EV_TABLE;

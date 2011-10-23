@@ -22,8 +22,7 @@ inherit
 	SB_COMPOSITE
       	rename
       			-- from SB_WINDOW
-         	make as make_composite	--,
---         	make_ev as make_composite_ev
+         	make as make_composite
       	redefine
       		make_ev,
          	on_paint,
@@ -40,8 +39,7 @@ inherit
       	rename
       			-- from SB_WINDOW
          	make_opts as make_frame_opts,
-         	make_window as make_composite	--,
---         	make_window_ev as make_composite_ev
+         	make_window as make_composite
       	undefine
       		make_ev,
          	make,
@@ -90,7 +88,8 @@ feature -- Creation
 	make_ev
 			-- Eiffel Vision creation routine ...
 		do
-			make_sb (Void, Layout_fill_x | Layout_fill_y)
+	--		make_sb (Void, Layout_fill_x | Layout_fill_y)
+			make_sb (Void, Layout_fill_x | Layout_fill_y | Frame_line) -- TEMP
 		end
 
 	make (p: SB_COMPOSITE)

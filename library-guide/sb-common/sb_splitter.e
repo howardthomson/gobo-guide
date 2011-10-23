@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Splitter window is used to interactively repartition two or more subpanes.
 		Space may be subdivided horizontally or vertically.
@@ -19,7 +19,7 @@ inherit
 
 	SB_COMPOSITE
 		rename
-        	make as composite_make
+        	make as make_composite
 		redefine
         	handle_2,
         	default_height,
@@ -41,7 +41,7 @@ inherit
 		--		SB_PROPERTY_VALUE [ INTEGER ]
 		-- and	SB_PROPERTY_VALUE [ BOOLEAN ]
 
-creation
+create
 
 	make, make_sb, make_opts
 
@@ -75,7 +75,7 @@ feature -- Creation
 				x, y, w, h: INTEGER) is
     		-- Construct new splitter widget, which will notify target about size changes
     	do
-         	composite_make(p, opts, x,y, w,h)
+         	make_composite (p, opts, x,y, w,h)
          	flags := flags | Flag_enabled | Flag_shown
          
          	if (options & SPLITTER_VERTICAL) /= 0 then

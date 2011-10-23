@@ -46,6 +46,8 @@ feature {NONE} -- Initialization
 	make
 		do
 print ("EV_MENU_IMP::make ...%N")
+			Precursor {EV_MENU_ITEM_IMP}
+			Precursor {EV_MENU_ITEM_LIST_IMP}
 		end
 
 	initialize is

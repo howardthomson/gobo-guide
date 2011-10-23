@@ -1,4 +1,4 @@
-indexing
+note
 	description: "EiffelVision fontable, SlyBoots implementation."
 	legal: "See notice at end of class.";
 	status: "See notice at end of class.";
@@ -31,18 +31,9 @@ feature -- Status setting
 
 	set_font (a_font: EV_FONT) is
 			-- Assign `a_font' to `font'.
-		local
-			font_imp: EV_FONT_IMP
 		do
 			if private_font /= a_font then
 				private_font := a_font.twin
-				font_imp ?= private_font.implementation
-				if font_imp.font_is_default then
-						-- If we are setting with the default font then we set to NULL so that its size is controlled by the user
---					{EV_GTK_DEPENDENT_EXTERNALS}.gtk_widget_modify_font (fontable_widget, default_pointer)
-				else
---					{EV_GTK_DEPENDENT_EXTERNALS}.gtk_widget_modify_font (fontable_widget, font_imp.font_description)
-				end
 			end
 		end
 
@@ -52,7 +43,7 @@ feature {NONE} -- Implementation
 
 	interface: EV_FONTABLE;	-- Gobo syntax error if ';' removed
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

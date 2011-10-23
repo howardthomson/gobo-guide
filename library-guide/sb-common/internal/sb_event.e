@@ -254,6 +254,11 @@ feature -- Event processing
 			event_target := a_target
 		end
 
+	set_event_id (an_id: INTEGER)
+		do
+			event_id := an_id
+		end
+
 	process: BOOLEAN is
 			-- Process event where message_target = sender
 		do

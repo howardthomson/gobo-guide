@@ -445,7 +445,7 @@ feature -- Message processing
     	local
         	index: INTEGER_REF
       	do
-         	if send_att (SEL_CHANGED, data) then
+         	if send (SEL_CHANGED, data) then
             	Result := True
          	end
       	end

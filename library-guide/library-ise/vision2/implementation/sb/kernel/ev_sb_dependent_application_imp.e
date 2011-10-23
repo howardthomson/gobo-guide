@@ -31,7 +31,7 @@ inherit
 feature -- Initialize
 
 	sb_dependent_initialize
-			-- Gtk dependent code for `initialize'
+			-- Slyboots dependent code for `initialize'
 		do
 				-- Initialize custom styles for gtk.
 			initialize_combo_box_style
@@ -39,7 +39,7 @@ feature -- Initialize
 		end
 
 	sb_dependent_launch_initialize
-			-- Gtk dependent code for `launch'
+			-- Slyboots dependent code for `launch'
 		do
 		end
 
@@ -263,10 +263,10 @@ feature -- Implementation
 		local
 			l_display, l_screen, l_wm_name: POINTER
 		do
-			l_display := {EV_GTK_EXTERNALS}.gdk_display_get_default
-			l_screen := {EV_GTK_EXTERNALS}.gdk_display_get_default_screen (l_display)
-			l_wm_name := {EV_GTK_EXTERNALS}.gdk_x11_screen_get_window_manager_name (l_screen)
-			create Result.make_from_c (l_wm_name)
+--			l_display := {EV_GTK_EXTERNALS}.gdk_display_get_default
+--			l_screen := {EV_GTK_EXTERNALS}.gdk_display_get_default_screen (l_display)
+--			l_wm_name := {EV_GTK_EXTERNALS}.gdk_x11_screen_get_window_manager_name (l_screen)
+--			create Result.make_from_c (l_wm_name)
 		end
 
 note

@@ -27,6 +27,7 @@ feature -- Initialization
 	make
 			-- Initialize the dynamic list.
 		do
+print ("EV_DYNAMIC_LIST_IMP::make called ...%N")
 			create child_array.make (0)
 			set_is_initialized (True)
 		end

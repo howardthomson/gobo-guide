@@ -73,30 +73,24 @@ feature
 												--	=  Layout_fix_x or Layout_fix_y
 												--	or Layout_fix_width or Layout_fix_height
 
-   	Frame_none   : INTEGER is 0 			--	000000000000000B	-- Default is no frame
-   	Frame_sunken : INTEGER is 0x00001000 --	001000000000000B	-- Sunken border
-   	Frame_raised : INTEGER is 0x00002000 --	010000000000000B	-- Raised border
-   	Frame_line   : INTEGER is 0x00003000 --	011000000000000B	-- Simple line border
-														--		= Frame_raised or Frame_sunken
-   	Frame_thick  : INTEGER is 0x00004000 --	100000000000000B	-- Thick border
-   	Frame_groove : INTEGER is 0x00004000 --	100000000000000B	-- A groove or etched-in border
-     													--		= Frame_thick
-   	Frame_normal : INTEGER is 0x00005000	--	101000000000000B	-- Regular raised/thick border 
- 														--		= Frame_sunken or Frame_thick               
-	Frame_xxx	 : INTEGER is 0x00006000	--	110000000000000B	-- Unused combination
-   	Frame_ridge  : INTEGER is 0x00007000	--	111000000000000B	-- A ridge or embossed border
-														--		= Frame_thick or Frame_raised or Frame_sunken
-	Frame_mask	 : INTEGER is 0x00007000	--	111000000000000B	-- Mask for bit field
+   	Frame_none   : INTEGER is 0 				-- Default is no frame
+   	Frame_sunken : INTEGER is 0x00001000 	-- Sunken border
+   	Frame_raised : INTEGER is 0x00002000 	-- Raised border
+   	Frame_line   : INTEGER is 0x00003000 	-- Simple line border
+											--		= Frame_raised or Frame_sunken
+   	Frame_thick  : INTEGER is 0x00004000 	-- Thick border
+   	Frame_groove : INTEGER is 0x00004000 	-- A groove or etched-in border
+     										--		= Frame_thick
+   	Frame_normal : INTEGER is 0x00005000	-- Regular raised/thick border 
+ 											--		= Frame_sunken or Frame_thick               
+	Frame_xxx	 : INTEGER is 0x00006000	-- Unused combination
+   	Frame_ridge  : INTEGER is 0x00007000	-- A ridge or embossed border
+											--		= Frame_thick or Frame_raised or Frame_sunken
+	Frame_mask	 : INTEGER is 0x00007000	-- Mask for bit field
 
 	--  Packing style (for packers)
-	Pack_normal         : INTEGER is  0                -- Default is each its own size
-	Pack_uniform_height : INTEGER is  0x00008000	--	1000000000000000B  -- Uniform height
-	Pack_uniform_width  : INTEGER is  0x00010000	--	10000000000000000B -- Uniform width
-
---	Conflict_mask: INTEGER is
---			-- Mask of all bits used by this class
---		do
---			Result := 0
---		end
+	Pack_normal         : INTEGER is  0				-- Default is each its own size
+	Pack_uniform_height : INTEGER is  0x00008000	-- Uniform height
+	Pack_uniform_width  : INTEGER is  0x00010000	-- Uniform width
 
 end -- class SB_WINDOW_CONSTANTS

@@ -60,7 +60,7 @@ feature {NONE} -- Initialization
 	initialize is
 			-- Show non window widgets.
 			-- Initialize default options, colors and sizes.
-			-- Connect action sequences to Slyboots events.
+			-- Connect action sequences to events.
 		do
 		end
 
@@ -350,6 +350,7 @@ feature {EV_CONTAINER_IMP} -- Implementation
 			l_composite: SB_COMPOSITE
 		do
 			parent_imp := a_container_imp
+print ("EV_WIDGET_IMP::set_parent_imp #1%N")
 			if parent_imp /= Void then
 				l_composite ?= parent_imp.sb_widget
 				if l_composite /= Void then
@@ -358,6 +359,7 @@ feature {EV_CONTAINER_IMP} -- Implementation
 					end
 				end
 			end
+print ("EV_WIDGET_IMP::set_parent_imp #2%N")
 		end
 
 feature {EV_ANY_IMP} -- Implementation

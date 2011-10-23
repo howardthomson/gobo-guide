@@ -26,7 +26,7 @@ feature -- Data
 	message: INTEGER
 		-- Message ID
 
-feature -- Actions
+feature -- Setters
 
 	set_message_target (target: SB_MESSAGE_HANDLER) is
 			-- Set the message target object for this window
@@ -47,30 +47,33 @@ feature -- Actions
 			message := sel
 		end
 
+feature -- Actions
+
+	event_of_type_with_target (a_type: INTEGER; a_target: SB_MESSAGE_HANDLER): SB_EVENT
+		do
+			Result := new_event
+			Result.set_type (a_type)
+			Result.set_event_target (a_target)
+		end
+
 	send (message_type: INTEGER; data: ANY): BOOLEAN is
 			-- Handle message, and return the result
 		do
 			if message_target /= Void then
-				Result := message_target.handle_2 (Current, message_type, message, data)
+--				Result := message_target.handle_2 (Current, message_type, message, data)
+				Result := event_of_type_with_target (message_type, message_target).process_with_id_data (message, data)
 			end
 		end
 
 	frozen do_send (message_type: INTEGER; data: ANY) is
 			-- Handle message, and forget the result
 		local
-			tmp: BOOLEAN;
+			tmp: BOOLEAN
 		do
 			if message_target /= Void then
-				tmp := message_target.handle_2 (Current, message_type, message, data)
+--				tmp := message_target.handle_2 (Current, message_type, message, data)
+				tmp := event_of_type_with_target (message_type, message_target).process_with_id_data (message, data)
 			end
 		end
 
-	send_att (message_type: INTEGER; data: ANY): BOOLEAN is
-			-- Handle message, and return True if the message target processed 
-			-- message
-		do
-			if message_target /= Void then
-				Result := (message_target.handle_2 (Current, message_type, message, data))
-			end
-		end
 end

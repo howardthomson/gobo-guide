@@ -64,21 +64,19 @@ feature {NONE} -- Initialization
 			-- Create grid
 		do
 			base_make (an_interface)
-			set_c_object ({EV_GTK_EXTERNALS}.gtk_event_box_new)
+--			set_c_object ({EV_GTK_EXTERNALS}.gtk_event_box_new)
 		end
 
 	initialize is
 			-- Initialize `Current'
 		do
-				-- We need to explicitly show the cell gtk widget as we are not calling the Precursor as the event hookup is not needed.
-			{EV_GTK_EXTERNALS}.gtk_widget_show (c_object)
 			initialize_grid
 
-				-- Initialize colors from gtk style.
-			set_focused_selection_color (color_from_state (base_style, {EV_GTK_EXTERNALS}.gtk_state_selected_enum))
-			set_non_focused_selection_color (color_from_state (base_style, {EV_GTK_EXTERNALS}.gtk_state_active_enum))
-			set_focused_selection_text_color (color_from_state (text_style, {EV_GTK_EXTERNALS}.gtk_state_selected_enum))
-			set_non_focused_selection_text_color (color_from_state (text_style, {EV_GTK_EXTERNALS}.gtk_state_active_enum))
+				-- Initialize colors [from ... ?]
+		--	set_focused_selection_color (color_from_state (base_style, {EV_GTK_EXTERNALS}.gtk_state_selected_enum))
+		--	set_non_focused_selection_color (color_from_state (base_style, {EV_GTK_EXTERNALS}.gtk_state_active_enum))
+		--	set_focused_selection_text_color (color_from_state (text_style, {EV_GTK_EXTERNALS}.gtk_state_selected_enum))
+		--	set_non_focused_selection_text_color (color_from_state (text_style, {EV_GTK_EXTERNALS}.gtk_state_active_enum))
 
 			set_is_initialized (True)
 		end

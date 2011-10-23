@@ -1,5 +1,5 @@
 indexing
-	description: "Eiffel Vision gauge. GTK+ implementation."
+	description: "Eiffel Vision gauge. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2006-01-22 18:25:44 -0800 (Sun, 22 Jan 2006) $"

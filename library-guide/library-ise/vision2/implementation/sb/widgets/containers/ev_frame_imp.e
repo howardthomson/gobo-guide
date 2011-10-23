@@ -19,18 +19,14 @@ inherit
 		end
 
 	EV_CELL_IMP
---		undefine
---			old_make
 		redefine
 			make,
-			interface,
---			initialize
+			interface
 		end
 
 	EV_FONTABLE_IMP
 		redefine
-			interface,
---			initialize
+			interface
 		end
 
 create
@@ -38,25 +34,11 @@ create
 
 feature {NONE} -- Initialization
 
-	needs_event_box: BOOLEAN is
-			-- Does `a_widget' need an event box?
-		do
-			Result := True
-		end
-
---	old_make (an_interface: like interface) is
---			-- Create frame.
---		do
---			base_make (an_interface)
---			create {SB_FRAME} sb_widget.make_ev
---
---			todo_class_line ("__EV_FRAME_IMP__", "__LINE__")
---		end
-
 	make is
 			-- Initialize `Current'.
 		do
-			create {SB_FRAME} sb_widget.make_ev
+--			create {SB_FRAME} sb_widget.make_ev
+			make_ev
 			set_style (Ev_frame_etched_in)
 			align_text_left
 --			Precursor {EV_CELL_IMP}

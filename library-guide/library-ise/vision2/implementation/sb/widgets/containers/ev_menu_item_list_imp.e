@@ -25,9 +25,29 @@ inherit
 
 feature {NONE} -- Implementation
 
-	insert_i_th (v: like item; pos: INTEGER) is
+	insert_i_th (v: like item; pos: INTEGER)
+		local
+			an_item_imp: detachable EV_MENU_ITEM_IMP
+			an_index: INTEGER
 		do
-		-- TODO
+			an_item_imp ?= v.implementation
+			check an_item_imp /= Void end
+			an_index := index
+			insert_menu_item (an_item_imp, pos)
+				-- TODO separator items, radio groups ...
+		end
+
+	remove_i_th (a_position: INTEGER) is
+			-- Remove item at `a_position'
+		local
+			item_imp: EV_ITEM_IMP
+			radio_imp: EV_RADIO_MENU_ITEM_IMP
+			sep_imp: EV_MENU_SEPARATOR_IMP
+			an_index: INTEGER
+			has_radio_item: BOOLEAN
+		do
+			-- TODO
+			TODO_class_line ("EV_MENU_ITEM_LIST_IMP", "xxx")
 		end
 
 	insert_menu_item (an_item_imp: EV_MENU_ITEM_IMP; pos: INTEGER) is
@@ -71,18 +91,6 @@ feature {NONE} -- Implementation
 		do
 			sep_imp ?= an_item_imp
 			Result := sep_imp /= Void
-		end
-
-	remove_i_th (a_position: INTEGER) is
-			-- Remove item at `a_position'
-		local
-			item_imp: EV_ITEM_IMP
-			radio_imp: EV_RADIO_MENU_ITEM_IMP
-			sep_imp: EV_MENU_SEPARATOR_IMP
-			an_index: INTEGER
-			has_radio_item: BOOLEAN
-			temp_item_pointer, l_null: POINTER
-		do
 		end
 
 feature -- Radio Group

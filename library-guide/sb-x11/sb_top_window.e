@@ -62,8 +62,6 @@ feature
 		end
 		
 	set_focus is
-    	local
-        	t: INTEGER
       	do
          	Precursor
          	if is_attached then
@@ -73,7 +71,6 @@ feature
 
 	kill_focus is
 		local
-			t: INTEGER
 			win: SB_WINDOW
 		do
          	Precursor
@@ -94,8 +91,6 @@ feature
       	end
 
 	hide is
-		local
-        	t: INTEGER
       	do
          	if (flags & Flag_shown) = Flag_shown then
             	kill_focus
@@ -107,8 +102,6 @@ feature
       	end
 
 	move (x, y: INTEGER) is
-		local
-			t: INTEGER
 		do
          	if x /= x_pos or else y /= y_pos then
             	x_pos := x
@@ -122,8 +115,6 @@ feature
       	end
 
    	resize (w, h: INTEGER) is
-      	local
-         	t: INTEGER
       	do
          	if (flags & Flag_dirty) = Flag_dirty  or else w /= width or else h /= height then
             	width := w.max (1)
@@ -138,8 +129,6 @@ feature
       	end
 
    position (x, y, w, h: INTEGER) is
-      local
-         t: INTEGER
       do
          if (flags & Flag_dirty) = Flag_dirty or else x /= x_pos or else y /= y_pos
             or else w /= width or else h /= height
@@ -158,8 +147,6 @@ feature
       end
 
 	iconify is
-    	local
-        	t: INTEGER
       	do
          	if is_attached then
 				-- TODO
@@ -167,8 +154,6 @@ feature
       	end
 
 	deiconify is
-      	local
-         	t: INTEGER
       	do
          	if is_attached then
 				-- TODO

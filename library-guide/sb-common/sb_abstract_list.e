@@ -236,28 +236,28 @@ feature -- Message processing
 
    	on_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       	do
-         	if send_att (SEL_CLICKED, data) then
+         	if send (SEL_CLICKED, data) then
             	Result := True
          	end
       	end
 
    	on_double_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       	do
-         	if send_att (SEL_DOUBLECLICKED, data) then
+         	if send (SEL_DOUBLECLICKED, data) then
             	Result := True
          	end
       	end
 
    	on_triple_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       	do
-         	if send_att (SEL_TRIPLECLICKED, data) then
+         	if send (SEL_TRIPLECLICKED, data) then
             	Result := True
          	end
       	end
 
    	on_command(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
       	do
-         	if send_att (SEL_COMMAND, data) then
+         	if send (SEL_COMMAND, data) then
             	Result := True
          	end
       	end

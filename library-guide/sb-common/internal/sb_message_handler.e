@@ -31,14 +31,14 @@ feature -- Actions
 			-- Called for unhandled messages
 		require
 			sender_not_void: sender /= Void
-      	do
---	print(once "on_default called%N")
-      	end
+		do
+	print(once "on_default called%N")
+		end
 
 feature -- Actions: Split key
 
-   frozen do_handle_2 (sender: SB_MESSAGE_HANDLER; cmd, id: INTEGER; data: ANY) is
-         -- Handle message, and forget the result
+	frozen do_handle_2 (sender: SB_MESSAGE_HANDLER; cmd, id: INTEGER; data: ANY) is
+			-- Handle message, and forget the result
 		require
 			sender /= Void
 		local
@@ -48,7 +48,7 @@ feature -- Actions: Split key
 		end
 
 	handle_2 (sender: SB_MESSAGE_HANDLER; cmd, id: INTEGER; data: ANY): BOOLEAN is
-    		-- Handle message, and return the result
+			-- Handle message, and return the result
 		require else
 			sender /= Void
 		do
@@ -58,10 +58,10 @@ feature -- Actions: Split key
 	on_default_2 (sender: SB_MESSAGE_HANDLER; cmd, id: INTEGER; data: ANY): BOOLEAN is
 			-- Called for unhandled messages
 		require
-        	sender /= Void
-      	do
+	    	sender /= Void
+	  	do
 --print(once "on_default_2 called%N")
-      	end
+		end
 
 feature
 

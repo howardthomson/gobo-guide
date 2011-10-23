@@ -49,7 +49,7 @@ feature {NONE} -- Initialization
 	make
 			-- Initialize `Current'
 		do
-			create {SB_TEXT_FIELD} sb_widget.make_ev
+--			create {SB_TEXT_FIELD} sb_widget.make_ev
 			enable_word_wrapping
 			set_editable (True)
 			set_background_color ((create {EV_STOCK_COLORS}).white)
@@ -353,13 +353,13 @@ feature {NONE} -- Implementation
 		do
 		end
 
-	text_view: POINTER
+--	text_view: POINTER
 		-- Pointer to the GtkTextView widget
 
-	scrolled_window: POINTER
+--	scrolled_window: POINTER
 		-- Pointer to the GtkScrolledWindow
 
-	text_buffer: POINTER
+--	text_buffer: POINTER
 			-- Pointer to the GtkTextBuffer.
 
 	needs_event_box: BOOLEAN is
