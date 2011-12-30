@@ -55,8 +55,8 @@ feature -- Actions
 	resize (w, h: INTEGER) is
     		--  Resize drawable to the specified width and height
     	do
-        	width := w.max (1)
-        	height := h.max (1)
+        	set_width  (w.max (1))
+        	set_height (h.max (1))
       	end
 
 feature -- Destruction
@@ -87,10 +87,12 @@ feature {NONE} -- Implementation
 
 	make (w, h: INTEGER ) is
 		do
+--print ("Entering SB_DRAWABLE_DEF.make ...%N")
 			init_resource
 			visual := application.default_visual
-			width := w.max (1)
-			height := h.max (1)
+			width_sb := w.max (1)
+			height_sb := h.max (1)
+--print ("Leaving SB_DRAWABLE_DEF.make ...%N")
 		end
 
 	paint_dc: SB_DC_WINDOW is

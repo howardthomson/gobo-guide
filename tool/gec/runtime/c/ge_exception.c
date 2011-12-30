@@ -370,6 +370,46 @@ static void print_stack()
 #endif
 }
 
+#if 1
+static void * GE_stack_ptr_base;
+
+void * GE_stack_ptr()
+{
+	return ((void *)(pthread_getspecific(GE_stack_key)));
+}
+
+void GE_set_stack_ptr (void *a_value)
+{
+	if (GE_stack_ptr_base != NULL) {
+		GE_check_stack (pthread_getspecific(GE_stack_key));
+	} else {
+		GE_stack_ptr_base = a_value;
+	}
+	pthread_setspecific (GE_stack_key, (void *)(a_value));
+}
+
+GE_check_stack (void *a_stack_ptr)
+{
+	struct {
+		void *caller;
+		void *current;
+#ifdef EIF_EDP_GC
+		void *stack_descriptor;
+#endif
+#ifdef EIF_INSTRUCTION_LOCATION_TRACE
+		char *class_and_feature;
+		int line_number;
+#endif
+	} *p;
+	gc_item_t *item;
+
+	p = a_stack_ptr;
+	while (p != NULL) {
+		p = p->caller;
+	}
+}
+
+#endif
 #else /* ifndef WIN32 */
 
 static void GE_setup_signal_handling();

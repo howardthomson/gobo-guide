@@ -29,7 +29,9 @@ inherit
 			call_button_event_actions,
 			destroy,
 			x_position,
-			y_position
+			y_position,
+			set_minimum_width,
+			set_minimum_height
 		end
 
 	EV_SENSITIVE_IMP
@@ -250,7 +252,7 @@ feature -- Element change
 			l_viewport_parent: EV_VIEWPORT_IMP
 			l_fixed_parent: EV_FIXED_IMP
 		do
-			sb_widget.set_minimum_width (a_minimum_width)
+			Precursor (a_minimum_width)
 				-- If the parent is a fixed or scrollable area we need to update the item size.
 			l_viewport_parent ?= parent_imp
 			if l_viewport_parent /= Void then
@@ -270,7 +272,7 @@ feature -- Element change
 			l_viewport_parent: EV_VIEWPORT_IMP
 			l_fixed_parent: EV_FIXED_IMP
 		do
-			sb_widget.set_minimum_height (a_minimum_height)
+			Precursor (a_minimum_height)
 				-- If the parent is a fixed or scrollable area we need to update the item size.
 			l_viewport_parent ?= parent_imp
 			if l_viewport_parent /= Void then

@@ -82,11 +82,28 @@ feature {NONE} -- Implementation
 				else
 						-- Overflow.
 					has_overflow := True
+					value := v 			-- TEMP
+					report_overflow (l_n1, l_n2)		-- TEMP
 					i := nb + 1
 				end
 				i := i + 1
 			end
 			value := v
+		end
+
+	report_overflow (a_n1, a_n2:NATURAL_64)
+		do
+			print ("Has_overflow set: ")
+			print (literal)
+			print (" -- ")
+			print (value.out)
+			print ("%N")
+			print ("n1 ({NATURAL_64}.Max_value // 10) = ")
+			print (a_n1.out)
+			print ("%N")
+			print ("n2 ({NATURAL_64}.Max_value \\ 10) = ")
+			print (a_n2.out)
+			print ("%N")
 		end
 
 invariant

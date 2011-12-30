@@ -210,6 +210,7 @@ feature {NONE} -- Processing
 -- TODO.
 			end
 			create l_system.make (a_system)
+			a_system.set_trace_mode (True)	-- TEMP !!!
 			if is_gelint then
 				a_system.set_flat_mode (True)
 				a_system.set_flat_dbc_mode (True)

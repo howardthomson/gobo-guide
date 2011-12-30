@@ -1,0 +1,7 @@
+./free_elks/kernel/special.e 
+./free_elks/kernel/tuple.e 
+./free_elks/kernel/type.e 
+./free_elks/kernel/arguments.e 
+./free_elks/kernel/procedure.e 
+./free_elks/kernel/function.e 
+./free_elks/support/internal.e 

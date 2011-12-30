@@ -64,9 +64,8 @@ feature {NONE} -- Initialization
 		local
 			locale_str: STRING
 		do
-			Precursor
-
 			make_sb ("", "")
+			Precursor
 
 --			put ("localhost:0", "DISPLAY")
 				-- This line may be uncommented to allow for display

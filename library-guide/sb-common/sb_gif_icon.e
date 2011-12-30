@@ -33,33 +33,33 @@ feature -- Creation
          	-- Construct an icon from memory stream formatted as CompuServe GIF 
          	-- format
       	do
-         	make_opts(a, pix, sbrgb (192,192,192), Zero, 1, 1)
+         	make_opts (a, pix, sbrgb (192,192,192), Zero, 1, 1)
       	end
 
-	make_opts(a: SB_APPLICATION; pix: ARRAY[INTEGER_8]; clr: INTEGER; opts: INTEGER; w,h: INTEGER) is
+	make_opts (a: SB_APPLICATION; pix: ARRAY[INTEGER_8]; clr: INTEGER; opts: INTEGER; w,h: INTEGER) is
     		-- Construct an icon from memory stream
     		-- formatted as CompuServe GIF format
       	local
          	ms: SB_BIT8_STREAM;
       	do
-        	icon_make_opts(a, Void, clr, opts & (IMAGE_ALPHA).bit_not, w, h);
+        	icon_make_opts (a, Void, clr, opts & (IMAGE_ALPHA).bit_not, w, h)
         	if pix /= Void then
             	create ms.make
-            	ms.open(pix, ms.SB_STREAM_LOAD);
+            	ms.open (pix, ms.SB_STREAM_LOAD)
             	if ms.code = ms.SB_STREAM_OK then
-					load_pixels(ms);
+					load_pixels (ms)
             	end
          	end
       	end
 
-   save_pixels(store: SB_STREAM) is
+   save_pixels (store: SB_STREAM) is
          -- Save pixels into stream in [un]GIF format
       do
          -- TODO: Implement
       end
 
 
-   load_pixels(store: SB_STREAM) is
+   load_pixels (store: SB_STREAM) is
          -- Load pixels from stream in CompuServe GIF format
       local
          gio: SB_GIF_IO
@@ -70,8 +70,8 @@ feature -- Creation
          if gio.load (store) then
             data := gio.data
             clearcolor := gio.clear_color
-            width := gio.width
-            height := gio.height
+            set_width (gio.width)
+            set_height (gio.height)
             if (options & IMAGE_ALPHACOLOR) = Zero then
                transparent_color := clearcolor
             end

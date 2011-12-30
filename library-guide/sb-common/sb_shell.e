@@ -108,8 +108,8 @@ feature {ANY} -- Message handlers
 
 			if ev /= Void and then (ev.rect_w /= width or ev.rect_h /= height) then
 					-- Record new size
-				width := ev.rect_w
-				height := ev.rect_h
+				set_width (ev.rect_w)
+				set_height (ev.rect_h)
 				layout
 			--	recalc -- FIXME This causes trouble on MSWindows
 			end

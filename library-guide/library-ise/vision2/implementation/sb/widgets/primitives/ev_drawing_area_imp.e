@@ -1,10 +1,23 @@
 indexing
-	description: "EiffelVision drawing area. GTK implementation."
+	description: "EiffelVision drawing area. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2007-03-28 16:24:10 -0800 (Wed, 28 Mar 2007) $"
 	revision: "$Revision: 67602 $"
 
+
+	todo: "[
+		What to do about renaming issues that differ between the X11 implementation
+		of SB and the Win32 one, yet to adapt ...
+
+		Currently, inheriting an attribute [resource_id / xwin] via two different parents, 
+		causes problems, in that from one branch [EV_DRAWABLE_IMP / SB_DRAWABLE] we get the
+		resource_id: ANY attribute, and from the other [EV_PRIMITIVE_IMP / SB_WINDOW] we
+		get the redefined xwin: X_WINDOW.
+		Unlike a routine, the compiler does not permit undefining the ANY attribute ... such
+		that the X_WINDOW attribute becomes the class implementation.	
+	]"
+	
 class
 	EV_DRAWING_AREA_IMP
 
@@ -15,9 +28,21 @@ inherit
 		end
 
 	EV_DRAWABLE_IMP
+		rename
+			resource_id as xwin
+		undefine
+			set_width,
+			set_height,
+			set_minimum_width,
+			set_minimum_height,
+			add_properties,
+			resize,
+			detach_resource,
+			destruct
 		redefine
 			interface,
-			dispose
+			dispose,
+			xwin
 		end
 
 	EV_PRIMITIVE_IMP
@@ -38,13 +63,18 @@ inherit
 			tooltip,
 			on_pointer_enter_leave,
 			on_key_event,
-			internal_set_focus
+			internal_set_focus,
+			xwin
 		end
 
 	EV_DRAWING_AREA_ACTION_SEQUENCES_IMP
 
 create
 	make
+
+feature {NONE} -- Attributes
+
+	xwin: X_WINDOW
 
 feature {NONE} -- Initialization
 

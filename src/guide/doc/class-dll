@@ -12,3 +12,12 @@ For each effective class:
 	For each routine in the class:
 		Register the <class_id, routine_address> of the routine with the
 		seed lookup method for the routine.
+
+
+
+
+===================================================================================
+
+Change routine names
+#define routine names
+

@@ -159,6 +159,7 @@ feature -- Conversion
 			is_immediate: is_immediate
 		do
 			check is_immediate: is_immediate end
+			Result ?= Current
 		ensure
 			definition: ANY_.same_objects (Result, Current)
 		end
@@ -169,6 +170,7 @@ feature -- Conversion
 			is_inherited: is_inherited
 		do
 			check is_inherited: is_inherited end
+			Result ?= Current
 		ensure
 			definition: ANY_.same_objects (Result, Current)
 		end
@@ -179,6 +181,7 @@ feature -- Conversion
 			is_redeclared: is_redeclared
 		do
 			check is_redeclared: is_redeclared end
+			Result ?= Current
 		ensure
 			definition: ANY_.same_objects (Result, Current)
 		end
@@ -189,6 +192,7 @@ feature -- Conversion
 			is_adapted: is_adapted
 		do
 			check is_adapted: is_adapted end
+			Result ?= Current
 		ensure
 			definition: ANY_.same_objects (Result, Current)
 		end

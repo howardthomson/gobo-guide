@@ -79,9 +79,9 @@
 				<cluster name="uncommon_widgets"/>
 			</cluster>
 		</cluster>
-		<cluster name="edp-src">
+		<!--cluster name="edp-src">
 			<option name="exclude" value="any.e"/>
-		</cluster>
+		</cluster-->
 		<cluster name="sb-x11"/>
 		<cluster name="x11">
 			<cluster name="events"/>

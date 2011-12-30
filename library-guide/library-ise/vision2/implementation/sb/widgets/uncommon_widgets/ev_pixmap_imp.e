@@ -11,25 +11,14 @@ class
 
 inherit
 	EV_PIXMAP_I
+		rename
+--			make as make_drawable
+		undefine
+--			make
 		redefine
 			interface,
 			flush,
 			save_to_named_file
-		end
-
-	EV_DRAWABLE_IMP
-		rename
-			sb_drawable as sb_pixmap_window,
-			make as make_drawable
-		undefine
-			
-		redefine
-			sb_pixmap_window,
-			interface,
-			width,
-			height,
-			destroy,
-			dispose
 		end
 
 	EV_PRIMITIVE_IMP
@@ -47,7 +36,33 @@ inherit
 			width,
 			height,
 			destroy,
-			dispose
+			dispose,
+			xwin
+		end
+
+	EV_DRAWABLE_IMP
+		rename
+			sb_drawable as sb_pixmap_window,
+			resource_id as xwin
+		undefine
+			make_drawable,
+			resize,
+			detach_resource,
+			add_properties,
+			set_width,
+			set_height,
+			set_minimum_width,
+			set_minimum_height,
+			destruct,
+		redefine
+			make,
+			sb_pixmap_window,
+			interface,
+			width,
+			height,
+			destroy,
+			dispose,
+			xwin
 		end
 
 	EV_PIXMAP_ACTION_SEQUENCES_IMP
@@ -59,6 +74,8 @@ feature {NONE} -- Implementation Attributes
 
 	sb_pixmap_window: SB_WINDOW
 		-- Implementation link
+
+	xwin: X_WINDOW
 
 feature {NONE} -- Initialization
 

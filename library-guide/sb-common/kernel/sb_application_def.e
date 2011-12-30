@@ -18,7 +18,6 @@ deferred class SB_APPLICATION_DEF
 
 inherit
 
---	SB_ANY
 	SB_MESSAGE_HANDLER
 		rename
 			Id_last as MESSAGE_HANDLER_ID_LAST
@@ -54,7 +53,6 @@ feature -- Creation
       	do
       
 			shared_app.set_value (Current)
---			shared_app2.set_value (Current)
       	
         	dpy := ":0.0"
 	 		create event

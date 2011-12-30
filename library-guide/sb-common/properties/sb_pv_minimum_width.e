@@ -1,4 +1,4 @@
-class SB_PV_MINIMUM_WIDTH
+deferred class SB_PV_MINIMUM_WIDTH
 
 inherit
 
@@ -7,15 +7,15 @@ inherit
 feature
 
 	minimum_width: INTEGER
-
-	minimum_width_private: INTEGER is
 		do
-			Result := minimum_width
+			Result := minimum_width_sb
 		end
 
-	set_minimum_width (new_minimum_width: like minimum_width) is
+	minimum_width_sb: INTEGER
+
+	set_minimum_width (a_minimum_width: like minimum_width) is
 		do
-			minimum_width := new_minimum_width
+			minimum_width_sb := a_minimum_width
 		end
 
 	once_property_minimum_width: SB_PROPERTY_MINIMUM_WIDTH is

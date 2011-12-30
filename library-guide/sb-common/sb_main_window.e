@@ -12,7 +12,7 @@ inherit
 		rename
 			make as window_make
 		redefine
-		--	on_cmd_close,
+			on_cmd_close,
 			class_name
       	end
 
@@ -63,7 +63,7 @@ feature -- Queries
 
 feature -- Message Processing
 
-	Xon_cmd_close (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_close (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
 			-- Unless target catches it, close down the app
 		do
 			fx_trace(0, <<"SB_MAIN_WINDOW::on_close -- routine entry">>)

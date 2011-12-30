@@ -45,7 +45,7 @@
 			<option name="exclude" value="any.e"/>
 		</cluster>
 		<cluster name="kernel">
-			<option name="exclude" value="any.e"/>
+			<!--option name="exclude" value="any.e"/-->
 		</cluster>
 		<cluster name="refactoring"/>
 		<cluster name="structures">
@@ -74,11 +74,14 @@
 		<option name="exclude" value="et_eiffel_parser.e"/>
 		<option name="exclude" value="et_eiffel_tokens.e"/>
 	</cluster>
-	<cluster name="edp_src" 			location="${GOBO}/library-guide/edp-src"/>
+	<cluster name="edp_src" 			location="${GOBO}/library-guide/edp-src">
+		<option name="exclude" value="any.e"/>
+	</cluster>
 	<cluster name="edp_diff" 			location="${GOBO}/library-guide/diff"/>
 
 	<cluster name="edp_fec" 			location="${GOBO}/library-guide/fec"/>
-	<cluster name="edp_sb" 				location="${GOBO}/library-guide/sb-x11"/>
+	
+	<!--cluster name="edp_sb" 				location="${GOBO}/library-guide/sb-x11"/>
 	<cluster name="edp_sb_common" 		location="${GOBO}/library-guide/sb-common">
 		<cluster name="icons"/>
 		<cluster name="constants"/>
@@ -95,11 +98,15 @@
 	</cluster>
 	<cluster name="edp_x11" 			location="${GOBO}/library-guide/x11"/>
 	<cluster name="edp_x11_events" 		location="${GOBO}/library-guide/x11/events"/>
-	<cluster name="edp_pointer" 		location="${GOBO}/library-guide/pointer"/>
+	<cluster name="edp_pointer" 		location="${GOBO}/library-guide/pointer"/-->
 
 	<cluster name="gecmp" 				location="${GOBO}/src/gecmp"/>
 
 	<cluster name="gec"					location="$GOBO/src/gec"/>
+
+	<mount location="${GOBO}/library-guide/library-ise/vision2/library-sb.xace"/>
+
+	<mount location="${GOBO}/src/guide/library-serialize.xace"/>
 
 	<cluster name="llvm" location="${LLVM}">
 		<cluster name="x86_64"/>
@@ -107,11 +114,17 @@
 		<cluster name="misc"/>
 		<cluster name="instr_def" location="${LLVM}/instr-def"/>
 	</cluster>
+
+	<cluster name="lib_sha1" location="/data/eiffel/lib/sha1"/>
+	
 	<option name="c_compiler_options" value="-m32" if="${m32}"/>
 	<option name="c_compiler_options" value="-L/usr/X11R6/lib"/>
+	<option name="c_compiler_options" value="-I/data/eiffel/lib/zeromq/include"/>
+	<option name="c_compiler_options" value="-I${GOBO}/library-guide/sha1"/>
 	<option name="c_compiler_options" value="-DXUTIL_DEFINE_FUNCTIONS"/>
 	<option name="link" value="-m32" if="${m32}"/>
 	<option name="link" value="-lX11"/>
+	<option name="link" value="/data/git/gobo-guide-2/library-guide/sha1/sha1.o"/>
 	<option name="link" value="-lpthread"/>
 	<option name="link" value="-lrt"/>
 	<option name="link" value="-lm"/>

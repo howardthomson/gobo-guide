@@ -20,7 +20,6 @@ inherit
 		redefine
 			make,
 			interface
-
 		end
 
 	EV_TOOLTIPABLE_IMP

@@ -31,8 +31,10 @@ class ARRAYED_LIST [G] inherit
 			{NONE}
 				all
 			{ARRAYED_LIST}
-				array_make, subcopy, area, upper, lower,
+				array_make, subcopy, upper, lower,
 				same_items, subarray
+			{ARRAYED_LIST, OBJECT_GRAPH_TRAVERSABLE}
+				area
 			{ANY}
 				capacity, all_default
 		undefine

@@ -92,8 +92,8 @@ feature -- Creation
          	else
            		border := 0
          	end
-		 	width  := width.max (1 + border*2)	--##
-		 	height := height.max(1 + border*2)	--##
+		 	set_width  (width.max (1 + border*2))	--##
+		 	set_height (height.max(1 + border*2))	--##
 		end
 
 feature -- Data

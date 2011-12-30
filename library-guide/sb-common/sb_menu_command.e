@@ -68,13 +68,13 @@ feature -- Creation
          	table: SB_ACCEL_TABLE
          	ownr: SB_WINDOW
       	do
-         	caption_make_opts(p,text,ic,opts)
+         	caption_make_opts (p,text,ic,opts)
          	flags := flags | Flag_enabled
-         	default_cursor := application.default_cursor(Def_rarrow_cursor)
+         	default_cursor := application.default_cursor (Def_rarrow_cursor)
          	message_target := tgt
          	message := selector
-         	accel := u.section(text,'%T',1,1)
-         	acckey := u.parse_accel(accel)
+         	accel := u.section (text,'%T',1,1)
+         	acckey := u.parse_accel (accel)
          	if acckey /= 0 then
             	ownr := get_shell.owner
             	if ownr /= Void then

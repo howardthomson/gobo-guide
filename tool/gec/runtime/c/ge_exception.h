@@ -209,9 +209,13 @@ extern void* GE_check_null(void* ptr);
 #ifdef EIF_EDP_GC
 extern pthread_key_t GE_rescue_key;
 extern pthread_key_t GE_stack_key;
-
+#if 0
 #define GE_stack_ptr()	(void *)(pthread_getspecific(GE_stack_key))
 #define GE_set_stack_ptr(x)	pthread_setspecific(GE_stack_key, (void *)(x))
+#else
+	void *GE_stack_ptr();
+	void GE_set_stack_ptr (void*);
+#endif
 #else
 #define GE_stack_ptr()			GE_internal_stack
 #define GE_set_stack_ptr(x)		GE_internal_stack = (x)

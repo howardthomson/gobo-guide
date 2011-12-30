@@ -51,14 +51,6 @@ inherit
 			show as show_sb,
 			hide as hide_sb,
 			set_focus as set_focus_sb,
-			width as width_sb,
-			height as height_sb,
-			set_width as set_width_sb,
-			set_height as set_height_sb,
-			minimum_width as minimum_width_sb,
-			minimum_height as minimum_height_sb,
-			set_minimum_width as set_minimum_width_sb,
-			set_minimum_height as set_minimum_height_sb,
 			has_focus as has_focus_sb,
 			parent as parent_sb,
 			move as move_sb,
@@ -73,6 +65,9 @@ inherit
 			default_width as default_width_sb,
 			default_height as default_height_sb,
 			default_spacing as default_spacing_sb
+		undefine
+			set_minimum_width,
+			set_minimum_height
 		end
 
 create

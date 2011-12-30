@@ -20,14 +20,6 @@ inherit
 			show as show_sb,
 			hide as hide_sb,
 			set_focus as set_focus_sb,
-			width as width_sb,
-			height as height_sb,
-			set_width as set_width_sb,
-			set_height as set_height_sb,
-			minimum_width as minimum_width_sb,
-			minimum_height as minimum_height_sb,
-			set_minimum_width as set_minimum_width_sb,
-			set_minimum_height as set_minimum_height_sb,
 			has_focus as has_focus_sb,
 			parent as parent_sb,
 			move as move_sb,
@@ -40,7 +32,10 @@ inherit
 			selected as selected_sb,
 			has_selection as has_selection_sb,
 			default_width as default_width_sb,
-			default_height as default_height_sb,
+			default_height as default_height_sb
+		redefine
+--			minimum_width,
+--			minimum_height
 		end
 	
 feature {EV_SB_WIDGET_IMP, EV_TREE_NODE_IMP, EV_ANY, EV_ANY_I} -- Implementation Attributes
@@ -106,7 +101,8 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 --			Result ?= app_implementation.gtk_widget_imp_at_pointer_position
 		end
 
-	minimum_width, real_minimum_width: INTEGER is
+--	minimum_width,
+	real_minimum_width: INTEGER is
 			-- Minimum width that the widget may occupy.
 		do
 			if not is_destroyed then
@@ -114,7 +110,8 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 			end
 		end
 
-	minimum_height, real_minimum_height: INTEGER is
+--	minimum_height,
+	real_minimum_height: INTEGER is
 			-- Minimum height that the widget may occupy.
 		do
 			if not is_destroyed then
@@ -194,7 +191,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 		do
 		end
 
-	width: INTEGER is
+	Xwidth: INTEGER is
 			-- Horizontal size measured in pixels.
 		local
 			l_minimum_width: like real_minimum_width
@@ -204,7 +201,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 --			Result := l_minimum_width.max (l_allocated_width)
 		end
 
-	height: INTEGER is
+	Xheight: INTEGER is
 			-- Vertical size measured in pixels.
 		local
 			l_minimum_height: like real_minimum_height

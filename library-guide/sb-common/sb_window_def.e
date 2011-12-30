@@ -444,7 +444,7 @@ feature
 	set_width (w: INTEGER) is
 			-- Set the window width
 		do
-			width := w.max (minimum_width)
+			width_sb := w.max (minimum_width)
 			recalc
 		end
 
@@ -452,9 +452,9 @@ feature
          -- Set the window height
       do
          if h < 0 then
-            height := 0
+            height_sb := 0
          else
-            height := h
+            height_sb := h
          end
          recalc
       end
@@ -952,12 +952,12 @@ feature -- actions (cont'd)
 				resize_imp (w, h)
 
                		-- And of course the size has changed so layout is needed
-               width := w
-               height := h
+               set_width (w)
+               set_height (h)
                layout
             else
-               width := w
-               height := h
+               set_width  (w)
+               set_height (h)
             end
          end
       end
@@ -985,8 +985,8 @@ feature -- actions (cont'd)
           	then
             	x_pos := x
             	y_pos := y
-            	width := w
-            	height := h
+            	set_width (w)
+            	set_height (h)
 
             	if is_attached then
 	               		-- Alas, we have to generate some protocol here even if the placement

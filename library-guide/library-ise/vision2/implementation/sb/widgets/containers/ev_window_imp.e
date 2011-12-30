@@ -55,7 +55,11 @@ inherit
 			make_ev as make_window_ev
 		undefine
 			initialize,
-			parent_imp
+			parent_imp,
+			set_width,
+			set_height,
+			set_minimum_width,
+			set_minimum_height
 		redefine
 			sb_window,
 			make,

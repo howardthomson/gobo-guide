@@ -275,7 +275,7 @@ feature -- Measurement
 --			Result := vertical_resolution_internal
 		end
 
-	height: INTEGER
+	XXheight: INTEGER
 			-- Vertical size in pixels.
 		do
 			todo_class_line ("__EV_SCREEN_IMP__", "__LINE__ 1")
@@ -283,7 +283,7 @@ feature -- Measurement
 --			Result := {EV_GTK_EXTERNALS}.gdk_screen_height
 		end
 
-	width: INTEGER
+	XXwidth: INTEGER
 			-- Horizontal size in pixels.
 		do
 			todo_class_line ("__EV_SCREEN_IMP__", "__LINE__ 1")
@@ -330,11 +330,13 @@ feature {NONE} -- Externals (XTEST extension)
 
 feature {NONE} -- Implementation
 
---	app_implementation: EV_APPLICATION_IMP is
---			-- Return the instance of EV_APPLICATION_IMP.
---		once
---			Result ?= (create {EV_ENVIRONMENT}).application.implementation
---		end
+	create_resource
+		do
+		end
+
+	destroy_resource
+		do
+		end
 
 	flush is
 			-- Force all queued draw to be called.

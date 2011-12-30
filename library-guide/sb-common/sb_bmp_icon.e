@@ -65,8 +65,8 @@ feature -- Creation
          	if bmp_io.load(store) then
             	data := bmp_io.data;
             	clearcolor := bmp_io.clear_color;
-            	width := bmp_io.width;
-            	height := bmp_io.height;
+            	set_width  (bmp_io.width)
+            	set_height (bmp_io.height)
             	if (options & IMAGE_ALPHACOLOR) = Zero then
                		transparent_color := clearcolor;
             	end

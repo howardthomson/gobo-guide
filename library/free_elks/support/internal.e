@@ -227,6 +227,49 @@ feature -- Status report
 --			Result := {ISE_RUNTIME}.is_attached_type (a_type_id)
 		end
 
+	is_field_transient (i: INTEGER; object: ANY): BOOLEAN
+			-- Is `i'-th field of `object' a transient attribute?
+			-- I.e. an attribute that does not need to be stored?
+		require
+			object_not_void: object /= Void
+			index_large_enough: i >= 1
+			index_small_enough: i <= field_count (object)
+		do
+--			Result := is_field_transient_of_type (i, {ISE_RUNTIME}.dynamic_type (object))
+		end
+
+	is_field_transient_of_type (i: INTEGER; a_type_id: INTEGER): BOOLEAN
+			-- Is `i'-th field of `object' a transient attribute?
+			-- I.e. an attribute that does not need to be stored?
+		require
+			a_type_non_negative: a_type_id >= 0
+			index_large_enough: i >= 1
+			index_small_enough: i <= field_count_of_type (a_type_id)
+		do
+--			Result := {ISE_RUNTIME}.is_field_transient_of_type (i - 1, a_type_id)
+		end
+
+	is_field_expanded (i: INTEGER; object: ANY): BOOLEAN
+			-- Is `i'-th field of `object' a user-defined expanded attribute?
+		require
+			object_not_void: object /= Void
+			index_large_enough: i >= 1
+			index_small_enough: i <= field_count (object)
+		do
+--			Result := is_field_expanded_of_type (i, {ISE_RUNTIME}.dynamic_type (object))
+		end
+
+	is_field_expanded_of_type (i: INTEGER; a_type_id: INTEGER): BOOLEAN
+			-- Is `i'-th field of type `a_type_id' a user-defined expanded attribute?
+		require
+			a_type_non_negative: a_type_id >= 0
+			index_large_enough: i >= 1
+			index_small_enough: i <= field_count_of_type (a_type_id)
+		do
+--			Result := {ISE_RUNTIME}.is_field_expanded_of_type (i - 1, a_type_id)
+		end
+
+
 feature -- Access
 
 	none_type: INTEGER = -2
@@ -945,48 +988,50 @@ do -- TEMP
 
 feature -- Marking
 
---	mark (obj: ANY)
---			-- Mark object `obj'.
---			-- To be thread safe, make sure to call this feature when you
---			-- have the marking lock that you acquire using `lock_marking'.
---		require
---			object_not_void: obj /= Void
---			object_not_marked: not is_marked (obj)
---		do
+	mark (obj: ANY)
+			-- Mark object `obj'.
+			-- To be thread safe, make sure to call this feature when you
+			-- have the marking lock that you acquire using `lock_marking'.
+		require
+			object_not_void: obj /= Void
+			object_not_marked: not is_marked (obj)
+		do
 --			c_mark (obj)
---		ensure
---			is_marked: is_marked (obj)
---		end
+		ensure
+			is_marked: is_marked (obj)
+		end
 
---	unmark (obj: ANY)
---			-- Unmark object `obj'.
---			-- To be thread safe, make sure to call this feature when you
---			-- have the marking lock that you acquire using `lock_marking'.
---		require
---			object_not_void: obj /= Void
---			object_marked: is_marked (obj)
---		do
+	unmark (obj: ANY)
+			-- Unmark object `obj'.
+			-- To be thread safe, make sure to call this feature when you
+			-- have the marking lock that you acquire using `lock_marking'.
+		require
+			object_not_void: obj /= Void
+			object_marked: is_marked (obj)
+		do
 --			c_unmark (obj)
---		ensure
---			is_not_marked: not is_marked (obj)
---		end
+		ensure
+			is_not_marked: not is_marked (obj)
+		end
 
---	lock_marking
---			-- Get a lock on `mark' and `unmark' routine so that 2 threads cannot `mark' and
---			-- `unmark' at the same time.
+	lock_marking
+			-- Get a lock on `mark' and `unmark' routine so that 2 threads cannot `mark' and
+			-- `unmark' at the same time.
+		do	-- TEMP
 --		external
 --			"C blocking use %"eif_traverse.h%""
 --		alias
 --			"eif_lock_marking"
---		end
+		end
 
---	unlock_marking
---			-- Release a lock on `mark' and `unmark', so that another thread can
---			-- use `mark' and `unmark'.
+	unlock_marking
+			-- Release a lock on `mark' and `unmark', so that another thread can
+			-- use `mark' and `unmark'.
+		do	-- TEMP
 --		external
 --			"C use %"eif_traverse.h%""
 --		alias
 --			"eif_unlock_marking"
---		end
+		end
 
 end

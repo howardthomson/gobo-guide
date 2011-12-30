@@ -1,4 +1,4 @@
-class SB_PV_HEIGHT
+deferred class SB_PV_HEIGHT
 
 inherit
 
@@ -12,21 +12,21 @@ inherit
 feature
 
 	height: INTEGER
-
-	height_private: INTEGER is
 		do
-			Result := height
+			Result := height_sb
 		end
 
-	set_height (new_height: like height) is
+	height_sb: INTEGER
+
+	set_height (a_height: like height) is
 		do
-			height := new_height.max (minimum_height)
+			height_sb := a_height.max (minimum_height_sb)
 		end
 
 	set_minimum_height (a_height: like minimum_height) is
 		do
 			Precursor (a_height)
-			height := height.max (minimum_height)
+			height_sb := height_sb.max (minimum_height)
 		end
 
 	once_property_height: SB_PROPERTY_HEIGHT is

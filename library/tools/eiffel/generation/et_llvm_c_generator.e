@@ -23,6 +23,8 @@ note
 	]"
 	
 	todo: "[
+		Note tcc 0.9.25 compiles C very fast, but does not correctly compile the runtime in GE_setup_signal_handling ...
+		
 		Fix TYPE.name generating ->a1 references and assignments [Done]
 
 		Implement __CLASS__ as the class name in which the source text resides, rather than the (current) type
@@ -362,6 +364,9 @@ feature {NONE} -- Initialization
 
 --	llvm_factory: LLVM_X86_64_INSTRUCTION_FACTORY
 
+
+	enable_incremental_recompilation: BOOLEAN is True
+
 feature -- Generation
 
 	generate (a_system_name: STRING) is
@@ -601,8 +606,10 @@ feature {NONE} -- Compilation script generation
 			l_command: KL_SHELL_COMMAND
 			l_command_name: STRING
 			l_cc_template: STRING
+			l_ccrt_template: STRING
 			l_link_template: STRING
 			l_filename: STRING
+			l_last_c_filename: STRING
 			l_script_filename: STRING
 			l_base_name: STRING
 			i, nb: INTEGER
@@ -664,6 +671,7 @@ feature {NONE} -- Compilation script generation
 					l_obj_filenames.append_character (' ')
 				end
 				l_filename := l_cursor.key
+				l_last_c_filename := l_filename
 				l_obj_filenames.append_string (l_filename)
 				l_obj_filenames.append_string (l_obj)
 				l_cursor.forth
@@ -708,6 +716,22 @@ feature {NONE} -- Compilation script generation
 				l_command_name := template_expander.expand_from_values (l_cc_template, l_variables)
 				l_file.put_line (l_command_name)
 				l_file.put_new_line
+				
+				if true then
+						-- Compile last C file contatining the runtime code separately ...
+						-- 'tcc' compiles much faster than gcc or lcc, but does not correctly
+						-- compile the runtime code, specifically GE_setup_signal_handling()
+					l_file.put_string (l_last_c_filename)
+					l_file.put_character ('.')
+					l_file.put_character ('o')
+					l_file.put_character (':')
+					l_file.put_new_line
+					l_file.put_character ('%T')
+					l_ccrt_template := l_c_config.item ("ccrt")
+					l_command_name := template_expander.expand_from_values (l_ccrt_template, l_variables)
+					l_file.put_line (l_command_name)
+					l_file.put_new_line
+				end
 
 				l_file.close
 			else
@@ -1008,11 +1032,11 @@ feature {NONE} -- LLVM code Generation
 				include_runtime_header_file ("eif_plug.h", False, header_file)
 
 				print_start_extern_c (header_file)
-				print_types (header_file)
+				print_types (header_file)					-- Hashes ...
 				flush_to_c_file
 				header_file.put_new_line
 				
-				print_default_declarations
+				print_default_declarations					-- Hashes ...
 				current_file.put_new_line
 				flush_to_c_file
 				header_file.put_new_line
@@ -1031,8 +1055,8 @@ feature {NONE} -- LLVM code Generation
 					-- Polymorphic calls to Tuple label functions are printed later
 					-- because some of them may be added when processing Agent calls
 					-- (see `print_builtin_routine_call_call').
-				print_polymorphic_query_call_functions
-				print_polymorphic_procedure_call_functions
+				print_polymorphic_query_call_functions					-- Hashes ...
+				print_polymorphic_procedure_call_functions				-- Hashes ...
 
 					-- Print object allocation functions.
 				print_object_allocation_functions
@@ -1136,6 +1160,7 @@ feature {NONE} -- LLVM code Generation
 					header_file.put_new_line
 					included_header_filenames.forth
 				end
+				save_state
 					-- Wipe out
 				included_header_filenames.wipe_out
 				included_runtime_header_files.wipe_out
@@ -1157,11 +1182,20 @@ feature {NONE} -- LLVM code Generation
 			system_name := old_system_name
 		end
 
+	save_state
+			-- Save state information for incremental recompilation
+		local
+			l_serializer: SED_MULTI_OBJECT_SERIALIZATION
+		do
+			create l_serializer
+			l_serializer.serialize (Current, "test_saved_state", False)
+		end
+
 	generate_signatures is
 		local
---			l_signature_generator: ET_DLL_SIGNATURE_GENERATOR
+			l_signature_generator: ET_CODE_SIGNATURE_GENERATOR
 		do
---			create l_signature_generator.make (current_dynamic_system.dynamic_types)
+			create l_signature_generator.make (current_dynamic_system)
 		end
 
 	load_dynamic_libraries is
@@ -4278,6 +4312,28 @@ feature -- External 'C' ...
 
 feature -- Internal routines
 
+	internal_routine_name: STRING
+
+	setup_internal_routine_name (a_feature: ET_INTERNAL_ROUTINE; a_static: BOOLEAN; a_creation: BOOLEAN)
+			-- Prepare 'internal_routine_name' for availability during internal routine generation
+		local
+			l_name: STRING
+		do
+			if internal_routine_name = Void then
+				create internal_routine_name.make (64)
+			else
+				internal_routine_name.wipe_out
+			end
+			l_name := internal_routine_name
+			if a_static then
+				l_name.append (static_routine_name_as_string (current_feature, current_type))
+			elseif a_creation then
+				l_name.append (creation_procedure_name_as_string (current_feature, current_type))
+			else
+				l_name.append (routine_name_as_string (current_feature, current_type))
+			end
+		end				
+	
 	print_internal_routine (a_feature: ET_INTERNAL_ROUTINE; a_static: BOOLEAN; a_creation: BOOLEAN) is
 			-- Print `a_feature' to `current_file' and its signature to `header_file'.
 		local
@@ -4380,9 +4436,20 @@ feature -- Internal routines
 			if l_arguments /= Void then
 				nb_args := l_arguments.count
 			end
+			setup_internal_routine_name (a_feature, a_static, a_creation)
+			if enable_incremental_recompilation then
+				header_file.put_character ('(')
+				header_file.put_character ('*')
+				header_file.put_string (internal_routine_name)
+				header_file.put_character (')')
+			else
+				header_file.put_string (internal_routine_name)
+			end
+			current_file.put_string (internal_routine_name)
+			if enable_incremental_recompilation then
+				current_file.put_string ("c__imp")
+			end
 			if a_static then
-				print_static_routine_name (current_feature, current_type, header_file)
-				print_static_routine_name (current_feature, current_type, current_file)
 				header_file.put_character ('(')
 				current_file.put_character ('(')
 				if exception_trace_mode then
@@ -4400,8 +4467,6 @@ feature -- Internal routines
 					current_file.put_string (c_void)
 				end
 			elseif a_creation then
-				print_creation_procedure_name (current_feature, current_type, header_file)
-				print_creation_procedure_name (current_feature, current_type, current_file)
 				header_file.put_character ('(')
 				current_file.put_character ('(')
 				if exception_trace_mode then
@@ -4419,8 +4484,6 @@ feature -- Internal routines
 					current_file.put_string (c_void)
 				end
 			else
-				print_routine_name (current_feature, current_type, header_file)
-				print_routine_name (current_feature, current_type, current_file)
 				header_file.put_character ('(')
 				current_file.put_character ('(')
 				if exception_trace_mode then
@@ -28278,6 +28341,21 @@ feature {NONE} -- Output files/buffers
 			-- The key is the filename without the extension,
 			-- the item is the file extension
 
+	next_file_extension: STRING
+			-- File extension for the next file
+			--	_fr.c for Fully Regenerated C files
+			--	_pr.c for Partially Regerated C files
+			--	_rt.c for RunTime C files
+
+	current_file_extension: STRING
+			-- File extension for the currently open file
+			
+	set_file_extension (a_file_extension: STRING)
+			-- Set the extension string for the next C file
+		do
+			next_file_extension := a_file_extension
+		end
+
 	open_c_file
 			-- Open C file if necessary.
 		do
@@ -28317,6 +28395,9 @@ feature {NONE} -- Output files/buffers
 					print_start_extern_c (c_file)
 					c_file_size := c_file_size + 40
 				end
+				if in_internal_routine and enable_incremental_recompilation then
+					select_internal_routine_implementation
+				end
 				l_buffer := current_function_stack_descriptor_buffer.string
 				c_file.put_string (l_buffer)
 				c_file_size := c_file_size + l_buffer.count
@@ -28336,6 +28417,66 @@ feature {NONE} -- Output files/buffers
 		ensure
 			flushed1: not has_fatal_error implies current_function_header_buffer.string.is_empty
 			flushed2: not has_fatal_error implies current_function_body_buffer.string.is_empty
+		end
+
+
+	hash_stream_processor: HASH_STREAM_SHA1
+		once
+			create Result.make
+		end
+
+	code_hash_table: DS_HASH_TABLE [STRING, STRING]
+		once
+			create Result.make (50000)	-- make_map ???
+		end
+
+	code_recompilation_version: INTEGER
+			-- 0 for initial compilation
+			-- Incremented for each subsequent incremental recompilation
+
+	select_internal_routine_implementation
+		local
+			l_hash_code: STRING
+			l_code_hash_table: like code_hash_table
+			l_routine_name: STRING
+		do
+			l_code_hash_table:= code_hash_table
+			hash_stream_processor.init
+				-- Process current type, for C struct dependence
+			--TODO
+				-- Process stack descriptor
+			hash_stream_processor.process_string (current_function_stack_descriptor_buffer.string)
+				-- Process header buffer
+			hash_stream_processor.process_string (current_function_header_buffer.string)
+				-- Process body buffer
+			hash_stream_processor.process_string (current_function_body_buffer.string)
+			hash_stream_processor.finalise
+			l_hash_code := hash_stream_processor.result_as_string
+			if code_hash_table.has (l_hash_code) then
+					-- We don't need to recompile this code ...
+				STRING_.wipe_out (current_function_stack_descriptor_buffer.string)
+				STRING_.wipe_out (current_function_header_buffer.string)
+				STRING_.wipe_out (current_function_body_buffer.string)
+			else
+					-- New C code will be compiled; remember its hash for future compilations
+				l_code_hash_table.force (routine_name_as_string (current_feature, current_type), l_hash_code)	-- static / creation names ??? !!!!
+			end
+				-- Setup mapping to this code ...
+				-- Add code to implement:
+				--
+				--	#define `internal_routine_name`_imp `internal_routine_name`__v`recompilation_sequence`
+				--	`internal_routine_name` = &`internal_routine_name`__v`recompilation_sequence`
+
+			header_file.put_string (c_define)
+			header_file.put_character (' ')
+			header_file.put_string (internal_routine_name)
+			header_file.put_character ('_')
+			header_file.put_character ('_')
+			header_file.put_character ('v')
+			header_file.put_integer (code_recompilation_version)
+			header_file.put_new_line
+				-- Associate 
+		--	code_mapping_table
 		end
 
 	close_c_file
@@ -29550,9 +29691,12 @@ feature {NONE} -- LLVM Implementation attributes
 
 feature {NONE} -- LLVM name generation
 
-	once_name_string: STRING is
+	once_name_string_buffer: KL_STRING_OUTPUT_STREAM
+		local
+			l_buffer: STRING
 		once
-			create Result
+			create l_buffer.make (256)
+			create Result.make (l_buffer)
 		end
 
 	routine_name_as_string (a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29561,12 +29705,12 @@ feature {NONE} -- LLVM name generation
 			a_routine_not_void: a_routine /= Void
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_routine_name (a_routine, a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_routine_name (a_routine, a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	static_routine_name_as_string (a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29576,12 +29720,12 @@ feature {NONE} -- LLVM name generation
 			a_routine_static: a_routine.is_static
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_static_routine_name (a_routine, a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_static_routine_name (a_routine, a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	creation_procedure_name_as_string (a_procedure: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29591,12 +29735,12 @@ feature {NONE} -- LLVM name generation
 			a_procedure_creation: a_procedure.is_creation
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_creation_procedure_name (a_procedure, a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_creation_procedure_name (a_procedure, a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	attribute_name_as_string (an_attribute: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29605,12 +29749,12 @@ feature {NONE} -- LLVM name generation
 			an_attribute_not_void: an_attribute /= Void
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_attribute_name (an_attribute, a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_attribute_name (an_attribute, a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	attribute_type_id_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29618,12 +29762,12 @@ feature {NONE} -- LLVM name generation
 		require
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_attribute_type_id_name (a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_attribute_type_id_name (a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	attribute_special_item_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29631,12 +29775,12 @@ feature {NONE} -- LLVM name generation
 		require
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_attribute_special_item_name (a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_attribute_special_item_name (a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	attribute_special_count_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29644,12 +29788,12 @@ feature {NONE} -- LLVM name generation
 		require
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_attribute_special_count_name (a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_attribute_special_count_name (a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	attribute_tuple_item_name_as_string (i: INTEGER; a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29657,12 +29801,12 @@ feature {NONE} -- LLVM name generation
 		require
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_attribute_tuple_item_name (i, a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_attribute_tuple_item_name (i, a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	attribute_routine_function_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29670,12 +29814,12 @@ feature {NONE} -- LLVM name generation
 		require
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_attribute_routine_function_name (a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_attribute_routine_function_name (a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	boxed_attribute_item_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29686,12 +29830,12 @@ feature {NONE} -- LLVM name generation
 		require
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_boxed_attribute_item_name (a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_boxed_attribute_item_name (a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	call_name_as_string (a_call: ET_CALL_COMPONENT; a_caller: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE): STRING is
@@ -29701,12 +29845,12 @@ feature {NONE} -- LLVM name generation
 			a_caller_not_void: a_caller /= Void
 			a_target_type_not_void: a_target_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_call_name (a_call, a_caller, a_target_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_call_name (a_call, a_caller, a_target_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	argument_name_as_string (a_name: ET_IDENTIFIER): STRING is
@@ -29715,12 +29859,12 @@ feature {NONE} -- LLVM name generation
 			a_name_not_void: a_name /= Void
 			a_name_argument: a_name.is_argument
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_argument_name (a_name, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_argument_name (a_name, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	local_name_as_string (a_name: ET_IDENTIFIER): STRING is
@@ -29729,12 +29873,12 @@ feature {NONE} -- LLVM name generation
 			a_name_not_void: a_name /= Void
 			a_name_local: a_name.is_local
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_local_name (a_name, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_local_name (a_name, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	object_test_local_name_as_string (a_name: ET_IDENTIFIER): STRING is
@@ -29743,12 +29887,12 @@ feature {NONE} -- LLVM name generation
 			a_name_not_void: a_name /= Void
 			a_name_object_test_local: a_name.is_object_test_local
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_object_test_local_name (a_name, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_object_test_local_name (a_name, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	object_test_function_name_as_string (i: INTEGER; a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29757,12 +29901,12 @@ feature {NONE} -- LLVM name generation
 			a_routine_not_void: a_routine /= Void
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_object_test_function_name (i, a_routine, a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_object_test_function_name (i, a_routine, a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	temp_name_as_string (a_name: ET_IDENTIFIER): STRING is
@@ -29773,34 +29917,34 @@ feature {NONE} -- LLVM name generation
 			a_file_not_void: a_file /= Void
 			a_file_open_write: a_file.is_open_write
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_temp_name (a_name, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_temp_name (a_name, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	current_name_as_string: STRING is
 			-- Print name of 'Current' to `a_file'.
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_current_name (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_current_name (l_name_string_buffer)
 			create Result.make_from_string (l_name_string)
 		end
 
 	result_name_as_string: STRING is
 			-- Print name of 'Result' to `a_file'.
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_result_name (l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_result_name (l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	once_status_name_as_string (a_feature: ET_FEATURE): STRING is
@@ -29810,12 +29954,12 @@ feature {NONE} -- LLVM name generation
 			a_feature_not_void: a_feature /= Void
 			implementation_feature: a_feature = a_feature.implementation_feature
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_once_status_name (a_feature, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_once_status_name (a_feature, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	once_value_name_as_string (a_feature: ET_FEATURE): STRING is
@@ -29825,12 +29969,12 @@ feature {NONE} -- LLVM name generation
 			a_feature_not_void: a_feature /= Void
 			implementation_feature: a_feature = a_feature.implementation_feature
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_once_value_name (a_feature, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_once_value_name (a_feature, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	agent_creation_name_as_string (i: INTEGER; a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29839,12 +29983,12 @@ feature {NONE} -- LLVM name generation
 			a_routine_not_void: a_routine /= Void
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_agent_creation_name (i, a_routine, a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_agent_creation_name (i, a_routine, a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	agent_function_name_as_string (i: INTEGER; a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
@@ -29853,12 +29997,12 @@ feature {NONE} -- LLVM name generation
 			a_routine_not_void: a_routine /= Void
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_agent_function_name (i, a_routine, a_type, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_agent_function_name (i, a_routine, a_type, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 	inline_constant_name_as_string (a_constant: ET_INLINE_CONSTANT): STRING is
@@ -29867,12 +30011,12 @@ feature {NONE} -- LLVM name generation
 		require
 			a_constant_not_void: a_constant /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_inline_constant_name (a_constant, l_name_string)
-			create Result.make_from_string (l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_inline_constant_name (a_constant, l_name_string_buffer)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 ------------------------------------------------------------------------------------------------
@@ -29883,11 +30027,11 @@ feature {NONE} -- LLVM name generation
 			a_feature_not_void: a_feature /= Void
 			a_type_not_void: a_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_feature_name_comment (a_feature, a_type, l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_feature_name_comment (a_feature, a_type, l_name_string_buffer)
 			create Result.make_from_string (l_name_string)
 		end
 
@@ -29898,11 +30042,11 @@ feature {NONE} -- LLVM name generation
 			a_caller_not_void: a_caller /= Void
 			a_target_type_not_void: a_target_type /= Void
 		local
-			l_name_string: STRING
+			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
-			l_name_string := once_name_string
-			l_name_string.wipe_out
-			print_call_name_comment (a_call, a_caller, a_target_type, l_name_string)
+			l_name_string_buffer := once_name_string_buffer
+			STRING_.wipe_out (l_name_string_buffer.string)
+			print_call_name_comment (a_call, a_caller, a_target_type, l_name_string_buffer)
 			create Result.make_from_string (l_name_string)
 		end
 
@@ -30046,6 +30190,7 @@ feature {NONE} -- Constants
 	c_eif_instruction_location_trace: STRING = "EIF_INSTRUCTION_LOCATION_TRACE"
 	c_eif_edp_gc: STRING = "EIF_EDP_GC"
 	c_gc_mark: STRING = "gc_mark"
+	c__imp: STRING = "_imp"
 	
 	c_ac: STRING = "ac"
 	c_and_then: STRING = "&&"

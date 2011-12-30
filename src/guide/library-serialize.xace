@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<library name="serialize" prefix="ser_">
+	<description>
+		description: "Xace file for the ISE Serialization Library"
+		library: "ISE Libraries"
+		copyright: "Copyright (c) 2001-2004, Eric Bezault and others"
+		license: "Eiffel Forum License v2 (see forum.txt)"
+	</description>
+
+	<cluster name="serialize" location="/data/Eiffel67/compatible/library/base/ise/serialization">
+		<option name="abstract" value="true"/>
+		<cluster name="errors"/>
+		<cluster name="model"/>
+		<cluster name="reader_writer"/>
+		<cluster name="serializers"/>
+		<cluster name="traversing">
+			<cluster name="classic"/>
+		</cluster>
+		<cluster name="utilities"/>
+	</cluster>	
+</library>

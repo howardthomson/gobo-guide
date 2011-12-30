@@ -117,8 +117,8 @@ feature
    	resize (w, h: INTEGER) is
       	do
          	if (flags & Flag_dirty) = Flag_dirty  or else w /= width or else h /= height then
-            	width := w.max (1)
-            	height := h.max (1)
+            	set_width  (w.max (1))
+            	set_height  (h.max (1))
             	if is_attached then
                		-- Calculate the required window size based on the desired
                		-- size of the *client* rectangle.
@@ -135,8 +135,8 @@ feature
           then
             x_pos := x
             y_pos := y
-            width := w.max (1)
-            height := h.max (1)
+            set_width  (w.max (1))
+            set_height (h.max (1))
             if is_attached then
                -- Calculate the required window position & size based on the desired
                -- position & size of the *client* rectangle.

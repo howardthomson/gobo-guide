@@ -1,4 +1,4 @@
-class SB_PV_WIDTH
+deferred class SB_PV_WIDTH
 
 inherit
 
@@ -12,21 +12,21 @@ inherit
 feature
 
 	width: INTEGER
-
-	width_private: INTEGER is
 		do
-			Result := width
+			Result := width_sb
 		end
 
-	set_width (new_width: like width) is
+	width_sb: INTEGER
+
+	set_width (a_width: like width) is
 		do
-			width := new_width.max (minimum_width)
+			width_sb := a_width.max (minimum_width_sb)
 		end
 
 	set_minimum_width (a_width: like minimum_width) is
 		do
 			Precursor (a_width)
-			width := width.max (minimum_width)
+			width_sb := width_sb.max (minimum_width)
 		end
 
 	once_property_width: SB_PROPERTY_WIDTH is

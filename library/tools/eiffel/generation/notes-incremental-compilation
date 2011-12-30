@@ -6,6 +6,12 @@
 				print_polymorphic_procedure_call_functions
 				print_object_allocation_functions
 				print_feature (l_dynamic_feature)
+
+					print_agent_declaration
+					print_object_test_function
+					print_object_equality_function
+					print_equality_function
+
 				print_polymorphic_tuple_label_call_functions
 				
 				print_manifest_array_function (manifest_array_types.item_for_iteration)
@@ -59,6 +65,8 @@ Order of code generation:
 	TNNNcNNN			-- Creation feature
 	TNNNfNNN			-- Feature
 	TNNNsNNN			-- Static feature
+	TNNNfNNNacNNN		-- Agent creation
+	TNNNfNNNacNNN		-- Agent function
 
 	geNNNovNNN			-- once values
 	geicNNN				-- inline constants
@@ -109,3 +117,25 @@ Code groupings:
 		GE_ms8				-- Manifest CHARACTER_8  allocation
 		GE_ms32				-- Manifest CHARACTER_32 allocation
 		runtime				-- Eiffel C runtime
+
+============================================================================
+
+Note that agents, object tests etc are generated immediately after the related feature, in the same C file.
+#defines will need to be associated with all such names, as they are all generated into the same chunk of
+code flushed to the C file at the same time ...
+
+=============================================================================
+
+Use 'tcc' selectively, where no 64-bit divide operations are used ...
+
+Also do not use tcc with the runtime code -- signal handling causes seg-faults when tcc compiled.
+
+C_file types:
+	system_name + n.out + "_fr.c"		-- Fully Regenerated
+	system_name + n.out + "_pr.c"		-- Partially Regerated
+	system_name + n.out + "_rt.c"		-- RunTime
+
+	system_name	+ n.out + ".cpp"	-- C++ files
+	
+	system_name	+ n.out + "_fr.llvm"	-- LLVM Fully Regenerated
+	system_name	+ n.out + "_pr.llvm"	-- LLVM Partially Regerated

@@ -7,15 +7,15 @@ inherit
 feature
 
 	minimum_height: INTEGER
-
-	minimum_height_private: INTEGER is
 		do
-			Result := minimum_height
+			Result := minimum_height_sb
 		end
 
-	set_minimum_height (new_minimum_height: like minimum_height) is
+	minimum_height_sb: INTEGER
+
+	set_minimum_height (a_minimum_height: like minimum_height) is
 		do
-			minimum_height := new_minimum_height
+			minimum_height_sb := a_minimum_height
 		end
 
 	once_property_minimum_height: SB_PROPERTY_MINIMUM_WIDTH is

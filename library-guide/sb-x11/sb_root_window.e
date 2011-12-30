@@ -19,8 +19,8 @@ feature
 	create_resource_imp is
       	do            
 			xwin	:= display.root_window (display.default_screen)
-			width	:= display.width	   (display.default_screen)
-			height	:= display.height	   (display.default_screen)		
+			set_width  (display.width	   (display.default_screen))
+			set_height (display.height	   (display.default_screen))	
       	end
 
 	detach_resource_imp is

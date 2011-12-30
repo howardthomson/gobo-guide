@@ -1866,7 +1866,9 @@ GC__collect_pages (gc_arena_t *pgc, int no_requested) {
 printf("Calling GC__full_collect() ...\n"); fflush(stdout);
 			GE_print_stack();
 #endif
+#if 1
 			GC__full_collect (pgc);
+#endif
 #if 0
 			GE_print_stack();
 printf("Done GC__full_collect() ...\n"); fflush(stdout);

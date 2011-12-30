@@ -20,7 +20,9 @@ inherit
 			x_position,
 			y_position,
 			width,
-			height
+			height,
+			set_width,
+			set_height
 		end
 
 feature {NONE} -- Implementation Attributes

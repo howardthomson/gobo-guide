@@ -1,12 +1,8 @@
 note
 
-	description: "Features shared by all [most] Clyboots classes"
+	description: "Features shared by all [most] Slyboots classes"
 
 class SB_ANY
-
-inherit
-
---	SB_SHARED_APPLICATION
 
 feature {NONE}
 
@@ -152,17 +148,6 @@ feature -- Tracing implementation
 			io.put_string ("%N")
 
 			Result := True
-		end
-
-	program_counter: INTEGER is
-		do
---		external "C"
---		alias "pc"
-		end
-
-	ggg: EDP_GLOBAL is
-		once
-			create Result
 		end
 
 	discard_result is

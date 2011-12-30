@@ -1,5 +1,5 @@
 indexing
-	description: "Eiffel Vision menu item list. GTK+ implementation."
+	description: "Eiffel Vision menu item list. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date$"
@@ -22,6 +22,8 @@ inherit
 		end
 
 	EV_MENU_ITEM_LIST_ACTION_SEQUENCES_IMP
+
+--	SB_MENU_COMMAND
 
 feature {NONE} -- Implementation
 
