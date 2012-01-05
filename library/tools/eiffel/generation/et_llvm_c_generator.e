@@ -365,7 +365,7 @@ feature {NONE} -- Initialization
 --	llvm_factory: LLVM_X86_64_INSTRUCTION_FACTORY
 
 
-	enable_incremental_recompilation: BOOLEAN is True
+	enable_incremental_recompilation: BOOLEAN is False
 
 feature -- Generation
 
@@ -725,6 +725,10 @@ feature {NONE} -- Compilation script generation
 					l_file.put_character ('.')
 					l_file.put_character ('o')
 					l_file.put_character (':')
+					l_file.put_character (' ')
+					l_file.put_string (l_last_c_filename)
+					l_file.put_character ('.')
+					l_file.put_character ('c')
 					l_file.put_new_line
 					l_file.put_character ('%T')
 					l_ccrt_template := l_c_config.item ("ccrt")
@@ -1185,10 +1189,10 @@ feature {NONE} -- LLVM code Generation
 	save_state
 			-- Save state information for incremental recompilation
 		local
-			l_serializer: SED_MULTI_OBJECT_SERIALIZATION
+--			l_serializer: SED_MULTI_OBJECT_SERIALIZATION
 		do
-			create l_serializer
-			l_serializer.serialize (Current, "test_saved_state", False)
+--			create l_serializer
+--			l_serializer.serialize (Current, "test_saved_state", False)
 		end
 
 	generate_signatures is
@@ -27985,7 +27989,7 @@ print (once "GC mark Routine for a SPECIAL [Expanded_type]%N")
 										-- it itself contains (recursively) reference attributes.
 									if l_attribute_type.has_nested_reference_attributes then
 -- TODO: Recursive expanded attributes ...
-print (once "GC mark Routine for an attribute of and Expanded_type%N")
+print (once "GC mark Routine for an attribute of an Expanded_type%N")
 										print_gc_mark_attribute (l_attribute_type_set, agent print_attribute_access (l_attribute, tokens.current_keyword, l_type, False))
 									end
 								else
@@ -28072,21 +28076,6 @@ print (once "GC mark Routine for a tuple with item(s) of an Expanded_type%N")
 			current_file.put_string (once "gc_item_t *p;")
 			current_file.put_new_line
 			current_file.put_new_line
---			from constant_features.start until constant_features.after loop
---				l_feature := constant_features.key_for_iteration
---				print_indentation
---				current_file.put_string (once "p = (gc_item_t *) ")
---				print_once_value_name (l_feature, current_file)
---				current_file.put_character (';')
---				current_file.put_new_line
---				print_indentation
---				current_file.put_string (once "if (p != NULL) item__mark(p);")
---				current_file.put_new_line
---				constant_features.forth
---			end
-
--- GC TODO: Mark once references created at runtime ...
--- This will subsume the generation from constant_features above
 
 			from once_gc_references.start until once_gc_references.after loop
 				l_feature := once_gc_references.item_for_iteration
