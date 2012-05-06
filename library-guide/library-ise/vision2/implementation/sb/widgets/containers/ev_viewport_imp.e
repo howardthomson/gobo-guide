@@ -24,7 +24,7 @@ inherit
 	--		old_make,
 	--		container_widget,
 	--		visual_widget,
-			on_removed_item,
+			on_removed_item
 	--		needs_event_box,
 	--		gtk_insert_i_th,
 	--		gtk_container_remove

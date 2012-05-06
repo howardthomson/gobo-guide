@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"Eiffel Vision cell, Slyboots implementation."
 	legal: "See notice at end of class."
@@ -31,7 +31,7 @@ inherit
 		redefine
 			make,
 			interface,
-			replace,
+			replace
 --			set_minimum_width
 		end
 
@@ -59,7 +59,7 @@ inherit
 			selected as selected_sb,
 			has_selection as has_selection_sb,
 			default_width as default_width_sb,
-			default_height as default_height_sb,
+			default_height as default_height_sb
 		undefine
 			set_minimum_width,
 			set_minimum_height
@@ -128,7 +128,7 @@ feature {EV_ANY_I} -- Implementation
 			-- Provides a common user interface to possibly dependent
 			-- functionality implemented by `Current'.
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

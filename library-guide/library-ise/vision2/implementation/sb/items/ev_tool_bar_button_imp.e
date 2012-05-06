@@ -20,7 +20,7 @@ inherit
 
 	EV_ITEM_IMP
 		rename
-			make_ev as make_window_ev,
+			make_ev as make_window_ev
 		undefine
 			update_for_pick_and_drop,
 			make_sb_window,
@@ -104,7 +104,7 @@ inherit
 			default_height as default_height_sb,
 	--		enable as enable_sb,
 	--		disable as disable_sb
-			set_text as set_text_sb,
+			set_text as set_text_sb
 	--		set_default as set_default_sb
 		undefine
 			set_minimum_width,
@@ -133,7 +133,6 @@ feature -- Access
 			-- Text of the label.
 		local
 			a_txt: POINTER
-			a_cs: EV_GTK_C_STRING
 		do
 			-- TODO
 		end

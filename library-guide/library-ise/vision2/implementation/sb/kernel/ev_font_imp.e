@@ -81,7 +81,7 @@ feature -- Element change
 	set_face_name (a_face: STRING_GENERAL) is
 			-- Set the face name for current.
 		local
-			propvalue: EV_GTK_C_STRING
+--			propvalue: EV_GTK_C_STRING
 		do
 			name := a_face
 --			propvalue := app_implementation.c_string_from_eiffel_string (a_face)
@@ -214,7 +214,7 @@ feature -- Status report
 	reusable_pango_rectangle_struct: POINTER is
 			-- PangoRectangle that may be reused to prevent memory allocation, must not be freed
 		once
-			Result := {EV_GTK_DEPENDENT_EXTERNALS}.c_pango_rectangle_struct_allocate
+--			Result := {EV_GTK_DEPENDENT_EXTERNALS}.c_pango_rectangle_struct_allocate
 		end
 
 	horizontal_resolution: INTEGER is

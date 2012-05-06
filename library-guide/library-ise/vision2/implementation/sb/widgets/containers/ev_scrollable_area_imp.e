@@ -88,7 +88,7 @@ feature -- Access
 	y_offset: INTEGER is
 			-- Vertical position of viewport relative to `item'.
 		do
-			Result := {EV_GTK_EXTERNALS}.gtk_adjustment_struct_value (vertical_adjustment).rounded
+--			Result := {EV_GTK_EXTERNALS}.gtk_adjustment_struct_value (vertical_adjustment).rounded
 		end
 
 feature -- Element change

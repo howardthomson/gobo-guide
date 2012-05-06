@@ -21,7 +21,7 @@ inherit
 		
 	EV_BOX_IMP
 		rename
-			make_sb_window as make_composite,
+			make_sb_window as make_composite
 --			default_spacing as default_spacing_sb
 		undefine
 			layout,

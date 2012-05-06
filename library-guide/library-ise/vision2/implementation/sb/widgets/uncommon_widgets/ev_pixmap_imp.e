@@ -53,7 +53,7 @@ inherit
 			set_height,
 			set_minimum_width,
 			set_minimum_height,
-			destruct,
+			destruct
 		redefine
 			make,
 			sb_pixmap_window,

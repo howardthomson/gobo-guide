@@ -202,7 +202,7 @@ feature -- Implementation
 			-- current mouse pointer or count + 1 if over the toolbar
 			-- and not over a button.
 		local
-			wid_imp: EV_GTK_WIDGET_IMP
+--			wid_imp: EV_GTK_WIDGET_IMP
 			tbi: EV_TOOL_BAR_ITEM
 		do
 --			Result := count + 1

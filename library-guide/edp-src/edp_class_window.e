@@ -145,10 +145,10 @@ feature -- window structure
 -- Could it be Void ?? Invariant, I think, requires non-Void
 -- In that case, it should not be a Once function ....
 
-	class_processor: GECMP_AST_PROCESSOR
-		once
-			create Result.make (Void)
-		end
+--	class_processor: GECMP_AST_PROCESSOR
+--		once
+--			create Result.make (Void)
+--		end
 
 	mark_differences
 			-- Mark the symbols where different

@@ -31,3 +31,12 @@ Improved TYPE implementation ...
 generating_type ... !!!! Needless code duplication ...
 
 va_start, va_arg, va_end not supported by tcc
+
+
+
+[2012-05-06]
+
+Fix: once ("process") etc
+	Edited [temporarily] in vision2 in Eiffel70 libraries EV_ENVIRONMENT_I (?)
+
+	Update gexace from gobo-eiffel, to fix syntax options when compiling ise

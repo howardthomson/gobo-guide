@@ -77,7 +77,7 @@ feature {EV_DRAWABLE_IMP} -- Implementation
 	join_style: INTEGER is
 			-- Way in which lines are joined together.				
 		do
-			Result := {EV_GTK_EXTERNALS}.Gdk_join_bevel_enum
+--			Result := {EV_GTK_EXTERNALS}.Gdk_join_bevel_enum
 		end
 
 	gc_clip_area: EV_RECTANGLE

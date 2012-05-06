@@ -69,6 +69,7 @@
 		<cluster name="x86_64"/>
 		<cluster name="x86"/>
 		<cluster name="misc"/>
+		<cluster name="elf"/>
 		<cluster name="instr_def" location="${LLVM}/instr-def"/>
 	</cluster>
 

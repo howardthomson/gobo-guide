@@ -220,8 +220,8 @@ feature -- Basic operation
 				x_test_capable: x_test_capable
 			end
 			a_key_code := key_conversion.key_code_to_gtk (a_key.code).to_integer_32
-			a_key_code := x_keysym_to_keycode ({EV_GTK_EXTERNALS}.gdk_display, a_key_code)
-			a_success_flag := x_test_fake_key_event ( {EV_GTK_EXTERNALS}.gdk_display, a_key_code, True, 0)
+--			a_key_code := x_keysym_to_keycode ({EV_GTK_EXTERNALS}.gdk_display, a_key_code)
+--			a_success_flag := x_test_fake_key_event ( {EV_GTK_EXTERNALS}.gdk_display, a_key_code, True, 0)
 			check
 				fake_key_press_success: a_success_flag
 			end

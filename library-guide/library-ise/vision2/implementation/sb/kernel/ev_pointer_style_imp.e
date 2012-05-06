@@ -239,13 +239,13 @@ feature -- Implementation
 				check
 					a_image_not_null: a_image /= default_pointer
 				end
-				Result := {EV_GTK_DEPENDENT_EXTERNALS}.gdk_cursor_new_from_pixbuf (
-					{EV_GTK_DEPENDENT_EXTERNALS}.gdk_display_get_default,
-					a_image,
-					interface.x_hotspot,
-					interface.y_hotspot
-				)
-				{EV_GTK_EXTERNALS}.object_unref (a_image)
+--				Result := {EV_GTK_DEPENDENT_EXTERNALS}.gdk_cursor_new_from_pixbuf (
+--					{EV_GTK_DEPENDENT_EXTERNALS}.gdk_display_get_default,
+--					a_image,
+--					interface.x_hotspot,
+--					interface.y_hotspot
+--				)
+--				{EV_GTK_EXTERNALS}.object_unref (a_image)
 			end
 		end
 

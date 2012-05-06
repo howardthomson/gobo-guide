@@ -149,7 +149,7 @@ feature -- Implementation
 			-- Steps to perform before transport initiated.
 		do
 				-- Force any pending graphics calls.
-			{EV_GTK_EXTERNALS}.gdk_flush
+--			{EV_GTK_EXTERNALS}.gdk_flush
 			update_pointer_style (pointed_target)
 			app_implementation.on_pick (Current, pebble)
 			if pick_actions_internal /= Void then

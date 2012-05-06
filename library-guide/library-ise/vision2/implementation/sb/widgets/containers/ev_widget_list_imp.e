@@ -17,7 +17,7 @@ inherit
 			propagate_foreground_color,
 			propagate_background_color
 		redefine
-			interface,
+			interface
 		end
 
 	EV_CONTAINER_IMP
@@ -26,7 +26,7 @@ inherit
 			interface_item
 		redefine
 			make,
-			interface,
+			interface
 --			initialize
 		end
 
@@ -36,7 +36,7 @@ inherit
 			initialize
 		redefine
 			make,
-			interface,
+			interface
 		end
 
 feature {NONE} -- Initialization
@@ -50,7 +50,7 @@ feature {NONE} -- Initialization
 
 feature {NONE} -- Implementation
 
-	insert_i_th (v: like item; i: INTEGER) is
+	insert_i_th (v: like item; i: INTEGER)
 			-- Insert `v' at position `i'.
 		local
 			v_imp: EV_WIDGET_IMP

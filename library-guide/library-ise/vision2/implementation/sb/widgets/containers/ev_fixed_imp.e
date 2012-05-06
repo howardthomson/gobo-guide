@@ -23,7 +23,7 @@ inherit
 	EV_WIDGET_LIST_IMP
 		redefine
 			make,
-			interface,
+			interface
 --			initialize
 		end
 

@@ -24,7 +24,7 @@ inherit
 			make,
 --			old_make,
 			interface,
-			call_close_request_actions,
+			call_close_request_actions
 --			initialize	--,
 --			client_area
 		end
