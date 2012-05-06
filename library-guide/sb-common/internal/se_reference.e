@@ -18,14 +18,14 @@ feature {ANY}
 
 	item: E_
 
-	set_item (i: like item) is
+	set_item (i: like item)
 		do
 			item := i
 		ensure
 			item = i
 		end
 
-	clear is
+	clear
 			-- Reset `item' with the default value.
 		local
 			default_item: like item

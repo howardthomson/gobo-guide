@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		A drag corner widget may be placed in the bottom
 		right corner so as to allow the window to be resized more easily.
@@ -26,20 +26,20 @@ inherit
          class_name
       end
 
-creation
+create
 
    make
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_DRAG_CORNER"
 		end
 
 feature -- Creation
 
-   make (p: SB_COMPOSITE) is
+   make (p: SB_COMPOSITE)
       do
          window_make(p, Layout_right | Layout_bottom, 0,0,0,0)
          flags := flags | Flag_enabled | Flag_shown
@@ -68,7 +68,7 @@ feature {NONE} -- Implementation
 
 feature -- Message processing
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT;
          dc: SB_DC_WINDOW;
@@ -94,7 +94,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          dc: SB_DC_WINDOW
@@ -121,7 +121,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          dc: SB_DC_WINDOW
@@ -146,7 +146,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          dc: SB_DC_WINDOW
@@ -175,13 +175,13 @@ feature -- Message processing
 
 feature -- Queries
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Get default width
       do
          Result := CORNERSIZE
       end
       
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Get default height
       do
          Result := CORNERSIZE
@@ -189,7 +189,7 @@ feature -- Queries
 
 feature -- Actions
 
-   set_hilite_color (clr: INTEGER) is
+   set_hilite_color (clr: INTEGER)
          -- Change highlight color
       do
          if hilite_color /= clr then
@@ -198,7 +198,7 @@ feature -- Actions
          end
       end
 
-      set_shadow_color (clr: INTEGER) is
+      set_shadow_color (clr: INTEGER)
          -- Change shadow color
       do
          if shadow_color /= clr then
@@ -209,6 +209,6 @@ feature -- Actions
 
 feature {NONE} -- Implementation
 
-   CORNERSIZE: INTEGER is 17
+   CORNERSIZE: INTEGER = 17
 
 end

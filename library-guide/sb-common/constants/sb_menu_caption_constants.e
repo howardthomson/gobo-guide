@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Menu Caption constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -9,9 +9,9 @@ class SB_MENU_CAPTION_CONSTANTS
 
 feature -- Menu Caption options
 
-	MENU_AUTOGRAY: INTEGER is 0x00008000
+	MENU_AUTOGRAY: INTEGER = 0x00008000
 			-- Automatically gray out when not updated
-	MENU_AUTOHIDE: INTEGER is 0x00010000
+	MENU_AUTOHIDE: INTEGER = 0x00010000
 			-- Automatically hide button when not updated
 
 end

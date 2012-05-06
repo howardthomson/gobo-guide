@@ -2,7 +2,7 @@ expanded class SB_WAPI_DEVICE_CONTEXT_FUNCTIONS
 
 feature -- Access
 
-   DeleteObject (hObject: POINTER): INTEGER is
+   DeleteObject (hObject: POINTER): INTEGER
 
 
 
@@ -18,7 +18,7 @@ feature -- Access
       end
 	------------------------------------------
 	
-   GetDeviceCaps (hDC: POINTER; nIndex : INTEGER) : INTEGER is
+   GetDeviceCaps (hDC: POINTER; nIndex : INTEGER) : INTEGER
 
 
 
@@ -35,7 +35,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   GetObject (hgdiobj: POINTER; cbBuffer : INTEGER; lpvObject : POINTER) : INTEGER is
+   GetObject (hgdiobj: POINTER; cbBuffer : INTEGER; lpvObject : POINTER) : INTEGER
 
 
 
@@ -52,7 +52,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   ReleaseDC (hWnd, hDC : POINTER): INTEGER is
+   ReleaseDC (hWnd, hDC : POINTER): INTEGER
 
 
 
@@ -69,7 +69,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   CreateCompatibleDC (hDC: POINTER) : POINTER is
+   CreateCompatibleDC (hDC: POINTER) : POINTER
 
 
 
@@ -86,7 +86,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   DeleteDC (hDC : POINTER) : INTEGER is
+   DeleteDC (hDC : POINTER) : INTEGER
 
 
 
@@ -103,7 +103,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   GetDC (hWnd: POINTER): POINTER is
+   GetDC (hWnd: POINTER): POINTER
 
 
 
@@ -120,7 +120,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   GetDCEx (hWnd, hRgnClip: POINTER; flags: INTEGER_32): POINTER is
+   GetDCEx (hWnd, hRgnClip: POINTER; flags: INTEGER_32): POINTER
 
 
 
@@ -137,7 +137,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   GetStockObject (fnObject: INTEGER): POINTER is
+   GetStockObject (fnObject: INTEGER): POINTER
 
 
 
@@ -154,7 +154,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   SelectObject (hDC, hgdiobj: POINTER): POINTER is
+   SelectObject (hDC, hgdiobj: POINTER): POINTER
 
 
 
@@ -171,7 +171,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   CreateDC (lpszDriver,lpszDevice,lpszOutput, lpInitData: POINTER): POINTER is
+   CreateDC (lpszDriver,lpszDevice,lpszOutput, lpInitData: POINTER): POINTER
 
 
 
@@ -187,7 +187,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   CreateDCW (lpszDriver,lpszDevice,lpszOutput,lpInitData: POINTER): POINTER is
+   CreateDCW (lpszDriver,lpszDevice,lpszOutput,lpInitData: POINTER): POINTER
 
 
 
@@ -203,7 +203,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   SaveDC (hdc: POINTER): INTEGER is
+   SaveDC (hdc: POINTER): INTEGER
 
 
 
@@ -219,7 +219,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   RestoreDC (hdc: POINTER; nSavedDC: INTEGER): INTEGER is
+   RestoreDC (hdc: POINTER; nSavedDC: INTEGER): INTEGER
 
 
 
@@ -235,7 +235,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   CreateMetaFile (lpszFile: POINTER): POINTER is
+   CreateMetaFile (lpszFile: POINTER): POINTER
 
 
 
@@ -251,7 +251,7 @@ feature -- Access
 	------------------------------------------
 	
 
-   CloseMetaFile (hdc: POINTER): POINTER is
+   CloseMetaFile (hdc: POINTER): POINTER
 
 
 
@@ -266,7 +266,7 @@ feature -- Access
       end
 	------------------------------------------
 
-   DeleteMetaFile (hmf: POINTER): INTEGER is
+   DeleteMetaFile (hmf: POINTER): INTEGER
 
 
 

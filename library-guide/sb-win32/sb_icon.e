@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 				An Icon is an image with two additional server-side resources: a shape
 				bitmap, which is used to mask those pixels where the background should
@@ -23,19 +23,19 @@ inherit
 			resize
 		end
 
-creation
+create
 
 	make, make_opts
 
 feature -- not implemented
 
-	resize_imp (w, h: INTEGER) is
+	resize_imp (w, h: INTEGER)
 		do
 		end
 
 feature -- Resource management
 
-	create_resource_imp is
+	create_resource_imp
 		    -- Create the server side pixmap, the shape bitmap, and the etch bitmap, then 
 		    -- call render() to fill it with the pixel data from the client-side buffer.  After the server-
 		    -- side pixmap and bitmaps have been created, the client-side pixel buffer will be deleted unless
@@ -72,7 +72,7 @@ feature -- Resource management
             end
 		end
 
-	destroy_resource_imp is
+	destroy_resource_imp
 			-- Destroy the server-side pixmap and the shape bitmap and etch bitmap.  
 			-- The client-side pixel buffer is not affected.
 		local
@@ -87,7 +87,7 @@ feature -- Resource management
 
 feature -- Actions
 
-   render is
+   render
          -- Render the server-side pixmap, shape bitmap and etch bitmap for the icon
          -- from the client-side pixel buffer.  
       do
@@ -104,7 +104,7 @@ feature -- Actions
          end
       end
 
-   resize (w_, h_: INTEGER) is
+   resize (w_, h_: INTEGER)
          -- Resize both client-side and server-side representations (if any) to the 
          -- given width and height.  The new representations typically contain garbage
          -- after this operation and need to be re-filled.
@@ -174,7 +174,7 @@ feature -- Actions
          end
       end
 
-	set_transparent_color (color: INTEGER) is
+	set_transparent_color (color: INTEGER)
 			-- Change transparency color
 		do
 			transparent_color := color
@@ -182,7 +182,7 @@ feature -- Actions
 
 feature {NONE} -- External C features
 
-	ext_render (p: POINTER; w, h, ch: INTEGER; sh, etc: POINTER; transp: INTEGER; xid: POINTER; opts: INTEGER_32) is
+	ext_render (p: POINTER; w, h, ch: INTEGER; sh, etc: POINTER; transp: INTEGER; xid: POINTER; opts: INTEGER_32)
 		external "C"
 		alias "sb_icon_render"
 		end

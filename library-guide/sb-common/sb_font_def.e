@@ -1,4 +1,4 @@
-indexing
+note
 
 		description: "The Font"
 
@@ -26,7 +26,7 @@ inherit
 	
 feature -- Creation
 
-	make_from_string (a: SB_APPLICATION; nm: STRING) is
+	make_from_string (a: SB_APPLICATION; nm: STRING)
     		-- Construct a font with given X11 font string
 		do
         	init
@@ -39,7 +39,7 @@ feature -- Creation
 			make_imp
 		end
 
-	make_from_description (a: SB_APPLICATION; font_desc: SB_FONT_DESC) is
+	make_from_description (a: SB_APPLICATION; font_desc: SB_FONT_DESC)
 			-- Construct font from font description
       	do
          	init
@@ -53,7 +53,7 @@ feature -- Creation
 			make_imp
 		end
 
-	make (a: SB_APPLICATION; face: STRING; sz: INTEGER) is
+	make (a: SB_APPLICATION; face: STRING; sz: INTEGER)
 			-- Construct a font with given face name, size in points(pixels), weight,
 			-- slant, character set encoding, setwidth, and hints
 		do
@@ -62,7 +62,7 @@ feature -- Creation
 		end
 
 	make_opts (a: SB_APPLICATION; face: STRING; sz, wt, sl, enc,
-                      setw: INTEGER ; h: INTEGER) is
+                      setw: INTEGER ; h: INTEGER)
          -- Construct a font with:
          --		given face name,
          --		size in points(pixels),
@@ -86,7 +86,7 @@ feature -- Creation
 			make_imp
       	end
 
-	make_imp is
+	make_imp
 		deferred
 		end
 
@@ -100,7 +100,7 @@ feature -- Queries
 	setwidth: INTEGER             -- Relative setwidth
 	hints   : INTEGER             -- Matching hints
 
-	create_resource is
+	create_resource
 			-- Create the font
 		do
         	if not is_attached then
@@ -110,46 +110,46 @@ feature -- Queries
          	end
       	end
 
-	create_resource_imp is
+	create_resource_imp
    		deferred
    		end
 
-   	detach_resource is
+   	detach_resource
     		-- Detach the font
 		do
 		end
 
-	destroy_resource is
+	destroy_resource
 			-- Destroy the font
       	do
       	end
 
-   	get_font_desc: SB_FONT_DESC is
+   	get_font_desc: SB_FONT_DESC
     		-- Get font description
       	do
       	end
 
-   	set_font_desc (desc: SB_FONT_DESC) is
+   	set_font_desc (desc: SB_FONT_DESC)
          	-- Set font description
       	do
       	end
 
-   	is_font_mono: BOOLEAN is
+   	is_font_mono: BOOLEAN
          	-- Find out if the font is monotype or proportional
       	deferred
       	end
 
-   has_char (ch: CHARACTER): BOOLEAN is
+   has_char (ch: CHARACTER): BOOLEAN
          -- See if font has glyph for ch
       deferred
       end
 
-   get_min_char: INTEGER is
+   get_min_char: INTEGER
          -- Get first character glyph in font
       do
       end
 
-   get_max_char: INTEGER is
+   get_max_char: INTEGER
          -- Get last character glyph in font
       do
       end
@@ -159,27 +159,27 @@ feature -- Queries
 --      do
 --      end
 
-   right_bearing (ch: CHARACTER): INTEGER is
+   right_bearing (ch: CHARACTER): INTEGER
          -- Right bearing
       deferred
       end
 
-   get_font_width: INTEGER is
+   get_font_width: INTEGER
          -- Width of widest character in font
 		deferred
       end
 
-   get_font_height: INTEGER is
+   get_font_height: INTEGER
          -- Height of highest character in font
 		deferred
       end
 
-   ascent, get_font_ascent: INTEGER is
+   ascent, get_font_ascent: INTEGER
          -- Ascent from baseline
 		deferred
       end
 
-   descent, get_font_descent: INTEGER is
+   descent, get_font_descent: INTEGER
          -- Descent from baseline
 		deferred
       end
@@ -194,7 +194,7 @@ feature -- Queries
 --      do
 --      end
 
-	get_text_width (text: STRING): INTEGER is
+	get_text_width (text: STRING): INTEGER
 			-- Calculate width of given text in this font
 		require
 			valid_text: text /= Void
@@ -202,7 +202,7 @@ feature -- Queries
 			Result := get_text_width_offset (text, 1, text.count);
 		end
 
-	get_text_width_len (text: STRING; count: INTEGER): INTEGER is
+	get_text_width_len (text: STRING; count: INTEGER): INTEGER
 			-- Calculate width of given text in this font
 		require
 			valid_text: text /= Void
@@ -211,7 +211,7 @@ feature -- Queries
 			Result := get_text_width_offset (text, 1, count)
 		end
 
-	get_text_width_offset (text: STRING; strt,count: INTEGER): INTEGER is
+	get_text_width_offset (text: STRING; strt,count: INTEGER): INTEGER
 			-- Calculate width of given text in this font
 		require
 			valid_text: text /= Void
@@ -220,19 +220,19 @@ feature -- Queries
 		deferred
 		end
 
-   get_text_height (text: STRING): INTEGER is
+   get_text_height (text: STRING): INTEGER
          -- Calculate height of given text in this font
       do
          Result := get_text_height_offset (text, 1, text.count)
       end
 
-   get_text_height_length (text: STRING; count: INTEGER): INTEGER is
+   get_text_height_length (text: STRING; count: INTEGER): INTEGER
          -- Calculate height of given text in this font
       do
          Result := get_text_height_offset (text, 1, count)
       end
 
-	get_text_height_offset (text: STRING; strt, count: INTEGER): INTEGER is
+	get_text_height_offset (text: STRING; strt, count: INTEGER): INTEGER
 			-- Calculate height of given text in this font
 		require
 			text_not_void: text /= Void
@@ -248,7 +248,7 @@ feature -- Queries
 
 feature -- Destruction
 
-	destruct is
+	destruct
 		do
 			destroy_resource
 			Precursor
@@ -260,11 +260,11 @@ feature {NONE} -- Implementation
 --		do
 --		end
 
-	fall_back_font: STRING is
+	fall_back_font: STRING
 		do
 		end
 
-	find_match(fontname, family: STRING): STRING is
+	find_match(fontname, family: STRING): STRING
 		deferred
 		end
 

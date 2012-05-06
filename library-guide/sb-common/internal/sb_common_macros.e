@@ -1,4 +1,4 @@
-indexing
+note
 	description:"wide used macros"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -9,7 +9,7 @@ expanded class SB_COMMON_MACROS
 
 feature
 
-   sbrgba (r,g,b,a : INTEGER ) : INTEGER is
+   sbrgba (r,g,b,a : INTEGER ) : INTEGER
          -- Make RGBA color
       local
          br, bg, bb, ba : INTEGER
@@ -22,7 +22,7 @@ feature
          Result := br | bg | bb | ba
       end
 
-   sbrgb (r,g,b : INTEGER ) : INTEGER is
+   sbrgb (r,g,b : INTEGER ) : INTEGER
          -- Make RGB color
       local
          br, bg, bb : INTEGER
@@ -34,25 +34,25 @@ feature
          Result := br | bg | bb | 0xFF000000
       end
       
-	sbredval (rgba : INTEGER) : INTEGER is
+	sbredval (rgba : INTEGER) : INTEGER
          	-- Get red value from RGBA color
       	do
          	Result := rgba & 0x000000FF
       	end;
 
-   	sbgreenval (rgba : INTEGER) : INTEGER is
+   	sbgreenval (rgba : INTEGER) : INTEGER
          -- Get green value from RGBA color
       	do
          	Result := ((rgba |>> 8) & 0x000000FF)
       	end;
 
-   	sbblueval (rgba : INTEGER) : INTEGER is
+   	sbblueval (rgba : INTEGER) : INTEGER
          	-- Get blue value from RGBA color
       	do
          	Result := ((rgba |>> 16) & 0x000000FF)
       	end;
 
-   sbalphaval (rgba : INTEGER) : INTEGER is
+   sbalphaval (rgba : INTEGER) : INTEGER
          -- Get alpha value from RGBA color
       local
          rgbab : INTEGER
@@ -60,13 +60,13 @@ feature
          Result := ((rgba |>> 24) & 0x000000FF)
       end;
 
-   sbrgbacompval(rgba, comp : INTEGER) : INTEGER is
+   sbrgbacompval(rgba, comp : INTEGER) : INTEGER
          -- Get component value of RGBA color
       do
          Result := ((rgba |>> (comp*8).to_integer_8) & 0x000000FF)
       end;
 
-   sbclamp(lo, x, hi: INTEGER): INTEGER is
+   sbclamp(lo, x, hi: INTEGER): INTEGER
          -- Clamp value x to range [lo..hi]
       do
          if x < lo then
@@ -78,7 +78,7 @@ feature
          end
       end
 
-	sbabs(arg: INTEGER): INTEGER is
+	sbabs(arg: INTEGER): INTEGER
 		do
 			if arg < 0 then
 				Result := - arg

@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Class used to display various file open/save dialogs"
 
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"

@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Tree like item container widget"
 
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
@@ -25,7 +25,7 @@ feature
 	first_item: G
 	last_item: G
 
-	item_count: INTEGER is
+	item_count: INTEGER
 		local
         	i: G
       	do
@@ -39,7 +39,7 @@ feature
          	end
       	end
 
-	item (index: G): G is
+	item (index: G): G
          	-- Return the item at the given index
       	do
          	Result ?= index
@@ -47,7 +47,7 @@ feature
 
 feature -- Validation
 
-	valid_accessor (index: G): BOOLEAN is
+	valid_accessor (index: G): BOOLEAN
       	do
         -- 	Result := index /= DEFAULT_ACCESSOR
          	Result := index /= Void

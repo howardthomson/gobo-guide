@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		A toolbar grip is used to move its parent [an SB_TOOL_BAR].
 		The grip draws either a single or double bar; it is customary to
@@ -32,26 +32,26 @@ inherit
       
 	SB_TOOL_BAR_GRIP_CONSTANTS
 
-creation
+create
 
    make, make_opts
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_TOOL_BAR_GRIP"
 		end
 
 feature -- Creation
 
-   make(p:SB_TOOL_BAR; opts: INTEGER) is
+   make(p:SB_TOOL_BAR; opts: INTEGER)
          -- Construct toolbar grip
       do
          make_opts(p, Void, 0, opts, 0,0, 0,0)
       end
 
-   make_opts(p: SB_TOOL_BAR; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER; x,y,w,h: INTEGER) is
+   make_opts(p: SB_TOOL_BAR; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER; x,y,w,h: INTEGER)
          -- Construct toolbar grip
       do
          window_make(p, opts, x,y, w,h)
@@ -83,7 +83,7 @@ feature -- Data
 
 feature -- Queries
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Return default width
       do
          if (options & TOOLBARGRIP_DOUBLE) /= Zero then
@@ -93,7 +93,7 @@ feature -- Queries
          end
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       do
          if (options & TOOLBARGRIP_DOUBLE) /= Zero then
@@ -103,7 +103,7 @@ feature -- Queries
          end
       end
 
-   is_double_bar: BOOLEAN is
+   is_double_bar: BOOLEAN
          -- Return True if toolbar grip is displayed as a double bar
       do
          Result := (options & TOOLBARGRIP_DOUBLE) /= Zero
@@ -111,7 +111,7 @@ feature -- Queries
 
 feature -- Actions
 
-   set_double_bar (dbl: BOOLEAN) is
+   set_double_bar (dbl: BOOLEAN)
          -- Change toolbar grip to double
       local
          opts: INTEGER
@@ -127,7 +127,7 @@ feature -- Actions
          end
       end
 
-   set_hilite_color (clr: INTEGER) is
+   set_hilite_color (clr: INTEGER)
          -- Change highlight color
       do
          if clr /= hilite_color then
@@ -136,7 +136,7 @@ feature -- Actions
          end
       end
 
-   set_shadow_color (clr: INTEGER) is
+   set_shadow_color (clr: INTEGER)
          -- Change shadow color
       do
          if clr /= shadow_color then
@@ -145,7 +145,7 @@ feature -- Actions
          end
       end
 
-   set_active_color(clr: INTEGER) is
+   set_active_color(clr: INTEGER)
          -- Set the active color
       do
          if clr /= active_color then
@@ -156,7 +156,7 @@ feature -- Actions
 
 feature -- Message processing
 
-   on_paint(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT;
          dc: SB_DC_WINDOW;
@@ -229,7 +229,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_left_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_enabled then
             grab_mouse;
@@ -239,7 +239,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_left_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_enabled then
             if (flags & Flag_dodrag) /= Zero then do_handle_2 (Current, SEL_ENDDRAG, 0, data) end
@@ -250,7 +250,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT;
       do
@@ -265,7 +265,7 @@ feature -- Message processing
          end
       end
 
-   on_enter(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_enter(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender,selector,data)
          if is_enabled and then (flags & (Flag_dodrag | Flag_trydrag)) = Zero then
@@ -275,7 +275,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_leave(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_leave(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender, selector, data)
          if is_enabled and then (flags & (Flag_dodrag | Flag_trydrag)) = Zero then
@@ -287,10 +287,10 @@ feature -- Message processing
 
 feature {NONE}
 
-   GRIP_SINGLE: INTEGER is 3
+   GRIP_SINGLE: INTEGER = 3
          -- Single grip for arrangable toolbars
 
-   GRIP_DOUBLE: INTEGER is 7
+   GRIP_DOUBLE: INTEGER = 7
          -- Double grip for dockable toolbars
 
 end

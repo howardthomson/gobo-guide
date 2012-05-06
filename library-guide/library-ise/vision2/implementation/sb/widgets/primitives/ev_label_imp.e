@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 		"EiffelVision label, gtk implementation."
@@ -55,7 +55,7 @@ feature -- Access
 	angle: REAL
 		-- Amount text is rotated counter-clockwise from horizontal plane in radians.
 
-	set_angle (a_angle: REAL) is
+	set_angle (a_angle: REAL)
 			--
 		do
 			-- TODO
@@ -66,7 +66,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_LABEL;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

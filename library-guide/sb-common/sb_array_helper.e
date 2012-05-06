@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Helper class implementing missing insert feature"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -13,7 +13,7 @@ class SB_ARRAY_HELPER [ E ]
 
 feature {NONE}
 
-	array_insert (arr: ARRAY[E]; item: E; index: INTEGER) is
+	array_insert (arr: ARRAY[E]; item: E; index: INTEGER)
     	require
         	arr /= Void and then index >= arr.lower and then index <= arr.upper+1
       	local
@@ -29,7 +29,7 @@ feature {NONE}
          	end
       	end
 
-	array_remove (arr: ARRAY[E]; index: INTEGER) is
+	array_remove (arr: ARRAY[E]; index: INTEGER)
 		require
 			array_not_void: arr /= Void
 			valid_index: index >= arr.lower and then index <= arr.upper
@@ -40,7 +40,7 @@ feature {NONE}
 
 feature {NONE}
 
-	array_move (arr: ARRAY[E]; l, u, by: INTEGER) is
+	array_move (arr: ARRAY[E]; l, u, by: INTEGER)
 			-- move elements in array between 'l' and 'u'
 			-- by offset 'by'
 		require

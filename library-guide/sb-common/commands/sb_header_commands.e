@@ -1,4 +1,4 @@
-indexing
+note
    description: "SB_HEADER commands"
    author: "Eugene Melekhov <eugene_melekhov@mail.ru>"
    copyright: "Copyright (c) 2002, Eugene Melekhov and others"
@@ -16,12 +16,12 @@ inherit
 
 feature
 
-   ID_TIPTIMER: INTEGER is
+   ID_TIPTIMER: INTEGER
       once
          Result := FRAME_ID_LAST
       end
 
-   Id_last: INTEGER is
+   Id_last: INTEGER
       once
          Result := FRAME_ID_LAST + 1;
       end

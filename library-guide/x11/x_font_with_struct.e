@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Interface to Xlib's Font resource"
 
@@ -19,13 +19,13 @@ inherit
       		query_font
     	end
 
-creation
+create
 
   	make
 
 feature -- Creation
 
-  	make (disp: X_DISPLAY; name: STRING) is
+  	make (disp: X_DISPLAY; name: STRING)
     	require
       		disp /= Void
       		name /= Void
@@ -65,14 +65,14 @@ feature -- Creation
 
 feature -- Query
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 		do
 			Result := font_struct /= Void
 		end
 
 feature -- Destruction
 
-  	free is
+  	free
       		-- unloads font and frees the font struct.
     	do
       		unload
@@ -81,7 +81,7 @@ feature -- Destruction
 
 feature
 
-	query_font : X_FONT_STRUCT is
+	query_font : X_FONT_STRUCT
     		-- returns a X_FONT_STRUCT which contains information associated
 			-- with the font.
 		do
@@ -94,7 +94,7 @@ feature {NONE} -- Implementation attributes
 
 feature {NONE} -- External functions
 
-	x_load_query_font (p1, p2 : POINTER): POINTER is
+	x_load_query_font (p1, p2 : POINTER): POINTER
     	external "C use <X11/Xlib.h>"
     	alias "XLoadQueryFont"
     	end

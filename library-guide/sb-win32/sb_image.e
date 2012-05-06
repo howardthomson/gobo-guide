@@ -13,13 +13,13 @@ inherit
 	SB_NOT_IMPLEMENTED
 	SB_EXPANDED
 
-creation
+create
 
 	make, make_opts
 
 feature
 
-   restore is
+   restore
          -- Retrieves pixels from the server-side image.  For example, to make
          -- screen snapshots, or to retrieve an image after it has been drawin
          -- into by various means.
@@ -103,7 +103,7 @@ feature
          end
       end
 
-   render is
+   render
          -- Render the server-side representation of the image from client-side
          -- pixels.  Normally, IMAGE_DITHER is used which causes the server-side
          -- representation to be rendered using a 16x16 ordered dither if necessary;
@@ -189,7 +189,7 @@ feature
          end
       end
 
-	create_resource_imp is
+	create_resource_imp
          	-- Create the server side pixmap, then call render() to fill it with the
          	-- pixel data from the client-side buffer.  After the server-side image has 
          	-- been created, the client-side pixel buffer will be deleted unless 
@@ -215,7 +215,7 @@ feature
         	end
 		end
 
-   	destroy_resource_imp is
+   	destroy_resource_imp
          	-- Destroy the server-side pixmap.  
          	-- The client-side pixel buffer is not affected.
       	local
@@ -228,7 +228,7 @@ feature
 
 feature -- Transformation
 
-	resize_imp (w_, h_: INTEGER) is
+	resize_imp (w_, h_: INTEGER)
          	-- Resize both client-side and server-side representations (if any) to the 
          	-- given width and height.  The new representations typically contain garbage
          	-- after this operation and need to be re-filled.
@@ -251,7 +251,7 @@ feature -- Transformation
 
 feature {SB_DC} -- Implementation
 
-	get_dc: POINTER is
+	get_dc: POINTER
 		local
          	wapi_dcf: SB_WAPI_DEVICE_CONTEXT_FUNCTIONS
          	wapi_wf: SB_WAPI_WINDOW_FUNCTIONS
@@ -261,7 +261,7 @@ feature {SB_DC} -- Implementation
          	t := wapi_dcf.SelectObject (Result, resource_id)
       	end
 
-   	release_dc (dc: POINTER): INTEGER is
+   	release_dc (dc: POINTER): INTEGER
       	local
          	wapi_dcf: SB_WAPI_DEVICE_CONTEXT_FUNCTIONS
       	do

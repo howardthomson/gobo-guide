@@ -13,18 +13,18 @@ feature
 
 	minimum_width_sb: INTEGER
 
-	set_minimum_width (a_minimum_width: like minimum_width) is
+	set_minimum_width (a_minimum_width: like minimum_width)
 		do
 			minimum_width_sb := a_minimum_width
 		end
 
-	once_property_minimum_width: SB_PROPERTY_MINIMUM_WIDTH is
+	once_property_minimum_width: SB_PROPERTY_MINIMUM_WIDTH
 		once
 			create Result
 --			once_properties.add_last (Result)
 		end
 
-	add_property_minimum_width is
+	add_property_minimum_width
 		local
 			p: SB_PROPERTY_MINIMUM_WIDTH
 		do

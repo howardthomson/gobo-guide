@@ -72,7 +72,7 @@ feature -- Creation
 		end
 
 	make_opts (p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER;
-				x, y, w, h: INTEGER) is
+				x, y, w, h: INTEGER)
     		-- Construct new splitter widget, which will notify target about size changes
     	do
          	make_composite (p, opts, x,y, w,h)

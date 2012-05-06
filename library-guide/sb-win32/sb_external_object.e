@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Objects that have a peer on the C side"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -7,13 +7,13 @@ indexing
 
 class SB_EXTERNAL_OBJECT
 
-creation
+create
 
    from_external
 
 feature -- creation
 
-   from_external (external_object : POINTER) is
+   from_external (external_object : POINTER)
 --      require
 --         not_null : external_object /= default_pointer
       do
@@ -24,7 +24,7 @@ feature -- creation
 
 feature -- operations
 
-   to_external : POINTER is
+   to_external : POINTER
       do
          Result := object_ptr
       end

@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Base composite"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -30,7 +30,7 @@ inherit
 	
 feature -- resource creation/deletion
 
-   	create_resource is
+   	create_resource
          	-- Create server-side resources
       	local
          	c : SB_WINDOW
@@ -49,7 +49,7 @@ feature -- resource creation/deletion
 --print ("Done creating resources in SB_COMPOSITE%N")
       	end
 
-   	detach_resource is
+   	detach_resource
          	-- Detach server-side resources
       	local
          	c : SB_WINDOW
@@ -65,7 +65,7 @@ feature -- resource creation/deletion
          	Precursor
       	end
 
-	destroy_resource is
+	destroy_resource
     		-- Destroy server-side resources
       	local
          	c : SB_WINDOW
@@ -83,7 +83,7 @@ feature -- resource creation/deletion
 
 feature -- Event handlers
 
-	on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			event: SB_EVENT
       	do
@@ -125,7 +125,7 @@ feature -- Event handlers
 			end
 		end
 
-	on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	do
          	-- Bounce to focus widget
          	if (focus_child /= Void and then focus_child.handle_2 (sender, SEL_KEYRELEASE, selector, data))
@@ -137,7 +137,7 @@ feature -- Event handlers
          	end
       	end
 
-   on_focus_next (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_next (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          c: SB_WINDOW;
       do
@@ -164,7 +164,7 @@ feature -- Event handlers
          end
       end
 
-   on_focus_prev (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_prev (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          c: SB_WINDOW
       do
@@ -190,7 +190,7 @@ feature -- Event handlers
          end
       end
 
-   on_cmd_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          c : SB_WINDOW
          temp : INTEGER
@@ -211,7 +211,7 @@ feature -- Event handlers
 
 feature -- Queries
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Return default width
       local
          c: SB_WINDOW
@@ -232,7 +232,7 @@ feature -- Queries
          end
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       local
          c : SB_WINDOW
@@ -253,7 +253,7 @@ feature -- Queries
          end
       end
 
-   max_child_width: INTEGER is
+   max_child_width: INTEGER
       local
          c: SB_WINDOW
          hints: INTEGER
@@ -279,7 +279,7 @@ feature -- Queries
          end
       end
 
-   max_child_height: INTEGER is
+   max_child_height: INTEGER
       local
          c: SB_WINDOW
          hints: INTEGER
@@ -305,11 +305,11 @@ feature -- Queries
          end
       end
 
-   is_composite : BOOLEAN is True
+   is_composite : BOOLEAN = True
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       	do
          	if		match_function_2	(SEL_FOCUS_NEXT, 0, type, key) then Result := on_focus_next (sender, key, data)
          	elseif  match_function_2	(SEL_FOCUS_PREV, 0, type, key) then Result := on_focus_prev (sender, key, data)
@@ -323,7 +323,7 @@ feature -- Message processing
 
 feature -- Destruction
 
-	destruct is
+	destruct
     	do
          	from
          	until
@@ -337,7 +337,7 @@ feature -- Destruction
 feature { NONE } -- Implementation
 
 
-	layout is
+	layout
     		-- Just tell server where the windows are!
     	local
          	c : SB_WINDOW

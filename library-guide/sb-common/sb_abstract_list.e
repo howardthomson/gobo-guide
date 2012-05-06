@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Base list"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -38,7 +38,7 @@ feature -- Basic widget properties
 
 feature -- Settings
 
-   	set_font(fnt: SB_FONT) is
+   	set_font(fnt: SB_FONT)
          	-- Change text font
       	require
          	fnt /= Void
@@ -50,7 +50,7 @@ feature -- Settings
          	end
       	end
 
-   	set_text_color(clr: INTEGER) is
+   	set_text_color(clr: INTEGER)
          	-- Change normal text color
       	do
          	if text_color /= clr then
@@ -59,7 +59,7 @@ feature -- Settings
          	end
       	end
 
-   	set_sel_back_color(clr: INTEGER) is
+   	set_sel_back_color(clr: INTEGER)
          	-- Change selected text background
       	do
          	if sel_back_color /= clr then
@@ -68,7 +68,7 @@ feature -- Settings
          	end
       	end
 
-	set_sel_text_color(clr: INTEGER) is
+	set_sel_text_color(clr: INTEGER)
 			-- Change selected text color
 		do
 			if sel_text_color /= clr then
@@ -77,7 +77,7 @@ feature -- Settings
 			end
 		end
 
-	is_item_current(index: GI): BOOLEAN is
+	is_item_current(index: GI): BOOLEAN
 			-- Return True if item is current
 		require
 			valid_accessor(index)
@@ -85,13 +85,13 @@ feature -- Settings
 			Result := index = current_item;
 		end
 
- 	find_item_by_name(text: STRING): GI is
+ 	find_item_by_name(text: STRING): GI
          	-- Search items for item by name, starting from first item case insensitiv.
       	do
          	Result := find_item_by_name_opts(text, DEFAULT_ACCESSOR, SEARCH_FORWARD | SEARCH_WRAP);
       	end
 
-	find_item_by_name_opts(text: STRING; start_: GI; flgs: INTEGER): GI is	--## Original
+	find_item_by_name_opts(text: STRING; start_: GI; flgs: INTEGER): GI	--## Original
          	-- Search items for item by name, starting from start item; the
          	-- flags argument controls the search direction, and case 
          	-- sensitivity.
@@ -101,14 +101,14 @@ feature -- Settings
 feature -- Item change
 
 
-	set_item_text(index: GI; text: STRING) is
+	set_item_text(index: GI; text: STRING)
          	-- Change item text
       	do
          	item(index).set_text(text);
          	recalc;
       	end
 
-	set_item_icon(index: GI; icon: SB_ICON) is
+	set_item_icon(index: GI; icon: SB_ICON)
          	-- Change item icon
     	local
          	i: SB_ITEM	-- SE BUG? Original text does not work due to renaming
@@ -117,7 +117,7 @@ feature -- Item change
 			recalc;
       	end
 
-	enable_item(index: GI): BOOLEAN is
+	enable_item(index: GI): BOOLEAN
          	-- Enable item
       	require
          	valid_accessor(index)
@@ -133,7 +133,7 @@ feature -- Item change
          	Result := False;
       	end
 
-	disable_item(index: GI): BOOLEAN is
+	disable_item(index: GI): BOOLEAN
          	-- Disable item
       	require
          	valid_accessor(index)
@@ -149,56 +149,56 @@ feature -- Item change
          	Result := False
       	end
 
-	do_select_item (index: GI; notify: BOOLEAN) is
+	do_select_item (index: GI; notify: BOOLEAN)
       	local
          	t: BOOLEAN
       	do
          	t := select_item(index, notify)
       	end
 
- 	select_item (index: GI; notify: BOOLEAN): BOOLEAN is
+ 	select_item (index: GI; notify: BOOLEAN): BOOLEAN
          	-- Select item
       	require
          	valid_accessor(index)
       	deferred
       	end
    
-	do_deselect_item (index: GI; notify: BOOLEAN) is
+	do_deselect_item (index: GI; notify: BOOLEAN)
       	local
          	t: BOOLEAN
       	do
          	t := deselect_item(index, notify)
       	end
 
- 	deselect_item (index: GI; notify: BOOLEAN): BOOLEAN is
+ 	deselect_item (index: GI; notify: BOOLEAN): BOOLEAN
          	-- Deselect item
       	require
          	valid_accessor(index)
       	deferred
       	end
 
-	do_toggle_item (index: GI; notify: BOOLEAN) is
+	do_toggle_item (index: GI; notify: BOOLEAN)
 		local
 			t: BOOLEAN
 		do
 			t := toggle_item(index, notify)
 		end
 
-	toggle_item (index: GI; notify: BOOLEAN): BOOLEAN is
+	toggle_item (index: GI; notify: BOOLEAN): BOOLEAN
 			-- Toggle item selection state
 		require
 			valid_accessor(index)
 		deferred
 		end
 
-	set_current_item (index: GI; notify: BOOLEAN) is
+	set_current_item (index: GI; notify: BOOLEAN)
 			-- Change current item
 		require
 			index = DEFAULT_ACCESSOR or else valid_accessor(index)
 		deferred
 		end
 
-	set_anchor_item (index: GI) is
+	set_anchor_item (index: GI)
 			-- Change anchor item
 		require
 			index = DEFAULT_ACCESSOR or else valid_accessor(index)
@@ -207,19 +207,19 @@ feature -- Item change
 			extent_item := index
 		end
 
-	do_extend_selection (index: GI; notify: BOOLEAN) is
+	do_extend_selection (index: GI; notify: BOOLEAN)
       	local
          	t: BOOLEAN
       	do
          	t := extend_selection(index, notify);
       	end
 
-	extend_selection (index: GI; notify: BOOLEAN): BOOLEAN is
+	extend_selection (index: GI; notify: BOOLEAN): BOOLEAN
          	-- Extend selection from anchor item to index
       	deferred
       	end
 
-	do_kill_selection (notify: BOOLEAN) is
+	do_kill_selection (notify: BOOLEAN)
 			-- Deselect all items
       	local
          	t: BOOLEAN
@@ -227,35 +227,35 @@ feature -- Item change
          	t := kill_selection(notify)
       	end
 
-   	kill_selection (notify: BOOLEAN): BOOLEAN is
+   	kill_selection (notify: BOOLEAN): BOOLEAN
          	-- Deselect all items
       	deferred
       	end
 
 feature -- Message processing
 
-   	on_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	if send (SEL_CLICKED, data) then
             	Result := True
          	end
       	end
 
-   	on_double_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_double_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	if send (SEL_DOUBLECLICKED, data) then
             	Result := True
          	end
       	end
 
-   	on_triple_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_triple_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	if send (SEL_TRIPLECLICKED, data) then
             	Result := True
          	end
       	end
 
-   	on_command(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_command(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	if send (SEL_COMMAND, data) then
             	Result := True
@@ -264,7 +264,7 @@ feature -- Message processing
 
 feature { NONE } -- Implementation
 
-	update_item(index: GI) is	--## Original
+	update_item(index: GI)	--## Original
       	require
          	valid_accessor(index)
       	deferred

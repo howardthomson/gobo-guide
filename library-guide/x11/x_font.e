@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Interface to Xlib's Font resource"
 
@@ -19,14 +19,14 @@ inherit
 
 	X_PORTABILITY_ROUTINES
 	
-creation 
+create 
 
   	make,
   	from_external
 
 feature {NONE} -- Creation
 
-  	make (disp : X_DISPLAY; name : STRING) is
+  	make (disp : X_DISPLAY; name : STRING)
       		-- Loads the specified font
     	require
       		disp /= Void
@@ -36,7 +36,7 @@ feature {NONE} -- Creation
 			id      := x_load_font (display.to_external, string_to_external(name))
 		end
 
-	from_external (disp : X_DISPLAY; fid : INTEGER) is
+	from_external (disp : X_DISPLAY; fid : INTEGER)
       		-- Creates an instance of X_FONT from an external identifier.
 		require
 			disp /= Void
@@ -51,14 +51,14 @@ feature {NONE} -- implementation attributes: cached info
 
 feature -- Destruction
 
-	unload is
+	unload
 			-- Deletes the association between the font resource ID
 			-- and this font
 		do
 			x_unload_font (display.to_external, id)
 		end
 
-	query_font : X_FONT_STRUCT is
+	query_font : X_FONT_STRUCT
 			-- Returns a X_FONT_STRUCT class, which contains information
 			-- associated with the font
 		do
@@ -70,17 +70,17 @@ feature -- Destruction
   
 feature {NONE} -- External functions
 
-  	x_load_font (disp, str : POINTER) : INTEGER is
+  	x_load_font (disp, str : POINTER) : INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XLoadFont"
     	end
       
-  	x_unload_font (d : POINTER; rid : INTEGER) is
+  	x_unload_font (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XUnloadFont"
     	end
 
-  	x_query_font (d : POINTER; rid : INTEGER) : POINTER is
+  	x_query_font (d : POINTER; rid : INTEGER) : POINTER
     	external "C use <X11/Xlib.h>"
     	alias "XQueryFont"
     	end

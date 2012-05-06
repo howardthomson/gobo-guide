@@ -9,7 +9,7 @@ feature
 					len0: INTEGER;
 					changed1: ARRAY [ BOOLEAN ];
 					len1: INTEGER;
-		): CHANGE is
+		): CHANGE
 			-- Scan the tables of which lines are inserted and deleted,
 			-- producing an edit script in reverse order.
 		local

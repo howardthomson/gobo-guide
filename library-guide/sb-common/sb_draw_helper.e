@@ -6,13 +6,13 @@ inherit
 
 feature
 
-	draw_border_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+	draw_border_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER)
 		do
 			dc.set_foreground(border_color);
          	dc.draw_rectangle(x,y,w-1,h-1);
       	end
 
-  	draw_raised_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+  	draw_raised_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER)
       	do
          	dc.set_foreground(shadow_color);
          	dc.fill_rectangle(x,y+h-1,w,1);
@@ -22,7 +22,7 @@ feature
          	dc.fill_rectangle(x,y,1,h);
       	end
 
-  	draw_sunken_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+  	draw_sunken_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER)
       	do
          	dc.set_foreground(shadow_color);
          	dc.fill_rectangle(x,y,w,1);
@@ -32,7 +32,7 @@ feature
          	dc.fill_rectangle(x+w-1,y,1,h);
       	end
 
-  	draw_ridge_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+  	draw_ridge_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER)
       	do
          	dc.set_foreground(hilite_color);
          	dc.fill_rectangle(x,y,w,1);
@@ -46,7 +46,7 @@ feature
          	dc.fill_rectangle(x+w-1,y,1,h);
       	end
 
-  	draw_groove_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+  	draw_groove_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER)
       	do
          	dc.set_foreground(shadow_color);
          	dc.fill_rectangle(x,y,w,1);
@@ -60,7 +60,7 @@ feature
          	dc.fill_rectangle(x+w-1,y,1,h);
       	end
 
-  	draw_double_raised_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+  	draw_double_raised_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER)
       	do
          	dc.set_foreground(hilite_color);
          	dc.fill_rectangle(x,y,w-1,1);
@@ -76,7 +76,7 @@ feature
          	dc.fill_rectangle(x+w-1,y,1,h);
       	end
 
-  	draw_double_sunken_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+  	draw_double_sunken_rectangle(dc: SB_DC_WINDOW; x, y, w, h: INTEGER)
       	do
          	dc.set_foreground(shadow_color);
          	dc.fill_rectangle(x, y, w-1, 1);		-- Top, Outer
@@ -92,7 +92,7 @@ feature
          	dc.fill_rectangle(x+w-2,y+1,1,h-2);		-- Right, Inner
       	end
 
-  	draw_frame(dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+  	draw_frame(dc: SB_DC_WINDOW; x, y, w, h: INTEGER)
       	local
          	opts: INTEGER;
       	do
@@ -109,9 +109,9 @@ feature
 
 feature 
 
-	base_color	: INTEGER is deferred end;
-	hilite_color: INTEGER is deferred end;
-	shadow_color: INTEGER is deferred end;
-	border_color: INTEGER is deferred end;
-	options		: INTEGER  is deferred end;
+	base_color	: INTEGER deferred end;
+	hilite_color: INTEGER deferred end;
+	shadow_color: INTEGER deferred end;
+	border_color: INTEGER deferred end;
+	options		: INTEGER deferred end;
 end

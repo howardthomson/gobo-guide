@@ -1,5 +1,5 @@
 -- X Window System Implementation
-indexing
+note
 	todo: "[
 		Fix NATIVE_ARRAY SE dependence
 		Fix signed vs unsigned sign extension problems with INTEGER_8
@@ -21,21 +21,21 @@ create
 
 feature
 
-	data_p: POINTER is
+	data_p: POINTER
 		do
 			Result := data.area.item_address (0)
 		end
 
 	resource_id: X_PIXMAP
 
-	restore is
+	restore
 		do
 			todo ("SB_IMAGE::restore")
 		ensure then
 			implemented: false
 		end
 
-	create_resource_imp is
+	create_resource_imp
 		do
 				-- Initialize visual
 			visual.create_resource
@@ -44,7 +44,7 @@ feature
 			create {X_PIXMAP} resource_id.make (application.root_window.xwin, width.max (1), height.max (1), visual.depth)
 		end
 		
-	destroy_resource_imp is
+	destroy_resource_imp
 		do
 --###		resource_id.free_pixmap
 			resource_id := default_resource
@@ -52,7 +52,7 @@ feature
 			implemented: false
 		end
 		
-	render is
+	render
 			-- Render into pixmap
 		local
 			xim: X_IMAGE
@@ -203,7 +203,7 @@ feature
 
 feature -- Transformation
 
-	resize_imp (w, h: INTEGER) is
+	resize_imp (w, h: INTEGER)
          	-- Resize pixmap to the specified width and height
     	do
 			todo ("SB_IMAGE::resize_imp")
@@ -213,7 +213,7 @@ feature -- Transformation
 
 feature { NONE } -- X implementation
 
-	render_true_N_fast (xim: X_IMAGE; a_img: POINTER) is
+	render_true_N_fast (xim: X_IMAGE; a_img: POINTER)
 			-- True generic mode
 		require
 			implemented: false
@@ -233,7 +233,7 @@ feature { NONE } -- X implementation
 			end
 		end
 
-	render_true_N_dither (xim: X_IMAGE; a_img: POINTER) is
+	render_true_N_dither (xim: X_IMAGE; a_img: POINTER)
 			-- True generic dither mode
 		require
 			implemented: false
@@ -263,7 +263,7 @@ feature { NONE } -- X implementation
 			end
 		end
 
-	render_true_24 (xim: X_IMAGE; a_img: POINTER) is
+	render_true_24 (xim: X_IMAGE; a_img: POINTER)
 			-- True 24 bit color
 		require
 			implemented: false
@@ -334,7 +334,7 @@ feature { NONE } -- X implementation
 			end
 		end
 
-	render_true_32(xim: X_IMAGE; a_img: POINTER) is
+	render_true_32(xim: X_IMAGE; a_img: POINTER)
 			-- True 32 bit color
 		require
 --			implemented: false
@@ -431,7 +431,7 @@ feature { NONE } -- X implementation
 			end
 		end
 
-	render_true_16_fast(xim: X_IMAGE; a_img: POINTER) is
+	render_true_16_fast(xim: X_IMAGE; a_img: POINTER)
 			-- True 16 bit color
 		local
 			jmp: INTEGER	-- FXuint jmp=((XImage*)xim)->bytes_per_line-(width<<1);
@@ -520,13 +520,13 @@ feature { NONE } -- X implementation
 			end
 		end
 
-	fox_bigendian: INTEGER is
+	fox_bigendian: INTEGER
 			-- LSBfirst on Intel
 		do
 			Result := LSBFirst
 		end
 
-	render_true_16_dither(xim: X_IMAGE; a_img: POINTER) is
+	render_true_16_dither(xim: X_IMAGE; a_img: POINTER)
 			-- True 16 bit color, dithered
 		require
 		--	implemented: false
@@ -631,7 +631,7 @@ feature { NONE } -- X implementation
 			end
 		end
 
-	render_true_8_fast(xim: X_IMAGE; a_img: POINTER) is
+	render_true_8_fast(xim: X_IMAGE; a_img: POINTER)
 			-- True 8 bit color
 		require
 			implemented: false
@@ -667,7 +667,7 @@ feature { NONE } -- X implementation
 			end
 		end
 
-	render_true_8_dither(xim: X_IMAGE; a_img: POINTER) is
+	render_true_8_dither(xim: X_IMAGE; a_img: POINTER)
 			-- True 8 bit color, dithered
 		require
 			implemented: false
@@ -707,7 +707,7 @@ feature { NONE } -- X implementation
 		end
 
 	
-	render_index_4_fast(xim: X_IMAGE; img: POINTER) is
+	render_index_4_fast(xim: X_IMAGE; img: POINTER)
 			-- Render 4 bit index color mode
 		local
 			pix: C_POINTER		-- FXuchar *pix=(FXuchar*)((XImage*)xim)->data;
@@ -762,7 +762,7 @@ feature { NONE } -- X implementation
 		end
 
 
-	render_index_4_dither(xim: X_IMAGE; a_img: POINTER) is
+	render_index_4_dither(xim: X_IMAGE; a_img: POINTER)
 			-- Render 4 bit index color mode
 		local
 			pix: C_POINTER		--	FXuchar *pix=(FXuchar*)((XImage*)xim)->data;
@@ -818,7 +818,7 @@ feature { NONE } -- X implementation
 --		
 --		
 --		
-	render_index_8_fast(xim: X_IMAGE; img: POINTER) is
+	render_index_8_fast(xim: X_IMAGE; img: POINTER)
 			-- Render 8 bit index color mode
 		local
 --		  FXuint jmp=((XImage*)xim)->bytes_per_line-width;
@@ -841,7 +841,7 @@ feature { NONE } -- X implementation
 		end
 
 
-	render_index_8_dither(xim: X_IMAGE; img: POINTER) is
+	render_index_8_dither(xim: X_IMAGE; img: POINTER)
 			-- Render 8 bit index color mode
 		local
 --		  FXuint jmp=((XImage*)xim)->bytes_per_line-width;
@@ -866,7 +866,7 @@ feature { NONE } -- X implementation
 		end
 
 
-	render_index_N_fast(xim: X_IMAGE; img: POINTER) is
+	render_index_N_fast(xim: X_IMAGE; img: POINTER)
 			-- Render generic N bit index color mode
 		local
 --		  FXint x,y;
@@ -885,7 +885,7 @@ feature { NONE } -- X implementation
 		end
 
 
-	render_index_N_dither(xim: X_IMAGE; img: POINTER) is
+	render_index_N_dither(xim: X_IMAGE; img: POINTER)
 			-- Render generic N bit index color mode
 		local
 			x, y, d: INTEGER
@@ -906,7 +906,7 @@ feature { NONE } -- X implementation
 		end
 
 	
-	render_gray_8_fast(xim: X_IMAGE; img: POINTER) is
+	render_gray_8_fast(xim: X_IMAGE; img: POINTER)
 			-- Render 8 bit gray mode
 		local
 --		  FXuchar *pix=(FXuchar*)((XImage*)xim)->data;
@@ -929,7 +929,7 @@ feature { NONE } -- X implementation
 		end
 
 	
-	render_gray_8_dither(xim: X_IMAGE; img: POINTER) is
+	render_gray_8_dither(xim: X_IMAGE; img: POINTER)
 			-- Render 8 bit gray mode
 		local
 --		  FXuchar *pix=(FXuchar*)((XImage*)xim)->data;
@@ -950,7 +950,7 @@ feature { NONE } -- X implementation
 		end
 
 
-	render_gray_N_fast(xim: X_IMAGE; img: POINTER) is
+	render_gray_N_fast(xim: X_IMAGE; img: POINTER)
 			-- Render generic N bit gray mode
 		local
 			x, y: INTEGER	-- FXint x,y;
@@ -969,7 +969,7 @@ feature { NONE } -- X implementation
 		end
 
 
-	render_gray_N_dither(xim: X_IMAGE; img: POINTER) is
+	render_gray_N_dither(xim: X_IMAGE; img: POINTER)
 			-- Render generic N bit gray mode
 		local
 			x, y: INTEGER
@@ -988,7 +988,7 @@ feature { NONE } -- X implementation
 		end
 		
 
-	render_mono_1_fast(xim: X_IMAGE; img: POINTER) is
+	render_mono_1_fast(xim: X_IMAGE; img: POINTER)
 			-- Render monochrome mode
 		local
 			x, y: INTEGER
@@ -1005,7 +1005,7 @@ feature { NONE } -- X implementation
 		end
 
 
-	render_mono_1_dither(xim: X_IMAGE; img: POINTER) is
+	render_mono_1_dither(xim: X_IMAGE; img: POINTER)
 			-- Render monochrome mode
 		local
 			x, y: INTEGER

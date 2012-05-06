@@ -21,20 +21,20 @@ create {X_EVENT}
 
 feature -- Access
 
-	window	: INTEGER is    do      result := c_window (to_external)    end
-	place	: INTEGER is    do      result := c_place (to_external)    end
+	window	: INTEGER    do      result := c_window (to_external)    end
+	place	: INTEGER    do      result := c_place (to_external)    end
 
 feature -- Modification
 
-	set_window	(v : INTEGER) is	do	c_set_window(to_external, v)    ensure      window = v    end
-	set_place	(v : INTEGER) is	do	c_set_place	(to_external, v)    ensure      place = v    end  
+	set_window	(v : INTEGER)	do	c_set_window(to_external, v)    ensure      window = v    end
+	set_place	(v : INTEGER)	do	c_set_place	(to_external, v)    ensure      place = v    end  
 
 feature { NONE } -- External routines
 
-  c_window		(p : POINTER) : INTEGER  is    external "C struct XCirculateEvent access window use <X11/Xlib.h>"    end
-  c_place		(p : POINTER) : INTEGER  is    external "C struct XCirculateEvent access place use <X11/Xlib.h>"    end
+  c_window		(p : POINTER) : INTEGER    external "C struct XCirculateEvent access window use <X11/Xlib.h>"    end
+  c_place		(p : POINTER) : INTEGER    external "C struct XCirculateEvent access place use <X11/Xlib.h>"    end
 
-  c_set_window	(p : POINTER; v : INTEGER) is    external "C struct XCirculateEvent access window type Window use <X11/Xlib.h>"    end
-  c_set_place	(p : POINTER; v : INTEGER) is    external "C struct XCirculateEvent access place type int use <X11/Xlib.h>"    end
+  c_set_window	(p : POINTER; v : INTEGER)    external "C struct XCirculateEvent access window type Window use <X11/Xlib.h>"    end
+  c_set_place	(p : POINTER; v : INTEGER)    external "C struct XCirculateEvent access place type int use <X11/Xlib.h>"    end
 
 end 

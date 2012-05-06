@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 				Drawable is an abstract base class for any surface that can be
 				drawn upon, such as a SB_WINDOW, or SB_IMAGE.
@@ -43,7 +43,7 @@ feature -- Attributes
 
 feature -- Actions
 
-	set_visual (a_visual: SB_VISUAL) is
+	set_visual (a_visual: SB_VISUAL)
 			-- Change visual
 		require
 			a_visual /= Void
@@ -52,7 +52,7 @@ feature -- Actions
       		visual := a_visual
 		end
 
-	resize (w, h: INTEGER) is
+	resize (w, h: INTEGER)
     		--  Resize drawable to the specified width and height
     	do
         	set_width  (w.max (1))
@@ -61,7 +61,7 @@ feature -- Actions
 
 feature -- Destruction
 
-	destruct is
+	destruct
 		do
 			visual := Void
 			Precursor
@@ -69,7 +69,7 @@ feature -- Destruction
 
 feature -- Properties
 
-	add_properties is
+	add_properties
 		local
 			p_width: SB_PROPERTY_WIDTH
 			p_height: SB_PROPERTY_HEIGHT
@@ -85,7 +85,7 @@ feature -- Properties
 
 feature {NONE} -- Implementation
 
-	make (w, h: INTEGER ) is
+	make (w, h: INTEGER )
 		do
 --print ("Entering SB_DRAWABLE_DEF.make ...%N")
 			init_resource
@@ -95,7 +95,7 @@ feature {NONE} -- Implementation
 --print ("Leaving SB_DRAWABLE_DEF.make ...%N")
 		end
 
-	paint_dc: SB_DC_WINDOW is
+	paint_dc: SB_DC_WINDOW
 		once
 			create Result.make_once
 		end

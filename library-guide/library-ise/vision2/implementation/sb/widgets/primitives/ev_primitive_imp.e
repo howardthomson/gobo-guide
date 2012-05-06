@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"EiffelVision primitive, Slyboots implementation."
 	legal: "See notice at end of class."
@@ -55,13 +55,13 @@ feature -- Status report
 			-- TODO
 		end
 
-	enable_tabable_to is
+	enable_tabable_to
 			-- Make `is_tabable_to' `True'.
 		do
 			-- TODO
 		end
 
-	disable_tabable_to is
+	disable_tabable_to
 			-- Make `is_tabable_to' `False'.
 		do
 			-- TODO
@@ -70,13 +70,13 @@ feature -- Status report
 	is_tabable_from: BOOLEAN
 			-- Is Current able to be tabbed from?
 
-	enable_tabable_from is
+	enable_tabable_from
 			-- Make `is_tabable_from' `True'.
 		do
 			is_tabable_from := True
 		end
 
-	disable_tabable_from is
+	disable_tabable_from
 			-- Make `is_tabable_from' `False'.
 		do
 			is_tabable_from := False
@@ -84,7 +84,7 @@ feature -- Status report
 
 feature {NONE} -- Initialization
 
-	initialize_tab_behavior is
+	initialize_tab_behavior
 			-- Initialize tab behavior for `Current'.
 			-- Called by `initialize'.
 		do
@@ -93,7 +93,7 @@ feature {NONE} -- Initialization
 			end
 		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

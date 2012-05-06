@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Eiffel Vision menu item. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -89,9 +89,9 @@ create
 
 feature {NONE} -- Initialization
 
-	is_dockable: BOOLEAN is False
+	is_dockable: BOOLEAN = False
 
-	make is
+	make
 			-- Initialize `Current'
 		do
 print ("EV_MENU_ITEM_IMP::make ...%N")
@@ -104,7 +104,7 @@ print ("EV_MENU_ITEM_IMP::make ...%N")
 
 feature -- Element change
 
-	set_text (a_text: STRING_GENERAL) is
+	set_text (a_text: STRING_GENERAL)
 			-- Assign `a_text' to `text'.
 		local
 --			tab_mod: INTEGER
@@ -128,9 +128,9 @@ print ("EV_MENU_ITEM_IMP::set_item_parent_imp called ...%N")
 --			set_parent (a_parent)		
 		end
 
-	accelerators_enabled: BOOLEAN is True
+	accelerators_enabled: BOOLEAN = True
 
-	on_activate is
+	on_activate
 		local
 			p_imp: EV_MENU_ITEM_LIST_IMP
 		do
@@ -149,7 +149,7 @@ print ("EV_MENU_ITEM_IMP::set_item_parent_imp called ...%N")
 
 	interface: EV_MENU_ITEM;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The Matrix layout manager automatically arranges its child
 		windows in rows and columns. If the matrix style is MATRIX_BY_ROWS,
@@ -34,26 +34,26 @@ inherit
 
    SB_MATRIX_CONSTANTS
 
-creation
+create
 
    make, make_opts
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_MATRIX"
 		end
 
 feature -- Creation
 
-   make (p: SB_COMPOSITE; n: INTEGER; opts: INTEGER) is
+   make (p: SB_COMPOSITE; n: INTEGER; opts: INTEGER)
       do
          make_opts(p, n, opts, 0,0,0,0, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING,
                    DEFAULT_SPACING, DEFAULT_SPACING);
       end
 
-   make_opts (p: SB_COMPOSITE; n: INTEGER; opts: INTEGER; x,y,w,h, pl,pr, pt,pb, hs,vs: INTEGER) is
+   make_opts (p: SB_COMPOSITE; n: INTEGER; opts: INTEGER; x,y,w,h, pl,pr, pt,pb, hs,vs: INTEGER)
          -- Construct a matrix layout manager with n rows or columns
       do
          packer_make_opts(p, opts, x,y,w,h, pl,pr,pt,pb, hs,vs)
@@ -62,11 +62,11 @@ feature -- Creation
 
 feature -- Data
 
-   MAXNUM: INTEGER is 512
+   MAXNUM: INTEGER = 512
 
 feature -- Queries
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       local
          r, n, h, nzrow, hmax, mh: INTEGER
@@ -117,7 +117,7 @@ feature -- Queries
          Result := pad_top + pad_bottom + hmax + (border * 2);
       end
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Return default width
       local
          c, n, w, nzcol, wmax, mw: INTEGER
@@ -167,7 +167,7 @@ feature -- Queries
          Result := pad_left + pad_right + wmax + (border * 2)
       end
    
-   child_at_row_col (r, c: INTEGER): SB_WINDOW is
+   child_at_row_col (r, c: INTEGER): SB_WINDOW
          -- Obtain the child placed at a certain row and column
       do
          if (options & MATRIX_BY_COLUMNS) /= Zero then
@@ -181,7 +181,7 @@ feature -- Queries
          end
       end
 
-   row_of_child (child: SB_WINDOW): INTEGER is
+   row_of_child (child: SB_WINDOW): INTEGER
          -- Return the row in which the given child is placed
       local
          i: INTEGER
@@ -194,7 +194,7 @@ feature -- Queries
          end
       end
    
-   col_of_child (child: SB_WINDOW): INTEGER is
+   col_of_child (child: SB_WINDOW): INTEGER
          -- Return the column in which the given child is placed
       local
          i: INTEGER;
@@ -207,13 +207,13 @@ feature -- Queries
          end
       end
 
-   get_matrix_style: INTEGER is
+   get_matrix_style: INTEGER
          -- Return the current matrix style
       do
          Result := options & MATRIX_BY_COLUMNS;
       end
 
-   get_num_rows: INTEGER is
+   get_num_rows: INTEGER
          -- Return the number of rows
       local
          child: SB_WINDOW;
@@ -226,7 +226,7 @@ feature -- Queries
          end
       end
 
-   get_num_columns: INTEGER is
+   get_num_columns: INTEGER
          -- Return the number of columns
       local
          child: SB_WINDOW;
@@ -241,7 +241,7 @@ feature -- Queries
 
 feature -- Actions
 
-   set_matrix_style(style: INTEGER) is
+   set_matrix_style(style: INTEGER)
          -- Change the matrix style
       local
          opts: INTEGER;
@@ -254,7 +254,7 @@ feature -- Actions
          end
       end
 
-   set_num_rows(nr: INTEGER) is
+   set_num_rows(nr: INTEGER)
          -- Change the number of rows
       require
          nr >= 1 and then nr < MAXNUM
@@ -265,7 +265,7 @@ feature -- Actions
       end
 
 
-   set_num_columns(nc: INTEGER) is
+   set_num_columns(nc: INTEGER)
          -- Change the number of columns
       require
          nc >= 1 and then nc < MAXNUM
@@ -277,7 +277,7 @@ feature -- Actions
 
 feature -- Message processing
 
-   on_focus_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW;
          r,c: INTEGER;
@@ -320,7 +320,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_down(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_down(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW;
          r, c: INTEGER;
@@ -363,7 +363,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_left(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_left(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW;
          r,c: INTEGER;
@@ -406,7 +406,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_right(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_right(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW;
          r,c: INTEGER;
@@ -453,7 +453,7 @@ feature {NONE} -- Implementation
 
 	num: INTEGER
 
-   layout is
+   layout
       local
          ncol, nrow, nzcol, nzrow, r, c, x,y, w,h, n, e, t: INTEGER
          rowh, colw: ARRAY [ INTEGER ]
@@ -475,13 +475,13 @@ feature {NONE} -- Implementation
 
          -- Non-Zero rows/columns
          nzrow := 0
-         nzcol := 0
+         nzcol := 0 
 
          -- Clear column/row sizes
-         !!colw.make(0,MAXNUM)
-         !!rowh.make(0,MAXNUM)
-         !!srow.make(0,MAXNUM)
-         !!scol.make(0,MAXNUM)
+         create colw.make(0,MAXNUM) 
+         create rowh.make(0,MAXNUM) 
+         create srow.make(0,MAXNUM) 
+         create scol.make(0,MAXNUM)
          from
             n := 0
          until

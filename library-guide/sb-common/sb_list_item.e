@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_LIST item"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -11,14 +11,14 @@ inherit
 
 	SB_ITEM
 
-creation
+create
 
 	make_empty,
 	make
 
 feature -- Queries
 
-	width(list: SB_LIST): INTEGER is
+	width(list: SB_LIST): INTEGER
 		local
          	w: INTEGER
       	do
@@ -30,7 +30,7 @@ feature -- Queries
          	Result := SIDE_SPACING + w;
       	end
 
-   	height(list: SB_LIST): INTEGER is
+   	height(list: SB_LIST): INTEGER
       	local
          	th, ih: INTEGER;
       	do
@@ -41,7 +41,7 @@ feature -- Queries
 
 feature { SB_LIST }
 
-   draw (list: SB_LIST; dc: SB_DC; x_, y_, w, h: INTEGER) is
+   draw (list: SB_LIST; dc: SB_DC; x_, y_, w, h: INTEGER)
       local
          ih: INTEGER -- Icon Height
          th: INTEGER -- text Height (?)
@@ -78,7 +78,7 @@ feature { SB_LIST }
          end
       end
 
-   item_hit(list: SB_LIST; x_, y_: INTEGER): INTEGER is
+   item_hit(list: SB_LIST; x_, y_: INTEGER): INTEGER
          -- Return item hit code: 0 no hit; 1 hit the icon; 2 hit the text
       local
          iw,ih,tw,th,ix,iy,tx,ty,h: INTEGER;
@@ -113,22 +113,22 @@ feature {SB_BASE_LIST}
 
    x, y: INTEGER;
 
-   set_x(x_: INTEGER) is
+   set_x(x_: INTEGER)
       do
          x := x_;
       end
 
-   set_y(y_: INTEGER) is
+   set_y(y_: INTEGER)
       do
          y := y_;
       end
 
 feature {NONE} -- Implementation
 
-   ICON_SPACING: INTEGER is 4;
+   ICON_SPACING: INTEGER = 4;
          -- Spacing between icon and label
-   SIDE_SPACING: INTEGER is 6;
+   SIDE_SPACING: INTEGER = 6;
          -- Left or right spacing between items
-   LINE_SPACING: INTEGER is 4
+   LINE_SPACING: INTEGER = 4
          -- Line spacing between items
 end

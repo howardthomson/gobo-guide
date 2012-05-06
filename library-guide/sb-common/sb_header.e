@@ -1,4 +1,4 @@
-indexing
+note
    description: "[
 		Header control may be placed over a table or list to provide a resizable
 		caption above one or more columns.
@@ -59,7 +59,7 @@ inherit
 
 	SB_HEADER_CONSTANTS
 
-creation
+create
 
    make,
    make_opts
@@ -95,14 +95,14 @@ feature -- Attributes
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_HEADER"
 		end
 
 feature -- Creation
 
-   make (p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER) is
+   make (p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER)
          -- Construct header
       local
          o: INTEGER
@@ -116,7 +116,7 @@ feature -- Creation
       end
 
    make_opts(p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER;
-             x, y, w, h, pl, pr,pt, pb: INTEGER) is
+             x, y, w, h, pl, pr,pt, pb: INTEGER)
          -- Construct header
       do
          frame_make_opts (p, opts, x,y,w,h, pl,pr,pt,pb)
@@ -136,7 +136,7 @@ feature -- Creation
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       local
          i,e: INTEGER
@@ -156,7 +156,7 @@ feature -- Resource management
          end
       end
 
-   detach_resource is
+   detach_resource
          -- Detach server-side resources
       local
          i,e: INTEGER
@@ -178,7 +178,7 @@ feature -- Resource management
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          font := Void
          if timer /= Void then
@@ -191,7 +191,7 @@ feature -- Destruction
 
 feature -- Queries
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Return default width
       local
          i, e: INTEGER
@@ -219,7 +219,7 @@ feature -- Queries
          end
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       local
          i, e: INTEGER
@@ -247,7 +247,7 @@ feature -- Queries
          end
       end
 
-   get_header_style: INTEGER is
+   get_header_style: INTEGER
          -- Get header style options
       do
          Result := (options & HEADER_MASK)
@@ -255,7 +255,7 @@ feature -- Queries
 
 feature -- Item queries
 
-   item_at (off: INTEGER): INTEGER is
+   item_at (off: INTEGER): INTEGER
          -- Return item-index given pixel-offset from left
       local
          x,y, i,e, w,h: INTEGER;
@@ -294,7 +294,7 @@ feature -- Item queries
          end
       end
 
-   item_offset(index: INTEGER): INTEGER is
+   item_offset(index: INTEGER): INTEGER
          -- Compute offset from the left side of item at index
       require
          index > 0 and then index <= items_count
@@ -326,7 +326,7 @@ feature -- Item queries
 
 feature -- Actions
 
-   set_font (fnt: SB_FONT) is
+   set_font (fnt: SB_FONT)
          -- Change text font
       require
          fnt /= Void
@@ -338,7 +338,7 @@ feature -- Actions
          end
       end
 
-   set_text_color(clr: INTEGER) is
+   set_text_color(clr: INTEGER)
          -- Set the current text color
       do
          if clr /= text_color then
@@ -347,7 +347,7 @@ feature -- Actions
          end
       end
 
-   set_header_style (style: INTEGER) is
+   set_header_style (style: INTEGER)
          -- Set header style options
       local
          opts: INTEGER;
@@ -360,7 +360,7 @@ feature -- Actions
          end
       end
 
-   set_help_text(text: STRING) is
+   set_help_text(text: STRING)
          -- Set the status line help text for this header      
       do
          help_text := text;
@@ -368,14 +368,14 @@ feature -- Actions
 
 feature -- Item actions
 
-    set_item_text(index: INTEGER; text: STRING) is
+    set_item_text(index: INTEGER; text: STRING)
           -- Change item text
        do
           items.item(index).set_text(text);
           update;
        end
 
-    set_item_icon(index: INTEGER; icon: SB_ICON) is
+    set_item_icon(index: INTEGER; icon: SB_ICON)
           -- Change item icon
        do
           if items.item(index).icon /= icon then
@@ -384,7 +384,7 @@ feature -- Item actions
           end
        end
 
-    set_item_size(index, size_: INTEGER) is
+    set_item_size(index, size_: INTEGER)
           -- Change item size
        require
          valid_accessor(index)
@@ -400,7 +400,7 @@ feature -- Item actions
           end
        end
 
-    set_item_arrow_dir(index, dir: INTEGER) is
+    set_item_arrow_dir(index, dir: INTEGER)
           -- Change sort direction (False, True, MAYBE)
        require
          valid_accessor(index)
@@ -411,7 +411,7 @@ feature -- Item actions
           end
        end
 
-   replace_item_with_new(index: INTEGER; text: STRING;icon: SB_ICON; size: INTEGER; data: ANY; notify: BOOLEAN) is
+   replace_item_with_new(index: INTEGER; text: STRING;icon: SB_ICON; size: INTEGER; data: ANY; notify: BOOLEAN)
          -- Replace items text, icon, and user-data pointer
       require
          valid_accessor(index)
@@ -419,7 +419,7 @@ feature -- Item actions
          replace_item(index, create_item(text, icon, size.max(0), data), notify);
       end
 
-   insert_new_item(index: INTEGER; text: STRING;icon: SB_ICON; size: INTEGER; data: ANY; notify: BOOLEAN) is
+   insert_new_item(index: INTEGER; text: STRING;icon: SB_ICON; size: INTEGER; data: ANY; notify: BOOLEAN)
          -- Replace items text, icon, and user-data pointer
       require
          valid_accessor(index)
@@ -427,13 +427,13 @@ feature -- Item actions
          insert_item(index, create_item(text, icon, size.max(0), data), notify);
       end
 
-   append_new_item(text: STRING; icon: SB_ICON; size: INTEGER; data: ANY; notify: BOOLEAN) is
+   append_new_item(text: STRING; icon: SB_ICON; size: INTEGER; data: ANY; notify: BOOLEAN)
          -- Append new item with given text and optional icon, and user-data pointer
       do
          insert_item(items_count + 1, create_item(text, icon, size.max(0), data), notify);
       end
 
-   prepend_new_item(text: STRING;icon: SB_ICON; size: INTEGER; data: ANY; notify: BOOLEAN) is
+   prepend_new_item(text: STRING;icon: SB_ICON; size: INTEGER; data: ANY; notify: BOOLEAN)
          -- Prepend new item with given text and optional icon, and user-data pointer
       do
          insert_item(1, create_item(text, icon, size.max(0), data), notify);
@@ -441,7 +441,7 @@ feature -- Item actions
 
 feature -- Message processing
 
-   on_paint(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT;
          dc: SB_DC_WINDOW;
@@ -528,7 +528,7 @@ feature -- Message processing
          Result := True     
       end
 
-   on_left_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT;
          i,e,x,y,w,h: INTEGER;
@@ -633,7 +633,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT;
          flg: INTEGER;
@@ -672,7 +672,7 @@ feature -- Message processing
          end
       end
 
-   on_ungrabbed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_ungrabbed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := precursor(sender,selector,data);
          unset_flags (Flag_pressed | Flag_changed);
@@ -680,7 +680,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT;
          i,e, x,y, w,h, oldsplit, newsplit: INTEGER;
@@ -809,14 +809,14 @@ feature -- Message processing
          end
       end
 
-   on_tip_timer(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_tip_timer(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          timer := Void;
          set_flags (Flag_tip);
          Result := True
       end
 
-   on_query_tip(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_query_tip(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          index: INTEGER;
          cp: SB_CURSOR_POSITION;
@@ -837,7 +837,7 @@ feature -- Message processing
          end
       end
 
-   on_query_help(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_query_help(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not help_text.is_empty and then (flags & Flag_help) /= Zero then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_setstringvalue, help_text);
@@ -847,16 +847,16 @@ feature -- Message processing
 
 feature {NONE} -- Implementation
 
-   	ITEM_TYPE: SB_HEADER_ITEM is do end
+   	ITEM_TYPE: SB_HEADER_ITEM do end
 
-   	FUDGE: INTEGER is 8;
+   	FUDGE: INTEGER = 8;
 
-   	HEADER_MASK: INTEGER is
+   	HEADER_MASK: INTEGER
       	once
          	Result := HEADER_BUTTON | HEADER_TRACKING | HEADER_VERTICAL;
       	end
 
-   	draw_split(pos: INTEGER) is
+   	draw_split(pos: INTEGER)
       	local
          	dc: SB_DC_WINDOW;
          	sbp: SB_POINT;
@@ -874,12 +874,12 @@ feature {NONE} -- Implementation
          	dc.stop
       	end
 
-   	create_item(text: STRING;icon: SB_ICON; size: INTEGER; data: ANY): SB_HEADER_ITEM is
+   	create_item(text: STRING;icon: SB_ICON; size: INTEGER; data: ANY): SB_HEADER_ITEM
       	do
          	create Result.make_opts(text, icon, size, data);
       	end
 
-   	layout is
+   	layout
       	do
          	-- Force repaint
          	update;

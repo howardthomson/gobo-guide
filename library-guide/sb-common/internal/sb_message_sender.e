@@ -1,4 +1,4 @@
-indexing
+note
    description: "[
 		Base class for objects that have target to send message to,
 		and the message to send
@@ -28,19 +28,19 @@ feature -- Data
 
 feature -- Setters
 
-	set_message_target (target: SB_MESSAGE_HANDLER) is
+	set_message_target (target: SB_MESSAGE_HANDLER)
 			-- Set the message target object for this window
 		do
 			message_target := target
 		end
 
-	set_message (sel: INTEGER) is
+	set_message (sel: INTEGER)
 			-- Set the message identifier for this window
 		do
 			message := sel
 		end
 
-	set_target_and_message (target: SB_MESSAGE_HANDLER; sel: INTEGER) is
+	set_target_and_message (target: SB_MESSAGE_HANDLER; sel: INTEGER)
 			-- Set the message target object and message for this window
 		do
 			message_target := target
@@ -56,7 +56,7 @@ feature -- Actions
 			Result.set_event_target (a_target)
 		end
 
-	send (message_type: INTEGER; data: ANY): BOOLEAN is
+	send (message_type: INTEGER; data: ANY): BOOLEAN
 			-- Handle message, and return the result
 		do
 			if message_target /= Void then
@@ -65,7 +65,7 @@ feature -- Actions
 			end
 		end
 
-	frozen do_send (message_type: INTEGER; data: ANY) is
+	frozen do_send (message_type: INTEGER; data: ANY)
 			-- Handle message, and forget the result
 		local
 			tmp: BOOLEAN

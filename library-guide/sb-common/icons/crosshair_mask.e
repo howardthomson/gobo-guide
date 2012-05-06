@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Crosshair cursor mask"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -8,12 +8,12 @@ expanded class CROSSHAIR_MASK
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 15
-   y_hot: INTEGER is 15
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 15
+   y_hot: INTEGER = 15
    
-   bits: STRING is
+   bits: STRING =
    "%/000/%/192/%/001/%/000/%/000/%/192/%/001/%/000/%/000/%/192/%/001/%/000/%
    %%/000/%/192/%/001/%/000/%/000/%/192/%/001/%/000/%/000/%/192/%/001/%/000/%
    %%/000/%/192/%/001/%/000/%/000/%/192/%/001/%/000/%/000/%/192/%/001/%/000/%

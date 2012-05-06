@@ -4,13 +4,13 @@ inherit
 
    SB_WAPI_STRUCT
 
-creation
+create
 
    make
 
 feature
    
-	external_size: INTEGER is 
+	external_size: INTEGER 
 		external
 			"C macro use <winuser.h>"	-- Use ??
 		alias
@@ -19,17 +19,17 @@ feature
    
 feature {ANY} -- Access
 
-	hdc: POINTER is
+	hdc: POINTER
 		do
 			Result := c_hdc (ptr)
 		end
 
-	flag_erase: BOOLEAN is
+	flag_erase: BOOLEAN
 		do
 			Result := c_flag_erase (ptr) /= 0
 		end
 
-	paint_rect: SB_WAPI_RECT is
+	paint_rect: SB_WAPI_RECT
 		local
 			p: POINTER
 		do
@@ -39,14 +39,14 @@ feature {ANY} -- Access
 
 feature {ANY} -- Update
 
-	set_hdc (an_hdc: POINTER) is
+	set_hdc (an_hdc: POINTER)
 		do
 			c_set_hdc (ptr, an_hdc)
 		ensure
 			value_set: hdc = an_hdc
 		end
 
-	set_flag_erase (a_flag: BOOLEAN) is
+	set_flag_erase (a_flag: BOOLEAN)
 		local
 			i: INTEGER
 		do
@@ -56,7 +56,7 @@ feature {ANY} -- Update
 			value_set: flag_erase = a_flag
 		end
 
-	set_paint_rect (a_rect: SB_WAPI_RECT) is
+	set_paint_rect (a_rect: SB_WAPI_RECT)
 		local
 			p: POINTER
 		do
@@ -66,13 +66,13 @@ feature {ANY} -- Update
 
 feature {NONE} -- Implementation
 
-	c_hdc				(p: POINTER): INTEGER is    external "C struct PAINTSTRUCT access hdc use <winuser.h>" end
-	c_flag_erase		(p: POINTER): INTEGER is    external "C struct PAINTSTRUCT access fErase use <winuser.h>" end
+	c_hdc				(p: POINTER): INTEGER    external "C struct PAINTSTRUCT access hdc use <winuser.h>" end
+	c_flag_erase		(p: POINTER): INTEGER    external "C struct PAINTSTRUCT access fErase use <winuser.h>" end
 
-	c_set_hdc			(p: POINTER; i: INTEGER) is    external "C struct PAINTSTRUCT access hdc	type int use <winuser.h>" end
-	c_set_flag_erase	(p: POINTER; i: INTEGER) is    external "C struct PAINTSTRUCT access fErase	type int use <winuser.h>" end
+	c_set_hdc			(p: POINTER; i: INTEGER)    external "C struct PAINTSTRUCT access hdc	type int use <winuser.h>" end
+	c_set_flag_erase	(p: POINTER; i: INTEGER)    external "C struct PAINTSTRUCT access fErase	type int use <winuser.h>" end
 
-	c_paint_rect_address (p: POINTER): POINTER is
+	c_paint_rect_address (p: POINTER): POINTER
 		external
 			"C inline"
 		alias

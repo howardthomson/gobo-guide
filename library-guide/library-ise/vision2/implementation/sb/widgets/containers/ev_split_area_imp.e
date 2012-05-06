@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"EiffelVision Split Area. GTK+ implementation."
 	legal: "See notice at end of class."
@@ -29,7 +29,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	initialize is
+	initialize
 		do
 print ("EV_SPLIT_AREA_IMP::initialize called ...%N")
 			Precursor {EV_CONTAINER_IMP}
@@ -41,13 +41,13 @@ print ("EV_SPLIT_AREA_IMP::initialize called ...%N")
 
 feature -- Access
 
-	split_position: INTEGER is
+	split_position: INTEGER
 			-- Position from the left/top of the splitter from `Current'.
 		do
 --			Result := {EV_GTK_EXTERNALS}.gtk_paned_struct_child1_size (container_widget).max (minimum_split_position).min (maximum_split_position)
 		end
 
-	set_first (an_item: like item) is
+	set_first (an_item: like item)
 			-- Make `an_item' `first'.
 		local
 			item_imp: EV_WIDGET_IMP
@@ -59,7 +59,7 @@ feature -- Access
 			set_item_resize (first, False)
 		end
 
-	set_second (an_item: like item) is
+	set_second (an_item: like item)
 			-- Make `an_item' `second'.
 		local
 			item_imp: EV_WIDGET_IMP
@@ -71,7 +71,7 @@ feature -- Access
 			set_item_resize (second, True)
 		end
 
-	prune (an_item: like item) is
+	prune (an_item: like item)
 			-- Remove `an_item' if present from `Current'.
 		local
 			item_imp: EV_WIDGET_IMP
@@ -97,19 +97,19 @@ feature -- Access
 			end
 		end
 
-	enable_item_expand (an_item: like item) is
+	enable_item_expand (an_item: like item)
 			-- Let `an_item' expand when `Current' is resized.
 		do
 			set_item_resize (an_item, True)
 		end
 
-	disable_item_expand (an_item: like item) is
+	disable_item_expand (an_item: like item)
 			-- Make `an_item' non-expandable on `Current' resize.
 		do
 			set_item_resize (an_item, False)
 		end
 
-	set_split_position (a_split_position: INTEGER) is
+	set_split_position (a_split_position: INTEGER)
 			-- Set the position of the splitter.
 		do
 --			{EV_GTK_EXTERNALS}.gtk_paned_set_position (container_widget, a_split_position)
@@ -119,7 +119,7 @@ feature -- Access
 
 feature {NONE} -- Implementation
 
-	splitter_width: INTEGER is
+	splitter_width: INTEGER
 			-- Width of splitter.
 		local
 --			a_cs: EV_GTK_C_STRING
@@ -128,7 +128,7 @@ feature {NONE} -- Implementation
 --			{EV_GTK_EXTERNALS}.gtk_widget_style_get_integer (container_widget, a_cs.item, $Result)
 		end
 
-	set_item_resize (an_item: like item; a_resizable: BOOLEAN) is
+	set_item_resize (an_item: like item; a_resizable: BOOLEAN)
 			-- Set whether `an_item' is `a_resizable' when `Current' resizes.
 		do
 			if an_item = first then
@@ -145,7 +145,7 @@ feature {EV_ANY_I} -- Implementation
 	interface: EV_SPLIT_AREA;
 
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

@@ -27,7 +27,7 @@ class FEC_LIST [ELEMENT]
 
 -- Basic LIST type, array implementation
 
-creation
+create
 
 	make
 
@@ -41,14 +41,14 @@ feature { NONE }
 
 feature { ANY }
 
-	head: ELEMENT is  -- first element of this list
+	head: ELEMENT  -- first element of this list
 		require
 			count > 0
 		do
 			Result := data.item (1)
 		end
 		
-	tail: ELEMENT is -- last element of this list
+	tail: ELEMENT -- last element of this list
 		require
 			count > 0
 		do
@@ -59,7 +59,7 @@ feature { ANY }
 		
 	count: INTEGER;    -- number of elements in this list
 	
-	is_empty: BOOLEAN is 
+	is_empty: BOOLEAN 
 		do
 			Result := count = 0
 		ensure
@@ -68,7 +68,7 @@ feature { ANY }
 
 --------------------------------------------------------------------------------
 
-	make is -- create an empty list
+	make -- create an empty list
 		do
 			count := 0
 		ensure
@@ -77,7 +77,7 @@ feature { ANY }
 
 --------------------------------------------------------------------------------
 
-	add_head (element: ELEMENT) is -- add element at beginning of list
+	add_head (element: ELEMENT) -- add element at beginning of list
 		local
 			index: INTEGER;
 		do
@@ -104,7 +104,7 @@ feature { ANY }
 
 --------------------------------------------------------------------------------
 		
-	add, add_tail (element: ELEMENT) is -- add element at end of list
+	add, add_tail (element: ELEMENT) -- add element at end of list
 		do
 			if data = Void then
 				create data.make (1, 4)
@@ -121,7 +121,7 @@ feature { ANY }
 		
 --------------------------------------------------------------------------------
 
-	remove (element: ELEMENT) is -- remove element from list
+	remove (element: ELEMENT) -- remove element from list
 		require
 			has(element)
 		local
@@ -148,7 +148,7 @@ feature { ANY }
 
 --------------------------------------------------------------------------------
 		
-	has (element: ELEMENT) : BOOLEAN is -- has element been added to list?
+	has (element: ELEMENT) : BOOLEAN -- has element been added to list?
 		local
 			index: INTEGER
 		do
@@ -167,7 +167,7 @@ feature { ANY }
 
 --------------------------------------------------------------------------------
 	
-	item, infix "@" (pos: INTEGER): ELEMENT is
+	item, infix "@" (pos: INTEGER): ELEMENT
 		require
 			1 <= pos
 			pos <= count
@@ -177,7 +177,7 @@ feature { ANY }
 
 --------------------------------------------------------------------------------
 
-	replace (with: ELEMENT; pos: INTEGER) is
+	replace (with: ELEMENT; pos: INTEGER)
 		require
 			1 <= pos
 			pos <= count

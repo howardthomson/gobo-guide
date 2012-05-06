@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Base class for all Slyboots objects."
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -9,7 +9,7 @@ class SB_OBJECT
 
 feature -- Destruction
 
-	destruct is
+	destruct
 		do
 	--		fx_trace(0, <<"SB_OBJECT::destruct called">>)
 		end

@@ -1,4 +1,4 @@
-indexing
+note
 	description:"[
 		The dictionary class maintains a fast-access hash table of entities
 		indexed by a HASHABLE key
@@ -10,12 +10,12 @@ indexing
 
 class SB_DICT [G, H -> HASHABLE]
 
-creation
+create
    make
 
 feature -- Creation
 
-	make is
+	make
 			-- Construct an empty dictionary
 		do
 		--	create dictionary.with_capacity(10)
@@ -23,7 +23,7 @@ feature -- Creation
 
 feature -- Queries
 
-	find(key: H): G is
+	find(key: H): G
 			-- Find entry by given key.
 		do
 		--	Result := dictionary.reference_at(key);
@@ -31,7 +31,7 @@ feature -- Queries
 
 feature -- Actions
 
-   insert_if(key: H; entry: G) is
+   insert_if(key: H; entry: G)
          -- Insert a new entry into the table given key and mark.
          -- If there is already an entry with that key, leave it unchanged,
          -- otherwise insert the new entry.
@@ -41,20 +41,20 @@ feature -- Actions
       --   end
       end
 
-   replace(key: H; entry: G) is
+   replace(key: H; entry: G)
          -- Replace data at key. If there was no existing entry,
          -- a new entry is inserted.
       do
       --   dictionary.put(entry,key);
       end
 
-   remove(key: H) is
+   remove(key: H)
          -- Remove data given key.
       do
       --   dictionary.remove (hotkey);
       end
 
-   wipe_out is
+   wipe_out
          -- remove all entries from the table
       do
       --   dictionary.clear

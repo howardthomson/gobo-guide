@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Base list"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -46,14 +46,14 @@ inherit
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_BASE_LIST"
 		end
 
 feature -- Item access
 
-   find_item_by_name_opts (text: STRING; start_: INTEGER; flgs: INTEGER): INTEGER is
+   find_item_by_name_opts (text: STRING; start_: INTEGER; flgs: INTEGER): INTEGER
          -- Search items for item by name, starting from start item; the
          -- flags argument controls the search direction, and case 
          -- sensitivity.
@@ -128,7 +128,7 @@ feature -- Item access
 
 feature -- Sorting
 
-	sort_items is
+	sort_items
 			-- Sort items using current comparator object
 		local
 			c: G;
@@ -162,7 +162,7 @@ feature -- Sorting
 
 feature -- Item actions
 
-	insert_item (index: INTEGER; new_item: G; notify: BOOLEAN) is
+	insert_item (index: INTEGER; new_item: G; notify: BOOLEAN)
 			-- Insert a new [possibly subclassed] item at the given index
 		local
 			old_current: INTEGER
@@ -193,7 +193,7 @@ feature -- Item actions
 			recalc
 		end
 
-   remove_item_notify (index: INTEGER; notify: BOOLEAN) is
+   remove_item_notify (index: INTEGER; notify: BOOLEAN)
          -- Remove item from list
       local
 --       ah: SB_ARRAY_HELPER [ G ]
@@ -237,7 +237,7 @@ feature -- Item actions
          recalc
       end
 
-   move_item_notify (new_index, old_index: INTEGER; notify: BOOLEAN) is
+   move_item_notify (new_index, old_index: INTEGER; notify: BOOLEAN)
          -- Move item from old_index to new_index
       local
          old_current: INTEGER
@@ -283,7 +283,7 @@ feature -- Item actions
          end
       end
 
-	clear_items_notify(notify: BOOLEAN) is
+	clear_items_notify(notify: BOOLEAN)
 			-- Remove all items from list
 		local
 			old_current: INTEGER
@@ -361,7 +361,7 @@ feature -- Item actions
          end
       end
 
-   toggle_item (index: INTEGER; notify: BOOLEAN): BOOLEAN is
+   toggle_item (index: INTEGER; notify: BOOLEAN): BOOLEAN
          -- Toggle item selection state
       local
          t: INTEGER
@@ -448,7 +448,7 @@ feature -- Item actions
          end
       end
 
-   extend_selection (index: INTEGER; notify: BOOLEAN): BOOLEAN is
+   extend_selection (index: INTEGER; notify: BOOLEAN): BOOLEAN
          -- Extend selection from anchor item to index
       local
          i1,i2,i3,i: INTEGER
@@ -521,7 +521,7 @@ feature -- Item actions
          end
       end
 
-   kill_selection(notify: BOOLEAN): BOOLEAN is
+   kill_selection(notify: BOOLEAN): BOOLEAN
          -- Deselect all items
       local
          i: INTEGER;
@@ -547,7 +547,7 @@ feature -- Item actions
 
 feature -- Actions
 
-	recalc is
+	recalc
     		-- Recalculate layout
     	do
          	Precursor;
@@ -555,14 +555,14 @@ feature -- Actions
    			cursor_item := 0;
       	end
 
-	set_focus is
+	set_focus
          	-- Move the focus to this window
       	do
          	Precursor;
          	set_default(SB_TRUE);
       	end
 
-   	kill_focus is
+   	kill_focus
          	-- Remove the focus from this window
       	do
          	Precursor;
@@ -571,7 +571,7 @@ feature -- Actions
 
 feature -- Message processing
 
-   	on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	Result := Precursor(sender, selector, data);
          	if timer = Void then timer := application.add_timeout(application.menu_pause, Current, ID_TIPTIMER) end
@@ -579,7 +579,7 @@ feature -- Message processing
          	Result := True;
       	end
 
-	on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	do
          	Result := Precursor (sender,selector,data);
          	if timer /= Void then application.remove_timeout(timer); timer := Void end
@@ -587,7 +587,7 @@ feature -- Message processing
          	Result := True;
       	end
 
-   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          unset_flags (Flag_dodrag | Flag_trydrag | Flag_pressed | Flag_changed | Flag_scrolling)
@@ -596,7 +596,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -620,7 +620,7 @@ feature -- Message processing
          end
       end
 
-   on_right_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_right_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_enabled then
             release_mouse
@@ -631,21 +631,21 @@ feature -- Message processing
          end
       end
 
-   on_tip_timer (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_tip_timer (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          timer := Void
          flags := flags | Flag_tip
          Result := True
       end
 
-   on_lookup_timer (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_lookup_timer (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          create lookup_string.make_empty
          lookup_timer := Void
          Result := True
       end
 
-   on_cmd_set_value, on_cmd_set_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_value, on_cmd_set_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          i: INTEGER_REF;
       do
@@ -654,7 +654,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_get_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          i: INTEGER_REF;
       do
@@ -663,7 +663,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_focus_in(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_in(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender, selector, data)
          if 0 < current_item then
@@ -674,7 +674,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_focus_out(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_out(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender, selector, data)
          if 0 < current_item then
@@ -688,18 +688,18 @@ feature -- Message processing
 feature {NONE} -- Implementation
 
 
-   SELECT_MASK: INTEGER is once Result := (LIST_SINGLESELECT | LIST_BROWSESELECT) end
+   SELECT_MASK: INTEGER once Result := (LIST_SINGLESELECT | LIST_BROWSESELECT) end
 
    lookup_string: STRING		-- Lookup string
    timer		: SB_TIMER		-- Tip hover timer
    lookup_timer	: SB_TIMER		-- Lookup timer
 
-	compare: SB_STRING_COMPARATOR is
+	compare: SB_STRING_COMPARATOR
 		once
 			create {SB_NOCASE_STRING_COMPARATOR} Result
 		end
 
-	comparecase: SB_STRING_COMPARATOR is
+	comparecase: SB_STRING_COMPARATOR
     	once
 			create {SB_CASE_STRING_COMPARATOR} Result
       	end

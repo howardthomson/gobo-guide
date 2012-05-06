@@ -1,4 +1,4 @@
-indexing
+note
 	description:"The Cursor"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -33,11 +33,11 @@ feature { NONE } -- Implementation
 
 feature
 
-	class_name: STRING is "SB_CURSOR"
+	class_name: STRING = "SB_CURSOR"
 
 feature -- Creation
 
-	make_from_stock (app: SB_APPLICATION; a_glyph : INTEGER) is
+	make_from_stock (app: SB_APPLICATION; a_glyph : INTEGER)
 		-- Make stock cursor
     	require
 			app /= Void
@@ -55,7 +55,7 @@ feature -- Creation
 		end
 
 	make_from_bitmap, make_from_bits (app: SB_APPLICATION; src, msk: STRING;
-                     w, h: INTEGER; hx, hy: INTEGER) is
+                     w, h: INTEGER; hx, hy: INTEGER)
     	require
          	app /= Void
          	src /= Void
@@ -81,7 +81,7 @@ feature -- Actions
 
 feature -- Destruction
 
-	destruct is
+	destruct
     	do
         	destroy_resource
          	source := Void

@@ -1,4 +1,4 @@
-indexing
+note
 
 		description: "Arrayed item container widget"
 
@@ -17,19 +17,19 @@ inherit
 
 feature -- Item access
 
-   items_count: INTEGER is
+   items_count: INTEGER
          -- Return the number of items in the list
       do
          Result := items.count
       end
 
-   item(index: INTEGER): G is
+   item(index: INTEGER): G
          -- Return the item at the given index
       do
          Result := items.item (index)
       end
 
-   replace_item(index: INTEGER; new_item: G; notify: BOOLEAN) is
+   replace_item(index: INTEGER; new_item: G; notify: BOOLEAN)
          -- Replace the item with a [possibly subclassed] item
       require
          valid_accessor(index)
@@ -45,7 +45,7 @@ feature -- Item access
          recalc
       end
 
-   insert_item (index: INTEGER; new_item: G; notify: BOOLEAN) is
+   insert_item (index: INTEGER; new_item: G; notify: BOOLEAN)
          -- Insert a new [possibly subclassed] item at the give index
       require
          index > 0 and then index <= items_count+1
@@ -59,19 +59,19 @@ feature -- Item access
          recalc
       end
 
-   append_item(new_item: G; notify: BOOLEAN) is
+   append_item(new_item: G; notify: BOOLEAN)
          -- Append a [possibly subclassed] item to the list
       do
          insert_item (items.count + 1, new_item, notify)
       end
 
-   prepend_item (new_item: G; notify: BOOLEAN): INTEGER is
+   prepend_item (new_item: G; notify: BOOLEAN): INTEGER
          -- Prepend a [possibly subclassed] item to the list
       do
          insert_item (1, new_item, notify)
       end
 
-   remove_item_notify (index: INTEGER; notify: BOOLEAN) is
+   remove_item_notify (index: INTEGER; notify: BOOLEAN)
          -- Remove item from list
       do
          	-- Notify item will be deleted
@@ -82,7 +82,7 @@ feature -- Item access
          recalc
       end
 
-   clear_items_notify (notify: BOOLEAN) is
+   clear_items_notify (notify: BOOLEAN)
          -- Remove all items from list
       local
          index: INTEGER
@@ -102,7 +102,7 @@ feature -- Item access
          recalc
       end
 
-   move_item_notify(new_index, old_index: INTEGER; notify: BOOLEAN) is
+   move_item_notify(new_index, old_index: INTEGER; notify: BOOLEAN)
          -- Move item from old_index to new_index
       local
          old_item: G;
@@ -138,7 +138,7 @@ feature -- Item access
 
 feature -- Validation
 
-	valid_accessor(index: INTEGER): BOOLEAN is
+	valid_accessor(index: INTEGER): BOOLEAN
 		do
 			Result := index /= DEFAULT_ACCESSOR and then index <= items_count
 		end

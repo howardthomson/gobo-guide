@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Persistent store definition"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -22,13 +22,13 @@ inherit
          	write_byte_i
       	end
 
-creation
+create
 
    	make
 
 feature -- Creation
 
-   	make is
+   	make
       	do
          	data := Void
          	Precursor
@@ -40,7 +40,7 @@ feature -- Data
 
 feature -- Actions
 
-   	open (dt: ARRAY[INTEGER_8]; save_or_load: INTEGER) is
+   	open (dt: ARRAY[INTEGER_8]; save_or_load: INTEGER)
     		-- Open memory store
       	do
          	if dt /= Void then
@@ -51,14 +51,14 @@ feature -- Actions
          	stream_open (save_or_load)
       	end
 
-   close is
+   close
          -- Close memory store
       do
          data := Void
          Precursor
       end
 
-	position (p: INTEGER) is
+	position (p: INTEGER)
          	-- Move to position
       	require else
          	data /= Void
@@ -87,7 +87,7 @@ feature -- Actions
          	end
 		end
 
-   set_space (sp: INTEGER) is
+   set_space (sp: INTEGER)
          -- Set available space
       require
          data /= Void
@@ -99,7 +99,7 @@ feature -- Actions
       end
 
 
-   give_buffer (buffer: ARRAY[INTEGER_8]) is
+   give_buffer (buffer: ARRAY[INTEGER_8])
       require
          buffer /= Void
          -- Give buffer to stream
@@ -109,7 +109,7 @@ feature -- Actions
 
 feature -- Save
 
-   write_byte (b: INTEGER_8) is
+   write_byte (b: INTEGER_8)
       require else
          data /= Void
          code = SB_STREAM_OK
@@ -118,7 +118,7 @@ feature -- Save
          pos := pos +1;
       end
 
-	write_byte_i (b: INTEGER) is
+	write_byte_i (b: INTEGER)
 		require else
 			data /= Void
 			code = SB_STREAM_OK
@@ -132,7 +132,7 @@ feature -- Save
 
 feature -- Load
 
-	read_byte: INTEGER_8 is
+	read_byte: INTEGER_8
 		require else
 			data /= Void
 			code = SB_STREAM_OK
@@ -147,7 +147,7 @@ feature -- Load
 			end
 		end
 
-	read_byte_i: INTEGER is
+	read_byte_i: INTEGER
 		require else
 			data /= Void
 			code = SB_STREAM_OK
@@ -164,7 +164,7 @@ feature -- Load
 
 feature {NONE} -- Implementation
 
-   save_items (buf: POINTER; n: INTEGER) is
+   save_items (buf: POINTER; n: INTEGER)
          -- Save bunch of items
 		require else
 			implemented: false
@@ -183,7 +183,7 @@ feature {NONE} -- Implementation
 --         end
       end
 
-	load_items (buf: POINTER; n: INTEGER) is
+	load_items (buf: POINTER; n: INTEGER)
 			-- Load bunch of items
 		local
 			b, d: POINTER;

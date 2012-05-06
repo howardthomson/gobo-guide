@@ -1,4 +1,4 @@
-indexing
+note
    description: "Progress bar widget"
    author: "Eugene Melekhov <eugene_melekhov@mail.ru>"
    copyright: "Copyright (c) 2002, Eugene Melekhov and others"
@@ -24,7 +24,7 @@ inherit
 
    SB_PROGRESS_BAR_CONSTANTS
 
-creation
+create
 
 	make,
 	make_opts,
@@ -32,7 +32,7 @@ creation
 
 feature -- Creation
 
-   make (p: SB_COMPOSITE; opts: INTEGER) is
+   make (p: SB_COMPOSITE; opts: INTEGER)
          -- Construct progress bar
       local
          o: INTEGER
@@ -47,7 +47,7 @@ feature -- Creation
       end
 
    make_opts (p: SB_COMPOSITE;tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER;
-             x, y, w, h, pl, pr, pt, pb: INTEGER) is
+             x, y, w, h, pl, pr, pt, pb: INTEGER)
          -- Construct progress bar
       do
          frame_make_opts (p, opts, x, y, w, h, pl, pr, pt, pb)
@@ -94,7 +94,7 @@ feature -- data
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
 			-- Return default width
 		local
 			w, t: INTEGER
@@ -110,7 +110,7 @@ feature -- Queries
 			Result := w + pad_left + pad_right + (border * 2)
 		end
 
-	default_height: INTEGER is
+	default_height: INTEGER
 			-- Return default height
 		local
 			h, t: INTEGER
@@ -126,7 +126,7 @@ feature -- Queries
 			Result := h + pad_top + pad_bottom + (border * 2)
 		end
 
-	get_bar_style: INTEGER is
+	get_bar_style: INTEGER
 			-- Return current progress bar style
 		do
 			Result := (options and PROGRESSBAR_MASK)
@@ -134,17 +134,17 @@ feature -- Queries
 
 feature -- Actions
 
-	set_vertical is
+	set_vertical
 		do
 			set_bar_style (options | PROGRESSBAR_VERTICAL)
 		end
 
-	set_horizontal is
+	set_horizontal
 		do
 			set_bar_style (options & (PROGRESSBAR_VERTICAL).bit_not)
 		end
 	
-	set_progress (value_: INTEGER) is
+	set_progress (value_: INTEGER)
 			-- Change the amount of progress
 		local
 			value: INTEGER
@@ -163,7 +163,7 @@ feature -- Actions
 			end
 		end
 
-   set_total (value: INTEGER) is
+   set_total (value: INTEGER)
          -- Set total amount of progress
       local
          dc: SB_DC_WINDOW
@@ -180,13 +180,13 @@ feature -- Actions
          end
       end
 
-   increment (value: INTEGER) is
+   increment (value: INTEGER)
          -- Increment progress by given amount
       do
          set_progress (progress + value)
       end
 
-   hide_number is
+   hide_number
          -- Hide progress percentage
       do
          if (options & PROGRESSBAR_PERCENTAGE) /= ZERO then
@@ -196,7 +196,7 @@ feature -- Actions
          end
       end
 
-   show_number is
+   show_number
          -- Show progress percentage
       do
          if (options & PROGRESSBAR_PERCENTAGE) = ZERO then
@@ -206,7 +206,7 @@ feature -- Actions
          end
       end
 
-   set_bar_size (size: INTEGER) is
+   set_bar_size (size: INTEGER)
          -- Change progress bar width
       require
          size > 0
@@ -219,7 +219,7 @@ feature -- Actions
       end
 
 
-  set_bar_bg_color (clr: INTEGER) is
+  set_bar_bg_color (clr: INTEGER)
          -- Change background color
       do
          if bar_bg_color /= clr then
@@ -228,7 +228,7 @@ feature -- Actions
          end
       end
 
-   set_bar_color (clr: INTEGER) is
+   set_bar_color (clr: INTEGER)
          -- Change bar color
       do
          if bar_color /= clr then
@@ -237,7 +237,7 @@ feature -- Actions
          end
       end
 
-	set_text_color (clr: INTEGER) is
+	set_text_color (clr: INTEGER)
 			-- Change text color
 		do
 			if text_color /= clr then
@@ -246,7 +246,7 @@ feature -- Actions
 			end
 		end
 
-	set_text_alt_color (clr: INTEGER) is
+	set_text_alt_color (clr: INTEGER)
 			-- Change alternate text color is_shown when bar under text
 		do
 			if text_alt_color /= clr then
@@ -255,7 +255,7 @@ feature -- Actions
 			end
 		end
 
-	set_font(fnt: SB_FONT) is
+	set_font(fnt: SB_FONT)
 			-- Set the text font
 		require
 			fnt /= Void
@@ -267,7 +267,7 @@ feature -- Actions
 			end
 		end
 
-	set_bar_style (style: INTEGER) is
+	set_bar_style (style: INTEGER)
 			-- Change progress bar style
 		local
 			opts: INTEGER
@@ -281,7 +281,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
 		do
 			if		match_function_2 (SEL_COMMAND, ID_SETVALUE,		type, key) then Result := on_cmd_set_value 		(sender, key, data)
 			elseif	match_function_2 (SEL_COMMAND, ID_SETINTVALUE,	type, key) then Result := on_cmd_set_int_value 	(sender, key, data)
@@ -290,7 +290,7 @@ feature -- Message processing
 			end
 		end
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          dc: SB_DC_WINDOW
@@ -317,7 +317,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_set_value,on_cmd_set_int_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_value,on_cmd_set_int_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          v: INTEGER_REF
       do
@@ -329,7 +329,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_get_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          v: INTEGER_REF
       do
@@ -343,7 +343,7 @@ feature -- Message processing
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       do
          Precursor
@@ -351,7 +351,7 @@ feature -- Resource management
       end
 
 
-   detach_resource is
+   detach_resource
          -- Detach server-side resources
       do
          Precursor
@@ -360,7 +360,7 @@ feature -- Resource management
 
 feature {NONE} -- Implementation
 
-	draw_interior (dc: SB_DC_WINDOW) is
+	draw_interior (dc: SB_DC_WINDOW)
 		local
 			percent, barlength, barfilled, tx, ty, tw, th, n, d: INTEGER
 			numtext: STRING
@@ -529,7 +529,7 @@ feature {NONE} -- Implementation
 			dc.stop
 		end
 
-   PROGRESSBAR_MASK: INTEGER is
+   PROGRESSBAR_MASK: INTEGER
       once
          Result := (PROGRESSBAR_PERCENTAGE | PROGRESSBAR_VERTICAL | PROGRESSBAR_DIAL)
       end

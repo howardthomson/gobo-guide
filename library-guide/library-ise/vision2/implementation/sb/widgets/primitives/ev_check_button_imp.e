@@ -31,7 +31,7 @@ create
 
 feature {NONE} -- Initialization
 		
-	make is
+	make
 			-- Initialize 'Current'
 		do
 --			Precursor {EV_TOGGLE_BUTTON_IMP}
@@ -40,7 +40,7 @@ feature {NONE} -- Initialization
 
 feature -- Element change
 
-	set_text (txt: STRING_GENERAL) is
+	set_text (txt: STRING_GENERAL)
 			-- Set current button text to `txt'.
 			-- Redefined because we want the text to be left-aligned.
 		do
@@ -52,7 +52,7 @@ feature {EV_ANY_I}
 
 	interface: EV_CHECK_BUTTON;
 	
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

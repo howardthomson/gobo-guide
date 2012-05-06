@@ -1,4 +1,4 @@
-indexing
+note
 	description:"An Idle object used in the signal/timer/message handling"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -15,7 +15,7 @@ inherit
 
 	SB_RAW_EVENT_DEF
 	
-creation
+create
 
    make
 
@@ -32,27 +32,27 @@ feature -- Creation
 --	--		app.add_chore(Current)
 --		end
 
-	make(an_agent: PROCEDURE [ ANY, TUPLE ]) is
+	make(an_agent: PROCEDURE [ ANY, TUPLE ])
 		do
 			the_agent := an_agent
 		end
 
 feature -- Update
 
-	set_next(n: SB_CHORE) is
+	set_next(n: SB_CHORE)
 		do
 			next := n
 		end
 
 feature -- Processing
 
-	process(app: SB_APPLICATION) is
+	process(app: SB_APPLICATION)
 		do
 			app.flush
 			the_agent.call([])
 		end			
 
-	execute is
+	execute
 		do
 		end
 

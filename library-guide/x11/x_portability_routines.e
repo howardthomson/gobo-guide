@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Routines for compiler portability"
 	author: "Howard Thomson"
 	copyright: "Copyright (c) 2004-2006, Howard Thomson"
@@ -16,25 +16,25 @@ inherit
 	
 feature {NONE} -- Implementation
 
-	pow (b, p: REAL_64): REAL_64 is
+	pow (b, p: REAL_64): REAL_64
 		do
 			Result := b ^ p
 		end
 
-	string_to_external (s: STRING): POINTER is
+	string_to_external (s: STRING): POINTER
 			-- Get external POINTER for C processing from STRING
 		do
 --			Result := s.to_external
 			Result := s.area.item_address (0)
 		end
 
-	any_to_pointer (a: ANY): POINTER is
+	any_to_pointer (a: ANY): POINTER
 		do
 --			Result := a.to_pointer
 			Result := $a
 		end		
 
-	array_to_external (a: ARRAY [ ANY ]): POINTER is
+	array_to_external (a: ARRAY [ ANY ]): POINTER
 		do
 --			Result := a.to_external
 			Result := a.area.item_address (0)

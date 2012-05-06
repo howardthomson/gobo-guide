@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The menu separator is a simple decorative groove
 		used to delineate items in a popup menu.
@@ -22,27 +22,27 @@ inherit
          	class_name
       	end
 
-creation
+create
 
 	make,
 	make_opts
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_MENU_SEPARATOR"
 		end
 
 feature -- Creation
 
-	make(p: SB_COMPOSITE) is
+	make(p: SB_COMPOSITE)
 			-- Construct a menu separator
 		do
 			make_opts(p, Zero);
 		end
 
-	make_opts(p: SB_COMPOSITE; opts: INTEGER) is
+	make_opts(p: SB_COMPOSITE; opts: INTEGER)
 			-- Construct a menu separator
 		do
 			window_make(p, opts, 0,0,0,0);
@@ -59,13 +59,13 @@ feature -- Data
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
 			-- Return default width
 		do
 			Result := LEADSPACE + TRAILSPACE;
 		end
 
-	default_height: INTEGER is
+	default_height: INTEGER
 			-- Return default height
 		do
         	Result := 2;
@@ -73,7 +73,7 @@ feature -- Queries
 
 feature -- Actions
 
-	set_hilite_color(clr: INTEGER) is
+	set_hilite_color(clr: INTEGER)
     		-- Change highlight color
     	do
         	if clr /= hilite_color then
@@ -82,7 +82,7 @@ feature -- Actions
          	end
       	end
 
-	set_shadow_color(clr: INTEGER) is
+	set_shadow_color(clr: INTEGER)
 			-- Change shadow color
       	do
          	if clr /= shadow_color then
@@ -93,7 +93,7 @@ feature -- Actions
 
 feature -- Message processing
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
          dc: SB_DC_WINDOW
@@ -116,7 +116,7 @@ feature -- Message processing
 
 feature {NONE} -- Implementation
 
-   LEADSPACE: INTEGER is 22;
-   TRAILSPACE: INTEGER is 16;
+   LEADSPACE: INTEGER = 22;
+   TRAILSPACE: INTEGER = 16;
 
 end

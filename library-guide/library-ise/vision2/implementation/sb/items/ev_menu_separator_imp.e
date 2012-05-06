@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Eiffel Vision menu separator. GTK+ implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -49,7 +49,7 @@ feature {NONE} -- Initialization
 --			base_make (an_interface)
 		end
 
-	initialize is
+	initialize
 			-- Do nothing because an empty GtkMenuItem is a separator.
 		do
 			real_text := ""
@@ -61,7 +61,7 @@ feature {NONE} -- Initialization
 			set_is_initialized (True)
 		end
 
-	initialize_menu_sep_box is
+	initialize_menu_sep_box
 			-- Create and initialize menu item box.
 			--| This is just to satisfy pixmapable and textable contracts.
 		do
@@ -76,13 +76,13 @@ feature {NONE} -- Implementation
 
 	is_sensitive: BOOLEAN
 	
-	enable_sensitive is
+	enable_sensitive
 			-- Implemented to fulfill assertions but leave c_object unsensitive.
 		do
 			is_sensitive := True
 		end
 
-	disable_sensitive is
+	disable_sensitive
 			-- Implemented to fulfill assertions but leave c_object unsensitive.
 		do
 			is_sensitive := False
@@ -90,7 +90,7 @@ feature {NONE} -- Implementation
 
 feature {EV_MENU_ITEM_LIST_IMP} -- Implementation
 
-	dispose is
+	dispose
 			-- Unreference unwanted gtk widgets.
 		do
 --			{EV_GTK_DEPENDENT_EXTERNALS}.object_unref (box)
@@ -102,13 +102,13 @@ feature {EV_MENU_ITEM_LIST_IMP} -- Implementation
 
 	radio_group_ref: POINTER_REF
 
-	set_radio_group (p: POINTER) is
+	set_radio_group (p: POINTER)
 			-- Assign `p' to `radio_group'.
 		do
 			radio_group_ref.set_item (p)
 		end
 
-	radio_group: POINTER is
+	radio_group: POINTER
 			-- GSList with all radio items of this container.
 		do
 			Result := radio_group_ref.item
@@ -126,7 +126,7 @@ feature {NONE} -- Implementation
 
 	interface: EV_MENU_SEPARATOR;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

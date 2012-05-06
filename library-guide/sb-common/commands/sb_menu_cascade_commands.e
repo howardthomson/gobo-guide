@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_MENU_CASCADE commands"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -16,7 +16,7 @@ inherit
 
 feature
 
-	ID_MENUTIMER: INTEGER is once Result := MENU_CAPTION_ID_LAST + 0 end
-	Id_last		: INTEGER is once Result := MENU_CAPTION_ID_LAST + 1 end
+	ID_MENUTIMER: INTEGER once Result := MENU_CAPTION_ID_LAST + 0 end
+	Id_last		: INTEGER once Result := MENU_CAPTION_ID_LAST + 1 end
 
 end

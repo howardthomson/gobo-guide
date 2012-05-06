@@ -6,29 +6,29 @@ inherit
 
 	SB_REGISTRY_DEF
 
-creation
+create
 
 	make
 
 feature
 
-	make (name, vendor: STRING) is
+	make (name, vendor: STRING)
 		do
 		end
 
-	read is
+	read
 		do
 		end
 
-	write is
+	write
 		do
 		end
 
-	app_key: STRING is
+	app_key: STRING
 		do
 		end
 
-	vendor_key: STRING is
+	vendor_key: STRING
 		do
 		end
 

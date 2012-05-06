@@ -10,7 +10,7 @@ inherit
 feature
 	x_pos: INTEGER
 
-	x_private: INTEGER is
+	x_private: INTEGER
 		do
 			Result := x_pos
 		end
@@ -20,7 +20,7 @@ feature
 --			x_pos := new_x
 --		end
 
-	set_x(x: INTEGER) is
+	set_x(x: INTEGER)
 		deferred
 		end
 

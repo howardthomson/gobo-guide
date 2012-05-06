@@ -1,4 +1,4 @@
-indexing
+note
 
 	todo: "[
 		Fix Mouse Wheel: find_window_at is currently missing ?
@@ -23,31 +23,31 @@ feature -- Attributes
 
 feature -- Unimplemented !!!
 
-	flush_aux (sync: BOOLEAN) is
+	flush_aux (sync: BOOLEAN)
 		do
 		end
 
-	find_window_with_id (i: INTEGER): SB_WINDOW is
+	find_window_with_id (i: INTEGER): SB_WINDOW
 		do
 		end
 
-	find_window_at (x, y: INTEGER; i: INTEGER): SB_WINDOW is
+	find_window_at (x, y: INTEGER; i: INTEGER): SB_WINDOW
 		do
 		end
 
-	peek_event: BOOLEAN is
+	peek_event: BOOLEAN
 		do
 		end
 
-	add_timeout (ms: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER): SB_TIMER is
+	add_timeout (ms: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER): SB_TIMER
 		do
 		end
 
-	remove_timeout(timer: SB_TIMER) is
+	remove_timeout(timer: SB_TIMER)
 		do
 		end
 
-	open_display (dpyname: STRING): BOOLEAN is
+	open_display (dpyname: STRING): BOOLEAN
 			-- Connection to display; this is called by init()
 		do
          	Result := np_open_display (to_external, dpyname)
@@ -58,12 +58,12 @@ feature -- Unimplemented !!!
          	end
       	end
 
-	close_display: BOOLEAN is
+	close_display: BOOLEAN
 		do
 			-- TODO
 		end
 
-	beep is
+	beep
     	local
     		t: INTEGER;
     	do
@@ -72,14 +72,14 @@ feature -- Unimplemented !!!
          	end
 		end
 
-	run_one_event is
+	run_one_event
 			-- Perform one event dispatch
 		do
 			create_new_resources
 			ext_run_one_event (to_external, $again)
 		end
 
-	init_colours is
+	init_colours
 		do
 			border_color	:= sbrgb (0, 0, 0)
          	base_color 		:= sbrgb (192, 192, 192)
@@ -95,7 +95,7 @@ feature -- Unimplemented !!!
 
 feature -- Creation
 
-	make_imp is
+	make_imp
 		do
 		--	create normal_font.make_opts(Current, "helvetica", 9, FONTWEIGHT_BOLD, FONTSLANT_REGULAR, FONTENCODING_DEFAULT, FONTSETWIDTH_DONTCARE, Zero);
 			create normal_font.make(Current, "fixedsys", 9)	-- , FONTWEIGHT_BOLD, FONTSLANT_REGULAR, FONTENCODING_DEFAULT, FONTSETWIDTH_DONTCARE, Zero);
@@ -110,7 +110,7 @@ feature -- Creation
 
 feature -- Cursors
 
-	make_cursors is
+	make_cursors
 		local
 			new_cursor: SB_CURSOR
 		do
@@ -167,7 +167,7 @@ feature {NONE} -- static private data
 
 feature {SB_WINDOW_DEF}
 
-	register_window (w: SB_WINDOW_DEF) is
+	register_window (w: SB_WINDOW_DEF)
 		do
 			Precursor (w)
 			target_set := w
@@ -177,7 +177,7 @@ feature {NONE} -- helpers for external C code
 
 	target_set: SB_MESSAGE_HANDLER
 
-	frozen handle_event_helper (target: SB_MESSAGE_HANDLER; cmnd, id: INTEGER): BOOLEAN is
+	frozen handle_event_helper (target: SB_MESSAGE_HANDLER; cmnd, id: INTEGER): BOOLEAN
 		local
 			mh: SB_MESSAGE_HANDLER
 		do
@@ -190,17 +190,17 @@ feature {NONE} -- helpers for external C code
 			Result := mh.handle_2 (Current, cmnd, id, event)
 		end
 
-   frozen handle_signal_helper (target: SB_MESSAGE_HANDLER; selector, signal: INTEGER): BOOLEAN is
+   frozen handle_signal_helper (target: SB_MESSAGE_HANDLER; selector, signal: INTEGER): BOOLEAN
       do
          -- todo implement
       end
 
-   frozen handle_input_helper (target: SB_MESSAGE_HANDLER; selector: INTEGER; input: POINTER): BOOLEAN is
+   frozen handle_input_helper (target: SB_MESSAGE_HANDLER; selector: INTEGER; input: POINTER): BOOLEAN
       do
          -- todo implement
       end
 
-	frozen handle_refresher_helper: BOOLEAN is
+	frozen handle_refresher_helper: BOOLEAN
 			-- GUI updating:- walk the whole widget tree
 		do
 			if refresher_window /= Void then
@@ -227,7 +227,7 @@ feature {NONE} -- helpers for external C code
 			end
 		end
 
-   get_sb_window (hwnd: POINTER): SB_WINDOW is
+   get_sb_window (hwnd: POINTER): SB_WINDOW
       local
       do
          if hwnd /= default_pointer and then wapi_wf.IsWindow (hwnd) /= 0 then
@@ -235,7 +235,7 @@ feature {NONE} -- helpers for external C code
          end
       end
 
-   	leave_window (win, anc: SB_WINDOW) is
+   	leave_window (win, anc: SB_WINDOW)
       		-- Generate SEL_LEAVE for windows wnd and its ancestors; note that the
       		-- LEAVE events are generated in the order from child to parent
       	local
@@ -258,7 +258,7 @@ feature {NONE} -- helpers for external C code
          	end
       	end
 
-	enter_window (win, anc: SB_WINDOW) is
+	enter_window (win, anc: SB_WINDOW)
       		-- Generate SEL_ENTER for windows and its ancestors; note that the
       		-- ENTER events are generated in the order from parent to child
       	local
@@ -281,7 +281,7 @@ feature {NONE} -- helpers for external C code
          	end
       	end
 
-   frozen dispatch_event_helper (hWnd: POINTER; uMsg, wParam, lParam: INTEGER): INTEGER is
+   frozen dispatch_event_helper (hWnd: POINTER; uMsg, wParam, lParam: INTEGER): INTEGER
       local
          rect: SB_WAPI_RECT
          pt, pt_root: SB_WAPI_POINT
@@ -834,7 +834,7 @@ feature {NONE} -- helpers for external C code
 
 feature -- Clipboard
 
-	clipboard_set_data (window: SB_WINDOW; type: INTEGER; data: STRING) is
+	clipboard_set_data (window: SB_WINDOW; type: INTEGER; data: STRING)
 		local
 			hGlobalMemory: POINTER
 			pGlobalMemory: POINTER
@@ -855,7 +855,7 @@ feature -- Clipboard
 			end
 		end
 
-   clipboard_get_data (window: SB_WINDOW; type: INTEGER): STRING is
+   clipboard_get_data (window: SB_WINDOW; type: INTEGER): STRING
       local
          hClipMemory: POINTER
          pClipMemory: POINTER
@@ -881,7 +881,7 @@ feature -- Clipboard
          end
       end
 
-   clipboard_get_types (window: SB_WINDOW): ARRAY [ INTEGER ] is
+   clipboard_get_types (window: SB_WINDOW): ARRAY [ INTEGER ]
       local
          i, count, format, t: INTEGER
       do
@@ -904,26 +904,26 @@ feature -- Clipboard
          end
       end
 
-   	display: POINTER is
+   	display: POINTER
       	do
 			Result := ext_get_display (to_external)
       	end
 
-	stipple (index: INTEGER): POINTER is
+	stipple (index: INTEGER): POINTER
 		require
    		--	implemented: false
 		do
 			Result := ext_get_stipple (to_external, index)
 		end
 
-	hinstance: POINTER is
+	hinstance: POINTER
     	once
          	Result := wapi_dl.GetModuleHandle (default_pointer)
       	end
 
 feature {NONE} -- Non portable calls
 
-	np_open_display (p: POINTER; dpyname: STRING): BOOLEAN is
+	np_open_display (p: POINTER; dpyname: STRING): BOOLEAN
       	do
 --       	mem.collection_off;
          	if dpyname = Void then
@@ -965,12 +965,12 @@ feature {NONE} -- SB_WAPI functions
    	wapi_mfn: 	SB_WAPI_MEMORY_MANAGEMENT_FUNCTIONS
    	wapi_gmem: 	SB_WAPI_GLOBAL_MEMORY_ALLOCATION_FLAGS
 
-   	MulDiv (number, numerator, denominator: INTEGER): INTEGER is
+   	MulDiv (number, numerator, denominator: INTEGER): INTEGER
       	external "C use <windows.h>"
       	alias "MulDiv"
       	end
 
-   	GetWindowLong (hwnd: POINTER; nindex: INTEGER): SB_WINDOW is
+   	GetWindowLong (hwnd: POINTER; nindex: INTEGER): SB_WINDOW
          	-- Gets user data from window and casts to SB_WINDOW.
          	-- low-level hack
 		do
@@ -981,26 +981,26 @@ feature {NONE} -- SB_WAPI functions
 			end
       	end
 
-   	c_GetWindowLong (hwnd: POINTER; nindex: INTEGER): SB_WINDOW is
+   	c_GetWindowLong (hwnd: POINTER; nindex: INTEGER): SB_WINDOW
          	-- Gets user data from window and casts to SB_WINDOW.
          	-- low-level hack
       	external "C inline"
       	alias "((EIF_REFERENCE) GetWindowLong ($hwnd, $nindex))"
       	end
 
-   	SetWindowLong (hwnd: POINTER; nindex: INTEGER; wnd: SB_WINDOW) is
+   	SetWindowLong (hwnd: POINTER; nindex: INTEGER; wnd: SB_WINDOW)
          	-- Casts SB_WINDOW to long and sets it to window user data.
          	-- low-level hack
       	external "C inline"
       	alias "SetWindowLong ($hwnd, $nindex, (long)$wnd);%N"
       	end
 
-   	sbmodifierkeys: INTEGER_32 is
+   	sbmodifierkeys: INTEGER_32
       	external "C"
       	alias "sbmodifierkeys"
       	end
 
-   	wkbMapKeyCode (hwnd: POINTER; umsg, wparam, lparam: INTEGER): INTEGER is
+   	wkbMapKeyCode (hwnd: POINTER; umsg, wparam, lparam: INTEGER): INTEGER
       	external "C"
       	alias "wkbMapKeyCode"
       	end

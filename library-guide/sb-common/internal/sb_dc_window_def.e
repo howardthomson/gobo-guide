@@ -1,4 +1,4 @@
-indexing
+note
    description: "[
                 Window Device Context The Window Device Context allows drawing
                 into an SB_DRAWABLE, such as an on-screen window (SB_WINDOW and derivatives)
@@ -43,11 +43,11 @@ feature { NONE } -- Implementation
 
 feature -- Creation
 
-	make_once is
+	make_once
 		do
 		end
 
-	make (drawable: SB_DRAWABLE) is
+	make (drawable: SB_DRAWABLE)
 			-- Construct for normal drawing;
 			-- This sets clip rectangle to the whole drawable
 		do
@@ -56,11 +56,11 @@ feature -- Creation
 			make_def
 		end
 
-	make_def is
+	make_def
 		deferred
     	end
 
-	make_event (drawable: SB_DRAWABLE; event: SB_EVENT) is
+	make_event (drawable: SB_DRAWABLE; event: SB_EVENT)
     		-- Construct for painting in response to expose;
          	-- This sets the clip rectangle to the exposed rectangle
       	require
@@ -83,23 +83,23 @@ feature -- Creation
          	make_event_def (drawable, event)
       	end
 
-	make_event_def (drawable: SB_DRAWABLE; event: SB_EVENT) is
+	make_event_def (drawable: SB_DRAWABLE; event: SB_EVENT)
     	deferred
     	end
 
-  	start (drawable: SB_DRAWABLE) is
+  	start (drawable: SB_DRAWABLE)
          	-- Begin locks in a drawable surface
       	require
          	drawable /= Void and then drawable.is_attached
 		deferred
       	end
 
-   	stop is
+   	stop
          	-- End unlock the drawable surface
 		deferred
     	end
 
-	ok_to_draw: BOOLEAN is
+	ok_to_draw: BOOLEAN
 		do
 			if surface /= Void and then surface.is_attached then
 				Result := True

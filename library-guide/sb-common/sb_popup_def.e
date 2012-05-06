@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Popup window"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -54,14 +54,14 @@ inherit
 
 	SB_EXPANDED
 
-creation
+create
 
    make,
    make_opts
 
 feature -- Creation
 
-	make (ownr: SB_WINDOW; opts: INTEGER) is
+	make (ownr: SB_WINDOW; opts: INTEGER)
 			-- Construct popup pane
 		local
 			o: INTEGER
@@ -74,7 +74,7 @@ feature -- Creation
 			make_opts (ownr, o, 0,0,0,0)
 		end
 
-	make_opts (ownr: SB_WINDOW; opts: INTEGER; x, y, w, h: INTEGER) is
+	make_opts (ownr: SB_WINDOW; opts: INTEGER; x, y, w, h: INTEGER)
       	do
          	shell_make_child (ownr, opts, x,y,w,h)
          	default_cursor := application.default_cursor (Def_rarrow_cursor)
@@ -107,7 +107,7 @@ feature -- Data
 
 feature -- Queries
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Get default width
       local
          child: SB_WINDOW
@@ -142,7 +142,7 @@ feature -- Queries
          Result := wmax + border*2
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Get default width
       local
          child: SB_WINDOW
@@ -176,19 +176,19 @@ feature -- Queries
          Result := hmax + border*2
       end
 
-   get_frame_style: INTEGER is
+   get_frame_style: INTEGER
          -- Get current frame style
       do
          Result := (options & Frame_mask)
       end
 
-   get_orientation: INTEGER is
+   get_orientation: INTEGER
          -- Return popup orientation
       do
          Result := (options & Popup_horizontal)
       end
 
-   shrink_wrap: BOOLEAN is
+   shrink_wrap: BOOLEAN
          -- Return shrinkwrap mode
       do
          if (options & Popup_shrinkwrap) /= 0 then
@@ -196,7 +196,7 @@ feature -- Queries
          end
       end
 
-   get_grab_owner: SB_WINDOW is
+   get_grab_owner: SB_WINDOW
          -- Window which will get grabbed when outside
          -- if it has none, it's owned by itself
       do
@@ -209,7 +209,7 @@ feature -- Queries
 
 feature -- Actions
 
-	show is
+	show
 		local
 			c: SB_POPUP
 		do
@@ -223,7 +223,7 @@ feature -- Actions
          	end
       	end
 
-   hide is
+   hide
       do
          if (flags & Flag_shown) /= 0 then
             Precursor
@@ -236,7 +236,7 @@ feature -- Actions
          end
       end
 
-   set_frame_style (style: INTEGER) is
+   set_frame_style (style: INTEGER)
          -- Change frame style
       local
          opts: INTEGER
@@ -260,7 +260,7 @@ feature -- Actions
          end
       end
 
-   set_hilite_color (clr: INTEGER) is
+   set_hilite_color (clr: INTEGER)
          -- Change highlight color
       do
          if hilite_color /= clr then
@@ -269,7 +269,7 @@ feature -- Actions
          end
       end
 
-   set_shadow_color (clr: INTEGER) is
+   set_shadow_color (clr: INTEGER)
          -- Change shadow color
       do
          if shadow_color /= clr then
@@ -278,7 +278,7 @@ feature -- Actions
          end
       end
 
-   set_border_color (clr: INTEGER) is
+   set_border_color (clr: INTEGER)
          -- Change border color
       do
          if border_color /= clr then
@@ -287,7 +287,7 @@ feature -- Actions
          end
       end
 
-   set_base_color (clr: INTEGER) is
+   set_base_color (clr: INTEGER)
          -- Change base color
       do
          if base_color /= clr then
@@ -296,7 +296,7 @@ feature -- Actions
          end
       end
 
-   set_orientation (orient: INTEGER) is
+   set_orientation (orient: INTEGER)
          -- Change popup orientation
       local
          opts: INTEGER
@@ -308,7 +308,7 @@ feature -- Actions
          end
       end
 
-   set_shrink_wrap(sw: BOOLEAN) is
+   set_shrink_wrap(sw: BOOLEAN)
          -- Change shrinkwrap mode
       do
          if sw then
@@ -318,7 +318,7 @@ feature -- Actions
          end
       end
 
-	pop_up (grabto: SB_WINDOW; x_, y_, w_, h_: INTEGER) is
+	pop_up (grabto: SB_WINDOW; x_, y_, w_, h_: INTEGER)
     		-- Popup the menu and grab to the given owner
       	local
          	rw, rh: INTEGER
@@ -363,7 +363,7 @@ feature -- Actions
          	end
       	end
 
-	pop_down is
+	pop_down
     		-- Pop down the menu
       	do
          	if grab_owner = Void then
@@ -376,7 +376,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
 		do
 			if	   match_function_2 (SEL_FOCUS_UP,			 0, type, key) then Result := on_focus_up		(sender, key, data)
 			elseif match_function_2 (SEL_FOCUS_DOWN,		 0, type, key) then Result := on_focus_down		(sender, key, data)
@@ -400,7 +400,7 @@ feature -- Message processing
       end
 
 
-	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			ev: SB_EVENT
 			dc: SB_DC_WINDOW
@@ -418,35 +418,35 @@ feature -- Message processing
 			Result := True
       end
 
-   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (options & Popup_horizontal) = 0 then
             Result := on_focus_prev (sender, selector, data)
          end
       end
 
-   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (options & Popup_horizontal) = 0 then
             Result := on_focus_next (sender, selector, data)
          end
       end
 
-   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (options & Popup_horizontal) /= 0 then
             Result := on_focus_prev (sender, selector, data)
          end
       end
 
-   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (options & Popup_horizontal) /= 0 then
             Result := on_focus_prev (sender, selector, data)
          end
       end
 
-   on_focus_next (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_next (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW;
          done: BOOLEAN
@@ -481,7 +481,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_prev (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_prev (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW;
          done: BOOLEAN
@@ -516,7 +516,7 @@ feature -- Message processing
          end
       end
 
-   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          sbp: SB_POINT
@@ -535,7 +535,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
          sbp: SB_POINT;
@@ -556,7 +556,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
          p: SB_POINT;
@@ -577,7 +577,7 @@ feature -- Message processing
          Result := True
       end
 
-	on_map (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_map (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			x, y, buttons: INTEGER
 			cp: SB_CURSOR_POSITION
@@ -595,13 +595,13 @@ feature -- Message processing
 			Result := True
 		end
 
-   on_button_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_button_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
          Result := True
       end
 
-   on_button_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_button_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -615,14 +615,14 @@ feature -- Message processing
          Result := True
       end
 
-   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
          Result := True
       end
 
-   on_cmd_unpost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_unpost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if grab_owner /= Void then
             grab_owner.do_handle_2 (Current, SEL_COMMAND, Id_unpost, data)
@@ -635,7 +635,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -653,7 +653,7 @@ feature -- Message processing
          end
       end
 
-   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -669,14 +669,14 @@ feature -- Message processing
          end
       end
 
-   on_cmd_choice (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_choice (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := True
       end
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          if application.popup_window = Current then application.set_popup_window (prev_active) end
          if prev_active /= Void then prev_active.set_next_active (next_active) end
@@ -693,7 +693,7 @@ feature {NONE}-- Implementation
    grab_owner: SB_WINDOW
          -- Window which will get grabbed when outside
 
-	layout is
+	layout
     	local
          	child: SB_WINDOW
          	hints: INTEGER
@@ -864,24 +864,24 @@ feature {NONE}-- Implementation
          	unset_flags (Flag_dirty)
 		end
 
-   does_override_redirect: BOOLEAN is
+   does_override_redirect: BOOLEAN
          -- Popups do override-redirect
       do
          Result := True
       end
 
-	does_save_under: BOOLEAN is
+	does_save_under: BOOLEAN
 			-- Popups do save-unders
 		once
 			Result := True
 		end
 
-	class_name: STRING is
+	class_name: STRING
 		do
 			Result := "SB_POPUP"
 		end
 
-	draw_groove_rectangle (dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+	draw_groove_rectangle (dc: SB_DC_WINDOW; x, y, w, h: INTEGER)
       	do
          	dc.set_foreground(shadow_color)
          	dc.fill_rectangle(x, y, w, 1)
@@ -895,7 +895,7 @@ feature {NONE}-- Implementation
          	dc.fill_rectangle(x + w - 1, y + 1, 1, h)
       	end
 
-	draw_double_raised_rectangle (dc: SB_DC_WINDOW; x, y, w, h: INTEGER) is
+	draw_double_raised_rectangle (dc: SB_DC_WINDOW; x, y, w, h: INTEGER)
 		do
 			dc.set_foreground(base_color)
          	dc.fill_rectangle(x, y, w - 1, 1)
@@ -919,12 +919,12 @@ feature {SB_POPUP_DEF}
 	next_active: SB_POPUP
 		-- Popup above this one in stack
 
-	set_prev_active (pa: SB_POPUP) is
+	set_prev_active (pa: SB_POPUP)
 		do
 			prev_active := pa
 		end
 
-	set_next_active(na: SB_POPUP) is
+	set_next_active(na: SB_POPUP)
 			-- Popup above this one in stack
 		do
 			next_active := na

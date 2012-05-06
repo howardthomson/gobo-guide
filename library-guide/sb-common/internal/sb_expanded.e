@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Class to contain replacements for declarations of the form:
 			xx: expanded YY
@@ -11,12 +11,12 @@ feature
 
 	sbk: SB_KEYS
 
-	ff: SB_FILE is
+	ff: SB_FILE
 		once
 			create Result
 		end
 
-	u, utils: SB_UTILS is
+	u, utils: SB_UTILS
 		once
 			create Result
 		end
@@ -31,12 +31,12 @@ feature
 
 	math: SB_MATH
 
-	bmp_io: SB_BMP_IO is
+	bmp_io: SB_BMP_IO
 		once
 			create Result
 		end
 
-	sb_exceptions: EXCEPTIONS is
+	sb_exceptions: EXCEPTIONS
 		once
 			create Result
 		end

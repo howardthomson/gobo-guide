@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Eiffel Vision widget. Slyboots implementation.
 		See ev_widget.e
@@ -59,7 +59,7 @@ feature {NONE} -- Initialization
 			set_is_initialized (True)
 		end
 
-	initialize is
+	initialize
 			-- Show non window widgets.
 			-- Initialize default options, colors and sizes.
 			-- Connect action sequences to events.
@@ -68,7 +68,7 @@ feature {NONE} -- Initialization
 
 feature {EV_WINDOW_IMP, EV_INTERMEDIARY_ROUTINES, EV_ANY_I, EV_APPLICATION_IMP} -- Implementation
 
-	on_key_event (a_key: EV_KEY; a_key_string: STRING_32; a_key_press: BOOLEAN) is
+	on_key_event (a_key: EV_KEY; a_key_string: STRING_32; a_key_press: BOOLEAN)
 			-- Used for key event actions sequences.
 		do
 			if a_key_press then
@@ -89,7 +89,7 @@ feature {EV_WINDOW_IMP, EV_INTERMEDIARY_ROUTINES, EV_ANY_I, EV_APPLICATION_IMP} 
 			end
 		end
 
-	on_size_allocate (a_x, a_y, a_width, a_height: INTEGER) is
+	on_size_allocate (a_x, a_y, a_width, a_height: INTEGER)
 --			-- Gtk_Widget."size-allocate" happened.
 		do
 			if a_width /= previous_width or else a_height /= previous_height then
@@ -104,7 +104,7 @@ feature {EV_WINDOW_IMP, EV_INTERMEDIARY_ROUTINES, EV_ANY_I, EV_APPLICATION_IMP} 
 			end
 		end
 
-	on_focus_changed (a_has_focus: BOOLEAN) is
+	on_focus_changed (a_has_focus: BOOLEAN)
 			-- Called from focus intermediary agents when focus for `Current' has changed.
 			-- if `a_has_focus' then `Current' has just received focus.
 		do
@@ -125,7 +125,7 @@ feature {EV_WINDOW_IMP, EV_INTERMEDIARY_ROUTINES, EV_ANY_I, EV_APPLICATION_IMP} 
 			end
 		end
 
-	on_pointer_enter_leave (a_pointer_enter: BOOLEAN) is
+	on_pointer_enter_leave (a_pointer_enter: BOOLEAN)
 			-- Called from pointer enter leave intermediary agents when the mouse pointer either enters or leaves `Current'.
 		do
 			if a_pointer_enter then
@@ -148,7 +148,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 			a_x, a_y, a_button: INTEGER;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER)
-		is
+		
 			-- Call pointer_button_press_actions or pointer_double_press_actions
 			-- depending on event type in first position of `event_data'.
 			--| GTK sends both GDK_BUTTON_PRESS and GDK_2BUTTON_PRESS events
@@ -223,7 +223,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 
 feature -- Access
 
-	parent: EV_CONTAINER is
+	parent: EV_CONTAINER
 			-- Container widget that contains `Current'.
 			-- (Void if `Current' is not in a container)
 		local
@@ -237,7 +237,7 @@ feature -- Access
 
 feature -- Status setting
 
-	hide is
+	hide
 			-- Request that `Current' not be displayed even when its parent is.
 		do
 			sb_widget.hide
@@ -245,7 +245,7 @@ feature -- Status setting
 
 feature -- Element change
 
-	set_minimum_width (a_minimum_width: INTEGER) is
+	set_minimum_width (a_minimum_width: INTEGER)
 			-- Set the minimum horizontal size to `a_minimum_width'.
 		local
 			l_height: INTEGER
@@ -265,7 +265,7 @@ feature -- Element change
 			end
 		end
 
-	set_minimum_height (a_minimum_height: INTEGER) is
+	set_minimum_height (a_minimum_height: INTEGER)
 			-- Set the minimum vertical size to `a_minimum_height'.
 		local
 			l_width: INTEGER
@@ -285,7 +285,7 @@ feature -- Element change
 			end
 		end
 
-	set_minimum_size (a_minimum_width, a_minimum_height: INTEGER) is
+	set_minimum_size (a_minimum_width, a_minimum_height: INTEGER)
 			-- Set the minimum horizontal size to `a_minimum_width'.
 			-- Set the minimum vertical size to `a_minimum_height'.
 		local
@@ -308,7 +308,7 @@ feature -- Element change
 
 feature -- Measurement
 
-	x_position: INTEGER is
+	x_position: INTEGER
 			-- Horizontal offset relative to parent `x_position'.
 			-- Unit of measurement: screen pixels.
 		local
@@ -322,7 +322,7 @@ feature -- Measurement
 			end
 		end
 
-	y_position: INTEGER is
+	y_position: INTEGER
 			-- Vertical offset relative to parent `y_position'.
 			-- Unit of measurement: screen pixels.
 		local
@@ -338,7 +338,7 @@ feature -- Measurement
 
 feature {EV_ANY_I} -- Implementation
 
-	refresh_now is
+	refresh_now
 			-- Flush any pending redraws due for `Current'.
 		do
 			todo_class_line ("__EV_WIDGET_IMP__", "__LINE__")
@@ -346,7 +346,7 @@ feature {EV_ANY_I} -- Implementation
 
 feature {EV_CONTAINER_IMP} -- Implementation
 
-	set_parent_imp (a_container_imp: EV_CONTAINER_IMP) is
+	set_parent_imp (a_container_imp: EV_CONTAINER_IMP)
 			-- Set `parent_imp' to `a_container_imp'.
 		local
 			l_composite: SB_COMPOSITE
@@ -366,7 +366,7 @@ print ("EV_WIDGET_IMP::set_parent_imp #2%N")
 
 feature {EV_ANY_IMP} -- Implementation
 
-	destroy is
+	destroy
 			-- Destroy `Current'
 		do
 			if not is_destroyed then
@@ -384,7 +384,7 @@ feature {EV_ANY_IMP} -- Implementation
 
 feature {EV_INTERMEDIARY_ROUTINES, EV_APPLICATION_IMP} -- Implementation
 
-	on_widget_mapped is
+	on_widget_mapped
 			-- `Current' has been mapped on to the screen.
 		do
 --			if pointer_style /= Void and then previous_gdk_cursor = default_pointer then
@@ -394,7 +394,7 @@ feature {EV_INTERMEDIARY_ROUTINES, EV_APPLICATION_IMP} -- Implementation
 
 feature {NONE} -- Implementation
 
-	propagate_foreground_color_internal (a_color: EV_COLOR; a_c_object: POINTER) is
+	propagate_foreground_color_internal (a_color: EV_COLOR; a_c_object: POINTER)
 			-- Propagate `a_color' to the foreground color of `a_c_object's children.
 		local
 			l: POINTER
@@ -423,7 +423,7 @@ feature {NONE} -- Implementation
 --			end
 		end
 
-	propagate_background_color_internal (a_color: EV_COLOR; a_c_object: POINTER) is
+	propagate_background_color_internal (a_color: EV_COLOR; a_c_object: POINTER)
 			-- Propagate `a_color' to the background color of `a_c_object's children.
 		local
 			l: POINTER
@@ -463,7 +463,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 
 	interface: EV_WIDGET;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

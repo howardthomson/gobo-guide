@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_LIST constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -13,9 +13,9 @@ inherit
 
 feature -- List styles
 
-	LIST_AUTOSELECT: INTEGER is 0x00400000	-- 100 0000 0000 0000 0000 0000B;
+	LIST_AUTOSELECT: INTEGER = 0x00400000	-- 100 0000 0000 0000 0000 0000B;
 			-- Automatically select under cursor
 
-	LIST_NORMAL: INTEGER is once Result := LIST_EXTENDEDSELECT end
+	LIST_NORMAL: INTEGER once Result := LIST_EXTENDEDSELECT end
 
 end

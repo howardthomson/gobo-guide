@@ -36,7 +36,7 @@ inherit
 			class_name
       end
 
-creation
+create
 
 	make_sb,
 	make_opts

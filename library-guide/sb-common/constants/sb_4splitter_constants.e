@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_4SPLITTER constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -9,12 +9,12 @@ class SB_4SPLITTER_CONSTANTS
 
 feature -- INTEGER version
 
-	FOURSPLITTER_NORMAL		: INTEGER is 0
+	FOURSPLITTER_NORMAL		: INTEGER = 0
 
-	FOURSPLITTER_TRACKING	: INTEGER is 0x00008000	-- (1B << 15)
+	FOURSPLITTER_TRACKING	: INTEGER = 0x00008000	-- (1B << 15)
 		-- Track continuously during split
 
-	FOURSPLITTER_MASK		: INTEGER is 0x00008000	-- (1B << 15)
+	FOURSPLITTER_MASK		: INTEGER = 0x00008000	-- (1B << 15)
 
 feature -- Conflict checking
 

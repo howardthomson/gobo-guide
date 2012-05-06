@@ -1,6 +1,6 @@
 -- X86 Instruction
 
-indexing
+note
 	description:	"Base class for AMD-64 / Intel machine Instructions"
 
 	todo_for_64_bit: "[
@@ -14,61 +14,61 @@ deferred class X86_INSTRUCTION
 
 feature {NONE} -- Constants
 
-	Displacement_reset	: INTEGER_8 is 0
-	Displacement_32		: INTEGER_8 is 1
-	Displacement_64		: INTEGER_8 is 2
+	Displacement_reset	: INTEGER_8 = 0
+	Displacement_32		: INTEGER_8 = 1
+	Displacement_64		: INTEGER_8 = 2
 	
-	Immediate_reset:  INTEGER_8 is 0
-	Immediate_8_bit:  INTEGER_8 is 1
-	Immediate_16_bit: INTEGER_8 is 2
-	Immediate_32_bit: INTEGER_8 is 3
+	Immediate_reset:  INTEGER_8 = 0
+	Immediate_8_bit:  INTEGER_8 = 1
+	Immediate_16_bit: INTEGER_8 = 2
+	Immediate_32_bit: INTEGER_8 = 3
 
 feature -- SIB Scale factor values
 
-	Scale_1: INTEGER is 0x00
-	Scale_2: INTEGER is 0x40
-	Scale_4: INTEGER is 0x80
-	Scale_8: INTEGER is 0xc0
+	Scale_1: INTEGER = 0x00
+	Scale_2: INTEGER = 0x40
+	Scale_4: INTEGER = 0x80
+	Scale_8: INTEGER = 0xc0
 
 feature -- Prefixes
 
-	Prefix_operand_size_override: INTEGER_8 is 0x66
+	Prefix_operand_size_override: INTEGER_8 = 0x66
 
-	Prefix_address_size_override: INTEGER_8 is 0x67
+	Prefix_address_size_override: INTEGER_8 = 0x67
 
-	Prefix_segment_override_CS	: INTEGER_8 is 0x2E
-	Prefix_segment_override_DS	: INTEGER_8 is 0x3E
-	Prefix_segment_override_ES	: INTEGER_8 is 0x26
-	Prefix_segment_override_FS	: INTEGER_8 is 0x64
-	Prefix_segment_override_GS	: INTEGER_8 is 0x65
-	Prefix_segment_override_SS	: INTEGER_8 is 0x36
+	Prefix_segment_override_CS	: INTEGER_8 = 0x2E
+	Prefix_segment_override_DS	: INTEGER_8 = 0x3E
+	Prefix_segment_override_ES	: INTEGER_8 = 0x26
+	Prefix_segment_override_FS	: INTEGER_8 = 0x64
+	Prefix_segment_override_GS	: INTEGER_8 = 0x65
+	Prefix_segment_override_SS	: INTEGER_8 = 0x36
 
-	Prefix_lock					: INTEGER_8 is 0xF0
+	Prefix_lock					: INTEGER_8 = 0xF0
 
-	Prefix_repeat				: INTEGER_8 is 0xF3
-	Prefix_repeat_ne			: INTEGER_8 is 0xF2
+	Prefix_repeat				: INTEGER_8 = 0xF3
+	Prefix_repeat_ne			: INTEGER_8 = 0xF2
 
 	-- Rex prefix must *immediately* precede the opcode
-	Rex_upper: INTEGER is 0xf0	-- Upper nibble of a REX prefix byte
-	Rex_w	 : INTEGER is 0x08	-- Default (0)/ 64-bit (1) operand size
+	Rex_upper: INTEGER = 0xf0	-- Upper nibble of a REX prefix byte
+	Rex_w	 : INTEGER = 0x08	-- Default (0)/ 64-bit (1) operand size
 		-- Field extensions are the top bit, adding 8 to the default value
-	Rex_r	 : INTEGER is 0x04	-- ModRM Reg field extension
-	Rex_x	 : INTEGER is 0x02	-- SIB Index field extension
-	Rex_b	 : INTEGER is 0x01	-- Extension to ModRM r/m, SIB base, or opcode reg 
+	Rex_r	 : INTEGER = 0x04	-- ModRM Reg field extension
+	Rex_x	 : INTEGER = 0x02	-- SIB Index field extension
+	Rex_b	 : INTEGER = 0x01	-- Extension to ModRM r/m, SIB base, or opcode reg 
 
 feature -- Adddress mode constants
 
-	Src_register_mode	: INTEGER is 0	-- From Register (default)
-	Src_immediate_mode	: INTEGER is 1	-- Literal instruction value
-	Src_memory_mode		: INTEGER is 2	-- From memory
+	Src_register_mode	: INTEGER = 0	-- From Register (default)
+	Src_immediate_mode	: INTEGER = 1	-- Literal instruction value
+	Src_memory_mode		: INTEGER = 2	-- From memory
 
-	Dst_register_mode: INTEGER is 0	-- To Register (default)
-	Dst_memory_mode	 : INTEGER is 1	-- To memory
+	Dst_register_mode: INTEGER = 0	-- To Register (default)
+	Dst_memory_mode	 : INTEGER = 1	-- To memory
 
-	Mem_none			 : INTEGER is 0		-- N/A: non memory access
-	Mem_abs				 : INTEGER is 1		-- Absolute memory address
-	Mem_register_indirect: INTEGER is 2		-- (reg)
-	Mem_register_offset	 : INTEGER is 3		-- offs(reg)
+	Mem_none			 : INTEGER = 0		-- N/A: non memory access
+	Mem_abs				 : INTEGER = 1		-- Absolute memory address
+	Mem_register_indirect: INTEGER = 2		-- (reg)
+	Mem_register_offset	 : INTEGER = 3		-- offs(reg)
 
 feature -- Opcodes
 
@@ -134,31 +134,31 @@ feature -- Address Modes
 
 feature -- ModRM
 
-	set_mod_rm_used is
+	set_mod_rm_used
 			-- Set ModRM byte marked as used by the instruction
 		do
 			rm_is_used := True
 		end
 	
-	m_mod: INTEGER is
+	m_mod: INTEGER
 			-- the mod bits of mod_rm
 		do
 			Result := mod_rm & 0xc0
 		end
 
-	m_reg: INTEGER is
+	m_reg: INTEGER
 			-- the reg field of mod_rm
 		do
 			Result := (mod_rm |>>> 3) & 0x07
 		end
 
-	m_rm: INTEGER is
+	m_rm: INTEGER
 			-- the r/m field of mod_rm
 		do
 			Result := mod_rm & 0x07
 		end
 
-	set_m_mod(i: INTEGER) is
+	set_m_mod(i: INTEGER)
 			-- assign the mod field of mod_rm
 		require
 			valid_mod_value: (i & (0xc0).bit_not) = 0
@@ -167,7 +167,7 @@ feature -- ModRM
 			set_mod_rm_used
 		end
 
-	set_m_reg(i: INTEGER) is
+	set_m_reg(i: INTEGER)
 			-- assign the reg field of mod_rm
 		require
 			valid_reg: (i & (0x07).bit_not) = 0
@@ -176,7 +176,7 @@ feature -- ModRM
 			set_mod_rm_used
 		end
 
-	set_m_rm(i: INTEGER) is
+	set_m_rm(i: INTEGER)
 			-- assign the r/m field of mod_rm
 		require
 			valid_reg: (i & (0x07).bit_not) = 0
@@ -187,31 +187,31 @@ feature -- ModRM
 
 feature -- SIB: Scale / Index / Base
 
-	set_sib_is_used is
+	set_sib_is_used
 			-- Mark the SIB byte as used in this instruction
 		do
 			sib_is_used := True
 		end
 
-	sib_scale: INTEGER is
+	sib_scale: INTEGER
 			-- The Scale value in the SIB byte
 		do
 			Result := sib & 0xc0
 		end
 
-	sib_index: INTEGER is
+	sib_index: INTEGER
 			-- The Index part of the SIB byte
 		do
 			Result := (sib |>>> 3) & 0x07
 		end
 
-	sib_base: INTEGER is
+	sib_base: INTEGER
 			-- The base part of the SIB byte
 		do
 			Result := sib & 0x07
 		end
 
-	set_sib_scale(i: INTEGER) is
+	set_sib_scale(i: INTEGER)
 			-- set the SIB scale field
 		require
 			valid_scale: (i & (0xc0).bit_not) = 0
@@ -220,7 +220,7 @@ feature -- SIB: Scale / Index / Base
 			set_sib_is_used
 		end
 
-	set_sib_index(i: INTEGER) is
+	set_sib_index(i: INTEGER)
 			-- Set the SIB index field
 		require
 			valid_index: (i & (0x0f).bit_not) = 0
@@ -229,7 +229,7 @@ feature -- SIB: Scale / Index / Base
 			set_sib_is_used
 		end
 
-	set_sib_base(i: INTEGER) is
+	set_sib_base(i: INTEGER)
 			-- Set the SIB scale field
 		require
 			valid_base: (i & (0x0f).bit_not) = 0
@@ -240,26 +240,26 @@ feature -- SIB: Scale / Index / Base
 
 feature -- Mode queries
 
-	src_is_memory: BOOLEAN is
+	src_is_memory: BOOLEAN
 		do
 			Result := source_mode = Src_memory_mode
 		end
 
-	dst_is_memory: BOOLEAN is
+	dst_is_memory: BOOLEAN
 		do
 			Result := destination_mode = Dst_memory_mode
 		end
 
 feature -- Address Displacement
 
-	set_displacement_32 (d: INTEGER_32) is
+	set_displacement_32 (d: INTEGER_32)
 			-- Set 32-bit address displacement
 		do
 			displacement_mode := Displacement_32
 			displacement := d
 		end
 
-	set_displacement_64 (d: INTEGER_64) is
+	set_displacement_64 (d: INTEGER_64)
 			-- Set 64-bit address displacement
 		do
 			displacement_mode := Displacement_64
@@ -268,7 +268,7 @@ feature -- Address Displacement
 
 feature -- Immediate value
 
-	set_immediate_8 (v: INTEGER) is
+	set_immediate_8 (v: INTEGER)
 			-- Set immediate 8-bit value
 		require
 			not_set: immediate_mode = Immediate_reset
@@ -277,7 +277,7 @@ feature -- Immediate value
 			immediate_mode := Immediate_8_bit
 		end
 
-	set_immediate_16 (v: INTEGER) is
+	set_immediate_16 (v: INTEGER)
 			-- Set immediate 16-bit value
 		require
 			not_set: immediate_mode = Immediate_reset
@@ -286,7 +286,7 @@ feature -- Immediate value
 			immediate_mode := Immediate_16_bit
 		end
 
-	set_immediate_32 (v: INTEGER) is
+	set_immediate_32 (v: INTEGER)
 			-- Set immediate 32-bit value
 		require
 			not_set: immediate_mode = Immediate_reset
@@ -301,13 +301,13 @@ feature -- Flags status processing
 			-- Set of status flags that are valid after
 			-- this instruction, for conditional testing
 
-	flags_modified: INTEGER is
+	flags_modified: INTEGER
 			-- The set of flags modified by this instruction
 		do
 		--	Result := 0
 		end
 
-	flags_undefined: INTEGER is
+	flags_undefined: INTEGER
 			-- Set of status flags that are undefined after
 			-- this instruction, (not) for conditional testing
 		do
@@ -316,7 +316,7 @@ feature -- Flags status processing
 
 feature -- Emit instruction encoding
 
-	x86_emit_code (mc: LLVM_MACHINE_CODE) is
+	x86_emit_code (mc: LLVM_MACHINE_CODE)
 			-- Commit the instruction to the output stream
 		require
 			is_valid: valid
@@ -357,7 +357,7 @@ feature -- Emit instruction encoding
 			end
 		end
 
-	x86_print_code is
+	x86_print_code
 			-- Print the instruction encoding
 		require
 			is_valid: valid
@@ -411,7 +411,7 @@ feature -- Display
 -- Display format, aligned:
 --
 
-	display_string: STRING is
+	display_string: STRING
 			-- Displayable text version of this instruction
 		do
 			Result := once "Undefined"
@@ -421,7 +421,7 @@ feature -- Display
 
 feature -- Reset
 
-	reset is
+	reset
 			-- Reset all instruction attributes to default
 		do
 			rm_is_used := False

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Objects that ..."
 	author: ""
 	date: "$Date: 2007-01-04 17:20:35 -0800 (Thu, 04 Jan 2007) $"
@@ -24,14 +24,14 @@ create
 
 feature -- Initialization
 
-	make (an_interface: like interface) is
+	make (an_interface: like interface)
 			-- Create an empty drawing area.
 		do
 			base_make (an_interface)
 			TODO_class_line ("__EV_BITMAP_IMP__", "make")
 		end
 
-	initialize is
+	initialize
 			-- Set up action sequence connections and create graphics context.
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "initialize")
@@ -42,13 +42,13 @@ feature -- Initialization
 
 feature -- Status Setting
 
-	set_size (a_width, a_height: INTEGER) is
+	set_size (a_width, a_height: INTEGER)
 			-- Set the size of the pixmap to `a_width' by `a_height'.
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "set_size")
 		end
 
-	clear_rectangle (a_x, a_y, a_width, a_height: INTEGER) is
+	clear_rectangle (a_x, a_y, a_width, a_height: INTEGER)
 			-- Erase rectangle specified with `background_color'.
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "clear_rectangle")
@@ -58,13 +58,13 @@ feature -- Status Setting
 
 feature -- Access
 
-	width: INTEGER is
+	width: INTEGER
 			-- Width in pixels of mask bitmap.
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "width")
 		end
 
-	height: INTEGER is
+	height: INTEGER
 			-- Width in pixels of mask bitmap.
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "height")
@@ -77,7 +77,7 @@ feature {EV_PIXMAP_IMP} -- Implementation
 
 feature {NONE} -- Implementation
 
-	app_implementation: EV_APPLICATION_IMP is
+	app_implementation: EV_APPLICATION_IMP
 			-- Access to application object implementation.
 		local
 			env: EV_ENVIRONMENT
@@ -89,19 +89,19 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	redraw is
+	redraw
 			-- Redraw the entire area.
 		do
 			-- Not needed for masking implementation.
 		end
 
-	set_default_colors is
+	set_default_colors
 			-- Set foreground and background color to their default values.
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "set_default_colors")
 		end
 
-	destroy is
+	destroy
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "destroy")
 			
@@ -112,7 +112,7 @@ feature {NONE} -- Implementation
 			set_is_destroyed (True)
 		end
 
-	dispose is
+	dispose
 			-- Cleanup
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "dispose")
@@ -122,17 +122,17 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	flush is
+	flush
 			-- Force all queued draw to be called.
 		do
 		end
 
-	update_if_needed is
+	update_if_needed
 			-- Update `Current' if needed.
 		do
 		end
 
-	mask: POINTER is
+	mask: POINTER
 		do
 			-- Not applicable
 		end

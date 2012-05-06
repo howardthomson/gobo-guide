@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 				For displayable widgets that can be selected in design mode,
 				provide for remembering the current selected status of this widget
@@ -11,14 +11,14 @@ feature
 
 	selected: BOOLEAN	-- Is this widget part of the current selected widget set?
 
-	selectable: BOOLEAN is
+	selectable: BOOLEAN
 			-- Is this a selectable object in design mode
 			-- Default True; redefine in Top/Root window
 		do
 			Result := True
 		end
 
-	set_selected(b: BOOLEAN) is
+	set_selected(b: BOOLEAN)
 		require
 			is_selectable: selectable
 		do

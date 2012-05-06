@@ -4,53 +4,53 @@ feature { NONE }
 
 	options: INTEGER
 
-	reset_options is
+	reset_options
 		do
 			options := 0
 		end
 
-	set_options (bits: INTEGER) is
+	set_options (bits: INTEGER)
 		do
 			options := options | bits
 		end
 
-	unset_options (bits: INTEGER) is
+	unset_options (bits: INTEGER)
 		do
 			options := options.bit_and (bits.bit_not)
 		end
 
-	set_options_mask (bits, mask: INTEGER) is
+	set_options_mask (bits, mask: INTEGER)
 		do
 			options := (options.bit_and (mask.bit_not)) | bits
 		end
 
-	mask_options (mask: INTEGER): INTEGER is
+	mask_options (mask: INTEGER): INTEGER
 		do
 			Result := options & mask
 		end
 
-	test_options (bits: INTEGER): BOOLEAN is
+	test_options (bits: INTEGER): BOOLEAN
 		do
 			Result := (options & bits) /= 0
 		end
 
-	is_default_options: BOOLEAN is
+	is_default_options: BOOLEAN
 		do
 			Result := options = default_options
 		end
 
-	default_options: INTEGER is
+	default_options: INTEGER
 			-- Redefine in descendants ...
 		do
 			Result := 0
 		end
 
-	new_options (arg, mask: INTEGER): INTEGER is
+	new_options (arg, mask: INTEGER): INTEGER
 		do
 			Result := (options & (mask).bit_not) | (arg & mask)
 		end
 
-	set_default_options is
+	set_default_options
 		do
 			options := default_options
 		end

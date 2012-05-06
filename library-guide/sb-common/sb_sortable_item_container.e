@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Container which supports sorting items"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -19,19 +19,19 @@ feature
 	items_sorter: SB_SORTER [ GT ];
 		-- Items sorter;
 
-	set_item_comparator(comp: like item_comparator) is
+	set_item_comparator(comp: like item_comparator)
 			-- Change item comparition object
 		do
 			item_comparator := comp;
 		end
 
-	set_items_sorter(sort: like items_sorter) is
+	set_items_sorter(sort: like items_sorter)
     		-- Change items sorting object
       	do
          	items_sorter := sort;
       	end
 
-   	sort_items is
+   	sort_items
          	-- Sort items using current comparator object
       	deferred
       	end

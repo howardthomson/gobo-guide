@@ -8,19 +8,19 @@ feature -- Comparision type
 
    type: INTEGER;
 
-   set_type(tp: INTEGER) is
+   set_type(tp: INTEGER)
       do
          type := tp;
       end
 
-   reverse is
+   reverse
       do
          type := -type;
       end
 
 feature -- Comparison routine
 
-   compare(a,b: SB_FILE_LIST_ITEM): INTEGER is
+   compare(a,b: SB_FILE_LIST_ITEM): INTEGER
       local
          t: INTEGER;
       do
@@ -46,7 +46,7 @@ feature -- Comparison routine
 
 feature -- None implementation
 
-   cmp_f_name(a,b: SB_FILE_LIST_ITEM): INTEGER is
+   cmp_f_name(a,b: SB_FILE_LIST_ITEM): INTEGER
          -- Compare file names
       local
          s1,s2: STRING;
@@ -80,7 +80,7 @@ feature -- None implementation
          end
       end
 
-   cmp_f_type(a,b: SB_FILE_LIST_ITEM): INTEGER is
+   cmp_f_type(a,b: SB_FILE_LIST_ITEM): INTEGER
          -- Compare file types
       local
          s1,s2: STRING;
@@ -140,7 +140,7 @@ feature -- None implementation
          end
       end
 
-   cmp_f_size(a,b: SB_FILE_LIST_ITEM): INTEGER is
+   cmp_f_size(a,b: SB_FILE_LIST_ITEM): INTEGER
          -- Compare file size
       local
          i,j,e1,e2: INTEGER;
@@ -154,7 +154,7 @@ feature -- None implementation
          end
       end
 
-   cmp_f_time(a,b: SB_FILE_LIST_ITEM): INTEGER is
+   cmp_f_time(a,b: SB_FILE_LIST_ITEM): INTEGER
          -- Compare file time
       local
          i,j,e1,e2: INTEGER;
@@ -168,7 +168,7 @@ feature -- None implementation
          end
       end
 
-   cmp_f_user(a,b: SB_FILE_LIST_ITEM): INTEGER is
+   cmp_f_user(a,b: SB_FILE_LIST_ITEM): INTEGER
          -- Compare file user
       local
          s1,s2: STRING;
@@ -230,7 +230,7 @@ feature -- None implementation
          end
       end
 
-   cmp_f_group(a,b: SB_FILE_LIST_ITEM): INTEGER is
+   cmp_f_group(a,b: SB_FILE_LIST_ITEM): INTEGER
          -- Compare file group
       local
          s1,s2: STRING;

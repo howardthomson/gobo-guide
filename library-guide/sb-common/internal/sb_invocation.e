@@ -1,4 +1,4 @@
-indexing
+note
 
 		description:"Modal loop invocation object"
 
@@ -9,13 +9,13 @@ indexing
 
 class SB_INVOCATION
 
-creation
+create
 
    make
 
 feature {SB_APPLICATION}
 
-	make (a_upper: SB_INVOCATION; a_mode: INTEGER; a_window: SB_WINDOW) is
+	make (a_upper: SB_INVOCATION; a_mode: INTEGER; a_window: SB_WINDOW)
 		do
 			upper := a_upper
 			modality := a_mode
@@ -32,17 +32,17 @@ feature
 
 feature { SB_APPLICATION_DEF, SB_RAW_EVENT_DEF }
 
-   set_done is
+   set_done
       do
          done := True
       end
 
-   set_code(a_code: INTEGER) is
+   set_code(a_code: INTEGER)
       do
          code := a_code
       end
 
-	ev: SB_RAW_EVENT is
+	ev: SB_RAW_EVENT
 		do
 			if inv_ev = Void then
 				create inv_ev.make

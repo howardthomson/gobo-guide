@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Main application window"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -22,27 +22,27 @@ create
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_MAIN_WINDOW"
 		end
 
 feature -- Creation
 
-	make (a: SB_APPLICATION; name: STRING) is
+	make (a: SB_APPLICATION; name: STRING)
     	do
         	make_opts (a, name, Void, Void, Decor_all, 0,0,0,0, 0,0,0,0, 0,0);
       	end
 
 	make_opts (a: SB_APPLICATION; name: STRING; ic, mi: SB_ICON; opts: INTEGER;
-                        x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER) is
+                        x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER)
     	do
         	make_top (a, name, ic, mi, opts, x,y,w,h, pl,pr,pt,pb, hs,vs)
       	end
       
 feature -- Queries
 
-	main_windows_number: INTEGER is
+	main_windows_number: INTEGER
 			-- count of main windows
     	local
         	win: SB_WINDOW
@@ -63,7 +63,7 @@ feature -- Queries
 
 feature -- Message Processing
 
-	on_cmd_close (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_close (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 			-- Unless target catches it, close down the app
 		do
 			fx_trace(0, <<"SB_MAIN_WINDOW::on_close -- routine entry">>)

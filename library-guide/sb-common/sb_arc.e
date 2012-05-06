@@ -1,4 +1,4 @@
-indexing
+note
 	description:"The Arc object"
 
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"

@@ -11,7 +11,7 @@
 
 class CHANGE
 
-creation
+create
 	make
 
 feature
@@ -34,7 +34,7 @@ feature
 -- If DELETED is 0 then LINE0 is the number of the line before
 -- which the insertion was done; vice versa for INSERTED and LINE1.
 
-	make(a_line0, a_line1, a_deleted, a_inserted: INTEGER; old_link: CHANGE) is
+	make(a_line0, a_line1, a_deleted, a_inserted: INTEGER; old_link: CHANGE)
 		do
 			line0 := a_line0
 			line1 := a_line1

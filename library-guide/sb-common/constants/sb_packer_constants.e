@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_PACKER constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -12,6 +12,6 @@ inherit
 
 feature -- Constants
 
-	DEFAULT_SPACING: INTEGER is 4;
+	DEFAULT_SPACING: INTEGER = 4;
 
 end

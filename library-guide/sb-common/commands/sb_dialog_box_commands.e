@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_DIALOG_BOX commands"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -16,10 +16,10 @@ inherit
 
 feature
 
-	ID_CANCEL: INTEGER is once Result := TOP_WINDOW_ID_LAST + 0 end
+	ID_CANCEL: INTEGER once Result := TOP_WINDOW_ID_LAST + 0 end
 		-- Closes the dialog, cancel the entry
-	ID_ACCEPT: INTEGER is once Result := TOP_WINDOW_ID_LAST + 1 end
+	ID_ACCEPT: INTEGER once Result := TOP_WINDOW_ID_LAST + 1 end
 		-- Closes the dialog, accept the entry
-	Id_last  : INTEGER is once Result := TOP_WINDOW_ID_LAST + 3 end
+	Id_last  : INTEGER once Result := TOP_WINDOW_ID_LAST + 3 end
 
 end

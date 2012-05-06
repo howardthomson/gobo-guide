@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Cursor position and mouse buttons state"
 
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
@@ -14,13 +14,13 @@ inherit
         	make as make_point
       	end
 
-creation
+create
 
 	make
 
 feature -- Creation
 
-	make (x_, y_: INTEGER; buttons_: INTEGER) is
+	make (x_, y_: INTEGER; buttons_: INTEGER)
 		do
 			make_point(x_, y_)
 			buttons := buttons_;

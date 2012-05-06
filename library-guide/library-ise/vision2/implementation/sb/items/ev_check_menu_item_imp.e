@@ -1,4 +1,4 @@
-indexing
+note
 	description: "EiffelVision check menu. GTK+ implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -34,7 +34,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	make (an_interface: like interface)
 			-- Create a menu.
 		do
 			base_make (an_interface)
@@ -45,7 +45,7 @@ feature {NONE} -- Initialization
 
 feature -- Status report
 
-	is_selected: BOOLEAN is
+	is_selected: BOOLEAN
 			-- Is this menu item checked?
 		do
 --#			Result := {EV_GTK_EXTERNALS}.gtk_check_menu_item_struct_active (c_object).to_boolean
@@ -53,7 +53,7 @@ feature -- Status report
 
 feature -- Status setting
 
-	enable_select is
+	enable_select
 			-- Select this menu item.
 		do
 			if not is_selected then
@@ -63,7 +63,7 @@ feature -- Status setting
 			end
 		end
 
-	disable_select is
+	disable_select
 			-- Deselect this menu item.
 		do
 			if is_selected then
@@ -75,7 +75,7 @@ feature -- Status setting
 
 feature {NONE} -- Implementation
 
-	on_activate is
+	on_activate
 			-- `Current' has been activated.
 		do
 			if not ignore_select_actions then
@@ -90,7 +90,7 @@ feature {NONE} -- Implementation
 
 	interface: EV_CHECK_MENU_ITEM;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

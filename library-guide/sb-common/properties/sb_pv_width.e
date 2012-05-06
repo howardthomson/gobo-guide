@@ -18,24 +18,24 @@ feature
 
 	width_sb: INTEGER
 
-	set_width (a_width: like width) is
+	set_width (a_width: like width)
 		do
 			width_sb := a_width.max (minimum_width_sb)
 		end
 
-	set_minimum_width (a_width: like minimum_width) is
+	set_minimum_width (a_width: like minimum_width)
 		do
 			Precursor (a_width)
 			width_sb := width_sb.max (minimum_width)
 		end
 
-	once_property_width: SB_PROPERTY_WIDTH is
+	once_property_width: SB_PROPERTY_WIDTH
 		once
 			create Result
 --			once_properties.add_last (Result)
 		end
 
-	add_property_width is
+	add_property_width
 		local
 			p: SB_PROPERTY_WIDTH
 		do

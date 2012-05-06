@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Status bar"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -23,30 +23,30 @@ inherit
 
 	SB_STATUS_BAR_CONSTANTS
 
-creation
+create
 
 	make, make_sb, make_opts
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_STATUS_BAR"
 		end
 
 feature -- Creation
 
-	make(p: SB_COMPOSITE) is
+	make(p: SB_COMPOSITE)
 		do
 			make_sb(p, 0)
 		end
 
-	make_sb(p: SB_COMPOSITE; opts: INTEGER) is
+	make_sb(p: SB_COMPOSITE; opts: INTEGER)
     	do
         	make_opts(p, opts, 0,0,0,0, 3,3,2,2, 4,0);
       	end
 
-	make_opts(p: SB_COMPOSITE; opts: INTEGER; x, y, w, h, pl, pr, pt, pb, hs, vs: INTEGER) is
+	make_opts(p: SB_COMPOSITE; opts: INTEGER; x, y, w, h, pl, pr, pt, pb, hs, vs: INTEGER)
 		do
 			Precursor(p, opts,  x,y,w,h,  pl,pr,pt,pb,  hs,vs);
         	create drag_corner.make(Current);
@@ -60,7 +60,7 @@ feature -- Data
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
     		-- Return default width
       	local
 			w, wcum, numc: INTEGER;
@@ -91,7 +91,7 @@ feature -- Queries
 			Result := pad_left + pad_right + wcum + (border * 2);
 		end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       local
          h, hmax: INTEGER;
@@ -121,7 +121,7 @@ feature -- Queries
          Result := h + (border * 2);
       end
 
-   get_corner_style: BOOLEAN is
+   get_corner_style: BOOLEAN
          -- Return True if drag drag_corner is_shown
       do
          Result := (options & STATUSBAR_WITH_DRAGCORNER) /= Zero
@@ -129,7 +129,7 @@ feature -- Queries
 
 feature -- Actions
 
-   set_corner_style (withcorner: BOOLEAN) is
+   set_corner_style (withcorner: BOOLEAN)
          -- Show or hide the drag drag_corner
       local
          opts: INTEGER
@@ -148,7 +148,7 @@ feature -- Actions
 
 feature {NONE} -- Implementation
 
-   layout is
+   layout
       local
          left,right,top,bottom: INTEGER
          remain,extra_space,total_space,t: INTEGER

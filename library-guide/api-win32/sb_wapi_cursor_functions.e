@@ -2,7 +2,7 @@ expanded class SB_WAPI_CURSOR_FUNCTIONS
 
 feature -- Access
 
-   GetCursor: POINTER is
+   GetCursor: POINTER
          -- The 'GetCursor' function retrieves the handle of the current cursor.
 
 
@@ -18,7 +18,7 @@ feature -- Access
 
       end
 
-   SetCursor (hcur: POINTER): POINTER is
+   SetCursor (hcur: POINTER): POINTER
          -- The 'SetCursor' function establishes the cursor shape.
 
 
@@ -34,7 +34,7 @@ feature -- Access
 
       end
 
-   ShowCursor (bShow: INTEGER): INTEGER is
+   ShowCursor (bShow: INTEGER): INTEGER
          -- The 'ShowCursor' function displays or hides the cursor.
 
 
@@ -50,7 +50,7 @@ feature -- Access
 
       end
 
-   DestroyCursor (hCursor: POINTER): INTEGER is
+   DestroyCursor (hCursor: POINTER): INTEGER
 
 
 
@@ -65,7 +65,7 @@ feature -- Access
 
       end
 
-   GetCursorPos (lpPoint: POINTER): INTEGER is
+   GetCursorPos (lpPoint: POINTER): INTEGER
 
 
 
@@ -80,7 +80,7 @@ feature -- Access
 
       end
 
-   LoadCursor (hInst: POINTER; lpszCursor: POINTER): POINTER is
+   LoadCursor (hInst: POINTER; lpszCursor: POINTER): POINTER
 
 
 
@@ -95,7 +95,7 @@ feature -- Access
 
       end
 
-   SetCursorPos (X, Y: INTEGER) : INTEGER is
+   SetCursorPos (X, Y: INTEGER) : INTEGER
 
 
 

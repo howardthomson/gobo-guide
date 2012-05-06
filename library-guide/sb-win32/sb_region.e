@@ -1,4 +1,4 @@
-indexing
+note
    description: "Region"
    author: "Eugene Melekhov <eugene_melekhov@mail.ru>"
    copyright: "Copyright (c) 2002, Eugene Melekhov and others"
@@ -38,25 +38,25 @@ inherit
          is_equal
       end
 
-creation
+create
 
    make_empty, make, make_from_region, make_from_points
 
 feature -- Creation
 
-   make_empty is
+   make_empty
          -- Construct new empty region
       do
          region := CreateRectRgn(0,0,0,0);
       end
 
-   make(x, y, w, h: INTEGER) is
+   make(x, y, w, h: INTEGER)
          -- Construct rectangle region
       do
          region := CreateRectRgn(x,y,x+w,y+h);
       end
 
-   make_from_region(r: SB_REGION) is
+   make_from_region(r: SB_REGION)
          -- Construct new region copied from region r
       local
          t: INTEGER;
@@ -67,7 +67,7 @@ feature -- Creation
          t := CombineRgn(region,r.region,region,RGN_COPY);
       end
 
-   make_from_points(points: ARRAY[SB_POINT]; winding_: BOOLEAN) is
+   make_from_points(points: ARRAY[SB_POINT]; winding_: BOOLEAN)
          -- Construct polygon region
       require
          points /= Void and then not points.is_empty
@@ -77,8 +77,8 @@ feature -- Creation
          a: ARRAY [ SB_WAPI_POINT ];
          wapi_dcf: SB_WAPI_DEVICE_CONTEXT_FUNCTIONS;
       do
-         from
-            !!a.make(1,0)
+         from 
+            create a.make(1,0)
             i := points.lower;
             e := points.upper
          until
@@ -102,19 +102,19 @@ feature -- Creation
 
 feature -- Queries
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
          -- Return TRUE if region is empty
       do
          Result := OffsetRgn(region, 0, 0) = NULLREGION;
       end
 
-   contains_point(x, y: INTEGER): BOOLEAN is
+   contains_point(x, y: INTEGER): BOOLEAN
          -- Return TRUE if region contains point
       do
          Result := region /= default_pointer and then PtInRegion(region, x, y) /= 0;
       end
 
-   contains_rectangle(x, y, w, h: INTEGER): BOOLEAN is
+   contains_rectangle(x, y, w, h: INTEGER): BOOLEAN
          -- Return TRUE if region contains rectangle
       local
          rect: SB_WAPI_RECT;
@@ -126,7 +126,7 @@ feature -- Queries
          Result := region /= default_pointer and then RectInRegion(region, rect.ptr) /= 0;
       end
 
-	bounds(r: SB_RECTANGLE) is
+	bounds(r: SB_RECTANGLE)
     		-- sets r to bounding box
     	require
 		--	r /= Void
@@ -141,7 +141,7 @@ feature -- Queries
          	r.set_h(rect.bottom - rect.top);
       	end
 
-   is_equal (r: like Current): BOOLEAN is
+   is_equal (r: like Current): BOOLEAN
       do
          if r /= Void then
             Result := EqualRgn(region, r.region) /= 0;
@@ -150,7 +150,7 @@ feature -- Queries
 
 feature -- Actions
 
-   offset(dx, dy: INTEGER) is
+   offset(dx, dy: INTEGER)
          -- Offset region by dx,dy
       local
          t: INTEGER;
@@ -158,7 +158,7 @@ feature -- Actions
          t := OffsetRgn(region,dx,dy);
       end
 
-   union(r: SB_REGION) is
+   union(r: SB_REGION)
          -- Union region r with this one
       require
          r /= Void
@@ -168,7 +168,7 @@ feature -- Actions
          t := CombineRgn(region, region, r.region, RGN_OR);
       end
 
-   intersect(r: SB_REGION) is
+   intersect(r: SB_REGION)
          -- Intersect region r with this one
       require
          r /= Void
@@ -178,7 +178,7 @@ feature -- Actions
          t := CombineRgn(region, region, r.region, RGN_AND);
       end
 
-   substract(r: SB_REGION) is
+   substract(r: SB_REGION)
          -- Substract region r from this one
       require
          r /= Void
@@ -188,7 +188,7 @@ feature -- Actions
          t := CombineRgn(region, region, r.region, RGN_DIFF);
       end
 
-   do_xor(r: SB_REGION) is
+   do_xor(r: SB_REGION)
          -- Xor region r with this one
       require
          r /= Void
@@ -198,53 +198,53 @@ feature -- Actions
          t := CombineRgn(region, region, r.region, RGN_XOR);
       end
 
-   infix "+" (other: like Current): like Current is
+   infix "+" (other: like Current): like Current
          -- Union of Current  and other
       require
          other /= Void
       local
          t: INTEGER
-      do
-         !!Result.make_empty;
+      do 
+         create Result.make_empty;
          t := CombineRgn(Result.region, region, other.region, RGN_OR);
       end
 
-   infix "*" (other: like Current): like Current is
+   infix "*" (other: like Current): like Current
          -- Intersection of Current  and other
       require
          other /= Void
       local
          t: INTEGER
-      do
-         !!Result.make_empty;
+      do 
+         create Result.make_empty;
          t := CombineRgn(Result.region, region, other.region, RGN_AND);
       end
 
-   infix "-" (other: like Current): like Current is
+   infix "-" (other: like Current): like Current
          -- Substract other from Current
       require
          other /= Void
       local
          t: INTEGER;
-      do
-         !!Result.make_empty;
+      do 
+         create Result.make_empty;
          t := CombineRgn(Result.region, region, other.region, RGN_DIFF);
       end
 
-   infix "^" (other: like Current): like Current is
+   infix "^" (other: like Current): like Current
          -- Xor of Current and other
       require
          other /= Void
       local
          t: INTEGER;
-      do
-         !!Result.make_empty;
+      do 
+         create Result.make_empty;
          t := CombineRgn(Result.region, region, other.region, RGN_XOR);
       end
 
 feature -- 
 
-   dispose is
+   dispose
          -- Destroy region
       local
          t: INTEGER;

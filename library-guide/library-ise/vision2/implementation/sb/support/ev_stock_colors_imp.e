@@ -10,13 +10,13 @@ class
 
 feature -- Access
 
-	default_background_color, Color_dialog, Color_3d_face, Color_read_only, Color_read_write: EV_COLOR is
+	default_background_color, Color_dialog, Color_3d_face, Color_read_only, Color_read_write: EV_COLOR
 			-- Color usely used for the background of dialogs
 		do
 --			Result := color_from_state (bg_style, {EV_GTK_EXTERNALS}.gtk_state_normal_enum)
 		end
 
-	default_foreground_color, Color_dialog_fg, Color_3d_highlight, Color_3d_shadow: EV_COLOR is
+	default_foreground_color, Color_dialog_fg, Color_3d_highlight, Color_3d_shadow: EV_COLOR
 			-- Color usely used for the foreground of dialogs
 		do
 --			Result := color_from_state (fg_style, {EV_GTK_EXTERNALS}.gtk_state_normal_enum)
@@ -24,7 +24,7 @@ feature -- Access
 
 feature {NONE} -- Implementation
 
-	color_from_state (style_type, a_state: INTEGER): EV_COLOR is
+	color_from_state (style_type, a_state: INTEGER): EV_COLOR
 			-- Return color of either fg or bg representing `a_state'
 		require
 --			a_state_valid: a_state >= {EV_GTK_EXTERNALS}.gtk_state_normal_enum and a_state <= {EV_GTK_EXTERNALS}.gtk_state_insensitive_enum
@@ -58,13 +58,13 @@ feature {NONE} -- Implementation
 			Result.set_rgb_with_16_bit (a_r, a_g, a_b)
 		end
 
-	text_style: INTEGER is 1
-	base_style: INTEGER is 2
-	fg_style: INTEGER is 3
-	bg_style: INTEGER is 4;
+	text_style: INTEGER = 1
+	base_style: INTEGER = 2
+	fg_style: INTEGER = 3
+	bg_style: INTEGER = 4;
 		-- Different coloring styles used in gtk.
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

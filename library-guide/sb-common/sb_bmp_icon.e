@@ -1,4 +1,4 @@
-indexing
+note
 	description:"BMP Icon"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -18,20 +18,20 @@ inherit
 			save_pixels
 		end
 
-creation
+create
 
 	make,
 	make_opts
 
 feature -- Creation
 
-	make(a: SB_APPLICATION; pix: ARRAY[INTEGER_8]) is
+	make(a: SB_APPLICATION; pix: ARRAY[INTEGER_8])
 			-- Construct icon from memory stream formatted in Microsoft BMP format
 		do
 			make_opts(a, pix, sbrgb(192,192,192), Zero, 1,1);
 		end
 
-	make_opts(a: SB_APPLICATION; pix: ARRAY[INTEGER_8]; clr: INTEGER; opts: INTEGER; w,h: INTEGER) is
+	make_opts(a: SB_APPLICATION; pix: ARRAY[INTEGER_8]; clr: INTEGER; opts: INTEGER; w,h: INTEGER)
 			-- Construct icon from memory stream formatted in Microsoft BMP format
 		local
 			ms: SB_BIT8_STREAM;
@@ -47,14 +47,14 @@ feature -- Creation
          	end
       	end
 
-   	save_pixels(store: SB_STREAM) is
+   	save_pixels(store: SB_STREAM)
          	-- Save pixels into stream formatted in Microsoft BMP format
       	do
          	-- TODO: Implement
       	end
 
 
-   	load_pixels(store: SB_STREAM) is
+   	load_pixels(store: SB_STREAM)
          	-- Load pixels from stream formatted in Microsoft BMP format
       	local
          	clearcolor: INTEGER;

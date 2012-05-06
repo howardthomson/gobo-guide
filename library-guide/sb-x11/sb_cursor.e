@@ -14,7 +14,7 @@ inherit
 
 	X_H
 	
-creation
+create
 	make_from_stock,
 	make_from_bits,
 	make_from_bitmap
@@ -25,7 +25,7 @@ feature
 
 	xid: X_CURSOR
 	
-	stock: ARRAY [ INTEGER ] is
+	stock: ARRAY [ INTEGER ]
 		once
 			create Result.make (1, 7)
 			Result.put (XC_top_left_arrow,	  1)
@@ -38,7 +38,7 @@ feature
 			--	XC_fleur
 		end
 
-	create_resource is
+	create_resource
 			-- Create cursor
 		require else
 			application.initialized or else fxerror("" + "SB_CURSOR" + "::create: trying to create cursor before opening display.%N")
@@ -99,7 +99,7 @@ feature
 			end
 		end
 
-	destroy_resource is
+	destroy_resource
 		do
 			xid.free
 		end

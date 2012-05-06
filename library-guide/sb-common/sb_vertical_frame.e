@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Vertical frame layout manager widget is used to
 		automatically place child-windows vertically from top-to-bottom,

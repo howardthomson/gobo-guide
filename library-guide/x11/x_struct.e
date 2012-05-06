@@ -1,4 +1,4 @@
-indexing
+note
 
 		description: "X11 C Structure"
 
@@ -25,7 +25,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- allocate a new object
 		do
 			create mp.make (size)
@@ -33,7 +33,7 @@ feature {NONE} -- Initialization
 
 feature {SB_RAW_EVENT}
 
-	from_x_struct (other: X_STRUCT) is
+	from_x_struct (other: X_STRUCT)
 			-- Initialize `Current'
 		require
 			other_not_void: other /= Void
@@ -43,7 +43,7 @@ feature {SB_RAW_EVENT}
 
 feature {X_VISUAL, X_WM_HINTS, X_ANY_EVENT, X_FONT_STRUCT, X_CLASS_HINT}
 
-	from_external (p: POINTER) is
+	from_external (p: POINTER)
 		do
 			create mp.make_from_pointer (p, size)
 		end
@@ -66,9 +66,9 @@ feature -- Consultation
 
 feature {NONE} -- Debug, GC collection tracing
 
-	enable_dispose_reporting: BOOLEAN is False
+	enable_dispose_reporting: BOOLEAN = False
 	
-	dispose is
+	dispose
 		do
 			if enable_dispose_reporting then
 				print (once "Disposing instance of: ")

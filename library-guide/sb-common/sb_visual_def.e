@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Visual describes pixel format of a drawable"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -21,12 +21,12 @@ inherit
 
 feature { NONE } -- Creation
 
-	make (a_app: SB_APPLICATION; a_flags: INTEGER) is
+	make (a_app: SB_APPLICATION; a_flags: INTEGER)
 		do
 			make_with_depth (a_app, a_flags, 32)
 		end
 
-	make_with_depth (a_app: SB_APPLICATION; a_flags: INTEGER; a_depth_hint: INTEGER) is
+	make_with_depth (a_app: SB_APPLICATION; a_flags: INTEGER; a_depth_hint: INTEGER)
 		do
 			init
 			flags := a_flags
@@ -36,13 +36,13 @@ feature { NONE } -- Creation
 			make_imp
 		end
 
-	make_imp is
+	make_imp
 		deferred
 		end
 
 feature
 
-	create_resource is
+	create_resource
 			-- Create resource
 		do
 --print ("Create resource in SB_VISUAL_DEF%N")
@@ -53,11 +53,11 @@ feature
 			end
 		end
 
-	create_resource_imp is
+	create_resource_imp
 		deferred
 		end
 
-   destroy_resource is
+   destroy_resource
          -- Destroy resource
       do
          if is_attached then
@@ -68,13 +68,13 @@ feature
          end
       end
 
-	destroy_resource_imp is
+	destroy_resource_imp
 		deferred
 		end
 
 feature
 
-   set_max_colors (maxcols : INTEGER) is
+   set_max_colors (maxcols : INTEGER)
          -- Set maximum number of colors to allocate
       do
          if maxcols < 2 then
@@ -86,7 +86,7 @@ feature
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          destroy_resource
          Precursor

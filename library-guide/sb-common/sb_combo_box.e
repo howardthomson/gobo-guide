@@ -1,4 +1,4 @@
-indexing
+note
 	description: "ComboBox control"
 
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
@@ -50,7 +50,7 @@ inherit
 
    	SB_SCROLL_AREA_CONSTANTS
 
-creation
+create
 
    	make, make_sb, make_opts
 
@@ -63,26 +63,26 @@ feature -- Attributes
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_COMBO_BOX"
 		end
 
 feature -- Creation
 
-	make(p: SB_COMPOSITE) is
+	make(p: SB_COMPOSITE)
 		do
 			make_sb(p, 10, 10, Zero)
 		end
 
-   	make_sb(p: SB_COMPOSITE; cols, nvis: INTEGER; opts: INTEGER) is
+   	make_sb(p: SB_COMPOSITE; cols, nvis: INTEGER; opts: INTEGER)
          	-- Construct a combo box
       	do
          	make_opts(p, cols, nvis, Void, 0, opts, 0,0,0,0, DEFAULT_PAD, DEFAULT_PAD, DEFAULT_PAD, DEFAULT_PAD)
       	end
 
    	make_opts(p: SB_COMPOSITE; cols, nvis: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER;
-					x,y,w,h, pl,pr,pt,pb: INTEGER) is
+					x,y,w,h, pl,pr,pt,pb: INTEGER)
          		-- Construct a combo box
       	do
          	packer_make_opts(p, opts, x,y,w,h, 0,0,0,0, 0,0)
@@ -104,7 +104,7 @@ feature -- Creation
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
 			-- Return default width
 		do
 
@@ -116,128 +116,128 @@ feature -- Queries
 					+ (text_field.default_width.max(pane.default_width))
 		end
 
-	default_height: INTEGER is
+	default_height: INTEGER
 			-- Return default height
 		do
 			Result := (text_field.default_height).max (button.default_height) + (border * 2)
 		end
 
-	is_editable: BOOLEAN is
+	is_editable: BOOLEAN
 			-- Return true if combobox is editable
 		do
 			Result := text_field.is_editable
 		end
 
-	columns_count: INTEGER is
+	columns_count: INTEGER
 			-- Get the number of columns
 		do
 			Result := text_field.columns_count
 		end
 
-	items_count: INTEGER is
+	items_count: INTEGER
     		-- Return the number of items in the list
 		do
 			Result := list.items_count
 		end
 
-   	visible_rows: INTEGER is
+   	visible_rows: INTEGER
     		-- Return the number of visible items
       	do
          	Result := list.visible_rows
       	end
 
-	is_item_current(index: INTEGER): BOOLEAN is
+	is_item_current(index: INTEGER): BOOLEAN
     		-- Return true if current item
       	do
          	Result := list.is_item_current(index)
       	end
   
-	is_pane_shown: BOOLEAN is
+	is_pane_shown: BOOLEAN
     		-- Is the pane shown
       	do
          	Result := pane.is_shown
       	end
 
-   get_combo_style: INTEGER is
+   get_combo_style: INTEGER
          -- Get the combobox style.
       do
          Result := (options & COMBOBOX_MASK)
       end
 
-   text_font: SB_FONT is
+   text_font: SB_FONT
          -- Get text font
       do
          Result := text_field.text_font
       end
 
-   text_color: INTEGER is
+   text_color: INTEGER
          -- Return text color
       do
          Result := text_field.text_color
       end
 
-   back_color: INTEGER is
+   back_color: INTEGER
          -- Get background color
       do
          Result := text_field.sel_back_color
       end
 
-   sel_text_color: INTEGER is
+   sel_text_color: INTEGER
          -- Return selected text color
       do
          Result := text_field.sel_text_color
       end
 
-   sel_back_color: INTEGER is
+   sel_back_color: INTEGER
          -- Return selected background color
       do
          Result := text_field.sel_back_color
       end
 
-   item_comparator: SB_COMPARATOR[SB_LIST_ITEM] is
+   item_comparator: SB_COMPARATOR[SB_LIST_ITEM]
          -- Item sort function
       do
 --#         Result := list.item_comparator
       end
 
-   help_text: STRING is
+   help_text: STRING
          -- Get the combobox help text
       do
          Result := text_field.help_text
       end
 
-   tip_text: STRING is
+   tip_text: STRING
          -- Get the tool tip message for Current combobox
       do
          Result := text_field.tip_text
       end
 
-   text: STRING is
+   text: STRING
          -- Get the text
       do
          Result := text_field.contents
       end
 
-   	current_item: INTEGER is
+   	current_item: INTEGER
          	-- Get the current item's index
       	do
          	Result := list.current_item
       	end
 
-	find_item(txt: STRING): INTEGER is
+	find_item(txt: STRING): INTEGER
          	-- Search items for item by name, starting from first item case insensitiv.
       	do
          	Result := list.find_item_by_name (txt)
       	end
 
-   	find_item_opt(txt: STRING; start: INTEGER; flgs: INTEGER): INTEGER is
+   	find_item_opt(txt: STRING; start: INTEGER; flgs: INTEGER): INTEGER
          	-- Search items for item by name, starting from start item; the
          	-- flags argument controls the search direction, and case sensitivity.
       	do
          	Result := list.find_item_by_name_opts (txt, start, flgs)
       	end
 
-   	item (index: INTEGER): STRING is
+   	item (index: INTEGER): STRING
          	-- Return the item at the given index
       	require
          	index > 0 and then index <= items_count
@@ -245,7 +245,7 @@ feature -- Queries
          	Result := list.item (index).label
       	end
 
-   	item_text (index: INTEGER): STRING is
+   	item_text (index: INTEGER): STRING
          	-- Get text for specified item
       	require
          	index > 0 and then index <= items_count
@@ -253,7 +253,7 @@ feature -- Queries
          	Result := list.item (index).label
 		end
 
-	item_data (index: INTEGER): ANY is
+	item_data (index: INTEGER): ANY
 			-- Get data pointer for specified item
       	require
          	index > 0 and then index < items_count
@@ -263,7 +263,7 @@ feature -- Queries
 
 feature -- Actions
 
-   enable is
+   enable
          -- Enable combo box
       do
          if (flags & Flag_enabled) = Zero then
@@ -273,7 +273,7 @@ feature -- Actions
          end
       end
 
-   disable is
+   disable
          -- Disable combo box
       do
          if (flags & Flag_enabled) /= Zero then
@@ -283,31 +283,31 @@ feature -- Actions
          end
       end
 
-   set_editable (edit: BOOLEAN) is
+   set_editable (edit: BOOLEAN)
          -- Set editable state
       do
          text_field.set_editable (edit)
       end
 
-   set_text (txt: STRING) is
+   set_text (txt: STRING)
          -- Set the text
       do
          text_field.set_text (txt)
       end
 
-   set_columns_count (cols: INTEGER) is
+   set_columns_count (cols: INTEGER)
          -- Set the number of columns
       do
          text_field.set_columns_count (cols)
       end
 
-   set_visible_rows (nvis: INTEGER) is
+   set_visible_rows (nvis: INTEGER)
          -- Set the number of visible items
       do
          list.set_visible_rows (nvis)
       end
 
-   set_current_item (index: INTEGER) is
+   set_current_item (index: INTEGER)
          -- Set the current item (index is Zero-based)
       do
          list.set_current_item (index, False)
@@ -318,7 +318,7 @@ feature -- Actions
          end
       end
 
-   replace_item (index: INTEGER; txt: STRING; data: ANY) is
+   replace_item (index: INTEGER; txt: STRING; data: ANY)
          -- Replace the item at index
       do
          list.replace_item_with_new (index, txt, Void, data, False)
@@ -328,7 +328,7 @@ feature -- Actions
          recalc
       end
 
-   insert_item (index: INTEGER; txt: STRING; data: ANY) is
+   insert_item (index: INTEGER; txt: STRING; data: ANY)
          -- Insert a new item at index
       do
          list.insert_new_item (index, txt, Void, data, False)
@@ -338,7 +338,7 @@ feature -- Actions
          recalc
       end
 
-   append_item (txt: STRING;data: ANY) is
+   append_item (txt: STRING;data: ANY)
          -- Append an item to the list
       do
          list.append_new_item (txt, Void, data, False)
@@ -348,7 +348,7 @@ feature -- Actions
          recalc
       end
 
-   prepend_item (txt: STRING; data: ANY) is
+   prepend_item (txt: STRING; data: ANY)
          -- Prepend an item to the list
       do
          list.prepend_new_item (txt, Void, data, False)
@@ -358,7 +358,7 @@ feature -- Actions
          recalc
       end
 
-   move_item (newindex,oldindex: INTEGER) is
+   move_item (newindex,oldindex: INTEGER)
          -- Move item from oldindex to newindex
       local
          cur: INTEGER
@@ -376,7 +376,7 @@ feature -- Actions
          recalc
       end
 
-   remove_item (index: INTEGER) is
+   remove_item (index: INTEGER)
          -- Remove this item from the list
       local
          cur: INTEGER
@@ -394,7 +394,7 @@ feature -- Actions
          recalc
       end
 
-   clear_items is
+   clear_items
          -- Remove all items from the list
       do
          text_field.set_text ("")
@@ -403,7 +403,7 @@ feature -- Actions
       end
 
 
-   set_item_text(index: INTEGER; txt: STRING) is
+   set_item_text(index: INTEGER; txt: STRING)
          -- Set text for specified item
       do
          if is_item_current (index) then set_text (txt) end
@@ -411,19 +411,19 @@ feature -- Actions
          recalc
       end
 
-   set_item_data(index: INTEGER; data: ANY) is
+   set_item_data(index: INTEGER; data: ANY)
          -- Set data pointer for specified item
       do
          list.set_item_data (index, data)
       end
 
-   sort_items is
+   sort_items
          -- Sort items using current sort function
       do
          list.sort_items
       end
 
-   set_text_font(fnt: SB_FONT) is
+   set_text_font(fnt: SB_FONT)
          -- Set text font
       require
          fnt /= Void
@@ -433,7 +433,7 @@ feature -- Actions
          recalc
       end
 
-   set_combo_style (mode: INTEGER) is
+   set_combo_style (mode: INTEGER)
          -- Set the combobox style.
       local
          opts: INTEGER
@@ -452,47 +452,47 @@ feature -- Actions
          end
       end
 
-   set_back_color (clr: INTEGER) is
+   set_back_color (clr: INTEGER)
          -- Set window background color
       do
          text_field.set_back_color (clr)
          list.set_back_color (clr)
       end
 
-   set_text_color (clr: INTEGER) is
+   set_text_color (clr: INTEGER)
          -- Change text color
       do
          text_field.set_text_color (clr)
          list.set_text_color (clr)
       end
 
-   set_sel_back_color (clr: INTEGER) is
+   set_sel_back_color (clr: INTEGER)
          -- Change selected background color
       do
          text_field.set_sel_back_color (clr)
          list.set_sel_back_color (clr)
       end
 
-   set_sel_text_color (clr: INTEGER) is
+   set_sel_text_color (clr: INTEGER)
          -- Change selected text color
       do
          text_field.set_sel_text_color (clr)
          list.set_sel_text_color (clr)
       end
 
-   set_item_comparator (comp: like item_comparator) is
+   set_item_comparator (comp: like item_comparator)
          -- Change sort function
       do
 --#         list.set_item_comparator (comp)
       end
 
-   set_help_text (txt: STRING) is
+   set_help_text (txt: STRING)
          -- Set the combobox help text
       do
          text_field.set_help_text (txt)
       end
 
-   set_tip_text (txt: STRING) is
+   set_tip_text (txt: STRING)
          -- Set the tool tip message for this combobox
       do
          text_field.set_tip_text (txt)
@@ -500,7 +500,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (SEL_UPDATE,			ID_TEXT,			type, key) then Result := on_upd_fm_text  (sender, key, data)
         	elseif  match_function_2 (SEL_CLICKED,			ID_LIST,			type, key) then Result := on_list_clicked (sender, key, data)
@@ -518,12 +518,12 @@ feature -- Message processing
         	end
       end
 
-   on_focus_self (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_self (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := text_field.handle_2 (sender, SEL_FOCUS_SELF, 0, data)
       end
 
-   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          index: INTEGER
       do
@@ -542,7 +542,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          index: INTEGER
       do
@@ -558,7 +558,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_text_button (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_text_button (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (options & COMBOBOX_STATIC) /= Zero then
             button.do_handle_2 (Current, SEL_COMMAND, Id_post, Void)    -- Post the list
@@ -566,7 +566,7 @@ feature -- Message processing
          end
       end
 
-   on_text_changed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_text_changed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void
             and then message_target.handle_2 (Current, SEL_CHANGED, message, data)
@@ -575,7 +575,7 @@ feature -- Message processing
          end
       end
 
-   on_text_command (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_text_command (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          index: INTEGER
          t: INTEGER
@@ -608,7 +608,7 @@ feature -- Message processing
          end
       end
 
-   on_list_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_list_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
       --   i: INTEGER_REF
       	i: SE_REFERENCE [ INTEGER ]
@@ -625,12 +625,12 @@ feature -- Message processing
          Result := True
       end
 
-   on_fwd_to_text(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_fwd_to_text(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := text_field.handle_2 (sender, SEL_COMMAND, selector,data)
       end
 
-   on_upd_fm_text(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_fm_text(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void and then not is_pane_shown
             and then message_target.handle_2 (Current, SEL_UPDATE, message, Void)
@@ -641,21 +641,21 @@ feature -- Message processing
 
 feature -- Resource management
 
-   	create_resource is
+   	create_resource
          	-- Create server-side resources
       	do
          	Precursor
          	pane.create_resource
       	end
 
-   	detach_resource is
+   	detach_resource
          	-- Detach server-side resources
       	do
          	Precursor
          	pane.detach_resource
       	end
 
-   	destroy_resource is
+   	destroy_resource
          	-- Destroy server-side resources
       	do
          	pane.destroy_resource
@@ -664,18 +664,18 @@ feature -- Resource management
 
 feature { NONE } -- Implementation
 
-   	COMBOBOX_INS_MASK: INTEGER is 
+   	COMBOBOX_INS_MASK: INTEGER 
       	once
          	Result := (COMBOBOX_REPLACE | COMBOBOX_INSERT_BEFORE | COMBOBOX_INSERT_AFTER 
                     | COMBOBOX_INSERT_FIRST | COMBOBOX_INSERT_LAST)
       	end
 
-	COMBOBOX_MASK: INTEGER is 
+	COMBOBOX_MASK: INTEGER 
     	once
         	Result := (COMBOBOX_STATIC | COMBOBOX_INS_MASK)
       	end
 
-	layout is
+	layout
     	local
          	buttonWidth, textWidth, itemHeight: INTEGER
       	do

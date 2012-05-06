@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The cascade menu widget is used to bring up a sub
 		menu from a pull down menu.
@@ -40,28 +40,28 @@ inherit
 
    	SB_BUTTON_CONSTANTS
 
-creation
+create
 
 	make,
 	make_opts
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_MENU_CASCADE"
 		end
 
 feature -- Creation
 
-	make (p: SB_COMPOSITE; text: STRING; pup: SB_POPUP) is
+	make (p: SB_COMPOSITE; text: STRING; pup: SB_POPUP)
          	-- Construct a menu cascade responsible for the given popup 
          	-- menu
 		do
          	make_opts(p, text, Void, pup, Zero);
     	end
 
-	make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; pup: SB_POPUP; opts: INTEGER) is
+	make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; pup: SB_POPUP; opts: INTEGER)
     		-- Construct a menu cascade responsible for the given popup menu
 		do
          	caption_make_opts(p, text, ic, opts);
@@ -77,13 +77,13 @@ feature -- Data
 
 feature -- Queries
 
-	can_focus: BOOLEAN is
+	can_focus: BOOLEAN
     		-- Yes it can receive the focus
 		once
          	Result := True;
       	end
 
-   contains (parentx, parenty: INTEGER): BOOLEAN is
+   contains (parentx, parenty: INTEGER): BOOLEAN
          -- Return true if window logically contains the given point
       local
          pt: SB_POINT;
@@ -100,7 +100,7 @@ feature -- Queries
 
 feature -- Actions
 
-   set_focus is
+   set_focus
          -- Move the focus to this window
       do
          Precursor;
@@ -109,7 +109,7 @@ feature -- Actions
          update;
       end
 
-   kill_focus is
+   kill_focus
          -- Remove the focus from this window
       do
          Precursor;
@@ -119,7 +119,7 @@ feature -- Actions
          update;
       end
 
-   set_menu (pup: SB_POPUP) is
+   set_menu (pup: SB_POPUP)
          -- Change the popup menu
       do
          menu := pup;
@@ -127,7 +127,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (Sel_timeout,				ID_MENUTIMER, 	type, key) then Result := on_timeout 		(sender, key, data)
          	elseif  match_function_2 (SEL_LEFTBUTTONPRESS,		0, 				type, key) then Result := on_button_press 	(sender, key, data)
@@ -144,7 +144,7 @@ feature -- Message processing
          	end;
 		end
 
-	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	local
         	event: SB_EVENT
         	dc: SB_DC_WINDOW
@@ -239,7 +239,7 @@ feature -- Message processing
          	Result := True
 		end
 
-   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender,selector,data);
          if is_enabled and then can_focus then
@@ -251,7 +251,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          if timer /= Void then
@@ -261,14 +261,14 @@ feature -- Message processing
          Result := True
       end
 
-   on_timeout (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_timeout (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          timer := Void
          do_handle_2 (Current, SEL_COMMAND, Id_post, data)
          Result := True
       end
 
-   on_button_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_button_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if  is_enabled then
             do_handle_2 (Current, SEL_COMMAND, Id_post,data)
@@ -276,7 +276,7 @@ feature -- Message processing
          end
       end
 
-   on_button_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_button_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -292,7 +292,7 @@ feature -- Message processing
          end
       end
 
-   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          pt: SB_POINT
@@ -335,7 +335,7 @@ feature -- Message processing
          end
       end
 
-   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
          pt: SB_POINT;
@@ -364,7 +364,7 @@ feature -- Message processing
          end
       end
 
-   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data)
          if is_enabled then
@@ -373,12 +373,12 @@ feature -- Message processing
          Result := True
       end
 
-   on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := True
       end
 
-   on_cmd_post (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_post (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          pt: SB_POINT
       do
@@ -393,7 +393,7 @@ feature -- Message processing
          Result := True
       end
 
-	on_cmd_unpost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_unpost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		do
 			if timer /= Void then
 				application.remove_timeout(timer)
@@ -406,7 +406,7 @@ feature -- Message processing
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       do
          Precursor;
@@ -415,7 +415,7 @@ feature -- Resource management
          end
       end
 
-   detach_resource is
+   detach_resource
          -- Detach server-side resources
       do
          if timer /= Void then
@@ -428,7 +428,7 @@ feature -- Resource management
          end
       end
 
-   destroy_resource is
+   destroy_resource
          -- Destroy server-side resources
       do
          if timer /= Void then
@@ -440,7 +440,7 @@ feature -- Resource management
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          if timer /= Void then
 			application.remove_timeout(timer)
@@ -455,7 +455,7 @@ feature {NONE} -- Implementation
 
    timer: SB_TIMER;
 
-   draw_triangle(dc: SB_DC_WINDOW; l, t, r, b: INTEGER) is
+   draw_triangle(dc: SB_DC_WINDOW; l, t, r, b: INTEGER)
       local
          points: ARRAY[SB_POINT]
          m: INTEGER
@@ -472,7 +472,7 @@ feature {NONE} -- Implementation
          dc.fill_polygon(points)
       end
 
-   get_grab_owner(p: SB_WINDOW): SB_WINDOW is
+   get_grab_owner(p: SB_WINDOW): SB_WINDOW
       require
          p /= Void
       local

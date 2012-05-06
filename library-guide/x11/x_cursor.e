@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Interface to Xlib's Cursor resource."
 
@@ -22,13 +22,13 @@ create
 	from_pixmap,
 	from_external
 
-creation { X_GLOBAL }
+create { X_GLOBAL }
 
 	make_special
 
 feature {NONE} -- Creation
 
-	make (disp: X_DISPLAY; type: INTEGER) is
+	make (disp: X_DISPLAY; type: INTEGER)
 			-- Creates a standard cursor from its glyph number `type'
 		require
 			disp /= Void
@@ -38,7 +38,7 @@ feature {NONE} -- Creation
 		end
 
 	from_glyph (disp: X_DISPLAY; f_font, m_font: X_FONT;
-			f_glyph, m_glyph: INTEGER; cf, cm: X_COLOR) is
+			f_glyph, m_glyph: INTEGER; cf, cm: X_COLOR)
 			-- Creates a cursor from a font glyph
 		require
 			disp   /= Void
@@ -54,7 +54,7 @@ feature {NONE} -- Creation
 		end
 
 	from_pixmap (disp : X_DISPLAY; f_pix, m_pix : X_PIXMAP;
-    				cf, cm : X_COLOR; xhot, yhot : INTEGER) is
+    				cf, cm : X_COLOR; xhot, yhot : INTEGER)
 			-- Creates a cursor from a pixmap.
 			-- `field' pixel of cf and cm is ignored
 		require
@@ -69,7 +69,7 @@ feature {NONE} -- Creation
             				m_pix.id, cf.to_external, cm.to_external, xhot, yhot)
 		end
 
-  	from_external (disp : X_DISPLAY; cid : INTEGER) is
+  	from_external (disp : X_DISPLAY; cid : INTEGER)
     	require
       		disp /= Void
     	do
@@ -77,14 +77,14 @@ feature {NONE} -- Creation
       		id      := cid
     	end
 
-  	make_special (xid : INTEGER) is
+  	make_special (xid : INTEGER)
     	do
       		id := xid
     	end
 
 feature -- Destruction
 
-	free is
+	free
     		-- deletes the association between the cursor resource ID and the cursor.
     	do
       		x_free_cursor (display.to_external, id)
@@ -92,7 +92,7 @@ feature -- Destruction
 
 feature
 
-	recolor (fcol, bcol: X_COLOR) is
+	recolor (fcol, bcol: X_COLOR)
     		-- changes the color of the cursor, and if the cursor is being
     		-- displayed on a screen, the change is visible immediately.
     	do
@@ -100,7 +100,7 @@ feature
             		bcol.to_external)
 		end
 
-	query_best_cursor (d : X_DRAWABLE; w, h : INTEGER) is
+	query_best_cursor (d : X_DRAWABLE; w, h : INTEGER)
     		-- returns the largest cursor's size that can be displayed.
 		do
     		x_query_best_cursor (display.to_external, d.id, w, h,
@@ -115,34 +115,34 @@ feature {NONE} -- External function
 
 --#####################################################################
 
-  	x_create_font_cursor (d : POINTER; type : INTEGER) : INTEGER is
+  	x_create_font_cursor (d : POINTER; type : INTEGER) : INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XCreateFontCursor"
     	end
 
   	x_create_glyph_cursor (d : POINTER; sf, mf, sg, mg : INTEGER;
-                         sc, mc : POINTER) : INTEGER is
+                         sc, mc : POINTER) : INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XCreateGlyphCursor"
     	end
 
   	x_create_pixmap_cursor (d : POINTER; sp, mp : INTEGER;
-                          sc, mc : POINTER; xh, yh : INTEGER) : INTEGER is
+                          sc, mc : POINTER; xh, yh : INTEGER) : INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XCreatePixmapCursor"
     	end
 
-  	x_free_cursor (d : POINTER; rid : INTEGER) is
+  	x_free_cursor (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XFreeCursor"
     	end
 
-  	x_recolor_cursor (d : POINTER; rid : INTEGER; fc, bc : POINTER) is
+  	x_recolor_cursor (d : POINTER; rid : INTEGER; fc, bc : POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XRecolorCursor"
     	end
 
-  	x_query_best_cursor (d : POINTER; did, w, h : INTEGER; wr, hr : POINTER) is
+  	x_query_best_cursor (d : POINTER; did, w, h : INTEGER; wr, hr : POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XQueryBestCursor"
     	end

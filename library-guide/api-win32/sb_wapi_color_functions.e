@@ -3,7 +3,7 @@ expanded class SB_WAPI_COLOR_FUNCTIONS
 feature -- Access
 
 
-   RealizePalette(hdc: POINTER): INTEGER is
+   RealizePalette(hdc: POINTER): INTEGER
 
 
 
@@ -19,7 +19,7 @@ feature -- Access
       end
 	----------------------------------
 	
-   CreateHalftonePalette (hDC: POINTER): POINTER is
+   CreateHalftonePalette (hDC: POINTER): POINTER
 
 
 
@@ -35,7 +35,7 @@ feature -- Access
       end
 	----------------------------------
 
-   CreatePalette (lplgpl: POINTER): POINTER is
+   CreatePalette (lplgpl: POINTER): POINTER
 
 
 
@@ -51,7 +51,7 @@ feature -- Access
       end
 	----------------------------------
 
-   SelectPalette (hDC, hpal: POINTER; bForceBackground: INTEGER): POINTER is
+   SelectPalette (hDC, hpal: POINTER; bForceBackground: INTEGER): POINTER
 
 
 
@@ -67,7 +67,7 @@ feature -- Access
       end
 	----------------------------------
 
-   SetPaletteEntries (hpal: POINTER; iStart, cEntries: INTEGER; lppe: POINTER): INTEGER is
+   SetPaletteEntries (hpal: POINTER; iStart, cEntries: INTEGER; lppe: POINTER): INTEGER
 
 
 

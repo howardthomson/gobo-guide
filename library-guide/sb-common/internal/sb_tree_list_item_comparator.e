@@ -6,7 +6,7 @@ inherit
 
 feature
 
-	compare(a, b: SB_TREE_LIST_ITEM): INTEGER is
+	compare(a, b: SB_TREE_LIST_ITEM): INTEGER
 		do
 			Result := a.label.three_way_comparison(b.label)
 		end

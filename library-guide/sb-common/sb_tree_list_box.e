@@ -1,4 +1,4 @@
-indexing
+note
 	description:"[
 		TreeListBox
 		Combo drop down box with tree_list selector panel
@@ -44,20 +44,20 @@ inherit
 
    SB_SCROLL_AREA_CONSTANTS
 
-creation
+create
 
 	make, make_opts
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_TREE_LIST_BOX"
 		end
 
 feature -- Creation
 
-   make (p: SB_COMPOSITE; nvis: INTEGER; opts: INTEGER) is
+   make (p: SB_COMPOSITE; nvis: INTEGER; opts: INTEGER)
          -- Construct tree list box
       local
          o: INTEGER;
@@ -72,7 +72,7 @@ feature -- Creation
       end
 
    make_opts (p: SB_COMPOSITE; nvis: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER;opts: INTEGER;
-              x, y, w, h, pl, pr, pt, pb: INTEGER) is
+              x, y, w, h, pl, pr, pt, pb: INTEGER)
          -- Construct tree list box
       do
          packer_make_opts(p, opts, x,y,w,h, 0,0,0,0, 0,0);
@@ -101,7 +101,7 @@ feature -- Data
 
 feature -- Queries
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Return default with
       local
          ww,pw: INTEGER;
@@ -111,7 +111,7 @@ feature -- Queries
          Result := ww.max(pw);
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       local
          th,bh: INTEGER;
@@ -121,43 +121,43 @@ feature -- Queries
          Result := th.max(bh)+(border*2);
       end
 
-   item_count: INTEGER is
+   item_count: INTEGER
          -- Return number of items
       do
          Result := tree.item_count;
       end
 
-   visible_rows: INTEGER is
+   visible_rows: INTEGER
          -- Return number of visible items
       do
          Result := tree.visible_rows;
       end
 
-   is_pane_shown: BOOLEAN is
+   is_pane_shown: BOOLEAN
          -- Is the pane is_shown
       do
          Result := pane.is_shown;
       end
 
-   get_list_style: INTEGER is
+   get_list_style: INTEGER
          -- Return list style
       do
          Result := options & TREELISTBOX_MASK;
       end
 
-   help_text: STRING is
+   help_text: STRING
          -- Return help text
       do
          Result := field.help;
       end
 
-   tip_text: STRING is
+   tip_text: STRING
          -- Return tip text
       do
          Result := field.tip;
       end
 
-   font: SB_FONT is
+   font: SB_FONT
          -- Return font
       do
          Result := field.font;
@@ -165,31 +165,31 @@ feature -- Queries
 
 feature -- Item queries
 
-   first_item: SB_TREE_LIST_ITEM is
+   first_item: SB_TREE_LIST_ITEM
          -- Return first top-level item
       do
          Result := tree.first_item;
       end
 
-   last_item: SB_TREE_LIST_ITEM is
+   last_item: SB_TREE_LIST_ITEM
          -- Return last top-level item
       do
          Result := tree.last_item;
       end
 
-   current_item: SB_TREE_LIST_ITEM is
+   current_item: SB_TREE_LIST_ITEM
          -- Return current item
       do
          Result := tree.current_item;
       end
 
-   find_item_by_name(text: STRING): SB_TREE_LIST_ITEM is
+   find_item_by_name(text: STRING): SB_TREE_LIST_ITEM
          -- Search items for item by name, starting from first item case insensitive.
       do
          Result := tree.find_item_by_name(text);
       end
 
-   find_item_by_name_opts(text: STRING; start: SB_TREE_LIST_ITEM; flgs: INTEGER): SB_TREE_LIST_ITEM is
+   find_item_by_name_opts(text: STRING; start: SB_TREE_LIST_ITEM; flgs: INTEGER): SB_TREE_LIST_ITEM
          -- Search items for item by name, starting from start item; the
          -- flags argument controls the search direction, and case 
          -- sensitivity.
@@ -197,13 +197,13 @@ feature -- Item queries
          Result := tree.find_item_by_name_opts(text,start,flgs);
       end
 
-   is_item_current(item: SB_TREE_LIST_ITEM): BOOLEAN is
+   is_item_current(item: SB_TREE_LIST_ITEM): BOOLEAN
          -- Return True if item is the current item
       do
          Result := tree.is_item_current(item);
       end
 
-   item_comparator: SB_COMPARATOR[SB_TREE_LIST_ITEM] is
+   item_comparator: SB_COMPARATOR[SB_TREE_LIST_ITEM]
          -- Return item sort function
       do
          Result := tree.item_comparator
@@ -211,13 +211,13 @@ feature -- Item queries
 
 feature -- Actions
 
-   set_visible_rows(nvis: INTEGER) is
+   set_visible_rows(nvis: INTEGER)
          -- Set number of visible items to determine default height
       do
          tree.set_visible_rows(nvis);
       end
 
-   enable is
+   enable
          -- Enable widget
       do
          if (flags & Flag_enabled) = Zero then
@@ -228,7 +228,7 @@ feature -- Actions
          end
       end
 
-   disable is
+   disable
          -- Disable widget
       do
          if (flags & Flag_enabled) /= Zero then
@@ -239,7 +239,7 @@ feature -- Actions
          end
       end
 
-   set_font(fnt: SB_FONT) is
+   set_font(fnt: SB_FONT)
          -- Change font
       require
          fnt /= Void
@@ -249,7 +249,7 @@ feature -- Actions
          recalc;
       end
 
-   set_list_style(style: INTEGER) is
+   set_list_style(style: INTEGER)
          -- Change list style
       local
          opts: INTEGER
@@ -261,13 +261,13 @@ feature -- Actions
          end
       end
 
-   set_help_text(txt: STRING) is
+   set_help_text(txt: STRING)
          -- Change help text
       do
          field.set_help_text(txt);
       end
 
-   set_tip_text(txt: STRING) is
+   set_tip_text(txt: STRING)
          -- Change tip text
       do
          field.set_tip_text(txt);
@@ -275,96 +275,96 @@ feature -- Actions
 
 feature -- Item actions
 
-   add_item_first(p,item: SB_TREE_LIST_ITEM) is
+   add_item_first(p,item: SB_TREE_LIST_ITEM)
          -- Add item as first child of parent p
       do
          recalc;
          tree.add_item_first(p,item,False);
       end
 
-   add_item_last(p,item: SB_TREE_LIST_ITEM) is
+   add_item_last(p,item: SB_TREE_LIST_ITEM)
          -- Add item as last child after parent p
       do
          recalc;
          tree.add_item_last(p,item,False);
       end
 
-   add_item_after(other,item: SB_TREE_LIST_ITEM) is
+   add_item_after(other,item: SB_TREE_LIST_ITEM)
          -- Add item after other item
       do
          recalc;
          tree.add_item_after(other,item,False);
       end
 
-   add_item_before(other,item: SB_TREE_LIST_ITEM) is
+   add_item_before(other,item: SB_TREE_LIST_ITEM)
          -- Add item before other item
       do
          recalc;
          tree.add_item_before(other,item,False);
       end
 
-   create_item_first(p: SB_TREE_LIST_ITEM; text: STRING; oi,ci: SB_ICON; data: ANY): SB_TREE_LIST_ITEM is
+   create_item_first(p: SB_TREE_LIST_ITEM; text: STRING; oi,ci: SB_ICON; data: ANY): SB_TREE_LIST_ITEM
          -- Add new item with given text, icons and user-data as first child of p
       do
          Result := tree.create_item_first(p,text,oi,ci,data,False);
          recalc;
       end
 
-   create_item_last(p: SB_TREE_LIST_ITEM; text: STRING; oi,ci: SB_ICON; data: ANY): SB_TREE_LIST_ITEM is
+   create_item_last(p: SB_TREE_LIST_ITEM; text: STRING; oi,ci: SB_ICON; data: ANY): SB_TREE_LIST_ITEM
          -- Add new item with given text, icons and user-data as the last child of p
       do
          Result := tree.create_item_last(p,text,oi,ci,data,False);
          recalc;
       end
 
-   create_item_after(other: SB_TREE_LIST_ITEM; text: STRING; oi,ci: SB_ICON; data: ANY): SB_TREE_LIST_ITEM is
+   create_item_after(other: SB_TREE_LIST_ITEM; text: STRING; oi,ci: SB_ICON; data: ANY): SB_TREE_LIST_ITEM
          -- Add new item with given text, icons and user-data after other other
       do
          Result := tree.create_item_after(other,text,oi,ci,data,False);
          recalc;
       end
 
-   create_item_before(other: SB_TREE_LIST_ITEM; text: STRING; oi,ci: SB_ICON; data: ANY): SB_TREE_LIST_ITEM is
+   create_item_before(other: SB_TREE_LIST_ITEM; text: STRING; oi,ci: SB_ICON; data: ANY): SB_TREE_LIST_ITEM
          -- Add new item with given text, icons and user-data before other other
       do
          Result := tree.create_item_before(other,text,oi,ci,data,False);
          recalc;
       end
 
-   remove_item(item: SB_TREE_LIST_ITEM) is
+   remove_item(item: SB_TREE_LIST_ITEM)
          -- Remove item
       do
          tree.remove_item(item)
          recalc;
       end
 
-   remove_items(fm,to: SB_TREE_LIST_ITEM) is
+   remove_items(fm,to: SB_TREE_LIST_ITEM)
          -- Remove all items in range [fm...to]
       do
          tree.remove_items (fm, to, False)
          recalc
       end
 
-   clear_items is
+   clear_items
          -- Remove all items from list
       do
          tree.clear_items
          recalc
       end
 
-   sort_child_items(item: SB_TREE_LIST_ITEM) is
+   sort_child_items(item: SB_TREE_LIST_ITEM)
          -- Sort child items of item
       do
          tree.sort_child_items(item)
       end
 
-   sort_root_items is
+   sort_root_items
          -- Sort the toplevel items with the sort function
       do
          tree.sort_root_items
       end
 
-   set_current_item(item: SB_TREE_LIST_ITEM; notify: BOOLEAN) is
+   set_current_item(item: SB_TREE_LIST_ITEM; notify: BOOLEAN)
          -- Change current item
       do
          tree.set_current_item(item,notify)
@@ -377,7 +377,7 @@ feature -- Item actions
          end
       end
 
-   set_item_text(item: SB_TREE_LIST_ITEM; text: STRING) is
+   set_item_text(item: SB_TREE_LIST_ITEM; text: STRING)
          -- Change item label
       require
          item /= Void
@@ -387,7 +387,7 @@ feature -- Item actions
          recalc;
       end
 
-   set_item_open_icon(item: SB_TREE_LIST_ITEM; icon: SB_ICON) is
+   set_item_open_icon(item: SB_TREE_LIST_ITEM; icon: SB_ICON)
          -- Change item's open icon
       require
          item /= Void
@@ -395,7 +395,7 @@ feature -- Item actions
          tree.set_item_open_icon(item,icon)
       end
 
-   set_item_closed_icon(item: SB_TREE_LIST_ITEM; icon: SB_ICON) is
+   set_item_closed_icon(item: SB_TREE_LIST_ITEM; icon: SB_ICON)
          -- Change item's closed icon
       require
          item /= Void
@@ -403,7 +403,7 @@ feature -- Item actions
          tree.set_item_closed_icon(item,icon)
       end
 
-   set_item_data(item: SB_TREE_LIST_ITEM; data: ANY) is
+   set_item_data(item: SB_TREE_LIST_ITEM; data: ANY)
          -- Change item's user data
       require
          item /= Void
@@ -411,7 +411,7 @@ feature -- Item actions
          tree.set_item_data(item,data)
       end
    
-   set_item_comparator(comp: SB_COMPARATOR[SB_TREE_LIST_ITEM]) is
+   set_item_comparator(comp: SB_COMPARATOR[SB_TREE_LIST_ITEM])
          -- Change item sort function
       do
          tree.set_item_comparator(comp)
@@ -419,7 +419,7 @@ feature -- Item actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (SEL_FOCUS_UP,			0,			type, key) then Result := on_focus_up 	(sender, key, data)
          	elseif  match_function_2 (SEL_FOCUS_DOWN,		0,			type, key) then Result := on_focus_down 	(sender, key, data)
@@ -434,7 +434,7 @@ feature -- Message processing
          	end
       	end
 
-   on_focus_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          item: SB_TREE_LIST_ITEM
       do
@@ -457,7 +457,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_focus_down(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_down(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          item: SB_TREE_LIST_ITEM
       do
@@ -474,12 +474,12 @@ feature -- Message processing
          Result := True
       end
 
-   on_focus_self(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_self(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := field.handle_2 (sender, SEL_FOCUS_SELF, 0, data)
       end
 
-   on_changed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_changed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void then
             message_target.do_handle_2 (Current, SEL_CHANGED, message, data)
@@ -487,7 +487,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_command(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_command(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void then
             message_target.do_handle_2 (Current, SEL_COMMAND, message, data)
@@ -495,19 +495,19 @@ feature -- Message processing
          Result := True
       end
 
-   on_field_button(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_field_button(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          button.do_handle_2 (Current, SEL_COMMAND, Id_post, Void)      -- Post the list
          Result := True
       end
 
-   on_tree_changed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_tree_changed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          do_handle_2 (Current, SEL_CHANGED, 0, data)
          Result := True
       end
 
-   on_tree_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_tree_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          item: SB_TREE_LIST_ITEM
       do
@@ -521,7 +521,7 @@ feature -- Message processing
          Result := True
       end
 
-   	on_upd_fm_tree(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_upd_fm_tree(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	if message_target /= Void and then not is_pane_shown 
             	and then message_target.handle_2 (Current, SEL_UPDATE, message, Void)
@@ -532,21 +532,21 @@ feature -- Message processing
 
 feature -- Resource management
 
-   	create_resource is
+   	create_resource
          	-- Create server-side resources
       	do
          	Precursor
          	pane.create_resource
       	end
 
-   	detach_resource is
+   	detach_resource
          	-- Detach server-side resources
       	do
          	pane.detach_resource
          	Precursor
 		end
 
-   	destroy_resource is
+   	destroy_resource
          	-- Destroy server-side resources
       	do
          	pane.destroy_resource
@@ -555,9 +555,9 @@ feature -- Resource management
 
 feature {NONE} -- Implementation
 
-   	TREELISTBOX_MASK: INTEGER is 0
+   	TREELISTBOX_MASK: INTEGER = 0
 
-	layout is
+	layout
       	local
          	button_width,field_width,item_height: INTEGER;
       	do

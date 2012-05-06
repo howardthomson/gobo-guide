@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Header item"
 	category:	"Display item"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
@@ -21,21 +21,21 @@ inherit
       	export {NONE} all
       	end
 
-creation
+create
 
 	make,
 	make_opts
 
 feature -- Creation
 
-   make(text: STRING) is
+   make(text: STRING)
       require
          text /= Void
       do
          make_opts(text,Void,0,Void)
       end
 
-   make_opts(text: STRING; ic: SB_ICON; sz: INTEGER;dt: ANY) is
+   make_opts(text: STRING; ic: SB_ICON; sz: INTEGER;dt: ANY)
       do
          base_make(text,ic,dt);
          size := sz; 
@@ -49,7 +49,7 @@ feature -- Data
 
 feature -- Quieries
 
-   width(header: SB_HEADER): INTEGER is
+   width(header: SB_HEADER): INTEGER
          -- Return the item's width in the header
       local
          w: INTEGER;
@@ -66,7 +66,7 @@ feature -- Quieries
          end
       end
 
-   height(header: SB_HEADER): INTEGER is
+   height(header: SB_HEADER): INTEGER
          -- Return the item's height in the header
       local
          th,ih: INTEGER;
@@ -83,12 +83,12 @@ feature -- Quieries
 
 feature -- Actions
 
-   set_size(size_: INTEGER) is
+   set_size(size_: INTEGER)
       do
          size := size_;
       end
 
-   set_arrow_dir(dir: INTEGER) is
+   set_arrow_dir(dir: INTEGER)
          -- Change sort direction (False, True, MAYBE)
       do
          arrow_dir := dir;
@@ -96,7 +96,7 @@ feature -- Actions
 
 feature { SB_HEADER }
 
-   draw(header: SB_HEADER; dc: SB_DC; x_, y_, w_, h_: INTEGER) is
+   draw(header: SB_HEADER; dc: SB_DC; x_, y_, w_, h_: INTEGER)
       local
          x,y,w,h: INTEGER;
          dw,num, tw,th,ty,aa: INTEGER;
@@ -199,14 +199,14 @@ feature { SB_HEADER }
 
 feature { SB_HEADER_ITEM, SB_ITEM_CONTAINER }
 
-   copy_state(other: like Current) is
+   copy_state(other: like Current)
       do
          size := other.size
       end
 
 feature { NONE } -- Implementation
 
-   ARROW_SPACING: INTEGER is 8;
-   ICON_SPACING: INTEGER is 4;
+   ARROW_SPACING: INTEGER = 8;
+   ICON_SPACING: INTEGER = 4;
 
 end

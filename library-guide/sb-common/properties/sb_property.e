@@ -22,11 +22,11 @@ feature -- Attributes
 
 feature
 
-	name: STRING is
+	name: STRING
 		deferred
 		end
 
-	enable is
+	enable
 			-- Set enabled
 		do
 			enabled := True
@@ -34,7 +34,7 @@ feature
 			enabled_set: enabled
 		end
 
-	disable is
+	disable
 			-- reset enabled
 		do
 			enabled := False

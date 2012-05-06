@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Quick and durty list sorter based on the ARRAY sorting
 		let me know if you have better algorithm.
@@ -16,7 +16,7 @@ inherit
 
 feature -- Sorting
 
-	sort(first_item: G; comparator: SB_COMPARATOR [ G ]): ARRAY [ G ] is
+	sort(first_item: G; comparator: SB_COMPARATOR [ G ]): ARRAY [ G ]
     		-- Sort given list using comparator object. Returns array
          	-- of two elements first is the first item and the second is
          	-- the last item in the sorted list

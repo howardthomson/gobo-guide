@@ -2,7 +2,7 @@ expanded class SB_WAPI_COORDINATE_SPACE_AND_TRANSFORMATION_FUNCTIONS
 
 feature -- Access
 
-   ClientToScreen (hWnd: POINTER; lppt: POINTER): INTEGER is
+   ClientToScreen (hWnd: POINTER; lppt: POINTER): INTEGER
 
 
 
@@ -18,7 +18,7 @@ feature -- Access
       end
 	---------------------------------
 	
-   DPtoLP (hDC: POINTER; lpPoints: POINTER; nCount: INTEGER): INTEGER is
+   DPtoLP (hDC: POINTER; lpPoints: POINTER; nCount: INTEGER): INTEGER
 
 
 
@@ -34,7 +34,7 @@ feature -- Access
       end
 	---------------------------------
 
-   GetMapMode (hDC: POINTER): INTEGER is
+   GetMapMode (hDC: POINTER): INTEGER
 
 
 
@@ -50,7 +50,7 @@ feature -- Access
       end
 	---------------------------------
 
-   GetViewportOrgEx (hDC: POINTER; lpPoint: POINTER): INTEGER is
+   GetViewportOrgEx (hDC: POINTER; lpPoint: POINTER): INTEGER
 
 
 
@@ -66,7 +66,7 @@ feature -- Access
       end
 	---------------------------------
 
-   GetWindowOrgEx (hDC: POINTER; lpPoint: POINTER): INTEGER is
+   GetWindowOrgEx (hDC: POINTER; lpPoint: POINTER): INTEGER
 
 
 
@@ -82,7 +82,7 @@ feature -- Access
       end
 	---------------------------------
 
-   GetWorldTransform (hDC: POINTER; lpXform: POINTER): INTEGER is
+   GetWorldTransform (hDC: POINTER; lpXform: POINTER): INTEGER
 
 
 
@@ -98,7 +98,7 @@ feature -- Access
       end
 	---------------------------------
 
-   LPtoDP (hDC: POINTER; lpPoints: POINTER; nCount: INTEGER): INTEGER is
+   LPtoDP (hDC: POINTER; lpPoints: POINTER; nCount: INTEGER): INTEGER
 
 
 
@@ -114,7 +114,7 @@ feature -- Access
       end
 	---------------------------------
 
-   ModifyWorldTransform (hDC: POINTER; lpXform: POINTER; iMode: INTEGER): INTEGER is
+   ModifyWorldTransform (hDC: POINTER; lpXform: POINTER; iMode: INTEGER): INTEGER
 
 
 
@@ -130,7 +130,7 @@ feature -- Access
       end
 	---------------------------------
 
-   ScreenToClient (hWnd: POINTER; lpPoint: POINTER): INTEGER is
+   ScreenToClient (hWnd: POINTER; lpPoint: POINTER): INTEGER
 
 
 
@@ -146,7 +146,7 @@ feature -- Access
       end
 	---------------------------------
 
-   SetMapMode (hDC: POINTER; fnMapMode: INTEGER): INTEGER is
+   SetMapMode (hDC: POINTER; fnMapMode: INTEGER): INTEGER
 
 
 
@@ -162,7 +162,7 @@ feature -- Access
       end
 	---------------------------------
 
-   SetViewportExtEx (hDC: POINTER; nXExtent, nYExtent: INTEGER; lpSize: POINTER): INTEGER is
+   SetViewportExtEx (hDC: POINTER; nXExtent, nYExtent: INTEGER; lpSize: POINTER): INTEGER
 
 
 
@@ -178,7 +178,7 @@ feature -- Access
       end
 	---------------------------------
 
-   SetViewportOrgEx (hDC: POINTER; X, Y: INTEGER; lpPoint: POINTER): INTEGER is
+   SetViewportOrgEx (hDC: POINTER; X, Y: INTEGER; lpPoint: POINTER): INTEGER
 
 
 
@@ -194,7 +194,7 @@ feature -- Access
       end
 	---------------------------------
 
-   SetWindowExtEx (hDC: POINTER; nXExtent, nYExtent: INTEGER; lpSize: POINTER): INTEGER is
+   SetWindowExtEx (hDC: POINTER; nXExtent, nYExtent: INTEGER; lpSize: POINTER): INTEGER
 
 
 
@@ -210,7 +210,7 @@ feature -- Access
       end
 	---------------------------------
 
-   SetWindowOrgEx (hDC: POINTER; X, Y: INTEGER; lpPoint: POINTER): INTEGER is
+   SetWindowOrgEx (hDC: POINTER; X, Y: INTEGER; lpPoint: POINTER): INTEGER
 
 
 
@@ -226,7 +226,7 @@ feature -- Access
       end
 	---------------------------------
 
-   SetWorldTransform (hDC: POINTER; lpXform: POINTER): INTEGER is
+   SetWorldTransform (hDC: POINTER; lpXform: POINTER): INTEGER
 
 
 

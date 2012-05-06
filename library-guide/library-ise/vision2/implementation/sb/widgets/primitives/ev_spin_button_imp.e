@@ -45,7 +45,7 @@ create
 
 feature {NONE} -- Implementation
 
-	make is
+	make
 		do
 			Precursor {EV_TEXT_FIELD_IMP}
 			ev_gauge_imp_initialize --| {EV_GAUGE} Precursor
@@ -58,7 +58,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Implementation
 
-	set_text (a_text: STRING_GENERAL) is
+	set_text (a_text: STRING_GENERAL)
 			-- Assign `a_text' to `text'.
 		do
 			Precursor {EV_TEXT_FIELD_IMP} (a_text)

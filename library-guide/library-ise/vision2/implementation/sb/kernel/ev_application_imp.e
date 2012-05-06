@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"EiffelVision application, Slyboots implementation."
 	legal: "See notice at end of class."
@@ -46,13 +46,13 @@ feature -- Attributes
 
 feature -- TODO
 
-	is_display_remote: BOOLEAN is
+	is_display_remote: BOOLEAN
 		do
 			Result := False
 			todo ("is_display_remote")
 		end
 
-	create_system_color_change_actions: EV_NOTIFY_ACTION_SEQUENCE is
+	create_system_color_change_actions: EV_NOTIFY_ACTION_SEQUENCE
 		do
 			create Result
 		end
@@ -81,7 +81,7 @@ feature {NONE} -- Initialization
 
 feature {NONE} -- Event loop
 
-	 launch is
+	 launch
 			-- Display the first window, set up the post_launch_actions,
 			-- and start the event loop.
 		do
@@ -92,14 +92,14 @@ feature {NONE} -- Event loop
 			end
 		end
 
-	slyboots_is_launchable: BOOLEAN is
+	slyboots_is_launchable: BOOLEAN
 		do
 			Result := True
 		end
 
 feature {NONE} -- Implementation
 
-	process_underlying_toolkit_event_queue is
+	process_underlying_toolkit_event_queue
 			-- Process event queue from underlying toolkit.
 			-- `events_process_from_toolkit
 		local
@@ -110,7 +110,7 @@ feature {NONE} -- Implementation
 
 feature -- Basic operation
 
-	process_graphical_events is
+	process_graphical_events
 			-- Process any pending paint events.
 			-- Pass control to the GUI toolkit so that it can
 			-- handle any paint events that may be in its queue.
@@ -118,26 +118,26 @@ feature -- Basic operation
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__20") 
 		end
 
-	sleep (msec: INTEGER) is
+	sleep (msec: INTEGER)
 			-- Wait for `msec' milliseconds and return.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__21") 
 		end
 
-	tooltip_delay: INTEGER is
+	tooltip_delay: INTEGER
 			-- Time in milliseconds before tooltips pop up.
 		do
 			Result := sb_application.tooltip_pause
 		end
 
-	wait_for_input (msec: INTEGER) is
+	wait_for_input (msec: INTEGER)
 			-- Wait for at most `msec' milliseconds for an input.
 		do
 --			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__23")
 --			sb_application.wait_for_input (msec) 
 		end
 
-	destroy is
+	destroy
 			-- End the application.
 		do
 			if not is_destroyed then
@@ -152,7 +152,7 @@ feature -- Basic operation
 
 feature -- Status setting
 
-	set_tooltip_delay (a_delay: INTEGER) is
+	set_tooltip_delay (a_delay: INTEGER)
 			-- Set `tooltip_delay' to `a_delay'.
 		do
 			sb_application.set_tooltip_pause (a_delay)
@@ -160,19 +160,19 @@ feature -- Status setting
 
 feature -- Locking
 
-	lock is
+	lock
 			-- Lock the Mutex.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__26") 
 		end
 
-	try_lock: BOOLEAN is
+	try_lock: BOOLEAN
 			-- Try to see if we can lock, False means no lock could be attained
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__27") 
 		end
 
-	unlock is
+	unlock
 			-- Unlock the Mutex.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__28") 
@@ -181,7 +181,7 @@ feature -- Locking
 
 feature {EV_ANY_I} -- Implementation
 
-	focused_widget: EV_WIDGET is
+	focused_widget: EV_WIDGET
 			-- Widget with keyboard focus
 		local
 			current_windows: like windows
@@ -209,31 +209,31 @@ feature {EV_ANY_I} -- Implementation
 
 feature -- Access
 
-	ctrl_pressed: BOOLEAN is
+	ctrl_pressed: BOOLEAN
 			-- Is ctrl key currently pressed?
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__30") 
 		end
 
-	alt_pressed: BOOLEAN is
+	alt_pressed: BOOLEAN
 			-- Is alt key currently pressed?
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__31") 
 		end
 
-	shift_pressed: BOOLEAN is
+	shift_pressed: BOOLEAN
 			-- Is shift key currently pressed?
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__32") 
 		end
 
-	caps_lock_on: BOOLEAN is
+	caps_lock_on: BOOLEAN
 			-- Is the Caps or Shift Lock key currently on?
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__33") 
 		end
 
-	windows: LINEAR [EV_WINDOW] is
+	windows: LINEAR [EV_WINDOW]
 			-- Global list of windows.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__34") 
@@ -250,7 +250,7 @@ feature -- Implementation
 
 feature {NONE}
 
-	todo_class_line (a_class, a_line: STRING) is
+	todo_class_line (a_class, a_line: STRING)
 		do
 			print (once "todo_class_line: ")
 			print (a_class)
@@ -263,7 +263,7 @@ invariant
 --	window_oids_not_void: is_usable implies window_oids /= void
 --	tooltips_not_void: tooltips /= default_pointer
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

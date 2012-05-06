@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Font style"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -22,7 +22,7 @@ feature -- Creation
 
 	flags: INTEGER;		-- Flags
 
-	parse(desc: STRING): BOOLEAN is
+	parse(desc: STRING): BOOLEAN
 		do
 		end 
 

@@ -1,6 +1,6 @@
 -- X86 ADD Integer Instruction
 
-indexing
+note
 	description: "AMD-64 / Intel ADD Instruction"
 	modes: "[
 			See p44 x86-64-v1 ... .pdf for operand-size defaults and prefixes

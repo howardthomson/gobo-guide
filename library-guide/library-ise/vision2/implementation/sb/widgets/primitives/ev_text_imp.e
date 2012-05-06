@@ -64,7 +64,7 @@ create
 
 feature {NONE} -- Initialization
 
-	create_change_actions: EV_NOTIFY_ACTION_SEQUENCE is
+	create_change_actions: EV_NOTIFY_ACTION_SEQUENCE
 			-- Hook up the change actions for the text widget
 		do
 			Result := Precursor {EV_TEXT_COMPONENT_IMP}
@@ -83,7 +83,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	clipboard_content: STRING_32 is
+	clipboard_content: STRING_32
 			-- `Result' is current clipboard content.
 		do
 			Result := App_implementation.clipboard.text
@@ -91,7 +91,7 @@ feature -- Access
 
 feature -- Status report
 
-	line_number_from_position (i: INTEGER): INTEGER is
+	line_number_from_position (i: INTEGER): INTEGER
 			-- Line containing caret position `i'.
 		do
 			-- TODO
@@ -101,25 +101,25 @@ feature -- Status report
 	is_editable: BOOLEAN
 			-- Is the text editable by the user?
 
-	has_selection: BOOLEAN is
+	has_selection: BOOLEAN
 			-- Does `Current' have a selection?
 		do
 			-- TODO
 		end
 
-	selection_start: INTEGER is
+	selection_start: INTEGER
 			-- Index of the first character selected.
 		do
 			Result := selection_start_internal
 		end
 
-	selection_end: INTEGER is
+	selection_end: INTEGER
 			-- Index of the last character selected.
 		do
 			Result := selection_end_internal
 		end
 
-	selected_text: STRING_32 is
+	selected_text: STRING_32
 			-- Text currently selected in `Current'.
 		local
 			a_selected: BOOLEAN
@@ -130,7 +130,7 @@ feature -- Status report
 
 feature -- Status setting
 
-	set_editable (flag: BOOLEAN) is
+	set_editable (flag: BOOLEAN)
 			-- if `flag' then make the component read-write.
 			-- if not `flag' then make the component read-only.
 		do
@@ -138,7 +138,7 @@ feature -- Status setting
 			-- TODO
 		end
 
-	set_caret_position (pos: INTEGER) is
+	set_caret_position (pos: INTEGER)
 			-- set current insertion position
 		do
 			internal_set_caret_position (pos)
@@ -146,7 +146,7 @@ feature -- Status setting
 
 feature -- Basic operation
 
-	select_region (start_pos, end_pos: INTEGER) is
+	select_region (start_pos, end_pos: INTEGER)
 			-- Select (hilight) the text between
 			-- `start_pos' and `end_pos'. Both `start_pos' and
 			-- `end_pos' are selected.
@@ -169,7 +169,7 @@ feature -- Basic operation
 --			)
 		end
 
-	deselect_all is
+	deselect_all
 			-- Unselect the current selection.
 		local
 --			a_iter: EV_GTK_TEXT_ITER_STRUCT
@@ -187,13 +187,13 @@ feature -- Basic operation
 --			)
 		end
 
-	delete_selection is
+	delete_selection
 			-- Delete the current selection.
 		do
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_text_buffer_delete_selection (text_buffer, True, True)
 		end
 
-	cut_selection is
+	cut_selection
 			-- Cut `selected_region' by erasing it from
 			-- the text and putting it in the Clipboard to paste it later.
 			-- If `selectd_region' is empty, it does nothing.
@@ -206,7 +206,7 @@ feature -- Basic operation
 			end
 		end
 
-	copy_selection is
+	copy_selection
 			-- Copy `selected_region' into the Clipboard.
 			-- If the `selected_region' is empty, it does nothing.
 		local
@@ -218,7 +218,7 @@ feature -- Basic operation
 			end
 		end
 
-	paste (index: INTEGER) is
+	paste (index: INTEGER)
 			-- Insert the contents of the clipboard
 			-- at `index' postion of `text'.
 			-- If the Clipboard is empty, it does nothing.
@@ -237,44 +237,44 @@ feature -- Basic operation
 
 feature -- Access
 
-	text: STRING_32 is
+	text: STRING_32
 		do
 		end
 
-	line (a_line: INTEGER): STRING_32 is
+	line (a_line: INTEGER): STRING_32
 			-- Returns the content of line `a_line'.
 		do
 		end
 
-	first_position_from_line_number (a_line: INTEGER): INTEGER is
+	first_position_from_line_number (a_line: INTEGER): INTEGER
 			-- Position of the first character on line `a_line'.
 		do
 		end
 
-	last_position_from_line_number (a_line: INTEGER): INTEGER is
+	last_position_from_line_number (a_line: INTEGER): INTEGER
 			-- Position of the last character on line `a_line'.
 		do
 		end
 
 feature -- Status report
 
-	text_length: INTEGER is
+	text_length: INTEGER
 			-- Number of characters in `Current'
 		do
 		end
 
-	line_count: INTEGER is
+	line_count: INTEGER
 			-- Number of display lines present in widget.
 		do
 		end
 
-	current_line_number: INTEGER is
+	current_line_number: INTEGER
 			-- Returns the number of the display line the cursor currently
 			-- is on.
 		do
 		end
 
-	caret_position: INTEGER is
+	caret_position: INTEGER
 			-- Current position of the caret.
 		do
 		end
@@ -284,27 +284,27 @@ feature -- Status report
 
 feature -- Status setting
 
-	insert_text (a_text: STRING_GENERAL) is
+	insert_text (a_text: STRING_GENERAL)
 		do
 		end
 
-	set_text (a_text: STRING_GENERAL) is
+	set_text (a_text: STRING_GENERAL)
 			-- Set `text' to `a_text'
 		do
 		end
 
-	append_text (a_text: STRING_GENERAL) is
+	append_text (a_text: STRING_GENERAL)
 			-- Append `a_text' to `text'.
 		do
 --			append_text_internal (text_buffer, a_text)
 		end
 
-	prepend_text (a_text: STRING_GENERAL) is
+	prepend_text (a_text: STRING_GENERAL)
 			-- Prepend 'txt' to `text'.
 		do
 		end
 
-	delete_text (start, finish: INTEGER) is
+	delete_text (start, finish: INTEGER)
 			-- Delete the text between `start' and `finish' index
 			-- both sides include.
 		do
@@ -312,24 +312,24 @@ feature -- Status setting
 
 feature -- Basic operation
 
-	scroll_to_line (a_line: INTEGER) is
+	scroll_to_line (a_line: INTEGER)
 			-- Scroll `Current' to line number `a_line'
 		do
 		end
 
-	scroll_to_end is
+	scroll_to_end
 			-- Scroll to the last line position of `Current'.
 		do
 		end
 
-	enable_word_wrapping is
+	enable_word_wrapping
 			-- Enable word wrapping for `Current'
 		do
 			-- TODO
 			has_word_wrapping := True
 		end
 
-	disable_word_wrapping is
+	disable_word_wrapping
 			-- Disable word wrapping for `Current'
 		do
 			-- TODO
@@ -338,29 +338,29 @@ feature -- Basic operation
 
 feature {NONE} -- Implementation
 
-	visual_widget: POINTER is
+	visual_widget: POINTER
 			-- Pointer to the GtkWidget representing `Current'
 		do
 			Result := text_view
 		end
 
-	selection_start_internal: INTEGER is
+	selection_start_internal: INTEGER
 			-- Index of the first character selected.
 		do
 		end
 
-	selection_end_internal: INTEGER is
+	selection_end_internal: INTEGER
 			-- Index of the last character selected.
 		do
 		end
 
-	dispose is
+	dispose
 			-- Clean up `Current'
 		do
 			Precursor {EV_TEXT_COMPONENT_IMP}
 		end
 
-	on_change_actions is
+	on_change_actions
 			-- The text within the widget has changed.
 		do
 			if change_actions_internal /= Void then
@@ -368,12 +368,12 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	append_text_internal (a_text_buffer: POINTER; a_text: STRING_GENERAL) is
+	append_text_internal (a_text_buffer: POINTER; a_text: STRING_GENERAL)
 			-- Append `txt' to `text'.
 		do
 		end
 
-	internal_set_caret_position (pos: INTEGER) is
+	internal_set_caret_position (pos: INTEGER)
 			-- set current insertion position
 		do
 		end
@@ -387,7 +387,7 @@ feature {NONE} -- Implementation
 --	text_buffer: POINTER
 			-- Pointer to the GtkTextBuffer.
 
-	needs_event_box: BOOLEAN is
+	needs_event_box: BOOLEAN
 		do
 		--	Result := True	-- ???
 		end

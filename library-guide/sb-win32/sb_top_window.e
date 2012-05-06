@@ -14,32 +14,32 @@ inherit
 
 feature -- not implemented ...
 
-	is_iconified: BOOLEAN is
+	is_iconified: BOOLEAN
 		do
 		end
 
-	iconify is
+	iconify
 		do
 		end
 
-	deiconify is
+	deiconify
 		do
 		end
 
 feature -- resource processing
 
-	window_class_name: STRING is
+	window_class_name: STRING
 		once
 			Result := "SBTopWindow"
 		end
 
-	create_resource_def is
+	create_resource_def
 		do
 		end
 
 feature -- todo
 
-	set_title_int is
+	set_title_int
       	local
          	wf: SB_WAPI_WINDOW_FUNCTIONS;
         	t: INTEGER
@@ -51,17 +51,17 @@ feature -- todo
 			end
 		end
 
-	set_icons_int is
+	set_icons_int
 		do
 		end
 
-	set_decorations_int is
+	set_decorations_int
 		do
 		end
 
 feature
 
-   is_minimized: BOOLEAN is
+   is_minimized: BOOLEAN
       local
          wf: SB_WAPI_WINDOW_FUNCTIONS
       do
@@ -70,7 +70,7 @@ feature
          end         
       end
 
-   is_maximized: BOOLEAN is
+   is_maximized: BOOLEAN
       local
          wf: SB_WAPI_WINDOW_FUNCTIONS
       do
@@ -79,7 +79,7 @@ feature
          end         
       end
 
-   set_focus is
+   set_focus
       local
          kf: SB_WAPI_KEYBOARD_INPUT_FUNCTIONS
          t: POINTER
@@ -90,7 +90,7 @@ feature
          end
       end
 
-   kill_focus is
+   kill_focus
       local
          kf: SB_WAPI_KEYBOARD_INPUT_FUNCTIONS;
          t: POINTER;
@@ -107,7 +107,7 @@ feature
          end
       end
 
-   hide is
+   hide
       local
          sw: SB_WAPI_SHOWWINDOW_COMMANDS
          wf: SB_WAPI_WINDOW_FUNCTIONS
@@ -122,7 +122,7 @@ feature
          end
       end
 
-   move (x, y: INTEGER) is
+   move (x, y: INTEGER)
       local
          rect: SB_WAPI_RECT
          rf: SB_WAPI_RECTANGLE_FUNCTIONS
@@ -148,7 +148,7 @@ feature
          end
       end
 
-   resize (w, h: INTEGER) is
+   resize (w, h: INTEGER)
       local
          rect: SB_WAPI_RECT
          rf: SB_WAPI_RECTANGLE_FUNCTIONS
@@ -176,7 +176,7 @@ feature
          end
       end
 
-   position (x, y, w, h: INTEGER) is
+   position (x, y, w, h: INTEGER)
       local
          rect: SB_WAPI_RECT
          rf: SB_WAPI_RECTANGLE_FUNCTIONS
@@ -207,7 +207,7 @@ feature
          end
       end
 
-   maximize(notify: BOOLEAN) is
+   maximize(notify: BOOLEAN)
       local
          wf: SB_WAPI_WINDOW_FUNCTIONS;
          sw: SB_WAPI_SHOWWINDOW_COMMANDS;
@@ -223,7 +223,7 @@ feature
          end
       end
 
-   minimize(notify: BOOLEAN) is
+   minimize(notify: BOOLEAN)
       local
          wf: SB_WAPI_WINDOW_FUNCTIONS;
          sw: SB_WAPI_SHOWWINDOW_COMMANDS;
@@ -239,7 +239,7 @@ feature
          end
       end
 
-   restore(notify: BOOLEAN) is
+   restore(notify: BOOLEAN)
       local
          wf: SB_WAPI_WINDOW_FUNCTIONS;
          sw: SB_WAPI_SHOWWINDOW_COMMANDS;

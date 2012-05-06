@@ -3,7 +3,7 @@ expanded class SB_WAPI_LINE_AND_CURVE_FUNCTIONS
 feature -- Access
 
    Arc (hDC: POINTER; nLeftRect, nTopRect, nRightRect, nBottomRect,
-        nXStartArc, nYStartArc, nXEndArc, nYEndArc: INTEGER): INTEGER is
+        nXStartArc, nYStartArc, nXEndArc, nYEndArc: INTEGER): INTEGER
 
 
 
@@ -18,7 +18,7 @@ feature -- Access
 
       end
 
-   LineTo (hDC: POINTER; nXEnd, nYEnd: INTEGER): INTEGER is
+   LineTo (hDC: POINTER; nXEnd, nYEnd: INTEGER): INTEGER
 
 
 
@@ -33,7 +33,7 @@ feature -- Access
 
       end
 
-   MoveToEx (hDC: POINTER; X, Y: INTEGER; lpPoint: POINTER): INTEGER is
+   MoveToEx (hDC: POINTER; X, Y: INTEGER; lpPoint: POINTER): INTEGER
 
 
 
@@ -48,7 +48,7 @@ feature -- Access
 
       end
 
-   PolyBezier (hDC: POINTER; lppt: POINTER; cPoints: INTEGER): INTEGER is
+   PolyBezier (hDC: POINTER; lppt: POINTER; cPoints: INTEGER): INTEGER
 
 
 
@@ -63,7 +63,7 @@ feature -- Access
 
       end
 
-   PolyDraw (hDC: POINTER; lppt, lpbTypes: POINTER; cCount: INTEGER): INTEGER is
+   PolyDraw (hDC: POINTER; lppt, lpbTypes: POINTER; cCount: INTEGER): INTEGER
 
 
 
@@ -78,7 +78,7 @@ feature -- Access
 
       end
 
-   Polyline (hDC: POINTER; lppt: POINTER; cPoints: INTEGER): INTEGER is
+   Polyline (hDC: POINTER; lppt: POINTER; cPoints: INTEGER): INTEGER
 
 
 

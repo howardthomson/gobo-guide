@@ -16,7 +16,7 @@ feature
 					len0: INTEGER;
 					changed1: ARRAY [ BOOLEAN ];
 					len1: INTEGER;
-		): CHANGE is
+		): CHANGE
 		deferred
 		end
 
@@ -24,7 +24,7 @@ feature
 			len0: INTEGER;
 			changed1: ARRAY [ BOOLEAN ];
 			len1: INTEGER;
-		) is
+		)
 		local
 			i: INTEGER
 			len: INTEGER

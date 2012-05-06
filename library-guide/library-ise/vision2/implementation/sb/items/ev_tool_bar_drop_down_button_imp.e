@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Objects that ..."
 	author: ""
 	date: "$Date: 2006-03-22 10:20:08 -0800 (Wed, 22 Mar 2006) $"
@@ -25,7 +25,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_TOOL_BAR_DROP_DOWN_BUTTON;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

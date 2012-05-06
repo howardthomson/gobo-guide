@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Interface to Xlib's GC"
 
@@ -27,7 +27,7 @@ create
 
 feature { NONE } -- Creation
 
-	make (owner: X_DRAWABLE_WINDOW; mask: INTEGER; values: X_GC_VALUES) is
+	make (owner: X_DRAWABLE_WINDOW; mask: INTEGER; values: X_GC_VALUES)
     		-- Creates a graphics context.
     	require
       		owner  /= Void
@@ -39,7 +39,7 @@ feature { NONE } -- Creation
 							    		   owner.id, mask, values.to_external)
     end
 
-	from_pixmap (owner: X_PIXMAP; scr: INTEGER; mask: INTEGER; values: X_GC_VALUES) is
+	from_pixmap (owner: X_PIXMAP; scr: INTEGER; mask: INTEGER; values: X_GC_VALUES)
 			-- Creates a graphics context.
     	require
       		owner_not_void: owner /= Void
@@ -50,7 +50,7 @@ feature { NONE } -- Creation
       		to_external := x_create_gc (display.to_external, owner.id, mask, values.to_external)
     	end
 
-  	from_external (disp: X_DISPLAY; scr: INTEGER; xgc: POINTER) is
+  	from_external (disp: X_DISPLAY; scr: INTEGER; xgc: POINTER)
       		-- Encapsulate an external GC in an X_GC instance.
     	require
       		disp /= Void
@@ -63,7 +63,7 @@ feature { NONE } -- Creation
 
 feature -- destruction
 
-  	free is
+  	free
       		-- destroys the specified GC as well as all the associated storage
     	require
       		to_external /= default_pointer
@@ -85,7 +85,7 @@ feature
 
     gcv_private: X_GC_VALUES
 
-  	get_values (mask: INTEGER): X_GC_VALUES is
+  	get_values (mask: INTEGER): X_GC_VALUES
       		-- returns the components specified by valuemask for the GC
     	require
       		to_external /= default_pointer
@@ -95,7 +95,7 @@ feature
 		       mask, Result.to_external)
     	end
 
-	change (values: X_GC_VALUES) is
+	change (values: X_GC_VALUES)
 			-- changes the components specified by valuemask for the GC
 		require
 			to_external /= default_pointer
@@ -106,7 +106,7 @@ feature
 		   		values.flags, values.to_external)
 		end
 
-  	set_font (f: X_FONT) is
+  	set_font (f: X_FONT)
       		-- sets the current font in the GC
     	require
       		to_external /= default_pointer
@@ -116,7 +116,7 @@ feature
       		x_set_font (display.to_external, to_external, f.id)
     	end
 
-  	set_background (pix: INTEGER) is
+  	set_background (pix: INTEGER)
       		-- sets the current background pixel in the GC
     	require
       		to_external /= default_pointer
@@ -124,7 +124,7 @@ feature
 			x_set_background (display.to_external, to_external, pix)
 	end
 
-	set_foreground (pix: INTEGER) is
+	set_foreground (pix: INTEGER)
 			-- sets the current foreground pixel in the GC
 		require
 			to_external /= default_pointer
@@ -132,7 +132,7 @@ feature
 			x_set_foreground (display.to_external, to_external, pix)
 		end
 
-	set_function (f: INTEGER) is
+	set_function (f: INTEGER)
 			-- sets a specified drawing function value in the GC
 		require
 			to_external /= default_pointer
@@ -140,7 +140,7 @@ feature
 			x_set_function (display.to_external, to_external, f)
 		end
 
-	set_line_attributes (width, line, cap, joint: INTEGER) is
+	set_line_attributes (width, line, cap, joint: INTEGER)
 			-- sets the line drawing components in the GC
 		require
 			to_external /= default_pointer
@@ -149,7 +149,7 @@ feature
 			     width, line, cap, joint)
 		end
 
-  	set_arc_mode (mode: INTEGER) is
+  	set_arc_mode (mode: INTEGER)
       		-- sets the arc mode value in the GC
     	require
       		to_external /= default_pointer
@@ -157,7 +157,7 @@ feature
       		x_set_arc_mode (display.to_external, to_external, mode)
     	end
 
-  	set_fill_rule (rule: INTEGER) is
+  	set_fill_rule (rule: INTEGER)
       		-- sets the fill rule value in the GC
     	require
       		to_external /= default_pointer
@@ -165,7 +165,7 @@ feature
       		x_set_fill_rule (display.to_external, to_external, rule)
     	end
 
-  	set_fill_style (style: INTEGER) is
+  	set_fill_style (style: INTEGER)
       		-- sets the fill style value in the GC
     	require
       		to_external /= default_pointer
@@ -173,7 +173,7 @@ feature
       		x_set_fill_style (display.to_external, to_external, style)
     	end
 
-	set_dashes (origin: INTEGER; tab: ARRAY [ INTEGER_8 ]) is
+	set_dashes (origin: INTEGER; tab: ARRAY [ INTEGER_8 ])
 			-- sets the dash-offset and dash-list attributes for dashed line
 			-- styles in the GC
     	require
@@ -184,7 +184,7 @@ feature
 				origin, array_to_external (tab), tab.count)
 		end
 
-  	set_stipple (pix: X_PIXMAP) is
+  	set_stipple (pix: X_PIXMAP)
       		-- sets the stipple in the GC
     	require
       		to_external /= default_pointer
@@ -193,7 +193,7 @@ feature
       		x_set_stipple (display.to_external, to_external, pix.id)
     	end
 
-  	set_tile (pix: X_PIXMAP) is
+  	set_tile (pix: X_PIXMAP)
       		-- sets the fill tile in the GC
     	require
       		to_external /= default_pointer
@@ -202,13 +202,13 @@ feature
       		x_set_tile (display.to_external, to_external, pix.id)
     	end
 
-  	set_ts_origin (x, y: INTEGER) is
+  	set_ts_origin (x, y: INTEGER)
       		-- sets the tile/stipple origin in the GC
     	do
       		x_set_ts_origin (display.to_external, to_external, x, y)
     	end
 
-  	set_clip_mask (pix: X_PIXMAP) is
+  	set_clip_mask (pix: X_PIXMAP)
       		-- sets the clip mask in the GC
     	require
       		to_external /= default_pointer
@@ -217,7 +217,7 @@ feature
       		x_set_clip_mask (display.to_external, to_external, pix.id)
     	end
 
-  	set_clip_origin (x, y: INTEGER) is
+  	set_clip_origin (x, y: INTEGER)
       		-- sets the clip origin in the GC
     	do
       		x_set_clip_origin (display.to_external, to_external, x, y)
@@ -233,12 +233,12 @@ feature
 --				x, y, c_ptr, 1, Unsorted)
 --		end
 
-	p_xywh_once: ARRAY [ INTEGER_16 ] is
+	p_xywh_once: ARRAY [ INTEGER_16 ]
 		once
 			create Result.make (1, 4)
 		end
 
-	p_xywh (a_x, a_y, a_w, a_h: INTEGER): POINTER is
+	p_xywh (a_x, a_y, a_w, a_h: INTEGER): POINTER
 			-- Return the address of a set of contiguous
 			-- INTEGER_16s with the sequence x,y,w,h
 		local
@@ -252,7 +252,7 @@ feature
 			Result := pa.area.base_address
 		end
 			
-	set_clip_rectangle (x, y: INTEGER; cx, cy, cw, ch: INTEGER) is
+	set_clip_rectangle (x, y: INTEGER; cx, cy, cw, ch: INTEGER)
 			-- changes the clip-mask in the GC to the specified
 			-- rectangle and sets the clip origin
 		local
@@ -262,13 +262,13 @@ feature
 			x_set_clip_rectangles (display.to_external, to_external, x, y, p, 1, Unsorted)
 		end
 
-  	set_subwindow_mode (mode: INTEGER) is
+  	set_subwindow_mode (mode: INTEGER)
       		-- sets the subwindow mode in the GC
     	do
       		x_set_subwindow_mode(display.to_external, to_external, mode)
     	end
 
-  	set_graphics_exposures (set: BOOLEAN) is
+  	set_graphics_exposures (set: BOOLEAN)
       		-- sets the graphics-exposures flag in the GC 
     	do
       		x_set_graphics_exposures (display.to_external, to_external, set)

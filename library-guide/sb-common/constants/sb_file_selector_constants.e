@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_FILE_SELECTOR constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -22,10 +22,10 @@ inherit
 
 feature -- File selection modes
 
-   	SELECTFILE_ANY			: INTEGER is 1	-- A single file: INTEGER is existing or not (to save to)
-   	SELECTFILE_EXISTING		: INTEGER is 2  -- An existing file (to load)
-   	SELECTFILE_MULTIPLE		: INTEGER is 3	-- Multiple existing files
-   	SELECTFILE_MULTIPLE_ALL	: INTEGER is 4	-- Multiple existing files or directories
-   	SELECTFILE_DIRECTORY	: INTEGER is 5	-- Existing directory
+   	SELECTFILE_ANY			: INTEGER = 1	-- A single file: INTEGER is existing or not (to save to)
+   	SELECTFILE_EXISTING		: INTEGER = 2  -- An existing file (to load)
+   	SELECTFILE_MULTIPLE		: INTEGER = 3	-- Multiple existing files
+   	SELECTFILE_MULTIPLE_ALL	: INTEGER = 4	-- Multiple existing files or directories
+   	SELECTFILE_DIRECTORY	: INTEGER = 5	-- Existing directory
 
 end

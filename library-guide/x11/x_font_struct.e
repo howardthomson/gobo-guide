@@ -1,4 +1,4 @@
-indexing
+note
 	todo: "[
 		Fix text_extents / X_CHAR_STRUCT
 	]"
@@ -13,14 +13,14 @@ inherit
 
 	X_STRUCT
 
-creation { X_FONT }
+create { X_FONT }
 
 	from_x_struct,
 	from_external	-- FIXGC
 
 feature -- Destruction
 
-	free is
+	free
 			-- Frees the memory allocated by the Xlib.
 		do
 --			x_free_font_info (to_external, .....)
@@ -28,12 +28,12 @@ feature -- Destruction
 
 feature -- Consultation
 
-  	fid: INTEGER is
+  	fid: INTEGER
     	do
       		result := c_font_struct_fid (to_external)
     	end
 
-  	text_width (str: STRING): INTEGER is
+  	text_width (str: STRING): INTEGER
       		-- the width in pixels of the specified character string
     	require
       		str /= Void
@@ -41,7 +41,7 @@ feature -- Consultation
       		result := c_text_width (to_external, str.area.item_address (0), str.count)
     	end
 
-    text_width_n (s: STRING; offset, count: INTEGER): INTEGER is
+    text_width_n (s: STRING; offset, count: INTEGER): INTEGER
     		-- width in pixels of part string
     	require
     		non_void_string: s /= Void
@@ -57,19 +57,19 @@ feature -- Consultation
     		Result := c_text_width (to_external, s.area.item_address (offset), count)
     	end
 
-	ascent: INTEGER is
+	ascent: INTEGER
 		do
 			Result := c_font_struct_ascent (to_external)
 		end
 
-	descent: INTEGER is
+	descent: INTEGER
 		do
 			Result := c_font_struct_descent (to_external)
 		end
 
 feature {NONE}
 
-	size: INTEGER is
+	size: INTEGER
     	once
       		result := c_font_struct_size
     	end
@@ -83,35 +83,35 @@ feature {NONE} -- External functions
 --			"XFreeFontInfo"
 --    	end
 	
-	c_font_struct_fid				(p : POINTER) : INTEGER is external "C struct XFontStruct access fid				use <X11/Xlib.h>" end
-	c_font_struct_direction			(p : POINTER) : INTEGER is external "C struct XFontStruct access direction			use <X11/Xlib.h>" end
-	c_font_struct_min_char_or_byte2	(p : POINTER) : INTEGER is external "C struct XFontStruct access min_char_or_byte2	use <X11/Xlib.h>" end
-	c_font_struct_max_char_or_byte2	(p : POINTER) : INTEGER is external "C struct XFontStruct access max_char_or_byte2	use <X11/Xlib.h>" end
-	c_font_struct_min_byte1			(p : POINTER) : INTEGER is external "C struct XFontStruct access min_byte1			use <X11/Xlib.h>" end
-	c_font_struct_max_byte1			(p : POINTER) : INTEGER is external "C struct XFontStruct access max_byte1			use <X11/Xlib.h>" end
-	c_font_struct_all_chars_exist	(p : POINTER) : INTEGER is external "C struct XFontStruct access all_chars_exist	use <X11/Xlib.h>" end
-	c_font_struct_default_char		(p : POINTER) : INTEGER is external "C struct XFontStruct access default_char		use <X11/Xlib.h>" end
-	c_font_struct_n_properties		(p : POINTER) : INTEGER is external "C struct XFontStruct access n_properties		use <X11/Xlib.h>" end
-	c_font_struct_properties		(p : POINTER) : POINTER is external "C struct XFontStruct access properties			use <X11/Xlib.h>" end
+	c_font_struct_fid				(p : POINTER) : INTEGER external "C struct XFontStruct access fid				use <X11/Xlib.h>" end
+	c_font_struct_direction			(p : POINTER) : INTEGER external "C struct XFontStruct access direction			use <X11/Xlib.h>" end
+	c_font_struct_min_char_or_byte2	(p : POINTER) : INTEGER external "C struct XFontStruct access min_char_or_byte2	use <X11/Xlib.h>" end
+	c_font_struct_max_char_or_byte2	(p : POINTER) : INTEGER external "C struct XFontStruct access max_char_or_byte2	use <X11/Xlib.h>" end
+	c_font_struct_min_byte1			(p : POINTER) : INTEGER external "C struct XFontStruct access min_byte1			use <X11/Xlib.h>" end
+	c_font_struct_max_byte1			(p : POINTER) : INTEGER external "C struct XFontStruct access max_byte1			use <X11/Xlib.h>" end
+	c_font_struct_all_chars_exist	(p : POINTER) : INTEGER external "C struct XFontStruct access all_chars_exist	use <X11/Xlib.h>" end
+	c_font_struct_default_char		(p : POINTER) : INTEGER external "C struct XFontStruct access default_char		use <X11/Xlib.h>" end
+	c_font_struct_n_properties		(p : POINTER) : INTEGER external "C struct XFontStruct access n_properties		use <X11/Xlib.h>" end
+	c_font_struct_properties		(p : POINTER) : POINTER external "C struct XFontStruct access properties			use <X11/Xlib.h>" end
 --	c_font_struct_min_bounds		(p : POINTER) : INTEGER is external "C struct XFontStruct access min_bounds			use <X11/Xlib.h>" end
 --	c_font_struct_max_bounds		(p : POINTER) : INTEGER is external "C struct XFontStruct access max_bounds			use <X11/Xlib.h>" end
-	c_font_struct_per_char			(p : POINTER) : POINTER is external "C struct XFontStruct access per_char			use <X11/Xlib.h>" end
-	c_font_struct_ascent			(p : POINTER) : INTEGER is external "C struct XFontStruct access ascent				use <X11/Xlib.h>" end
-	c_font_struct_descent			(p : POINTER) : INTEGER is external "C struct XFontStruct access descent			use <X11/Xlib.h>" end
+	c_font_struct_per_char			(p : POINTER) : POINTER external "C struct XFontStruct access per_char			use <X11/Xlib.h>" end
+	c_font_struct_ascent			(p : POINTER) : INTEGER external "C struct XFontStruct access ascent				use <X11/Xlib.h>" end
+	c_font_struct_descent			(p : POINTER) : INTEGER external "C struct XFontStruct access descent			use <X11/Xlib.h>" end
 	
 
-	c_font_struct_size: INTEGER is
+	c_font_struct_size: INTEGER
     	external "C inline use <X11/Xlib.h>"
     	alias "sizeof(XFontStruct)"
     	end
 
-	c_text_width (fs, str : POINTER; sz : INTEGER) : INTEGER is
+	c_text_width (fs, str : POINTER; sz : INTEGER) : INTEGER
     	external
     		"C use <X11/Xlib.h>"
     		alias "XTextWidth"
     	end
 
-	c_text_extents (fs, str: POINTER; i: INTEGER; d1, d2, bc, cs: POINTER) is
+	c_text_extents (fs, str: POINTER; i: INTEGER; d1, d2, bc, cs: POINTER)
     	external
     		"C use <X11/Xlib.h>"
     		alias "XTextExtents"

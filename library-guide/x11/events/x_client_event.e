@@ -5,7 +5,7 @@ inherit
 
 	X_ANY_EVENT
 
-creation 
+create 
 
 	make,
 	from_x_struct
@@ -21,17 +21,17 @@ feature -- Access
 --			} data;
 
 
-	message_type: INTEGER is
+	message_type: INTEGER
 		do
 			Result := c_message_type (to_external)
 		end
 
-	format: INTEGER is
+	format: INTEGER
 		do
 			Result := c_format (to_external)
 		end
 	
-	data_b (i: INTEGER): INTEGER is
+	data_b (i: INTEGER): INTEGER
 			-- Get 'byte' data element indexed (from 0) at 'i'
 		require
 			valid_index: i >= 0 and then i < 20
@@ -43,7 +43,7 @@ feature -- Access
 			Result := p.get_byte_at (i)
 		end
 
-	data_w (i: INTEGER): INTEGER is
+	data_w (i: INTEGER): INTEGER
 			-- Get 'short' data element indexed (from 0) at 'i'
 		require
 			valid_index: i >= 0 and then i < 10
@@ -55,7 +55,7 @@ feature -- Access
 			Result := p.get_short_at (i * 2)
 		end
 
-	data_l (i: INTEGER): INTEGER is
+	data_l (i: INTEGER): INTEGER
 			-- Get 'long' data element indexed (from 0) at 'i'
 		require
 			valid_index: i >= 0 and then i < 10
@@ -70,21 +70,21 @@ feature -- Access
 
 feature -- Modification
 
-	set_message_type (i: INTEGER) is
+	set_message_type (i: INTEGER)
 		do
 			c_set_message_type (to_external, i)
 		ensure
 			message_type = i
 		end
 
-	set_format (i: INTEGER) is
+	set_format (i: INTEGER)
 		do
 			c_set_format (to_external, i)
 		ensure
 			format = i
 		end
 
-	set_data_b (d: INTEGER; i: INTEGER) is
+	set_data_b (d: INTEGER; i: INTEGER)
 			-- Set 'byte' data element indexed (from 0) at 'i'
 		require
 			valid_index: i >= 0 and then i < 20
@@ -96,7 +96,7 @@ feature -- Modification
 			p.put_byte_at (d, i)
 		end
 
-	set_data_w (d: INTEGER; i: INTEGER) is
+	set_data_w (d: INTEGER; i: INTEGER)
 			-- Set 'byte' data element indexed (from 0) at 'i'
 		require
 			valid_index: i >= 0 and then i < 10
@@ -108,7 +108,7 @@ feature -- Modification
 			p.put_short_at (d, i * 2)
 		end
 
-	set_data_l (d: INTEGER; i: INTEGER) is
+	set_data_l (d: INTEGER; i: INTEGER)
 			-- Set 'byte' data element indexed (from 0) at 'i'
 		require
 			valid_index: i >= 0 and then i < 5
@@ -122,12 +122,12 @@ feature -- Modification
 
 feature {NONE} -- Managed Pointer once function
 
-	lmp: MANAGED_POINTER is
+	lmp: MANAGED_POINTER
 		once
 			create Result.share_from_pointer (default_pointer, 0)
 		end
 
-	data_offset: INTEGER is
+	data_offset: INTEGER
 		once
 			if {PLATFORM}.pointer_bytes = 8 then
 					-- 64-bit data layout
@@ -139,10 +139,10 @@ feature {NONE} -- Managed Pointer once function
 
 feature {NONE} -- external functions
 
-	c_message_type	(p: POINTER): INTEGER is	external "C struct XClientMessageEvent access message_type use <X11/Xlib.h>"	end
-	c_format		(p: POINTER): INTEGER is	external "C struct XClientMessageEvent access format use <X11/Xlib.h>"			end
+	c_message_type	(p: POINTER): INTEGER	external "C struct XClientMessageEvent access message_type use <X11/Xlib.h>"	end
+	c_format		(p: POINTER): INTEGER	external "C struct XClientMessageEvent access format use <X11/Xlib.h>"			end
 		
-	c_set_message_type	(p: POINTER; i: INTEGER) is    external "C struct XClientMessageEvent access message_type type Atom use <X11/Xlib.h>"	end
-	c_set_format		(p: POINTER; i: INTEGER) is    external "C struct XClientMessageEvent access format       type int  use <X11/Xlib.h>"   end
+	c_set_message_type	(p: POINTER; i: INTEGER)    external "C struct XClientMessageEvent access message_type type Atom use <X11/Xlib.h>"	end
+	c_set_format		(p: POINTER; i: INTEGER)    external "C struct XClientMessageEvent access format       type int  use <X11/Xlib.h>"   end
 	
 end

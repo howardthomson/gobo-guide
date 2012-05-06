@@ -39,7 +39,7 @@ feature  -- Creation
 			make_opts (a_window, 0)
 		end
 
-	make_opts (a_window: SB_WINDOW; opts: INTEGER) is
+	make_opts (a_window: SB_WINDOW; opts: INTEGER)
 			-- Construct menu pane
 		do
 			popup_make_opts (a_window, opts | Frame_raised | Frame_thick, 0,0,0,0)

@@ -1,4 +1,4 @@
-indexing
+note
    description: "SB_TREE_LIST_BOX commands"
    author: "Eugene Melekhov <eugene_melekhov@mail.ru>"
    copyright: "Copyright (c) 2002, Eugene Melekhov and others"
@@ -16,17 +16,17 @@ inherit
 
 feature
 
-   ID_TREE: INTEGER is
+   ID_TREE: INTEGER
       once
          Result := PACKER_ID_LAST
       end
 
-   ID_FIELD: INTEGER is
+   ID_FIELD: INTEGER
       once
          Result := PACKER_ID_LAST + 1;
       end
 
-   Id_last: INTEGER is
+   Id_last: INTEGER
       once
          Result := PACKER_ID_LAST + 2;
       end

@@ -16,27 +16,27 @@ create
 
 feature
 
-	create_resource_imp is
+	create_resource_imp
       	do            
 			xwin	:= display.root_window (display.default_screen)
 			set_width  (display.width	   (display.default_screen))
 			set_height (display.height	   (display.default_screen))	
       	end
 
-	detach_resource_imp is
+	detach_resource_imp
 		do
 		end
 
-	destroy_resource_imp is
+	destroy_resource_imp
 		do
 		end
 
-	default_width: INTEGER is
+	default_width: INTEGER
       	do
 			-- TODO
       	end
 
-   	default_height: INTEGER is
+   	default_height: INTEGER
       	do
 			-- TODO
       	end

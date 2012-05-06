@@ -2,7 +2,7 @@ expanded class SB_WAPI_PATH_FUNCTIONS
 
 feature
 
-   AbortPath(hdc: POINTER): INTEGER is
+   AbortPath(hdc: POINTER): INTEGER
 
 
 
@@ -17,7 +17,7 @@ feature
 
       end
 
-   BeginPath(hdc: POINTER): INTEGER is
+   BeginPath(hdc: POINTER): INTEGER
 
 
 
@@ -32,7 +32,7 @@ feature
 
       end
 
-   CloseFigure(hdc: POINTER): INTEGER is
+   CloseFigure(hdc: POINTER): INTEGER
 
 
 
@@ -47,7 +47,7 @@ feature
 
       end
 
-   EndPath(hdc: POINTER): INTEGER is
+   EndPath(hdc: POINTER): INTEGER
 
 
 
@@ -62,7 +62,7 @@ feature
 
       end
 
-   FillPath(hdc: POINTER): INTEGER is
+   FillPath(hdc: POINTER): INTEGER
 
 
 
@@ -77,7 +77,7 @@ feature
 
       end
 
-   FlattenPath(hdc: POINTER): INTEGER is
+   FlattenPath(hdc: POINTER): INTEGER
 
 
 
@@ -92,7 +92,7 @@ feature
 
       end
 
-   GetMiterLimit(hdc: POINTER; peLimit: POINTER): INTEGER is
+   GetMiterLimit(hdc: POINTER; peLimit: POINTER): INTEGER
 
 
 
@@ -107,7 +107,7 @@ feature
 
       end
 
-   GetPath(hdc: POINTER; lpPoints,lpTypes: POINTER; nSize: INTEGER): INTEGER is
+   GetPath(hdc: POINTER; lpPoints,lpTypes: POINTER; nSize: INTEGER): INTEGER
 
 
 
@@ -122,7 +122,7 @@ feature
 
       end
 
-   PathToRegion(hdc: POINTER): INTEGER is
+   PathToRegion(hdc: POINTER): INTEGER
 
 
 
@@ -152,7 +152,7 @@ feature
 --#endif
 --      end
 
-   StrokeAndFillPath(hdc: POINTER): INTEGER is
+   StrokeAndFillPath(hdc: POINTER): INTEGER
 
 
 
@@ -167,7 +167,7 @@ feature
 
       end
 
-   StrokePath(hdc: POINTER): INTEGER is
+   StrokePath(hdc: POINTER): INTEGER
 
 
 
@@ -182,7 +182,7 @@ feature
 
       end
 
-   WidenPath(hdc: POINTER): INTEGER is
+   WidenPath(hdc: POINTER): INTEGER
 
 
 

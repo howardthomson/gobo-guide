@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Constants of all SB widgets"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"

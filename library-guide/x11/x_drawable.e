@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Interface to Xlib's Drawable resource"
 
@@ -20,7 +20,7 @@ inherit
 	
 feature {NONE} -- Initialization
 
-	init(disp: X_DISPLAY; scr: INTEGER) is
+	init(disp: X_DISPLAY; scr: INTEGER)
     	require
       		disp /= Void
       		scr  <  disp.screen_count
@@ -32,7 +32,7 @@ feature -- Attributes
 
   	gc: X_GC	-- Graphic context to use on graphic operations.
 
-  	set_gc (new_gc: X_GC) is
+  	set_gc (new_gc: X_GC)
       		-- Graphic context modification
     	require
       		new_gc /= Void
@@ -44,7 +44,7 @@ feature -- Attributes
 
 feature -- drawing
 
-	draw_point (x, y: INTEGER) is
+	draw_point (x, y: INTEGER)
       		-- uses the foreground pixel and function components of the GC
       		-- to draw a single point into the drawable.
     	do
@@ -60,7 +60,7 @@ feature -- drawing
 --		     	tab.count, coord_mode)
 --    	end
 
-  	draw_line (x1, y1, x2, y2: INTEGER) is
+  	draw_line (x1, y1, x2, y2: INTEGER)
       		-- uses the components of the GC to draw a line 
       		-- between the specified set of points (x1, y1) and (x2, y2)
     	do
@@ -87,7 +87,7 @@ feature -- drawing
 --                       tab.to_external, tab.count)
 --    	end
 
-  	draw_arc (x, y, w, h, a1, a2: INTEGER) is
+  	draw_arc (x, y, w, h, a1, a2: INTEGER)
       		-- draws a circular or elliptical arc
     	require
       		w > 0
@@ -105,7 +105,7 @@ feature -- drawing
 --                   tab.to_external, tab.count)
 --   	 	end
 
-  	fill_arc (x, y, w, h, a1, a2: INTEGER) is
+  	fill_arc (x, y, w, h, a1, a2: INTEGER)
       		-- fills the region closed by the infinitely thin path described
       		-- by the specified arc and, depending on the arc-mode specified
       		-- in the GC, one or two line segments
@@ -125,7 +125,7 @@ feature -- drawing
 --                   tab.to_external, tab.count)
 --    	end
 
-  	draw_rectangle (x, y, w, h: INTEGER) is
+  	draw_rectangle (x, y, w, h: INTEGER)
       		--  draw the outlines of the specified rectangle
     	require
       		w > 0 and then h > 0
@@ -142,7 +142,7 @@ feature -- drawing
 --                         tab.to_external, tab.count)
 --    	end
 
-  	fill_rectangle (x, y, w, h: INTEGER) is
+  	fill_rectangle (x, y, w, h: INTEGER)
       		-- fill the specified rectangle
     	require
       		w > 0
@@ -173,7 +173,7 @@ feature -- drawing
 --		      	tab.to_external, tab.count, fill_mode, coord_mode)
 --    	end
 
-  	draw_string (x, y: INTEGER; text: STRING) is
+  	draw_string (x, y: INTEGER; text: STRING)
       		-- Each character image, as defined by the font in the GC, is 
       		-- treated as an additional mask for a fill operation on the drawable
     	require
@@ -183,7 +183,7 @@ feature -- drawing
                      string_to_external(text), text.count)
     	end
 
-  	draw_image_string (x, y: INTEGER; text: STRING) is
+  	draw_image_string (x, y: INTEGER; text: STRING)
       		-- fills a destination rectangle with the background pixel defined 
       		-- in the GC and then paints the text with the foreground pixel
     	require
@@ -204,7 +204,7 @@ feature -- drawing
 
 feature -- copying
 
-	copy_area (x, y: INTEGER; other: X_DRAWABLE; ox, oy, ow, oh: INTEGER) is
+	copy_area (x, y: INTEGER; other: X_DRAWABLE; ox, oy, ow, oh: INTEGER)
       		-- combines the specified rectangle of `other' with
       		-- the specified rectangle of Current
     	require
@@ -215,7 +215,7 @@ feature -- copying
     	end
 
 	copy_plane (x, y: INTEGER; other: X_DRAWABLE;
-              ox, oy, ow, oh, plane_mask: INTEGER) is
+              ox, oy, ow, oh, plane_mask: INTEGER)
       		-- uses a single bit plane of the specified source rectangle 
       		-- combined with the specified GC to modify the specified 
       		-- rectangle of Current
@@ -226,7 +226,7 @@ feature -- copying
                     ox, oy, ow, oh, x, y, plane_mask)
     	end
 
-  	put_image (x, y: INTEGER; im: X_IMAGE; ox, oy, ow, oh: INTEGER) is
+  	put_image (x, y: INTEGER; im: X_IMAGE; ox, oy, ow, oh: INTEGER)
       		-- combines an image with a rectangle of the drawable
     	require
       		im /= Void
@@ -236,7 +236,7 @@ feature -- copying
 		   		ox, oy, x, y, ow, oh)
     	end
 
-  	put_image_gc (x, y: INTEGER; im: X_IMAGE; a_gc: X_GC; ox, oy, ow, oh: INTEGER) is
+  	put_image_gc (x, y: INTEGER; im: X_IMAGE; a_gc: X_GC; ox, oy, ow, oh: INTEGER)
       		-- combines an image with a rectangle of the drawable
       		-- using a specified GC
     	require

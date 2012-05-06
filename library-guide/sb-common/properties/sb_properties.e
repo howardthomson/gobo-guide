@@ -1,4 +1,4 @@
-indexing
+note
 
 	todo: "[
 		Make properties frozen, returning once_properties, and arrange to adapt
@@ -15,14 +15,14 @@ inherit
 
 feature
 
-	frozen properties: ARRAY [ SB_PROPERTY ] is
+	frozen properties: ARRAY [ SB_PROPERTY ]
 		do
 			Result := once_properties
 			disable_all(Result)
 			add_properties
 		end
 
-	disable_all(a: ARRAY [ SB_PROPERTY ]) is
+	disable_all(a: ARRAY [ SB_PROPERTY ])
 			-- disable all properties in array
 		local
 			i: INTEGER
@@ -37,11 +37,11 @@ feature
 			end
 		end
 	
-	add_properties is
+	add_properties
 		do
 		end
 
-	print_properties is
+	print_properties
 		local
 			i: INTEGER
 		do

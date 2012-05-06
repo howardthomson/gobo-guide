@@ -2,7 +2,7 @@ expanded class SB_WAPI_KEYBOARD_INPUT_FUNCTIONS
 
 feature -- Access
 
-   GetFocus: POINTER is
+   GetFocus: POINTER
 
 
 
@@ -18,7 +18,7 @@ feature -- Access
       end
 	--------------------------------
 
-   GetKeyState (nVirtKey: INTEGER): INTEGER_16 is
+   GetKeyState (nVirtKey: INTEGER): INTEGER_16
 
 
 
@@ -34,7 +34,7 @@ feature -- Access
       end
 	--------------------------------
 
-   GetKeyboardState (lpKeyState: POINTER): INTEGER is
+   GetKeyboardState (lpKeyState: POINTER): INTEGER
 
 
 
@@ -50,7 +50,7 @@ feature -- Access
       end
 	--------------------------------
 
-   GetKeyNameText, GetKeyNameTextA(lParam: INTEGER; lpString: POINTER; nSize: INTEGER): INTEGER is
+   GetKeyNameText, GetKeyNameTextA(lParam: INTEGER; lpString: POINTER; nSize: INTEGER): INTEGER
 
 
 
@@ -66,7 +66,7 @@ feature -- Access
       end
 	--------------------------------
 
-   SetActiveWindow(hWnd: POINTER): POINTER is
+   SetActiveWindow(hWnd: POINTER): POINTER
 
 
 
@@ -82,7 +82,7 @@ feature -- Access
       end
 	--------------------------------
 
-   SetFocus (hWnd: POINTER): POINTER is
+   SetFocus (hWnd: POINTER): POINTER
 
 
 
@@ -98,7 +98,7 @@ feature -- Access
       end
 	--------------------------------
 
-   ToAscii(uVirtKey, uScanCode: INTEGER; lpKeyState, lpChar: POINTER; uFlags: INTEGER_32): INTEGER is
+   ToAscii(uVirtKey, uScanCode: INTEGER; lpKeyState, lpChar: POINTER; uFlags: INTEGER_32): INTEGER
 
 
 

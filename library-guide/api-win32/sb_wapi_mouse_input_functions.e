@@ -2,7 +2,7 @@ expanded class SB_WAPI_MOUSE_INPUT_FUNCTIONS
 
 feature -- Access
 
-   GetCapture: POINTER is
+   GetCapture: POINTER
 
 
 
@@ -17,7 +17,7 @@ feature -- Access
 
       end
 
-   SetCapture (hWnd: POINTER): POINTER is
+   SetCapture (hWnd: POINTER): POINTER
 
 
 
@@ -32,7 +32,7 @@ feature -- Access
 
       end
 
-   ReleaseCapture: INTEGER is
+   ReleaseCapture: INTEGER
 
 
 

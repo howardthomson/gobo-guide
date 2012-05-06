@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		This class is the root of the hierarchy of classes by which
 		property values are stored and accessed in widget classes

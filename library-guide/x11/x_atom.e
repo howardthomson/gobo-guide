@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Interface to Xlib's Atom resource"
 
 	author: "Stephane Hillion"
@@ -11,14 +11,14 @@ inherit
 
 	X_RESOURCE
 
-creation
+create
 
 	make,
 	make_predefined
 
 feature { NONE } -- Initialization
 
-	make (a_display: X_DISPLAY; a_name: STRING; if_exists: BOOLEAN) is
+	make (a_display: X_DISPLAY; a_name: STRING; if_exists: BOOLEAN)
 		    -- Creates the atom identifier associated with the specified
 		    -- `name' string.  If `if_exists' is False, the atom is created
 		    -- if it does not exist. Therefore `make' can create a
@@ -31,7 +31,7 @@ feature { NONE } -- Initialization
  			id := x_intern_atom (display.to_external, string_to_external (a_name), if_exists)
 		end
 
-	make_predefined (a_display: X_DISPLAY; n: INTEGER) is
+	make_predefined (a_display: X_DISPLAY; n: INTEGER)
 			-- Creates an atom from an external identifier `n'.
 		require
 			a_display /= Void
@@ -42,7 +42,7 @@ feature { NONE } -- Initialization
 
 feature -- Name
 
-	get_atom_name: STRING is
+	get_atom_name: STRING
 			-- returns the name associated with the specified atom.
 		require
 			id /= None_resource

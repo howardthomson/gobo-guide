@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Abstract base class for all top-level windows
 
@@ -79,20 +79,20 @@ feature -- Attributes
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_TOP_WINDOW"
 		end
 
 feature -- creation
 
-	make_top_title (a: SB_APPLICATION; name: STRING) is
+	make_top_title (a: SB_APPLICATION; name: STRING)
 		do
 			make_top (a, name, Void, Void, 0, 0,0,0,0, 0,0,0,0, 0,0)
 		end
 
    make_top (a: SB_APPLICATION; name: STRING; ic, mi: SB_ICON; opts: INTEGER;
-                        x,y,w,h,  pl,pr,pt,pb,  hs,vs: INTEGER) is
+                        x,y,w,h,  pl,pr,pt,pb,  hs,vs: INTEGER)
       do
          shell_make_top (a, opts, x,y,w,h)
          title := name
@@ -108,7 +108,7 @@ feature -- creation
       end
 
    make_child (own: SB_WINDOW; name: STRING; ic, mi: SB_ICON; opts: INTEGER;
-                   x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER) is
+                   x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER)
       do
          shell_make_child (own, opts, x,y,w,h)
          title := name
@@ -125,7 +125,7 @@ feature -- creation
 
 feature -- Resource creation (and attachment)
 
-   	create_resource is
+   	create_resource
       	do
          	Precursor
          		-- Create icons
@@ -148,13 +148,13 @@ feature -- Resource creation (and attachment)
          	end
 		end
 
-	create_resource_def is
+	create_resource_def
 		deferred
 		end
 
 feature -- Resource destruction (and detachment)
 
-	detach_resource is
+	detach_resource
     	do
         	Precursor
          	if icon /= Void then
@@ -165,7 +165,7 @@ feature -- Resource destruction (and detachment)
          	end
       	end
 
-   	close (notify: BOOLEAN) is
+   	close (notify: BOOLEAN)
    			-- called from on_close for SEL_CLOSE event from application
       	local
          	window: SB_WINDOW
@@ -208,7 +208,7 @@ feature -- Resource destruction (and detachment)
 		
 feature -- Destruction
 
-	destruct is
+	destruct
 		do
 			icon := Void
 			mini_icon := Void
@@ -217,19 +217,19 @@ feature -- Destruction
 
 feature -- actions
 
-	show is
+	show
     	do
 			Precursor
 			raise
 		end
 		
-   	show_at (placement: INTEGER) is
+   	show_at (placement: INTEGER)
       	do
          	place (placement)
          	show
       	end
 
-   	place (placement: INTEGER) is
+   	place (placement: INTEGER)
          	-- Position the window based on placement
       	local
          	rw, rh, ox, oy, ow, oh, wx, wy, ww, wh: INTEGER
@@ -392,7 +392,7 @@ feature -- actions
 		end
 
 
-   default_width: INTEGER is
+   default_width: INTEGER
       local
          w, wcum, wmax, mw: INTEGER
          child: SB_WINDOW
@@ -440,7 +440,7 @@ feature -- actions
          Result := pad_left+pad_right+ wcum.max(wmax)
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
       local
          h, hcum, hmax, mh: INTEGER
          child: SB_WINDOW
@@ -488,19 +488,19 @@ feature -- actions
          Result := pad_top + pad_bottom + hcum.max (hmax)
       end
 
-   iconify is
+   iconify
 		deferred
       end
 
-   deiconify is
+   deiconify
 		deferred
       end
 
-   is_iconified: BOOLEAN is
+   is_iconified: BOOLEAN
 		deferred
       end
 
-   set_title (name: STRING) is
+   set_title (name: STRING)
          -- Change window title
       do
          if not title.is_equal (name) then
@@ -511,7 +511,7 @@ feature -- actions
          end
       end
 
-   set_pad_top (pt: INTEGER) is
+   set_pad_top (pt: INTEGER)
          -- Change top padding
       do
          if pad_top /= pt then
@@ -521,7 +521,7 @@ feature -- actions
          end
       end
 
-   set_pad_bottom (pb: INTEGER) is
+   set_pad_bottom (pb: INTEGER)
          -- Change bottom padding
       do
          if pad_bottom /= pb then
@@ -531,7 +531,7 @@ feature -- actions
          end
       end
       
-   set_pad_left (pl: INTEGER) is
+   set_pad_left (pl: INTEGER)
          -- Change left padding
       do
          if pad_left /= pl then
@@ -541,7 +541,7 @@ feature -- actions
          end
       end
 
-   set_pad_right (pr: INTEGER) is
+   set_pad_right (pr: INTEGER)
          -- Change right padding
       do
          if pad_right /= pr then
@@ -551,7 +551,7 @@ feature -- actions
          end
       end
 
-   	set_h_spacing (hs: INTEGER) is
+   	set_h_spacing (hs: INTEGER)
          	-- Change horizontal spacing between children
       	do
          	if h_spacing /= hs then
@@ -561,7 +561,7 @@ feature -- actions
          	end
       	end
 
-   	set_v_spacing (vs: INTEGER) is
+   	set_v_spacing (vs: INTEGER)
          	-- Change vertical spacing between children
       	do
          	if v_spacing /= vs then
@@ -571,12 +571,12 @@ feature -- actions
          	end
       	end
 
-   	get_packing_hints: INTEGER is
+   	get_packing_hints: INTEGER
       	do
          	Result := options & (Pack_uniform_height | Pack_uniform_width)
       	end
    
-   	set_packing_hints (ph: INTEGER) is
+   	set_packing_hints (ph: INTEGER)
          	-- Change packing hints for children
       	local
          	opts: INTEGER
@@ -589,7 +589,7 @@ feature -- actions
          	end
 		end
 
-	set_decorations (decorations: INTEGER) is
+	set_decorations (decorations: INTEGER)
          	-- Change title and border decorations
       	local
          	opts: INTEGER;
@@ -604,12 +604,12 @@ feature -- actions
          	end
       	end
 
-   	get_decorations: INTEGER is
+   	get_decorations: INTEGER
       	do
          	Result := (options & Decor_all)
       	end
 
-	set_icon (ic: SB_ICON) is
+	set_icon (ic: SB_ICON)
          -- Change window icon
     	do
          	if icon /= ic then
@@ -620,7 +620,7 @@ feature -- actions
          	end
       	end
 
-   	set_mini_icon (ic: SB_ICON) is
+   	set_mini_icon (ic: SB_ICON)
          -- Change window mini (title) icon
       	do
          	if mini_icon /= ic then
@@ -634,7 +634,7 @@ feature -- actions
 
 feature {ANY} -- Message processing
 
-   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       do
          if 	match_function_2 (SEL_CLOSE,	0, 					type, key) then Result := on_cmd_close				(sender, key, data)
          elseif match_function_2 (SEL_COMMAND,Id_setstringvalue,	type, key) then Result := on_cmd_set_string_value	(sender, key, data)
@@ -644,13 +644,13 @@ feature {ANY} -- Message processing
          end
       end
 
-	on_cmd_close (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_close (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		do
 			close (True)
 			Result := True
 		end
 
-   on_cmd_set_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING;
       do
@@ -661,31 +661,31 @@ feature {ANY} -- Message processing
          Result := True
       end
 
-   on_cmd_iconify (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_iconify (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          iconify
          Result := True
       end
 
-   on_cmd_deiconify (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_deiconify (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          deiconify
          Result := True
       end
 
-   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
       end
 
-   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
       end
 
-   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
       end
 
-   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
       end
 
@@ -694,19 +694,19 @@ feature {NONE} -- Implementation
 
 	offx, offy: INTEGER
 
-	set_title_int is
+	set_title_int
 		deferred
 		end
 
-	set_icons_int is
+	set_icons_int
 		deferred
 		end
 
-	set_decorations_int is
+	set_decorations_int
 		deferred
 		end
 
-   layout is
+   layout
       local
          left, right, top, bottom, x,y, w,h: INTEGER;
          mw,mh: INTEGER

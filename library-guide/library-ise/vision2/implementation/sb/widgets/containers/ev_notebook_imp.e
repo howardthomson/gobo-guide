@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"Eiffel Vision notebook. GTK implementation."
 	legal: "See notice at end of class."
@@ -53,7 +53,7 @@ feature {NONE} -- Initialization
 --			base_make (an_interface)
 --		end
 
-	make is
+	make
 			-- Initialize the notebook.
 		do
 			Precursor {EV_WIDGET_LIST_IMP}
@@ -63,7 +63,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	pointed_tab_index: INTEGER is
+	pointed_tab_index: INTEGER
 			-- index of tab currently under mouse pointer, or 0 if none.
 		local
 			i: INTEGER
@@ -89,7 +89,7 @@ feature -- Access
 --			end
 		end
 
-	pixmaps_size_changed is
+	pixmaps_size_changed
 			-- The size of the displayed pixmaps has just
 			-- changed.
 		do
@@ -98,13 +98,13 @@ feature -- Access
 
 feature {EV_NOTEBOOK, EV_NOTEBOOK_TAB_IMP} -- Access
 
-	item_tab (an_item: EV_WIDGET): EV_NOTEBOOK_TAB is
+	item_tab (an_item: EV_WIDGET): EV_NOTEBOOK_TAB
 			-- Tab associated with `an_item'.
 		do
 			create Result.make_with_widgets (interface, an_item)
 		end
 
-	item_text (an_item: like item): STRING_32 is
+	item_text (an_item: like item): STRING_32
 			-- Label of `an_item'.
 		local
 			item_imp: EV_WIDGET_IMP
@@ -130,7 +130,7 @@ feature {EV_NOTEBOOK, EV_NOTEBOOK_TAB_IMP} -- Access
 --			end
 		end
 
-	item_pixmap (an_item: like item): EV_PIXMAP is
+	item_pixmap (an_item: like item): EV_PIXMAP
 			-- Pixmap of `an_item'.
 		local
 			item_imp: EV_WIDGET_IMP
@@ -155,7 +155,7 @@ feature {EV_NOTEBOOK, EV_NOTEBOOK_TAB_IMP} -- Access
 
 feature -- Status report
 
-	selected_item: like item is
+	selected_item: like item
 			-- Page displayed topmost.
 		local
 			p: POINTER
@@ -173,7 +173,7 @@ feature -- Status report
 --			end
 		end
 
-	selected_item_index: INTEGER is
+	selected_item_index: INTEGER
 			-- Page index of selected item
 		do
 			if count > 0 then
@@ -181,7 +181,7 @@ feature -- Status report
 			end
 		end
 
-	tab_position: INTEGER is
+	tab_position: INTEGER
 			-- Position of tabs.
  		local
  			gtk_pos: INTEGER
@@ -202,7 +202,7 @@ feature -- Status report
 
 feature {EV_NOTEBOOK} -- Status setting
 
-	set_tab_position (a_tab_position: INTEGER) is
+	set_tab_position (a_tab_position: INTEGER)
 			-- Display tabs at `a_position'.
 		local
 			gtk_pos: INTEGER
@@ -219,7 +219,7 @@ feature {EV_NOTEBOOK} -- Status setting
 --			{EV_GTK_EXTERNALS}.gtk_notebook_set_tab_pos (visual_widget, gtk_pos)
 		end
 
-	select_item (an_item: like item) is
+	select_item (an_item: like item)
 			-- Display `an_item' above all others.
 		local
 			item_imp: EV_WIDGET_IMP
@@ -236,7 +236,7 @@ feature {EV_NOTEBOOK} -- Status setting
 
 feature -- Element change
 
-	remove_i_th (i: INTEGER) is
+	remove_i_th (i: INTEGER)
 			-- Remove item at `i'-th position.
 		do
 			Precursor {EV_WIDGET_LIST_IMP} (i)
@@ -247,7 +247,7 @@ feature -- Element change
 			end
 		end
 
-	replace (v: like item) is
+	replace (v: like item)
 			-- Replace current item by `v'.
 		local
 			i: INTEGER
@@ -260,7 +260,7 @@ feature -- Element change
 
 feature {EV_NOTEBOOK, EV_NOTEBOOK_TAB_IMP} -- Element change
 
-	ensure_tab_label (tab_widget: POINTER) is
+	ensure_tab_label (tab_widget: POINTER)
 			-- Ensure the is a tab label widget for `tab_widget'.
 		local
 			a_event_box, a_hbox, a_image, a_label: POINTER
@@ -282,10 +282,10 @@ feature {EV_NOTEBOOK, EV_NOTEBOOK_TAB_IMP} -- Element change
 --			end
 		end
 
-	default_tab_label_spacing: INTEGER is 2
+	default_tab_label_spacing: INTEGER = 2
 		-- Space between pixmap and text in the tab label.
 
-	set_item_text (an_item: like item; a_text: STRING_GENERAL) is
+	set_item_text (an_item: like item; a_text: STRING_GENERAL)
 			-- Assign `a_text' to the label for `an_item'.
 		local
 			item_imp: EV_WIDGET_IMP
@@ -303,7 +303,7 @@ feature {EV_NOTEBOOK, EV_NOTEBOOK_TAB_IMP} -- Element change
 --			{EV_GTK_EXTERNALS}.g_list_free (a_list)
 		end
 
-	set_item_pixmap (an_item: like item; a_pixmap: EV_PIXMAP) is
+	set_item_pixmap (an_item: like item; a_pixmap: EV_PIXMAP)
 			-- Assign `a_pixmap' to the tab for `an_item'.
 		local
 			item_imp: EV_WIDGET_IMP
@@ -330,7 +330,7 @@ feature {EV_NOTEBOOK, EV_NOTEBOOK_TAB_IMP} -- Element change
 
 feature {EV_INTERMEDIARY_ROUTINES} -- Implementation
 
-	page_switch (a_page: INTEGER) is
+	page_switch (a_page: INTEGER)
 			-- Called when the page is switched.
 		do
 			if not is_destroyed then
@@ -346,7 +346,7 @@ feature {EV_ANY_I} -- Implementation
 	selected_item_index_internal: INTEGER
 			-- Index `selected_item'
 
-	gtk_insert_i_th (a_container, a_child: POINTER; a_position: INTEGER) is
+	gtk_insert_i_th (a_container, a_child: POINTER; a_position: INTEGER)
 			-- Move `a_child' to `a_position' in `a_container'.
 		do
 --			{EV_GTK_EXTERNALS}.gtk_container_add (a_container, a_child)
@@ -361,7 +361,7 @@ feature {EV_ANY_I, EV_ANY} -- Implementation
 			-- Provides a common user interface to platform dependent
 			-- functionality implemented by `Current'
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

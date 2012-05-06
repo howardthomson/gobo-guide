@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Anchor types for X11 32/64-bit adaptation"
 
@@ -10,7 +10,7 @@ class X_PORTABILITY_ANCHORS
 
 feature -- Anchor definitions
 
-	long_anchor: INTEGER is
+	long_anchor: INTEGER
 		do
 		end
 

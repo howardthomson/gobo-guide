@@ -1,5 +1,5 @@
 -- X Window System Implementation
-indexing
+note
 
 	todo: "[
 		Fix deferred features etc
@@ -18,19 +18,19 @@ inherit
 	X11_EXTERNAL_ROUTINES
 	SB_ZERO
 
-creation
+create
 	make
 
 feature
 
 	xfont: X_FONT_WITH_STRUCT
 
-	make_imp is
+	make_imp
 		do
 			hints := FONTHINT_X11;         -- X11 font string method
 		end
 
-	create_resource_imp is
+	create_resource_imp
 		require else
 			--implemented: false
 		do
@@ -68,38 +68,38 @@ feature
 		end
 
 	-- XLFD Fields
-	XLFD_FOUNDRY      : INTEGER is 1
-	XLFD_FAMILY       : INTEGER is 2
-	XLFD_WEIGHT       : INTEGER is 3
-	XLFD_SLANT        : INTEGER is 4
-	XLFD_SETWIDTH     : INTEGER is 5
-	XLFD_ADDSTYLE     : INTEGER is 6
-	XLFD_PIXELSIZE    : INTEGER is 7
-	XLFD_POINTSIZE    : INTEGER is 8
-	XLFD_RESOLUTION_X : INTEGER is 9
-	XLFD_RESOLUTION_Y : INTEGER is 10
-	XLFD_SPACING      : INTEGER is 11
-	XLFD_AVERAGE      : INTEGER is 12
-	XLFD_REGISTRY     : INTEGER is 13
-	XLFD_ENCODING     : INTEGER is 14
+	XLFD_FOUNDRY      : INTEGER = 1
+	XLFD_FAMILY       : INTEGER = 2
+	XLFD_WEIGHT       : INTEGER = 3
+	XLFD_SLANT        : INTEGER = 4
+	XLFD_SETWIDTH     : INTEGER = 5
+	XLFD_ADDSTYLE     : INTEGER = 6
+	XLFD_PIXELSIZE    : INTEGER = 7
+	XLFD_POINTSIZE    : INTEGER = 8
+	XLFD_RESOLUTION_X : INTEGER = 9
+	XLFD_RESOLUTION_Y : INTEGER = 10
+	XLFD_SPACING      : INTEGER = 11
+	XLFD_AVERAGE      : INTEGER = 12
+	XLFD_REGISTRY     : INTEGER = 13
+	XLFD_ENCODING     : INTEGER = 14
 
 	-- Match factors
-	ENCODING_FACTOR   : INTEGER is 0x00000100	-- 256
-	PITCH_FACTOR      : INTEGER is 0x00000080	-- 128
-	RESOLUTION_FACTOR : INTEGER is 0x00000040	-- 64
-	SCALABLE_FACTOR   : INTEGER is 0x00000020	-- 32
-	POLY_FACTOR       : INTEGER is 0x00000010	-- 16
-	SIZE_FACTOR       : INTEGER is 0x00000008	-- 8
-	WEIGHT_FACTOR     : INTEGER is 0x00000004	-- 4
-	SLANT_FACTOR      : INTEGER is 0x00000002	-- 2
-	SETWIDTH_FACTOR   : INTEGER is 0x00000001	-- 1
+	ENCODING_FACTOR   : INTEGER = 0x00000100	-- 256
+	PITCH_FACTOR      : INTEGER = 0x00000080	-- 128
+	RESOLUTION_FACTOR : INTEGER = 0x00000040	-- 64
+	SCALABLE_FACTOR   : INTEGER = 0x00000020	-- 32
+	POLY_FACTOR       : INTEGER = 0x00000010	-- 16
+	SIZE_FACTOR       : INTEGER = 0x00000008	-- 8
+	WEIGHT_FACTOR     : INTEGER = 0x00000004	-- 4
+	SLANT_FACTOR      : INTEGER = 0x00000002	-- 2
+	SETWIDTH_FACTOR   : INTEGER = 0x00000001	-- 1
 
-	FONTHINT_MASK: INTEGER is
+	FONTHINT_MASK: INTEGER
 		once
 			Result := (FONTHINT_DECORATIVE | FONTHINT_MODERN | FONTHINT_ROMAN | FONTHINT_SCRIPT | FONTHINT_SWISS | FONTHINT_SYSTEM)
 		end
 
-	has_char (ch: CHARACTER): BOOLEAN is
+	has_char (ch: CHARACTER): BOOLEAN
 			-- A glyph exists for the given character
 		do
 			-- Need to convert ch to INTEGER ??
@@ -107,13 +107,13 @@ feature
 		ensure then f: false
 		end
 
-	first_char: INTEGER is
+	first_char: INTEGER
 		do
 	--		Result := font_struct.min_char_or_byte2
 		ensure then f: false
 		end
 
-	last_char: INTEGER is
+	last_char: INTEGER
 		do
 	--		Result := font_struct.max_char_or_byte2
 		ensure then f: false
@@ -121,7 +121,7 @@ feature
 
 --	/*******************************************************************************/
 
-	weight_from_text (text: STRING): INTEGER is
+	weight_from_text (text: STRING): INTEGER
 			-- Convert text to font weight
 		require
 			text /= Void and then text.count >= 2
@@ -142,7 +142,7 @@ feature
 			end
 		end
 
-	slant_from_text (text: STRING): INTEGER is
+	slant_from_text (text: STRING): INTEGER
 			-- Convert text to slant
 		local
 			c1, c2: CHARACTER
@@ -165,7 +165,7 @@ feature
 			end
 		end
 
-	set_width_from_text (text: STRING): INTEGER is
+	set_width_from_text (text: STRING): INTEGER
 			-- Convert text to setwidth
 		require
 			text /= Void and then text.count >= 1
@@ -223,7 +223,7 @@ feature
 			end
 		end
 
-	pitch_from_text (text: STRING): INTEGER is
+	pitch_from_text (text: STRING): INTEGER
 			-- Convert pitch to flags
 		require
 			text /= Void and then text.count >= 1
@@ -240,7 +240,7 @@ feature
 			end
 		end
 
-	isISO8859 (text: STRING): BOOLEAN is
+	isISO8859 (text: STRING): BOOLEAN
 			-- Test if font is ISO8859
 		require
 			text /= Void
@@ -256,7 +256,7 @@ feature
 			end
 		end
 
-	isKOI8 (text: STRING): BOOLEAN is
+	isKOI8 (text: STRING): BOOLEAN
 			-- Test if font is KOI8
 		require
 			text /= Void
@@ -269,7 +269,7 @@ feature
 				and then (text @ 4) = '8'
 		end
 
-	is_multi_byte (text: STRING): BOOLEAN is
+	is_multi_byte (text: STRING): BOOLEAN
 			-- Test if font is multi-byte
 		do
 			-- Unicode font; not yet ...
@@ -322,7 +322,7 @@ feature
 
 
 --	list_font_names (pattern: STRING; nfound: INTEGER_REF): POINTER is
-	list_font_names (pattern: STRING; nfound: ANY): POINTER is
+	list_font_names (pattern: STRING; nfound: ANY): POINTER
 		require
 			implemented: false
 		local
@@ -344,7 +344,7 @@ feature
 	--#		nfound.set_item(numfnames)
 		end
 
-	matching_fonts (d: X_DISPLAY; pattern: STRING): INTEGER is
+	matching_fonts (d: X_DISPLAY; pattern: STRING): INTEGER
 			-- Return number of fonts matching name
 		require
 		--	implemented: false
@@ -359,7 +359,7 @@ feature
 		--	Result := numfnames.item;
 		end
 
-	parse_fontname (fname: STRING): BOOLEAN is
+	parse_fontname (fname: STRING): BOOLEAN
 			-- Parse font name into parts
 		local
 			f, i, last_i: INTEGER
@@ -389,7 +389,7 @@ feature
 		ensure then f: false
 		end
 
-	fields: ARRAY [ STRING ] is
+	fields: ARRAY [ STRING ]
 		local
 			i: INTEGER
 			s: STRING
@@ -406,7 +406,7 @@ feature
 			end
 		end
 
-	find_match (a_fontname, family: STRING): STRING is
+	find_match (a_fontname, family: STRING): STRING
 			-- Try find matching font
 		local
 			pattern: STRING
@@ -624,7 +624,7 @@ feature
 		ensure then f: false
 		end
 
-	concat (a_s: ARRAY [ STRING ]): STRING is
+	concat (a_s: ARRAY [ STRING ]): STRING
 		local
 			i: INTEGER
 		do
@@ -639,7 +639,7 @@ feature
 			end
 		end
 
-	find_best_font (fontname: STRING): STRING is
+	find_best_font (fontname: STRING): STRING
 			-- Try load the best matching font
 		local
 			match: STRING
@@ -672,7 +672,7 @@ feature
 		--	  return fontname;
 		end
 
-	swiss_fallback: ARRAY[STRING] is
+	swiss_fallback: ARRAY[STRING]
 			-- Try these fallbacks for swiss hint
 		once
 			Result := <<
@@ -685,7 +685,7 @@ feature
 			>>
 		end
 
-	roman_fallback: ARRAY[STRING] is
+	roman_fallback: ARRAY[STRING]
 			-- Try these fallbacks for times hint
 		once
 			Result := <<
@@ -698,7 +698,7 @@ feature
 			>>
 		end
 
-	modern_fallback: ARRAY[STRING] is
+	modern_fallback: ARRAY[STRING]
 			-- Try these fallbacks for modern hint
 		once
 			Result := <<
@@ -711,7 +711,7 @@ feature
 			>>
 		end
 
-	final_fallback: ARRAY[STRING] is
+	final_fallback: ARRAY[STRING]
 			-- Try these final fallbacks
 		once
 			Result := <<
@@ -723,7 +723,7 @@ feature
 			>>
 		end
 
-	fallbackfont: STRING is
+	fallbackfont: STRING
 			-- See which fallback font exists
 		local
 			fname: STRING
@@ -793,7 +793,7 @@ feature
 --	/*******************************************************************************/
 
 
-	detach is
+	detach
 			-- Detach font
 		do
 			if xfont /= Void then
@@ -805,7 +805,7 @@ feature
 		end
 
 
-	destroy is
+	destroy
 			-- Destroy font
 		do
 			if xfont /= Void then
@@ -820,7 +820,7 @@ feature
 
 --#################################################################################################################
 
-	text_width_offset, get_text_width_offset (text: STRING; start, count: INTEGER): INTEGER is
+	text_width_offset, get_text_width_offset (text: STRING; start, count: INTEGER): INTEGER
 		do
 			if text.count = 0 then
 				--	Result := 0
@@ -831,7 +831,7 @@ feature
 		end
 
 	-- Get font leading [that is lead-ing as in Pb!]
-	get_font_leading: INTEGER is
+	get_font_leading: INTEGER
 		do
 --			if xfont /= Void then
 --				Result := xfont.ascent + xfont.descent - xfont.max_bounds.ascent - xfont.max_bounds.descent;
@@ -841,7 +841,7 @@ feature
 		ensure then f: false
 		end
 
-	get_font_spacing: INTEGER is
+	get_font_spacing: INTEGER
 			-- Get font line spacing [height+leading]
 		local
 			fs: X_FONT_STRUCT
@@ -854,7 +854,7 @@ feature
 			end
 		end
 
-	left_bearing(ch: CHARACTER): INTEGER is
+	left_bearing(ch: CHARACTER): INTEGER
 		local
 			c: CHARACTER
 		do
@@ -876,7 +876,7 @@ feature
 		ensure then f: false
 		end
 
-	right_bearing(ch: CHARACTER): INTEGER is
+	right_bearing(ch: CHARACTER): INTEGER
 		local
 			c: CHARACTER
 		--	xpc: X_CHAR_STRUCT
@@ -897,7 +897,7 @@ feature
 		ensure then f: false
 		end
 
-	is_font_mono: BOOLEAN is
+	is_font_mono: BOOLEAN
 		do
 --			if xfont /= Void then
 --				Result := xfont.min_bounds.width = xfont.max_bounds.width;
@@ -907,7 +907,7 @@ feature
 		ensure then f: false
 		end
 
-	get_font_width: INTEGER is
+	get_font_width: INTEGER
 			-- Get font width
 		do
 --			if xfont /= Void then
@@ -918,7 +918,7 @@ feature
 		ensure then f: false
 		end
 
-	font_height, get_font_height: INTEGER is
+	font_height, get_font_height: INTEGER
 			-- Get font height
 		do
 			if xfont /= Void then
@@ -930,7 +930,7 @@ feature
 			end
 		end
 
-	ascent, get_font_ascent: INTEGER is
+	ascent, get_font_ascent: INTEGER
 			-- Get font ascent
 		do
 			if xfont /= Void then
@@ -940,7 +940,7 @@ feature
 			end
 		end
 
-	descent, get_font_descent: INTEGER is
+	descent, get_font_descent: INTEGER
 			-- Get font descent
 		do
 			if xfont /= Void then
@@ -964,7 +964,7 @@ feature
 --        end
 
 
-	Xget_text_height(text: STRING; n: INTEGER): INTEGER is
+	Xget_text_height(text: STRING; n: INTEGER): INTEGER
 			-- Text height
 		require
             text = Void implies n = 0
@@ -983,7 +983,7 @@ feature
 
 --	/*******************************************************************************/
 
-	compare_font(a, b: SB_FONT_DESC): INTEGER is
+	compare_font(a, b: SB_FONT_DESC): INTEGER
 			-- Function to sort by name, weight, slant, and size
 		local
 			cmp: INTEGER
@@ -1011,7 +1011,7 @@ feature
 --    	sw,				-- width
 --    	a_en: INTEGER	-- encoding
 --    	h: INTEGER	-- Hints
-						): BOOLEAN is
+						): BOOLEAN
 			-- List all fonts matching hints
 		require
 --			app_exists: application.instance /= Void
@@ -1209,7 +1209,7 @@ feature
 		ensure f: false
 		end
 
-	atoi(s: STRING): INTEGER is
+	atoi(s: STRING): INTEGER
 		do
 			Result := s.to_integer
 		end

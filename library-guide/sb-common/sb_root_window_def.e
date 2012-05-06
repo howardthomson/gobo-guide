@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Root window"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -31,19 +31,19 @@ inherit
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_ROOT_WINDOW"
 		end
 
 feature -- creation and resources
 
-   	make (app_ : SB_APPLICATION; vis_ : SB_VISUAL) is
+   	make (app_ : SB_APPLICATION; vis_ : SB_VISUAL)
       	do
          	make_root (app_, vis_)
       	end
 
-   	create_resource is
+   	create_resource
       	require else
          	visual /= void
       	local
@@ -72,7 +72,7 @@ feature -- creation and resources
         	end
       	end
 
-   	detach_resource is
+   	detach_resource
          	-- Detach server-side resources
       	local
          	c: SB_WINDOW
@@ -91,7 +91,7 @@ feature -- creation and resources
          	end
       	end
 
-   	destroy_resource is
+   	destroy_resource
          	-- Destroy server-side resources
       	local
          	c : SB_WINDOW
@@ -109,7 +109,7 @@ feature -- creation and resources
          	end
       	end
 
-	update_so_references is
+	update_so_references
          	-- Update Shared Object sequence numbers
       	local
          	c : SB_WINDOW
@@ -126,31 +126,31 @@ feature -- creation and resources
 
 feature -- routines
 
-   	move (x, y: INTEGER) is
+   	move (x, y: INTEGER)
       	do
       	end
 
-   	position (x, y, w, h: INTEGER) is
+   	position (x, y, w, h: INTEGER)
       	do
       	end
 
-   	resize (w, h: INTEGER) is
+   	resize (w, h: INTEGER)
       	do
       	end
 
-   	layout is
+   	layout
       	do
       	end
 
-	recalc is
+	recalc
 		do
 		end
 
-	set_focus is
+	set_focus
 		do
 		end
 
-	kill_focus is
+	kill_focus
 		do
 		end
 

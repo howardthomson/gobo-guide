@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The accelerator table sends a message to a specific target
 		object when the indicated key and modifier combination is pressed.
@@ -17,13 +17,13 @@ inherit
 			handle_2
 		end
 
-creation
+create
 
 	make
 
 feature  -- Creation
 
-	make is
+	make
          	-- Construct empty accelerator table
       	do
          	create dictionary.make (10)
@@ -31,13 +31,13 @@ feature  -- Creation
 
 feature -- Queries
 
-   has_accel (hotkey: INTEGER): BOOLEAN is
+   has_accel (hotkey: INTEGER): BOOLEAN
          -- Return true if accelerator specified
       do
          Result := dictionary.has (hotkey)
       end
 
-  accel_target (hotkey: INTEGER): SB_MESSAGE_HANDLER is
+  accel_target (hotkey: INTEGER): SB_MESSAGE_HANDLER
          -- Return target object of the given accelerator
       local
          key: SB_ACCEL_KEY
@@ -50,7 +50,7 @@ feature -- Queries
 
 feature -- Actions
 
-   add_accel (hotkey : INTEGER; target: SB_MESSAGE_HANDLER; seldn, selup: INTEGER) is
+   add_accel (hotkey : INTEGER; target: SB_MESSAGE_HANDLER; seldn, selup: INTEGER)
          -- Add an accelerator to the table
       require
          target /= Void
@@ -61,7 +61,7 @@ feature -- Actions
          dictionary.put (key, hotkey)
       end
 
-	remove_accel (hotkey: INTEGER) is
+	remove_accel (hotkey: INTEGER)
 			-- Remove mapping for specified hot key
 		local
 			key: SB_ACCEL_KEY
@@ -75,7 +75,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 			-- Keyboard press; forward to focus child
 		local
 			event: SB_EVENT
@@ -97,7 +97,7 @@ feature -- Message processing
          	end
       	end
 
-	on_key_release (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN is
+	on_key_release (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN
 			-- Keyboard release; forward to focus child
 		local
          	event: SB_EVENT
@@ -119,7 +119,7 @@ feature -- Message processing
          	end
       	end
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
 		do
         	if		match_function_2 (SEL_KEYPRESS,  0, type, key) then Result := on_key_press   (sender, key, data)
         	elseif  match_function_2 (SEL_KEYRELEASE,0, type, key) then Result := on_key_release (sender, key, data)
@@ -131,7 +131,7 @@ feature { NONE } -- Implementation
 
 	dictionary: HASH_TABLE [SB_ACCEL_KEY, INTEGER]
 
-	find_key (hotkey: INTEGER): SB_ACCEL_KEY is
+	find_key (hotkey: INTEGER): SB_ACCEL_KEY
 		do
          	dictionary.search (hotkey)
          	if dictionary.found then

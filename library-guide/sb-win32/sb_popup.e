@@ -6,13 +6,13 @@ inherit
 	 		window_class_name
 	 	end
 	 
-creation
+create
 	make,
 	make_opts
 
 feature
 
-	window_class_name: STRING is
+	window_class_name: STRING
 		once
 			Result := "SBPopup"
 		end

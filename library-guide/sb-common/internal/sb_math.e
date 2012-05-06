@@ -2,10 +2,10 @@ expanded class SB_MATH
 
 feature {ANY} -- Constants
 
-	pi  : REAL is  3.14159265358979323846
-	e   : REAL is  2.71828182845904523536
-	deg : REAL is 57.29577951308232087680   -- deg/radian
-	phi : REAL is  1.61803398874989484820   -- golden ratio
+	pi  : REAL =  3.14159265358979323846
+	e   : REAL =  2.71828182845904523536
+	deg : REAL = 57.29577951308232087680   -- deg/radian
+	phi : REAL =  1.61803398874989484820   -- golden ratio
 
 feature {ANY} -- Functions
 

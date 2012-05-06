@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Interface to Xlib's Display structure"
 
@@ -20,14 +20,14 @@ inherit
     		is_equal
     	end
 
-creation 
+create 
 
 	make,
 	from_external
 
 feature { NONE } -- Creation.
 
-	make (name: STRING) is
+	make (name: STRING)
     		-- opens a display channel.
     		-- name = "" opens the default display channel.
     	require
@@ -41,7 +41,7 @@ feature { NONE } -- Creation.
       		to_external /= default_pointer
     	end
 
-  	from_external (ptr: POINTER) is
+  	from_external (ptr: POINTER)
       		-- creates an X_DISPLAY instance from an external display pointer.
 		require
 			valid_ptr: ptr /= default_pointer
@@ -53,7 +53,7 @@ feature { NONE } -- Creation.
 
 feature -- Destruction.
 
-	close is
+	close
     		-- close the display.
     	require
 			to_external /= default_pointer
@@ -66,7 +66,7 @@ feature -- Destruction.
   
 feature
 
-	is_equal(other: like Current): BOOLEAN is
+	is_equal(other: like Current): BOOLEAN
     		-- Is other represent the same display as `Current'?
     	do
 			Result := to_external = other.to_external
@@ -82,7 +82,7 @@ feature
 --  		create Result.from_external (x_display_string (to_external))
 --    	end
 
-  	screen_count: INTEGER is
+  	screen_count: INTEGER
       		-- returns the number of available screens
     	require
       		to_external /= default_pointer
@@ -92,7 +92,7 @@ feature
 
 	cached_default_screen: INTEGER
 
-  	default_screen : INTEGER is
+  	default_screen : INTEGER
       		-- returns the default screen number referenced in make 
     	require
       		to_external /= default_pointer
@@ -103,7 +103,7 @@ feature
       		Result := cached_default_screen - 1
     	end
 
-  	width (scr: INTEGER) : INTEGER is
+  	width (scr: INTEGER) : INTEGER
       		-- returns the width of the specified screen in pixels
     	require
       		to_external /= default_pointer
@@ -112,7 +112,7 @@ feature
       		Result := x_display_width (to_external, scr)
     	end
 
-  	height (scr: INTEGER) : INTEGER is
+  	height (scr: INTEGER) : INTEGER
       		-- returns the height of the specified screen in pixels
     	require
       		to_external /= default_pointer
@@ -121,7 +121,7 @@ feature
       		Result := x_display_height (to_external, scr)
     	end
 
-	width_mm(scr: INTEGER): INTEGER is
+	width_mm(scr: INTEGER): INTEGER
 			-- returns the width of the specified screen in millimeters
 		require
 			to_external /= default_pointer
@@ -130,7 +130,7 @@ feature
 			Result := x_display_width_mm (to_external, scr)
 		end
 
-	height_mm(scr: INTEGER): INTEGER is
+	height_mm(scr: INTEGER): INTEGER
 			-- returns the height of the specified screen in millimeters
     	require
       		to_external /= default_pointer
@@ -142,7 +142,7 @@ feature
 	black_pixel_cached: BOOLEAN
 	black_pixel_value: INTEGER
 
-  	black_pixel(scr: INTEGER): INTEGER is
+  	black_pixel(scr: INTEGER): INTEGER
       		-- returns the black pixel value for the specified screen
     	require
       		to_external /= default_pointer
@@ -158,7 +158,7 @@ feature
 	white_pixel_cached: BOOLEAN
 	white_pixel_value: INTEGER
 
-	white_pixel(scr: INTEGER): INTEGER is
+	white_pixel(scr: INTEGER): INTEGER
 			-- returns the white pixel value for the specified screen
 		require
 			to_external /= default_pointer
@@ -171,7 +171,7 @@ feature
 			Result := white_pixel_value
 		end
 
-	cells(scr: INTEGER): INTEGER is
+	cells(scr: INTEGER): INTEGER
 			-- the number of cells in the default colormap for the 
 			-- specifier screen
 		require
@@ -181,7 +181,7 @@ feature
 			Result := x_display_cells (to_external, scr)
 		end
   
-	default_visual(scr: INTEGER): X_VISUAL is
+	default_visual(scr: INTEGER): X_VISUAL
 			-- returns the default visual type for the specified screen
 		require
 			to_external /= default_pointer
@@ -190,7 +190,7 @@ feature
     		create Result.from_external(x_default_visual (to_external, scr))
 		end
 
-	default_gc(scr: INTEGER): X_GC is
+	default_gc(scr: INTEGER): X_GC
 			-- returns the default GC for the root window of the specified screen    
 		require
     		to_external /= default_pointer
@@ -199,7 +199,7 @@ feature
       		create Result.from_external (Current, scr, XDefaultGC(to_external, scr))
 		end
 
-	default_colormap(scr: INTEGER): X_COLORMAP is
+	default_colormap(scr: INTEGER): X_COLORMAP
 			-- returns the default colormap ID for allocation 
 			-- on the specified screen    
     	require
@@ -209,7 +209,7 @@ feature
 			create Result.from_external (Current, scr, XDefaultColormap(to_external, scr))
 		end
 
-	default_depth(scr: INTEGER): INTEGER is
+	default_depth(scr: INTEGER): INTEGER
       		-- returns the depth (number of planes) of the 
       		-- default root window for the specified screen
     	require
@@ -219,7 +219,7 @@ feature
       		Result := XDefaultDepth (to_external, scr)
     	end
 
-  	root_window(scr: INTEGER): X_WINDOW is
+  	root_window(scr: INTEGER): X_WINDOW
       		-- returns the root window
     	require
       		to_external /= default_pointer
@@ -228,7 +228,7 @@ feature
       		create { X_DRAWABLE_WINDOW } Result.from_external(Current, scr, x_root_window(to_external, scr))
     	end
 
-	default_root_window: X_DRAWABLE_WINDOW is
+	default_root_window: X_DRAWABLE_WINDOW
 		do
 			Result ?= root_window(default_screen)
 		end
@@ -248,20 +248,20 @@ feature
 --     		create Result.from_external (p, read, i)
 --    	end
 
-	flush is
+	flush
       		-- flushes the output buffer
     	do
       		x_flush (to_external)
     	end
 
-	sync(empty_queue: BOOLEAN) is
+	sync(empty_queue: BOOLEAN)
       		-- flushes the output buffer and then waits until all requests 
       		-- have been received and processed by the X server
     	do
       		x_sync (to_external, empty_queue)
     	end
 
-  	protocol_version: INTEGER is
+  	protocol_version: INTEGER
       		-- returns the major version number of the X protocol 
       		-- associated with the connected display 
     	require
@@ -270,7 +270,7 @@ feature
       		Result := x_protocol_version(to_external)
     	end
 
-  	protocol_revision: INTEGER is
+  	protocol_revision: INTEGER
       		-- returns the minor protocol revision number of the X server
     	require
       		to_external /= default_pointer
@@ -278,7 +278,7 @@ feature
       		Result := x_protocol_revision(to_external)
     	end
 
-  	vendor_release: INTEGER is
+  	vendor_release: INTEGER
       		-- returns a number related to a vendor's release of the X server
     	do
       		Result := x_vendor_release (to_external)
@@ -291,7 +291,7 @@ feature
 --      		create Result.from_external (x_server_vendor (to_external))
 --    	end
 
-	set_close_down_mode(mode: INTEGER) is
+	set_close_down_mode(mode: INTEGER)
       		-- defines what will happen to the client's resources 
       		-- at connection close
     	do
@@ -306,7 +306,7 @@ feature  -- close down mode values
 
 feature
 
-	kill_client (res_id: INTEGER) is
+	kill_client (res_id: INTEGER)
 			-- forces a close-down of the client that created the resource 
 			-- if a valid resource is specified
 		do
@@ -349,7 +349,7 @@ feature
 --			x_set_font_path (to_external, fp.to_external, fp.count)
 --		end
 
-  	bell (percent : INTEGER) is
+  	bell (percent : INTEGER)
       		-- rings the bell on the keyboard on the specified display, if possible
     	require
       		percent >= -100 and then percent <= 100
@@ -357,13 +357,13 @@ feature
       		x_bell(to_external, percent)
     	end
 
-	auto_repeat_on is
+	auto_repeat_on
 			-- turns on auto-repeat for the keyboard on the specified display
     	do
 			x_auto_repeat_on (to_external)
     	end
 
-	auto_repeat_off is
+	auto_repeat_off
 			-- turns off auto-repeat for the keyboard on the specified display
 		do
 			x_auto_repeat_off (to_external)
@@ -377,20 +377,20 @@ feature
 --			create Result.from_external (x_screen_of_display (to_external, scr))
 --		end
 
-	connection_number: INTEGER is
+	connection_number: INTEGER
 			-- returns a connection number for the display
 		do
 			Result := XConnectionNumber (to_external)
 		end
 
-	max_request_size: INTEGER is
+	max_request_size: INTEGER
 			-- returns the maximum request size (in 4-byte units) supported 
 			-- by the server without using an extended-length protocol encoding
 		do
 			Result := x_max_request_size (to_external)
 		end
 
-	extended_max_request_size: INTEGER is
+	extended_max_request_size: INTEGER
 			-- returns Zero if the specified display does not support an 
 			-- extended-length protocol encoding; otherwise, it returns 
 			-- the maximum request size (in 4-byte units) supported by the 
@@ -399,21 +399,21 @@ feature
 			Result := x_extended_max_request_size (to_external)
 		end
 
-	last_known_request_processed: INTEGER is
+	last_known_request_processed: INTEGER
 			-- extracts the full serial number of the last request known 
 			-- by Xlib to have been processed by the X server    
 		do
 			Result := x_last_known_request_processed (to_external)
 		end
 
-	next_request: INTEGER is
+	next_request: INTEGER
 			-- extracts the full serial number that is to be used 
 			-- for the next request
 		do
 			Result := x_next_request (to_external)
 		end
 
-	queue_length: INTEGER is
+	queue_length: INTEGER
 			-- returns the length of the event queue for the connected display
 		do
 			Result := x_q_length (to_external)
@@ -468,7 +468,7 @@ feature -- Buffers
 --     		end
 --    	end
 
-	rotate_buffers(buf_n: INTEGER) is
+	rotate_buffers(buf_n: INTEGER)
 			-- rotates the cut buffers, such that buffer 0 becomes buffer 8, 
 			-- buffer 1 becomes n + 1 mod 8, and so on    
 		require

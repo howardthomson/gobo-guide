@@ -6,7 +6,7 @@ create
 
 feature
 
-	make_from_now is
+	make_from_now
 		local
 			r: INTEGER
 		do
@@ -16,19 +16,19 @@ feature
 			r := c_gettimeofday (ptr, default_pointer)
 		end
 
-	seconds: INTEGER is
+	seconds: INTEGER
 		do
 			Result := c_seconds (ptr)
 		end
 
-	microseconds: INTEGER is
+	microseconds: INTEGER
 		do
 			Result := c_microseconds (ptr)
 		end
 
 feature -- Implementation
 
-   	make is
+   	make
 		do
 			create area.make (external_size)
 			ptr := area.item
@@ -40,17 +40,17 @@ feature -- Implementation
 
 	ptr: POINTER
 
-	external_size: INTEGER is
+	external_size: INTEGER
 		external "C macro use <sys/time.h>"
 		alias "sizeof (struct timeval)"
 		end
 
-	c_gettimeofday (p1, p2: POINTER): INTEGER is
+	c_gettimeofday (p1, p2: POINTER): INTEGER
 		external "C use <sys/time.h>"
 		alias "gettimeofday"
 		end
 
-	c_seconds		(p: POINTER): INTEGER is external "C struct struct timeval access tv_sec use <sys/time.h>" end
-	c_microseconds	(p: POINTER): INTEGER is external "C struct struct timeval access tv_usec use <sys/time.h>" end
+	c_seconds		(p: POINTER): INTEGER external "C struct struct timeval access tv_sec use <sys/time.h>" end
+	c_microseconds	(p: POINTER): INTEGER external "C struct struct timeval access tv_usec use <sys/time.h>" end
 
 end

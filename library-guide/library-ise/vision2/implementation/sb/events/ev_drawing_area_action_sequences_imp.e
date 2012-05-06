@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"Action sequences for EV_DRAWING_AREA_IMP."
 	legal: "See notice at end of class."
@@ -22,7 +22,7 @@ inherit
 
 feature -- Event handling
 
-	create_expose_actions: EV_GEOMETRY_ACTION_SEQUENCE is
+	create_expose_actions: EV_GEOMETRY_ACTION_SEQUENCE
 			-- Create a expose action sequence.
 			-- Attach to GTK "expose-event" signal.
 		local
@@ -47,7 +47,7 @@ feature {NONE} -- Implementation
 		deferred
 		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

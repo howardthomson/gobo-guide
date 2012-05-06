@@ -2,16 +2,16 @@ expanded class SB_WAPI_REGION_FUNCTIONS
 
 feature
 
-   NULLREGION: INTEGER is 1;
+   NULLREGION: INTEGER = 1;
          -- Region is empty.
-   SIMPLEREGION: INTEGER is 2;
+   SIMPLEREGION: INTEGER = 2;
          -- Region is a single rectangle.
-   COMPLEXREGION: INTEGER is 3;
+   COMPLEXREGION: INTEGER = 3;
          -- Region is more than one rectangle.
 
 feature -- Access
 
-   CombineRgn (hRgnDest, hRgnSrc1, hRgnSrc2: POINTER; fnCombineMode: INTEGER): INTEGER is
+   CombineRgn (hRgnDest, hRgnSrc1, hRgnSrc2: POINTER; fnCombineMode: INTEGER): INTEGER
 
 
 
@@ -26,7 +26,7 @@ feature -- Access
 
       end
 
-   CreateEllipticRgn (nLeftRect, nTopRect, nRightRect, nBottomRect: INTEGER): POINTER is
+   CreateEllipticRgn (nLeftRect, nTopRect, nRightRect, nBottomRect: INTEGER): POINTER
 
 
 
@@ -41,7 +41,7 @@ feature -- Access
 
       end
 
-   CreateRectRgn (nLeftRect, nTopRect, nRightRect, nBottomRect: INTEGER): POINTER is
+   CreateRectRgn (nLeftRect, nTopRect, nRightRect, nBottomRect: INTEGER): POINTER
 
 
 
@@ -56,7 +56,7 @@ feature -- Access
 
       end
 
-   FillRgn (hDC, hRgn, hBr: POINTER): INTEGER is
+   FillRgn (hDC, hRgn, hBr: POINTER): INTEGER
 
 
 
@@ -71,7 +71,7 @@ feature -- Access
 
       end
 
-   GetPolyFillMode (hDC: POINTER): INTEGER is
+   GetPolyFillMode (hDC: POINTER): INTEGER
 
 
 
@@ -86,7 +86,7 @@ feature -- Access
 
       end
 
-   SetPolyFillMode (hDC: POINTER; iPolyFillMode: INTEGER): INTEGER is
+   SetPolyFillMode (hDC: POINTER; iPolyFillMode: INTEGER): INTEGER
 
 
 
@@ -101,7 +101,7 @@ feature -- Access
 
       end
 
-   CreateRectRgnIndirect (lprc1: POINTER): POINTER is
+   CreateRectRgnIndirect (lprc1: POINTER): POINTER
 
 
 
@@ -116,7 +116,7 @@ feature -- Access
 
       end
 
-   CreatePolygonRgn (lppt: POINTER; cPoints: INTEGER; fnPolyFillMode: INTEGER): POINTER is
+   CreatePolygonRgn (lppt: POINTER; cPoints: INTEGER; fnPolyFillMode: INTEGER): POINTER
 
 
 
@@ -131,7 +131,7 @@ feature -- Access
 
       end
 
-   PtInRegion (hrgn: POINTER; X: INTEGER; Y: INTEGER): INTEGER is
+   PtInRegion (hrgn: POINTER; X: INTEGER; Y: INTEGER): INTEGER
 
 
 
@@ -146,7 +146,7 @@ feature -- Access
 
       end
 
-   OffsetRgn (hrgn: POINTER; nXOffset, nYOffset: INTEGER): INTEGER is
+   OffsetRgn (hrgn: POINTER; nXOffset, nYOffset: INTEGER): INTEGER
 
 
 
@@ -161,7 +161,7 @@ feature -- Access
 
       end
 
-   RectInRegion (hrgn: POINTER; lprc: POINTER): INTEGER is
+   RectInRegion (hrgn: POINTER; lprc: POINTER): INTEGER
 
 
 
@@ -176,7 +176,7 @@ feature -- Access
 
       end
 
-   GetRgnBox (hrgn: POINTER; lprc: POINTER): INTEGER is
+   GetRgnBox (hrgn: POINTER; lprc: POINTER): INTEGER
 
 
 
@@ -191,7 +191,7 @@ feature -- Access
 
       end
 
-   EqualRgn (hSrcRgn1, hSrcRgn2: POINTER): INTEGER is
+   EqualRgn (hSrcRgn1, hSrcRgn2: POINTER): INTEGER
 
 
 

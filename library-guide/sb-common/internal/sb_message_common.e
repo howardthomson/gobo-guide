@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Base class for message handler/sender"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -9,30 +9,30 @@ class SB_MESSAGE_COMMON
 
 feature {NONE} -- Constants for handle... dispatch handling
 
-   minkey, mintype: INTEGER is 0
-   maxkey, maxtype: INTEGER is 65535
+   minkey, mintype: INTEGER = 0
+   maxkey, maxtype: INTEGER = 65535
 
 feature {NONE} -- Matching routines for handle... dispatch
 
-	match_type_2 (type, sel_type, sel_id: INTEGER): BOOLEAN is
+	match_type_2 (type, sel_type, sel_id: INTEGER): BOOLEAN
    			-- Match the SEL type code, ignore ID
     	do
         	Result := type = sel_type
       	end
 
-	match_types_2 (typelow, typehi, sel_type, sel_id: INTEGER): BOOLEAN is
+	match_types_2 (typelow, typehi, sel_type, sel_id: INTEGER): BOOLEAN
 			-- Match range of SEL type codes, ignore ID
     	do
     		Result := sel_type >= typelow and then sel_type <= typehi
     	end
 
-	match_function_2 (type, func, sel_type, sel_id: INTEGER): BOOLEAN is
+	match_function_2 (type, func, sel_type, sel_id: INTEGER): BOOLEAN
 			-- Match SEL type and function ID
     	do
         	Result := type = sel_type and then func = sel_id
       	end
 
-	match_functions_2 (type, funclow, funchi, sel_type, sel_id: INTEGER): BOOLEAN is
+	match_functions_2 (type, funclow, funchi, sel_type, sel_id: INTEGER): BOOLEAN
 			-- Match SEL type and range of IDs
 		do
 			Result := type = sel_type and then (sel_id >= funclow and sel_id <= funchi)
@@ -40,12 +40,12 @@ feature {NONE} -- Matching routines for handle... dispatch
 
 feature -- 
 
-	mksel (type, id: INTEGER): INTEGER is
+	mksel (type, id: INTEGER): INTEGER
 		do
 			Result := (type * 65536) + id;
 		end
 
-	selid (s: INTEGER): INTEGER is
+	selid (s: INTEGER): INTEGER
 			-- Get ID from selector
 		do
 			Result := s & 0x0000ffff

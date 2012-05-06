@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 		"EiffelVision combo box, gtk implementation."
@@ -66,7 +66,7 @@ create
 
 feature {NONE} -- Initialization
 
-	needs_event_box: BOOLEAN is
+	needs_event_box: BOOLEAN
 			-- Does `a_widget' need an event box?
 		do
 			Result := True
@@ -98,7 +98,7 @@ feature {NONE} -- Initialization
 
 feature {NONE} -- Initialization
 
-	call_selection_action_sequences is
+	call_selection_action_sequences
 			-- Call the appropriate selection action sequences
 		local
 			a_selected_item: EV_LIST_ITEM
@@ -132,7 +132,7 @@ feature {NONE} -- Initialization
 	previous_selected_item_imp: EV_LIST_ITEM_IMP
 		-- Item that was selected previously.
 
-	initialize is
+	initialize
 			-- Connect action sequences to signals.
 		local
 			a_cell_renderer: POINTER
@@ -170,7 +170,7 @@ feature {NONE} -- Initialization
 --			initialize_tab_behavior
 		end
 
-	insert_i_th (v: like item; i: INTEGER) is
+	insert_i_th (v: like item; i: INTEGER)
 			-- Insert `v' at position `i'.
 		do
 			Precursor {EV_LIST_ITEM_LIST_IMP} (v, i)
@@ -184,7 +184,7 @@ feature -- Status report
 	has_focus: BOOLEAN
 			-- Does widget have the keyboard focus?
 
-	selected_item: EV_LIST_ITEM is
+	selected_item: EV_LIST_ITEM
 			-- Item which is currently selected, for a multiple
 			-- selection.
 		local
@@ -196,26 +196,26 @@ feature -- Status report
 			end
 		end
 
-	selected_items: ARRAYED_LIST [EV_LIST_ITEM] is
+	selected_items: ARRAYED_LIST [EV_LIST_ITEM]
 			-- List of all the selected items. Used for list_item.is_selected implementation.
 		do
 			create Result.make (0)
 			Result.extend (selected_item)
 		end
 
-	select_item (an_index: INTEGER) is
+	select_item (an_index: INTEGER)
 			-- Select an item at the one-based `index' of the list.
 		do
 			TODO_class_line ("EV_COMBO_BOX_IMP::select_item", "__LINE__")
 		end
 
-	deselect_item (an_index: INTEGER) is
+	deselect_item (an_index: INTEGER)
 			-- Unselect the item at the one-based `index'.
 		do
 			TODO_class_line ("EV_COMBO_BOX_IMP::deselect_item", "__LINE__")
 		end
 
-	clear_selection is
+	clear_selection
 			-- Clear the item selection of `Current'.
 		do
 			TODO_class_line ("EV_COMBO_BOX_IMP::clear_selection", "__LINE__")
@@ -223,7 +223,7 @@ feature -- Status report
 
 feature -- Status setting
 
-	set_maximum_text_length (len: INTEGER) is
+	set_maximum_text_length (len: INTEGER)
 			-- Set the length of the longest text size in characters that `Current' can display.
 		do
 			TODO_class_line ("EV_COMBO_BOX_IMP::set_maximum_text_length", "__LINE__")
@@ -231,7 +231,7 @@ feature -- Status setting
 
 feature {NONE} -- Implementation
 
-	on_focus_changed (a_has_focus: BOOLEAN) is
+	on_focus_changed (a_has_focus: BOOLEAN)
 			-- Focus for `Current' has changed'.
 		local
 			a_toggle: POINTER
@@ -271,7 +271,7 @@ feature {NONE} -- Implementation
 
 feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Event handling
 
-	retrieve_toggle_button is
+	retrieve_toggle_button
 			-- Retrieve the toggle button from the GtkComboBox structure.
 		local
 			a_toggle: POINTER
@@ -289,7 +289,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Event handling
 			retrieve_toggle_button_signal_connection_id := 0
 		end
 
-	toggle_button_toggled is
+	toggle_button_toggled
 			-- The toggle button has been toggled.
 		local
 			a_toggle: POINTER
@@ -318,7 +318,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Event handling
 
 feature {NONE} -- Implementation
 
-	pixmaps_size_changed is
+	pixmaps_size_changed
 			-- The size of the displayed pixmaps has just
 			-- changed.
 		do
@@ -330,7 +330,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_COMBO_BOX;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

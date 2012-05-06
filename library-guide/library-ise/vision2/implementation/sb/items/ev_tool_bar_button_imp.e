@@ -129,7 +129,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	text: STRING_32 is
+	text: STRING_32
 			-- Text of the label.
 		local
 			a_txt: POINTER
@@ -140,7 +140,7 @@ feature -- Access
 	gray_pixmap: EV_PIXMAP
 			-- Image displayed on `Current'.
 
-	tooltip: STRING_32 is
+	tooltip: STRING_32
 			-- Tooltip use for describing `Current'.
 		do
 			if internal_tooltip /= Void then
@@ -155,7 +155,7 @@ feature -- Access
 
 feature -- Element change
 
-	set_text (a_text: STRING_GENERAL) is
+	set_text (a_text: STRING_GENERAL)
 			-- Assign `a_text' to `text'.
 		local
 			a_parent_imp: EV_TOOL_BAR_IMP
@@ -163,7 +163,7 @@ feature -- Element change
 			-- TODO
 		end
 
-	set_pixmap (a_pixmap: EV_PIXMAP) is
+	set_pixmap (a_pixmap: EV_PIXMAP)
 			-- Assign `a_pixmap' to `pixmap'.
 		local
 			a_parent_imp: EV_TOOL_BAR_IMP
@@ -175,7 +175,7 @@ feature -- Element change
 			end
 		end
 
-	set_tooltip (a_text: STRING_GENERAL) is
+	set_tooltip (a_text: STRING_GENERAL)
 			-- Set `tooltip' to `a_text'.
 		local
 		do
@@ -189,28 +189,28 @@ feature -- Element change
 	--		)
 		end
 
-	set_gray_pixmap (a_gray_pixmap: EV_PIXMAP) is
+	set_gray_pixmap (a_gray_pixmap: EV_PIXMAP)
 			-- Assign `a_gray_pixmap' to `gray_pixmap'.
 		do
 			gray_pixmap := a_gray_pixmap.twin
 			--| FIXME IEK Needs proper implementation
 		end
 
-	remove_gray_pixmap is
+	remove_gray_pixmap
 			-- Make `pixmap' `Void'.
 		do
 			gray_pixmap := Void
 			--| FIXME IEK Needs proper implementation
 		end
 
-	enable_sensitive is
+	enable_sensitive
 			 -- Enable `Current'.
 		do
 			enabled_before := is_sensitive
 			enable_sensitive_internal
 		end
 
-	disable_sensitive is
+	disable_sensitive
 			 -- Disable `Current'.
 		do
 			enabled_before := is_sensitive
@@ -219,20 +219,20 @@ feature -- Element change
 
 feature {NONE}
 
-	enable_sensitive_internal is
+	enable_sensitive_internal
 			-- Allow the object to be sensitive to user input.
 		do
 			-- TODO
 		end
 
-	disable_sensitive_internal is
+	disable_sensitive_internal
 			-- Set the object to ignore all user input.
 		do
 		end
 
 feature -- Status report
 
-	is_sensitive: BOOLEAN is
+	is_sensitive: BOOLEAN
 			-- Is the object sensitive to user input.
 		do
 			if not is_destroyed then
@@ -240,13 +240,13 @@ feature -- Status report
 			end
 		end
 
-	has_parent: BOOLEAN is
+	has_parent: BOOLEAN
 			-- Is `Current' parented?
 		do
 			Result := parent /= Void
 		end
 
-	parent_is_sensitive: BOOLEAN is
+	parent_is_sensitive: BOOLEAN
 			-- Is `parent' sensitive?
 		local
 			sensitive_parent: EV_SENSITIVE
@@ -259,7 +259,7 @@ feature -- Status report
 
 feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Implementation
 
-	call_select_actions is
+	call_select_actions
 			-- Call the select_actions for `Current'
 		do
 			if not in_select_actions_call then
@@ -276,7 +276,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Implementation
 
 feature {EV_ANY_I, EV_GTK_CALLBACK_MARSHAL} -- Implementation
 
-	create_select_actions: EV_NOTIFY_ACTION_SEQUENCE is
+	create_select_actions: EV_NOTIFY_ACTION_SEQUENCE
 			-- Create a select action sequence.
 			-- Attach to GTK "clicked" signal.
 		do
@@ -284,7 +284,7 @@ feature {EV_ANY_I, EV_GTK_CALLBACK_MARSHAL} -- Implementation
 --			real_signal_connect (c_object, once "clicked", agent (App_implementation.gtk_marshal).new_toolbar_item_select_actions_intermediary (internal_id), Void)
 		end
 
-	create_drop_down_actions: EV_NOTIFY_ACTION_SEQUENCE is
+	create_drop_down_actions: EV_NOTIFY_ACTION_SEQUENCE
 			-- 	Create a drop down action sequence.
 		do
 			create Result

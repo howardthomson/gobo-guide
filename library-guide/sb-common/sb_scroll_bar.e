@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The scroll bar is used when a document has a larger content than may be made
 		visible.  The range is the total size of the document, the page is the part
@@ -59,7 +59,7 @@ inherit
 
    	SB_SCROLL_BAR_COMMANDS
 
-creation
+create
 
    make, make_opts
 
@@ -157,7 +157,7 @@ feature -- Queries
          end
       end
 
-   get_scrollbar_style: INTEGER is
+   get_scrollbar_style: INTEGER
          -- Return the scrollbar style
       do
          Result := (options & SCROLLBAR_MASK)
@@ -1308,7 +1308,7 @@ feature {NONE} -- Implementation
          dc.fill_polygon (points)
       end
 
-   layout is
+   layout
       do
          set_scroll_position (scroll_position)
          unset_flags (Flag_dirty)

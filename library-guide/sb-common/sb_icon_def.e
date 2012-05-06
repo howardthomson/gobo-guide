@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 				An Icon is an image with two additional server-side resources: a shape
 				bitmap, which is used to mask those pixels where the background should
@@ -41,12 +41,12 @@ feature {SB_DC, SB_DC_WINDOW, SB_DRAWABLE, SB_TOP_WINDOW} -- Attributes, restric
 
 feature -- Creation
 
-	make (a: SB_APPLICATION; pix: ARRAY [ INTEGER_8 ]) is
+	make (a: SB_APPLICATION; pix: ARRAY [ INTEGER_8 ])
     	do
 			make_opts (a, pix, 0, Zero, 1, 1);
       	end
 
-  	make_opts (a: SB_APPLICATION; pix: ARRAY [ INTEGER_8 ]; clr: INTEGER; opts: INTEGER; w, h: INTEGER) is
+  	make_opts (a: SB_APPLICATION; pix: ARRAY [ INTEGER_8 ]; clr: INTEGER; opts: INTEGER; w, h: INTEGER)
          -- Create an icon with an initial pixel buffer pix, a transparent color clr,
          -- and options as in FXImage.  The transparent color is used to detemine which
          -- pixel values are transparent, i.e. need to be masked out in the absence of
@@ -71,7 +71,7 @@ feature -- Data
 
 feature -- Resource management
 
-	create_resource is
+	create_resource
 			-- Create the icon resource
 		do
 			if not is_attached then
@@ -88,7 +88,7 @@ feature -- Resource management
 			end
 		end
 
-	detach_resource is
+	detach_resource
 			-- Detach the icon resource
 		do
         	visual.detach_resource
@@ -100,7 +100,7 @@ feature -- Resource management
 			end
       	end
 
-   destroy_resource is
+   destroy_resource
          	-- Destroy the icon resource
 		do
          	if not is_attached then
@@ -115,7 +115,7 @@ feature -- Resource management
 
 feature -- Actions
 
-   resize (w_, h_: INTEGER) is
+   resize (w_, h_: INTEGER)
          -- Resize pixmap to the specified width and height
       local
          w,h: INTEGER;
@@ -152,7 +152,7 @@ feature -- Actions
          end
       end
 
-	set_transparent_color (color: INTEGER) is
+	set_transparent_color (color: INTEGER)
 			-- Change transparency color
 		do
 			transparent_color := color
@@ -160,7 +160,7 @@ feature -- Actions
 
 feature {SB_DC, SB_DC_WINDOW, SB_DRAWABLE, SB_TOP_WINDOW} -- Implementation
 
-	guesstransp: INTEGER is
+	guesstransp: INTEGER
     	local
 			tr, bl, br, best, t: INTEGER
 			color: ARRAY [ INTEGER ]
@@ -227,7 +227,7 @@ feature {SB_DC, SB_DC_WINDOW, SB_DRAWABLE, SB_TOP_WINDOW} -- Implementation
 
 feature -- Destruction
 
-	destruct is
+	destruct
 		do
 			destroy_resource
 			Precursor

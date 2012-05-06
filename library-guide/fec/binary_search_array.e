@@ -31,13 +31,13 @@ inherit
 
 	ARRAY [ ELEMENT ]
 
-creation
+create
 
 	make
 
 feature { ANY }
 
-	binary_search(key: KEY; low, up: INTEGER): INTEGER is
+	binary_search(key: KEY; low, up: INTEGER): INTEGER
 		local
 			min, max, mid, cmp: INTEGER
 		do

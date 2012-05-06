@@ -1,4 +1,4 @@
-indexing
+note
 
 		description: "A child of the Root window"
 
@@ -30,27 +30,27 @@ inherit
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_SHELL"
 		end
 
 feature {NONE} -- creation
 
-   make_top (a: SB_APPLICATION; opts: INTEGER; x, y, w, h : INTEGER) is
+   make_top (a: SB_APPLICATION; opts: INTEGER; x, y, w, h : INTEGER)
          -- Create a toplevel window
       do
          make_shell (a, Void, opts, x,y,w,h)
       end
 
-   make_child (own: SB_WINDOW; opts: INTEGER; x, y, w, h : INTEGER) is
+   make_child (own: SB_WINDOW; opts: INTEGER; x, y, w, h : INTEGER)
       do
          make_shell (own.application, own, opts, x,y,w,h)
       end
 
 feature -- resource creation/deletion
 
-	create_resource is
+	create_resource
 		local
 			w, h: INTEGER
 		do
@@ -73,19 +73,19 @@ feature -- resource creation/deletion
 
 feature -- focus &c
 
-   recalc is
+   recalc
       do
          application.set_refresher_window (Current) -- As long as layout cleanup is done with GUI update
          application.refresh
          set_flags (Flag_dirty)
       end
 
-   set_focus is
+   set_focus
       do
          set_flags (Flag_focused)
       end
 
-   kill_focus is
+   kill_focus
       do
          if focus_child /= Void then
             focus_child.kill_focus
@@ -96,7 +96,7 @@ feature -- focus &c
 
 feature {ANY} -- Message handlers
 
-	on_configure (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN is
+	on_configure (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN
 		local
 			ev: SB_EVENT
 			t: BOOLEAN
@@ -116,7 +116,7 @@ feature {ANY} -- Message handlers
 			Result := True
 		end
 
-	on_key_press (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN is
+	on_key_press (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN
 		local
 			ev: SB_EVENT
 			def: SB_WINDOW
@@ -138,7 +138,7 @@ feature {ANY} -- Message handlers
          	end
       	end
 
-   on_key_release (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN is
+   on_key_release (sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
          def: SB_WINDOW
@@ -160,7 +160,7 @@ feature {ANY} -- Message handlers
          end
       end
 
-   on_focus_next(sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN is
+   on_focus_next(sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN
       local
          c: SB_WINDOW
       do
@@ -201,7 +201,7 @@ feature {ANY} -- Message handlers
          end
       end
 
-   on_focus_prev(sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN is
+   on_focus_prev(sender: SB_MESSAGE_HANDLER; selector : INTEGER; data: ANY): BOOLEAN
       local
          c: SB_WINDOW
       do

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Packer is a layout manager which automatically places child windows inside its
 		area against the left, right, top, or bottom side. The side against which a child
@@ -64,7 +64,7 @@ inherit
 
    SB_PACKER_CONSTANTS
 
-creation
+create
 
    make, make_opts
 

@@ -1,4 +1,4 @@
-indexing
+note
     description: "[
             -- X Window System implementation code for SB_APP
 	]"
@@ -36,13 +36,13 @@ inherit
 
 	STRING_HANDLER	-- For access to STRING internal storage
 
-creation {EV_APPLICATION_IMP}
+create {EV_APPLICATION_IMP}
 
 	make	-- This class inherited by root class only
 
 feature	-- Class name
 
-	class_name: STRING is
+	class_name: STRING
 			-- Name of class
 		once
 			Result := "SB_APPLICATION"
@@ -116,7 +116,7 @@ feature	--{NONE}	-- Attributes
 
 feature {NONE} -- Implementation routines
 
-	make_imp is
+	make_imp
 		do
 			create normal_font.make (Current, "helvetica", 9)	--, FONTWEIGHT_BOLD);
 
@@ -134,7 +134,7 @@ feature {NONE} -- Implementation routines
 			synchronize := False
 		end
 
-	make_cursors is
+	make_cursors
 		local
 			new_cursor: SB_CURSOR
 		do
@@ -184,7 +184,7 @@ feature {NONE} -- Implementation routines
 			cursors.put(rotate_cursor, Def_rotate_cursor)
 		end
 
-	init_colours is
+	init_colours
 		do
 			border_color	:= sbrgb (0, 0, 0)
 			base_color		:= sbrgb (192, 192, 192)
@@ -200,7 +200,7 @@ feature {NONE} -- Implementation routines
 
 feature -- Event processing
 
-   peek_event: BOOLEAN is
+   peek_event: BOOLEAN
          -- Peek to determine if there's an event
       do
          if initialized then
@@ -210,7 +210,7 @@ feature -- Event processing
 
 --	#################### run_one_event #######################
 
-	run_one_event is
+	run_one_event
          -- Perform one event dispatch
 		local
 			ev: SB_RAW_EVENT_DEF
@@ -231,12 +231,12 @@ feature -- Event processing
 			end
 		end
 
-	select_api: SELECT_API is
+	select_api: SELECT_API
 		once
 			create Result.make
 		end
 
-	sleep_on_select is
+	sleep_on_select
 		local
 			i: INTEGER
 		do
@@ -263,7 +263,7 @@ feature -- Event processing
 
 feature -- Timers implementation
 
-	sus_time: SB_TIME_VALUE is
+	sus_time: SB_TIME_VALUE
 			-- Single UNIX Specification Time Value
 		once
 			create Result.make_from_now
@@ -271,7 +271,7 @@ feature -- Timers implementation
 
 	timers, free_timers: SB_TIMER
 
-	get_timer: SB_TIMER is
+	get_timer: SB_TIMER
 		do
 			if free_timers /= Void then
 				Result := free_timers
@@ -283,7 +283,7 @@ feature -- Timers implementation
 
 -- This version for re-development
 
-	XXXprocess_timers is
+	XXXprocess_timers
 		local
 			t: SB_TIMER
 		do
@@ -308,7 +308,7 @@ feature -- Timers implementation
 
 feature -- Timeouts
 
-	add_timeout (ms: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER): SB_TIMER is
+	add_timeout (ms: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER): SB_TIMER
 			-- Add timeout message to be sent to target object in ms milliseconds;
 			-- the timer fires only once after the interval expires.
 		require else
@@ -377,7 +377,7 @@ feature -- Timeouts
 			end
 		end
 
-	remove_timeout (timer: SB_TIMER) is
+	remove_timeout (timer: SB_TIMER)
     		-- Remove timeout
 		require else
 			good_timer : timer /= Void
@@ -407,11 +407,11 @@ feature -- Timeouts
 
 feature {NONE}
 
-	check_signals: BOOLEAN is
+	check_signals: BOOLEAN
 		do
 		end
 
-	xevq: X_EVENT_QUEUE is
+	xevq: X_EVENT_QUEUE
 		once
 			create Result.make(display)
 		end
@@ -421,7 +421,7 @@ feature {NONE}
 
 --	chores: SB_CHORE
 
-	get_next_event (blocking: BOOLEAN): SB_RAW_EVENT_DEF is
+	get_next_event (blocking: BOOLEAN): SB_RAW_EVENT_DEF
 			-- Get an event
 		local
 			ev: SB_RAW_EVENT
@@ -494,7 +494,7 @@ feature {NONE}
 
 feature {SB_WINDOW, SB_RAW_EVENT} -- Repaint routines
 
-	add_repaint (win: INTEGER; ax,ay, aw,ah: INTEGER; a_synth: BOOLEAN) is
+	add_repaint (win: INTEGER; ax,ay, aw,ah: INTEGER; a_synth: BOOLEAN)
 			-- Smart rectangle compositing algorithm
 		local
 			x,y, w,h: INTEGER
@@ -583,7 +583,7 @@ feature {SB_WINDOW, SB_RAW_EVENT} -- Repaint routines
 			end
 		end
 
-	remove_repaints (win: SB_WINDOW; x,y, aw,ah: INTEGER) is
+	remove_repaints (win: SB_WINDOW; x,y, aw,ah: INTEGER)
 			-- Remove repaints by dispatching them
 		local
 			r, pr, nr: SB_REPAINT
@@ -649,7 +649,7 @@ feature {SB_WINDOW, SB_RAW_EVENT} -- Repaint routines
 			display.flush
 		end
 
-	scroll_repaints (win: X_WINDOW; dx, dy: INTEGER) is
+	scroll_repaints (win: X_WINDOW; dx, dy: INTEGER)
 			-- Scroll repaint rectangles; some slight trickyness here:- the
 			-- rectangles don't just move, they stretch in the scroll direction
 			-- This means the original dirty area will remain part of the area to
@@ -672,7 +672,7 @@ feature {SB_WINDOW, SB_RAW_EVENT} -- Repaint routines
 
 feature {NONE} -- Implementation
 
-	find_window_with_id (w: INTEGER): SB_WINDOW is
+	find_window_with_id (w: INTEGER): SB_WINDOW
 		do
 			if w /= 0 then
 				Result := wcontext.item (w)
@@ -680,7 +680,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	find_window_at (x,y: INTEGER; xid: INTEGER): SB_WINDOW is
+	find_window_at (x,y: INTEGER; xid: INTEGER): SB_WINDOW
 			-- Find window from root x,y, starting from given window
 		local
 			rootwin, window, child: INTEGER
@@ -707,7 +707,7 @@ feature {NONE} -- Implementation
 
 feature {SB_RAW_EVENT_DEF}
 
-	dispatch_event (ev: SB_RAW_EVENT) is
+	dispatch_event (ev: SB_RAW_EVENT)
 			-- Dispatch event to widget
 		local
 			window:	SB_WINDOW
@@ -1372,7 +1372,7 @@ feature {SB_RAW_EVENT_DEF}
 
 feature --
 
-	open_display (dsp_name: STRING): BOOLEAN is
+	open_display (dsp_name: STRING): BOOLEAN
 			-- Open the display
 		local
 			dn: STRING
@@ -1473,14 +1473,14 @@ feature --
 
 feature -- synchronization
 
-	flush_aux (b: BOOLEAN) is
+	flush_aux (b: BOOLEAN)
 		do
 			display.flush
 		end
 
 feature -- X error handling
 
-	set_error_handler is
+	set_error_handler
 		local
 			i: INTEGER
 		do
@@ -1494,12 +1494,12 @@ feature -- X error handling
 			c_set_error_handler(Current, $c_x_error_handler, $c_x_io_error_handler)
 		end
 
-	c_set_error_handler(c: ANY; fa, fb: POINTER) is
+	c_set_error_handler(c: ANY; fa, fb: POINTER)
 		external "C"
 		alias "sb_set_x_error_handler"
 		end
 
-	c_x_error_handler(dspl: POINTER; eev: POINTER): INTEGER is
+	c_x_error_handler(dspl: POINTER; eev: POINTER): INTEGER
 		local
 			p: C_POINTER
 		do
@@ -1521,7 +1521,7 @@ feature -- X error handling
 
 		end
 
-	x_error_code (n: INTEGER): STRING is
+	x_error_code (n: INTEGER): STRING
 			-- Return a string code name from the error index
 		do
 			if n >= 1 and n <= 17 then
@@ -1531,7 +1531,7 @@ feature -- X error handling
 			end
 		end
 
-	x_error_code_list: ARRAY [ STRING ] is
+	x_error_code_list: ARRAY [ STRING ]
 		once
 			create Result.make(1, 17)
 			Result.put("BadRequest",		1)
@@ -1553,7 +1553,7 @@ feature -- X error handling
 			Result.put("BadImplementation",	17)
 		end
 
-	x_request_type_string (a_opcode: INTEGER): STRING is
+	x_request_type_string (a_opcode: INTEGER): STRING
 		do
 			inspect a_opcode
 
@@ -1683,19 +1683,19 @@ feature -- X error handling
 	end
 
 
-	c_x_io_error_handler (dspl: POINTER): INTEGER is
+	c_x_io_error_handler (dspl: POINTER): INTEGER
 		do
 --#			edp_trace.start(0, "SB_APPLICATION::x_io_error_handler").done
 		end
 
-	beep is
+	beep
 			-- Beep the sounder
 		do
 		end
 
 --	#########################################################################################################################
 
-	close_display: BOOLEAN is
+	close_display: BOOLEAN
 		do
 			if initialized then
 
@@ -1741,7 +1741,7 @@ feature -- X error handling
 
 feature -- Stipples
 
-	make_stipples is
+	make_stipples
 			-- FIXGC
 		local
 			sp, la: ARRAY [ INTEGER_8 ]
@@ -1795,12 +1795,12 @@ feature -- Stipples
 		end
 
 			-- Standard-issue cross hatch pattern
-	cross_bits: POINTER is
+	cross_bits: POINTER
 		do
 			Result := cross_bits_manifest_array.area.item_address (0)
 		end
 
-	cross_bits_manifest_array: ARRAY [ INTEGER_8 ] is
+	cross_bits_manifest_array: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x08, 0x82, 0x20, 0x08, 0x82, 0x20, 0x08, 0x82, 0x20, 0xff, 0xff, 0xff,
@@ -1813,12 +1813,12 @@ feature -- Stipples
 		end
 
 			-- Standard-issue diagonal cross hatch pattern
-	crossdiag_bits: POINTER is
+	crossdiag_bits: POINTER
 		do
 			Result := crossdiag_bits_manifest_array.area.item_address (0)
 		end
 
-	crossdiag_bits_manifest_array: ARRAY [ INTEGER_8 ] is
+	crossdiag_bits_manifest_array: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x22, 0x22, 0x14, 0x14, 0x08, 0x08, 0x14, 0x14, 0x22, 0x22, 0x41, 0x41,
@@ -1828,12 +1828,12 @@ feature -- Stipples
 		end
 
 			-- Standard-issue diagonal hatch pattern
-	diag_bits: POINTER is
+	diag_bits: POINTER
 		do
 			Result := diag_bits_manifest_array.area.item_address (0)
 		end
 
-	diag_bits_manifest_array: ARRAY [ INTEGER_8 ] is
+	diag_bits_manifest_array: ARRAY [ INTEGER_8 ]
 			-- FIXGC
 		once
 			Result := <<
@@ -1844,12 +1844,12 @@ feature -- Stipples
 		end
 
 			-- Standard-issue horizontal hatch pattern
-	hor_bits: POINTER is
+	hor_bits: POINTER
 		do
 			Result := hor_bits_manifest_array.area.item_address (0)
 		end
 
-	hor_bits_manifest_array: ARRAY [ INTEGER_8 ] is
+	hor_bits_manifest_array: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff,
@@ -1862,12 +1862,12 @@ feature -- Stipples
 		end
 
 			-- Standard-issue reverse diagonal hatch pattern
-	revdiag_bits: POINTER is
+	revdiag_bits: POINTER
 		do
 			Result := revdiag_bits_manifest_array.area.item_address (0)
 		end
 
-	revdiag_bits_manifest_array: ARRAY [ INTEGER_8 ] is
+	revdiag_bits_manifest_array: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x02, 0x02, 0x04, 0x04, 0x08, 0x08, 0x10, 0x10, 0x20, 0x20, 0x40, 0x40,
@@ -1877,12 +1877,12 @@ feature -- Stipples
 		end
 
 			-- Standard-issue vertical hatch pattern
-	ver_bits: POINTER is
+	ver_bits: POINTER
 		do
 			Result := ver_bits_manifest_array.area.item_address (0)
 		end
 
-	ver_bits_manifest_array: ARRAY [ INTEGER_8 ] is
+	ver_bits_manifest_array: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x08, 0x82, 0x20, 0x08, 0x82, 0x20, 0x08, 0x82, 0x20, 0x08, 0x82, 0x20,
@@ -1896,29 +1896,29 @@ feature -- Stipples
 
 feature -- Clipboard
 
-	clipboard_set_data (window: SB_WINDOW; type: INTEGER; data: STRING) is
+	clipboard_set_data (window: SB_WINDOW; type: INTEGER; data: STRING)
 		do
 		end
 
-   clipboard_get_data (window: SB_WINDOW; type: INTEGER): STRING is
+   clipboard_get_data (window: SB_WINDOW; type: INTEGER): STRING
 		do
 		end
 
-   clipboard_get_types (window: SB_WINDOW): ARRAY [INTEGER] is
+   clipboard_get_types (window: SB_WINDOW): ARRAY [INTEGER]
 		do
 		end
 
 
 feature -- Free routines -- to release recources
 
-	free_xcb_typelist is
+	free_xcb_typelist
 		do
 			xcb_typelist := Void
 		end
 
 feature -- dde checking (DEBUG)
 
-	check_dde_data is
+	check_dde_data
 		do
 --			if dde_data /= Void then
 --				fx_trace(0, <<"dde_data = ", dde_data.out, " .storage = ", dde_data.storage.out,
@@ -1929,7 +1929,7 @@ feature -- dde checking (DEBUG)
 
 feature -- GC tracing reporting (DEBUG)
 
-	report_gc_alloc (ev: SB_RAW_EVENT) is
+	report_gc_alloc (ev: SB_RAW_EVENT)
 		do
 		--	if ev.serial - last_gc_report_serial > 20 then
 		--		last_gc_report_serial := ev.serial
@@ -1939,7 +1939,7 @@ feature -- GC tracing reporting (DEBUG)
 
 	last_gc_report_serial: INTEGER
 
-	gc_progress: INTEGER is
+	gc_progress: INTEGER
 --		external "C" alias "get_gc_progress" end
 		do end
 

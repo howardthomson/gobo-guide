@@ -1,4 +1,4 @@
-indexing
+note
 	description:"ToolTip constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -9,9 +9,9 @@ class SB_TOOL_TIP_CONSTANTS
 
 feature -- Tooltip styles
 
-	TOOLTIP_PERMANENT: INTEGER is 0x00020000		-- Tooltip stays up indefinitely
-	TOOLTIP_VARIABLE : INTEGER is 0x00040000		-- Tooltip stays up variable time, depending on the length of the string
-	TOOLTIP_NORMAL	 : INTEGER is 0				-- Normal tooltip
+	TOOLTIP_PERMANENT: INTEGER = 0x00020000		-- Tooltip stays up indefinitely
+	TOOLTIP_VARIABLE : INTEGER = 0x00040000		-- Tooltip stays up variable time, depending on the length of the string
+	TOOLTIP_NORMAL	 : INTEGER = 0				-- Normal tooltip
 
 feature -- Tooltip styles, BIT Version
 

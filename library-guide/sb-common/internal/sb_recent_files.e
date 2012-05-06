@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The recent files object manages a most recently used (MRU)
 		file list by means of the standard system registry.
@@ -38,7 +38,7 @@ inherit
 
 	SB_RECENT_FILES_COMMANDS
 
-creation
+create
 
    make, make_opts
 
@@ -56,14 +56,14 @@ feature { NONE } -- Private Attributes
    
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_RECENT_FILES"
 		end
 
 feature -- Creation
 
-   	make (app: SB_APPLICATION; tgt: SB_MESSAGE_HANDLER; selector: INTEGER) is
+   	make (app: SB_APPLICATION; tgt: SB_MESSAGE_HANDLER; selector: INTEGER)
          	-- Make new Recent Files Group with default groupname
       	require
          	app /= Void
@@ -72,7 +72,7 @@ feature -- Creation
          	maxfiles := 10
       	end
 
-	make_opts (app: SB_APPLICATION; grp: STRING; tgt: SB_MESSAGE_HANDLER; selector: INTEGER) is
+	make_opts (app: SB_APPLICATION; grp: STRING; tgt: SB_MESSAGE_HANDLER; selector: INTEGER)
          	-- Make new Recent Files Group with groupname grp
       	require
          	app /= Void
@@ -87,13 +87,13 @@ feature -- Creation
 
 feature -- Settings
 
-	set_max_files (mx: INTEGER) is
+	set_max_files (mx: INTEGER)
     		-- Change number of files we're tracking
       	do
          	maxfiles := mx
       	end
 
-   	set_group_name (grp: STRING) is
+   	set_group_name (grp: STRING)
          	-- Set group name
       	do
          	create group.make_from_string (grp)
@@ -101,7 +101,7 @@ feature -- Settings
 
 feature -- Actions 
 
-   append_file (filename: STRING) is
+   append_file (filename: STRING)
          -- Append a file
       require
          filename /= Void
@@ -136,7 +136,7 @@ feature -- Actions
          end
       end
 
-   remove_file (filename: STRING) is
+   remove_file (filename: STRING)
          -- Remove a file
       require
          filename /= Void
@@ -167,7 +167,7 @@ feature -- Actions
 --         end
       end
 
-	clear is
+	clear
     		-- Clear the list of files
       	do
    --      	application.registry.delete_section (group)
@@ -175,7 +175,7 @@ feature -- Actions
 
 feature -- Message processing
 
-   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       do
          if		match_function_2 (SEL_UPDATE,	ID_ANYFILES,type, key) then Result := on_upd_any_files	(sender, key, data)
          elseif match_function_2 (SEL_UPDATE,	ID_CLEAR,	type, key) then Result := on_upd_any_files	(sender, key, data)
@@ -186,13 +186,13 @@ feature -- Message processing
          else Result := Precursor (sender, type, key, data) end
       end
 
-	on_cmd_clear (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_clear (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	do
         	clear
         	Result := True
 		end
 
-	on_cmd_file (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_file (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	local
         	filename, key: STRING
       	do
@@ -204,7 +204,7 @@ feature -- Message processing
          	Result := True;
       	end
 
-	on_upd_file (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_upd_file (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			which: INTEGER
 			filename, string: STRING
@@ -227,7 +227,7 @@ feature -- Message processing
 			Result := True
 		end
 
-	on_upd_any_files (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_upd_any_files (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		do
 			if application.registry.read_string_entry (group, "FILE1", Void) /= Void then
 --				sender.do_handle_2 (Current, SEL_COMMAND, wc.Id_show, Void)

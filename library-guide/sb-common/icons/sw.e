@@ -2,11 +2,11 @@ expanded class SW
 
 feature
 
-   width: INTEGER is 16
-   height: INTEGER is 16
-   x_hot: INTEGER is 3
-   y_hot: INTEGER is 12
-   bits: STRING is
+   width: INTEGER = 16
+   height: INTEGER = 16
+   x_hot: INTEGER = 3
+   y_hot: INTEGER = 12
+   bits: STRING =
    "%/000/%/000/%/002/%/000/%/002/%/000/%/034/%/016/%/034/%/008/%/034/%/004/%
    %%/034/%/002/%/034/%/001/%/162/%/000/%/098/%/000/%/226/%/031/%/002/%/000/%
    %%/002/%/000/%/002/%/000/%/254/%/127/%/000/%/000/%/007/%/000/%/007/%/000/%

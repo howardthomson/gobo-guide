@@ -2,11 +2,11 @@ expanded class ROTATE
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 9
-   y_hot: INTEGER is 9
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 9
+   y_hot: INTEGER = 9
+   bits: STRING =
    "%/000/%/000/%/000/%/000/%/240/%/015/%/000/%/000/%/224/%/007/%/000/%/000/%
    %%/240/%/067/%/000/%/000/%/248/%/225/%/000/%/000/%/220/%/192/%/001/%/000/%
    %%/076/%/128/%/001/%/000/%/014/%/128/%/003/%/000/%/006/%/000/%/003/%/000/%

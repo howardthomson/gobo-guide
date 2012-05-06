@@ -1,4 +1,4 @@
-indexing
+note
 	description: "EiffelVision2 toolbar, implementation interface."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -75,13 +75,13 @@ feature {NONE} -- Implementation
 			TODO_class_line ("EV_TOOL_BAR_IMP::initialize", "__LINE__")
 		end
 
-	list_widget: POINTER is
+	list_widget: POINTER
 			--
 		do
 			Result := visual_widget
 		end
 
-	set_parent_imp (a_container_imp: EV_CONTAINER_IMP) is
+	set_parent_imp (a_container_imp: EV_CONTAINER_IMP)
 			-- Set `parent_imp' to `a_container_imp'.
 		do
 			Precursor {EV_PRIMITIVE_IMP} (a_container_imp)
@@ -100,28 +100,28 @@ feature -- Status report
 
 feature -- Status setting
 
-	enable_vertical_button_style is
+	enable_vertical_button_style
 			-- Ensure `has_vertical_button_style' is `True'.
 		do
 			has_vertical_button_style := True
 			update_toolbar_style
 		end
 
-	disable_vertical_button_style is
+	disable_vertical_button_style
 			-- Ensure `has_vertical_button_style' is `False'.
 		do
 			has_vertical_button_style := False
 			update_toolbar_style
 		end
 
-	enable_vertical is
+	enable_vertical
 			-- Enable vertical toolbar style.
 		do
 			is_vertical := True
 	--		{EV_GTK_DEPENDENT_EXTERNALS}.gtk_toolbar_set_orientation (list_widget, 1)
 		end
 
-	disable_vertical is
+	disable_vertical
 			-- Disable vertical toolbar style (ie: Horizontal).
 		do
 			is_vertical := False
@@ -130,7 +130,7 @@ feature -- Status setting
 
 feature {EV_DOCKABLE_SOURCE_I} -- Implementation
 
-	block_selection_for_docking is
+	block_selection_for_docking
 			--
 		do
 			-- For now, do nothing.
@@ -159,7 +159,7 @@ feature -- Implementation
 			end
 		end
 
-	update_toolbar_style is
+	update_toolbar_style
 			-- Set the style of `Current' relative to items
 		local
 			tbb_imp: EV_TOOL_BAR_BUTTON_IMP
@@ -277,7 +277,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_TOOL_BAR;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

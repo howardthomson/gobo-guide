@@ -1,5 +1,5 @@
 -- X Window System Implementation
-indexing
+note
 	todo: "[
 		Fix dither: Result is ARRAY [ INTEGER ] for SE, and
 			ARRAY [ INTEGER ] for ISE; do they need to differ ?
@@ -25,7 +25,7 @@ inherit
 	X11_EXTERNAL_ROUTINES
 	SB_ZERO
 
-creation
+create
 	make
 
 feature
@@ -35,7 +35,7 @@ feature
 
 	colormap: X_COLORMAP
 
-	dither: ARRAY [ INTEGER ] is
+	dither: ARRAY [ INTEGER ]
 			-- Standard dither kernel
 		do
 			Result := << 
@@ -66,21 +66,21 @@ feature
 
 	-- rpix, gpix, bpix are [16][256] C arrays of FXPixel = 32-bit long values
 	
-	rpix: ARRAY [ INTEGER ] is once create Result.make(0, (16 * 256)-0) end
-	gpix: ARRAY [ INTEGER ] is once create Result.make(0, (16 * 256)-0) end
-	bpix: ARRAY [ INTEGER ] is once create Result.make(0, (16 * 256)-0) end
+	rpix: ARRAY [ INTEGER ] once create Result.make(0, (16 * 256)-0) end
+	gpix: ARRAY [ INTEGER ] once create Result.make(0, (16 * 256)-0) end
+	bpix: ARRAY [ INTEGER ] once create Result.make(0, (16 * 256)-0) end
 
 
-	make_imp is
+	make_imp
 		do
 		end
 
-	display: X_DISPLAY is
+	display: X_DISPLAY
 		do
 			Result := application.display
 		end
 
-	create_resource_imp is
+	create_resource_imp
 			-- Initialize
 		require else
 			display /= Void
@@ -187,11 +187,11 @@ feature
 			visual /= Void
 		end
 
-	destroy_resource_imp is
+	destroy_resource_imp
 		do
 		end
 
-	make_gc (gex: BOOLEAN): X_GC is
+	make_gc (gex: BOOLEAN): X_GC
 			-- Make GC for this visual
 		local
 			gcv: X_GC_VALUES
@@ -227,7 +227,7 @@ feature
 		end
 
 
-	pixel (clr: INTEGER): INTEGER is
+	pixel (clr: INTEGER): INTEGER
          	-- Get device pixel value for color
       	local
       	do
@@ -249,7 +249,7 @@ feature
 		--	edp_trace.start(0, "SB_VISUAL::pixel - clr: ").next(clr.out).next(" => ").next(Result.out).done
       	end
 
-	color (pix: INTEGER): INTEGER is
+	color (pix: INTEGER): INTEGER
 			-- Get color value for device pixel value
       local
 		--  XColor color;
@@ -262,7 +262,7 @@ feature
 			implemented: false
 		end
 
-	findshift(mask: INTEGER): INTEGER is
+	findshift(mask: INTEGER): INTEGER
 			-- Find shift amount
 		local
 			sh: INTEGER
@@ -290,9 +290,9 @@ feature
 --  }
 
 --	double_1_0: REAL_64 is 1.0	-- SE version
-	double_1_0: DOUBLE is 1.0	-- EDP compatibility (at 6-5-2006)
+	double_1_0: DOUBLE = 1.0	-- EDP compatibility (at 6-5-2006)
 
-	gamma_adjust(gamma: REAL_64; value, max: INTEGER): INTEGER is
+	gamma_adjust(gamma: REAL_64; value, max: INTEGER): INTEGER
 			-- Apply gamma correction to an intensity value in [0..max].
 			-- SE implementation
 		local
@@ -326,7 +326,7 @@ feature
 --		ensure f: false
 		end
 
-	left_shift(i, by: INTEGER): INTEGER is
+	left_shift(i, by: INTEGER): INTEGER
 		do
 			if by = 0 then
 				Result := i
@@ -341,7 +341,7 @@ feature
 
 -- True Color is the current default for mbc-linux
 
-	setup_true_color is
+	setup_true_color
 			-- Setup for true color
 		local
 			redshift, greenshift, blueshift: INTEGER
@@ -443,7 +443,7 @@ feature
 --
 -- Setup direct color
 
-	setup_direct_color is
+	setup_direct_color
 		require
 			implemented: false
 		local
@@ -607,7 +607,7 @@ feature
 --
 --
 --// Setup for pseudo color
-	setup_pseudo_color is
+	setup_pseudo_color
 		require
 			implemented: false
 		local
@@ -745,7 +745,7 @@ feature
 --/*******************************************************************************/
 --
 --
-	setup_static_color is
+	setup_static_color
 			-- Setup for static color
 		require
 			implemented: false
@@ -859,7 +859,7 @@ feature
 --
 --
 		--// Setup for gray scale
-	setup_grayscale is
+	setup_grayscale
 		require
 			implemented: false
 		local
@@ -970,7 +970,7 @@ feature
 --/*******************************************************************************/
 
 
-	setup_static_gray is
+	setup_static_gray
 			-- Setup for static gray
 		require
 			implemented: false
@@ -1007,7 +1007,7 @@ feature
 
 --/*******************************************************************************/
 
-	setup_pixmap_mono is
+	setup_pixmap_mono
 			-- Setup for pixmap monochrome; this one has no colormap!
 		require
 			implemented: false
@@ -1076,7 +1076,7 @@ feature
 --  }
 
 
-	setup_colormap is
+	setup_colormap
 			-- Determine colormap, then initialize it
 		local
 			i: INTEGER
@@ -1105,7 +1105,7 @@ feature
 			end
 		end
 
-	class_name: STRING is "SB_VISUAL"
+	class_name: STRING = "SB_VISUAL"
 
 
 end

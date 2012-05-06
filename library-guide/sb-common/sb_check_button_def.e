@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		A check button is a tri-state button. Normally, it is either
 		True or False, and toggles  between TRUE or FALSE whenever it is
@@ -54,7 +54,7 @@ feature -- Creation
 
 	make (p: SB_COMPOSITE; text: STRING;
 			tgt: SB_MESSAGE_HANDLER; sel: INTEGER;
-			opts: INTEGER) is
+			opts: INTEGER)
 			-- Construct check button label with given text
 		local
 			o: INTEGER
@@ -72,7 +72,7 @@ feature -- Creation
   				tgt: SB_MESSAGE_HANDLER; sel: INTEGER;
   				opts: INTEGER;
         	    x,y,w,h,
-        	    pl,pr,pt,pb: INTEGER) is
+        	    pl,pr,pt,pb: INTEGER)
          -- Construct a check button
       do
          label_make_opts(p, text, Void, opts, x,y,w,h, pl,pr,pt,pb)
@@ -182,11 +182,11 @@ feature -- Message processing
         	end
       	end
 
-	seg_make (ix, iy: INTEGER): ARRAY [SB_SEGMENT] is
+	seg_make (ix, iy: INTEGER): ARRAY [SB_SEGMENT]
 		deferred
 		end
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          dc: SB_DC_WINDOW
@@ -273,7 +273,7 @@ feature -- Message processing
          end
       end
 
-   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not Precursor(sender,selector,data) then
             if (options & CHECKBUTTON_AUTOHIDE) /= 0 then

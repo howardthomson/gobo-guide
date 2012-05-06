@@ -10,7 +10,7 @@ inherit
 feature
 	y_pos: INTEGER
 
-	y_private: INTEGER is
+	y_private: INTEGER
 		do
 			Result := y_pos
 		end
@@ -20,7 +20,7 @@ feature
 --			y := new_y
 --		end
 
-	set_y(new_y: INTEGER) is
+	set_y(new_y: INTEGER)
 		deferred
 		end
 

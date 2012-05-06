@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Bitmap is a one bit/pixel image used for patterning and
 		stippling operations.
@@ -24,7 +24,7 @@ inherit
 
 feature -- Creation
 
-	make (a: SB_APPLICATION; pix: POINTER; opts: INTEGER; w,h: INTEGER) is
+	make (a: SB_APPLICATION; pix: POINTER; opts: INTEGER; w,h: INTEGER)
 		do
 --			make_drawable (a, w,h)
 --			visual := application.mono_visual
@@ -39,7 +39,7 @@ feature -- Creation
 
 feature -- Destruction
 
-   	destruct is
+   	destruct
       	do
          	destroy_resource
          	Precursor

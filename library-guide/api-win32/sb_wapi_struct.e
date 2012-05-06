@@ -2,7 +2,7 @@ deferred class SB_WAPI_STRUCT
 
 feature
 
-	make is
+	make
 		do
 			create mem.make(external_size)
 			ptr := mem.item_address (0)
@@ -10,12 +10,12 @@ feature
 			pointer_valid: ptr /= default_pointer
 		end
 
-	from_external (pointer: POINTER) is
+	from_external (pointer: POINTER)
 		do
 			ptr := pointer
 		end
 
-	from_external_copy (p: POINTER) is
+	from_external_copy (p: POINTER)
 		do
 			create mem.make(external_size)
 			ptr := mem.item_address (0)
@@ -26,7 +26,7 @@ feature -- Access
 
 	ptr: POINTER
 
-	external_size: INTEGER is
+	external_size: INTEGER
     		-- size 'external_size' bytes of the memory area occupied
     		-- by the structure.
     	deferred

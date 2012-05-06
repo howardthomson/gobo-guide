@@ -2,14 +2,14 @@ class SB_APPLICATION_CURSORS
 
 feature -- Built-in cursors
 
-	app: SB_APPLICATION is
+	app: SB_APPLICATION
 		do
 			Result ?= Current
 		ensure
 			Result /= Void
 		end
 
-	hsplit_cursor: SB_CURSOR is
+	hsplit_cursor: SB_CURSOR
 			-- Horizontal splitter cursor
 		local
 			cbits: HSPLIT
@@ -23,7 +23,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 
-	vsplit_cursor: SB_CURSOR is
+	vsplit_cursor: SB_CURSOR
 			-- Vertical splitter cursor
 		local
 			cbits: VSPLIT
@@ -37,7 +37,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 
-	xsplit_cursor: SB_CURSOR is
+	xsplit_cursor: SB_CURSOR
 			-- Cross splitter cursor
 		local
 			cbits: XSPLIT
@@ -51,7 +51,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	swatch_cursor: SB_CURSOR is
+	swatch_cursor: SB_CURSOR
 			-- Color swatch drag-and-drop cursor
 		local
 			cbits: SWATCH
@@ -65,7 +65,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	dontdrop_cursor: SB_CURSOR is
+	dontdrop_cursor: SB_CURSOR
 			-- NO DROP drag-and-drop cursor
 		local
 			cbits: DONTDROP
@@ -79,7 +79,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	resizetop_cursor: SB_CURSOR is
+	resizetop_cursor: SB_CURSOR
 			--	-- Upper or lower side MDI resize cursor
 		local
 			cbits: RESIZETOP
@@ -93,7 +93,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	resizetopright_cursor: SB_CURSOR is
+	resizetopright_cursor: SB_CURSOR
 			--	-- Right MDI resize cursor
 		local
 			cbits: RESIZETOPRIGHT
@@ -107,7 +107,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	resizetopleft_cursor: SB_CURSOR is
+	resizetopleft_cursor: SB_CURSOR
 			--	-- Left MDI resize cursor
 		local
 			cbits: RESIZETOPLEFT
@@ -121,7 +121,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	resizeleft_cursor: SB_CURSOR is
+	resizeleft_cursor: SB_CURSOR
 			--	-- Left or right side MDI resize cursor
 		local
 			cbits: RESIZELEFT
@@ -135,7 +135,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	move_cursor: SB_CURSOR is
+	move_cursor: SB_CURSOR
 			--	-- Move cursor
 		local
 			cbits: DRAG
@@ -149,7 +149,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	dndcopy_cursor: SB_CURSOR is
+	dndcopy_cursor: SB_CURSOR
 			--	-- Drag and drop COPY
 		local
 			cbits: DNDCOPY
@@ -163,7 +163,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	dndlink_cursor: SB_CURSOR is
+	dndlink_cursor: SB_CURSOR
 			--	-- Drag and drop LINK
 		local
 			cbits: DNDLINK
@@ -177,7 +177,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	dndmove_cursor: SB_CURSOR is
+	dndmove_cursor: SB_CURSOR
 			-- Drag and drop MOVE
 		local
 			cbits: DNDMOVE
@@ -191,7 +191,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	crosshair_cursor: SB_CURSOR is
+	crosshair_cursor: SB_CURSOR
 		local
 			cbits: CROSSHAIR
 			cmask: CROSSHAIR_MASK
@@ -205,7 +205,7 @@ feature -- Built-in cursors
 		end
 		
 			--	-- NE,NW,SE,SW corner cursors
-	ne_cursor: SB_CURSOR is
+	ne_cursor: SB_CURSOR
 		local
 			cbits: NE
 			cmask: NE_MASK
@@ -218,7 +218,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	nw_cursor: SB_CURSOR is
+	nw_cursor: SB_CURSOR
 		local
 			cbits: NW
 			cmask: NW_MASK
@@ -231,7 +231,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	se_cursor: SB_CURSOR is
+	se_cursor: SB_CURSOR
 		local
 			cbits: SE
 			cmask: SE_MASK
@@ -244,7 +244,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	sw_cursor: SB_CURSOR is
+	sw_cursor: SB_CURSOR
 		local
 			cbits: SW
 			cmask: SW_MASK
@@ -257,7 +257,7 @@ feature -- Built-in cursors
 			create Result.make_from_bits (app, cbits.bits, cmask.bits, cbits.width, cbits.height, cbits.x_hot, cbits.y_hot)
 		end
 		
-	rotate_cursor: SB_CURSOR is
+	rotate_cursor: SB_CURSOR
 			--	-- Rotate cursor
 		local
 			cbits: ROTATE

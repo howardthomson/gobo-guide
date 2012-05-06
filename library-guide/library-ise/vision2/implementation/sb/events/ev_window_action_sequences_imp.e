@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"Action sequences for EV_WINDOW_IMP."
 	legal: "See notice at end of class."
@@ -18,19 +18,19 @@ inherit
 
 feature -- Event handling
 
-	create_close_request_actions: EV_NOTIFY_ACTION_SEQUENCE is
+	create_close_request_actions: EV_NOTIFY_ACTION_SEQUENCE
 			-- Create a close request action sequence.
 		do
 			create Result
 		end
 
-	create_move_actions: EV_GEOMETRY_ACTION_SEQUENCE is
+	create_move_actions: EV_GEOMETRY_ACTION_SEQUENCE
 			-- Create a move action sequence.
 		do
 			create Result
 		end
 
-	create_show_actions: EV_NOTIFY_ACTION_SEQUENCE is
+	create_show_actions: EV_NOTIFY_ACTION_SEQUENCE
 			-- Create a show action sequence.
 			-- Attach to GTK "map-event" signal.
 		do
@@ -43,7 +43,7 @@ feature -- Event handling
 			create Result
 		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

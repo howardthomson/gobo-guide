@@ -1,6 +1,6 @@
 class FILE_DATA [ G -> DIFF_SYMBOL ] -- Constraint to be modified
 
-creation
+create
 	make
 
 feature -- Attributes
@@ -36,12 +36,12 @@ feature -- Attributes
 
 feature -- DEBUG
 
-	pnl is
+	pnl
 		do
 			print(once "%N")
 		end
 
-	print_debug is
+	print_debug
 		local
 			i: INTEGER
 		do
@@ -80,7 +80,7 @@ feature -- DEBUG
 
 feature -- Creation
 
-	make (data: ARRAY [ G ]; h: DS_HASH_TABLE [ INTEGER, G ]; equiv_max_start: INTEGER) is
+	make (data: ARRAY [ G ]; h: DS_HASH_TABLE [ INTEGER, G ]; equiv_max_start: INTEGER)
 		local
 			i: INTEGER
 		do
@@ -117,7 +117,7 @@ feature -- Creation
 		end
 		-----------------------------------------------------------------
 
-	dump_equivs is
+	dump_equivs
 		local
 			i: INTEGER
 		do
@@ -132,12 +132,12 @@ feature -- Creation
 			end
 		end
 
-	set_equiv_max(max: INTEGER) is
+	set_equiv_max(max: INTEGER)
 		do
 			equiv_max := max
 		end
 
-	print_file is
+	print_file
 		local
 			i: INTEGER
 		do
@@ -154,7 +154,7 @@ feature -- Creation
 
 feature
 
-	clear is
+	clear
 			-- Allocate changed array for the results of comparison.
 		do
 			-- Allocate a flag for each line of each file, saying whether that line
@@ -167,7 +167,7 @@ feature
 
 
 
-	equiv_count: ARRAY [ INTEGER ] is
+	equiv_count: ARRAY [ INTEGER ]
 			-- Return equiv_count[I] as the number of symbols in this file
 			-- that fall in equivalence class I.
 			-- @return the array of equivalence class counts.
@@ -186,7 +186,7 @@ feature
 		end
 		------------------------------------------------------------
 
-	discard_non_matching_symbols (f: FILE_DATA [ G ]) is
+	discard_non_matching_symbols (f: FILE_DATA [ G ])
 			-- Discard symbols that have no matches in another file.
 			--
 			-- A line which is discarded will not be considered by the actual
@@ -218,11 +218,11 @@ feature
 
 feature {DIFF, DIFF_LGPL} -- Implementation, private
 
-	Discard_no	 : INTEGER_8 is 0
-	Discard_yes	 : INTEGER_8 is 1
-	Discard_maybe: INTEGER_8 is 2
+	Discard_no	 : INTEGER_8 = 0
+	Discard_yes	 : INTEGER_8 = 1
+	Discard_maybe: INTEGER_8 = 2
 
-	discardable (counts: ARRAY [ INTEGER ]): ARRAY [ INTEGER ] is
+	discardable (counts: ARRAY [ INTEGER ]): ARRAY [ INTEGER ]
 			-- Mark to be discarded each line that matches no line of another file.
 			-- If a line matches many symbols, mark it as provisionally discardable.
 			-- @see equivCount()
@@ -276,7 +276,7 @@ feature {DIFF, DIFF_LGPL} -- Implementation, private
 		end
 		----------------------------------------------------
 
-	filter_discards (discards: ARRAY [ INTEGER ]) is
+	filter_discards (discards: ARRAY [ INTEGER ])
 			-- Don't really discard the provisional symbols except when they occur in
 			-- a run of discardables, with nonprovisionals at the beginning and end.
 		local
@@ -462,9 +462,9 @@ feature {DIFF, DIFF_LGPL} -- Implementation, private
 			end -- loop
 		end
 
-	no_discards: BOOLEAN is False
+	no_discards: BOOLEAN = False
 
-	discard (discards: ARRAY [ INTEGER ]) is
+	discard (discards: ARRAY [ INTEGER ])
 			-- Actually discard the symbols.
 			-- Status OK
 		local
@@ -505,7 +505,7 @@ feature {DIFF, DIFF_LGPL} -- Implementation, private
 
 -- @param f the file being compared against
 
-	shift_boundaries (f: like Current) is
+	shift_boundaries (f: like Current)
 		local
 			changed, other_changed: ARRAY [ BOOLEAN ]
 			i, j: INTEGER
@@ -666,7 +666,7 @@ feature {DIFF, DIFF_LGPL} -- Implementation, private
 		end
 
 
-	print_changed is
+	print_changed
 		local
 			i: INTEGER
 		do

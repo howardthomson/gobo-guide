@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Persistent store definition"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -14,7 +14,7 @@ inherit
 
 feature -- Creation
 
-	make is
+	make
 		do
          	dir := SB_STREAM_DEAD
          	code := SB_STREAM_OK
@@ -37,7 +37,7 @@ feature -- Data
 
 feature -- Queries
 
-	is_little_endian: BOOLEAN is
+	is_little_endian: BOOLEAN
          	-- Return implementation's endianness
     	do
          	-- TODO: Implement proper check
@@ -46,7 +46,7 @@ feature -- Queries
 
 feature -- Actions
 
-   open(save_or_load: INTEGER) is
+   open(save_or_load: INTEGER)
          -- Open archive
       require
          save_or_load = SB_STREAM_SAVE or else save_or_load = SB_STREAM_LOAD
@@ -57,7 +57,7 @@ feature -- Actions
          code := SB_STREAM_OK
       end
 
-	close is
+	close
 			-- Close
 		require
 			dir /= SB_STREAM_DEAD
@@ -66,7 +66,7 @@ feature -- Actions
 			code := SB_STREAM_OK
 		end
 
-	set_error(err: INTEGER) is
+	set_error(err: INTEGER)
 			-- Set status code, unless there was a previous code already
 		do
 			if code = SB_STREAM_OK then
@@ -74,7 +74,7 @@ feature -- Actions
 			end
 		end
 
-	position(p: INTEGER) is
+	position(p: INTEGER)
 			-- Move to position
 		require
 			dir /= SB_STREAM_DEAD
@@ -85,7 +85,7 @@ feature -- Actions
 			end
 		end
 
-	swap_bytes(s: BOOLEAN) is
+	swap_bytes(s: BOOLEAN)
     		-- Change swap bytes flag
     	do
          	swap := s
@@ -93,13 +93,13 @@ feature -- Actions
 
 feature -- Save
 
-   	write_byte(b: INTEGER_8) is
+   	write_byte(b: INTEGER_8)
       	do
 --##		save_items($b, 1)
          	pos := pos + 1
       	end
 
-	write_byte_i(b: INTEGER) is
+	write_byte_i(b: INTEGER)
 		local
 			b8: INTEGER_8
 		do
@@ -114,31 +114,31 @@ feature -- Save
 --			pos := pos + 2
 --		end
 
-   	write_word_i(w: INTEGER) is
+   	write_word_i(w: INTEGER)
       	do
 --##		save_items($w, 2);
          	pos := pos + 2;
       	end
 
-   	write_dword(dw: INTEGER) is
+   	write_dword(dw: INTEGER)
       	do
 --##		save_items($dw, 4)
          	pos := pos + 4
       	end
 
-   	write_dword_i(dw: INTEGER) is
+   	write_dword_i(dw: INTEGER)
       	do
 --##		save_items($dw, 4)
          	pos := pos + 4
       	end
 
-	write_double(d: REAL_64) is
+	write_double(d: REAL_64)
 		do
 --##		save_items($d, 8);
         	pos := pos + 8;
       	end
 
-   save_byte_array(ba: ARRAY[INTEGER_8]) is
+   save_byte_array(ba: ARRAY[INTEGER_8])
       require
         ba /= Void
       local
@@ -155,7 +155,7 @@ feature -- Save
          end
       end
 
-   save_byte_array_i(ba: ARRAY[INTEGER]) is
+   save_byte_array_i(ba: ARRAY[INTEGER])
       require
         ba /= Void
       local
@@ -189,7 +189,7 @@ feature -- Save
 --	         end
 --		end
 
-   save_word_array_i(wa: ARRAY[INTEGER]) is
+   save_word_array_i(wa: ARRAY[INTEGER])
       require
         wa /= Void
       local
@@ -206,7 +206,7 @@ feature -- Save
          end
       end
 
-   save_dword_array(wa: ARRAY[INTEGER]) is
+   save_dword_array(wa: ARRAY[INTEGER])
       require
         wa /= Void
       local
@@ -223,7 +223,7 @@ feature -- Save
          end
       end
 
-   save_dword_array_i(wa: ARRAY[INTEGER]) is
+   save_dword_array_i(wa: ARRAY[INTEGER])
       require
         wa /= Void
       local
@@ -245,18 +245,18 @@ feature -- Load
 
 	int_64: INTEGER_64
 
-	int_64_address: POINTER is
+	int_64_address: POINTER
 		do
 			Result := $int_64
 		end
 
-	read_byte_i, read_uint8: INTEGER is
+	read_byte_i, read_uint8: INTEGER
 		do
 			Result := read_int8
 			Result := Result & 0x00ff
 		end
 
-	read_byte, read_int8: INTEGER_8 is
+	read_byte, read_int8: INTEGER_8
 		local
 			p: POINTER
 			cp: C_POINTER
@@ -269,7 +269,7 @@ feature -- Load
 --			fx_trace(0, <<"SB_STREAM::read_int8: Result = ", Result.out>>)
 		end
 
-	read_int16, read_word_i: INTEGER_16 is
+	read_int16, read_word_i: INTEGER_16
 		local
 			p: POINTER
 			cp: C_POINTER
@@ -283,7 +283,7 @@ feature -- Load
 --			fx_trace(0, <<"SB_STREAM::read_int16: Result = ", Result.out>>)
 		end
 
-	read_int32, read_dword: INTEGER is
+	read_int32, read_dword: INTEGER
 		local
 			p: POINTER
 			cp: C_POINTER
@@ -311,7 +311,7 @@ feature -- Load
 --			if swap then swap8(get_r) end
 --		end
 
-   load_byte_array(n: INTEGER): ARRAY[INTEGER_8] is
+   load_byte_array(n: INTEGER): ARRAY[INTEGER_8]
       require
          n >= 0
       local
@@ -328,7 +328,7 @@ feature -- Load
          end
       end
 
-   load_byte_array_i(n: INTEGER): ARRAY[INTEGER] is
+   load_byte_array_i(n: INTEGER): ARRAY[INTEGER]
       require
          n >= 0
       local
@@ -345,7 +345,7 @@ feature -- Load
          end
       end
 
-   load_word_array_i(n: INTEGER): ARRAY[INTEGER] is
+   load_word_array_i(n: INTEGER): ARRAY[INTEGER]
       require
          n >= 0
       local
@@ -362,7 +362,7 @@ feature -- Load
          end
       end
 
-   load_dword_array(n: INTEGER): ARRAY[INTEGER] is
+   load_dword_array(n: INTEGER): ARRAY[INTEGER]
       require
          n >= 0
       local
@@ -396,7 +396,7 @@ feature -- Load
 --			end
 --		end
 
-   read_byte_array(ba: ARRAY [ INTEGER_8 ]; start, n: INTEGER) is
+   read_byte_array(ba: ARRAY [ INTEGER_8 ]; start, n: INTEGER)
       require
          ba /= Void
          start >= 0 and then n >= 0
@@ -415,7 +415,7 @@ feature -- Load
 
 feature {NONE} -- Implementation (deferred)
 
-	save_items(buf: POINTER; n: INTEGER) is
+	save_items(buf: POINTER; n: INTEGER)
          	-- Save bunch of items
     	require
          	buf /= default_pointer and then n >= 0
@@ -423,7 +423,7 @@ feature {NONE} -- Implementation (deferred)
       	deferred
       	end
 
-	load_items(buf: POINTER; n: INTEGER) is
+	load_items(buf: POINTER; n: INTEGER)
 		-- Load bunch of items
 		require
 			buf /= default_pointer and then n >= 0
@@ -433,12 +433,12 @@ feature {NONE} -- Implementation (deferred)
 
 feature -- Byte swapping for INTEGER_16, INTEGER and INTEGER_64
 
-	swap_int16(i: INTEGER_16): INTEGER_16 is
+	swap_int16(i: INTEGER_16): INTEGER_16
 		do
 			Result := (i |<< 8) | ((i |>> 8) & 0xff)
 		end
 
-	swap_int32(i: INTEGER): INTEGER is
+	swap_int32(i: INTEGER): INTEGER
 		do
 			Result := ((i |<< 24) & 0xff000000)
 					| ((i |<<  8) & 0x00ff0000)
@@ -446,7 +446,7 @@ feature -- Byte swapping for INTEGER_16, INTEGER and INTEGER_64
 					| ((i |>> 24) & 0x000000ff)
 		end
 
-	swap_int64(i: INTEGER_64): INTEGER_64 is
+	swap_int64(i: INTEGER_64): INTEGER_64
 		do
 			Result := ((i |<< 56) & 0xff00000000000000)
 					| ((i |<< 40) & 0x00ff000000000000)

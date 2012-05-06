@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The menu caption is a widget which can be used as
 		a caption above a number of menu commands in a menu.
@@ -31,27 +31,27 @@ inherit
 
    SB_MENU_CAPTION_CONSTANTS
 
-creation
+create
 
 	make,
 	make_opts
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_MENU_CAPTION"
 		end
 
 feature -- Creation
 
-	make (p: SB_COMPOSITE; text: STRING) is
+	make (p: SB_COMPOSITE; text: STRING)
 			-- Construct a menu caption
 		do
 			make_opts (p, text, Void, 0)
 		end
 
-	make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; opts: INTEGER) is
+	make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; opts: INTEGER)
     		-- Construct a menu caption
     	local
         	string: STRING
@@ -88,7 +88,7 @@ feature -- Data
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
     		-- Return default width
       	local
          	tw, iw: INTEGER
@@ -102,7 +102,7 @@ feature -- Queries
          	Result := iw.max (LEADSPACE) + tw + TRAILSPACE
 		end
 
-	default_height: INTEGER is
+	default_height: INTEGER
     		-- Return default height
     	local
         	th,ih,h: INTEGER
@@ -116,14 +116,14 @@ feature -- Queries
          	Result := th.max (ih)
       	end
 
-	get_menu_style: INTEGER is
+	get_menu_style: INTEGER
       	do
          	Result := options & MENU_MASK
       	end
 
 feature -- Actions
 
-	enable is
+	enable
          -- Enable the menu
       do
          if (flags & Flag_enabled) = 0 then
@@ -132,7 +132,7 @@ feature -- Actions
          end
       end
 
-   disable is
+   disable
          -- Disable the menu
       do
          if (flags & Flag_enabled) /= 0 then
@@ -141,7 +141,7 @@ feature -- Actions
          end
       end
 
-   set_text (text: STRING) is
+   set_text (text: STRING)
          -- Set the text for Menu
       local
          string: STRING
@@ -158,7 +158,7 @@ feature -- Actions
          end
       end
 
-   set_icon (ic: SB_ICON) is
+   set_icon (ic: SB_ICON)
          -- Set the icon for this label
       do
          if icon /= ic then
@@ -168,7 +168,7 @@ feature -- Actions
          end
       end
 
-   set_font (fnt: SB_FONT) is
+   set_font (fnt: SB_FONT)
          -- Set the text font
       require
          fnt /= Void
@@ -180,7 +180,7 @@ feature -- Actions
          end
       end
 
-   set_text_color (clr: INTEGER) is
+   set_text_color (clr: INTEGER)
          -- Set the text color
       do
          if clr /= text_color then
@@ -189,7 +189,7 @@ feature -- Actions
          end
       end
 
-   set_sel_back_color (clr: INTEGER) is
+   set_sel_back_color (clr: INTEGER)
          -- Set the selection background color
       do
          if clr /= sel_back_color then
@@ -198,7 +198,7 @@ feature -- Actions
          end
       end
 
-   set_sel_text_color (clr: INTEGER) is
+   set_sel_text_color (clr: INTEGER)
          -- Set the selection text color
       do
          if clr /= sel_text_color then
@@ -207,7 +207,7 @@ feature -- Actions
          end
       end
 
-   set_hilite_color (clr: INTEGER) is
+   set_hilite_color (clr: INTEGER)
          -- Set the highlight color
       do
          if clr /= hilite_color then
@@ -216,7 +216,7 @@ feature -- Actions
          end
       end
 
-   set_shadow_color (clr: INTEGER) is
+   set_shadow_color (clr: INTEGER)
          -- Set the shadow color
       do
          if clr /= shadow_color then
@@ -225,13 +225,13 @@ feature -- Actions
          end
       end
 
-   set_help_text (text: STRING) is
+   set_help_text (text: STRING)
          -- Set the status line help text for this menu
       do
          help_text := text
       end
 
-   set_menu_style (style: INTEGER) is
+   set_menu_style (style: INTEGER)
       local
          opts: INTEGER
       do
@@ -245,7 +245,7 @@ feature -- Actions
 
 feature -- Message processing
 
-   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       do
          if		match_function_2 (SEL_COMMAND,Id_setstringvalue,	type, key) then Result := on_cmd_set_string_value	(sender, key, data)
          elseif match_function_2 (SEL_COMMAND,Id_getstringvalue,	type, key) then Result := on_cmd_get_string_value 	(sender, key, data)
@@ -254,7 +254,7 @@ feature -- Message processing
          end
       end
 
-	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
          	event: SB_EVENT
          	dc: SB_DC_WINDOW
@@ -288,7 +288,7 @@ feature -- Message processing
          	Result := True
       	end
 
-	on_query_help (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_query_help (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not help_text.is_empty and then (flags & Flag_help) /= 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_setvalue, help_text)
@@ -296,7 +296,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not Precursor (sender, selector, data) then
             if (options & MENU_AUTOHIDE) /= 0 then
@@ -312,7 +312,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_set_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING
       do
@@ -321,7 +321,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_get_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING
       do
@@ -333,7 +333,7 @@ feature -- Message processing
 
 feature -- Resource management
 
-	create_resource is
+	create_resource
 			-- Create server-side resources
 		do
 			Precursor
@@ -343,7 +343,7 @@ feature -- Resource management
 			end
 		end
 
-	detach_resource is
+	detach_resource
 			-- Detach server-side resources
 		do
 			font.detach_resource
@@ -355,7 +355,7 @@ feature -- Resource management
 
 feature -- Destruction
 
-	destruct is
+	destruct
 		do
 			remove_hot_key (hot_key)
 			font := Void
@@ -368,8 +368,8 @@ feature {NONE} -- Implementation
 	hot_key: INTEGER
 	hot_off: INTEGER
 
-	LEADSPACE: INTEGER is 22
-	TRAILSPACE: INTEGER is 16
-	MENU_MASK: INTEGER is once Result := MENU_AUTOGRAY | MENU_AUTOHIDE end
+	LEADSPACE: INTEGER = 22
+	TRAILSPACE: INTEGER = 16
+	MENU_MASK: INTEGER once Result := MENU_AUTOGRAY | MENU_AUTOHIDE end
 
 end

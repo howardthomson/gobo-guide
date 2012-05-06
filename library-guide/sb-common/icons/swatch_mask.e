@@ -2,11 +2,11 @@ expanded class SWATCH_MASK
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 5
-   y_hot: INTEGER is 5
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 5
+   y_hot: INTEGER = 5
+   bits: STRING =
    "%/255/%/015/%/000/%/000/%/255/%/015/%/000/%/000/%/255/%/015/%/000/%/000/%
    %%/255/%/015/%/000/%/000/%/255/%/015/%/000/%/000/%/255/%/015/%/000/%/000/%
    %%/255/%/015/%/000/%/000/%/255/%/015/%/000/%/000/%/255/%/015/%/000/%/000/%

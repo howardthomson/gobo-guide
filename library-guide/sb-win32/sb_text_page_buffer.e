@@ -1,4 +1,4 @@
-indexing
+note
 	author: "Howard Thomson"
 	copyright: "[
 		--|---------------------------------------------------------|
@@ -41,7 +41,7 @@ feature {NONE} -- Attributes
 
 feature {NONE} -- Creation
 
-	make_size(size: INTEGER) is
+	make_size(size: INTEGER)
 		do
 --			map_length := size_rounded(size)
 --			page_buf := c_mmap(default_pointer, map_length,
@@ -49,7 +49,7 @@ feature {NONE} -- Creation
 --			is_mapped := True
 		end
 
-	make_from_file(fd: SB_FILE_HANDLE) is
+	make_from_file(fd: SB_FILE_HANDLE)
 		require else
 			file_is_open: fd.is_open
 		do
@@ -72,7 +72,7 @@ feature {NONE} -- Creation
 
 feature {NONE} -- Implementation
 
-	dispose is
+	dispose
 			-- Unmap page addressed by page_buf if needed
 		local
 			i: INTEGER

@@ -1,4 +1,4 @@
-indexing
+note
 	description:"ARRAY sorter."
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -14,7 +14,7 @@ inherit
 feature -- sort
 
 
-	sort(array: ARRAY [ G ]; comparator: SB_COMPARATOR [ G ]): BOOLEAN is
+	sort(array: ARRAY [ G ]; comparator: SB_COMPARATOR [ G ]): BOOLEAN
 			-- Sort array using comparator object
 		local
 			v, c: G

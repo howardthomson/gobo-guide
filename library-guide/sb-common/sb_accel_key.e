@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Accelerator map entry"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -11,13 +11,13 @@ inherit
 
 	ANY	-- for SE 2.1
 
-creation { SB_ACCEL_TABLE }
+create { SB_ACCEL_TABLE }
 
 	make
 
 feature { SB_ACCEL_TABLE }
 
-	make (a_code: INTEGER; a_target: SB_MESSAGE_HANDLER; a_message_down, a_message_up: INTEGER) is
+	make (a_code: INTEGER; a_target: SB_MESSAGE_HANDLER; a_message_down, a_message_up: INTEGER)
 		require
 			target_not_void: a_target /= Void
 		do

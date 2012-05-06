@@ -1,4 +1,4 @@
-indexing
+note
 
     description:
 
@@ -25,7 +25,7 @@ inherit	--insert
 	ANY			-- For SE2.2b5, to define is_equal
 feature -- read access
 
-	Xas_large_integer (a_offset: INTEGER): INTEGER_64 is
+	Xas_large_integer (a_offset: INTEGER): INTEGER_64
 			-- returns the contents of the buffer at offset
 			-- a_offset as integer
 		require
@@ -40,7 +40,7 @@ feature -- read access
 --			implemented: false
 		end -- as_large_integer
 		
-	as_integer (a_offset: INTEGER): INTEGER is
+	as_integer (a_offset: INTEGER): INTEGER
 			-- returns the contents of the buffer at offset
 			-- a_offset as integer
 		require
@@ -53,7 +53,7 @@ feature -- read access
 			Result := ptr.get_long_at (a_offset)
 		end -- as_integer
 		
-	as_character (a_offset: INTEGER): CHARACTER is
+	as_character (a_offset: INTEGER): CHARACTER
 			-- returns the contents of the buffer at offset
 			-- a_offset as character
 		require
@@ -66,7 +66,7 @@ feature -- read access
 			Result := ptr.get_char_at(a_offset)
 		end -- as_character
 		
-	as_integer_8 (a_offset: INTEGER): INTEGER_8 is
+	as_integer_8 (a_offset: INTEGER): INTEGER_8
 			-- returns the contents of the buffer at offset
 			-- a_offset as character
 		require
@@ -79,7 +79,7 @@ feature -- read access
 			Result := ptr.get_byte_at (a_offset).as_integer_8
 		end -- as_integer_8
 		
-	as_real (a_offset: INTEGER): REAL is
+	as_real (a_offset: INTEGER): REAL
 			-- returns the contents of the buffer at offset
 			-- a_offset as real
 		require
@@ -92,7 +92,7 @@ feature -- read access
 			Result := ptr.get_float_at(a_offset)
 		end -- as_real
 		
-	as_double (a_offset: INTEGER): REAL is
+	as_double (a_offset: INTEGER): REAL
 			-- returns the contents of the buffer at offset
 			-- a_offset as double
 		require
@@ -130,7 +130,7 @@ feature -- read access
 --			c_inline_c ("memcpy(_res, ((char*) _ptr) + _off, _len);%N")
 --		end -- as_string
 		
-	as_short (a_offset: INTEGER): INTEGER is
+	as_short (a_offset: INTEGER): INTEGER
 			-- returns the contents of the buffer at offset
 			-- a_offset as integer
 			-- if short differs in length from integer, only the
@@ -145,7 +145,7 @@ feature -- read access
 			Result := ptr.get_short_at(a_offset)
 		end -- as_short
 
-	as_pointer (a_offset: INTEGER): POINTER is
+	as_pointer (a_offset: INTEGER): POINTER
 			-- returns the contents of the buffer at offset
 			-- a_offset as pointer
 		require
@@ -165,7 +165,7 @@ feature -- read access
 		end -- as_short
 
 
-	Xas_raw (a_offset: INTEGER; a_val: POINTER; a_count: INTEGER) is
+	Xas_raw (a_offset: INTEGER; a_val: POINTER; a_count: INTEGER)
 			-- results in a simple memcpy
 		require
 			valid_offset: fits_into_buffer (a_offset, a_count)
@@ -184,7 +184,7 @@ feature -- read access
 --			c_inline_c ("memcpy(_val, ((char*) _ptr) + _off, _len);%N")
 		end -- set_raw
 	
-	Xraw_pointer (a_offset: INTEGER): POINTER is
+	Xraw_pointer (a_offset: INTEGER): POINTER
 			-- Address of buffer at offset
 		require
 			has_storage: pointer /= default_pointer
@@ -203,7 +203,7 @@ feature -- read access
 
 feature -- write access
 
-	Xset_large_integer (a_offset: INTEGER; a_val: INTEGER_64) is
+	Xset_large_integer (a_offset: INTEGER; a_val: INTEGER_64)
 			-- sets the contents of the buffer at offset
 			-- a_offset as integer
 		require
@@ -223,7 +223,7 @@ feature -- write access
 --			value_set: as_large_integer (a_offset) = a_val
 		end -- set_large_integer
 		
-	set_integer (a_offset: INTEGER; a_val: INTEGER) is
+	set_integer (a_offset: INTEGER; a_val: INTEGER)
 			-- sets the contents of the buffer at offset
 			-- a_offset as integer
 		require
@@ -238,7 +238,7 @@ feature -- write access
 			value_set: as_integer (a_offset) = a_val
 		end -- set_integer
 
-	set_integer_8(a_offset: INTEGER; a_val: INTEGER_8) is
+	set_integer_8(a_offset: INTEGER; a_val: INTEGER_8)
 			-- sets the contents of the buffer at offset
 			-- a_offset as INTEGER_8
 		require
@@ -253,7 +253,7 @@ feature -- write access
 	--		value_set: as_integer_8 (a_offset) = a_val	
 		end
 
-	set_character (a_offset: INTEGER; a_val: CHARACTER) is
+	set_character (a_offset: INTEGER; a_val: CHARACTER)
 			-- sets the contents of the buffer at offset
 			-- a_offset as character
 		require
@@ -268,7 +268,7 @@ feature -- write access
 			value_set: as_character (a_offset) = a_val
 		end -- set_character
 		
-	XXset_real (a_offset: INTEGER; a_val: REAL) is
+	XXset_real (a_offset: INTEGER; a_val: REAL)
 			-- sets the contents of the buffer at offset
 			-- a_offset as real
 		require
@@ -288,7 +288,7 @@ feature -- write access
 			value_set: as_real (a_offset) = a_val
 		end -- set_real
 		
-	XXset_double (a_offset: INTEGER; a_val: REAL) is
+	XXset_double (a_offset: INTEGER; a_val: REAL)
 			-- sets the contents of the buffer at offset
 			-- a_offset as double
 		require
@@ -331,7 +331,7 @@ feature -- write access
 --			value_set: a_val.is_equal (as_string (a_offset, a_val.count))
 --		end -- set_string
 		
-	set_short (a_offset: INTEGER; a_val: INTEGER) is
+	set_short (a_offset: INTEGER; a_val: INTEGER)
 			-- sets the contents of the buffer at offset
 			-- a_offset as short
 		require
@@ -346,7 +346,7 @@ feature -- write access
 			value_set: as_short (a_offset) = a_val
 		end -- set_short
 
-	set_pointer(a_offset: INTEGER; a_val: POINTER) is
+	set_pointer(a_offset: INTEGER; a_val: POINTER)
 			-- sets the content of buffer at offset as pointer
 		local
 			ptr: POINTER
@@ -381,7 +381,7 @@ feature -- write access
 --			c_inline_c ("memcpy(((char*) _ptr) + _off, _val, _len);%N")
 --		end -- set_raw
 	
-	XXchange_size_at (a_offset, a_old_len, a_new_len: INTEGER) is
+	XXchange_size_at (a_offset, a_old_len, a_new_len: INTEGER)
 		require
 			has_storage: pointer /= default_pointer
 			offset_not_negative: a_offset >= 0
@@ -422,20 +422,20 @@ feature -- write access
 		
 feature
 
-	fits_into_buffer (a_offset, a_length: INTEGER): BOOLEAN is
+	fits_into_buffer (a_offset, a_length: INTEGER): BOOLEAN
 			-- internal validation routine
 		do
 			Result := a_offset + a_length < size	-- ## WAS <= size
 		end -- fits_into_buffer
 	
-	integer_length: INTEGER is
+	integer_length: INTEGER
 			-- returns length of an integer in bytes
 			-- calculation bases on integer_bits from PLATFORM
 		do
 			Result := Integer_bits // 8
 		end -- integer_length
 		
-	real_length: INTEGER is
+	real_length: INTEGER
 			-- returns length of a real in bytes
 			-- calculation bases on real_bits from PLATFORM
 		do
@@ -449,14 +449,14 @@ feature
 --			Result := Double_bits // 8
 --		end -- double_length
 		
-	character_length: INTEGER is
+	character_length: INTEGER
 			-- returns length of a character in bytes
 			-- calculation bases on character_bits from PLATFORM
 		do
 			Result := Character_bits // 8
 		end -- character_length
 
-	short_length: INTEGER is
+	short_length: INTEGER
 			-- returns length of a short in bytes
 			-- calculation checks wether an int consists of
 			-- two or four bytes
@@ -470,11 +470,11 @@ feature
 
 feature -- the memory accesses
 
-	pointer: POINTER is
+	pointer: POINTER
 		deferred
 		end -- pointer
 	
-	size: INTEGER is
+	size: INTEGER
 		deferred
 		end -- size
 
@@ -490,17 +490,17 @@ feature {NONE}
 
 feature -- internal string buffering
 
-	string_buffer: STRING is
+	string_buffer: STRING
 		once
 			create Result.make(256)
 		end
 	
-	result_buffer: STRING is
+	result_buffer: STRING
 		do
 			Result := string_buffer
 		end -- result_buffer
 
-	elj_pass_pointer(p: POINTER): POINTER is
+	elj_pass_pointer(p: POINTER): POINTER
 		do
 			Result := p
 		end

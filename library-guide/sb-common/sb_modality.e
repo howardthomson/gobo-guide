@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Modality constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -9,8 +9,8 @@ class SB_MODALITY
 
 feature
 
-	MODAL_FOR_NONE	: INTEGER is 0;
-	MODAL_FOR_WINDOW: INTEGER is 1;
-	MODAL_FOR_POPUP	: INTEGER is 2;
+	MODAL_FOR_NONE	: INTEGER = 0;
+	MODAL_FOR_WINDOW: INTEGER = 1;
+	MODAL_FOR_POPUP	: INTEGER = 2;
 
 end

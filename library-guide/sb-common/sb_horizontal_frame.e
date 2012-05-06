@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Horizontal frame layout manager widget is used to
 		automatically place child-windows horizontally from left-to-right,
@@ -22,20 +22,20 @@ inherit
          	class_name
       	end
 
-creation
+create
 
 	make, make_sb, make_opts, make_ev
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_HORIZONTAL_FRAME"
 		end
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
     		-- Return default width
       	local
          	w, wcum, wmax, numc, mw: INTEGER
@@ -81,7 +81,7 @@ feature -- Queries
          	Result := pad_left + pad_right + wmax + (border * 2)
 		end
 
-	default_height: INTEGER is
+	default_height: INTEGER
 			-- Return default height
 		local
          	h, hmax, mh: INTEGER
@@ -122,7 +122,7 @@ feature -- Queries
 
 feature {NONE} -- Implementation
 
-   layout is
+   layout
       local
          left, right, top, bottom, mw, mh,
          remain, extra_space, total_space, t,

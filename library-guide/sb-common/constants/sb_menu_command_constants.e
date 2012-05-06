@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_MENU_COMMAND constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -9,11 +9,11 @@ class SB_MENU_COMMAND_CONSTANTS
 
 feature
 
-	MENUSTATE_NORMAL: INTEGER is 0;
+	MENUSTATE_NORMAL: INTEGER = 0;
     	-- Normal, unchecked state
-	MENUSTATE_CHECKED: INTEGER is 1;
+	MENUSTATE_CHECKED: INTEGER = 1;
 		-- Checked with a checkmark
-	MENUSTATE_RCHECKED: INTEGER is 2;
+	MENUSTATE_RCHECKED: INTEGER = 2;
 		-- Checked with a bullet
 
 end

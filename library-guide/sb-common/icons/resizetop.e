@@ -2,11 +2,11 @@ expanded class RESIZETOP
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 12
-   y_hot: INTEGER is 11
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 12
+   y_hot: INTEGER = 11
+   bits: STRING =
    "%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/016/%/000/%/000/%
    %%/000/%/040/%/000/%/000/%/000/%/068/%/000/%/000/%/000/%/130/%/000/%/000/%
    %%/000/%/199/%/001/%/000/%/000/%/068/%/000/%/000/%/000/%/068/%/000/%/000/%

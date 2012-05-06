@@ -2,10 +2,10 @@ expanded class SB_WAPI_FILE_ACTIONS
 
 feature -- Class data
 
-   CREATE_NEW        : INTEGER is 1
-   CREATE_ALWAYS     : INTEGER is 2
-   Open_existing     : INTEGER is 3
-   OPEN_ALWAYS       : INTEGER is 4
-   TRUNCATE_EXISTING : INTEGER is 5
+   CREATE_NEW        : INTEGER = 1
+   CREATE_ALWAYS     : INTEGER = 2
+   Open_existing     : INTEGER = 3
+   OPEN_ALWAYS       : INTEGER = 4
+   TRUNCATE_EXISTING : INTEGER = 5
 
 end

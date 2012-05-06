@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Icon List Widget"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -26,7 +26,7 @@ inherit
 
 feature
 
-	create_item(txt: STRING; big,mini: SB_ICON; data: ANY): SB_ICON_LIST_ITEM is
+	create_item(txt: STRING; big,mini: SB_ICON; data: ANY): SB_ICON_LIST_ITEM
 		do
 			create {SB_ICON_LIST_ITEM} Result.make (txt, big, mini, data)
 		end

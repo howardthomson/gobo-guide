@@ -1,4 +1,4 @@
-indexing
+note
 	description:"The Application Object"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -43,7 +43,7 @@ inherit
 
 feature -- Creation
 
-	make (a_name, a_vendor: STRING) is
+	make (a_name, a_vendor: STRING)
 			-- Construct application object; the name and vendor strings are
       		-- used as keys into the registry database for this application's
       		-- settings
@@ -90,24 +90,24 @@ feature -- Creation
 
 feature {NONE} -- Implementation
 
-    make_imp is
+    make_imp
     		-- Do platform dependant 'make'
     	deferred
     	end
 
-    make_cursors is
+    make_cursors
     		-- Do platform dependant 'make_cursors'
     	deferred
     	end
 
-	init_colours is
+	init_colours
     		-- Do platform dependant 'init_colours'
 		deferred
 		end
 
 feature {EV_APPLICATION_IMP}
 
-	launch is
+	launch
 			-- Application startup after initial preparation
 		local
 			exit_code: INTEGER
@@ -118,12 +118,12 @@ feature {EV_APPLICATION_IMP}
 
 feature -- Data
 
-	name: STRING is
+	name: STRING
     	do
         	Result := registry.app_key
       	end
 
-   	vendor: STRING is
+   	vendor: STRING
       	do
          	Result := registry.vendor_key
       	end
@@ -149,7 +149,7 @@ feature -- Data
 
 	wait_cursor: SB_CURSOR         -- current wait cursor
 
-	get_default_cursor, default_cursor (which: INTEGER): SB_CURSOR is
+	get_default_cursor, default_cursor (which: INTEGER): SB_CURSOR
          	-- Obtain a default cursor
       	do
          	Result := cursors.item (which)
@@ -184,14 +184,14 @@ feature -- Data
 
 feature -- Shared objects
 
-	schedule_so_rescan is
+	schedule_so_rescan
 			-- Schedule a rescan of Shared Objects
 			-- e.g. fonts/menus/bitmaps/images etc
 		do
 			flag_so_rescan := True
 		end
 
-	do_so_rescan is
+	do_so_rescan
 			-- Perform Shared Objects Rescan to scavenge shared resources
 		do
 				-- First, update all resource in-use sequence numbers
@@ -206,7 +206,7 @@ feature -- Shared objects
 
 feature -- Queries
 
-   is_modal_window (window: SB_WINDOW): BOOLEAN is
+   is_modal_window (window: SB_WINDOW): BOOLEAN
          -- True if the window is modal
       require
          valid_window: window /= Void
@@ -223,7 +223,7 @@ feature -- Queries
          end
       end
 
-   get_modal_window: SB_WINDOW is
+   get_modal_window: SB_WINDOW
          -- Return window of current modal loop
       do
          if invocation /= Void then 
@@ -231,7 +231,7 @@ feature -- Queries
          end
       end
 
-   get_modal_modality: INTEGER is
+   get_modal_modality: INTEGER
          -- Return mode of current modal loop
       do
          if invocation /= Void then 
@@ -241,7 +241,7 @@ feature -- Queries
 
 feature -- Actions
 
-   set_normal_font (font: SB_FONT) is
+   set_normal_font (font: SB_FONT)
          -- Change default font
       require
          good_font: font /= Void
@@ -249,7 +249,7 @@ feature -- Actions
          normal_font := font
       end
 
-   set_default_cursor (which: INTEGER; cursor: SB_CURSOR) is
+   set_default_cursor (which: INTEGER; cursor: SB_CURSOR)
          -- Change default cursor
       require
          good_cursor: cursor /= Void
@@ -257,139 +257,139 @@ feature -- Actions
          cursors.put (cursor, which)
       end
 
-   set_typing_speed (speed: INTEGER) is
+   set_typing_speed (speed: INTEGER)
          -- Change typing speed
       do
          typing_speed := speed
          registry.write_integer_entry ("SETTINGS", "typingspeed", typing_speed)
       end
 
-   set_click_speed (speed: INTEGER) is
+   set_click_speed (speed: INTEGER)
       do
          click_speed := speed
          registry.write_integer_entry ("SETTINGS", "clickspeed", click_speed)
       end
 
-   set_scroll_speed (speed: INTEGER) is
+   set_scroll_speed (speed: INTEGER)
       do
          scroll_speed := speed
          registry.write_integer_entry ("SETTINGS", "scrollspeed", scroll_speed)
       end
 
-   set_scroll_delay (delay: INTEGER) is
+   set_scroll_delay (delay: INTEGER)
       do
          scroll_delay := delay
          registry.write_integer_entry ("SETTINGS", "scrolldelay", scroll_delay)
       end
 
-   set_blink_speed (speed: INTEGER) is
+   set_blink_speed (speed: INTEGER)
       do
          blink_speed := speed;
          registry.write_integer_entry ("SETTINGS", "blinkspeed", blink_speed);
       end
 
-   set_animation_speed (speed: INTEGER) is
+   set_animation_speed (speed: INTEGER)
       do
          animation_speed := speed;
          registry.write_integer_entry ("SETTINGS", "animspeed", animation_speed);
       end
 
-   set_menu_pause (pause: INTEGER) is
+   set_menu_pause (pause: INTEGER)
       do
          menu_pause := pause;
          registry.write_integer_entry ("SETTINGS", "menupause", menu_pause);
       end
 
-   set_tooltip_pause (pause: INTEGER) is
+   set_tooltip_pause (pause: INTEGER)
       do
          tooltip_pause := pause
          registry.write_integer_entry ("SETTINGS", "tooltippause", tooltip_pause)
       end
 
-   set_tooltip_time (time: INTEGER) is
+   set_tooltip_time (time: INTEGER)
       do
          tooltip_time := time
          registry.write_integer_entry ("SETTINGS", "tooltiptime", tooltip_time)
       end
 
-   set_drag_delta (delta: INTEGER) is
+   set_drag_delta (delta: INTEGER)
       do
          drag_delta := delta
          registry.write_integer_entry ("SETTINGS", "dragdelta", drag_delta)
       end
 
-   set_wheel_lines (lines: INTEGER) is
+   set_wheel_lines (lines: INTEGER)
       do
          wheel_lines := lines
          registry.write_integer_entry ("SETTINGS", "wheellines", wheel_lines)
       end
 
-   set_border_color (color: INTEGER) is
+   set_border_color (color: INTEGER)
       do
          border_color := color
          registry.write_color_entry ("SETTINGS", "bordercolor", border_color)
       end
 
-   set_base_color (color: INTEGER) is
+   set_base_color (color: INTEGER)
       do
          base_color := color
          registry.write_color_entry ("SETTINGS", "basecolor", base_color)
       end
 
-   set_hilite_color (color: INTEGER) is
+   set_hilite_color (color: INTEGER)
       do
          hilite_color := color
          registry.write_color_entry ("SETTINGS", "hilitecolor", hilite_color)
       end
 
-   set_shadow_color (color: INTEGER) is
+   set_shadow_color (color: INTEGER)
       do
          shadow_color := color
          registry.write_color_entry ("SETTINGS", "shadowcolor", shadow_color)
       end
 
-   set_back_color (color: INTEGER) is
+   set_back_color (color: INTEGER)
       do
          back_color := color
          registry.write_color_entry ("SETTINGS", "backcolor", back_color)
       end
 
-   set_fore_color (color: INTEGER) is
+   set_fore_color (color: INTEGER)
       do
          fore_color := color
          registry.write_color_entry ("SETTINGS", "forecolor", fore_color)
       end
 
-   set_sel_fore_color (color: INTEGER) is
+   set_sel_fore_color (color: INTEGER)
       do
          sel_fore_color := color
          registry.write_color_entry ("SETTINGS", "selforecolor", sel_fore_color)
       end
 
-   set_sel_back_color (color: INTEGER) is
+   set_sel_back_color (color: INTEGER)
       do
          sel_back_color := color
          registry.write_color_entry ("SETTINGS", "selbackcolor", sel_back_color)
       end
 
-   set_tip_fore_color (color: INTEGER) is
+   set_tip_fore_color (color: INTEGER)
       do
          tip_fore_color := color
          registry.write_color_entry ("SETTINGS", "tipforecolor", tip_fore_color);         
       end
 
-   set_tip_back_color (color: INTEGER) is
+   set_tip_back_color (color: INTEGER)
       do
          tip_back_color := color
          registry.write_color_entry ("SETTINGS", "tipbackcolor", tip_back_color);         
       end
 
-	beep is
+	beep
 			-- Beep
 		deferred
 		end
 
-   begin_wait_cursor is
+   begin_wait_cursor
          -- Begin of wait-cursor block; wait-cursor blocks may be 
          -- nested.
       do
@@ -410,7 +410,7 @@ feature -- Actions
 --		deferred
 --		end
 
-   end_wait_cursor is
+   end_wait_cursor
          -- End of wait-cursor block
       do
          if initialized and then wait_count > 0 then
@@ -428,7 +428,7 @@ feature -- Actions
 --		deferred
 --		end
 
-   set_wait_cursor (cursor: SB_CURSOR) is
+   set_wait_cursor (cursor: SB_CURSOR)
          -- Change to a new wait cursor
       require
          good_cursor: cursor /= Void
@@ -452,35 +452,35 @@ feature -- Actions
 
 feature -- Display actions
 
-	open_display (dpyname: STRING): BOOLEAN is
+	open_display (dpyname: STRING): BOOLEAN
 			-- Connection to display; this is called by init()
 		deferred
 		end
 
-	close_display: BOOLEAN is
+	close_display: BOOLEAN
 		deferred
 		end
 
-   set_default_visual (visual: SB_VISUAL) is
+   set_default_visual (visual: SB_VISUAL)
       do
          default_visual := visual
       end
 
 feature {NONE} -- Window queries
 
-   	find_window_with_id (xid: INTEGER): SB_WINDOW is
+   	find_window_with_id (xid: INTEGER): SB_WINDOW
          	--  Find window from id
 		deferred
       	end
 
-   	find_window_at (x, y: INTEGER; xid: INTEGER): SB_WINDOW is
+   	find_window_at (x, y: INTEGER; xid: INTEGER): SB_WINDOW
          	--  Find window from root x, y, starting from given window
 		deferred
       	end
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
 			if		match_function_2 (Sel_timeout,ID_QUIT, type, key) then Result := on_cmd_quit (sender, key, data)
          	elseif	match_function_2 (SEL_SIGNAL, ID_QUIT, type, key) then Result := on_cmd_quit (sender, key, data)
@@ -499,19 +499,19 @@ feature -- Message processing
 			Result := True
 		end
 
-	on_cmd_dump (object: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+	on_cmd_dump (object: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
 		do
 		--	dump_widgets;
 			Result := True
 		end
 
-	on_open_window_tree(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+	on_open_window_tree(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
 		do
 			open_widgets_display_window
 			Result := True
 		end
 
-	open_widgets_display_window is
+	open_widgets_display_window
 		do
 			if widgets_display_window = Void then
 				create widgets_display_window.make
@@ -520,14 +520,14 @@ feature -- Message processing
 
 feature {SB_WIDGETS_DISPLAY_TREE}
 
-	on_widgets_display_window_close is
+	on_widgets_display_window_close
 		do
 			widgets_display_window := Void
 		end
 
 feature -- Timeouts		
 
-	add_timeout (ms: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER): SB_TIMER is
+	add_timeout (ms: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER): SB_TIMER
     		-- Add timeout message to be sent to target object in ms milliseconds;
     		-- the timer fires only once after the interval expires.
     	require
@@ -536,7 +536,7 @@ feature -- Timeouts
 		deferred
 		end
 
-   	remove_timeout (timer: SB_TIMER) is
+   	remove_timeout (timer: SB_TIMER)
          -- Remove timeout
       	require
          	good_timer: timer /= Void
@@ -547,7 +547,7 @@ feature -- Chores
 
 	chores: SB_CHORE
 
-	add_chore (a_chore: SB_CHORE) is
+	add_chore (a_chore: SB_CHORE)
 			-- Add an idle processing message to be sent to target object when
 			-- the system becomes idle, i.e. there are no events to be processed.
 		require
@@ -560,7 +560,7 @@ feature -- Chores
 			chores := a_chore
 		end
 
-	remove_chore (chore: SB_CHORE) is
+	remove_chore (chore: SB_CHORE)
 			-- Remove idle processing message
 		require
 			chore_exists: chore /= Void
@@ -585,7 +585,7 @@ feature -- Chores
 			end
 		end
 
-   add_signal (sig: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; immediate: BOOLEAN; flags: INTEGER) is
+   add_signal (sig: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; immediate: BOOLEAN; flags: INTEGER)
          -- Add signal processing message to be sent to target object when
          -- the signal sig is raised; flags are to be set as per POSIX definitions.
          -- When immediate is TRUE, the message will be sent to the target right away;
@@ -595,13 +595,13 @@ feature -- Chores
 --         ext_add_signal(to_external, sig, tgt, sel, immediate, flags)
       end
 
-   remove_signal (sig: INTEGER) is
+   remove_signal (sig: INTEGER)
          -- Remove signal message for signal sig
       do
 --         ext_remove_signal(to_external, sig)
       end
 
-   add_input (fd: INTEGER; mode: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER): BOOLEAN is
+   add_input (fd: INTEGER; mode: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER): BOOLEAN
          -- Add a file descriptor fd to be watched for activity as determined
          -- by mode, where mode is a bitwise OR (INPUT_READ, INPUT_WRITE, INPUT_EXCEPT).
          -- A message of type SEL_IO_READ, SEL_IO_WRITE, or SEL_IO_EXCEPT will be sent
@@ -610,7 +610,7 @@ feature -- Chores
 --         Result := ext_add_input(to_external, fd, mode, tgt, sel)
       end
 
-   remove_input (fd: INTEGER; mode: INTEGER): BOOLEAN is
+   remove_input (fd: INTEGER; mode: INTEGER): BOOLEAN
          -- Remove input message and target object for the specified file descriptor
          -- and mode, which is a bitwise OR of (INPUT_READ, INPUT_WRITE, INPUT_EXCEPT).
       do
@@ -622,12 +622,12 @@ feature -- Resource management
 	flag_default_resources_created: BOOLEAN
 	flag_new_resource: BOOLEAN	--# Move this to SB_APPLICATION_DEF
 
-	set_do_create_resource is
+	set_do_create_resource
 		do
 			flag_new_resource := True
 		end
 
-	create_new_resources is
+	create_new_resources
 		do
 			if flag_new_resource then
 				create_resource
@@ -635,7 +635,7 @@ feature -- Resource management
 			end
 		end
 
-	create_resource is
+	create_resource
 		do
 			if not flag_default_resources_created then
 				create_default_resources
@@ -645,7 +645,7 @@ feature -- Resource management
 			root_window.create_resource
 		end
 
-   create_default_resources is
+   create_default_resources
       	-- Create application's windows
       do
          	-- Create visuals
@@ -679,7 +679,7 @@ feature -- Resource management
          (cursors @ Def_rotate_cursor	).create_resource;
       end
 
-   destroy_resource is
+   destroy_resource
       	-- Destroy application's windows
       do
          root_window.destroy_resource
@@ -713,7 +713,7 @@ feature -- Resource management
          default_visual.destroy_resource
       end
 
-   detach_resource is
+   detach_resource
      	 -- Detach application's windows
       do
          root_window.detach_resource
@@ -749,17 +749,17 @@ feature -- Resource management
 
 feature -- Run
 
-	peek_event: BOOLEAN is
+	peek_event: BOOLEAN
 			-- Peek to determine if there's an event
 		deferred
 		end
 
-	run_one_event is
+	run_one_event
 			-- Perform one event dispatch
 		deferred
 		end
 
-	run: INTEGER is
+	run: INTEGER
 			-- Run the main application event loop until stop() is called,
 			-- and return the exit code passed as argument to stop().
 		local
@@ -777,7 +777,7 @@ feature -- Run
 			invocation := inv.upper
 		end
 
-   run_while_events (window: SB_WINDOW): BOOLEAN is
+   run_while_events (window: SB_WINDOW): BOOLEAN
          -- Run event loop while there are events are available in the queue.
          --  Returns True when all events in the queue have been handled, and False when
          -- the event loop was terminated due to 'stop' or 'stop_modal'.
@@ -798,7 +798,7 @@ feature -- Run
          invocation := inv.upper
       end
 
-   run_modal: INTEGER is
+   run_modal: INTEGER
          -- Run modal event loop, blocking keyboard and mouse events to all windows
          -- until stopModal is called.
       local
@@ -816,7 +816,7 @@ feature -- Run
          invocation := inv.upper
       end
 
-   run_modal_for (window: SB_WINDOW): INTEGER is
+   run_modal_for (window: SB_WINDOW): INTEGER
          -- Run a modal event loop for the given window, until stop() or stopModal() is 
          -- called. Except for the modal window and its children, user input to all
          -- windows is blocked; if the modal window is NULL no user input is blocked.
@@ -835,7 +835,7 @@ feature -- Run
          invocation := inv.upper
       end
 
-   run_modal_while_shown (window: SB_WINDOW): BOOLEAN is
+   run_modal_while_shown (window: SB_WINDOW): BOOLEAN
          -- Run modal while window is shown, or until stop() or stopModal() is called.
          -- Except for the modal window and its children, user input to all windows
          -- is blocked; if the modal window is NULL all user input is 
@@ -857,7 +857,7 @@ feature -- Run
          invocation := inv.upper
       end
 
-   run_popup (window: SB_WINDOW): INTEGER is
+   run_popup (window: SB_WINDOW): INTEGER
          -- Run popup menu while shown, until stop() or stopModal() is called.
          -- Also returns when entering previous cascading popup menu.
       require
@@ -877,7 +877,7 @@ feature -- Run
          invocation := inv.upper
       end
 
-   stop (value: INTEGER) is
+   stop (value: INTEGER)
          -- Terminate the outermost event loop, and all inner modal loops;
          -- All more deeper nested event loops will be terminated with code equal
          -- to 0, while the outermost event loop will return code equal to value.
@@ -898,7 +898,7 @@ feature -- Run
          end
       end
 
-	stop_modal_window (window: SB_WINDOW; value: INTEGER) is
+	stop_modal_window (window: SB_WINDOW; value: INTEGER)
          -- Break out of the matching modal loop, returning code equal to value.
          -- All deeper nested event loops are terminated with code equal to 0.
       require
@@ -926,7 +926,7 @@ feature -- Run
          end
       end
    
-   stop_modal (value: INTEGER) is
+   stop_modal (value: INTEGER)
          -- Break out of the innermost modal loop, returning code equal to value.
       local
          inv: SB_INVOCATION
@@ -948,7 +948,7 @@ feature -- Run
          end
       end
 
-   exit (code: INTEGER) is
+   exit (code: INTEGER)
          -- Exit application.
          -- Closes the display and writes the registry.
       do
@@ -961,7 +961,7 @@ feature -- Run
 
 feature -- Painting
    
-	force_refresh is
+	force_refresh
          -- Force GUI refresh
 		require
 			valid_root_window: root_window /= Void
@@ -969,19 +969,19 @@ feature -- Painting
 			root_window.force_refresh
 		end
 
-	refresh is
+	refresh
 			-- Schedule a refresh
 		do
 			again := True
 		end
 
-	flush is
+	flush
 			-- Flush pending repaints
 		do
 			flush_aux (False)
 		end
 
-   force_flush is
+   force_flush
          -- Flush pending repaints
       do
          flush_aux (True)
@@ -989,7 +989,7 @@ feature -- Painting
 
 feature -- Initialization
 
-	init (connect: BOOLEAN) is
+	init (connect: BOOLEAN)
     		-- Initialize application. Parses and removes common command 
 			-- line  arguments, reads the registry. Finally, if connect 
 			-- is TRUE, it opens display.
@@ -1120,7 +1120,7 @@ feature -- Initialization
 
 feature -- DND
 
-	register_drag_type (typename: STRING): INTEGER is
+	register_drag_type (typename: STRING): INTEGER
 			-- Register new DND type
 		do
 			if initialized then
@@ -1133,7 +1133,7 @@ feature -- DND
 			end
 		end
 
-   get_drag_type_name (type: INTEGER): STRING is
+   get_drag_type_name (type: INTEGER): STRING
          -- Get drag type name
       local
 --#ifdef WIN32
@@ -1170,75 +1170,75 @@ feature { SB_WINDOW_DEF } -- Implementation
    	drop_window			: SB_WINDOW		-- Drop target window
    	drag_window			: SB_WINDOW		-- Drag source window
 
-	set_key_window (w: SB_WINDOW) is
+	set_key_window (w: SB_WINDOW)
 		do
         	key_window := w
       	end
 
-   	set_refresher_window (w: SB_WINDOW) is
+   	set_refresher_window (w: SB_WINDOW)
       	do
          	refresher_window := w
       	end
 
-   	set_popup_window(w: SB_POPUP) is
+   	set_popup_window(w: SB_POPUP)
          	-- Set current popup window
       	do
          	popup_window := w
       	end
 
-   	set_mouse_grab_window (w: SB_WINDOW) is
+   	set_mouse_grab_window (w: SB_WINDOW)
       	do
          	mouse_grab_window := w
       	end
 
-   	set_keyboard_grab_window (w: SB_WINDOW) is
+   	set_keyboard_grab_window (w: SB_WINDOW)
       	do
          	keyboard_grab_window := w
       	end
 
-   	set_selection_window (w: SB_WINDOW) is
+   	set_selection_window (w: SB_WINDOW)
       	do
          	selection_window := w
       	end
 
-   	set_sel_type_list (l: ARRAY[INTEGER]) is
+   	set_sel_type_list (l: ARRAY[INTEGER])
       	do
          	sel_type_list := l
       	end
 
-   	set_clipboard_window (w: SB_WINDOW) is
+   	set_clipboard_window (w: SB_WINDOW)
       	do
          	clipboard_window := w
       	end
 
-   	set_drag_window (w: SB_WINDOW) is
+   	set_drag_window (w: SB_WINDOW)
       	do
          	drag_window := w
       	end
 
-   	set_drop_window (w: SB_WINDOW) is
+   	set_drop_window (w: SB_WINDOW)
       	do
          	drop_window := w
       	end
 
-   	set_cursor_window (w: SB_WINDOW) is
+   	set_cursor_window (w: SB_WINDOW)
       	do
          	cursor_window := w
       	end
 
-   	set_focus_window (w: SB_WINDOW) is
+   	set_focus_window (w: SB_WINDOW)
       	do
          	focus_window := w
       	end
 
 	event: SB_EVENT
 
-   	dragdrop_set_data(window: SB_WINDOW; type: INTEGER; data: STRING) is
+   	dragdrop_set_data(window: SB_WINDOW; type: INTEGER; data: STRING)
       	do
       	--	dde_data := data
       	end
 
-   	dragdrop_get_data (window: SB_WINDOW; type: INTEGER): STRING is
+   	dragdrop_get_data (window: SB_WINDOW; type: INTEGER): STRING
          -- Retrieve DND selection data
       local
          answer: INTEGER
@@ -1255,18 +1255,18 @@ feature { SB_WINDOW_DEF } -- Implementation
          end
       end
 
-   dragdrop_get_types (window: SB_WINDOW): ARRAY[INTEGER] is
+   dragdrop_get_types (window: SB_WINDOW): ARRAY[INTEGER]
       do
          Result := dde_type_list
       end
 
-	selection_set_data (window: SB_WINDOW; type: INTEGER; data: STRING) is
+	selection_set_data (window: SB_WINDOW; type: INTEGER; data: STRING)
     	do
       		fx_trace2 ("SB_APPLICATION_DEF::selection_set_data")
       		dde_data := data
 		end
 
-   selection_get_data (window: SB_WINDOW; type: INTEGER): STRING is
+   selection_get_data (window: SB_WINDOW; type: INTEGER): STRING
       do
          if selection_window /= Void then
 fx_trace2("SB_APPLICATION_DEF::selection_get_data - #1")
@@ -1285,28 +1285,28 @@ fx_trace2("SB_APPLICATION_DEF::selection_get_data - #5")
          end
       end
 
-	selection_get_types (window: SB_WINDOW): ARRAY[INTEGER] is
+	selection_get_types (window: SB_WINDOW): ARRAY[INTEGER]
       	do
          	if selection_window /= Void then
             	Result := sel_type_list
          	end
       	end
 
-   	clipboard_set_data (window: SB_WINDOW; type: INTEGER; data: STRING) is
+   	clipboard_set_data (window: SB_WINDOW; type: INTEGER; data: STRING)
       	deferred
       	end
 
-   	clipboard_get_data (window: SB_WINDOW; type: INTEGER): STRING is
+   	clipboard_get_data (window: SB_WINDOW; type: INTEGER): STRING
       	deferred
       	end
 
-   	clipboard_get_types (window: SB_WINDOW): ARRAY[INTEGER] is
+   	clipboard_get_types (window: SB_WINDOW): ARRAY[INTEGER]
       	deferred
       	end
 
 feature { NONE } -- Implementation
 
-   XXsenddata (window: INTEGER; data: STRING): INTEGER is
+   XXsenddata (window: INTEGER; data: STRING): INTEGER
          -- Send data via shared memory
       local
          hMap, hMapCopy: INTEGER
@@ -1341,7 +1341,7 @@ feature { NONE } -- Implementation
       end
 
 
-	XXrecvdata (hMap: INTEGER): STRING is
+	XXrecvdata (hMap: INTEGER): STRING
 			-- Receive data via shared memory
 		local
         	ptr: POINTER
@@ -1361,7 +1361,7 @@ feature { NONE } -- Implementation
 --         	end
       	end
 
-	XXsendrequest (window, requestor, type: INTEGER): INTEGER is
+	XXsendrequest (window, requestor, type: INTEGER): INTEGER
          -- Send request for data
       	local
          	loops: INTEGER
@@ -1415,12 +1415,12 @@ feature
 
 feature {NONE}
 
-	flush_aux (sync: BOOLEAN) is
+	flush_aux (sync: BOOLEAN)
 			-- Flush pending repaints
 		deferred
 		end
 
-	repaint is
+	repaint
 			-- Paint all windows marked for repainting.
 			-- On return all the applications windows have been painted.
 --#ifdef WIN32
@@ -1447,7 +1447,7 @@ feature {NONE}
 
 feature -- Window GUI Manipulation
 
-	register_window (w: SB_WINDOW_DEF) is
+	register_window (w: SB_WINDOW_DEF)
 			-- Register window's creation in window browse tree
 		local
 			ww: SB_WINDOW
@@ -1460,7 +1460,7 @@ feature -- Window GUI Manipulation
 
 feature -- Stop request processing
 
-	is_stop_requested: BOOLEAN is
+	is_stop_requested: BOOLEAN
 			-- Return True when GUI has received a Stop request
 			-- Run GUI update to check events
 		do
@@ -1471,7 +1471,7 @@ feature -- Event reporting, sequence count
 
 	ev_sequence_counter: INTEGER
 
-	next_ev_sequence: INTEGER is
+	next_ev_sequence: INTEGER
 		do
 			ev_sequence_counter := ev_sequence_counter + 1
 			Result := ev_sequence_counter

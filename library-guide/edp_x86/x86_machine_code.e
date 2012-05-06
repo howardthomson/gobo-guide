@@ -11,12 +11,12 @@ feature
 	Mode_compat_16,
 	Mode_legacy_32,
 	Mode_legacy_16
-		: INTEGER is Unique
+		: INTEGER = Unique
 			-- values for mode
 
-	Max_instruction_length: INTEGER is 15
+	Max_instruction_length: INTEGER = 15
 
-	length: INTEGER is
+	length: INTEGER
 		do
 			Result := prefix_count
 					+ rex_count
@@ -26,7 +26,7 @@ feature
 					+ immediate_count
 		end
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 			-- check instruction is valid for current mode
 		do
 			Result := length <= Max_instruction_length

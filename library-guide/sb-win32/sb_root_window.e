@@ -10,13 +10,13 @@ inherit
 			default_height
 		end
 
-creation
+create
 
 	make
 
 feature
 
-	create_resource_imp is
+	create_resource_imp
       	local
          	df: SB_WAPI_DEVICE_CONTEXT_FUNCTIONS
          	dp: SB_WAPI_DEVICE_PARAMETERS
@@ -32,15 +32,15 @@ feature
             t := df.ReleaseDC (resource_id, hdc)
       	end
 
-	detach_resource_imp is
+	detach_resource_imp
 		do
 		end
 
-	destroy_resource_imp is
+	destroy_resource_imp
 		do
 		end
 
-	default_width: INTEGER is
+	default_width: INTEGER
       	local
          	df: SB_WAPI_DEVICE_CONTEXT_FUNCTIONS
          	dp: SB_WAPI_DEVICE_PARAMETERS
@@ -53,7 +53,7 @@ feature
             t := df.ReleaseDC (resource_id, hdc)
       	end
 
-   	default_height: INTEGER is
+   	default_height: INTEGER
       	local
          	df: SB_WAPI_DEVICE_CONTEXT_FUNCTIONS
          	dp: SB_WAPI_DEVICE_PARAMETERS

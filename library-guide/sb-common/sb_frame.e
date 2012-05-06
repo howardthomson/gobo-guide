@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Base Frame"
 
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"

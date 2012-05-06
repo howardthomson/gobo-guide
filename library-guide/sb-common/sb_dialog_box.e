@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		DialogBox window. When receiving ID_CANCEL or ID_ACCEPT,
 		the DialogBox breaks out of the modal loop and returns FALSE or TRUE,
@@ -31,7 +31,7 @@ inherit
 
 	SB_EXPANDED
 
-creation
+create
 
 	make_top,
 	make_child,
@@ -41,19 +41,19 @@ creation
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_DIALOG_BOX"
 		end
 
 feature -- Creation
 
-	make_ev is
+	make_ev
 		do
 			make_top (application, once "Default dialog name", 0)
 		end
 
-	make_top (a: SB_APPLICATION; name: STRING; opts: INTEGER) is
+	make_top (a: SB_APPLICATION; name: STRING; opts: INTEGER)
     		-- Construct free-floating dialog
       	local
          	o: INTEGER
@@ -66,12 +66,12 @@ feature -- Creation
          	make_top_opts (a, name, o, 0,0,0,0, 10,10,10,10, 4,4);
       	end
 
-   	make_top_opts (a: SB_APPLICATION; name: STRING; opts: INTEGER; x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER) is
+   	make_top_opts (a: SB_APPLICATION; name: STRING; opts: INTEGER; x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER)
       	do
          	top_window_make_top (a, name, Void, Void, opts, x,y,w,h, pl,pr,pt,pb, hs,vs);
       	end
 
-	make_child (ownr: SB_WINDOW; name: STRING; opts: INTEGER) is
+	make_child (ownr: SB_WINDOW; name: STRING; opts: INTEGER)
 			-- Construct dialog which will always float over the owner window
 		local
 			o: INTEGER
@@ -82,20 +82,20 @@ feature -- Creation
          	make_child_opts (ownr, name, o, 0,0,0,0, 10,10,10,10, 4,4);
       	end
 
-	make_child_opts (ownr: SB_WINDOW; name: STRING; opts: INTEGER; x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER) is
+	make_child_opts (ownr: SB_WINDOW; name: STRING; opts: INTEGER; x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER)
 		do
 			top_window_make_child (ownr, name, Void, Void, opts, x,y,w,h, pl,pr,pt,pb, hs,vs);
 		end
 
 feature -- Actions
 
-	execute: INTEGER is
+	execute: INTEGER
     		-- Run modal invocation of the dialog
       	do
         	Result := execute_at (PLACEMENT_CURSOR)
       	end
 
-	execute_at (placement: INTEGER): INTEGER is
+	execute_at (placement: INTEGER): INTEGER
     		-- Run modal invocation of the dialog
       	do
        		create_resource
@@ -105,7 +105,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (SEL_COMMAND, 	ID_CANCEL,	type, key) then Result := on_cmd_cancel (sender, key, data);
         	elseif	match_function_2 (SEL_CLOSE,	0,			type, key) then Result := on_cmd_cancel (sender, key, data);
@@ -114,7 +114,7 @@ feature -- Message processing
         	end
       	end
 
-	on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
          	ev: SB_EVENT;
       	do
@@ -130,7 +130,7 @@ feature -- Message processing
          	end
       	end
 
-	on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	local
          	ev: SB_EVENT
       	do
@@ -145,7 +145,7 @@ feature -- Message processing
          	end
       	end
 
-   	on_cmd_accept (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_accept (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          	-- Close dialog with an accept
       	do
          	application.stop_modal_window (Current, SB_TRUE)
@@ -154,7 +154,7 @@ feature -- Message processing
          	Result := True
       	end
 
-   	on_cmd_cancel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_cancel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	application.stop_modal_window (Current, SB_FALSE)
          	hide

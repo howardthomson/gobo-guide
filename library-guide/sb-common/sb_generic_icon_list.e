@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Generic Icon List Widget"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -213,7 +213,7 @@ feature -- Queries
          	Result := ascending (b, a)
       	end
 
-   	get_list_style: INTEGER is
+   	get_list_style: INTEGER
          	-- Get the current icon list style
       	do
          	Result := (options & ICONLIST_MASK)
@@ -1503,7 +1503,7 @@ feature -- Destruction
 
 feature {NONE} -- Implementation
 
-   ITEM_TYPE: SB_ICON_LIST_ITEM is do end
+   ITEM_TYPE: SB_ICON_LIST_ITEM do end
 
    ITEM_SPACE_: INTEGER = 128
          -- Default space for item
@@ -1514,7 +1514,7 @@ feature {NONE} -- Implementation
             | ICONLIST_COLUMNS | ICONLIST_AUTOSIZE
       end
 
-	draw_lasso (a_x0, a_y0, a_x1, a_y1: INTEGER) is
+	draw_lasso (a_x0, a_y0, a_x1, a_y1: INTEGER)
     	local
         	dc: SB_DC_WINDOW
         	x0, y0, x1, y1: INTEGER
@@ -1532,7 +1532,7 @@ feature {NONE} -- Implementation
          	dc.stop
       	end
 
-   layout is
+   layout
       local
          ww: INTEGER
       do
@@ -1558,7 +1558,7 @@ feature {NONE} -- Implementation
          unset_flags (Flag_dirty)
       end
 
-   recompute is
+   recompute
       local
          w,h,i,e: INTEGER
          sbp: SB_POINT
@@ -1598,7 +1598,7 @@ feature {NONE} -- Implementation
          unset_flags (Flag_recalc)
       end
 
-   getrowscols (w, h: INTEGER): SB_POINT is
+   getrowscols (w, h: INTEGER): SB_POINT
       local
          nr,nc: INTEGER
       do
@@ -1631,11 +1631,11 @@ feature {NONE} -- Implementation
          create Result.make (nr, nc)
       end
 
-	create_item(txt: STRING; big,mini: SB_ICON; data: ANY): G is
+	create_item(txt: STRING; big,mini: SB_ICON; data: ANY): G
 		deferred
 		end
 
-   lasso_changed (ox,oy,ow,oh, nx,ny,nw,nh: INTEGER; notify: BOOLEAN) is
+   lasso_changed (ox,oy,ow,oh, nx,ny,nw,nh: INTEGER; notify: BOOLEAN)
       local
          r,c: INTEGER
          ohit, nhit, index, e: INTEGER
@@ -1692,7 +1692,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   do_hop (event: SB_EVENT; index: INTEGER) is
+   do_hop (event: SB_EVENT; index: INTEGER)
       do
          create lookup_string.make_empty
          if 1 <= index and then index <= items_count then

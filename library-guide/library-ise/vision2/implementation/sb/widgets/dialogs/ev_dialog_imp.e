@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Eiffel Vision dialog. GTK+ implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -41,7 +41,7 @@ feature {NONE} -- Initialization
 --			-- TODO
 --		end
 
-	make is
+	make
 			-- Initialize 'Current'
 		do
 			Precursor {EV_TITLED_WINDOW_IMP}
@@ -51,13 +51,13 @@ feature {NONE} -- Initialization
 
 feature -- Status Report
 
-	is_closeable: BOOLEAN is
+	is_closeable: BOOLEAN
 			-- Is the window closeable by the user?
 		do
 			Result := is_dialog_closeable
 		end
 
-	is_relative: BOOLEAN is
+	is_relative: BOOLEAN
 			-- Is `Current' shown relative to another window?
 		do
 			-- TODO
@@ -65,13 +65,13 @@ feature -- Status Report
 
 feature -- Status Setting
 
-	enable_closeable is
+	enable_closeable
 			-- Set the window to be closeable by the user
 		do
 			set_closeable (True)
 		end
 
-	disable_closeable is
+	disable_closeable
 			-- Set the window not to be closeable by the user
 		do
 			set_closeable (False)
@@ -79,13 +79,13 @@ feature -- Status Setting
 
 feature {NONE} -- Implementation
 
-	client_area: POINTER is
+	client_area: POINTER
 			-- Pointer to the widget that is treated as the main holder of the client area within the window.
 		do
 --			Result := client_area_from_c_object (c_object)
 		end
 
-	set_closeable (new_status: BOOLEAN) is
+	set_closeable (new_status: BOOLEAN)
 			-- Set `is_closeable' to `new_status'
 		local
 			close_fct: INTEGER
@@ -94,7 +94,7 @@ feature {NONE} -- Implementation
 			is_dialog_closeable := new_status
 		end
 
-	call_close_request_actions is
+	call_close_request_actions
 			-- Call the cancel actions if dialog is closeable.
 		do
 			Precursor {EV_TITLED_WINDOW_IMP}
@@ -120,7 +120,7 @@ feature {NONE} -- Implementation
 			-- to be executed without raising zillions of assertion violations.
 			--| FIXME implement cited function, then remove me.
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

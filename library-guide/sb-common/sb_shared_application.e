@@ -13,12 +13,12 @@ inherit
 
 feature
 
-	application: SB_APPLICATION is
+	application: SB_APPLICATION
 		do
 			Result := shared_app.value
 		end
 
-	shared_app: SB_APP_SHARED is
+	shared_app: SB_APP_SHARED
 		once
 			create Result
 		end

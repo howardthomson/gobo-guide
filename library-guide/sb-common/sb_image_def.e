@@ -1,4 +1,4 @@
-indexing
+note
 	description:	"[
 		An Image is a rectangular array of pixels.  It supports two representations
 		of these pixels: a client-side pixel buffer which is stored as an array of
@@ -49,18 +49,18 @@ feature -- Data
 
 feature -- Creation
 
-	make_ev is
+	make_ev
 		do
 			make_opts (Void, Void, Zero, 1, 1)
 		end
 
-	make (a: SB_APPLICATION; a_data: ARRAY [ INTEGER_8 ]) is
+	make (a: SB_APPLICATION; a_data: ARRAY [ INTEGER_8 ])
 			-- Create an image
 		do
 			make_opts (a, a_data, Zero, 1, 1)
 		end
 
-   	make_opts (a: SB_APPLICATION; a_data: ARRAY[ INTEGER_8 ]; opts: INTEGER; w,h: INTEGER) is
+   	make_opts (a: SB_APPLICATION; a_data: ARRAY[ INTEGER_8 ]; opts: INTEGER; w,h: INTEGER)
          	-- Create an image
       	require
          	a /= Void
@@ -84,24 +84,24 @@ feature -- Creation
 
 feature -- option routines
 
-    keep_image: BOOLEAN is
+    keep_image: BOOLEAN
 		do
         	Result := test_options (IMAGE_KEEP)
 		end
 
-	data_owned: BOOLEAN is
+	data_owned: BOOLEAN
 		do
 			Result := test_options (IMAGE_OWNED)
 		end
 
-	is_opaque: BOOLEAN is
+	is_opaque: BOOLEAN
 		do
 			Result := test_options(IMAGE_OPAQUE)
 		end
 
 feature -- Queries
 
-	get_pixel (x, y: INTEGER): INTEGER is
+	get_pixel (x, y: INTEGER): INTEGER
 			-- Get pixel at x,y
 		require
 			data_not_void: data /= Void
@@ -134,7 +134,7 @@ feature -- Queries
 
 feature -- Actions
 
-   set_options (opts_: INTEGER) is
+   set_options (opts_: INTEGER)
          -- Change options
       local
          opts: INTEGER
@@ -189,7 +189,7 @@ feature -- Actions
       end
 
    put_pixel,
-   set_pixel (x, y, color: INTEGER) is
+   set_pixel (x, y, color: INTEGER)
       require
          data /= Void
          	and then (((options & IMAGE_ALPHA) /= Zero 
@@ -229,21 +229,21 @@ feature -- Actions
 		ensure implemented: false
 		end
 
-   	restore is
+   	restore
          -- Restore client-side pixel buffer from image
       	require
          	width >= 1 and height >= 1
 		deferred
       	end
 
-   	render is
+   	render
          -- Render the image from client-side pixel buffer
       	require
          	width >= 1 and height >= 1
 		deferred
       	end
 
-	save_pixels (store: SB_STREAM) is
+	save_pixels (store: SB_STREAM)
 			-- Save pixel data
 		require
 			data /= Void
@@ -261,7 +261,7 @@ feature -- Actions
 			end
 		end
 
-   load_pixels (store: SB_STREAM) is
+   load_pixels (store: SB_STREAM)
          -- Load pixel data
       local         
          i, e: INTEGER
@@ -283,7 +283,7 @@ feature -- Actions
 
 feature -- Resource management
 
-	create_resource is
+	create_resource
 			-- Create image resource
 		require else
 			application /= Void
@@ -302,11 +302,11 @@ feature -- Resource management
 			end
 		end
 
-	create_resource_imp is
+	create_resource_imp
 		deferred
 		end
 
-   detach_resource is
+   detach_resource
          -- Detach image resource
       do
          visual.detach_resource;
@@ -315,7 +315,7 @@ feature -- Resource management
          end
       end
 
-   destroy_resource is
+   destroy_resource
          -- Destroy image resource
       do
          if is_attached then
@@ -326,13 +326,13 @@ feature -- Resource management
          end
       end
 
-	destroy_resource_imp is
+	destroy_resource_imp
 		deferred
 		end
 
 feature -- Transformation
 
-   resize (a_w, a_h: INTEGER) is
+   resize (a_w, a_h: INTEGER)
          -- Resize pixmap to the specified width and height
       local
          w, h: INTEGER
@@ -366,11 +366,11 @@ feature -- Transformation
          end
       end
 
-	resize_imp (w, h: INTEGER) is
+	resize_imp (w, h: INTEGER)
 		deferred
 		end
 
-   scale (a_w, a_h: INTEGER) is
+   scale (a_w, a_h: INTEGER)
          -- Rescale pixels image to the specified width and height
       local
          w, h, ow, oh: INTEGER
@@ -425,7 +425,7 @@ feature -- Transformation
 		ensure implemented: false
       end
 
-   mirror (horizontal, vertical: BOOLEAN) is
+   mirror (horizontal, vertical: BOOLEAN)
          -- Mirror image horizontally and/or vertically
       local
          e, paa, pa, pbb, pb: INTEGER
@@ -540,7 +540,7 @@ feature -- Transformation
          end
       end
 
-   rotate (degrees_: INTEGER) is
+   rotate (degrees_: INTEGER)
          -- Rotate image by degrees ccw
       local
          degrees: INTEGER;
@@ -724,7 +724,7 @@ feature -- Transformation
 		ensure implemented: false
       end
 
-   crop (x, y, w, h: INTEGER) is
+   crop (x, y, w, h: INTEGER)
          -- Crop image to given rectangle
       require
          rectangle_insige: w >= 1 and then h >= 1 and then x >= 0 and then y >= 0 
@@ -798,7 +798,7 @@ feature -- Transformation
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          destroy_resource
          data := Void
@@ -808,7 +808,7 @@ feature -- Destruction
 
 feature {NONE} -- Implementation
 
-   hscalergba (dst_, src_: ARRAY[INTEGER_8]; dw, dh, sw, sh: INTEGER) is
+   hscalergba (dst_, src_: ARRAY[INTEGER_8]; dw, dh, sw, sh: INTEGER)
       local
          fin,fout,ar,ag,ab,aa: INTEGER;
          ss, ds: INTEGER;
@@ -880,7 +880,7 @@ feature {NONE} -- Implementation
 		ensure implemented: false
       end
 
-   hscalergb (dst_,src_: ARRAY[INTEGER_8];dw, dh, sw,sh: INTEGER) is
+   hscalergb (dst_,src_: ARRAY[INTEGER_8];dw, dh, sw,sh: INTEGER)
       local
          fin,fout,ar,ag,ab: INTEGER;
          ss, ds: INTEGER;
@@ -946,7 +946,7 @@ feature {NONE} -- Implementation
 		ensure implemented: false
       end
 
-   vscalergba (dst_,src_: ARRAY[INTEGER_8];dw, dh, sw,sh: INTEGER) is
+   vscalergba (dst_,src_: ARRAY[INTEGER_8];dw, dh, sw,sh: INTEGER)
       local
          fin,fout,ar,ag,ab,aa: INTEGER;
          ss, ds: INTEGER;
@@ -1020,7 +1020,7 @@ feature {NONE} -- Implementation
 		ensure implemented: false
       end
 
-   vscalergb (dst_, src_: ARRAY [INTEGER_8]; dw, dh, sw, sh: INTEGER) is
+   vscalergb (dst_, src_: ARRAY [INTEGER_8]; dw, dh, sw, sh: INTEGER)
       local
          fin, fout, ar, ag, ab: INTEGER
          ss, ds: INTEGER

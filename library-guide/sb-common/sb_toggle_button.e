@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The toggle button provides a two-state button, which toggles
 		between the on and the off state each time it is pressed. For each state,
@@ -48,7 +48,7 @@ inherit
 
    SB_TOGGLE_BUTTON_CONSTANTS
 
-creation
+create
 
    make,
    make_opts
@@ -230,7 +230,7 @@ feature -- Actions
          alt_tip := text
       end
 
-   set_toggle_button_style(style: INTEGER) is
+   set_toggle_button_style(style: INTEGER)
          -- Set the toggle button style flags
       do
       end
@@ -414,7 +414,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not Precursor(sender, selector, data) then
             if (options & TOGGLEBUTTON_AUTOHIDE) /= 0 then
@@ -430,7 +430,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender,selector,data);
          if is_enabled then
@@ -444,7 +444,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender,selector,data);
          if is_enabled then
@@ -458,21 +458,21 @@ feature -- Message processing
          Result := True
       end
 
-   on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender,selector,data);
          update_rectangle(border,border,width-border*2,height-border*2);
          Result := True;
       end
 
-   on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender,selector,data);
          update_rectangle(border,border,width-border*2,height-border*2);
          Result := True;
       end
 
-   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender,selector,data);
          press(False);
@@ -481,7 +481,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data);
          unset_flags (Flag_tip);
@@ -498,7 +498,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          click: BOOLEAN;
       do
@@ -522,7 +522,7 @@ feature -- Message processing
          end
       end
 
-   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
       --   sbk: expanded SB_KEYS;
          event: SB_EVENT;
@@ -545,7 +545,7 @@ feature -- Message processing
          end
       end
 
-   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
        --  sbk: expanded SB_KEYS;
          event: SB_EVENT;
@@ -572,7 +572,7 @@ feature -- Message processing
          end
       end
 
-   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data);
          unset_flags (Flag_tip);
@@ -584,7 +584,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_enabled  and (flags & Flag_pressed) /= 0 then
             flags := flags | Flag_update;
@@ -598,19 +598,19 @@ feature -- Message processing
          Result := True;
       end
 
-   on_check (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_check (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          set_state(True);
          Result := True;
       end
 
-   on_uncheck (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_uncheck (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          set_state(False);
          Result := True;
       end
 
-   on_query_help (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_query_help (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (flags & Flag_help) /= 0 then
             if state then
@@ -628,7 +628,7 @@ feature -- Message processing
          end
       end
 
-   on_query_tip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_query_tip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (flags & Flag_tip) /= 0 then
             if state then
@@ -646,7 +646,7 @@ feature -- Message processing
          end
       end
 
-   on_cmd_set_value,on_cmd_set_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_value,on_cmd_set_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          -- TODO - clear the semantic and usage of this function.
       local
          s: BOOLEAN_REF;
@@ -657,7 +657,7 @@ feature -- Message processing
          end
       end
 
-   on_cmd_get_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_int_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          -- TODO - clear the semantic and usage of this function.
       local
          s: BOOLEAN_REF;
@@ -670,7 +670,7 @@ feature -- Message processing
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          remove_hot_key(alt_hot_key);
          alt_icon := Void
@@ -686,7 +686,7 @@ feature {NONE} -- Implementation
 
    down: BOOLEAN;
 
-   press(dn: BOOLEAN) is
+   press(dn: BOOLEAN)
       do
          if down /= dn then
             down := dn;

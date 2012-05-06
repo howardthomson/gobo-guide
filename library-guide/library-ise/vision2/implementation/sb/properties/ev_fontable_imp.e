@@ -16,7 +16,7 @@ inherit
 
 feature -- Access
 
-	font: EV_FONT is
+	font: EV_FONT
 			-- Character appearance for `Current'.
 		do
 			if private_font = void then
@@ -29,7 +29,7 @@ feature -- Access
 
 feature -- Status setting
 
-	set_font (a_font: EV_FONT) is
+	set_font (a_font: EV_FONT)
 			-- Assign `a_font' to `font'.
 		do
 			if private_font /= a_font then

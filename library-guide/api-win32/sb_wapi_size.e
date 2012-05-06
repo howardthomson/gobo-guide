@@ -12,7 +12,7 @@ inherit
 
 feature
 
-   external_size : INTEGER is 
+   external_size : INTEGER 
       local
          res: INTEGER
       do
@@ -23,7 +23,7 @@ feature
 feature
       --Setters
 
-   set_cx (a_var : INTEGER) is
+   set_cx (a_var : INTEGER)
       require
          ptr_not_null: ptr.is_not_null
 --#         sufficient_size: size >= external_size
@@ -38,7 +38,7 @@ feature
          value_set: cx = a_var
       end -- set_cx
 
-   set_cy (a_var : INTEGER) is
+   set_cy (a_var : INTEGER)
       require
          ptr_not_null: ptr.is_not_null
 --#         sufficient_size: size >= external_size
@@ -53,7 +53,7 @@ feature
          value_set: cy = a_var
       end -- set_cy
 
-   set (cx_, cy_ : INTEGER) is
+   set (cx_, cy_ : INTEGER)
       do
          set_cx (cx_);
          set_cy (cy_)
@@ -62,7 +62,7 @@ feature
 feature
       -- Getters
 
-   cx : INTEGER is
+   cx : INTEGER
       require
          ptr_not_null: ptr.is_not_null
       local
@@ -74,7 +74,7 @@ feature
          Result := res
       end -- cx
 
-   cy : INTEGER is
+   cy : INTEGER
       require
          ptr_not_null: ptr.is_not_null
       local

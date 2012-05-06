@@ -2,7 +2,7 @@ expanded class SB_WAPI_SYSTEM_INFORMATION_FUNCTIONS
 
 feature -- Access
 
-   ExpandEnvironmentStrings (lpSrc, lpDst: POINTER; nSize: INTEGER): INTEGER is
+   ExpandEnvironmentStrings (lpSrc, lpDst: POINTER; nSize: INTEGER): INTEGER
 
 
 
@@ -17,7 +17,7 @@ feature -- Access
 
       end
 
-   GetSysColor (nIndex: INTEGER): INTEGER is
+   GetSysColor (nIndex: INTEGER): INTEGER
 
 
 
@@ -32,7 +32,7 @@ feature -- Access
 
       end
 
-   GetSystemDirectory (lpBuffer: POINTER; uSize: INTEGER): INTEGER is
+   GetSystemDirectory (lpBuffer: POINTER; uSize: INTEGER): INTEGER
 
 
 
@@ -47,7 +47,7 @@ feature -- Access
 
       end
 
-   GetSystemMetrics (nIndex: INTEGER): INTEGER is
+   GetSystemMetrics (nIndex: INTEGER): INTEGER
 
 
 
@@ -62,7 +62,7 @@ feature -- Access
 
       end
 
-   GetWindowsDirectory (lpBuffer: POINTER; uSize: INTEGER): INTEGER is
+   GetWindowsDirectory (lpBuffer: POINTER; uSize: INTEGER): INTEGER
 
 
 
@@ -77,7 +77,7 @@ feature -- Access
 
       end
 
-   SystemParametersInfo(uiAction, uiParam: INTEGER; pvParam: POINTER; fWinIni: INTEGER): INTEGER is
+   SystemParametersInfo(uiAction, uiParam: INTEGER; pvParam: POINTER; fWinIni: INTEGER): INTEGER
 
 
 
@@ -92,7 +92,7 @@ feature -- Access
 
       end
 
-   GetVersionEx (lpVersionInformation: POINTER): INTEGER is
+   GetVersionEx (lpVersionInformation: POINTER): INTEGER
 
 
 

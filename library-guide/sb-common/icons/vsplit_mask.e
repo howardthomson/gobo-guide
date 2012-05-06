@@ -2,11 +2,11 @@ expanded class VSPLIT_MASK
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 11
-   y_hot: INTEGER is 11
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 11
+   y_hot: INTEGER = 11
+   bits: STRING =
    "%/000/%/000/%/000/%/000/%/000/%/008/%/000/%/000/%/000/%/028/%/000/%/000/%
    %%/000/%/062/%/000/%/000/%/000/%/127/%/000/%/000/%/128/%/255/%/000/%/000/%
    %%/128/%/255/%/000/%/000/%/255/%/255/%/127/%/000/%/255/%/255/%/127/%/000/%

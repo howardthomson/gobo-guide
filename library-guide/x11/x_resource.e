@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base class for all X resources"
 
@@ -24,13 +24,13 @@ feature -- Attributes
 	id: INTEGER
 			-- The X id.
 
-	is_same_resource (other: X_RESOURCE): BOOLEAN is
+	is_same_resource (other: X_RESOURCE): BOOLEAN
     		-- Equality test
     	do
       		Result := display.is_equal (other.display) and then id = other.id
     	end
 
-	is_attached: BOOLEAN is
+	is_attached: BOOLEAN
 		do
 			Result := id /= 0
 		end

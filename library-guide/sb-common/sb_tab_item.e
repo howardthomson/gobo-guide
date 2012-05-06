@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		A tab item is placed in a tab bar or tab book.
 		When selected, the tab item sends a message to its
@@ -39,7 +39,7 @@ inherit
 
 	SB_TAB_BAR_CONSTANTS
 
-creation
+create
 
 	make, make_opts
 

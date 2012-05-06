@@ -2,13 +2,13 @@ expanded class SE
 
 feature
 
-   width : INTEGER is 16
-   height: INTEGER is 16
+   width : INTEGER = 16
+   height: INTEGER = 16
    
-   x_hot: INTEGER is 12
-   y_hot: INTEGER is 12
+   x_hot: INTEGER = 12
+   y_hot: INTEGER = 12
    
-   bits: STRING is
+   bits: STRING =
    "%/000/%/000/%/000/%/064/%/000/%/064/%/008/%/068/%/016/%/068/%/032/%/068/%
    %%/064/%/068/%/128/%/068/%/000/%/069/%/000/%/070/%/248/%/071/%/000/%/064/%
    %%/000/%/064/%/000/%/064/%/254/%/127/%/000/%/000/%/000/%/224/%/000/%/224/%

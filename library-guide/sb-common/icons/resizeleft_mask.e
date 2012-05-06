@@ -2,11 +2,11 @@ expanded class RESIZELEFT_MASK
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 12
-   y_hot: INTEGER is 12
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 12
+   y_hot: INTEGER = 12
+   bits: STRING =
    "%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%
    %%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%
    %%/000/%/000/%/000/%/000/%/128/%/001/%/003/%/000/%/192/%/001/%/007/%/000/%

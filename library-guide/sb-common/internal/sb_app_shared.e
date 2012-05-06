@@ -4,7 +4,7 @@ feature
 
 	value: SB_APPLICATION
 
-	set_value (v: SB_APPLICATION_DEF) is
+	set_value (v: SB_APPLICATION_DEF)
 		do
 			value ?= v
 		ensure

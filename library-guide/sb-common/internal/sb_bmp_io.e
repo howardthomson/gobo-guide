@@ -1,4 +1,4 @@
-indexing
+note
 	description:"BMP input/output"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -244,7 +244,7 @@ feature -- Actions
          	retry
 		end
 
-	save (store: SB_STREAM; dt: ARRAY[INTEGER_8]; clr, w, h: INTEGER): BOOLEAN is
+	save (store: SB_STREAM; dt: ARRAY[INTEGER_8]; clr, w, h: INTEGER): BOOLEAN
 			-- Save a gif file to a stream
 		do
 		ensure
@@ -253,21 +253,21 @@ feature -- Actions
 
 feature {NONE} -- Implementation
 
-	BIH_RGB: INTEGER is 0
-	BIH_RLE8: INTEGER is 1
-	BIH_RLE4: INTEGER is 2
+	BIH_RGB: INTEGER = 0
+	BIH_RLE8: INTEGER = 1
+	BIH_RLE4: INTEGER = 2
 
-	WIN_OS2_OLD: INTEGER is 12
-	WIN_NEW: INTEGER is 40
-	OS2_NEW: INTEGER is 64
+	WIN_OS2_OLD: INTEGER = 12
+	WIN_NEW: INTEGER = 40
+	OS2_NEW: INTEGER = 64
 
 	-- MONO returns total intensity of r,g,b triple (i = .33R + .5G + .17B)
-	MONO (r,g,b: INTEGER): INTEGER is
+	MONO (r,g,b: INTEGER): INTEGER
     	do
          	Result := (r*11 + g*16 + b*5) // 32;
       	end
 
-	read32 (store: SB_STREAM): INTEGER is
+	read32 (store: SB_STREAM): INTEGER
       	local
          	c1, c2, c3, c4: INTEGER;
       	do
@@ -281,7 +281,7 @@ feature {NONE} -- Implementation
 					| ((c4 |<< 24) & 0xff000000)
       	end
 
-	read16 (store: SB_STREAM): INTEGER is
+	read16 (store: SB_STREAM): INTEGER
       	local
          	c1, c2: INTEGER;
       	do
@@ -291,7 +291,7 @@ feature {NONE} -- Implementation
 					| ((c2 |<< 8) & 0xff00)
       	end
 
-   	load_bmp_1 (store: SB_STREAM; pic8: ARRAY[INTEGER_8]; start, w, h: INTEGER): BOOLEAN is
+   	load_bmp_1 (store: SB_STREAM; pic8: ARRAY[INTEGER_8]; start, w, h: INTEGER): BOOLEAN
       	local
          	i, j, bitnum, padw: INTEGER;
          	pp, c: INTEGER;
@@ -340,7 +340,7 @@ feature {NONE} -- Implementation
       end
 
 
-   load_bmp_4(store: SB_STREAM; pic8: ARRAY[INTEGER_8]; start, w, h, comp: INTEGER): BOOLEAN is
+   load_bmp_4(store: SB_STREAM; pic8: ARRAY[INTEGER_8]; start, w, h, comp: INTEGER): BOOLEAN
       local
          i,j, x,y, nybnum, padw: INTEGER
          pp, c, c1: INTEGER
@@ -466,7 +466,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   load_bmp_8(store: SB_STREAM; pic8: ARRAY[INTEGER_8]; start, w, h, comp: INTEGER): BOOLEAN is
+   load_bmp_8(store: SB_STREAM; pic8: ARRAY[INTEGER_8]; start, w, h, comp: INTEGER): BOOLEAN
       local
          i,j,x,y,padw: INTEGER;
          pp,c,c1: INTEGER;
@@ -573,7 +573,7 @@ feature {NONE} -- Implementation
 --         end
       end
 
-	load_bmp_16(store: SB_STREAM; pic16: ARRAY[INTEGER_8]; start, w, h: INTEGER): BOOLEAN is
+	load_bmp_16(store: SB_STREAM; pic16: ARRAY[INTEGER_8]; start, w, h: INTEGER): BOOLEAN
 		local
          	i, j, padb: INTEGER
          	pp, c: INTEGER
@@ -617,7 +617,7 @@ feature {NONE} -- Implementation
         	Result :=  True;
       	end
 
-   	load_bmp_24(store: SB_STREAM; pic24: ARRAY[INTEGER_8]; start, w, h: INTEGER): BOOLEAN is
+   	load_bmp_24(store: SB_STREAM; pic24: ARRAY[INTEGER_8]; start, w, h: INTEGER): BOOLEAN
       local
          i,j,padb: INTEGER;
          pp,c: INTEGER;
@@ -653,7 +653,7 @@ feature {NONE} -- Implementation
          Result :=  True;
       end
 
-	load_bmp_32(store: SB_STREAM; pic32: ARRAY[INTEGER_8]; start, w, h: INTEGER): BOOLEAN is
+	load_bmp_32(store: SB_STREAM; pic32: ARRAY[INTEGER_8]; start, w, h: INTEGER): BOOLEAN
     	local
         	i, j: INTEGER;
         	pp, c: INTEGER;

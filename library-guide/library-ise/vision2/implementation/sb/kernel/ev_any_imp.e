@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Base class for Slyboots implementation (_IMP) classes.
 		Handles interaction between Eiffel objects and Slyboots objects
@@ -31,7 +31,7 @@ inherit
 	
 feature {EV_INTERMEDIARY_ROUTINES, EV_ANY_I, EV_STOCK_PIXMAPS_IMP} -- Implementation
 
-	App_implementation: EV_APPLICATION_IMP is
+	App_implementation: EV_APPLICATION_IMP
 			--
 		local
 			env: EV_ENVIRONMENT
@@ -47,11 +47,11 @@ feature {NONE}
 			TODO_class_line ("EV_ANY_IMP::old_make -- make redundant ...", "__LINE__")
 		end			
 
-	dispose is
+	dispose
 		do
 		end
 
-	TODO_class_line (a_class, a_line: STRING) is
+	TODO_class_line (a_class, a_line: STRING)
 		do
 			print (once "TODO: Class = ")
 			print (a_class)
@@ -60,7 +60,7 @@ feature {NONE}
 			print (once "%N")
 		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

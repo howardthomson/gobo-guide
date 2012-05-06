@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_APPLICATION commands"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -16,9 +16,9 @@ inherit
 
 feature
 
-   	ID_QUIT				: INTEGER is once Result := MESSAGE_HANDLER_ID_LAST	end
-   	ID_DUMP				: INTEGER is once Result := ID_QUIT + 1;			end
-   	ID_OPEN_WINDOW_TREE	: INTEGER is once Result := ID_QUIT + 2;			end
-   	Id_last				: INTEGER is once Result := ID_DUMP + 2;			end
+   	ID_QUIT				: INTEGER once Result := MESSAGE_HANDLER_ID_LAST	end
+   	ID_DUMP				: INTEGER once Result := ID_QUIT + 1;			end
+   	ID_OPEN_WINDOW_TREE	: INTEGER once Result := ID_QUIT + 2;			end
+   	Id_last				: INTEGER once Result := ID_DUMP + 2;			end
 
 end

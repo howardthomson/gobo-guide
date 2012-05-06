@@ -124,7 +124,7 @@ feature {EV_ANY_I} -- Implementation
 
 feature {NONE} -- Implementation
 
-	destroy is
+	destroy
 		do
 		end
 

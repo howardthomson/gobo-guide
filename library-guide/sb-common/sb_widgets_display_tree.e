@@ -44,7 +44,7 @@ feature -- Attributes
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_WIDGETS_DISPLAY_TREE"
 		end
@@ -195,7 +195,7 @@ feature -- Window tree modification
 
 feature -- Destruction, of this window
 
-	destruct is
+	destruct
 		do
 			application.on_widgets_display_window_close
 			Precursor

@@ -3,7 +3,7 @@ expanded class SB_WAPI_FILLED_SHAPE_FUNCTIONS
 feature -- Access
 
    Chord (hDC: POINTER; nLeftRect, nTopRect, nRightRect, nBottomRect,
-          nXRadial1, nYRadial1, nXRadial2, nYRadial2: INTEGER): INTEGER is
+          nXRadial1, nYRadial1, nXRadial2, nYRadial2: INTEGER): INTEGER
 
 
 
@@ -18,7 +18,7 @@ feature -- Access
 
    end
 
-   Ellipse (hDC: POINTER; nLeftRect, nTopRect, nRightRect, nBottomRect: INTEGER): INTEGER is
+   Ellipse (hDC: POINTER; nLeftRect, nTopRect, nRightRect, nBottomRect: INTEGER): INTEGER
 
 
 
@@ -33,7 +33,7 @@ feature -- Access
 
    end
 
-   FillRect (hDC: POINTER; lprc: POINTER; hBr: INTEGER): INTEGER is
+   FillRect (hDC: POINTER; lprc: POINTER; hBr: INTEGER): INTEGER
 
 
 
@@ -48,7 +48,7 @@ feature -- Access
 
    end
 
-   InvertRect (hDC: POINTER; lprc: POINTER): INTEGER is
+   InvertRect (hDC: POINTER; lprc: POINTER): INTEGER
 
 
 
@@ -64,7 +64,7 @@ feature -- Access
    end
 
    Pie (hDC: POINTER; nLeftRect, nTopRect, nRightRect, nBottomRect,
-         nXRadial1, nYRadial1, nXRadial2, nYRadial2: INTEGER): INTEGER is
+         nXRadial1, nYRadial1, nXRadial2, nYRadial2: INTEGER): INTEGER
 
 
 
@@ -79,7 +79,7 @@ feature -- Access
 
    end
 
-   Rectangle (hDC: POINTER; nLeftRect, nTopRect, nRightRect, nBottomRect: INTEGER): INTEGER is
+   Rectangle (hDC: POINTER; nLeftRect, nTopRect, nRightRect, nBottomRect: INTEGER): INTEGER
 
 
 
@@ -94,7 +94,7 @@ feature -- Access
 
    end
 
-   RoundRect (hDC: POINTER; nLeftRect, nTopRect, nRightRect, nBottomRect, nWidth, nHeight: INTEGER): INTEGER is
+   RoundRect (hDC: POINTER; nLeftRect, nTopRect, nRightRect, nBottomRect, nWidth, nHeight: INTEGER): INTEGER
 
 
 
@@ -109,7 +109,7 @@ feature -- Access
 
    end
 
-   Polygon (hdc: POINTER; lpPoints: POINTER; nCount: INTEGER): INTEGER is
+   Polygon (hdc: POINTER; lpPoints: POINTER; nCount: INTEGER): INTEGER
 
 
 

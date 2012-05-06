@@ -1,4 +1,4 @@
-indexing
+note
 	description: "EiffelVision list item list, slyboots implementation"
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -54,7 +54,7 @@ feature {NONE} -- Initialization
 		do
 		end
 
-	initialize_model is
+	initialize_model
 			-- Create our data model for `Current'
 		do
 --#			list_store := new_list_store
@@ -62,19 +62,19 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	selected_items: ARRAYED_LIST [EV_LIST_ITEM] is
+	selected_items: ARRAYED_LIST [EV_LIST_ITEM]
 			-- `Result is all items currently selected in `Current'.
 		deferred
 		end
 
 feature -- Status report
 
-	item_from_coords (a_x, a_y: INTEGER): EV_PND_DEFERRED_ITEM is
+	item_from_coords (a_x, a_y: INTEGER): EV_PND_DEFERRED_ITEM
 			-- Retrieve the Current row from `a_y' coordinate
 		do
 		end
 
-	update_pnd_status is
+	update_pnd_status
 			-- Update PND status of list and its children.
 		local
 			a_enable_flag: BOOLEAN
@@ -100,7 +100,7 @@ feature -- Status report
 			update_pnd_connection (a_enable_flag)
 		end
 
-	update_pnd_connection (a_enable: BOOLEAN) is
+	update_pnd_connection (a_enable: BOOLEAN)
 			-- Update the PND connection of `Current' if needed.
 		do
 			if not is_transport_enabled then
@@ -112,7 +112,7 @@ feature -- Status report
 			end
 		end
 
-	pre_pick_steps (a_x, a_y, a_screen_x, a_screen_y: INTEGER) is
+	pre_pick_steps (a_x, a_y, a_screen_x, a_screen_y: INTEGER)
 				-- Steps to perform before transport initiated.
 			do
 				temp_accept_cursor := accept_cursor
@@ -162,7 +162,7 @@ feature -- Status report
 				modify_widget_appearance (True)
 			end
 
-	row_height: INTEGER is
+	row_height: INTEGER
 			-- Height of rows in `Current'
 		do
 			--| FIXME Implement correctly.
@@ -179,7 +179,7 @@ feature -- Status report
 
 	temp_accept_cursor, temp_deny_cursor: EV_POINTER_STYLE
 
-	call_pebble_function (a_x, a_y, a_screen_x, a_screen_y: INTEGER) is
+	call_pebble_function (a_x, a_y, a_screen_x, a_screen_y: INTEGER)
 			-- Set `pebble' using `pebble_function' if present.
 		do
 			temp_pebble := pebble
@@ -197,19 +197,19 @@ feature -- Status report
 
 feature -- Status setting
 
-	select_item (an_index: INTEGER) is
+	select_item (an_index: INTEGER)
 			-- Select item at one based index, `an_index'.
 		deferred
 		end
 
-	deselect_item (an_index: INTEGER) is
+	deselect_item (an_index: INTEGER)
 			-- Deselect item at one based index, `an_index'.
 		deferred
 		end
 
 feature -- Insertion
 
-	set_text_on_position (a_row: INTEGER; a_text: STRING_GENERAL) is
+	set_text_on_position (a_row: INTEGER; a_text: STRING_GENERAL)
 			-- Set cell text at (a_column, a_row) to `a_text'.
 		local
 			a_list_item_imp: EV_LIST_ITEM_IMP
@@ -217,7 +217,7 @@ feature -- Insertion
 			-- TODO
 		end
 
-	set_row_pixmap (a_row: INTEGER; a_pixmap: EV_PIXMAP) is
+	set_row_pixmap (a_row: INTEGER; a_pixmap: EV_PIXMAP)
 			-- Set row `a_row' pixmap to `a_pixmap'.
 		local
 			pixmap_imp: EV_PIXMAP_IMP
@@ -231,7 +231,7 @@ feature -- Insertion
 --#			{EV_GTK_EXTERNALS}.object_unref (a_pixbuf)
 		end
 
-	remove_row_pixmap (a_row: INTEGER) is
+	remove_row_pixmap (a_row: INTEGER)
 			-- Set row `a_row' pixmap to `a_pixmap'.
 		local
 			a_list_item_imp: EV_LIST_ITEM_IMP
@@ -240,7 +240,7 @@ feature -- Insertion
 --#			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_list_store_set_pixbuf (list_store, a_list_item_imp.list_iter.item, 0, NULL)
 		end
 
-	insert_i_th (v: like item; i: INTEGER) is
+	insert_i_th (v: like item; i: INTEGER)
 			-- Insert `v' at position `i'.
 		local
 			item_imp: EV_LIST_ITEM_IMP
@@ -273,7 +273,7 @@ feature {EV_LIST_ITEM_LIST_IMP, EV_LIST_ITEM_IMP} -- Implementation
 
 feature {NONE} -- Implementation
 
-	remove_i_th (an_index: INTEGER) is
+	remove_i_th (an_index: INTEGER)
 		local
 			item_imp: EV_LIST_ITEM_IMP
 		do
@@ -287,7 +287,7 @@ feature {NONE} -- Implementation
 			--update_pnd_status
 		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

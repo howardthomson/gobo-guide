@@ -6,7 +6,7 @@ inherit
 	X86_INSTRUCTION_SET_NAMES
 	X86_INSTRUCTION_LAYOUTS
 
-creation
+create
 	make
 
 feature -- Attributes
@@ -27,7 +27,7 @@ feature -- Attributes
 
 feature {NONE} -- Creation
 
-	make(a_modes, a_op, a_opc_1, a_opc_2, a_layout: INTEGER) is
+	make(a_modes, a_op, a_opc_1, a_opc_2, a_layout: INTEGER)
 		do
 			modes := a_modes
 			operation := a_op

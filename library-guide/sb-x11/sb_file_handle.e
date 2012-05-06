@@ -19,12 +19,12 @@ create
 
 feature -- TODO
 
-	open_read(s: STRING) is
+	open_read(s: STRING)
 		do
 			make_open_read(s)
 		end
 
-	open_write(s: STRING) is
+	open_write(s: STRING)
 		do
 			make_open_write(s)
 		end

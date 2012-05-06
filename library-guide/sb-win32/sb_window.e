@@ -1,4 +1,4 @@
-indexing
+note
 	platform:	"Win32"
 	description:	"[
 		Win32 implementation of all platform mapped windows
@@ -19,22 +19,22 @@ inherit
 
 feature
 
-	grab_keyboard_imp is
+	grab_keyboard_imp
 		do
 			-- TODO
 		end
 
-	release_keyboard_imp is
+	release_keyboard_imp
 		do
 			-- TODO
 		end
 
-	window_class_name: STRING is
+	window_class_name: STRING
 		once
 			Result := "SBWindow"
 		end
 
-	create_resource_imp is
+	create_resource_imp
 		local
          	dwStyle, dwExStyle: INTEGER_32
          	hParent: POINTER
@@ -107,11 +107,11 @@ feature
             end
 		end
 
-	detach_resource_imp is
+	detach_resource_imp
 		do
 		end
 
-	destroy_resource_imp is
+	destroy_resource_imp
 		local
         	wf: SB_WAPI_WINDOW_FUNCTIONS
         	t: INTEGER
@@ -126,7 +126,7 @@ feature
             t := wf.DestroyWindow (resource_id)
 		end
 
-	on_destroy_def is
+	on_destroy_def
 		local
 			wf: SB_WAPI_WINDOW_FUNCTIONS
 			t: INTEGER
@@ -134,7 +134,7 @@ feature
 			t := wf.SetWindowLong (resource_id, 0, 0);
 		end
 
-	string_type: INTEGER is
+	string_type: INTEGER
 			-- Clipboard text type (pre-registered)
       	local
          	cf: SB_WAPI_CLIPBOARD_FORMATS
@@ -144,7 +144,7 @@ feature
 		-------------------------------------------
 
 
-	set_default_cursor_imp(cursor: SB_CURSOR) is
+	set_default_cursor_imp(cursor: SB_CURSOR)
 			-- Set the default cursor for this window
       	local
          	fn: SB_WAPI_CURSOR_FUNCTIONS
@@ -155,7 +155,7 @@ feature
         	end
       	end
 
-   	set_drag_cursor_imp (cursor: SB_CURSOR) is
+   	set_drag_cursor_imp (cursor: SB_CURSOR)
     		-- Set the drag cursor for this window
       	local
          	fn: SB_WAPI_CURSOR_FUNCTIONS
@@ -166,12 +166,12 @@ feature
 			end
       	end
 
-	once_point: SB_WAPI_POINT is
+	once_point: SB_WAPI_POINT
 		once
 			create Result.make
 		end
 
-	get_cursor_position: SB_CURSOR_POSITION is
+	get_cursor_position: SB_CURSOR_POSITION
 		local
          	point: SB_WAPI_POINT
          	fn1: SB_WAPI_CURSOR_FUNCTIONS
@@ -186,7 +186,7 @@ feature
          	end
 		end
 
-	set_cursor_position(x, y: INTEGER): BOOLEAN is
+	set_cursor_position(x, y: INTEGER): BOOLEAN
 		local
          	pt: SB_WAPI_POINT
          	fn1: SB_WAPI_CURSOR_FUNCTIONS
@@ -203,7 +203,7 @@ feature
          	end
 		end
 
-	enable_imp is
+	enable_imp
          	-- Enable the window to receive mouse and keyboard events
 		local
          	fn: SB_WAPI_WINDOW_FUNCTIONS
@@ -212,7 +212,7 @@ feature
 			t := fn.EnableWindow (resource_id, 1)
 		end
 
-	disable_imp is
+	disable_imp
          	-- Disable the window from receiving mouse and keyboard events
 		local
          	fn: SB_WAPI_WINDOW_FUNCTIONS
@@ -233,7 +233,7 @@ feature
 			end
 		end
 
-	raise_imp is
+	raise_imp
 		local
          	wf: SB_WAPI_WINDOW_FUNCTIONS
          	swp: SB_WAPI_SWP_FLAGS
@@ -245,7 +245,7 @@ feature
 				| swp.SWP_NOACTIVATE | swp.SWP_NOOWNERZORDER);
 		end
 
-	lower_imp is
+	lower_imp
 		local
          	wf: SB_WAPI_WINDOW_FUNCTIONS
          	swp: SB_WAPI_SWP_FLAGS
@@ -257,7 +257,7 @@ feature
 				| swp.SWP_NOACTIVATE | swp.SWP_NOOWNERZORDER)
 		end
 
-	move_imp (x, y: INTEGER) is
+	move_imp (x, y: INTEGER)
 		local
 			wf: SB_WAPI_WINDOW_FUNCTIONS
 			swp: SB_WAPI_SWP_FLAGS
@@ -270,7 +270,7 @@ feature
 					| swp.SWP_NOOWNERZORDER)
 		end
 	
-	resize_imp (w, h: INTEGER) is
+	resize_imp (w, h: INTEGER)
       	local
          	wf: SB_WAPI_WINDOW_FUNCTIONS
          	swp: SB_WAPI_SWP_FLAGS
@@ -282,7 +282,7 @@ feature
                 | swp.SWP_NOACTIVATE | swp.SWP_NOOWNERZORDER)
 		end
         	
-	position_imp (x, y, w, h, ow, oh: INTEGER) is
+	position_imp (x, y, w, h, ow, oh: INTEGER)
 		local
          	wf: SB_WAPI_WINDOW_FUNCTIONS
          	swp: SB_WAPI_SWP_FLAGS
@@ -292,7 +292,7 @@ feature
 				swp.SWP_NOZORDER | swp.SWP_NOACTIVATE | swp.SWP_NOOWNERZORDER)
 		end
 
-	reparent_imp is
+	reparent_imp
 		local
          	wf: SB_WAPI_WINDOW_FUNCTIONS
          	t: POINTER
@@ -300,12 +300,12 @@ feature
 			t := wf.SetParent (resource_id, parent.resource_id)
 		end
 
-	once_rect: SB_WAPI_RECT is
+	once_rect: SB_WAPI_RECT
 		once
 			create Result.make
 		end
 
-	scroll (x, y, w, h, dx, dy: INTEGER) is
+	scroll (x, y, w, h, dx, dy: INTEGER)
          -- Scroll rectangle x,y,w,h by a shift of dx,dy
       local
          sw: SB_WAPI_SHOWWINDOW_COMMANDS
@@ -325,7 +325,7 @@ feature
          end
       end
 
-	update_rectangle_imp(x, y, w, h: INTEGER) is
+	update_rectangle_imp(x, y, w, h: INTEGER)
 		local
          	r: SB_WAPI_RECT;
          	pf: SB_WAPI_PAINTING_AND_DRAWING_FUNCTIONS
@@ -339,7 +339,7 @@ feature
 			t := pf.InvalidateRect (resource_id, r.ptr, 1)
 		end
 
-	repaint_rectangle_imp (x, y, w, h: INTEGER) is
+	repaint_rectangle_imp (x, y, w, h: INTEGER)
 		local
          	r: SB_WAPI_RECT
          	pf: SB_WAPI_PAINTING_AND_DRAWING_FUNCTIONS
@@ -355,7 +355,7 @@ feature
                                        rdw.RDW_UPDATENOW)
 		end
 
-	grab_mouse is
+	grab_mouse
          -- Grab the mouse to this window; future mouse events will be
          -- reported to this window even while the cursor goes outside
          -- of this window
@@ -374,7 +374,7 @@ feature
          	end
 		end
 
-	release_mouse is
+	release_mouse
          -- Release the mouse grab
       	local
          	mf: SB_WAPI_MOUSE_INPUT_FUNCTIONS
@@ -389,7 +389,7 @@ feature
          	end
 		end
 
-	show_imp is
+	show_imp
 		local
          	sw: SB_WAPI_SHOWWINDOW_COMMANDS
          	wf: SB_WAPI_WINDOW_FUNCTIONS
@@ -398,7 +398,7 @@ feature
 			t := wf.ShowWindow (resource_id, sw.SW_SHOWNOACTIVATE)
 		end
 
-	hide_imp is
+	hide_imp
 		local
          	cf: SB_WAPI_CURSOR_FUNCTIONS
          	sw: SB_WAPI_SHOWWINDOW_COMMANDS
@@ -418,7 +418,7 @@ feature
             t := wf.ShowWindow (resource_id, sw.SW_HIDE)
 		end
 
-   translate_coordinates_from (fromwindow: SB_WINDOW; fromx, fromy: INTEGER): SB_POINT is
+   translate_coordinates_from (fromwindow: SB_WINDOW; fromx, fromy: INTEGER): SB_POINT
          -- Translate coordinates from fromwindow's coordinate space to
          -- this window's coordinate space
       require
@@ -439,7 +439,7 @@ feature
          end
       end
 
-   translate_coordinates_to (towindow: SB_WINDOW; fromx, fromy: INTEGER): SB_POINT is
+   translate_coordinates_to (towindow: SB_WINDOW; fromx, fromy: INTEGER): SB_POINT
          -- Translate coordinates from this window's coordinate space
          --  to towindow's coordinate space
       require
@@ -460,7 +460,7 @@ feature
          end
       end
 
-	acquire_clipboard_imp (types: ARRAY [ INTEGER ]): BOOLEAN is
+	acquire_clipboard_imp (types: ARRAY [ INTEGER ]): BOOLEAN
 		local
         	cfn: SB_WAPI_CLIPBOARD_FUNCTIONS
 			t: INTEGER
@@ -487,7 +487,7 @@ feature
 			end
 		end
 
-	release_clipboard_imp is
+	release_clipboard_imp
 		local
          	cfn: SB_WAPI_CLIPBOARD_FUNCTIONS
          	t: INTEGER
@@ -501,21 +501,21 @@ feature
 
 feature {NONE}-- Implementation
 
-   	get_dc: POINTER is
+   	get_dc: POINTER
       	local
          	fn: SB_WAPI_DEVICE_CONTEXT_FUNCTIONS;
       	do
          	Result := fn.GetDC (resource_id)
       	end
 
-   	release_dc (dc: POINTER): INTEGER is
+   	release_dc (dc: POINTER): INTEGER
       	local
          	fn: SB_WAPI_DEVICE_CONTEXT_FUNCTIONS;
       	do
          	Result := fn.ReleaseDC (resource_id, dc)
       	end
 
-	sbmodifierkeys: INTEGER_32 is
+	sbmodifierkeys: INTEGER_32
 		external "C"
 		alias "sbmodifierkeys"
 		end;

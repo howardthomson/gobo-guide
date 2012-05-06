@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		A menu button posts a popup menu when clicked. There
 		are many ways to control the placement where the popup will appear;
@@ -56,21 +56,21 @@ inherit
 
    SB_MENU_BUTTON_CONSTANTS
 
-creation
+create
 
    make,
    make_opts
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_MENU_BUTTON"
 		end
 
 feature -- Creation
 
-	make (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; pup: SB_POPUP; opts: INTEGER) is
+	make (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; pup: SB_POPUP; opts: INTEGER)
     		-- Make a menu button
       	local
          	o: INTEGER
@@ -85,7 +85,7 @@ feature -- Creation
       	end
 
 	make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; pup: SB_POPUP; opts: INTEGER;
-    			x,y,w,h, pl,pr,pt,pb: INTEGER) is
+    			x,y,w,h, pl,pr,pt,pb: INTEGER)
 			-- Make a menu button
       	do
          	label_make_opts(p,text,ic,opts,x,y,w,h,pl,pr,pt,pb);
@@ -111,7 +111,7 @@ feature -- Data
 
 feature -- Queries
 
-   default_width : INTEGER is
+   default_width : INTEGER
          -- Return default width
       local
          tw,iw,s,pw: INTEGER;
@@ -147,7 +147,7 @@ feature -- Queries
          end
       end
 
-   default_height : INTEGER is
+   default_height : INTEGER
          -- Return default height
       local
          th,ih,ph: INTEGER;
@@ -183,32 +183,32 @@ feature -- Queries
          end
       end
 
-   can_focus: BOOLEAN is
+   can_focus: BOOLEAN
          -- Returns true because a menu button can receive focus
       once
          Result := True;
       end
 
-   contains (parentx,parenty: INTEGER): BOOLEAN is
+   contains (parentx,parenty: INTEGER): BOOLEAN
          -- Return true if window logically contains the given point
       do
          Result := menu /= Void and then  menu.is_shown 
             and then menu.contains(parentx,parenty);
       end
 
-   get_button_style: INTEGER is
+   get_button_style: INTEGER
          -- Get menu button style
       do
          Result := (options & MENUBUTTON_MASK)
       end
 
-   get_popup_style: INTEGER is
+   get_popup_style: INTEGER
          -- Get popup style
       do
          Result := (options & POPUP_MASK)
       end
 
-   get_attachment: INTEGER is
+   get_attachment: INTEGER
          -- Get attachment
       do
          Result := (options & ATTACH_MASK)
@@ -216,7 +216,7 @@ feature -- Queries
 
 feature -- Actions
 
-   kill_focus is
+   kill_focus
          -- Remove the focus from this window
       do
          Precursor;
@@ -224,25 +224,25 @@ feature -- Actions
       end
 
 
-   set_menu (a_popup: SB_POPUP) is
+   set_menu (a_popup: SB_POPUP)
          -- Change the popup menu
       do
          menu := a_popup
       end
 
-   set_offset_x (offx: INTEGER) is
+   set_offset_x (offx: INTEGER)
          -- Set X offset where menu pops up relative to button
       do
          offset_x := offx
       end
 
-   set_offset_y (offy: INTEGER) is
+   set_offset_y (offy: INTEGER)
          -- Set Y offset where menu pops up relative to button
       do
          offset_y := offy
       end
 
-   set_button_style (style: INTEGER) is
+   set_button_style (style: INTEGER)
          -- Change menu button style
       local
          opts: INTEGER
@@ -254,7 +254,7 @@ feature -- Actions
          end
       end
 
-   set_popup_style (style: INTEGER) is
+   set_popup_style (style: INTEGER)
          -- Change popup style
       local
          opts: INTEGER;
@@ -266,7 +266,7 @@ feature -- Actions
          end
       end
 
-   set_attachment (att: INTEGER) is
+   set_attachment (att: INTEGER)
          -- Change attachment
       local
          opts: INTEGER
@@ -280,7 +280,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       	do
          	if 		match_function_2 (SEL_COMMAND,Id_post,   type, key) then Result := on_cmd_post (sender, key, data)
          	elseif  match_function_2 (SEL_COMMAND,Id_unpost, type, key) then Result := on_cmd_unpost (sender, key, data)
@@ -288,7 +288,7 @@ feature -- Message processing
          	end
       	end
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          tw,th,iw,ih,tx,ty,ix,iy: INTEGER
          ev: SB_EVENT
@@ -488,7 +488,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if Precursor(sender,selector,data) then
             if (options & MENUBUTTON_AUTOHIDE) /= 0 then
@@ -504,7 +504,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender,selector,data)
          if is_enabled then
@@ -515,7 +515,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          if is_enabled then
@@ -526,21 +526,21 @@ feature -- Message processing
          Result := True
       end
 
-   on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          update_rectangle (border, border, width-(border*2), height-(border*2))
          Result := True
       end
 
-   on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender,selector,data);
          update_rectangle(border,border,width-(border*2),height-(border*2));
          Result := True;
       end
 
-   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor (sender, selector, data)
          do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
@@ -549,7 +549,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
       do
@@ -573,7 +573,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          unset_flags (Flag_tip);
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data);
@@ -592,7 +592,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
       do
@@ -613,7 +613,7 @@ feature -- Message processing
          end
       end
 
-   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
       do
@@ -640,7 +640,7 @@ feature -- Message processing
          end
       end
 
-   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -660,7 +660,7 @@ feature -- Message processing
          end
       end
 
-   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          unset_flags (Flag_tip)
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data)
@@ -674,12 +674,12 @@ feature -- Message processing
          Result := True
       end
 
-	on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		do
 			Result := True
 		end
 
-	on_cmd_post (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_post (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			x,y, w,h: INTEGER
 			pt: SB_POINT
@@ -755,7 +755,7 @@ feature -- Message processing
 			Result := True
 		end
 
-   on_cmd_unpost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_unpost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if state then
             if menu /= Void then
@@ -772,7 +772,7 @@ feature -- Message processing
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          menu := Void
          Precursor;
@@ -781,7 +781,7 @@ feature -- Destruction
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       do
          Precursor;
@@ -790,7 +790,7 @@ feature -- Resource management
          end
       end
 
-   detach_resource is
+   detach_resource
          -- Detach server-side resources
       do
          Precursor;
@@ -801,21 +801,21 @@ feature -- Resource management
 
 feature {NONE} -- Implementation
 
-   MENUBUTTONARROW_WIDTH: INTEGER is 11
+   MENUBUTTONARROW_WIDTH: INTEGER = 11
    
-   MENUBUTTONARROW_HEIGHT: INTEGER is 5
+   MENUBUTTONARROW_HEIGHT: INTEGER = 5
    
-   MENUBUTTON_MASK: INTEGER is
+   MENUBUTTON_MASK: INTEGER
       once
          Result := (MENUBUTTON_AUTOGRAY | MENUBUTTON_AUTOHIDE | MENUBUTTON_TOOLBAR | MENUBUTTON_NOARROWS)
       end
 
-   POPUP_MASK: INTEGER is
+   POPUP_MASK: INTEGER
       once
          Result := (MENUBUTTON_UP | MENUBUTTON_LEFT)
       end
 
-   ATTACH_MASK: INTEGER is
+   ATTACH_MASK: INTEGER
       once
          Result := (MENUBUTTON_ATTACH_RIGHT | MENUBUTTON_ATTACH_CENTER)
       end

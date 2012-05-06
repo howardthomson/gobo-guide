@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Tree List Widget"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -2272,12 +2272,12 @@ feature {NONE} -- Implementation
 --# DEBUG
       	end
 
-	Icon_spacing  : INTEGER is 4         -- Spacing between icon and label
-	Side_spacing  : INTEGER is 6         -- Left or right spacing between items
-	Line_spacing  : INTEGER is 4         -- Line spacing between items
-	Default_indent: INTEGER is 8         -- Indent between parent and child
+	Icon_spacing  : INTEGER = 4         -- Spacing between icon and label
+	Side_spacing  : INTEGER = 6         -- Left or right spacing between items
+	Line_spacing  : INTEGER = 4         -- Line spacing between items
+	Default_indent: INTEGER = 8         -- Indent between parent and child
    
-   	SELECT_MASK: INTEGER is once Result := Treelist_singleselect | Treelist_browseselect end
+   	SELECT_MASK: INTEGER once Result := Treelist_singleselect | Treelist_browseselect end
    
    	Treelist_mask: INTEGER
       	once

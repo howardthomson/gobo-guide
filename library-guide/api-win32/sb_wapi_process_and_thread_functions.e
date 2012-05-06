@@ -4,7 +4,7 @@ feature
 
    CreateProcess (lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes: POINTER;
                   bInheritHandles: INTEGER; dwCreationFlags: INTEGER_32;
-                  lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation: POINTER): INTEGER is
+                  lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation: POINTER): INTEGER
 
 
 
@@ -20,7 +20,7 @@ feature
       end
 	----------------------------
 	
-   OpenProcess(dwDesiredAccess: INTEGER_32; bInheritHandle: INTEGER; dwProcessId: INTEGER): POINTER is
+   OpenProcess(dwDesiredAccess: INTEGER_32; bInheritHandle: INTEGER; dwProcessId: INTEGER): POINTER
 
 
 
@@ -36,7 +36,7 @@ feature
       end
 	----------------------------
 
-   GetCurrentProcess: POINTER is
+   GetCurrentProcess: POINTER
 
 
 
@@ -52,7 +52,7 @@ feature
       end
 	----------------------------
 
-   GetCurrentProcessId : INTEGER is
+   GetCurrentProcessId : INTEGER
 
 
 
@@ -68,7 +68,7 @@ feature
       end
 	----------------------------
 
-   GetExitCodeProcess (hProcess: POINTER ;lpExitCode: POINTER): INTEGER is
+   GetExitCodeProcess (hProcess: POINTER ;lpExitCode: POINTER): INTEGER
 
 
 
@@ -84,7 +84,7 @@ feature
       end
 	----------------------------
 
-   GetPriorityClass (hProcess : POINTER) : INTEGER is
+   GetPriorityClass (hProcess : POINTER) : INTEGER
 
 
 
@@ -100,7 +100,7 @@ feature
       end
 	----------------------------
 
-   SetPriorityClass (hProcess : POINTER; dwPriorityClass : INTEGER) : INTEGER is
+   SetPriorityClass (hProcess : POINTER; dwPriorityClass : INTEGER) : INTEGER
 
 
 
@@ -116,7 +116,7 @@ feature
       end
 	----------------------------
 
-   GetEnvironmentVariable (lpName,lpBuffer: POINTER; nSize: INTEGER): INTEGER is
+   GetEnvironmentVariable (lpName,lpBuffer: POINTER; nSize: INTEGER): INTEGER
 
 
 
@@ -132,7 +132,7 @@ feature
       end
 	----------------------------
 
-   SetEnvironmentVariable (lpName,lpValue: POINTER): INTEGER is
+   SetEnvironmentVariable (lpName,lpValue: POINTER): INTEGER
 
 
 
@@ -150,7 +150,7 @@ feature
 
 feature -- Thread functions
 
-   GetCurrentThread: POINTER is
+   GetCurrentThread: POINTER
 
 
 
@@ -166,7 +166,7 @@ feature -- Thread functions
       end
 	----------------------------
 
-   GetCurrentThreadId: INTEGER is
+   GetCurrentThreadId: INTEGER
 
 
 
@@ -182,7 +182,7 @@ feature -- Thread functions
       end
 	----------------------------
 
-   GetExitCodeThread (hThread: POINTER; lpExitCode: POINTER): INTEGER is
+   GetExitCodeThread (hThread: POINTER; lpExitCode: POINTER): INTEGER
 
 
 
@@ -198,7 +198,7 @@ feature -- Thread functions
       end
 	----------------------------
 
-   Sleep (dwMilliseconds: INTEGER) is
+   Sleep (dwMilliseconds: INTEGER)
 
 
 

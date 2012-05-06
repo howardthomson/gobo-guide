@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		SB_SETTINGS is a key-value database.  This is normally used
 		as part of SB_REGISTRY, but can also be used separately in
@@ -14,33 +14,33 @@ class SB_SETTINGS_DEF
 
 feature
 
-	read_integer_entry (section, key: STRING; default_value: INTEGER): INTEGER is
+	read_integer_entry (section, key: STRING; default_value: INTEGER): INTEGER
     	do
         	-- TODO
         	Result := default_value;
       	end
    
-	read_string_entry (section, key: STRING; default_value: STRING): STRING is
+	read_string_entry (section, key: STRING; default_value: STRING): STRING
     	do
         	-- TODO
         	Result := default_value;
 		end
    
-	read_color_entry (section, key: STRING; default_value: INTEGER): INTEGER is
+	read_color_entry (section, key: STRING; default_value: INTEGER): INTEGER
       	do
          	-- TODO
          	Result := default_value;
       	end
 
-   	write_integer_entry (section, key: STRING; value: INTEGER) is
+   	write_integer_entry (section, key: STRING; value: INTEGER)
       	do
       	end
 
-   	write_string_entry (section, key: STRING; value: STRING) is
+   	write_string_entry (section, key: STRING; value: STRING)
       	do
       	end
 
-   	write_color_entry (section, key: STRING; value: INTEGER) is
+   	write_color_entry (section, key: STRING; value: INTEGER)
       	do
       	end
 

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Eiffel external routine declarations for the X Window System Version 11
 		Implementation is inherited, to either use wrapped calls for debug tracing,

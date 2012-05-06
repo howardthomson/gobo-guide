@@ -1,4 +1,4 @@
-indexing
+note
 	description:"widely used constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -18,15 +18,15 @@ inherit
 
 feature -- Posix version
 
-	PATHSEP, Path_sep: CHARACTER is '/';
+	PATHSEP, Path_sep: CHARACTER = '/';
 
-	PATHSEPSTRING, Path_sep_string: STRING is "/";
+	PATHSEPSTRING, Path_sep_string: STRING = "/";
 
-	PATHLISTSEP, Path_list_sep: CHARACTER is ':';
+	PATHLISTSEP, Path_list_sep: CHARACTER = ':';
 
-	PATHLISTSEPSTRING, Path_list_sep_string: STRING is ":";
+	PATHLISTSEPSTRING, Path_list_sep_string: STRING = ":";
 
-	ISPATHSEP, is_path_sep(c: CHARACTER): BOOLEAN is
+	ISPATHSEP, is_path_sep(c: CHARACTER): BOOLEAN
 		do
         	Result := c = '/'
       	end

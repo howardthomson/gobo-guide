@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_SWITCHER constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -13,13 +13,13 @@ inherit
 
 feature
 
-	SWITCHER_HCOLLAPSE: INTEGER is 0x00020000
+	SWITCHER_HCOLLAPSE: INTEGER = 0x00020000
 			-- Collapse horizontally to width of current child
 
-	SWITCHER_VCOLLAPSE: INTEGER is 0x00040000
+	SWITCHER_VCOLLAPSE: INTEGER = 0x00040000
 			-- Collapse vertically to height of current child
 
-	SWITCHER_MASK: INTEGER is
+	SWITCHER_MASK: INTEGER
 		once
 			Result := SWITCHER_HCOLLAPSE | SWITCHER_VCOLLAPSE;
 		end

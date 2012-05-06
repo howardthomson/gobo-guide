@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "[
 		Utility class for type conversion, needed because of the
@@ -11,18 +11,18 @@ class SB_COMMON_CONVERSIONS
 
 feature
 
-	int_to_double (i: INTEGER): REAL is
+	int_to_double (i: INTEGER): REAL
 			-- Convert INTEGER to REAL
 		do
 			Result := i
 		end
 
-	pow (b, p: REAL): REAL is
+	pow (b, p: REAL): REAL
 		do
 			Result := b ^ p
 		end
 
-	int_to_int8 (arg: INTEGER): INTEGER_8 is
+	int_to_int8 (arg: INTEGER): INTEGER_8
 		local
 			i: INTEGER
 		do

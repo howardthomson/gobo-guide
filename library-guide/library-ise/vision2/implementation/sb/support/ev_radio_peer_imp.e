@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Eiffel Vision radio peer. GTK+ implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -16,7 +16,7 @@ inherit
 
 feature -- Status report
 
-	peers: LINKED_LIST [like interface] is
+	peers: LINKED_LIST [like interface]
 			-- List of all radio items in the group `Current' is in.
 		local
 			cur, wid_obj, l_null: POINTER
@@ -43,7 +43,7 @@ feature -- Status report
 --			end
 		end
 
-	selected_peer: like interface is
+	selected_peer: like interface
 			-- Radio item that is currently selected.
 		local
 			cur, wid_obj, l_null: POINTER
@@ -98,7 +98,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_RADIO_PEER;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

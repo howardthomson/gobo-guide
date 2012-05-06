@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The registry maintains a database of persistent settings for an application,
 		or suite of applications.
@@ -16,23 +16,23 @@ inherit
 
 feature
 
-	make (name, vendor: STRING) is
+	make (name, vendor: STRING)
 		deferred
 		end
 
-	read is
+	read
 		deferred
 		end
 
-	write is
+	write
 		deferred
 		end
 
-	app_key: STRING is
+	app_key: STRING
 		deferred
 		end
 
-	vendor_key: STRING is
+	vendor_key: STRING
 		deferred
 		end
 

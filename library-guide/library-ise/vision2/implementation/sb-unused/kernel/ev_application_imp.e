@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"EiffelVision application, Slyboots implementation."
 	legal: "See notice at end of class."
@@ -32,7 +32,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface) is
+	make (an_interface: like interface)
 			-- Set up the callback marshal and initialize GTK+.
 		local
 			locale_str: STRING
@@ -52,7 +52,7 @@ feature {NONE} -- Initialization
 
 feature {NONE} -- Event loop
 
-	 launch is
+	 launch
 			-- Display the first window, set up the post_launch_actions,
 			-- and start the event loop.
 		do
@@ -63,7 +63,7 @@ feature {NONE} -- Event loop
 
 feature {EV_ANY_I} -- Implementation
 
-	focused_widget: EV_WIDGET is
+	focused_widget: EV_WIDGET
 			-- Widget with keyboard focus
 		local
 			current_windows: like windows
@@ -101,14 +101,14 @@ feature {EV_ANY_I} -- Implementation
 		do
 		end
 
-	wait_for_input (msec: INTEGER) is
+	wait_for_input (msec: INTEGER)
 			-- Wait for at most `msec' milliseconds for an event.
 		local
 			l_result: INTEGER
 		do
 		end
 
-	process_underlying_toolkit_event_queue is
+	process_underlying_toolkit_event_queue
 			-- Process all pending XX events and then dispatch XX iteration until no more
 			-- events are pending.
 		do
@@ -117,25 +117,25 @@ feature {EV_ANY_I} -- Implementation
 
 feature -- Access
 
-	ctrl_pressed: BOOLEAN is
+	ctrl_pressed: BOOLEAN
 			-- Is ctrl key currently pressed?
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	alt_pressed: BOOLEAN is
+	alt_pressed: BOOLEAN
 			-- Is alt key currently pressed?
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	shift_pressed: BOOLEAN is
+	shift_pressed: BOOLEAN
 			-- Is shift key currently pressed?
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	caps_lock_on: BOOLEAN is
+	caps_lock_on: BOOLEAN
 			-- Is the Caps or Shift Lock key currently on?
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
@@ -144,7 +144,7 @@ feature -- Access
 	window_oids: LINKED_LIST [INTEGER]
 			-- Global list of window object ids.
 
-	windows: LINEAR [EV_WINDOW] is
+	windows: LINEAR [EV_WINDOW]
 			-- Global list of windows.
 		local
 			cur: CURSOR
@@ -185,13 +185,13 @@ feature -- Access
 
 feature -- Basic operation
 
-	process_graphical_events is
+	process_graphical_events
 			-- Process all pending graphical events and redraws.
 		do
 			{EV_GTK_EXTERNALS}.gdk_window_process_all_updates
 		end
 
-	motion_tuple: TUPLE [x: INTEGER; y: INTEGER; x_tilt: DOUBLE; y_tilt: DOUBLE; pressure: DOUBLE; screen_x: INTEGER; screen_y: INTEGER; originating_x: INTEGER; originating_y: INTEGER] is
+	motion_tuple: TUPLE [x: INTEGER; y: INTEGER; x_tilt: DOUBLE; y_tilt: DOUBLE; pressure: DOUBLE; screen_x: INTEGER; screen_y: INTEGER; originating_x: INTEGER; originating_y: INTEGER]
 			-- Tuple optimization
 		once
 			create Result
@@ -204,13 +204,13 @@ feature -- Basic operation
 		end
 
 
-	sleep (msec: INTEGER) is
+	sleep (msec: INTEGER)
 			-- Wait for `msec' milliseconds and return.
 		do
 			usleep (msec * 1000)
 		end
 
-	destroy is
+	destroy
 			-- End the application.
 		do
 			if not is_destroyed then
@@ -223,107 +223,107 @@ feature -- Basic operation
 
 feature {NONE} -- Implementation
 
-	create_post_launch_actions: EV_NOTIFY_ACTION_SEQUENCE is
+	create_post_launch_actions: EV_NOTIFY_ACTION_SEQUENCE
 			-- Create a post_launch action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_pick_actions: EV_PND_ACTION_SEQUENCE is
+	create_pick_actions: EV_PND_ACTION_SEQUENCE
 			-- Create a pick action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_drop_actions: EV_PND_ACTION_SEQUENCE is
+	create_drop_actions: EV_PND_ACTION_SEQUENCE
 			-- Create a drop action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_cancel_actions: EV_PND_ACTION_SEQUENCE is
+	create_cancel_actions: EV_PND_ACTION_SEQUENCE
 			-- Create a cancel action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_pnd_motion_actions: like pnd_motion_actions is
+	create_pnd_motion_actions: like pnd_motion_actions
 			-- Create a pnd motion action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_pointer_motion_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, INTEGER, INTEGER]] is
+	create_pointer_motion_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, INTEGER, INTEGER]]
 			-- Create a pointer_motion action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_pointer_button_press_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, INTEGER, INTEGER, INTEGER]] is
+	create_pointer_button_press_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, INTEGER, INTEGER, INTEGER]]
 			-- Create a pointer_button_press action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_pointer_double_press_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, INTEGER, INTEGER, INTEGER]] is
+	create_pointer_double_press_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, INTEGER, INTEGER, INTEGER]]
 			-- Create a pointer_double_press action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_pointer_button_release_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, INTEGER, INTEGER, INTEGER]] is
+	create_pointer_button_release_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, INTEGER, INTEGER, INTEGER]]
 			-- Create a pointer_button_release action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_mouse_wheel_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, INTEGER]] is
+	create_mouse_wheel_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, INTEGER]]
 			-- Create a mouse_wheel action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_key_press_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, EV_KEY]] is
+	create_key_press_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, EV_KEY]]
 			-- Create a key_press action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_key_press_string_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, STRING_32]] is
+	create_key_press_string_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, STRING_32]]
 			-- Create a key_press_string action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_key_release_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, EV_KEY]] is
+	create_key_release_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET, EV_KEY]]
 			-- Create a key_release action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_focus_in_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET]] is
+	create_focus_in_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET]]
 			-- Create a focus_in action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_idle_actions: EV_NOTIFY_ACTION_SEQUENCE is
+	create_idle_actions: EV_NOTIFY_ACTION_SEQUENCE
 			-- Create a idle action sequence.
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_focus_out_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET]] is
+	create_focus_out_actions: EV_LITE_ACTION_SEQUENCE [TUPLE [EV_WIDGET]]
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__")
 		end
 
-	create_theme_changed_actions: EV_NOTIFY_ACTION_SEQUENCE is
+	create_theme_changed_actions: EV_NOTIFY_ACTION_SEQUENCE
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	create_destroy_actions: EV_NOTIFY_ACTION_SEQUENCE is
+	create_destroy_actions: EV_NOTIFY_ACTION_SEQUENCE
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
@@ -335,7 +335,7 @@ feature -- Status report
 
 feature -- Status setting
 
-	set_tooltip_delay (a_delay: INTEGER) is
+	set_tooltip_delay (a_delay: INTEGER)
 			-- Set `tooltip_delay' to `a_delay'.
 		do
 			tooltip_delay := a_delay
@@ -344,20 +344,20 @@ feature -- Status setting
 
 feature {EV_PICK_AND_DROPABLE_IMP} -- Pick and drop
 
-	set_docking_source (a_source: EV_DOCKABLE_SOURCE_IMP) is
+	set_docking_source (a_source: EV_DOCKABLE_SOURCE_IMP)
 			-- Set `docking_source' to `a_source'.
 		do
 			internal_docking_source := a_source
 		end
 
-	on_pick (a_source: EV_PICK_AND_DROPABLE_IMP; a_pebble: ANY) is
+	on_pick (a_source: EV_PICK_AND_DROPABLE_IMP; a_pebble: ANY)
 			-- Called by EV_PICK_AND_DROPABLE_IMP.start_transport
 		do
 			internal_pick_and_drop_source := a_source
 			interface.pick_actions.call ([a_pebble])
 		end
 
-	on_drop (a_pebble: ANY) is
+	on_drop (a_pebble: ANY)
 			-- Called by EV_PICK_AND_DROPABLE_IMP.end_transport
 		do
 			internal_pick_and_drop_source := Void
@@ -370,7 +370,7 @@ feature {EV_ANY_I} -- Implementation
 
 feature -- Implementation
 
-	is_in_transport: BOOLEAN is
+	is_in_transport: BOOLEAN
 			-- Is application currently in transport (either PND or docking)?
 		do
 			Result := pick_and_drop_source /= Void or else docking_source /= Void
@@ -393,7 +393,7 @@ feature -- Implementation
 	internal_pick_and_drop_source: like pick_and_drop_source
 	internal_docking_source: like docking_source
 
-	keyboard_modifier_mask: INTEGER is
+	keyboard_modifier_mask: INTEGER
 			-- Mask representing current keyboard modifiers state.
 		local
 			l_display_data: like retrieve_display_data
@@ -407,7 +407,7 @@ feature -- Implementation
 			Result := l_display_data.mask
 		end
 
-	retrieve_display_data: TUPLE [window: POINTER; x, y: INTEGER; mask: INTEGER; originating_x, originating_y: INTEGER] is
+	retrieve_display_data: TUPLE [window: POINTER; x, y: INTEGER; mask: INTEGER; originating_x, originating_y: INTEGER]
 			-- Retrieve mouse and keyboard data from the display.
 		do
 			if not use_stored_display_data then
@@ -427,7 +427,7 @@ feature -- Implementation
 		-- Store for the previous call to 'retrieve_display_data'
 		-- This is needed to avoid unnecessary roundtrips.
 
-	enable_debugger is
+	enable_debugger
 			-- Enable the Eiffel debugger.
 		do
 			if not debugger_is_disabled then
@@ -436,7 +436,7 @@ feature -- Implementation
 			end
 		end
 
-	disable_debugger is
+	disable_debugger
 			-- Disable the Eiffel debugger.
 		do
 			if debugger_is_disabled then
@@ -451,33 +451,33 @@ feature -- Implementation
 
 feature {EV_ANY_I, EV_FONT_IMP, EV_STOCK_PIXMAPS_IMP, EV_INTERMEDIARY_ROUTINES} -- Implementation
 
-	default_window: EV_WINDOW is
+	default_window: EV_WINDOW
 			-- Default Window used for creation of agents and holder of clipboard widget.
 		once
 			create Result
 		end
 
-	default_window_imp: EV_WINDOW_IMP is
+	default_window_imp: EV_WINDOW_IMP
 			-- Default window implementation.
 		once
 			Result ?= default_window.implementation
 		end
 
-	default_font_height: INTEGER is
+	default_font_height: INTEGER
 			-- Default font height.
 		local
 			temp_style: POINTER
 		do
 		end
 
-	default_font_ascent: INTEGER is
+	default_font_ascent: INTEGER
 			-- Default font ascent.
 		local
 			temp_style: POINTER
 		do
 		end
 
-	default_font_descent: INTEGER is
+	default_font_descent: INTEGER
 			-- Default font descent.
 		local
 			temp_style: POINTER
@@ -486,29 +486,29 @@ feature {EV_ANY_I, EV_FONT_IMP, EV_STOCK_PIXMAPS_IMP, EV_INTERMEDIARY_ROUTINES} 
 
 feature -- Thread Handling.
 
-	initialize_threading is
+	initialize_threading
 			-- Initialize thread support.
 		do
 		end
 
-	lock is
+	lock
 			-- Lock the Mutex.
 		do
 		end
 
-	try_lock: BOOLEAN is
+	try_lock: BOOLEAN
 			-- Try to see if we can lock, False means no lock could be attained
 		do
 		end
 
-	unlock is
+	unlock
 			-- Unlock the Mutex.
 		do
 		end
 
 feature {NONE} -- External implementation
 
-	usleep (micro_seconds: INTEGER) is
+	usleep (micro_seconds: INTEGER)
 		external
 			"C | <unistd.h>"
 		end
@@ -520,12 +520,12 @@ feature {NONE} -- Externals
 
 feature {NONE}
 
-	dispose is
+	dispose
 		do
 			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__") 
 		end
 
-	TODO_class_line (a_class, a_line: STRING) is
+	TODO_class_line (a_class, a_line: STRING)
 		do
 		end
 
@@ -533,7 +533,7 @@ invariant
 	window_oids_not_void: is_usable implies window_oids /= void
 	tooltips_not_void: tooltips /= default_pointer
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

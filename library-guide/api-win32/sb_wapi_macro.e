@@ -2,7 +2,7 @@ expanded class SB_WAPI_MACRO
 
 feature -- Conversion
 
-   LOWORD (value : INTEGER) : INTEGER is
+   LOWORD (value : INTEGER) : INTEGER
          -- The LOWORD retrieves the low-order word
          -- from the given 32-bit value
 
@@ -20,7 +20,7 @@ feature -- Conversion
       end
 
 
-   HIWORD (value : INTEGER) : INTEGER is
+   HIWORD (value : INTEGER) : INTEGER
          -- The HIWORD retrieves the high-order word
          -- from the given 32-bit value
 
@@ -38,7 +38,7 @@ feature -- Conversion
       end
 
 
-   LOBYTE (value : INTEGER) : INTEGER is
+   LOBYTE (value : INTEGER) : INTEGER
          -- The LOBYTE retrieves the low-order byte
          -- from the given 16-bit value
 
@@ -56,7 +56,7 @@ feature -- Conversion
       end
 
 
-   HIBYTE (value : INTEGER) : INTEGER is
+   HIBYTE (value : INTEGER) : INTEGER
          -- The HIBYTE retrieves the high-order byte
          -- from the given 16-bit value
 
@@ -74,7 +74,7 @@ feature -- Conversion
       end
 
 
-   MAKEWORD (low, high : INTEGER) : INTEGER is
+   MAKEWORD (low, high : INTEGER) : INTEGER
          -- The MAKEWORD creates an unsigned 16-bit integer by concatenating
          -- two given unsigned character values.
 
@@ -88,7 +88,7 @@ feature -- Conversion
       end
 
 
-   MAKELONG (low, high : INTEGER) : INTEGER is
+   MAKELONG (low, high : INTEGER) : INTEGER
          -- The MAKELONG creates an unsigned 32-bit value by concatenating
          -- two given 16-bit values.
 
@@ -102,7 +102,7 @@ feature -- Conversion
       end
 
 
-   MAKEWPARAM (low, high : INTEGER) : INTEGER is
+   MAKEWPARAM (low, high : INTEGER) : INTEGER
 
 
 
@@ -114,7 +114,7 @@ feature -- Conversion
       end
 
 
-   MAKELPARAM (low, high : INTEGER) : INTEGER is
+   MAKELPARAM (low, high : INTEGER) : INTEGER
          -- The MAKELPARAM creates an unsigned 32-bit value for use as an
          -- lParam parameter in a message. This function concatenates two given
          -- 16-bit values.
@@ -129,7 +129,7 @@ feature -- Conversion
       end
 
 
-   RGB (red, green, blue: INTEGER) : INTEGER is
+   RGB (red, green, blue: INTEGER) : INTEGER
          -- The RGB selects a red, green, blue (RGB) color
          -- based on the arguments supplied and the color capabilities
          -- of the output device
@@ -153,7 +153,7 @@ feature -- Conversion
       end
 
 
-   GetRValue (rgb_ : INTEGER) : INTEGER is
+   GetRValue (rgb_ : INTEGER) : INTEGER
          -- The `GetRValue' macro retrieves an intensity value for the red component
          -- of a 32-bit red, green, blue (RGB) value.
 
@@ -170,7 +170,7 @@ feature -- Conversion
       end
 
 
-   GetGValue (rgb_ : INTEGER) : INTEGER is
+   GetGValue (rgb_ : INTEGER) : INTEGER
          -- The `GetGValue' macro retrieves an intensity value for the green
          -- component of a 32-bit red, green, blue (RGB) value.
 
@@ -187,7 +187,7 @@ feature -- Conversion
       end
 
 
-   GetBValue (rgb_ : INTEGER) : INTEGER is
+   GetBValue (rgb_ : INTEGER) : INTEGER
          -- The `GetBValue' macro retrieves an intensity value for the blue
          -- component of a 32-bit red, green, blue (RGB) value.
 
@@ -204,7 +204,7 @@ feature -- Conversion
       end
 
 
-   PALETTERGB (red, green, blue: INTEGER) : INTEGER is
+   PALETTERGB (red, green, blue: INTEGER) : INTEGER
 
 
 
@@ -219,7 +219,7 @@ feature -- Conversion
       end
 
 
-   PALETTEINDEX (i: INTEGER): INTEGER is
+   PALETTEINDEX (i: INTEGER): INTEGER
 
 
 
@@ -234,7 +234,7 @@ feature -- Conversion
       end
 
 
-   MAKEINTRESOURCE (i : INTEGER) : POINTER is
+   MAKEINTRESOURCE (i : INTEGER) : POINTER
          -- The MAKEINTRESOURCE converts an integer value to a resource type
          -- compatible with Win32 resource-management functions. This function
          -- is used in place of a string containing the name of the resource.
@@ -252,7 +252,7 @@ feature -- Conversion
       end
 
 
-   INT_TO_PTR (i : INTEGER) : POINTER is
+   INT_TO_PTR (i : INTEGER) : POINTER
          -- The INT_TO_PTR converts the given INTEGER type to the POINTER type
 
 
@@ -265,7 +265,7 @@ feature -- Conversion
       end
 
 
-   PTR_TO_INT (p : POINTER) : INTEGER is
+   PTR_TO_INT (p : POINTER) : INTEGER
          -- The PTR_TO_INT converts the given POINTER type to the INTEGER type
 
 
@@ -278,7 +278,7 @@ feature -- Conversion
       end
 
 
-   GET_X_LPARAM (value : INTEGER) : INTEGER is
+   GET_X_LPARAM (value : INTEGER) : INTEGER
          -- The The GET_X_LPARAM retrieves the signed x-coordinate 
          -- from the low word of the given 32-bit value
 
@@ -299,7 +299,7 @@ feature -- Conversion
       end
 
 
-   GET_Y_LPARAM (value : INTEGER) : INTEGER is
+   GET_Y_LPARAM (value : INTEGER) : INTEGER
          -- The The GET_Y_LPARAM retrieves the signed y-coordinate 
          -- from the hi word of the given 32-bit value
 
@@ -322,6 +322,6 @@ feature -- Conversion
 
 feature -- Temporary workaround for SmallEiffel implementation limitation
 
-   ZERO: INTEGER_32 is 0
+   ZERO: INTEGER_32 = 0
 
 end

@@ -1,4 +1,4 @@
-indexing
+note
    description: "SB_FILE_SELECTOR commands"
    author: "Eugene Melekhov <eugene_melekhov@mail.ru>"
    copyright: "Copyright (c) 2002, Eugene Melekhov and others"
@@ -17,21 +17,21 @@ inherit
 
 feature
 
-   ID_LIST: INTEGER is once Result := PACKER_ID_LAST end
-   ID_FILEFILTER: INTEGER is once Result := PACKER_ID_LAST+2 end
-   ID_ACCEPT: INTEGER is once Result := PACKER_ID_LAST+3 end
-   ID_FILELIST: INTEGER is once Result := PACKER_ID_LAST+4 end
-   ID_DIRECTORY_UP: INTEGER is once Result := PACKER_ID_LAST+5 end
-   ID_DIRTREE: INTEGER is once Result := PACKER_ID_LAST+6 end
-   ID_HOME: INTEGER is once Result := PACKER_ID_LAST+7 end
-   ID_WORK: INTEGER is once Result := PACKER_ID_LAST+8 end
-   ID_BOOKMARK: INTEGER is once Result := PACKER_ID_LAST+9 end
-   ID_VISIT: INTEGER is once Result := PACKER_ID_LAST+10 end
-   ID_NEW: INTEGER is once Result := PACKER_ID_LAST+11 end
-   Id_delete: INTEGER is once Result := PACKER_ID_LAST+12 end
-   ID_MOVE: INTEGER is once Result := PACKER_ID_LAST+13 end
-   ID_COPY: INTEGER is once Result := PACKER_ID_LAST+14 end
-   ID_LINK: INTEGER is once Result := PACKER_ID_LAST+15 end
-   Id_last: INTEGER is once Result := PACKER_ID_LAST + 16 end
+   ID_LIST: INTEGER once Result := PACKER_ID_LAST end
+   ID_FILEFILTER: INTEGER once Result := PACKER_ID_LAST+2 end
+   ID_ACCEPT: INTEGER once Result := PACKER_ID_LAST+3 end
+   ID_FILELIST: INTEGER once Result := PACKER_ID_LAST+4 end
+   ID_DIRECTORY_UP: INTEGER once Result := PACKER_ID_LAST+5 end
+   ID_DIRTREE: INTEGER once Result := PACKER_ID_LAST+6 end
+   ID_HOME: INTEGER once Result := PACKER_ID_LAST+7 end
+   ID_WORK: INTEGER once Result := PACKER_ID_LAST+8 end
+   ID_BOOKMARK: INTEGER once Result := PACKER_ID_LAST+9 end
+   ID_VISIT: INTEGER once Result := PACKER_ID_LAST+10 end
+   ID_NEW: INTEGER once Result := PACKER_ID_LAST+11 end
+   Id_delete: INTEGER once Result := PACKER_ID_LAST+12 end
+   ID_MOVE: INTEGER once Result := PACKER_ID_LAST+13 end
+   ID_COPY: INTEGER once Result := PACKER_ID_LAST+14 end
+   ID_LINK: INTEGER once Result := PACKER_ID_LAST+15 end
+   Id_last: INTEGER once Result := PACKER_ID_LAST + 16 end
 
 end

@@ -2,11 +2,11 @@ expanded class NE
 
 feature
 
-   width: INTEGER is 16
-   height: INTEGER is 16
-   x_hot: INTEGER is 12
-   y_hot: INTEGER is 3
-   bits: STRING is
+   width: INTEGER = 16
+   height: INTEGER = 16
+   x_hot: INTEGER = 12
+   y_hot: INTEGER = 3
+   bits: STRING =
    "%/000/%/000/%/254/%/127/%/000/%/064/%/000/%/064/%/000/%/064/%/248/%/071/%
    %%/000/%/070/%/000/%/069/%/128/%/068/%/064/%/068/%/032/%/068/%/016/%/068/%
    %%/008/%/068/%/000/%/064/%/000/%/064/%/000/%/000/%/255/%/255/%/255/%/255/%

@@ -9,18 +9,18 @@ inherit
 		--	create_resource
 		end
 
-creation
+create
 	make
 
 feature -- Attributes
 
 	xid: INTEGER
 
-	create_resource is
+	create_resource
 		do
 		end
 
-	destroy_resource is
+	destroy_resource
 		do
 		end
 

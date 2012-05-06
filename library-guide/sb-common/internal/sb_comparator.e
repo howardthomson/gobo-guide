@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Abstract item comparator, used in sorters.
 		Descendants must define 'compare' function to return value > 0 if a > b,
@@ -14,7 +14,7 @@ deferred class SB_COMPARATOR [ G ]
 
 feature -- Comparison routine
 
-   compare(a, b: G): INTEGER is
+   compare(a, b: G): INTEGER
       deferred
       end
 

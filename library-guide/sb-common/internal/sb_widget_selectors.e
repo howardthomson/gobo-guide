@@ -6,7 +6,7 @@ feature -- Top Level Windows
 		Sb_top_window,
 		Sb_popup,
 		Sb_tool_bar_shell
-			: INTEGER is unique
+			: INTEGER = unique
 
 feature -- Dialogs
 
@@ -130,7 +130,7 @@ feature -- Widgets
 		Sb_w_tree_list_box
 --###
 
-		: INTEGER is unique
+		: INTEGER = unique
 
 
 

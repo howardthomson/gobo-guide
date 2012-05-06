@@ -31,7 +31,7 @@ inherit
 
 	SORTABLE [ STRING ]
 
-creation { MY_STRINGS }
+create { MY_STRINGS }
 
 	make
 
@@ -46,7 +46,7 @@ feature { MY_STRINGS }
 
 feature { NONE }
 
-	make (new_string: STRING; new_id: INTEGER) is 
+	make (new_string: STRING; new_id: INTEGER) 
 		do
 			key := new_string
 			id := new_id

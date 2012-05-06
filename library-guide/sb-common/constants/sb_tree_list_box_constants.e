@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_TREE_LIST_BOX constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -13,7 +13,7 @@ inherit
 
 feature -- Tree List Box styles
 
-	TREELISTBOX_NORMAL: INTEGER is 0
+	TREELISTBOX_NORMAL: INTEGER = 0
 		-- Normal style
 
 end

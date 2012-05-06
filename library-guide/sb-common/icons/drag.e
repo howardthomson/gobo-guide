@@ -2,11 +2,11 @@ expanded class DRAG
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 13
-   y_hot: INTEGER is 13
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 13
+   y_hot: INTEGER = 13
+   bits: STRING =
    "%/000/%/000/%/000/%/000/%/000/%/032/%/000/%/000/%/000/%/080/%/000/%/000/%
    %%/000/%/136/%/000/%/000/%/000/%/004/%/001/%/000/%/000/%/142/%/003/%/000/%
    %%/000/%/136/%/000/%/000/%/000/%/136/%/000/%/000/%/000/%/136/%/000/%/000/%

@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Case sensitive string comparition class"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -13,7 +13,7 @@ inherit
 
 feature -- Comparison
 
-	compare(a,b: STRING; len: INTEGER): INTEGER is
+	compare(a,b: STRING; len: INTEGER): INTEGER
 			-- Result = 0 => Strings are equal for 'len' characters
 			-- Result > 0 => (a > b) or (a.count > b.count) 
 			-- Result < 0 => (a < b) or (a.count < b.count)

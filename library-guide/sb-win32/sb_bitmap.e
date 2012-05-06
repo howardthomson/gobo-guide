@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
    		Bitmap is a one bit/pixel image used for patterning
    		and stippling operations.
@@ -19,7 +19,7 @@ inherit
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          destroy_resource
          Precursor;

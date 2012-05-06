@@ -1,4 +1,4 @@
-indexing
+note
 	description: "SB_TOP_WINDOW commands"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -17,9 +17,9 @@ inherit
 feature
 
 
-	ID_ICONIFY		: INTEGER is once Result := Shell_id_last	  end	-- Iconify the window
-	ID_DEICONIFY	: INTEGER is once Result := Shell_id_last + 1 end	-- Deiconify the window
-	ID_QUERY_DOCK	: INTEGER is once Result := Shell_id_last + 2 end	--  Toolbar asks to dock
-	Id_last			: INTEGER is once Result := Shell_id_last + 3 end
+	ID_ICONIFY		: INTEGER once Result := Shell_id_last	  end	-- Iconify the window
+	ID_DEICONIFY	: INTEGER once Result := Shell_id_last + 1 end	-- Deiconify the window
+	ID_QUERY_DOCK	: INTEGER once Result := Shell_id_last + 2 end	--  Toolbar asks to dock
+	Id_last			: INTEGER once Result := Shell_id_last + 3 end
 
 end

@@ -8,13 +8,13 @@ inherit
 
 	KL_SHARED_FILE_SYSTEM
 
-creation
+create
 
 	make, make_opts
 
 feature
 
-	list_directory is
+	list_directory
 		local
 			i: SB_FILE_LIST_ITEM
 			dir: KL_DIRECTORY
@@ -46,9 +46,9 @@ feature
 
 feature {NONE} -- Implementation
 
-	dummy_name: STRING is "/"
+	dummy_name: STRING = "/"
 
-	tmp_directory: KL_DIRECTORY is
+	tmp_directory: KL_DIRECTORY
 			-- Temporary directory object
 		do
 			Result := shared_directory
@@ -60,7 +60,7 @@ feature {NONE} -- Implementation
 			directory_closed: Result.is_closed
 		end
 
-	shared_directory: KL_DIRECTORY is
+	shared_directory: KL_DIRECTORY
 			-- Shared directory object
 		once
 			create Result.make (dummy_name)

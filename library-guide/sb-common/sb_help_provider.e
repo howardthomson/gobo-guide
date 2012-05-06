@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Object wich provides help string"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -34,7 +34,7 @@ feature -- Data
          	help_text := text
       	end
 
-   	flags: INTEGER is
+   	flags: INTEGER
       	deferred
       	end
 

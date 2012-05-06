@@ -1,4 +1,4 @@
-indexing
+note
 	description: "SB_ICON_LIST commands"
 	author: "Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright: "Copyright (c) 2002, Eugene Melekhov and others"
@@ -15,15 +15,15 @@ inherit
 
 feature
 
-	ID_SHOW_DETAILS		 : INTEGER is once Result := BASE_LIST_ID_LAST + 0 end
-	ID_SHOW_MINI_ICONS	 : INTEGER is once Result := BASE_LIST_ID_LAST + 1 end
-	ID_SHOW_BIG_ICONS	 : INTEGER is once Result := BASE_LIST_ID_LAST + 2 end
-	ID_ARRANGE_BY_ROWS	 : INTEGER is once Result := BASE_LIST_ID_LAST + 3 end
-	ID_ARRANGE_BY_COLUMNS: INTEGER is once Result := BASE_LIST_ID_LAST + 4 end
-	ID_HEADER_CHANGE	 : INTEGER is once Result := BASE_LIST_ID_LAST + 5 end
-	ID_SELECT_ALL		 : INTEGER is once Result := BASE_LIST_ID_LAST + 6 end
-	ID_DESELECT_ALL		 : INTEGER is once Result := BASE_LIST_ID_LAST + 7 end
-	ID_SELECT_INVERSE	 : INTEGER is once Result := BASE_LIST_ID_LAST + 8 end
-	Id_last				 : INTEGER is once Result := BASE_LIST_ID_LAST + 9 end
+	ID_SHOW_DETAILS		 : INTEGER once Result := BASE_LIST_ID_LAST + 0 end
+	ID_SHOW_MINI_ICONS	 : INTEGER once Result := BASE_LIST_ID_LAST + 1 end
+	ID_SHOW_BIG_ICONS	 : INTEGER once Result := BASE_LIST_ID_LAST + 2 end
+	ID_ARRANGE_BY_ROWS	 : INTEGER once Result := BASE_LIST_ID_LAST + 3 end
+	ID_ARRANGE_BY_COLUMNS: INTEGER once Result := BASE_LIST_ID_LAST + 4 end
+	ID_HEADER_CHANGE	 : INTEGER once Result := BASE_LIST_ID_LAST + 5 end
+	ID_SELECT_ALL		 : INTEGER once Result := BASE_LIST_ID_LAST + 6 end
+	ID_DESELECT_ALL		 : INTEGER once Result := BASE_LIST_ID_LAST + 7 end
+	ID_SELECT_INVERSE	 : INTEGER once Result := BASE_LIST_ID_LAST + 8 end
+	Id_last				 : INTEGER once Result := BASE_LIST_ID_LAST + 9 end
 
 end

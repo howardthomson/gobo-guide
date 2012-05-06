@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Scanner for Eiffel texts, using gelex"
 	
 	todo: "[
@@ -26,35 +26,35 @@ inherit
 
 	POSITION_ROUTINES
 
-creation 
+create 
 
 	make_from_string
 
 feature {NONE} -- Creation
 
-	make_scanner is
+	make_scanner
 		do
 			create symbols.make (512)
 		end
 
 feature { EDP_CLASS }
 
-	Status_null			: INTEGER is 1	-- Initial creation value	
-	Status_no_file		: INTEGER is 2	-- Unable to read file
-	Status_rescan		: INTEGER is 3	-- Rescan required after edit
-	Status_scan_failed	: INTEGER is 4	-- Scan has failed
-	Status_ok			: INTEGER is 5	-- OK
+	Status_null			: INTEGER = 1	-- Initial creation value	
+	Status_no_file		: INTEGER = 2	-- Unable to read file
+	Status_rescan		: INTEGER = 3	-- Rescan required after edit
+	Status_scan_failed	: INTEGER = 4	-- Scan has failed
+	Status_ok			: INTEGER = 5	-- OK
 
 	scan_status: INTEGER
 	
-	scanned_ok: BOOLEAN is
+	scanned_ok: BOOLEAN
 		do
 			Result := scan_status = Status_ok
 		end
 	
 feature { NONE }
 
-	trace_parse: BOOLEAN is false;	-- Enable trace of parsing process
+	trace_parse: BOOLEAN = false;	-- Enable trace of parsing process
 
 feature {EDP_SYMBOL_EDITOR, EDP_CLASS_WINDOW} -- symbol info
 
@@ -62,25 +62,25 @@ feature {EDP_SYMBOL_EDITOR, EDP_CLASS_WINDOW} -- symbol info
 
 feature {ANY} -- symbol info
 
-	num_symbols: INTEGER is
+	num_symbols: INTEGER
 		do
 			Result := symbols.count
 		end
 
 feature { NONE }
 
-	drop_comments: BOOLEAN is false	-- do not save comments in scan process, if true
+	drop_comments: BOOLEAN = false	-- do not save comments in scan process, if true
 
 	symbol_start_position: INTEGER_64
 
-	set_symbol_start_position is
+	set_symbol_start_position
 		do
 			symbol_start_position := current_position
 		end
 
 feature { ANY }
 
-	current_position: INTEGER_64 is
+	current_position: INTEGER_64
 		do
 			Result := pos_init (line, column + eif_tab_offset)
 		end
@@ -89,7 +89,7 @@ feature { ANY }
 
 feature { NONE }
 
-	add_symbol (type: INTEGER; special: INTEGER) is
+	add_symbol (type: INTEGER; special: INTEGER)
 		local
 			new_symbol: SCANNER_SYMBOL
 		do 
@@ -115,7 +115,7 @@ feature { ANY }
 
 	the_class: EDP_CLASS_FILE
 
-	make_from_string (ec: EDP_CLASS_FILE; s: STRING) is
+	make_from_string (ec: EDP_CLASS_FILE; s: STRING)
 			-- Scan Eiffel class file from string
 		do
 			the_class := ec
@@ -130,7 +130,7 @@ feature { ANY }
 			create edit_string.make (0)
 		end
 
-	rescan is
+	rescan
 			-- Rescan the raw_text symbols
 		require
 --			scan_status = Status_rescan
@@ -165,14 +165,14 @@ feature { ANY }
 			status_set: scan_status = Status_ok or else scan_status = Status_scan_failed
 		end
 
-	reset is
+	reset
 		-- Set current_symbol_index to first Symbol
 		do
 			current_symbol_index := 0
 		end; -- reset
 --------------------------------------------------------------------------------
 
-	file_name: STRING is
+	file_name: STRING
 		do
 			Result := the_class.filename
 		end
@@ -185,7 +185,7 @@ feature { ANY }
 
 feature {NONE}
 
-	select_next_symbol (skip_comments: BOOLEAN) is 
+	select_next_symbol (skip_comments: BOOLEAN) 
 		-- Move to next symbol, skipping comments if 'skip_comments' is true
 		-- Combine multi-line string segments
 		-- Combine "and then" & "or else" keywords
@@ -263,7 +263,7 @@ feature {NONE}
 		end; -- next_symbol
 		-------------------
 
-	next_symbol is
+	next_symbol
 		-- Move to next symbol, skipping comments
 		require
 			current_symbol_index >= 0
@@ -273,7 +273,7 @@ feature {NONE}
 			current_symbol.type /= s_comment
 		end
 
-	next_symbol_or_comment is
+	next_symbol_or_comment
 		-- Move to next symbol; do not skip comments
 		do
 			select_next_symbol (false)
@@ -283,7 +283,7 @@ feature {NONE}
 
 feature {NONE} -- symbol lookup by position
 
-	set_edit_index (l, c: INTEGER): BOOLEAN is
+	set_edit_index (l, c: INTEGER): BOOLEAN
 			-- Find symbol index for line/column
 			-- same line: within or after symbol, or before first symbol on line
 			-- empty line: last symbol of previous non-empty line
@@ -387,7 +387,7 @@ feature {NONE} -- symbol lookup by position
 --				implies (symbols @ Result).column <= c
 		end -- set_edit_index
 
-	print_newline is
+	print_newline
 		do
 			print (once "%N")
 		end
@@ -407,14 +407,14 @@ feature {NONE} -- Editing routines
 	edit_symbol: SCANNER_SYMBOL
 			-- unique symbol, of type s_edit_text, corresponding to edit_string content
 
-	scanner: SCANNER is
+	scanner: SCANNER
 		do
 			Result ?= Current
 		end
 
 feature {EDP_SYMBOL_EDITOR} -- Editing routines
 
-	cursor_column: INTEGER is
+	cursor_column: INTEGER
 		do
 check_invariant
 			if edit_symbol /= Void then
@@ -426,7 +426,7 @@ check_invariant
 			end
 		end
 
-	cursor_line: INTEGER is
+	cursor_line: INTEGER
 		do
 check_invariant
 			if edit_symbol /= Void then
@@ -438,29 +438,29 @@ check_invariant
 			end
 		end
 
-	symbol (i: INTEGER): SCANNER_SYMBOL is
+	symbol (i: INTEGER): SCANNER_SYMBOL
 		do
 			Result := symbols @ i
 		end
 
-	symbol_position (i: INTEGER): INTEGER_64 is
+	symbol_position (i: INTEGER): INTEGER_64
 		do
 			Result := (symbols @ i).position
 		end
 
-	insert_character (c: CHARACTER; a_line, a_column: INTEGER) is
+	insert_character (c: CHARACTER; a_line, a_column: INTEGER)
 		do
 		end
 
-	insert_string (s: STRING; a_line, a_column: INTEGER) is
+	insert_string (s: STRING; a_line, a_column: INTEGER)
 		do
 		end
 
-	delete_forward (a_line, a_column: INTEGER) is
+	delete_forward (a_line, a_column: INTEGER)
 		do
 		end
 
-	delete_backward (a_line, a_column: INTEGER) is
+	delete_backward (a_line, a_column: INTEGER)
 			-- Delete 'n' characters back
 		local
 			i, j: INTEGER
@@ -489,7 +489,7 @@ check_invariant
 print_status
 		end
 
-	print_status is
+	print_status
 			-- DEBUG -- trace values after each delete_backward
 		do
 			print(once "edit_index: "); print(edit_index.out); print(once "%N")
@@ -516,7 +516,7 @@ print_status
 
 feature {NONE}
 
-	delete_backward_1: INTEGER is
+	delete_backward_1: INTEGER
 			-- backspace one character
 			-- Result = 1 if backspace into previous line
 			-- Result = 0 otherwise
@@ -585,7 +585,7 @@ if edit_offset < 0 then print("#3 edit_offset FAIL%N") end
 			end
 		end
 	
-	adjacent_symbols (i: INTEGER): BOOLEAN is
+	adjacent_symbols (i: INTEGER): BOOLEAN
 			-- are symbols at i and i+1 adjacent ?
 			-- are they on the same line ?
 		require
@@ -602,7 +602,7 @@ if edit_offset < 0 then print("#3 edit_offset FAIL%N") end
 			end
 		end
 		
-	Xinsert_string (s: STRING) is
+	Xinsert_string (s: STRING)
 		require
 			valid_string: s /= Void and then s.count = 1
 			valid_insertion_point: (symbols @ edit_index).type = s_edit_text
@@ -625,7 +625,7 @@ if edit_offset < 0 then print("#3 edit_offset FAIL%N") end
 		end
 
 
-	set_insertion_point (a_line, a_column: INTEGER) is
+	set_insertion_point (a_line, a_column: INTEGER)
 			-- Set edit cursor at line/column
 		local
 			index, offset: INTEGER
@@ -700,9 +700,9 @@ if edit_offset < 0 then print("#2 edit_offset FAIL%N") end
 		--	correct_end:			at_start implies ???
 		end
 
-	debug_editing: BOOLEAN is True
+	debug_editing: BOOLEAN = True
 
-	insert_edit_symbol (at, a_line, a_column: INTEGER) is
+	insert_edit_symbol (at, a_line, a_column: INTEGER)
 			-- Create and insert an s_edit_text symbols
 			-- after symbol index 'at'
 		require
@@ -733,7 +733,7 @@ if edit_offset < 0 then print("#2 edit_offset FAIL%N") end
 			e5: edit_string.count = 0
 		end
 
-	open_edit_symbol (at: INTEGER; at_end: BOOLEAN) is
+	open_edit_symbol (at: INTEGER; at_end: BOOLEAN)
 		do
 			edit_symbol := symbols @ at
 			edit_index := at
@@ -747,7 +747,7 @@ if edit_offset < 0 then print("#2 edit_offset FAIL%N") end
 			end
 		end
 
-	close_edit_symbol is
+	close_edit_symbol
 			-- finalize existing edit symbol
 		require
 			valid_edit_symbol: edit_symbol /= Void and then edit_symbol.type = s_edit_text
@@ -771,7 +771,7 @@ if edit_offset < 0 then print("#2 edit_offset FAIL%N") end
 			end
 		end
 
-	valid_edit_position (index, offset: INTEGER): BOOLEAN is
+	valid_edit_position (index, offset: INTEGER): BOOLEAN
 			-- Is the specified position valid
 		local
 			s: SCANNER_SYMBOL
@@ -790,7 +790,7 @@ if edit_offset < 0 then print("#2 edit_offset FAIL%N") end
 			end
 		end
 
-	check_invariant is
+	check_invariant
 		do
 			check_assertion(once "symbols_not_void", symbols /= Void)
 
@@ -808,7 +808,7 @@ if edit_offset < 0 then print("#2 edit_offset FAIL%N") end
 		--	check_assertion(once "valid_column",	edit_index /= 0 implies cursor_column >= 1	)
 		end
 
-	check_assertion(s: STRING; b: BOOLEAN) is
+	check_assertion(s: STRING; b: BOOLEAN)
 		do
 			if not b then
 				print(once "ASSERTION FAILURE: ")
@@ -819,7 +819,7 @@ if edit_offset < 0 then print("#2 edit_offset FAIL%N") end
 
 feature -- File Save
 
-	save_to_file (save_file_name: STRING) is
+	save_to_file (save_file_name: STRING)
 			-- Save symbols as text to the named file
 		local
 			i, nb: INTEGER			-- Current/maximum scanner index

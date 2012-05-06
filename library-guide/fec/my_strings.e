@@ -29,7 +29,7 @@ class MY_STRINGS
 -- since double strings are stored only once, and it allows fast comparison 
 -- of strings using "=", "<=",... with integer operands.
 
-creation
+create
 
 	make
 
@@ -41,7 +41,7 @@ feature { NONE }
 	
 	string_array: PS_ARRAY [ STRING, MY_STRING ]
 
-	first_string: INTEGER is -1_000_000_000
+	first_string: INTEGER = -1_000_000_000
 			-- this is added to the index of
 			-- a string in string_list to catch the
 			-- case of an "@" with illegal index
@@ -50,7 +50,7 @@ feature { NONE }
 	 
 --------------------------------------------------------------------------------
 
-	make is 
+	make 
 		do
 			create string_list.make
 			create string_array.make
@@ -60,7 +60,7 @@ feature { NONE }
 
 feature { ANY }
 
-	get_id, infix "#" (of: STRING): INTEGER is
+	get_id, infix "#" (of: STRING): INTEGER
 			-- get id of this string. The result is never 0, so 0 can be used to represent
 			-- the Void string.
 		local
@@ -82,7 +82,7 @@ feature { ANY }
 			of /= Void implies Result < 0 and of.is_equal (string (Result))
 		end -- of
 	
-	string, infix "@" (id: INTEGER): STRING is
+	string, infix "@" (id: INTEGER): STRING
 			-- get string with this number
 		require
 			is_valid_id (id) or id = 0
@@ -94,7 +94,7 @@ feature { ANY }
 			(id = 0) = (Result = Void)
 		end
 
-	is_valid_id (id: INTEGER): BOOLEAN is
+	is_valid_id (id: INTEGER): BOOLEAN
 		do
 			Result := id > first_string and (id - first_string) <= string_list.count
 		end

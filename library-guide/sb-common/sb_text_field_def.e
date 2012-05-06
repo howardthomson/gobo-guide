@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		A text field is a single-line text entry widget.
 
@@ -76,19 +76,19 @@ inherit
 		export {NONE} all
 		end
 
-creation
+create
 
    make,
    make_opts
 
 feature -- Creation
 
-	make_ev is
+	make_ev
 		do
 			make (Void, 1, 0)
 		end
 
-   make (p: SB_COMPOSITE; ncols: INTEGER; opts: INTEGER) is
+   make (p: SB_COMPOSITE; ncols: INTEGER; opts: INTEGER)
          -- Construct text field wide enough to display ncols columns_count
       local
          o: INTEGER
@@ -103,7 +103,7 @@ feature -- Creation
       end
 
    make_opts (p: SB_COMPOSITE; ncols: INTEGER; tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER;
-             x,y, w,h, pl,pr,pt,pb: INTEGER) is
+             x,y, w,h, pl,pr,pt,pb: INTEGER)
          -- Construct text field wide enough to display ncols columns_count
       do
          frame_make_opts (p, opts, x, y, w, h, pl, pr, pt, pb)
@@ -175,52 +175,52 @@ feature -- Data
 
 feature -- Queries
 
-  default_width: INTEGER is
+  default_width: INTEGER
          -- Return default width
       do
          Result := pad_left + pad_right + (border*2)
          			+ columns_count * text_font.get_text_width ("8")
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       do
          Result := pad_top + pad_bottom + (border*2)
          			+ text_font.get_font_height
       end
 
-   is_editable: BOOLEAN is
+   is_editable: BOOLEAN
          -- Return True if text field may be edited
       do
          Result := (options & TEXTFIELD_READONLY) = Zero
       end
 
-   can_focus: BOOLEAN is
+   can_focus: BOOLEAN
          -- Returns true because a text field can receive focus
       once
          Result := True
       end
 
-   get_justify: INTEGER is
+   get_justify: INTEGER
          -- Return text justification mode
       do
          Result := (options | JUSTIFY_MASK)
       end
 
-   get_text_style: INTEGER is
+   get_text_style: INTEGER
          -- Return text style
       do
          Result := (options | TEXTFIELD_MASK)
       end
 
-   is_pos_selected (pos: INTEGER): BOOLEAN is
+   is_pos_selected (pos: INTEGER): BOOLEAN
       -- Return True if position pos is selected
       do
          Result := has_selection and then anchor_position.min (cursor_position) <= pos 
             and then pos <= anchor_position.max (cursor_position)
       end
 
-   is_pos_visible(pos: INTEGER): BOOLEAN is
+   is_pos_visible(pos: INTEGER): BOOLEAN
       -- Return True if position is fully visible
       local
          x, len: INTEGER
@@ -234,7 +234,7 @@ feature -- Queries
 
 feature -- Actions
 
-   enable is
+   enable
          -- Enable text field
       do
          if (flags | Flag_enabled) = Zero then
@@ -243,7 +243,7 @@ feature -- Actions
          end
       end
 
-   disable is
+   disable
          -- Disable text field
       do
          if (flags | Flag_enabled) /= Zero then
@@ -252,7 +252,7 @@ feature -- Actions
          end
       end
 
-   set_focus is
+   set_focus
          -- Move the focus to this window
       do
          Precursor
@@ -260,7 +260,7 @@ feature -- Actions
          unset_flags (Flag_update)
       end
 
-   kill_focus is
+   kill_focus
          -- Remove the focus from this window
       do
          Precursor
@@ -275,7 +275,7 @@ feature -- Actions
          end
       end
 
-   set_editable (edit: BOOLEAN) is
+   set_editable (edit: BOOLEAN)
          -- Change text field editability
       do
          if edit then
@@ -285,7 +285,7 @@ feature -- Actions
          end
       end
 
-   set_cursor_position (pos_: INTEGER) is
+   set_cursor_position (pos_: INTEGER)
          -- Set cursor position
       local
          len, pos: INTEGER
@@ -302,7 +302,7 @@ feature -- Actions
          end
       end
 
-   set_anchor_position (pos_: INTEGER) is
+   set_anchor_position (pos_: INTEGER)
          -- Change anchor position
       local
          len, pos: INTEGER
@@ -314,7 +314,7 @@ feature -- Actions
          anchor_position := pos
       end
 
-   set_font (fnt: SB_FONT) is
+   set_font (fnt: SB_FONT)
       require
          fnt /= Void
       do
@@ -325,7 +325,7 @@ feature -- Actions
         end
       end
 
-   set_text (text: STRING) is
+   set_text (text: STRING)
          -- Set the text
       local
          len: INTEGER
@@ -342,7 +342,7 @@ feature -- Actions
          end
       end
 
-  set_text_color (clr: INTEGER) is
+  set_text_color (clr: INTEGER)
          -- Change text color
       do
          if text_color /= clr then
@@ -351,7 +351,7 @@ feature -- Actions
          end
       end
 
-   set_sel_back_color (clr: INTEGER) is
+   set_sel_back_color (clr: INTEGER)
          -- Change selected background color
       do
          if sel_back_color /= clr then
@@ -360,7 +360,7 @@ feature -- Actions
          end
       end
 
-   set_sel_text_color (clr: INTEGER) is
+   set_sel_text_color (clr: INTEGER)
          -- Change selected text color
       do
          if sel_text_color /= clr then
@@ -369,7 +369,7 @@ feature -- Actions
          end
       end
       
-	set_cursor_color (clr: INTEGER) is
+	set_cursor_color (clr: INTEGER)
 			-- Change color of the cursor
 		do
          	if cursor_color /= clr then
@@ -378,7 +378,7 @@ feature -- Actions
          	end
       	end
 
-   set_columns_count (cols: INTEGER) is
+   set_columns_count (cols: INTEGER)
          -- Change width of text field in terms of number of columns_count * 
          -- `m'
       local
@@ -395,7 +395,7 @@ feature -- Actions
          end
       end
 
-   set_justify (mode: INTEGER) is
+   set_justify (mode: INTEGER)
          -- Change text justification mode
       local
          opts: INTEGER
@@ -409,19 +409,19 @@ feature -- Actions
          end
       end
 
-   set_help_text (text: STRING) is
+   set_help_text (text: STRING)
          -- Set the status line help text
       do
          help_text := text
       end
 
-   set_tip_text (text: STRING) is
+   set_tip_text (text: STRING)
          -- Set the tool tip message
       do
          tip_text := text
       end
 
-   set_text_style (style: INTEGER) is
+   set_text_style (style: INTEGER)
          -- Change text style
       local
          opts: INTEGER
@@ -435,7 +435,7 @@ feature -- Actions
          end
       end
 
-   select_all is
+   select_all
          -- Select all text
       do
          set_anchor_position (0)
@@ -443,7 +443,7 @@ feature -- Actions
          extend_selection (cursor_position)
       end
 
-   set_selection (pos, len: INTEGER) is
+   set_selection (pos, len: INTEGER)
          -- Select len characters starting at given position pos
       do
          set_anchor_position (pos)
@@ -451,7 +451,7 @@ feature -- Actions
          extend_selection (cursor_position)
       end
 
-   extend_selection (pos_: INTEGER) is
+   extend_selection (pos_: INTEGER)
          -- Extend the selection from the anchor to the given position
       local
          types: ARRAY [INTEGER]
@@ -481,7 +481,7 @@ feature -- Actions
          update_rectangle (border, border, width-(border*2), height-(border*2))
       end
 
-   kill_selection is
+   kill_selection
          -- Unselect the text
       do
          if has_selection then
@@ -490,7 +490,7 @@ feature -- Actions
          end
       end
 
-   make_pos_visible (pos_: INTEGER) is
+   make_pos_visible (pos_: INTEGER)
          -- Scroll text to make the given position visible
       local
          cw, ll, rr, ww, oldshift, len, pos: INTEGER
@@ -542,7 +542,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (Sel_timeout, ID_BLINK,				type, key) then Result := on_blink 					(sender,key,data);
         	elseif  match_function_2 (Sel_timeout, Id_autoscroll,			type, key) then Result := on_auto_scroll 			(sender,key,data);
@@ -590,7 +590,7 @@ feature -- Message processing
         	end
       end
 
-   on_update(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_update(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not Precursor(sender, selector, data) then
             if (options & TEXTFIELD_AUTOHIDE) /= Zero and then is_shown then hide; recalc; end
@@ -599,7 +599,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_paint(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
          dc: SB_DC_WINDOW
@@ -641,7 +641,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
       do
@@ -790,7 +790,7 @@ feature -- Message processing
          end
       end
 
-   on_key_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void
             and then message_target.handle_2 (Current, SEL_KEYRELEASE, message, data)
@@ -799,7 +799,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT;
          pos: INTEGER;
@@ -838,7 +838,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_enabled then
             Result := True;
@@ -850,7 +850,7 @@ feature -- Message processing
          end
       end
 
-   on_middle_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_middle_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
          pos: INTEGER
@@ -879,7 +879,7 @@ feature -- Message processing
          
       end
 
-   on_middle_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_middle_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          len: INTEGER;
          dnd_data: STRING;
@@ -903,7 +903,7 @@ feature -- Message processing
          end
       end
 
-   on_verify(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_verify(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          p: STRING;
       do
@@ -922,7 +922,7 @@ feature -- Message processing
          end
       end
 
-   on_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT;
          t: INTEGER;
@@ -947,21 +947,21 @@ feature -- Message processing
          end
       end
 
-   on_selection_lost(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_selection_lost(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender, selector, data);
          update;
          Result := True;
       end
 
-   on_selection_gained(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_selection_gained(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender, selector, data);
          update;
          Result := True;
       end
 
-	on_selection_request(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_selection_request(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	local
         	event: SB_EVENT;
         	dnd_data: STRING
@@ -1000,20 +1000,20 @@ feature -- Message processing
         	end
 		end
 
-   on_clipboard_lost(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_clipboard_lost(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender, selector, data);
          create clipped.make_empty;
          Result := True;
       end
 
-   on_clipboard_gained(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_clipboard_gained(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender, selector, data);
          Result := True;
       end
 
-   on_clipboard_request(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_clipboard_request(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
          dnd_data: STRING;
@@ -1045,7 +1045,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_self(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_self(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
       do
@@ -1061,7 +1061,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_in(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_in(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender, selector, data);
          if is_editable then
@@ -1076,7 +1076,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_focus_out(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_out(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender, selector, data);
          if blinker /= Void then application.remove_timeout(blinker); blinker := Void end
@@ -1086,14 +1086,14 @@ feature -- Message processing
          end
       end
 
-   on_blink(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_blink(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          draw_cursor(flags.bit_xor(Flag_caret));
          blinker := application.add_timeout(application.blink_speed, Current, ID_BLINK);
          Result := False;
       end
 
-	on_auto_scroll(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_auto_scroll(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	local
     	--	buttons: INTEGER;
          	x, y, t, ll, rr, ww, tw, lim: INTEGER;
@@ -1191,7 +1191,7 @@ feature -- Message processing
          	Result := True;
       	end
 
-   on_query_help(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_query_help(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not help_text.is_empty and then (flags & Flag_help) /= Zero then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_setstringvalue, help_text);
@@ -1199,7 +1199,7 @@ feature -- Message processing
          end
       end
 
-   on_query_tip(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_query_tip(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not tip_text.is_empty and then (flags & Flag_tip) /= Zero then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_setstringvalue, tip_text);
@@ -1207,7 +1207,7 @@ feature -- Message processing
          end
       end
 
-   on_cmd_set_value, on_cmd_set_string_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_value, on_cmd_set_string_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          text: STRING
       do
@@ -1219,7 +1219,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_get_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING;
       do
@@ -1231,7 +1231,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_set_int_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_int_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          i: INTEGER_REF;
       do
@@ -1243,7 +1243,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_set_real_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_real_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          i: REAL_REF;
       do
@@ -1255,7 +1255,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_get_int_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_int_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          i: INTEGER_REF;
       do
@@ -1267,7 +1267,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_get_real_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_real_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          i: REAL_REF;
       do
@@ -1279,60 +1279,60 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_cursor_home(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_cursor_home(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          set_cursor_position(0);
          make_pos_visible(0);
          Result := True;
       end
 
-   on_cmd_cursor_end(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_cursor_end(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          set_cursor_position(contents.count);
          make_pos_visible(cursor_position);
          Result := True;
       end
 
-   on_cmd_cursor_right(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_cursor_right(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          set_cursor_position(cursor_position+1);
          make_pos_visible(cursor_position);
          Result := True;
       end
 
-   on_cmd_cursor_left(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_cursor_left(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          set_cursor_position(cursor_position-1);
          make_pos_visible(cursor_position);
          Result := True;
       end
 
-   on_cmd_mark(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_mark(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          set_anchor_position(cursor_position);
          Result := True;
       end
 
-   on_cmd_extend (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_extend (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          extend_selection (cursor_position)
          Result := True
       end
 
-   on_cmd_select_all (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_select_all (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          select_all
          make_pos_visible (cursor_position)
          Result := True
       end
 
-   on_cmd_deselect_all (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_deselect_all (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          kill_selection
          Result := True
       end
 
-   on_cmd_cut_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_cut_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          types: ARRAY [INTEGER]
       do
@@ -1355,7 +1355,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_copy_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_copy_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          types: ARRAY [INTEGER]
       do
@@ -1373,7 +1373,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_paste_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_paste_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          dnd_data, str: STRING
          i, e: INTEGER
@@ -1402,7 +1402,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_delete_sel(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_delete_sel(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          st, en: INTEGER;
       do
@@ -1423,7 +1423,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_overst_string (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_overst_string (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str, tentative: STRING
          len: INTEGER
@@ -1434,8 +1434,8 @@ feature -- Message processing
          if has_selection then
             reppos := anchor_position.min (cursor_position)
             replen := anchor_position.max (cursor_position) - reppos
-         end
-         !!tentative.make_from_string (contents)
+         end 
+         create tentative.make_from_string (contents)
          len := str.count
          tentative.replace_substring(str, reppos + 1, reppos + replen)
          if handle_2 (Current, SEL_VERIFY, 0, tentative) then
@@ -1456,7 +1456,7 @@ feature -- Message processing
          end
       end
 
-   on_cmd_insert_string (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_insert_string (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str, tentative: STRING
          len: INTEGER
@@ -1467,8 +1467,8 @@ feature -- Message processing
          if has_selection then
             reppos := anchor_position.min (cursor_position)
             replen := anchor_position.max (cursor_position) - reppos
-         end
-         !!tentative.make_from_string (contents)
+         end 
+         create tentative.make_from_string (contents)
          len := str.count
          tentative.remove_substring(reppos + 1, reppos + replen)
          tentative.insert_string(str, reppos + 1)
@@ -1492,7 +1492,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_backspace (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_backspace (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if cursor_position<1 then
             application.beep
@@ -1511,7 +1511,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_delete (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_delete (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if cursor_position >= contents.count then
             application.beep
@@ -1530,13 +1530,13 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_toggle_editable(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_toggle_editable(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          options := options.bit_xor(TEXTFIELD_READONLY);
          Result := True;
       end
 
-   on_upd_toggle_editable(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_toggle_editable(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (options & TEXTFIELD_READONLY) /= Zero then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_uncheck, Void);
@@ -1548,13 +1548,13 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_toggle_overstrike(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_toggle_overstrike(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          options := options.bit_xor (TEXTFIELD_OVERSTRIKE)
          Result := True
       end
 
-   on_upd_toggle_overstrike(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_toggle_overstrike(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (options & TEXTFIELD_OVERSTRIKE) /= Zero then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void);
@@ -1566,7 +1566,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_upd_have_selection(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_have_selection(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if has_selection then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_enable, data)
@@ -1576,7 +1576,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_upd_select_all(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_select_all(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if contents.is_empty then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_disable, data)
@@ -1588,7 +1588,7 @@ feature -- Message processing
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       do
          Precursor
@@ -1597,7 +1597,7 @@ feature -- Resource management
 
 feature {NONE} -- Implementation
 
-   TEXTFIELD_MASK: INTEGER is
+   TEXTFIELD_MASK: INTEGER
       once
          Result := (TEXTFIELD_PASSWD | TEXTFIELD_INTEGER | TEXTFIELD_REAL | TEXTFIELD_READONLY
                     | TEXTFIELD_ENTER_ONLY | TEXTFIELD_LIMITED | TEXTFIELD_OVERSTRIKE 
@@ -1613,7 +1613,7 @@ feature {NONE} -- Implementation
    clipped: STRING
          -- Clipped text
 
-   index (a_x: INTEGER): INTEGER is
+   index (a_x: INTEGER): INTEGER
       local
          x,len, cx,cw: INTEGER
          done: BOOLEAN
@@ -1696,7 +1696,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   coord (i: INTEGER): INTEGER is
+   coord (i: INTEGER): INTEGER
          -- Find coordinate from index
       require
          0 <= i and then i <= contents.count
@@ -1716,7 +1716,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   layout is
+   layout
       local
          ll, rr, ww, tw, len: INTEGER
       do
@@ -1754,7 +1754,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   draw_cursor (state: INTEGER) is
+   draw_cursor (state: INTEGER)
       local
          cl, ch, xx, len: INTEGER;
          dc: SB_DC_WINDOW
@@ -1791,7 +1791,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   draw_text_range (dc: SB_DC_WINDOW; fm, to: INTEGER) is
+   draw_text_range (dc: SB_DC_WINDOW; fm, to: INTEGER)
       local
          sx, ex, xx, yy, cw, hh, ww, si, ei: INTEGER
       do
@@ -1914,7 +1914,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   draw_text_fragment (dc: SB_DC_WINDOW; x,y, fm,to: INTEGER) is
+   draw_text_fragment (dc: SB_DC_WINDOW; x,y, fm,to: INTEGER)
       local
          l_x, l_y: INTEGER
       do
@@ -1923,7 +1923,7 @@ feature {NONE} -- Implementation
          dc.draw_text_offset (l_x, l_y, contents, fm + 1, to - fm)
       end
 
-   draw_pwdtext_fragment (dc: SB_DC_WINDOW; x, y, fm, to: INTEGER) is
+   draw_pwdtext_fragment (dc: SB_DC_WINDOW; x, y, fm, to: INTEGER)
       local
          i, l_y, cw: INTEGER;
       do 
@@ -1939,7 +1939,7 @@ feature {NONE} -- Implementation
          end
       end
 
-	make_ins (event: SB_EVENT): BOOLEAN is
+	make_ins (event: SB_EVENT): BOOLEAN
 		do
 			Result := True
         	if (event.state & (CONTROLMASK | ALTMASK)) /= Zero

@@ -5,21 +5,21 @@ inherit
 
 	X_ANY_EVENT
 
-creation 
+create 
 
 	make,
 	from_x_struct
 
 feature -- Access
 
-	state : INTEGER is
+	state : INTEGER
 		do
       		Result := c_state (to_external)
     	end
 
 feature -- Modification
 
-	set_state (v : INTEGER) is
+	set_state (v : INTEGER)
 		do
 			c_set_state (to_external, v)
 		end
@@ -32,8 +32,8 @@ feature -- State values
 
 feature { NONE } -- External functions
 
-	c_state			(p: POINTER): INTEGER is	external "C struct XVisibilityEvent access state use <X11/Xlib.h>"     		end
+	c_state			(p: POINTER): INTEGER	external "C struct XVisibilityEvent access state use <X11/Xlib.h>"     		end
 
-	c_set_state		(p: POINTER; i: INTEGER) is    external "C struct XVisibilityEvent access state type int use <X11/Xlib.h>"    	end
+	c_set_state		(p: POINTER; i: INTEGER)    external "C struct XVisibilityEvent access state type int use <X11/Xlib.h>"    	end
 
 end 

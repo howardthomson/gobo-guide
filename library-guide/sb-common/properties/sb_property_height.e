@@ -5,7 +5,7 @@ inherit
 
 feature
 
-	name: STRING is "height"
+	name: STRING = "height"
 
 	widget: SB_OBJECT
 

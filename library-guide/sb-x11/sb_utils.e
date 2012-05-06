@@ -8,7 +8,7 @@ inherit
 
 feature
 
-    sleep(n: INTEGER) is
+    sleep(n: INTEGER)
          -- Sleep n microseconds
         require
             -- implemented: false

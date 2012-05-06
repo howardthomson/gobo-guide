@@ -10,17 +10,17 @@ inherit
 	X_STRUCT
 	X_EVENT_TYPES
 
-creation
+create
 
 	make
 
-creation {X_EVENT}
+create {X_EVENT}
 
 	from_x_struct
 
 feature -- Casting
 
-	to_event: X_EVENT is
+	to_event: X_EVENT
 			-- returns an X_EVENT with the same external representation
 			-- as `Current'
 		do
@@ -31,31 +31,31 @@ feature -- Casting
 
 feature -- Consultation
 
-	type: INTEGER is
+	type: INTEGER
 			-- returns an integer constant indicating the type of `Current'.
 		do
 			Result := c_type (to_external)
 		end
 
-	window: INTEGER is
+	window: INTEGER
 			-- returns the window that is most useful to toolkit dispatchers.
 		do
 			Result := c_window (to_external)
 		end
 
-	display: X_DISPLAY is
+	display: X_DISPLAY
 			-- returns the display the event was read from.
 		do
 			create Result.from_external (c_display (to_external))
 		end
 
-	serial: INTEGER is
+	serial: INTEGER
 			-- returns the sequence number of last request processed by server.
 		do
 			Result := c_serial (to_external)
 		end
 
-	send_event: BOOLEAN is
+	send_event: BOOLEAN
 			-- returns true if this came from a `send_event' request.
 		do
 			Result := c_send_event (to_external)
@@ -63,7 +63,7 @@ feature -- Consultation
 
 feature -- Modification
 
-	set_type (a_type: INTEGER) is
+	set_type (a_type: INTEGER)
 			-- sets the type of the event.
 		do
 			c_set_type (to_external, a_type)
@@ -71,7 +71,7 @@ feature -- Modification
 			type = a_type
 		end
 
-	set_window (a_window: INTEGER) is
+	set_window (a_window: INTEGER)
 			-- sets the event window.
 		do
 			c_set_window (to_external, a_window)
@@ -79,7 +79,7 @@ feature -- Modification
 			window = a_window
 		end
 
-	set_display (a_display: X_DISPLAY) is
+	set_display (a_display: X_DISPLAY)
 			-- sets the event display.
 		require
 			a_display /= Void
@@ -91,7 +91,7 @@ feature -- Modification
 
 feature -- Debug / Trace
 
-	event_type_names: ARRAY [ STRING ] is
+	event_type_names: ARRAY [ STRING ]
 		once
 			Result := <<
 				"NOT AN EVENT !!",		-- 1
@@ -131,7 +131,7 @@ feature -- Debug / Trace
 				>>
 		end
 
-	trace is
+	trace
 		local
 			t: INTEGER
 			s: STRING
@@ -153,39 +153,39 @@ feature -- Debug / Trace
 			io.put_string("%N")
 		end
 
-	trace_def is
+	trace_def
 		do
 		end
 
 feature { NONE }
 
-	size: INTEGER is
+	size: INTEGER
     	once
     		Result := c_event_size
     	end
 
 feature {NONE} -- external functions
 
-	c_event_size: INTEGER is
+	c_event_size: INTEGER
 		external
 			"C macro use <X11/Xlib.h>"
 		alias
 			"sizeof(XEvent)"
 		end
 
-	c_type				(p: POINTER): INTEGER is    external "C struct XAnyEvent access @type       use <X11/Xlib.h>" end
-	c_serial			(p: POINTER): INTEGER is    external "C struct XAnyEvent access serial		use <X11/Xlib.h>" end
-	c_send_event		(p: POINTER): BOOLEAN is    external "C struct XAnyEvent access send_event	use <X11/Xlib.h>" end
-	c_display			(p: POINTER): POINTER is    external "C struct XAnyEvent access display		use <X11/Xlib.h>" end
-	c_window			(p: POINTER): INTEGER is    external "C struct XAnyEvent access window		use <X11/Xlib.h>" end
+	c_type				(p: POINTER): INTEGER    external "C struct XAnyEvent access @type       use <X11/Xlib.h>" end
+	c_serial			(p: POINTER): INTEGER    external "C struct XAnyEvent access serial		use <X11/Xlib.h>" end
+	c_send_event		(p: POINTER): BOOLEAN    external "C struct XAnyEvent access send_event	use <X11/Xlib.h>" end
+	c_display			(p: POINTER): POINTER    external "C struct XAnyEvent access display		use <X11/Xlib.h>" end
+	c_window			(p: POINTER): INTEGER    external "C struct XAnyEvent access window		use <X11/Xlib.h>" end
 
 --	c_set_type			(p: POINTER; i: INTEGER) is	external "C struct XAnyEvent access @type      type int      use <X11/Xlib.h>" end
-	c_set_serial		(p: POINTER; i: INTEGER) is external "C struct XAnyEvent access serial	   type long     use <X11/Xlib.h>" end
-	c_set_send_event	(p: POINTER; b: BOOLEAN) is external "C struct XAnyEvent access send_event type Bool     use <X11/Xlib.h>" end
-	c_set_display		(p: POINTER; i: POINTER) is external "C struct XAnyEvent access display    type Display* use <X11/Xlib.h>" end
-	c_set_window		(p: POINTER; i: INTEGER) is external "C struct XAnyEvent access window	   type Window	 use <X11/Xlib.h>" end
+	c_set_serial		(p: POINTER; i: INTEGER) external "C struct XAnyEvent access serial	   type long     use <X11/Xlib.h>" end
+	c_set_send_event	(p: POINTER; b: BOOLEAN) external "C struct XAnyEvent access send_event type Bool     use <X11/Xlib.h>" end
+	c_set_display		(p: POINTER; i: POINTER) external "C struct XAnyEvent access display    type Display* use <X11/Xlib.h>" end
+	c_set_window		(p: POINTER; i: INTEGER) external "C struct XAnyEvent access window	   type Window	 use <X11/Xlib.h>" end
 
-	c_set_type (p: POINTER; i: INTEGER) is
+	c_set_type (p: POINTER; i: INTEGER)
 		external
 			"C inline use <X11/Xlib.h>"
 		alias

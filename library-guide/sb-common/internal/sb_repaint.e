@@ -1,4 +1,4 @@
-indexing
+note
 
 		description: "Repaint event record"
 
@@ -17,14 +17,14 @@ feature
 
 	next: SB_REPAINT
 
-	set_next (new_next: SB_REPAINT) is
+	set_next (new_next: SB_REPAINT)
 		do
 			next := new_next
 		end
 
 feature -- Processing
 
-	process (app: SB_APPLICATION) is
+	process (app: SB_APPLICATION)
 		local
 			ev: SB_RAW_EVENT
 			ev_expose: X_EXPOSE_EVENT
@@ -66,12 +66,12 @@ feature
 	is_synth: BOOLEAN
 			-- Synthetic expose event or real one?
 
-	set_window (win: INTEGER) is
+	set_window (win: INTEGER)
   		do
   			window := win
   		end
 
-  	set_xywh (x,y,w,h: INTEGER) is
+  	set_xywh (x,y,w,h: INTEGER)
   		do
   			rect_x := x
   			rect_y := y
@@ -79,32 +79,32 @@ feature
   			rect_h := h
   		end
 
-  	set_hint (new_hint: INTEGER) is
+  	set_hint (new_hint: INTEGER)
   		do
   			hint := new_hint
   		end
 
-  	set_synth (new_synth: BOOLEAN) is
+  	set_synth (new_synth: BOOLEAN)
   		do
   			is_synth := new_synth
   		end
 
-  	inc_x (by: INTEGER) is
+  	inc_x (by: INTEGER)
   		do
   			rect_x := rect_x + by
   		end
 
-  	inc_y (by: INTEGER) is
+  	inc_y (by: INTEGER)
   		do
   			rect_y := rect_y + by
   		end
 
-  	inc_w (by: INTEGER) is
+  	inc_w (by: INTEGER)
   		do
   			rect_w := rect_w + by
   		end
 
-  	inc_h (by: INTEGER) is
+  	inc_h (by: INTEGER)
   		do
   			rect_h := rect_h + by
   		end

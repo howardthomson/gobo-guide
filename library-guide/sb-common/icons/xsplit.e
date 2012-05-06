@@ -2,11 +2,11 @@ expanded class XSPLIT
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 11
-   y_hot: INTEGER is 11
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 11
+   y_hot: INTEGER = 11
+   bits: STRING =
    "%/000/%/000/%/000/%/000/%/000/%/099/%/000/%/000/%/000/%/099/%/000/%/000/%
    %%/000/%/099/%/000/%/000/%/000/%/099/%/000/%/000/%/000/%/099/%/000/%/000/%
    %%/000/%/099/%/000/%/000/%/000/%/099/%/000/%/000/%/254/%/227/%/063/%/000/%

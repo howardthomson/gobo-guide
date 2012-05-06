@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -136,7 +136,7 @@ inherit
 
 feature -- Status report
 
-	valid_start_condition (sc: INTEGER): BOOLEAN is
+	valid_start_condition (sc: INTEGER): BOOLEAN
 			-- Is `sc' a valid start condition?
 		do
 			Result := (INITIAL <= sc and sc <= STR_VERBATIM)
@@ -144,7 +144,7 @@ feature -- Status report
 
 feature {NONE} -- Implementation
 
-	yy_build_tables is
+	yy_build_tables
 			-- Build scanner tables.
 		do
 			yy_nxt := yy_nxt_template
@@ -157,7 +157,7 @@ feature {NONE} -- Implementation
 			yy_acclist := yy_acclist_template
 		end
 
-	yy_execute_action (yy_act: INTEGER) is
+	yy_execute_action (yy_act: INTEGER)
 			-- Execute semantic action.
 		do
 if yy_act <= 93 then
@@ -2436,7 +2436,7 @@ end
 			post_action
 		end
 
-	yy_execute_eof_action (yy_sc: INTEGER) is
+	yy_execute_eof_action (yy_sc: INTEGER)
 			-- Execute EOF semantic action.
 		do
 			inspect yy_sc
@@ -2457,7 +2457,7 @@ end
 
 feature {NONE} -- Table templates
 
-	yy_nxt_template: SPECIAL [INTEGER] is
+	yy_nxt_template: SPECIAL [INTEGER]
 		once
 			Result := yy_fixed_array (<<
 			    0,   12,   13,   14,   15,   16,   17,   18,   19,   20,
@@ -2752,7 +2752,7 @@ feature {NONE} -- Table templates
 			  662, yy_Dummy>>)
 		end
 
-	yy_chk_template: SPECIAL [INTEGER] is
+	yy_chk_template: SPECIAL [INTEGER]
 		once
 			Result := yy_fixed_array (<<
 			    0,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -3047,7 +3047,7 @@ feature {NONE} -- Table templates
 			  662, yy_Dummy>>)
 		end
 
-	yy_base_template: SPECIAL [INTEGER] is
+	yy_base_template: SPECIAL [INTEGER]
 		once
 			Result := yy_fixed_array (<<
 			    0,    0,    0,   75,   84,   93,   97,  106,  115,  125,
@@ -3130,7 +3130,7 @@ feature {NONE} -- Table templates
 			 2309, 2334, 2359, 2384, 2409, 2434, 2459, 2484, yy_Dummy>>)
 		end
 
-	yy_def_template: SPECIAL [INTEGER] is
+	yy_def_template: SPECIAL [INTEGER]
 		once
 			Result := yy_fixed_array (<<
 			    0,  662,    1,  663,  663,  664,  664,  665,  665,  666,
@@ -3213,7 +3213,7 @@ feature {NONE} -- Table templates
 			  662,  662,  662,  662,  662,  662,  662,  662, yy_Dummy>>)
 		end
 
-	yy_ec_template: SPECIAL [INTEGER] is
+	yy_ec_template: SPECIAL [INTEGER]
 		once
 			Result := yy_fixed_array (<<
 			    0,    1,    1,    1,    1,    1,    1,    1,    1,    2,
@@ -3246,7 +3246,7 @@ feature {NONE} -- Table templates
 			    1,    1,    1,    1,    1,    1,    1, yy_Dummy>>)
 		end
 
-	yy_meta_template: SPECIAL [INTEGER] is
+	yy_meta_template: SPECIAL [INTEGER]
 		once
 			Result := yy_fixed_array (<<
 			    0,    1,    2,    3,    2,    4,    1,    5,    1,    1,
@@ -3259,7 +3259,7 @@ feature {NONE} -- Table templates
 			   17,   17,   17,   25,    1,    1,    1, yy_Dummy>>)
 		end
 
-	yy_accept_template: SPECIAL [INTEGER] is
+	yy_accept_template: SPECIAL [INTEGER]
 		once
 			Result := yy_fixed_array (<<
 			    0,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -3337,7 +3337,7 @@ feature {NONE} -- Table templates
 			  926,  928,  930,  930, yy_Dummy>>)
 		end
 
-	yy_acclist_template: SPECIAL [INTEGER] is
+	yy_acclist_template: SPECIAL [INTEGER]
 		once
 			Result := yy_fixed_array (<<
 			    0,  186,  184,  185,    3,  184,  185,    4,  184,  185,
@@ -3446,49 +3446,49 @@ feature {NONE} -- Table templates
 
 feature {NONE} -- Constants
 
-	yyJam_base: INTEGER is 2554
+	yyJam_base: INTEGER = 2554
 			-- Position in `yy_nxt'/`yy_chk' tables
 			-- where default jam table starts
 
-	yyJam_state: INTEGER is 662
+	yyJam_state: INTEGER = 662
 			-- State id corresponding to jam state
 
-	yyTemplate_mark: INTEGER is 663
+	yyTemplate_mark: INTEGER = 663
 			-- Mark between normal states and templates
 
-	yyNull_equiv_class: INTEGER is 1
+	yyNull_equiv_class: INTEGER = 1
 			-- Equivalence code for NULL character
 
-	yyReject_used: BOOLEAN is false
+	yyReject_used: BOOLEAN = false
 			-- Is `reject' called?
 
-	yyVariable_trail_context: BOOLEAN is true
+	yyVariable_trail_context: BOOLEAN = true
 			-- Is there a regular expression with
 			-- both leading and trailing parts having
 			-- variable length?
 
-	yyReject_or_variable_trail_context: BOOLEAN is true
+	yyReject_or_variable_trail_context: BOOLEAN = true
 			-- Is `reject' called or is there a
 			-- regular expression with both leading
 			-- and trailing parts having variable length?
 
-	yyNb_rules: INTEGER is 185
+	yyNb_rules: INTEGER = 185
 			-- Number of rules
 
-	yyEnd_of_buffer: INTEGER is 186
+	yyEnd_of_buffer: INTEGER = 186
 			-- End of buffer rule code
 
-	yyLine_used: BOOLEAN is true
+	yyLine_used: BOOLEAN = true
 			-- Are line and column numbers used?
 
-	yyPosition_used: BOOLEAN is true
+	yyPosition_used: BOOLEAN = true
 			-- Is `position' used?
 
-	INITIAL: INTEGER is 0
-	IN_STR: INTEGER is 1
-	STR_GAP: INTEGER is 2
-	STR_VERBATIM_LA: INTEGER is 3
-	STR_VERBATIM: INTEGER is 4
+	INITIAL: INTEGER = 0
+	IN_STR: INTEGER = 1
+	STR_GAP: INTEGER = 2
+	STR_VERBATIM_LA: INTEGER = 3
+	STR_VERBATIM: INTEGER = 4
 			-- Start condition codes
 
 feature -- User-defined features
@@ -3497,7 +3497,7 @@ feature -- User-defined features
 
 feature {NONE} -- Error reporting
 
-	file_name: STRING is
+	file_name: STRING
 		deferred
 		end
 
@@ -3513,7 +3513,7 @@ feature {NONE} -- Local variables
 
 feature {NONE} -- Initialization
 
-	make_lex is
+	make_lex
 			-- Create a new Eiffel scanner.
 		do
 			make_with_buffer (Empty_buffer)
@@ -3524,13 +3524,13 @@ feature {NONE} -- Initialization
 			make_scanner
 		end
 
-	make_scanner is
+	make_scanner
 		deferred
 		end
 
 feature -- Initialization
 
-	reset_scanner is
+	reset_scanner
 			-- Reset scanner before scanning next input.
 		do
 			reset_compressed_scanner_skeleton
@@ -3570,7 +3570,7 @@ feature -- Status report
 
 feature {NONE} -- Processing
 
-	process_operator (op: INTEGER): INTEGER is
+	process_operator (op: INTEGER): INTEGER
 			-- Process current token as operator `op' or as
 			-- an Eiffel string depending on the context
 		require
@@ -3585,13 +3585,13 @@ feature {NONE} -- Processing
 			end
 		end
 
-	pre_action is
+	pre_action
 		do
 			--symbol_start_position := current_position
 			set_symbol_start_position
 		end
 
-	set_symbol_start_position is
+	set_symbol_start_position
 		deferred
 		end
 
@@ -3602,7 +3602,7 @@ feature
 
 feature {NONE}
 
-	post_action is
+	post_action
 		local
 			s: STRING
 		do
@@ -3725,11 +3725,11 @@ feature {NONE}
 			end
 		end
 
-	add_symbol(i: INTEGER; s: INTEGER) is
+	add_symbol(i: INTEGER; s: INTEGER)
 		deferred
 		end
 
-	start_cond_str: STRING is
+	start_cond_str: STRING
 		do
 			if		start_condition = INITIAL			then	Result := once "INITIAL"
 			elseif	start_condition = IN_STR			then	Result := once "IN_STR"
@@ -3740,20 +3740,20 @@ feature {NONE}
 			end
 		end
 
-	post_eof_action is
+	post_eof_action
 		do
 		--	fx_trace(0, <<once "Token count: ", token_count.out>>)
 		--	list_file
 		end
 
-	fx_trace_local(n: INTEGER; sa: ARRAY[STRING]) is
+	fx_trace_local(n: INTEGER; sa: ARRAY[STRING])
 		do
 	--		fx_trace(n, sa)
 		end
 
 feature {SCANNER_SYMBOL}
 
-	token_string(t: INTEGER): STRING is
+	token_string(t: INTEGER): STRING
 		do
 		--	inspect last_token
 			inspect t
@@ -3885,7 +3885,7 @@ feature {SCANNER_SYMBOL}
 
 feature {NONE} -- Constants
 
-	Init_buffer_size: INTEGER is 256
+	Init_buffer_size: INTEGER = 256
 				-- Initial size for `eif_buffer'
 
 invariant

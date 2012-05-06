@@ -1,4 +1,4 @@
-indexing
+note
 	description:"The Font"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -23,28 +23,28 @@ create
 
 feature -- not implemented
 
-	is_font_mono: BOOLEAN is
+	is_font_mono: BOOLEAN
 		do
 			-- TODO
 		end
 
-	has_char (c: CHARACTER): BOOLEAN is
+	has_char (c: CHARACTER): BOOLEAN
 		do
 		end
 
-	right_bearing (c: CHARACTER): INTEGER is
+	right_bearing (c: CHARACTER): INTEGER
 		do
 		end
 
 feature -- Creation
 
-	make_imp is
+	make_imp
 		do
 		end
 
 feature -- Queries
 
-	create_resource_imp is
+	create_resource_imp
 			-- Create the font
 		local
         	dcf	: SB_WAPI_DEVICE_CONTEXT_FUNCTIONS
@@ -138,7 +138,7 @@ feature -- Queries
             end
 		end
 
-	get_font_width: INTEGER is
+	get_font_width: INTEGER
 			-- Width of widest character in font
 		do
     		if font /= Void then
@@ -148,7 +148,7 @@ feature -- Queries
          	end
       	end
 
-   font_height, get_font_height: INTEGER is
+   font_height, get_font_height: INTEGER
          -- Height of highest character in font
       do
          if font /= Void then
@@ -158,7 +158,7 @@ feature -- Queries
          end
       end
 
-   ascent, get_font_ascent: INTEGER is
+   ascent, get_font_ascent: INTEGER
          -- Ascent from baseline
       do
          if font /= Void then
@@ -168,7 +168,7 @@ feature -- Queries
          end
       end
 
-   descent, get_font_descent: INTEGER is
+   descent, get_font_descent: INTEGER
          -- Descent from baseline
       do
          if font /= Void then
@@ -178,7 +178,7 @@ feature -- Queries
          end
       end
 
-   text_width_offset, get_text_width_offset (text: STRING; strt, count: INTEGER): INTEGER is
+   text_width_offset, get_text_width_offset (text: STRING; strt, count: INTEGER): INTEGER
          -- Calculate width of given text in this font
       require else
          non_void_text: text /= Void
@@ -206,7 +206,7 @@ feature -- Queries
          end
       end
 
-   get_text_height_offset (text: STRING; strt, count: INTEGER): INTEGER is
+   get_text_height_offset (text: STRING; strt, count: INTEGER): INTEGER
          -- Calculate height of given text in this font
       require else
          text_not_void: text /= Void
@@ -234,7 +234,7 @@ feature -- Queries
          end
       end
 
-   list_fonts (face: STRING; wt, sl, sw, en: INTEGER; h: INTEGER_32): ARRAY [SB_FONT_DESC] is
+   list_fonts (face: STRING; wt, sl, sw, en: INTEGER; h: INTEGER_32): ARRAY [SB_FONT_DESC]
          -- List all fonts matching hints
       do
       end
@@ -246,20 +246,20 @@ feature {NONE} -- Implementation
    font: SB_WAPI_TEXTMETRIC;
          -- Info about the font
 
-   MulDiv(number, numerator, denominator: INTEGER): INTEGER is
+   MulDiv(number, numerator, denominator: INTEGER): INTEGER
       external "C use <windows.h>"
       alias "MulDiv"
       end
 
-   find_best_font (fontname: STRING): STRING is
+   find_best_font (fontname: STRING): STRING
       do
       end
 
-   fall_back_font: STRING is
+   fall_back_font: STRING
       do
       end
 
-   find_match(fontname, family: STRING): STRING is
+   find_match(fontname, family: STRING): STRING
       do
       end
 

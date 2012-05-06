@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Facilities for wrapping kernel expanded values in SE_REFERENCE objects,
 		for argument passing in reference form.

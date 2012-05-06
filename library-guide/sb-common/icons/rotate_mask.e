@@ -2,11 +2,11 @@ expanded class ROTATE_MASK
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 9
-   y_hot: INTEGER is 9
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 9
+   y_hot: INTEGER = 9
+   bits: STRING =
    "%/248/%/031/%/000/%/000/%/248/%/031/%/000/%/000/%/240/%/079/%/000/%/000/%
    %%/248/%/231/%/000/%/000/%/252/%/243/%/001/%/000/%/254/%/225/%/003/%/000/%
    %%/254/%/192/%/003/%/000/%/095/%/192/%/007/%/000/%/015/%/128/%/007/%/000/%

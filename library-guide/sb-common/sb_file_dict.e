@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The File Association dictionary associates a file extension
 		with a FXFileAssoc record which contains command name, mime type,
@@ -24,19 +24,19 @@ inherit
          	remove
       	end
 
-creation
+create
 
 	make
 
 feature -- Creation
 
-	make(a: SB_APPLICATION) is
+	make(a: SB_APPLICATION)
          	-- Construct a dictionary mapping file-extension to file associations,
          	-- using the application registry settings as a source for the bindings.
     	do
     	end
 
-   	make_opts(a: SB_APPLICATION; db: SB_SETTINGS) is
+   	make_opts(a: SB_APPLICATION; db: SB_SETTINGS)
          	-- Construct a dictionary mapping file-extension to file associations,
          	-- using the specified settings database as a source for the bindings.
       	do
@@ -60,17 +60,17 @@ feature -- Data
 
 feature -- Queries
 
-   get_icon_path: STRING is
+   get_icon_path: STRING
          -- Return current icon search path
       do
       end
 
-   associate(key: STRING): SB_FILE_ASSOCIATION is
+   associate(key: STRING): SB_FILE_ASSOCIATION
          -- Find file association from registry
       do
       end
 
-   find_file_binding(pathname: STRING): SB_FILE_ASSOCIATION is
+   find_file_binding(pathname: STRING): SB_FILE_ASSOCIATION
          -- Determine binding for the given file.
          -- The default implementation tries the whole filename first,
          -- then tries the extensions.
@@ -86,7 +86,7 @@ feature -- Queries
       do
       end
 
-   find_dir_binding(pathname: STRING): SB_FILE_ASSOCIATION is
+   find_dir_binding(pathname: STRING): SB_FILE_ASSOCIATION
          -- Find directory binding from registry.
          -- The default implementation tries the whole pathname first,
          -- then tries successively smaller parts of the path.
@@ -102,7 +102,7 @@ feature -- Queries
       do
       end
 
-   find_exec_binding(pathname: STRING): SB_FILE_ASSOCIATION is
+   find_exec_binding(pathname: STRING): SB_FILE_ASSOCIATION
          -- Determine binding for the given executable.
          -- The default implementation returns the fallback binding associated with
          -- the key "defaultexecbinding".
@@ -112,12 +112,12 @@ feature -- Queries
 
 feature -- Actions
 
-   set_icon_path(path: STRING) is
+   set_icon_path(path: STRING)
          -- Set icon search path
       do
       end
 
-   replace(ext,str: STRING) is
+   replace(ext,str: STRING)
          -- Replace file association.
          -- The new association is written into the settings database under the
          -- FILETYPES section; the format of the association is as follows:
@@ -138,7 +138,7 @@ feature -- Actions
       do
       end
 
-   remove(ext: STRING) is
+   remove(ext: STRING)
          -- Remove file association
       do
       end

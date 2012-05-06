@@ -2,7 +2,7 @@ expanded class SB_WAPI_MESSAGE_AND_MESSAGE_QUEUE_FUNCTIONS
 
 feature -- Access
 
-   DefWindowProc (hWnd: POINTER; uMsg, wParam, lParam : INTEGER) : INTEGER is
+   DefWindowProc (hWnd: POINTER; uMsg, wParam, lParam : INTEGER) : INTEGER
 
 
 
@@ -17,7 +17,7 @@ feature -- Access
 
       end
 
-   DispatchMessage (lpmsg: POINTER) : INTEGER is
+   DispatchMessage (lpmsg: POINTER) : INTEGER
 
 
 
@@ -32,7 +32,7 @@ feature -- Access
 
       end
 
-   GetMessage (lpmsg : POINTER; hWnd, uMsgFilterMin, uMsgFilterMax : INTEGER) : INTEGER is
+   GetMessage (lpmsg : POINTER; hWnd, uMsgFilterMin, uMsgFilterMax : INTEGER) : INTEGER
 
 
 
@@ -47,7 +47,7 @@ feature -- Access
 
       end
 
-   PeekMessage (lpMsg, hWnd: POINTER;wMsgFilterMin,wMsgFilterMax: INTEGER; wRemoveMsg: INTEGER_32): INTEGER is
+   PeekMessage (lpMsg, hWnd: POINTER;wMsgFilterMin,wMsgFilterMax: INTEGER; wRemoveMsg: INTEGER_32): INTEGER
 
 
 
@@ -62,7 +62,7 @@ feature -- Access
 
       end
 
-   WaitMessage: INTEGER is
+   WaitMessage: INTEGER
 
 
 
@@ -77,7 +77,7 @@ feature -- Access
 
       end
 
-   PostQuitMessage (exitCode : INTEGER) is
+   PostQuitMessage (exitCode : INTEGER)
 
 
 
@@ -92,7 +92,7 @@ feature -- Access
 
       end
 
-   SendMessage (hWnd: POINTER; uMsg, wParam, lParam: INTEGER): INTEGER is
+   SendMessage (hWnd: POINTER; uMsg, wParam, lParam: INTEGER): INTEGER
 
 
 
@@ -107,7 +107,7 @@ feature -- Access
 
       end
 
-   TranslateMessage (lpmsg: POINTER): INTEGER is
+   TranslateMessage (lpmsg: POINTER): INTEGER
 
 
 
@@ -122,7 +122,7 @@ feature -- Access
 
       end
 
-   GetMessageTime: INTEGER is
+   GetMessageTime: INTEGER
 
 
 
@@ -137,7 +137,7 @@ feature -- Access
 
       end
 
-   GetMessagePos: INTEGER is
+   GetMessagePos: INTEGER
 
 
 
@@ -152,7 +152,7 @@ feature -- Access
 
       end
 
-   RegisterWindowMessage (lpsz : POINTER) : INTEGER is
+   RegisterWindowMessage (lpsz : POINTER) : INTEGER
 
 
 
@@ -167,7 +167,7 @@ feature -- Access
 
       end
 
-   PostMessage (hWnd: POINTER; uMsg, wParam, lParam: INTEGER): INTEGER is
+   PostMessage (hWnd: POINTER; uMsg, wParam, lParam: INTEGER): INTEGER
 
 
 

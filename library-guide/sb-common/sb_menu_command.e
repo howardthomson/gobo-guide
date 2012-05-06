@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The menu command widget is used to invoke a command in
 		the application from a menu. Menu commands may reflect the state of
@@ -36,7 +36,7 @@ inherit
 	SB_MENU_COMMAND_CONSTANTS
 	SB_REFERENCE_BOOLEAN
 
-creation
+create
 
    	make,
    	make_sb,
@@ -44,7 +44,7 @@ creation
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_MENU_COMMAND"
 		end

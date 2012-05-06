@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_COMBO_BOX constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -18,13 +18,13 @@ inherit
 
 feature -- ComboBox styles
 
-	COMBOBOX_NO_REPLACE		: INTEGER is 0x00000000	-- 0 0000 0000 0000 0000 0000B;		-- Leave the list the same
-	COMBOBOX_REPLACE		: INTEGER is 0x00020000	-- 0 0010 0000 0000 0000 0000B;		-- Replace current item with typed text
-	COMBOBOX_INSERT_BEFORE	: INTEGER is 0x00040000	-- 0 0100 0000 0000 0000 0000B;		-- Typed text inserted before current
-	COMBOBOX_INSERT_AFTER	: INTEGER is 0x00060000	-- 0 0110 0000 0000 0000 0000B;		-- Typed text inserted after current
-	COMBOBOX_INSERT_FIRST	: INTEGER is 0x00080000	-- 0 1000 0000 0000 0000 0000B;		-- Typed text inserted at begin of list
-	COMBOBOX_INSERT_LAST	: INTEGER is 0x00090000	-- 0 1001 0000 0000 0000 0000B;		-- Typed text inserted at end of list
-	COMBOBOX_STATIC			: INTEGER is 0x00100000	-- 1 0000 0000 0000 0000 0000B;		-- Unchangable text box
-	COMBOBOX_NORMAL			: INTEGER is 0x00000000	-- 0 0000 0000 0000 0000 0000B;		-- Can type text but list is not changed
+	COMBOBOX_NO_REPLACE		: INTEGER = 0x00000000	-- 0 0000 0000 0000 0000 0000B;		-- Leave the list the same
+	COMBOBOX_REPLACE		: INTEGER = 0x00020000	-- 0 0010 0000 0000 0000 0000B;		-- Replace current item with typed text
+	COMBOBOX_INSERT_BEFORE	: INTEGER = 0x00040000	-- 0 0100 0000 0000 0000 0000B;		-- Typed text inserted before current
+	COMBOBOX_INSERT_AFTER	: INTEGER = 0x00060000	-- 0 0110 0000 0000 0000 0000B;		-- Typed text inserted after current
+	COMBOBOX_INSERT_FIRST	: INTEGER = 0x00080000	-- 0 1000 0000 0000 0000 0000B;		-- Typed text inserted at begin of list
+	COMBOBOX_INSERT_LAST	: INTEGER = 0x00090000	-- 0 1001 0000 0000 0000 0000B;		-- Typed text inserted at end of list
+	COMBOBOX_STATIC			: INTEGER = 0x00100000	-- 1 0000 0000 0000 0000 0000B;		-- Unchangable text box
+	COMBOBOX_NORMAL			: INTEGER = 0x00000000	-- 0 0000 0000 0000 0000 0000B;		-- Can type text but list is not changed
 
 end

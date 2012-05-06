@@ -1,4 +1,4 @@
-indexing
+note
 	description:"File List Widget"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -62,7 +62,7 @@ feature -- Attributes
 
 feature -- Creation
 
-   	make_opts(p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER; x,y,w,h: INTEGER) is
+   	make_opts(p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; selector: INTEGER; opts: INTEGER; x,y,w,h: INTEGER)
     		-- Construct a file list
 		do
         	Precursor(p, tgt,selector, opts, x,y,w,h)
@@ -104,7 +104,7 @@ feature -- Creation
 
 feature -- Queries
 
-	current_file: STRING is
+	current_file: STRING
     		-- Return current file, Void if absent
       	do
          	if current_item > 0 then
@@ -112,13 +112,13 @@ feature -- Queries
          	end
       	end
 
-	hidden_files_shown: BOOLEAN is
+	hidden_files_shown: BOOLEAN
     		-- Return True if showing hidden files
       	do
          	Result := (options & FILELIST_SHOWHIDDEN) /= Zero
       	end
 
-	only_directories_shown: BOOLEAN is
+	only_directories_shown: BOOLEAN
     		-- Return True if showing directories only
 		do
 			Result := (options & FILELIST_SHOWDIRS) /= Zero
@@ -126,7 +126,7 @@ feature -- Queries
 
 feature -- Item queries
 
-	item_pathname(index: INTEGER): STRING is
+	item_pathname(index: INTEGER): STRING
     		-- Return full pathname of item at index
        	require
           	index > 0 and then index <= items_count
@@ -136,7 +136,7 @@ feature -- Item queries
 
 feature -- Actions
 
-	set_current_file(pathname: STRING) is
+	set_current_file(pathname: STRING)
     		-- Set current file
       	require
          	pathname /= Void
@@ -147,7 +147,7 @@ feature -- Actions
          	end
       	end
 
-	set_directory(pathname: STRING) is
+	set_directory(pathname: STRING)
     		-- Set current directory
     	require
          	pathname /= Void
@@ -173,7 +173,7 @@ feature -- Actions
          	end
       	end
 
-   	set_pattern(ptrn: STRING) is
+   	set_pattern(ptrn: STRING)
          	-- Change wildcard matching pattern
       	require
          	ptrn /= Void
@@ -187,7 +187,7 @@ feature -- Actions
          	end
       	end
 
-   set_match_mode(mode: INTEGER) is
+   set_match_mode(mode: INTEGER)
          -- Change wildcard matching mode
       do
          if match_mode /= mode then
@@ -197,7 +197,7 @@ feature -- Actions
          end
       end
 
-   show_hidden_files(showing: BOOLEAN) is
+   show_hidden_files(showing: BOOLEAN)
          -- Show or hide hidden files
       local
          opts: INTEGER;
@@ -214,7 +214,7 @@ feature -- Actions
          end
       end
 
-   show_only_directories(showing: BOOLEAN) is
+   show_only_directories(showing: BOOLEAN)
          -- Show directories only
       local
          opts: INTEGER
@@ -231,7 +231,7 @@ feature -- Actions
          end
       end
 
-   set_associations(assocs: SB_FILE_DICT) is
+   set_associations(assocs: SB_FILE_DICT)
          -- Change file associations
       do
          if associations /= assocs then
@@ -244,7 +244,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
 			if		match_function_2 (SEL_DRAGGED,		0,					type, key) then Result := on_dragged 				(sender,key,data);
         	elseif  match_function_2 (Sel_timeout,		ID_REFRESHTIMER,	type, key) then Result := on_refresh_timer 			(sender,key,data);
@@ -285,7 +285,7 @@ feature -- Message processing
          	end
       end
 
-	on_refresh_timer(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_refresh_timer(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
         	interval: INTEGER
          	changetime: INTEGER;
@@ -320,7 +320,7 @@ feature -- Message processing
 --#			refresh_timer := application.add_timeout(interval, Current, ID_REFRESHTIMER);
       	end
 
-   on_open_timer(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_open_timer(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          cp: SB_CURSOR_POSITION;
          index: INTEGER;
@@ -338,7 +338,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_dnd_enter(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_dnd_enter(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender, selector, data)
          	-- Keep original directory
@@ -346,7 +346,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_dnd_leave(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_dnd_leave(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          Result := Precursor(sender,selector,data);
          	-- Cancel open up timer
@@ -363,7 +363,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_dnd_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_dnd_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          index: INTEGER
@@ -406,7 +406,7 @@ feature -- Message processing
          end
       end
 
-   on_dnd_drop (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_dnd_drop (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          dnd_data: STRING
          len: INTEGER;
@@ -473,7 +473,7 @@ feature -- Message processing
          end
       end
 
-	on_dnd_request(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_dnd_request(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	local
         	event: SB_EVENT;
          	dnd_data: STRING;
@@ -500,7 +500,7 @@ feature -- Message processing
 			implemented: false
       	end
 
-   on_begin_drag(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_begin_drag(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          i,e: INTEGER
          arr: ARRAY[INTEGER];
@@ -529,7 +529,7 @@ feature -- Message processing
          end
       end
 
-   on_end_drag(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_end_drag(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not Precursor(sender,selector,data) then
             do_end_drag(did_accept /= DRAG_REJECT);
@@ -539,7 +539,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_dragged(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_dragged(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          action: INTEGER;
@@ -566,7 +566,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_set_value, on_cmd_set_string_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_value, on_cmd_set_string_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING;
       do
@@ -574,7 +574,7 @@ feature -- Message processing
          set_current_file(str);
       end
 
-   on_cmd_get_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING;
       do
@@ -583,13 +583,13 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_directory_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_directory_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          set_directory(ff.up_level(directory));
          Result := True;
       end
 
-   on_upd_directory_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_directory_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if ff.is_top_directory(directory) then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_disable,data);
@@ -599,7 +599,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_sort(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_sort(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          t: INTEGER
       do
@@ -613,7 +613,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_upd_sort(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_sort(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          t: INTEGER;
       do
@@ -625,12 +625,12 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_sort_reverse(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_sort_reverse(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          comparator.reverse
       end
 
-   on_upd_sort_reverse(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_sort_reverse(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if comparator.type < 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void);
@@ -639,7 +639,7 @@ feature -- Message processing
          end
       end
 
-   on_cmd_set_pattern(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_pattern(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING
       do
@@ -648,13 +648,13 @@ feature -- Message processing
          Result := True;
       end
 
-   on_upd_set_pattern(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_set_pattern(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          sender.do_handle_2 (Current, SEL_COMMAND, Id_setvalue, pattern);
          Result := True;
       end
 
-   on_cmd_set_directory(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_directory(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING
       do
@@ -663,19 +663,19 @@ feature -- Message processing
          Result := True;
       end
 
-   on_upd_set_directory(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_set_directory(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          sender.do_handle_2 (Current, SEL_COMMAND, Id_setvalue, directory);
          Result := True;
       end
 
-   on_cmd_toggle_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_toggle_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          show_hidden_files (not hidden_files_shown);
          Result := True;
       end
 
-   on_upd_toggle_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_toggle_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if hidden_files_shown then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void);
@@ -685,13 +685,13 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_show_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_show_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          show_hidden_files(True);
          Result := True;
       end
 
-   on_upd_show_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_show_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if hidden_files_shown then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_check, Void);
@@ -701,13 +701,13 @@ feature -- Message processing
          Result := True;
       end
 
-   on_cmd_hide_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_hide_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          show_hidden_files(False);
          Result := True;
       end
 
-   on_upd_hide_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_hide_hidden(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if hidden_files_shown then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_uncheck, Void);
@@ -717,7 +717,7 @@ feature -- Message processing
          Result := True;
       end
 
-	on_cmd_header(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_header(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 		--   index: INTEGER_REF
 			index: SE_REFERENCE [ INTEGER ]
@@ -729,7 +729,7 @@ feature -- Message processing
          	Result := True;
       	end
 
-   on_upd_header (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_header (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          i, type: INTEGER
       do
@@ -753,7 +753,7 @@ feature -- Message processing
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       do
          Precursor
@@ -777,7 +777,7 @@ feature -- Resource management
          sort_items
       end
 
-   detach_resource is
+   detach_resource
          -- Detach server-side resources
       do
          Precursor
@@ -799,7 +799,7 @@ feature -- Resource management
          uri_list_type := 0
       end
 
-   destroy_resource is
+   destroy_resource
          -- Destroy server-side resources
       do
          Precursor
@@ -821,26 +821,26 @@ feature -- Resource management
 
 feature {NONE} -- Implementation
 
-	comparator: SB_FILE_LIST_ITEM_COMPARATOR is
+	comparator: SB_FILE_LIST_ITEM_COMPARATOR
 		once
 			create Result
 		end
 
-	sorter: SB_H_ARRAY_SORTER [ SB_FILE_LIST_ITEM ] is
+	sorter: SB_H_ARRAY_SORTER [ SB_FILE_LIST_ITEM ]
 		once
 			create Result
 		end
 
-	create_item (txt: STRING; big,mini: SB_ICON; data: ANY): SB_FILE_LIST_ITEM is
+	create_item (txt: STRING; big,mini: SB_ICON; data: ANY): SB_FILE_LIST_ITEM
     	do
         	create Result.make(txt, big, mini, data);
 		end
 
-	list_directory is
+	list_directory
 		deferred
 		end
 
-	convert_filetime (low_time, hi_time: INTEGER): INTEGER is
+	convert_filetime (low_time, hi_time: INTEGER): INTEGER
 --		external "C"
 --		alias "sb_file_filetime"
 
@@ -849,12 +849,12 @@ feature {NONE} -- Implementation
 			implemented: false
 		end
 
-	TIMEFORMAT: STRING is once Result := "%%m/%%d/%%Y %%H:%%M:%%S" end
+	TIMEFORMAT: STRING once Result := "%%m/%%d/%%Y %%H:%%M:%%S" end
 
-	REFRESHINTERVAL		: INTEGER is  1000
-	REFRESHINTERVALLONG	: INTEGER is 15000
+	REFRESHINTERVAL		: INTEGER =  1000
+	REFRESHINTERVALLONG	: INTEGER = 15000
 
-	bigapp: ARRAY [ INTEGER_8 ] is
+	bigapp: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x20, 0x00,
@@ -883,7 +883,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	miniapp: ARRAY [ INTEGER_8 ] is
+	miniapp: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00,
@@ -903,7 +903,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	bigdoc: ARRAY [ INTEGER_8 ] is
+	bigdoc: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x20, 0x00,
@@ -931,7 +931,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	minidoc: ARRAY [ INTEGER_8 ] is
+	minidoc: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00,
@@ -951,7 +951,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	bigfolder: ARRAY [ INTEGER_8 ] is
+	bigfolder: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x20, 0x00,
@@ -980,7 +980,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	bigfolderopen: ARRAY [ INTEGER_8 ] is
+	bigfolderopen: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x20, 0x00,
@@ -1013,7 +1013,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	minifolder: ARRAY [ INTEGER_8 ] is
+	minifolder: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00,
@@ -1033,7 +1033,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	minifolderopen: ARRAY [ INTEGER_8 ] is
+	minifolderopen: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00,

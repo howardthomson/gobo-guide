@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"Eiffel Vision fixed. Slyboots implementation."
 	legal: "See notice at end of class."
@@ -40,7 +40,7 @@ feature {NONE} -- Initialization
 --			set_c_object ({EV_GTK_DEPENDENT_EXTERNALS}.gtk_fixed_new)
 --		end
 
-	make is
+	make
 			-- Initialize `Current'.
 		do
 			todo_class_line ("__EV_FIXED_IMP__", "__LINE__")
@@ -88,7 +88,7 @@ feature -- Status setting
 --			{EV_GTK_EXTERNALS}.gtk_container_check_resize (container_widget)
 		end
 
-	set_item_position (a_widget: EV_WIDGET; a_x, a_y: INTEGER) is
+	set_item_position (a_widget: EV_WIDGET; a_x, a_y: INTEGER)
 			-- Set `a_widget.x_position' to `a_x'.
 			-- Set `a_widget.y_position' to `a_y'.
 		local
@@ -111,7 +111,7 @@ feature -- Status setting
 --			{EV_GTK_EXTERNALS}.gtk_fixed_move (container_widget, l_parent_box, a_x, a_y)
 		end
 
-	set_item_size (a_widget: EV_WIDGET; a_width, a_height: INTEGER) is
+	set_item_size (a_widget: EV_WIDGET; a_width, a_height: INTEGER)
 			-- Set `a_widget.width' to `a_width'.
 			-- Set `a_widget.height' to `a_height'.
 		local
@@ -129,7 +129,7 @@ feature -- Status setting
 
 feature {EV_ANY_I} -- Implementation
 
-	i_th_fixed_child (i: INTEGER): POINTER is
+	i_th_fixed_child (i: INTEGER): POINTER
 			-- `i-th' fixed child of `Current'.
 		local
 --			glist: POINTER
@@ -139,14 +139,14 @@ feature {EV_ANY_I} -- Implementation
 --			Result := {EV_GTK_EXTERNALS}.g_list_nth_data (glist, i - 1)
 		end
 
-	x_position_of_child (a_widget_imp: EV_WIDGET_IMP): INTEGER is
+	x_position_of_child (a_widget_imp: EV_WIDGET_IMP): INTEGER
 			-- X position of `a_widget_imp' within `Current'.
 		do
 			todo_class_line ("__EV_FIXED_IMP__", "__LINE__")
 --			Result := {EV_GTK_EXTERNALS}.gtk_fixed_child_struct_x (i_th_fixed_child (index_of (a_widget_imp.interface, 1)))
 		end
 
-	y_position_of_child (a_widget_imp: EV_WIDGET_IMP): INTEGER is
+	y_position_of_child (a_widget_imp: EV_WIDGET_IMP): INTEGER
 			-- Y position of `a_widget_imp' within `Current'.
 		do
 			todo_class_line ("__EV_FIXED_IMP__", "__LINE__")
@@ -156,7 +156,7 @@ feature {EV_ANY_I} -- Implementation
 			-- Provides a common user interface to platform dependent
 			-- functionality implemented by `Current'
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

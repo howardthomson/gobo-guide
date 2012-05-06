@@ -3,7 +3,7 @@ expanded class SB_WAPI_PEN_FUNCTIONS
 feature -- Access
 
    ExtCreatePen (dwPenStyle: INTEGER_32; dwWidth: INTEGER; lplb: POINTER; 
-                 dwStyleCount: INTEGER; lpStyle: POINTER): POINTER is
+                 dwStyleCount: INTEGER; lpStyle: POINTER): POINTER
 
 
 
@@ -18,7 +18,7 @@ feature -- Access
 
       end
 
-   CreatePen (fnPenStyle, nWidth, crColor: INTEGER): POINTER is
+   CreatePen (fnPenStyle, nWidth, crColor: INTEGER): POINTER
 
 
 
@@ -33,7 +33,7 @@ feature -- Access
 
    end
 
-   CreatePenIndirect (lplgpn: POINTER): POINTER is
+   CreatePenIndirect (lplgpn: POINTER): POINTER
 
 
 

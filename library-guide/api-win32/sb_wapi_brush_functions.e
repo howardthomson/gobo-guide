@@ -2,7 +2,7 @@ expanded class SB_WAPI_BRUSH_FUNCTIONS
 
 feature -- Access
 
-   SetBrushOrgEx(hdc: POINTER; nXOrg, nYOrg: INTEGER; lppt: POINTER): INTEGER is
+   SetBrushOrgEx(hdc: POINTER; nXOrg, nYOrg: INTEGER; lppt: POINTER): INTEGER
 
 
 
@@ -18,7 +18,7 @@ feature -- Access
       end
 	---------------------------------------
 	
-   CreateBrushIndirect (lplb: POINTER): POINTER is
+   CreateBrushIndirect (lplb: POINTER): POINTER
 
 
 
@@ -34,7 +34,7 @@ feature -- Access
       end
 	---------------------------------------
 
-   CreatePatternBrush (hbmp: POINTER): POINTER is
+   CreatePatternBrush (hbmp: POINTER): POINTER
 
 
 
@@ -50,7 +50,7 @@ feature -- Access
       end
 	---------------------------------------
 
-   CreateSolidBrush (crColor: INTEGER): POINTER is
+   CreateSolidBrush (crColor: INTEGER): POINTER
 
 
 

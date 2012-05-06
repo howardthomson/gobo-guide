@@ -3,7 +3,7 @@ expanded class SB_WAPI_FILE_FUNCTIONS
 feature
 
    CreateFile (lpszName: POINTER; fdwAccess: INTEGER_32; fdwShareMode: INTEGER_32;
-               lpsa: POINTER; fdwCreate: INTEGER; fdwAttrsAndFlags: INTEGER_32; hTemplateFile: POINTER): POINTER is
+               lpsa: POINTER; fdwCreate: INTEGER; fdwAttrsAndFlags: INTEGER_32; hTemplateFile: POINTER): POINTER
 
 
 
@@ -13,7 +13,7 @@ feature
 
       end
 
-   CreateDirectory (lpPathName: POINTER; lpSecurityAttributes: POINTER): INTEGER is
+   CreateDirectory (lpPathName: POINTER; lpSecurityAttributes: POINTER): INTEGER
 
 
 
@@ -23,7 +23,7 @@ feature
 
       end
 
-   MoveFile(lpExistingFileName: POINTER; lpNewFileName: POINTER): INTEGER is
+   MoveFile(lpExistingFileName: POINTER; lpNewFileName: POINTER): INTEGER
 
 
 
@@ -33,7 +33,7 @@ feature
 
       end
 
-   CopyFile(lpExistingFileName,lpNewFileName: POINTER; bFailIfExists: INTEGER): INTEGER is
+   CopyFile(lpExistingFileName,lpNewFileName: POINTER; bFailIfExists: INTEGER): INTEGER
 
 
 
@@ -43,7 +43,7 @@ feature
 
       end
 
-   DeleteFile (lpFileName: POINTER): INTEGER is
+   DeleteFile (lpFileName: POINTER): INTEGER
 
 
 
@@ -53,7 +53,7 @@ feature
 
       end
 
-   RemoveDirectory (lpPathName: POINTER): INTEGER is
+   RemoveDirectory (lpPathName: POINTER): INTEGER
 
 
 
@@ -63,7 +63,7 @@ feature
 
       end
 
-   GetCurrentDirectory (nBufferLength: INTEGER;lpBuffer: POINTER): INTEGER is
+   GetCurrentDirectory (nBufferLength: INTEGER;lpBuffer: POINTER): INTEGER
 
 
 
@@ -73,7 +73,7 @@ feature
 
       end
 
-   SetCurrentDirectory(lpPathName: POINTER): INTEGER is
+   SetCurrentDirectory(lpPathName: POINTER): INTEGER
 
 
 
@@ -84,7 +84,7 @@ feature
       end
 
    GetFullPathName (lpFileName: POINTER; nBufferLength: INTEGER; lpBuffer: POINTER;
-                    lpFilePart: POINTER ): INTEGER is
+                    lpFilePart: POINTER ): INTEGER
 
 
 
@@ -94,7 +94,7 @@ feature
 
       end
 
-   FindFirstFile (lpFileName: POINTER; lpFindFileData: POINTER): POINTER is
+   FindFirstFile (lpFileName: POINTER; lpFindFileData: POINTER): POINTER
 
 
 
@@ -104,7 +104,7 @@ feature
 
       end
 
-   FindNextFile (hFindFile: POINTER;lpFindFileData: POINTER): INTEGER is
+   FindNextFile (hFindFile: POINTER;lpFindFileData: POINTER): INTEGER
 
 
 
@@ -114,7 +114,7 @@ feature
 
       end
 
-   FindClose (hFindFile: POINTER): INTEGER is
+   FindClose (hFindFile: POINTER): INTEGER
 
 
 
@@ -124,7 +124,7 @@ feature
 
       end
 
-   GetFileAttributes(lpFileName: POINTER): INTEGER_32 is
+   GetFileAttributes(lpFileName: POINTER): INTEGER_32
 
 
 
@@ -134,7 +134,7 @@ feature
 
       end
 
-   GetFileSize (hFile: POINTER; lpFileSizeHigh: POINTER): INTEGER is
+   GetFileSize (hFile: POINTER; lpFileSizeHigh: POINTER): INTEGER
 
 
 
@@ -144,7 +144,7 @@ feature
 
       end
 
-   GetFileType (hFile: POINTER): INTEGER is
+   GetFileType (hFile: POINTER): INTEGER
 
 
 
@@ -154,7 +154,7 @@ feature
 
       end
 
-   GetTempFileName (lpPathName,lpPrefixString: POINTER; uUnique: INTEGER;lpTempFileName: POINTER): INTEGER is
+   GetTempFileName (lpPathName,lpPrefixString: POINTER; uUnique: INTEGER;lpTempFileName: POINTER): INTEGER
 
 
 
@@ -164,7 +164,7 @@ feature
 
       end
 
-   GetTempPath (nBufferLength: INTEGER; lpBuffer: POINTER): INTEGER is
+   GetTempPath (nBufferLength: INTEGER; lpBuffer: POINTER): INTEGER
 
 
 
@@ -175,7 +175,7 @@ feature
       end
 
    ReadFile(hFile,lpBuffer: POINTER; nNumberOfBytesToRead: INTEGER;
-            lpNumberOfBytesRead, lpOverlapped: POINTER): INTEGER is
+            lpNumberOfBytesRead, lpOverlapped: POINTER): INTEGER
 
 
 
@@ -185,7 +185,7 @@ feature
 
       end
 
-   SetEndOfFile (hFile: POINTER): INTEGER is
+   SetEndOfFile (hFile: POINTER): INTEGER
 
 
 
@@ -196,7 +196,7 @@ feature
       end
 
    SetFilePointer (hFile: POINTER; lDistanceToMove: INTEGER;
-                   lpDistanceToMoveHigh: POINTER; dwMoveMethod: INTEGER): INTEGER is
+                   lpDistanceToMoveHigh: POINTER; dwMoveMethod: INTEGER): INTEGER
 
 
 
@@ -207,7 +207,7 @@ feature
       end
 
    WriteFile (hFile,lpBuffer: POINTER; nNumberOfBytesToWrite : INTEGER;
-              lpNumberOfBytesWritten,lpOverlapped: POINTER): INTEGER is
+              lpNumberOfBytesWritten,lpOverlapped: POINTER): INTEGER
 
 
 
@@ -217,7 +217,7 @@ feature
 
       end
 
-   GetFileInformationByHandle (hFile,lpFileInformation: POINTER): INTEGER is
+   GetFileInformationByHandle (hFile,lpFileInformation: POINTER): INTEGER
 
 
 
@@ -227,7 +227,7 @@ feature
 
       end
 
-   GetDriveType (lpRootPathName: POINTER): INTEGER is
+   GetDriveType (lpRootPathName: POINTER): INTEGER
 
 
 
@@ -241,7 +241,7 @@ feature
                         nVolumeNameSize: INTEGER;
                         lpVolumeSerialNumber,lpMaximumComponentLength,
                         lpFileSystemFlags,lpFileSystemNameBuffer: POINTER;
-                        nFileSystemNameSize: INTEGER): INTEGER is
+                        nFileSystemNameSize: INTEGER): INTEGER
 
 
 
@@ -251,7 +251,7 @@ feature
 
       end
 
-   GetLogicalDrives: INTEGER_32 is
+   GetLogicalDrives: INTEGER_32
 
 
 

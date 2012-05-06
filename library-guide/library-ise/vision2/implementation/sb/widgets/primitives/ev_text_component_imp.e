@@ -37,27 +37,27 @@ feature -- Initialization
 
 feature {EV_INTERMEDIARY_ROUTINES} -- Implementation
 
-	on_change_actions is
+	on_change_actions
 			-- The text has been changed by the user.
 		deferred
 		end
 
 feature -- Resizing
 
-	set_minimum_width_in_characters (nb: INTEGER) is
+	set_minimum_width_in_characters (nb: INTEGER)
 			-- Make `nb' characters visible on one line.
 		do
 			set_minimum_width (nb * maximum_character_width)
 				-- 10 = size of handle
 		end
 
-	maximum_character_width: INTEGER is
+	maximum_character_width: INTEGER
 			-- Maximum width of a single character in `Current'.
 		do
 			Result := font.string_width (once "W")
 		end
 
-	font: EV_FONT is
+	font: EV_FONT
 			-- Current font displayed by widget. (This can be removed if text component is made fontable)
 		deferred
 		end

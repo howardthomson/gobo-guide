@@ -26,19 +26,19 @@ inherit
 
 feature -- Access
 
-	is_homogeneous: BOOLEAN is
+	is_homogeneous: BOOLEAN
 			-- Are all children restricted to be the same size?
 		do
 			todo_class_line ("__EV_BOX_IMP__", "__LINE__")
 		end
 
-	border_width: INTEGER is
+	border_width: INTEGER
 			-- Width of border around container in pixels.
 		do
 			todo_class_line ("__EV_BOX_IMP__", "__LINE__")
 		end
 
-	padding: INTEGER is
+	padding: INTEGER
 			-- Space between children in pixels.		
 		do
 			todo_class_line ("__EV_BOX_IMP__", "__LINE__")
@@ -46,7 +46,7 @@ feature -- Access
 
 feature {EV_ANY, EV_ANY_I} -- Status report
 
-	is_item_expanded (child: EV_WIDGET): BOOLEAN is
+	is_item_expanded (child: EV_WIDGET): BOOLEAN
 			-- Is `child' expanded to occupy available spare space?
 		local
 			fill: INTEGER
@@ -58,25 +58,25 @@ feature {EV_ANY, EV_ANY_I} -- Status report
 
 feature {EV_ANY, EV_ANY_I} -- Status settings
 
-	set_homogeneous (flag: BOOLEAN) is
+	set_homogeneous (flag: BOOLEAN)
 			-- Set whether every child is the same size.
 		do
 			todo_class_line ("__EV_BOX_IMP__", "__LINE__")
 		end
 
-	set_border_width (value: INTEGER) is
+	set_border_width (value: INTEGER)
 			 -- Assign `value' to `border_width'.
 		do
 			todo_class_line ("__EV_BOX_IMP__", "__LINE__")
 		end
 
-	set_padding (value: INTEGER) is
+	set_padding (value: INTEGER)
 			-- Assign `value' to `padding'.
 		do
 			todo_class_line ("__EV_BOX_IMP__", "__LINE__")
 		end
 
-	set_child_expandable (child: EV_WIDGET; flag: BOOLEAN) is
+	set_child_expandable (child: EV_WIDGET; flag: BOOLEAN)
 			-- Set whether `child' expands to fill available spare space.
 		local
 			old_expand, fill, pad, pack_type: INTEGER
@@ -87,7 +87,7 @@ feature {EV_ANY, EV_ANY_I} -- Status settings
 
 feature {EV_ANY_I} -- Implementation
 
-	needs_event_box: BOOLEAN is
+	needs_event_box: BOOLEAN
 			-- Does `a_widget' need an event box?
 		do
 			Result := True

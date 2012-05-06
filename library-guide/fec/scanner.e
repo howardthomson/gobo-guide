@@ -10,7 +10,7 @@ inherit
 
 	SCANNER_EIFFEL
 
-creation
+create
 
 	make_from_string	-- Gobo
 

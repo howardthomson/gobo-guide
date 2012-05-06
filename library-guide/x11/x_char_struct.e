@@ -1,4 +1,4 @@
-indexing
+note
 
 		description: "C Structure -- Xlib XCharStruct"
 
@@ -14,22 +14,22 @@ inherit
   
 feature { NONE } -- Offsets of elements in Struct
 
-	Base_lbearing		: INTEGER is 0
-	Base_rbearing		: INTEGER is 2
-	Base_width			: INTEGER is 4
-	Base_ascent			: INTEGER is 6
-	Base_descent		: INTEGER is 8
-	Base_attributes		: INTEGER is 10
+	Base_lbearing		: INTEGER = 0
+	Base_rbearing		: INTEGER = 2
+	Base_width			: INTEGER = 4
+	Base_ascent			: INTEGER = 6
+	Base_descent		: INTEGER = 8
+	Base_attributes		: INTEGER = 10
 
 --	size: INTEGER is 12
 	
 feature -- Access
 
-	lbearing		: INTEGER	is do Result := as_short(Base_lbearing	) end
-	rbearing		: INTEGER	is do Result := as_short(Base_rbearing	) end
-	width			: INTEGER	is do Result := as_short(Base_width		) end
-	ascent			: INTEGER	is do Result := as_short(Base_ascent	) end
-	descent			: INTEGER	is do Result := as_short(Base_descent	) end
-	attributes		: INTEGER	is do Result := as_short(Base_attributes) end
+	lbearing		: INTEGER do Result := as_short(Base_lbearing	) end
+	rbearing		: INTEGER do Result := as_short(Base_rbearing	) end
+	width			: INTEGER do Result := as_short(Base_width		) end
+	ascent			: INTEGER do Result := as_short(Base_ascent	) end
+	descent			: INTEGER do Result := as_short(Base_descent	) end
+	attributes		: INTEGER do Result := as_short(Base_attributes) end
 
 end 

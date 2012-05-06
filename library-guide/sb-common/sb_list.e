@@ -1,4 +1,4 @@
-indexing
+note
 	description: "List Widget"
 
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
@@ -44,7 +44,7 @@ inherit
       	export {NONE} all
       	end
 
-creation
+create
 
    make, make_opts
 
@@ -54,21 +54,21 @@ feature -- Attributes
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_LIST"
 		end
 
 feature -- Creation
 
-   make(p: SB_COMPOSITE; nvis: INTEGER; opts: INTEGER) is
+   make(p: SB_COMPOSITE; nvis: INTEGER; opts: INTEGER)
          -- Construct a list with nvis visible items; the list is initially is_empty
       do
          make_opts(p, nvis, Void,  0,  opts,  0,  0,  0,  0)
       end
 
    make_opts(p: SB_COMPOSITE; nvis: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER;
-             x,  y,  w,  h: INTEGER) is
+             x,  y,  w,  h: INTEGER)
          -- Construct a list with nvis visible items; the list is initially is_empty
       do
          scroll_area_make_opts (p, opts, x, y, w, h)
@@ -97,7 +97,7 @@ feature -- Creation
 
 feature -- Queries
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       do
          if visible_rows /= 0 then
@@ -107,7 +107,7 @@ feature -- Queries
          end
       end
 
-   content_width: INTEGER is
+   content_width: INTEGER
          -- Compute and return content width
       do
          if (flags & Flag_recalc) /= 0 then
@@ -116,7 +116,7 @@ feature -- Queries
          Result := list_width
       end
 
-   content_height: INTEGER is
+   content_height: INTEGER
          -- Return content height
       do
          if (flags & Flag_recalc) /= 0 then
@@ -125,13 +125,13 @@ feature -- Queries
          Result := list_height
       end
 
-   can_focus: BOOLEAN is
+   can_focus: BOOLEAN
          -- List widget can receive focus
       once
          Result := True
       end
 
-   get_list_style: INTEGER is
+   get_list_style: INTEGER
          -- Return list style
       do
          Result := (options & LIST_MASK)
@@ -139,7 +139,7 @@ feature -- Queries
 
 feature -- Item access
 
-   item_at (x_,  y_: INTEGER): INTEGER is
+   item_at (x_,  y_: INTEGER): INTEGER
          -- Return index of item at x, y,  if any
       local
          index: INTEGER
@@ -160,7 +160,7 @@ feature -- Item access
          end
       end
 
-   item_width (index: INTEGER): INTEGER is
+   item_width (index: INTEGER): INTEGER
          -- Return item width
       require
          index > 0 and then index <= items_count
@@ -168,7 +168,7 @@ feature -- Item access
          Result := items.item (index).width (Current)
       end
 
-   item_height (index: INTEGER): INTEGER is
+   item_height (index: INTEGER): INTEGER
          -- Return item height
       require
          index > 0 and then index <= items_count
@@ -176,7 +176,7 @@ feature -- Item access
          Result := items.item(index).height(Current)
       end
 
-   item_hit (index,  x_,  y_: INTEGER): INTEGER is
+   item_hit (index,  x_,  y_: INTEGER): INTEGER
          -- Return item hit code:
          --		0: no hit
          --		1: hit the icon
@@ -195,7 +195,7 @@ feature -- Item access
 
 feature -- Actions
 
-   set_visible_rows (nvis_: INTEGER) is
+   set_visible_rows (nvis_: INTEGER)
          -- Change the number of visible items
       local
          nvis: INTEGER;
@@ -211,7 +211,7 @@ feature -- Actions
          end
       end
 
-   set_list_style(style: INTEGER) is
+   set_list_style(style: INTEGER)
          -- Change list style
       do
          options := new_options (style, LIST_MASK)
@@ -219,19 +219,19 @@ feature -- Actions
 
 feature -- Item actions
 
-   replace_item_with_new (index: INTEGER; text: STRING; icon: SB_ICON; data: ANY; notify: BOOLEAN) is
+   replace_item_with_new (index: INTEGER; text: STRING; icon: SB_ICON; data: ANY; notify: BOOLEAN)
          -- Replace items text,  icon,  and user-data pointer
       do
          replace_item (index, create_item (text, icon, data), notify)
       end
 
-   insert_new_item (index: INTEGER; text: STRING; icon: SB_ICON; data: ANY; notify: BOOLEAN) is
+   insert_new_item (index: INTEGER; text: STRING; icon: SB_ICON; data: ANY; notify: BOOLEAN)
          -- Insert item at index with given text,  icon,  and user-data pointer
       do
          insert_item (index, create_item (text, icon, data), notify);
       end
 
-	append_new_item (text: STRING; icon: SB_ICON; data: ANY; notify: BOOLEAN) is
+	append_new_item (text: STRING; icon: SB_ICON; data: ANY; notify: BOOLEAN)
 			-- Append new item with given text and optional icon,  and user-data pointer
 		do
 			check
@@ -242,13 +242,13 @@ feature -- Item actions
 --	print(once "Exit append_new_item%N")
 		end
 
-   prepend_new_item (text: STRING; icon: SB_ICON; data: ANY; notify: BOOLEAN) is
+   prepend_new_item (text: STRING; icon: SB_ICON; data: ANY; notify: BOOLEAN)
          -- Prepend new item with given text and optional icon,  and user-data pointer
       do
          insert_item (1, create_item (text, icon, data), notify)
       end
 
-   make_item_visible (index: INTEGER) is
+   make_item_visible (index: INTEGER)
          -- Scroll to bring item into view
       local
          y, h: INTEGER
@@ -268,7 +268,7 @@ feature -- Item actions
          end
       end
 
-	update_item(index: INTEGER) is
+	update_item(index: INTEGER)
          	-- Repaint item
       	do
          	update_rectangle (0, pos_y + items.item (index).y, viewport_w, items.item (index).height (Current))
@@ -276,7 +276,7 @@ feature -- Item actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, selector: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, selector: INTEGER; data: ANY): BOOLEAN
     	do
          	if		match_function_2 (Sel_timeout, 		ID_TIPTIMER,	type, selector) then Result := on_tip_timer 		(sender, selector, data)
          	elseif  match_function_2 (Sel_timeout, 		ID_LOOKUPTIMER, type, selector) then Result := on_lookup_timer 	 	(sender, selector, data)
@@ -293,7 +293,7 @@ feature -- Message processing
          	end
       end
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          dc: SB_DC_WINDOW
@@ -330,7 +330,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_key_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_key_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          index: INTEGER
@@ -433,7 +433,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
          index, code: INTEGER;
@@ -498,7 +498,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_left_btn_release(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          flg: INTEGER
@@ -561,7 +561,7 @@ feature -- Message processing
          end
       end
 
-   on_right_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_right_btn_press(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          flg: INTEGER
@@ -587,7 +587,7 @@ feature -- Message processing
       end
 
 
-   on_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_motion(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          flg: INTEGER
@@ -658,7 +658,7 @@ feature -- Message processing
          end
       end
 
-   on_auto_scroll(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_auto_scroll(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT
          index: INTEGER
@@ -705,7 +705,7 @@ feature -- Message processing
          end
       end
 
-   on_query_tip(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_query_tip(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          string: STRING;
       do
@@ -723,7 +723,7 @@ feature -- Sorting
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       local
          i: INTEGER
@@ -742,7 +742,7 @@ feature -- Resource management
          font.create_resource;
       end
 
-   detach_resource is
+   detach_resource
       -- Detach server-side resources
       local
          i: INTEGER
@@ -780,7 +780,7 @@ feature {NONE} -- Implementation
    state: BOOLEAN
          -- State of item
 
-   do_hop(event: SB_EVENT; index: INTEGER) is
+   do_hop(event: SB_EVENT; index: INTEGER)
       do
          create lookup_string.make_empty
          if 1 <= index and then index <= items_count then
@@ -810,7 +810,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   layout is
+   layout
       do
          -- Calculate contents
          Precursor
@@ -824,7 +824,7 @@ feature {NONE} -- Implementation
          unset_flags (Flag_dirty)
       end
 
-   recompute is
+   recompute
       local
          x, y, w, h, i: INTEGER
          nitems: INTEGER
@@ -852,20 +852,20 @@ feature {NONE} -- Implementation
          unset_flags (Flag_recalc)
       end
 
-   create_item (text: STRING; icon: SB_ICON; data: ANY): SB_LIST_ITEM is
+   create_item (text: STRING; icon: SB_ICON; data: ANY): SB_LIST_ITEM
       do
          create Result.make (text, icon, data)
       end
 
-   ICON_SPACING: INTEGER is 4;
+   ICON_SPACING: INTEGER = 4;
          -- Spacing between icon and label
          
-   SIDE_SPACING: INTEGER is 6;
+   SIDE_SPACING: INTEGER = 6;
          -- Left or right spacing between items
          
-   LINE_SPACING: INTEGER is 4
+   LINE_SPACING: INTEGER = 4
          -- Line spacing between items
 
-   LIST_MASK: INTEGER is once Result := (SELECT_MASK | LIST_AUTOSELECT) end
+   LIST_MASK: INTEGER once Result := (SELECT_MASK | LIST_AUTOSELECT) end
 
 end

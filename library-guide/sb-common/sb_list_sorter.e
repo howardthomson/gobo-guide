@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Abstract linked list sorter"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -16,7 +16,7 @@ inherit
 
 feature -- Sorting
 
-	array_sort(array: ARRAY [ G ]; comparator: SB_COMPARATOR [ G ]): BOOLEAN is
+	array_sort(array: ARRAY [ G ]; comparator: SB_COMPARATOR [ G ]): BOOLEAN
 			-- Sort given array using comparator object. Returns True 
 			-- if array was changed.
 		require else

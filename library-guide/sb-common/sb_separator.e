@@ -1,4 +1,4 @@
-indexing
+note
    description: "Base class for separator"
    author: "Eugene Melekhov <eugene_melekhov@mail.ru>"
    copyright: "Copyright (c) 2002, Eugene Melekhov and others"
@@ -20,7 +20,7 @@ inherit
 
 	SB_SEPARATOR_CONSTANTS
 
-creation
+create
 
 	make,
 	make_opts,
@@ -28,12 +28,12 @@ creation
 
 feature -- Creation
 
-	make (p: SB_COMPOSITE) is
+	make (p: SB_COMPOSITE)
 		do
 			make_sb (p, 0)
 		end
 
-	make_sb (p: SB_COMPOSITE; opts: INTEGER) is
+	make_sb (p: SB_COMPOSITE; opts: INTEGER)
 		local
 			o: INTEGER
 		do
@@ -48,7 +48,7 @@ feature -- Creation
 feature -- Queries
 
 
-	default_width: INTEGER is
+	default_width: INTEGER
 			-- Get default width
 		local
 			w: INTEGER
@@ -61,7 +61,7 @@ feature -- Queries
 			Result := w + pad_left + pad_right + border*2
 		end
 
-	default_height: INTEGER is
+	default_height: INTEGER
 			-- Get default height
 		local
 			h: INTEGER
@@ -74,7 +74,7 @@ feature -- Queries
 			Result :=  h + pad_top + pad_bottom + border * 2
 		end
 
-	get_separator_style: INTEGER is
+	get_separator_style: INTEGER
 			-- Get separator style
 		do
 			Result := (options & SEPARATOR_MASK)
@@ -82,7 +82,7 @@ feature -- Queries
 
 feature -- Actions
 
-	set_separator_style (style: INTEGER) is
+	set_separator_style (style: INTEGER)
 			-- Change separator style
 		local
 			opts: INTEGER
@@ -98,7 +98,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			ev: SB_EVENT
 			dc: SB_DC_WINDOW

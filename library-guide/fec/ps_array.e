@@ -37,7 +37,7 @@ class PS_ARRAY [ KEY -> COMPARABLE, ELEMENT -> SORTABLE [ KEY ]]  -- Partly sort
 -- another element forces to join the new element, and the elements in the
 -- one- and two-element-arrays into one sorted four-element-array. 
 
-creation
+create
 
 	make
 	
@@ -48,27 +48,27 @@ feature { NONE }
 	msb_of_count: INTEGER
 			-- 2^log2(count) = Most significant bit of count.
 
-	min_size: INTEGER is 7			-- minimum number of elements allocated.
-	msb_of_min_size: INTEGER is 3	-- msb(min_size)
+	min_size: INTEGER = 7			-- minimum number of elements allocated.
+	msb_of_min_size: INTEGER = 3	-- msb(min_size)
 	
 feature { ANY }
 		
 	count: INTEGER
 			-- number of elements in the array
 
-	item, infix "@" (i: INTEGER): ELEMENT is
+	item, infix "@" (i: INTEGER): ELEMENT
 		do
 			Result := data.item (i)
 		end
 	
-	is_empty: BOOLEAN is 
+	is_empty: BOOLEAN 
 		do
 			Result := count = 0
 		ensure
 			Result = (count = 0)
 		end  -- is_empty
 
-	make is -- create an empty array
+	make -- create an empty array
 		do
 			create data.make (1, min_size)
 			count := 0
@@ -77,7 +77,7 @@ feature { ANY }
 			count = 0
 		end -- make	
 		
-	add (element: ELEMENT) is 
+	add (element: ELEMENT) 
 		local
 			first_empty, c_div_fe: INTEGER
 			index: INTEGER
@@ -113,7 +113,7 @@ feature { ANY }
 			end
 		end  -- add
 
-	find (key: KEY): ELEMENT is
+	find (key: KEY): ELEMENT
 		local
 			index, c_mod_index, search_index: INTEGER
 		do
@@ -135,12 +135,12 @@ feature { ANY }
 			end
 		end -- find
 
-	has (key: KEY): BOOLEAN is
+	has (key: KEY): BOOLEAN
 		do
 			Result := find(key) /= Void
 		end -- has
 
-	replace (element: ELEMENT) is
+	replace (element: ELEMENT)
 		require
 			-- find (element.key) /= Void
 		local
@@ -162,7 +162,7 @@ feature { ANY }
 			data.put (element, search_index)
 		end -- replace
 
-	get_sorted: SORTED_ARRAY [ KEY, ELEMENT ] is
+	get_sorted: SORTED_ARRAY [ KEY, ELEMENT ]
 		local
 			index, c_div_index, result_len, l1, l2, j: INTEGER
 		do
@@ -201,7 +201,7 @@ feature { ANY }
 
 feature { NONE }
 	
-	join_arrays (src, dst, len: INTEGER) is
+	join_arrays (src, dst, len: INTEGER)
 		local
 			j, l1, l2: INTEGER
 		do

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The status line normally shows its permanent message;
 		when moving the mouse over a Widget which has status-line help, the
@@ -47,25 +47,25 @@ inherit
          	resize_imp
       	end
 
-creation
+create
    make,
    make_opts
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_STATUS_LINE"
 		end
 
 feature -- Creation
 
-	make (p: SB_COMPOSITE) is
+	make (p: SB_COMPOSITE)
 		do
 			make_opts(p, Void, 0);
 		end
 
-   make_opts(p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; selector: INTEGER) is
+   make_opts(p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; selector: INTEGER)
       do
          frame_make_opts(p, Frame_sunken | Layout_left | Layout_fill_y | Layout_fill_x | Layout_side_bottom, 0,0,0,0, 4,4,2,2);
          flags := flags | Flag_shown
@@ -97,13 +97,13 @@ feature -- Data
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
 			-- Get default width
 		do
 			Result := pad_left + pad_right + (border*2) + 8
 		end
 
-   	default_height: INTEGER is
+   	default_height: INTEGER
          	-- Get default height
       	do
          	Result := font.get_font_height + pad_top + pad_bottom + (border*2)
@@ -111,7 +111,7 @@ feature -- Queries
 
 feature -- Actions
 
-	set_text(txt: STRING) is
+	set_text(txt: STRING)
 			-- Change the temporary status message
 		do
 			if not text.is_equal(txt) then
@@ -123,7 +123,7 @@ feature -- Actions
 			end
 		end
 
-   set_normal_text(txt: STRING) is
+   set_normal_text(txt: STRING)
          -- Change the permanent status message
       do
          if not normal_text.is_equal(txt) then
@@ -135,7 +135,7 @@ feature -- Actions
          end
       end
 
-	set_font(fnt: SB_FONT) is
+	set_font(fnt: SB_FONT)
 			-- Set the text font
 		require
 			fnt /= Void
@@ -147,7 +147,7 @@ feature -- Actions
 			end
 		end
 
-   set_text_color(clr: INTEGER) is
+   set_text_color(clr: INTEGER)
          -- Change the text color
       do
          if text_color /= clr then
@@ -156,7 +156,7 @@ feature -- Actions
          end
       end
 
-   set_text_highlight_color(clr: INTEGER) is
+   set_text_highlight_color(clr: INTEGER)
          -- Change the text color
       do
          if text_highlight_color /= clr then
@@ -167,13 +167,13 @@ feature -- Actions
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
       do
          Precursor
          font.create_resource
       end
 
-   detach_resource is
+   detach_resource
       do
          Precursor
          font.detach_resource
@@ -181,7 +181,7 @@ feature -- Resource management
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       	do
         	if		match_function_2 (SEL_COMMAND, Id_setstringvalue, type, key) then Result := on_cmd_set_string_value (sender, key, data)
          	elseif  match_function_2 (SEL_COMMAND, Id_getstringvalue, type, key) then Result := on_cmd_get_string_value (sender, key, data)
@@ -189,7 +189,7 @@ feature -- Message processing
          	end
       	end
 
-	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			ev: SB_EVENT
          	dc: SB_DC_WINDOW
@@ -230,7 +230,7 @@ feature -- Message processing
 		--	fx_trace(0, <<"SB_STATUS_LINE::on_paint">>)
 		end
 
-   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          helpsource: SB_WINDOW
       do
@@ -247,7 +247,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_get_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING
       do
@@ -259,7 +259,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_set_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING
       do
@@ -270,7 +270,7 @@ feature -- Message processing
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          font := Void
          Precursor
@@ -279,18 +279,18 @@ feature -- Destruction
 
 feature {NONE} -- Implementation
 
-   default_message: STRING is "Ready."
+   default_message: STRING = "Ready."
 
 feature -- Debugging
 
-	trace_values is
+	trace_values
 		do
 		--	fx_trace(0, <<"SB_STATUS_LINE::trace_values",
 		--		" width: ", width.out,
 		--		" height: ", height.out>>)
 		end
 
-	create_resource_imp is
+	create_resource_imp
 		do
 			Precursor
 		--	fx_trace(0, <<"SB_STATUS_LINE::create_resource_imp",
@@ -298,7 +298,7 @@ feature -- Debugging
 		--		" height: ", height.out>>)
 		end
 
-	resize_imp(w, h: INTEGER) is
+	resize_imp(w, h: INTEGER)
 		do
 			fx_trace(0, <<"SB_STATUS_LINE::resize_imp before",
 				" width: ", width.out,

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Interface to Xlib's Colormap resource."
 
@@ -12,14 +12,14 @@ inherit
 
 	X_RESOURCE
 
-creation 
+create 
 
 	make,
 	from_external
 
 feature {NONE} -- Creation
 
-	make (win: X_WINDOW; visual: X_VISUAL; alloc_mode: INTEGER) is
+	make (win: X_WINDOW; visual: X_VISUAL; alloc_mode: INTEGER)
 		-- creates a colormap of the specified visual type for the screen 
       	-- on which the specified window resides.
     	require
@@ -32,7 +32,7 @@ feature {NONE} -- Creation
 				    	win.id, visual.to_external, alloc_mode)
     	end
   
-  	from_external (disp: X_DISPLAY; scr: INTEGER; cid: INTEGER) is
+  	from_external (disp: X_DISPLAY; scr: INTEGER; cid: INTEGER)
       		-- Creates a colormap from an external one.
     	require
       		disp /= Void
@@ -44,13 +44,13 @@ feature {NONE} -- Creation
 
 feature -- Installation
 
-	install is
+	install
 			-- installs the colormap for its associated screen
     	do
       		x_install_colormap (display.to_external, id)
     	end
 
-  	uninstall is
+  	uninstall
       		-- uninstalls the colormap
     	do
       		x_uninstall_colormap (display.to_external, id)
@@ -58,7 +58,7 @@ feature -- Installation
 
 feature -- Destruction
 
-  	free is
+  	free
     	require
       		id /= display.default_colormap (screen).id
     	do
@@ -70,7 +70,7 @@ feature
  	screen : INTEGER
       	-- screen number
 
-	alloc_color (col : X_COLOR) is
+	alloc_color (col : X_COLOR)
       		-- Allocates a read-only colormap entry.
       		-- `col' is modified by this method.
     	require
@@ -79,7 +79,7 @@ feature
       		x_alloc_color (display.to_external, id, col.to_external)
     	end
 
-	alloc_named_color (col_name: STRING; col_close, col_exact: X_COLOR) is
+	alloc_named_color (col_name: STRING; col_close, col_exact: X_COLOR)
 		-- looks up the named color
 		-- `col_close' and `col_exact' are modified.
 		require
@@ -106,7 +106,7 @@ feature
 --				Result.to_external, n)
 --		end
 
-  	store_color (col: X_COLOR) is
+  	store_color (col: X_COLOR)
       	-- changes the colormap entry of the pixel value specified in 
       	-- the `pixel' member of `col'.
     	require
@@ -117,7 +117,7 @@ feature
 
   	store_named_color (col_name : STRING; 
 		     pix      : INTEGER;
-		     mask     : INTEGER_8) is
+		     mask     : INTEGER_8)
       		-- looks up the named color with respect to the screen associated 
       		-- with the colormap and stores the result in the colormap.
     	require
@@ -129,7 +129,7 @@ feature
     		implemented: false
     	end
 
-	parse_color (name : STRING; col : X_COLOR) : BOOLEAN is
+	parse_color (name : STRING; col : X_COLOR) : BOOLEAN
 			-- modify col and return True if name exists
 		require
 			name /= Void
@@ -154,54 +154,54 @@ feature {NONE} -- External functions
 --    	end
 
 	x_create_colormap (d : POINTER; rid : INTEGER; 
-                     dv : POINTER; a : INTEGER) : INTEGER is
+                     dv : POINTER; a : INTEGER) : INTEGER
 		external "C use <X11/Xlib.h>"	
     	alias "XCreateColormap"
     	end
 
-  	x_install_colormap (pDisplay: POINTER; rid : INTEGER) is
+  	x_install_colormap (pDisplay: POINTER; rid : INTEGER)
 		external "C use <X11/Xlib.h>"	
     	alias "XInstallColormap"
     	end
 
-  	x_uninstall_colormap (pDisplay: POINTER; rid : INTEGER) is
+  	x_uninstall_colormap (pDisplay: POINTER; rid : INTEGER)
 		external "C use <X11/Xlib.h>"	
     	alias "XUninstallColormap"
     	end
 
-  	XFreeColormap, x_free_colormap (pDisplay: POINTER; iColormap: INTEGER): INTEGER is
+  	XFreeColormap, x_free_colormap (pDisplay: POINTER; iColormap: INTEGER): INTEGER
 		external "C use <X11/Xlib.h>"	
     	alias "XFreeColormap"
     	end
 
-  	x_alloc_color (d : POINTER; rid : INTEGER; col : POINTER) is
+  	x_alloc_color (d : POINTER; rid : INTEGER; col : POINTER)
 		external "C use <X11/Xlib.h>"	
     	alias "XAllocColor"
     	end
 
-  	x_alloc_named_color (d : POINTER; rid : INTEGER; str, c1, c2 : POINTER) is
+  	x_alloc_named_color (d : POINTER; rid : INTEGER; str, c1, c2 : POINTER)
 		external "C use <X11/Xlib.h>"	
     	alias "XAllocNamedColor"
     	end
 
   	x_alloc_color_cells (d : POINTER; rid : INTEGER; b : BOOLEAN; p : POINTER;
-                       i : INTEGER; buf : POINTER; n : INTEGER) is
+                       i : INTEGER; buf : POINTER; n : INTEGER)
 		external "C use <X11/Xlib.h>"	
     	alias "XAllocColorCells"
     	end
 
-  	x_store_color (d : POINTER; rid : INTEGER; col : POINTER) is
+  	x_store_color (d : POINTER; rid : INTEGER; col : POINTER)
 		external "C use <X11/Xlib.h>"	
     	alias "XStoreColor"
     	end
 
   	x_store_named_color (d : POINTER; rid : INTEGER; 
-                       str : POINTER; pix : INTEGER; mk : CHARACTER) is
+                       str : POINTER; pix : INTEGER; mk : CHARACTER)
 		external "C use <X11/Xlib.h>"	
     	alias "XStoreNamedColor"
     	end
 
-  	x_parse_color (d : POINTER; rid : INTEGER; n, c : POINTER) : INTEGER is
+  	x_parse_color (d : POINTER; rid : INTEGER; n, c : POINTER) : INTEGER
 		external "C use <X11/Xlib.h>"	
     	alias "XParseColor"
     	end

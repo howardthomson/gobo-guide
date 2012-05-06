@@ -22,7 +22,7 @@
 --  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 --
 --------------------------------------------------------------------------------
-indexing
+note
 	description: "Position information stored with a scanned symbol"
 
 	implementation: "[
@@ -66,20 +66,20 @@ create
 
 feature {NONE} -- Implementation constants
 
-	pos_max_column: INTEGER is 255						-- 8 bits
-	pos_max_line  : INTEGER is 16777216	-- 16*1024*1024	-- 24 bits
+	pos_max_column: INTEGER = 255						-- 8 bits
+	pos_max_line  : INTEGER = 16777216	-- 16*1024*1024	-- 24 bits
 	
-	pos_column (packed: INTEGER_64): INTEGER is 
+	pos_column (packed: INTEGER_64): INTEGER 
 		do
 			Result := (packed & 0x000000ff).to_integer 
 		end
 	
-	pos_line (packed: INTEGER_64): INTEGER is
+	pos_line (packed: INTEGER_64): INTEGER
 		do
 			Result := ((packed |>> 8) & 0x00ffffff).to_integer
 		end
 
-	pos_init (l, c: INTEGER): INTEGER_64 is
+	pos_init (l, c: INTEGER): INTEGER_64
 		local
 			ll, lc: INTEGER; 
 		do
@@ -90,7 +90,7 @@ feature {NONE} -- Implementation constants
 					| (ll.to_integer_64 |<<  8)
 		end
 
-	pos_less_than (a, b: INTEGER_64): BOOLEAN is
+	pos_less_than (a, b: INTEGER_64): BOOLEAN
 		do
 			if pos_line (a) < pos_line (b) or else
 						(pos_line (a) = pos_line (b) and then pos_column (a) < pos_column (b)) then

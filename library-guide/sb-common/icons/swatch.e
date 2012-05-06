@@ -2,11 +2,11 @@ expanded class SWATCH
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 5
-   y_hot: INTEGER is 5
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 5
+   y_hot: INTEGER = 5
+   bits: STRING =
    "%/000/%/000/%/000/%/000/%/254/%/007/%/000/%/000/%/254/%/007/%/000/%/000/%
    %%/254/%/007/%/000/%/000/%/142/%/007/%/000/%/000/%/046/%/007/%/000/%/000/%
    %%/110/%/006/%/000/%/000/%/238/%/004/%/000/%/000/%/238/%/001/%/000/%/000/%

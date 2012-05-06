@@ -2,7 +2,7 @@ expanded class SB_WAPI_CLIPPING_FUNCTIONS
 
 feature
 
-   ExcludeClipRect (hdc: POINTER; nLeftRect, nTopRect, nRightRect, nBottomRect: INTEGER): INTEGER is
+   ExcludeClipRect (hdc: POINTER; nLeftRect, nTopRect, nRightRect, nBottomRect: INTEGER): INTEGER
          -- Creates a new clipping region that consists of the existing 
          -- clipping region minus the specified rectangle.
 
@@ -58,7 +58,7 @@ feature
       -- combining the new region with any existing clipping region by 
       -- using the specified mode. 
    
-   SelectClipRgn(hdc, hrgn: POINTER): INTEGER is
+   SelectClipRgn(hdc, hrgn: POINTER): INTEGER
          -- Selects a region as the current clipping region for the specified 
          --  device context. 
 

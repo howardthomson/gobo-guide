@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Interface to XSizeHints Xlib structure"
 
@@ -12,32 +12,32 @@ inherit
 
 	X_STRUCT
 
-creation 
+create 
 
 	make,
 	from_external
 
 feature -- Access
 
-	flags: INTEGER is do Result := c_flags (to_external) end
+	flags: INTEGER do Result := c_flags (to_external) end
 
-	x			: INTEGER is do Result := c_x				(to_external) end
-	y			: INTEGER is do Result := c_y				(to_external) end
-	width		: INTEGER is do Result := c_width			(to_external) end
-	height		: INTEGER is do Result := c_height			(to_external) end
-	min_width	: INTEGER is do Result := c_min_width		(to_external) end
-	min_height	: INTEGER is do Result := c_min_height		(to_external) end
-	max_width	: INTEGER is do Result := c_max_width		(to_external) end
-	max_height	: INTEGER is do Result := c_max_height		(to_external) end
-	width_inc	: INTEGER is do Result := c_width_inc		(to_external) end
-	height_inc	: INTEGER is do Result := c_height_inc		(to_external) end
-	min_aspect_x: INTEGER is do Result := c_min_aspect_x	(to_external) end
-	min_aspect_y: INTEGER is do Result := c_min_aspect_y	(to_external) end
-	max_aspect_x: INTEGER is do Result := c_max_aspect_x	(to_external) end
-	max_aspect_y: INTEGER is do Result := c_max_aspect_y	(to_external) end
-	base_width	: INTEGER is do Result := c_base_width		(to_external) end
-	base_height : INTEGER is do Result := c_base_height		(to_external) end
-	win_gravity	: INTEGER is do Result := c_win_gravity		(to_external) end
+	x			: INTEGER do Result := c_x				(to_external) end
+	y			: INTEGER do Result := c_y				(to_external) end
+	width		: INTEGER do Result := c_width			(to_external) end
+	height		: INTEGER do Result := c_height			(to_external) end
+	min_width	: INTEGER do Result := c_min_width		(to_external) end
+	min_height	: INTEGER do Result := c_min_height		(to_external) end
+	max_width	: INTEGER do Result := c_max_width		(to_external) end
+	max_height	: INTEGER do Result := c_max_height		(to_external) end
+	width_inc	: INTEGER do Result := c_width_inc		(to_external) end
+	height_inc	: INTEGER do Result := c_height_inc		(to_external) end
+	min_aspect_x: INTEGER do Result := c_min_aspect_x	(to_external) end
+	min_aspect_y: INTEGER do Result := c_min_aspect_y	(to_external) end
+	max_aspect_x: INTEGER do Result := c_max_aspect_x	(to_external) end
+	max_aspect_y: INTEGER do Result := c_max_aspect_y	(to_external) end
+	base_width	: INTEGER do Result := c_base_width		(to_external) end
+	base_height : INTEGER do Result := c_base_height		(to_external) end
+	win_gravity	: INTEGER do Result := c_win_gravity		(to_external) end
 
 feature { NONE } -- Access implementation GEC/EDP
 
@@ -62,42 +62,42 @@ feature { NONE } -- Access implementation GEC/EDP
 
 feature { NONE } -- Access implementation
 
-	c_flags			(p: POINTER): INTEGER is external "C struct XSizeHints access flags			use <X11/Xutil.h>" end
-	c_x				(p: POINTER): INTEGER is external "C struct XSizeHints access x				use <X11/Xutil.h>" end
-	c_y				(p: POINTER): INTEGER is external "C struct XSizeHints access y				use <X11/Xutil.h>" end
-	c_width			(p: POINTER): INTEGER is external "C struct XSizeHints access width			use <X11/Xutil.h>" end
-	c_height		(p: POINTER): INTEGER is external "C struct XSizeHints access height		use <X11/Xutil.h>" end
-	c_min_width		(p: POINTER): INTEGER is external "C struct XSizeHints access min_width		use <X11/Xutil.h>" end
-	c_min_height	(p: POINTER): INTEGER is external "C struct XSizeHints access min_height	use <X11/Xutil.h>" end
-	c_max_width		(p: POINTER): INTEGER is external "C struct XSizeHints access max_width		use <X11/Xutil.h>" end
-	c_max_height	(p: POINTER): INTEGER is external "C struct XSizeHints access max_height	use <X11/Xutil.h>" end
-	c_width_inc		(p: POINTER): INTEGER is external "C struct XSizeHints access width_inc		use <X11/Xutil.h>" end
-	c_height_inc	(p: POINTER): INTEGER is external "C struct XSizeHints access height_inc	use <X11/Xutil.h>" end
-	c_min_aspect_x	(p: POINTER): INTEGER is external "C struct XSizeHints access min_aspect.x	use <X11/Xutil.h>" end
-	c_min_aspect_y	(p: POINTER): INTEGER is external "C struct XSizeHints access min_aspect.y	use <X11/Xutil.h>" end
-	c_max_aspect_x	(p: POINTER): INTEGER is external "C struct XSizeHints access max_aspect.x	use <X11/Xutil.h>" end
-	c_max_aspect_y	(p: POINTER): INTEGER is external "C struct XSizeHints access max_aspect.y	use <X11/Xutil.h>" end
-	c_base_width	(p: POINTER): INTEGER is external "C struct XSizeHints access base_width	use <X11/Xutil.h>" end
-	c_base_height	(p: POINTER): INTEGER is external "C struct XSizeHints access base_height	use <X11/Xutil.h>" end
-	c_win_gravity	(p: POINTER): INTEGER is external "C struct XSizeHints access win_gravity	use <X11/Xutil.h>" end
+	c_flags			(p: POINTER): INTEGER external "C struct XSizeHints access flags			use <X11/Xutil.h>" end
+	c_x				(p: POINTER): INTEGER external "C struct XSizeHints access x				use <X11/Xutil.h>" end
+	c_y				(p: POINTER): INTEGER external "C struct XSizeHints access y				use <X11/Xutil.h>" end
+	c_width			(p: POINTER): INTEGER external "C struct XSizeHints access width			use <X11/Xutil.h>" end
+	c_height		(p: POINTER): INTEGER external "C struct XSizeHints access height		use <X11/Xutil.h>" end
+	c_min_width		(p: POINTER): INTEGER external "C struct XSizeHints access min_width		use <X11/Xutil.h>" end
+	c_min_height	(p: POINTER): INTEGER external "C struct XSizeHints access min_height	use <X11/Xutil.h>" end
+	c_max_width		(p: POINTER): INTEGER external "C struct XSizeHints access max_width		use <X11/Xutil.h>" end
+	c_max_height	(p: POINTER): INTEGER external "C struct XSizeHints access max_height	use <X11/Xutil.h>" end
+	c_width_inc		(p: POINTER): INTEGER external "C struct XSizeHints access width_inc		use <X11/Xutil.h>" end
+	c_height_inc	(p: POINTER): INTEGER external "C struct XSizeHints access height_inc	use <X11/Xutil.h>" end
+	c_min_aspect_x	(p: POINTER): INTEGER external "C struct XSizeHints access min_aspect.x	use <X11/Xutil.h>" end
+	c_min_aspect_y	(p: POINTER): INTEGER external "C struct XSizeHints access min_aspect.y	use <X11/Xutil.h>" end
+	c_max_aspect_x	(p: POINTER): INTEGER external "C struct XSizeHints access max_aspect.x	use <X11/Xutil.h>" end
+	c_max_aspect_y	(p: POINTER): INTEGER external "C struct XSizeHints access max_aspect.y	use <X11/Xutil.h>" end
+	c_base_width	(p: POINTER): INTEGER external "C struct XSizeHints access base_width	use <X11/Xutil.h>" end
+	c_base_height	(p: POINTER): INTEGER external "C struct XSizeHints access base_height	use <X11/Xutil.h>" end
+	c_win_gravity	(p: POINTER): INTEGER external "C struct XSizeHints access win_gravity	use <X11/Xutil.h>" end
 
 feature -- flags values
 
-	US_position		: INTEGER is 1		-- (1 << 0)
-	US_size			: INTEGER is 2		-- (1 << 1)
+	US_position		: INTEGER = 1		-- (1 << 0)
+	US_size			: INTEGER = 2		-- (1 << 1)
 
-	P_position		: INTEGER is 4		-- (1 << 2)
-	P_size			: INTEGER is 8		-- (1 << 3)
-	P_min_size		: INTEGER is 16		-- (1 << 4)
-	P_max_size		: INTEGER is 32		-- (1 << 5)
-	P_resize_inc	: INTEGER is 64		-- (1 << 6)
-	P_aspect		: INTEGER is 128	-- (1 << 7)
-	P_base_size 	: INTEGER is 256	-- (1 << 8)
-	P_win_gravity	: INTEGER is 512	-- (1 << 9)
+	P_position		: INTEGER = 4		-- (1 << 2)
+	P_size			: INTEGER = 8		-- (1 << 3)
+	P_min_size		: INTEGER = 16		-- (1 << 4)
+	P_max_size		: INTEGER = 32		-- (1 << 5)
+	P_resize_inc	: INTEGER = 64		-- (1 << 6)
+	P_aspect		: INTEGER = 128	-- (1 << 7)
+	P_base_size 	: INTEGER = 256	-- (1 << 8)
+	P_win_gravity	: INTEGER = 512	-- (1 << 9)
 
 feature -- Modification
 
-	set_flags (v : INTEGER) is
+	set_flags (v : INTEGER)
 		local
 			t: like v
 		do
@@ -105,47 +105,47 @@ feature -- Modification
 			c_set_flags (to_external, t | v)
 		end
 
-	reset_flags is
+	reset_flags
 		do
 			c_set_flags (to_external, 0)
 		end
 
-	set_position (nx, ny : INTEGER) is
+	set_position (nx, ny : INTEGER)
 		do
 			c_set_x (to_external, nx)
 			c_set_y (to_external, ny)
 			set_flags (P_position)
 		end
 
-	set_size (nw, nh : INTEGER) is
+	set_size (nw, nh : INTEGER)
 		do
 			c_set_width  (to_external, nw)
 			c_set_height (to_external, nh)
 			set_flags (P_size)
 		end
 
-	set_min_size (nw, nh : INTEGER) is
+	set_min_size (nw, nh : INTEGER)
 		do
 			c_set_min_width  (to_external, nw)
 			c_set_min_height (to_external, nh)
 			set_flags (P_min_size)
 		end
 
-	set_max_size (nw, nh : INTEGER) is
+	set_max_size (nw, nh : INTEGER)
 		do
 			c_set_max_width  (to_external, nw)
 			c_set_max_height (to_external, nh)
 			set_flags (P_max_size)
 		end
 
-	set_resize_inc (nw, nh : INTEGER) is
+	set_resize_inc (nw, nh : INTEGER)
 		do
 			c_set_width_inc  (to_external, nw)
 			c_set_height_inc (to_external, nh)
 			set_flags (P_resize_inc)
 		end
 
-	set_aspect (min_xa, min_ya, max_xa, max_ya : INTEGER) is
+	set_aspect (min_xa, min_ya, max_xa, max_ya : INTEGER)
 		do
 			c_set_min_aspect_x (to_external, min_xa)
 			c_set_min_aspect_y (to_external, min_ya)
@@ -154,14 +154,14 @@ feature -- Modification
 			set_flags (P_aspect)
 		end
 
-	set_base_size (nw, nh : INTEGER) is
+	set_base_size (nw, nh : INTEGER)
 		do
 			c_set_base_width  (to_external, nw)
 			c_set_base_height (to_external, nh)
 			set_flags (P_base_size)
 		end
 
-	set_win_gravity (i : INTEGER) is
+	set_win_gravity (i : INTEGER)
 		do
 			c_set_win_gravity (to_external, i)
 			set_flags (P_win_gravity)
@@ -190,28 +190,28 @@ feature { NONE } -- Access implementation GEC/EDP
 
 feature { NONE } -- Access implementation
 
-	c_set_flags			(p: POINTER; v: INTEGER) is external "C struct XSizeHints access	flags			type long use <X11/Xutil.h>" end
-	c_set_x				(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	x				type int use <X11/Xutil.h>" end
-	c_set_y				(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	y				type int use <X11/Xutil.h>" end
-	c_set_width			(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	width			type int use <X11/Xutil.h>" end
-	c_set_height		(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	height			type int use <X11/Xutil.h>" end
-	c_set_min_width		(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	min_width		type int use <X11/Xutil.h>" end
-	c_set_min_height	(p: POINTER; v: INTEGER) is external "C struct XSizeHints access	min_height		type int use <X11/Xutil.h>" end
-	c_set_max_width		(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	max_width		type int use <X11/Xutil.h>" end
-	c_set_max_height	(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	max_height		type int use <X11/Xutil.h>" end
-	c_set_width_inc		(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	width_inc		type int use <X11/Xutil.h>" end
-	c_set_height_inc	(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	height_inc		type int use <X11/Xutil.h>" end
-	c_set_min_aspect_x	(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	min_aspect.x	type int use <X11/Xutil.h>" end
-	c_set_min_aspect_y	(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	min_aspect.y	type int use <X11/Xutil.h>" end
-	c_set_max_aspect_x	(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	max_aspect.x	type int use <X11/Xutil.h>" end
-	c_set_max_aspect_y	(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	max_aspect.y	type int use <X11/Xutil.h>" end
-	c_set_base_width	(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	base_width	 	type int use <X11/Xutil.h>" end
-	c_set_base_height	(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	base_height	 	type int use <X11/Xutil.h>" end
-	c_set_win_gravity	(p: POINTER; v: INTEGER) is external "C struct XSizeHints access 	win_gravity	 	type int use <X11/Xutil.h>" end
+	c_set_flags			(p: POINTER; v: INTEGER) external "C struct XSizeHints access	flags			type long use <X11/Xutil.h>" end
+	c_set_x				(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	x				type int use <X11/Xutil.h>" end
+	c_set_y				(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	y				type int use <X11/Xutil.h>" end
+	c_set_width			(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	width			type int use <X11/Xutil.h>" end
+	c_set_height		(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	height			type int use <X11/Xutil.h>" end
+	c_set_min_width		(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	min_width		type int use <X11/Xutil.h>" end
+	c_set_min_height	(p: POINTER; v: INTEGER) external "C struct XSizeHints access	min_height		type int use <X11/Xutil.h>" end
+	c_set_max_width		(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	max_width		type int use <X11/Xutil.h>" end
+	c_set_max_height	(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	max_height		type int use <X11/Xutil.h>" end
+	c_set_width_inc		(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	width_inc		type int use <X11/Xutil.h>" end
+	c_set_height_inc	(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	height_inc		type int use <X11/Xutil.h>" end
+	c_set_min_aspect_x	(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	min_aspect.x	type int use <X11/Xutil.h>" end
+	c_set_min_aspect_y	(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	min_aspect.y	type int use <X11/Xutil.h>" end
+	c_set_max_aspect_x	(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	max_aspect.x	type int use <X11/Xutil.h>" end
+	c_set_max_aspect_y	(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	max_aspect.y	type int use <X11/Xutil.h>" end
+	c_set_base_width	(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	base_width	 	type int use <X11/Xutil.h>" end
+	c_set_base_height	(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	base_height	 	type int use <X11/Xutil.h>" end
+	c_set_win_gravity	(p: POINTER; v: INTEGER) external "C struct XSizeHints access 	win_gravity	 	type int use <X11/Xutil.h>" end
 
 feature
 
-	size: INTEGER is
+	size: INTEGER
 		external
 			"C inline use <X11/Xutil.h>"
 		alias

@@ -18,7 +18,7 @@ create
 
 feature
 
-	create_resource_def is
+	create_resource_def
 		local
 			protocols: ARRAY [ INTEGER ]
 			discard: INTEGER
@@ -30,7 +30,7 @@ feature
 --#			set_wm_hints
 		end
 
-	set_wm_hints is
+	set_wm_hints
 		local
 			wmh: X_SIZE_HINTS
 		do
@@ -61,7 +61,7 @@ feature
       		xwin.set_wm_normal_hints (wmh)
 		end
 		
-	set_focus is
+	set_focus
       	do
          	Precursor
          	if is_attached then
@@ -69,7 +69,7 @@ feature
          	end
 		end
 
-	kill_focus is
+	kill_focus
 		local
 			win: SB_WINDOW
 		do
@@ -90,7 +90,7 @@ feature
          	end
       	end
 
-	hide is
+	hide
       	do
          	if (flags & Flag_shown) = Flag_shown then
             	kill_focus
@@ -101,7 +101,7 @@ feature
          	end
       	end
 
-	move (x, y: INTEGER) is
+	move (x, y: INTEGER)
 		do
          	if x /= x_pos or else y /= y_pos then
             	x_pos := x
@@ -114,7 +114,7 @@ feature
          	end
       	end
 
-   	resize (w, h: INTEGER) is
+   	resize (w, h: INTEGER)
       	do
          	if (flags & Flag_dirty) = Flag_dirty  or else w /= width or else h /= height then
             	set_width  (w.max (1))
@@ -128,7 +128,7 @@ feature
          	end
       	end
 
-   position (x, y, w, h: INTEGER) is
+   position (x, y, w, h: INTEGER)
       do
          if (flags & Flag_dirty) = Flag_dirty or else x /= x_pos or else y /= y_pos
             or else w /= width or else h /= height
@@ -146,21 +146,21 @@ feature
          end
       end
 
-	iconify is
+	iconify
       	do
          	if is_attached then
 				-- TODO
          	end
       	end
 
-	deiconify is
+	deiconify
       	do
          	if is_attached then
 				-- TODO
          	end
       	end
 
-   	is_iconified: BOOLEAN is
+   	is_iconified: BOOLEAN
 		do
 			if is_attached then
 				-- TODO
@@ -171,7 +171,7 @@ feature { NONE } -- Implementation
 
 	sp: POINTER
 
-	set_title_int is
+	set_title_int
 		local
 			own: SB_WINDOW
 			wmhints: X_WM_HINTS
@@ -197,7 +197,7 @@ feature { NONE } -- Implementation
 --		alias "XStringListToTextProperty"
 --		end
 
-	set_icons_int is
+	set_icons_int
 		do
         	if icon /= Void then
       		--	if icon.is_attached and icon.shape /= default_resource then
@@ -212,7 +212,7 @@ feature { NONE } -- Implementation
          	end
       	end
 
-	set_decorations_int is
+	set_decorations_int
 		do
 			-- Thanks to testing from Sander Jansen <sxj@cfdrc.com>
 			-- Get old style

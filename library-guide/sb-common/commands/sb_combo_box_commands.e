@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_COMBO_BOX commands"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -16,8 +16,8 @@ inherit
 
 feature
 
-	ID_LIST: INTEGER is once Result := PACKER_ID_LAST + 0 end
-	ID_TEXT: INTEGER is once Result := PACKER_ID_LAST + 1; end
-	Id_last: INTEGER is once Result := PACKER_ID_LAST + 2; end
+	ID_LIST: INTEGER once Result := PACKER_ID_LAST + 0 end
+	ID_TEXT: INTEGER once Result := PACKER_ID_LAST + 1; end
+	Id_last: INTEGER once Result := PACKER_ID_LAST + 2; end
 
 end

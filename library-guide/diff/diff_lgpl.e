@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 				Eiffel translation and adaptation from Diff.java,
 				based on GNU diff 1.15
@@ -46,7 +46,7 @@ inherit
 
 	PLATFORM	-- For Maximum_integer
 
-creation
+create
 
 	make
 
@@ -89,7 +89,7 @@ feature {NONE} -- Attributes private for implementation
 
 feature -- DEBUG
 
-	print_counts is
+	print_counts
 		do
 			print("equiv_max: "); print(equiv_max.out); pnl
 			print("heuristic: "); print(heuristic.out); pnl
@@ -102,14 +102,14 @@ feature -- DEBUG
 			print("File_data 1:%N"); filevec_1.print_debug
 		end
 					
-	pnl is
+	pnl
 		do
 			print (once "%N")
 		end
 
 feature -- Creation
 
-	make (a, b: ARRAY [ G ]) is
+	make (a, b: ARRAY [ G ])
 		local
 			h: DS_HASH_TABLE [ INTEGER, G ]
 		do
@@ -122,7 +122,7 @@ feature -- Creation
 
 feature
 
-	print_files is
+	print_files
 		do
 			io.put_string ("First file:%N")
 			filevec_0.print_file
@@ -141,7 +141,7 @@ feature
 
 feature {NONE} -- Implementation
 
-	diag (xoff, xlim, yoff, ylim: INTEGER): INTEGER is
+	diag (xoff, xlim, yoff, ylim: INTEGER): INTEGER
 			--	Find the midpoint of the shortest edit script for a specified
 			--     portion of the two files.
 			--
@@ -422,7 +422,7 @@ feature {NONE} -- Implementation
 		end
 		-----------------------------------------------------------------
 
-	compareseq (a_xoff, a_xlim, a_yoff, a_ylim: INTEGER) is
+	compareseq (a_xoff, a_xlim, a_yoff, a_ylim: INTEGER)
 			--  Compare in detail contiguous subsequences of the two files
 			--  which are known, as a whole, to match each other.
 			--
@@ -517,7 +517,7 @@ feature {NONE} -- Implementation
 
 feature { NONE }
 
-	discard_non_matching_symbols is
+	discard_non_matching_symbols
 			-- Discard symbols from one file that have no matches in the other file.
 		do
 			filevec_0.discard_non_matching_symbols (filevec_1)
@@ -527,7 +527,7 @@ feature { NONE }
 
 	inhibit: BOOLEAN
 
-	shift_boundaries is
+	shift_boundaries
 			-- Adjust inserts/deletes of blank symbols to join changes
 			-- as much as possible.
 		do
@@ -538,19 +538,19 @@ feature { NONE }
 		end
 		---------------------------------------------------------------------------
 
-	forward_script: FORWARD_SCRIPT is
+	forward_script: FORWARD_SCRIPT
 		once
 			create Result
 		end
 
-	reverse_script: REVERSE_SCRIPT is
+	reverse_script: REVERSE_SCRIPT
 		once
 			create Result
 		end
 
 feature
 
-	diff_2 (reverse: BOOLEAN): CHANGE is
+	diff_2 (reverse: BOOLEAN): CHANGE
 			-- Report the differences of two files.
 			-- DEPTH is the current directory depth.
 		do
@@ -571,7 +571,7 @@ feature
 --  @return the head of a list of changes
 
 
-	diff (bld: SCRIPT_BUILDER): CHANGE is
+	diff (bld: SCRIPT_BUILDER): CHANGE
 		local
 			diags: INTEGER
 		do
@@ -593,7 +593,7 @@ feature
 				filevec_1.buffered_symbols)
 		end
 
-	diff_compare is
+	diff_compare
 		local
 			diags: INTEGER
 		do
@@ -624,7 +624,7 @@ feature
 			bdiag := Void
 		end
 
-	print_changed is
+	print_changed
 		do
 			filevec_0.print_changed
 			filevec_1.print_changed

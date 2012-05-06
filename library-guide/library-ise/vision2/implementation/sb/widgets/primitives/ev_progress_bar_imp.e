@@ -38,7 +38,7 @@ feature {NONE} -- Implementation
 
 feature -- Status report
 
-	is_segmented: BOOLEAN is
+	is_segmented: BOOLEAN
 			-- Is display segmented?
 		do
 			-- TODO
@@ -46,13 +46,13 @@ feature -- Status report
 
 feature -- Status setting
 
-	enable_segmentation is
+	enable_segmentation
 			-- Display bar divided into segments.
 		do
 			-- TODO
 		end
 
-	disable_segmentation is
+	disable_segmentation
 			-- Display bar without segments.
 		do
 			-- TODO
@@ -62,7 +62,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_PROGRESS_BAR;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

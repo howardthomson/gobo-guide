@@ -5,11 +5,11 @@ inherit
 
 	X_ANY_EVENT
 
-creation {NONE}
+create {NONE}
 
 	make
 
-creation { X_EVENT }
+create { X_EVENT }
 
 	from_x_struct
 

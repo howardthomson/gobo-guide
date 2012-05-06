@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"EiffelVision screen. Slyboots implementation."
 	legal: "See notice at end of class."
@@ -293,35 +293,35 @@ feature -- Measurement
 
 feature {NONE} -- Externals (XTEST extension)
 
-	frozen x_keysym_to_keycode (a_display: POINTER; a_keycode: INTEGER): INTEGER is
+	frozen x_keysym_to_keycode (a_display: POINTER; a_keycode: INTEGER): INTEGER
 		external
 			"C: EIF_INTEGER| <X11/Xlib.h>"
 		alias
 			"XKeysymToKeycode"
 		end
 
-	frozen x_test_fake_button_event (a_display: POINTER; a_button: INTEGER; a_is_press: BOOLEAN; a_delay: INTEGER): BOOLEAN is
+	frozen x_test_fake_button_event (a_display: POINTER; a_button: INTEGER; a_is_press: BOOLEAN; a_delay: INTEGER): BOOLEAN
 		external
 			"C: EIF_BOOL| <X11/extensions/XTest.h>"
 		alias
 			"XTestFakeButtonEvent"
 		end
 
-	frozen x_test_fake_key_event (a_display: POINTER; a_keycode: INTEGER; a_is_press: BOOLEAN; a_delay: INTEGER): BOOLEAN is
+	frozen x_test_fake_key_event (a_display: POINTER; a_keycode: INTEGER; a_is_press: BOOLEAN; a_delay: INTEGER): BOOLEAN
 		external
 			"C: EIF_BOOL| <X11/extensions/XTest.h>"
 		alias
 			"XTestFakeKeyEvent"
 		end
 
-	frozen x_test_fake_motion_event (a_display: POINTER; a_scr_num, a_x, a_y, a_delay: INTEGER): BOOLEAN is
+	frozen x_test_fake_motion_event (a_display: POINTER; a_scr_num, a_x, a_y, a_delay: INTEGER): BOOLEAN
 		external
 			"C: EIF_BOOL| <X11/extensions/XTest.h>"
 		alias
 			"XTestFakeMotionEvent"
 		end
 
-	frozen x_test_query_extension (a_display, a_event_base, a_error_base, a_major_version, a_minor_version: POINTER): BOOLEAN is
+	frozen x_test_query_extension (a_display, a_event_base, a_error_base, a_major_version, a_minor_version: POINTER): BOOLEAN
 		external
 			"C: EIF_BOOL| <X11/extensions/XTest.h>"
 		alias
@@ -338,29 +338,29 @@ feature {NONE} -- Implementation
 		do
 		end
 
-	flush is
+	flush
 			-- Force all queued draw to be called.
 		do
 			-- By default do nothing
 		end
 
-	update_if_needed is
+	update_if_needed
 			-- Update `Current' if needed
 		do
 			-- By default do nothing
 		end
 
-	destroy is
+	destroy
 		do
 			set_is_destroyed (True)
 		end
 
-	dispose is
+	dispose
 			-- Cleanup
 		do
 		end
 
-	drawable: POINTER is
+	drawable: POINTER
 			-- Pointer to the screen (root window)
 		do
 			todo_class_line ("__EV_SCREEN_IMP__", "__LINE__ 1")
@@ -368,7 +368,7 @@ feature {NONE} -- Implementation
 --			Result := {EV_GTK_EXTERNALS}.gdk_root_parent
 		end
 
-	mask: POINTER is
+	mask: POINTER
 			-- Mask of `Current', which is always NULL
 		do
 			todo_class_line ("__EV_SCREEN_IMP__", "__LINE__ 1")
@@ -378,7 +378,7 @@ feature {NONE} -- Implementation
 
 	interface: EV_SCREEN;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

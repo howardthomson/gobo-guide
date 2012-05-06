@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Corner between scroll bars"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -19,7 +19,7 @@ inherit
 			class_name
 		end
 
-creation
+create
 	make
 
 feature -- class name

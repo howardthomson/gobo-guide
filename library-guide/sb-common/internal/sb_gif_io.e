@@ -1,4 +1,4 @@
-indexing
+note
 	description:"GIF input/output"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -35,7 +35,7 @@ feature -- Data
 
 feature -- Actions
 
-	load(store: SB_STREAM): BOOLEAN is
+	load(store: SB_STREAM): BOOLEAN
 			-- Load image from stream
 		local
          	c1,c2,flags: INTEGER_8
@@ -107,25 +107,25 @@ feature -- Actions
          	end
 		end
 
-	save(store: SB_STREAM; dt: ARRAY [ INTEGER_8 ]; clr, w, h: INTEGER): BOOLEAN is
+	save(store: SB_STREAM; dt: ARRAY [ INTEGER_8 ]; clr, w, h: INTEGER): BOOLEAN
         	-- Save a gif file to a stream
 		do
 		end
 
 feature {NONE} -- Implementation
 
-	ASCPECTEXT		: INTEGER_8 is 	0x52	--   101 0010B
-	COMMENTEXT		: INTEGER_8 is 	0xfe	--  1111 1110B
-	PLAINTEXTEXT	: INTEGER_8 is 	0x01	--          1B
-	APPLICATIONEXT	: INTEGER_8 is 	0xff	--  1111 1111B
-	GRAPHICCONTROLEXT:INTEGER_8 is 	0xf9	--  1111 1001B
-	EXTENSION		: INTEGER_8 is 	0x21	--    10 0001B
-	IMAGESEP		: INTEGER_8 is 	0x2c	--	  10 1100B
-	TRAILER			: INTEGER_8 is 	0x3b	--	  11 1011B
-	INTERLACE		: INTEGER_8 is 	0x40	--	 100 0000B
-	COLORMAP		: INTEGER_8 is 	0x80	--	1000 0000B
+	ASCPECTEXT		: INTEGER_8 = 	0x52	--   101 0010B
+	COMMENTEXT		: INTEGER_8 = 	0xfe	--  1111 1110B
+	PLAINTEXTEXT	: INTEGER_8 = 	0x01	--          1B
+	APPLICATIONEXT	: INTEGER_8 = 	0xff	--  1111 1111B
+	GRAPHICCONTROLEXT:INTEGER_8 = 	0xf9	--  1111 1001B
+	EXTENSION		: INTEGER_8 = 	0x21	--    10 0001B
+	IMAGESEP		: INTEGER_8 = 	0x2c	--	  10 1100B
+	TRAILER			: INTEGER_8 = 	0x3b	--	  11 1011B
+	INTERLACE		: INTEGER_8 = 	0x40	--	 100 0000B
+	COLORMAP		: INTEGER_8 = 	0x80	--	1000 0000B
 
-	ega_palette: ARRAY [ INTEGER_8 ] is
+	ega_palette: ARRAY [ INTEGER_8 ]
     	once
         	Result :=
         --	{ ARRAY [ INTEGER_8 ] 1,
@@ -152,7 +152,7 @@ feature {NONE} -- Implementation
 
    clrmap: ARRAY [ INTEGER_8 ]
 
-   check_signature(store: SB_STREAM): BOOLEAN is
+   check_signature(store: SB_STREAM): BOOLEAN
       local
          c1,c2,c3: INTEGER_8
       do
@@ -169,7 +169,7 @@ feature {NONE} -- Implementation
          end
       end
 
-	check_version(store: SB_STREAM): BOOLEAN is
+	check_version(store: SB_STREAM): BOOLEAN
 		local
 			c1, c2, c3: INTEGER_8
 		do
@@ -194,7 +194,7 @@ feature {NONE} -- Implementation
          	end
       	end
 
-	process_extension(store: SB_STREAM; ncolors: INTEGER): BOOLEAN is
+	process_extension(store: SB_STREAM; ncolors: INTEGER): BOOLEAN
     	local
          	c2, c3, flags: INTEGER_8
          	size: INTEGER
@@ -260,7 +260,7 @@ feature {NONE} -- Implementation
          	end
 		end
 
-	process_image(store: SB_STREAM; BitMask: INTEGER): BOOLEAN is
+	process_image(store: SB_STREAM; BitMask: INTEGER): BOOLEAN
     	local
          	Yinit, Yinc: ARRAY[INTEGER]
          	imwidth,
@@ -605,18 +605,18 @@ feature {NONE} -- Implementation
 			retry
 		end
 
-	exceptions: EXCEPTIONS is
+	exceptions: EXCEPTIONS
 			-- Should be in parent class somewhere
 		once
 			create Result
 		end
 
-	int_to_bit32(i: INTEGER): INTEGER is
+	int_to_bit32(i: INTEGER): INTEGER
 		do
 			Result := i
 		end
 
-	int_to_int8, int_to_bit8(i: INTEGER): INTEGER_8 is
+	int_to_int8, int_to_bit8(i: INTEGER): INTEGER_8
 			-- Avoid fit_integer_8 requirement for unsigned 8-bit value
 			-- which has the top bit set (of 8-bits)
 		do
@@ -627,12 +627,12 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	bit32_to_int(b: INTEGER): INTEGER is
+	bit32_to_int(b: INTEGER): INTEGER
 		do
 			Result := b
 		end
 
-	uint8_to_int, bit8_to_int(b: INTEGER_8): INTEGER is
+	uint8_to_int, bit8_to_int(b: INTEGER_8): INTEGER
 		do
 			Result := b
 			Result := Result & 0x00ff

@@ -2,13 +2,13 @@ expanded class SE_MASK
 
 feature
 
-   width : INTEGER is 16
-   height: INTEGER is 16
+   width : INTEGER = 16
+   height: INTEGER = 16
    
-   x_hot: INTEGER is 12
-   y_hot: INTEGER is 12
+   x_hot: INTEGER = 12
+   y_hot: INTEGER = 12
    
-   bits: STRING is
+   bits: STRING =
    "%/000/%/224/%/000/%/224/%/012/%/238/%/028/%/238/%/056/%/238/%/112/%/238/%
    %%/224/%/238/%/192/%/239/%/128/%/239/%/252/%/239/%/252/%/239/%/252/%/239/%
    %%/000/%/224/%/255/%/255/%/255/%/255/%/255/%/255/%/000/%/000/%/002/%/000/%

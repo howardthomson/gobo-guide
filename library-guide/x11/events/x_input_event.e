@@ -10,100 +10,100 @@ inherit
 
 feature -- Consultation
 
-	root: INTEGER is
+	root: INTEGER
     		-- id of the root window that the event occurred on
     	deferred
     	end
 
-	subwindow: INTEGER is
+	subwindow: INTEGER
 			-- child window
     	deferred
     	end
 
-	time: INTEGER is
+	time: INTEGER
 			-- in milliseconds
 		deferred
 		end
 
-	x: INTEGER is
+	x: INTEGER
 			-- pointer x coordinate in event window
 		deferred
 		end
 
-	y: INTEGER is
+	y: INTEGER
 			-- pointer y coordinate in event window
 		deferred
 		end
 
-	x_root: INTEGER is
+	x_root: INTEGER
 			-- coordinate relative to root
 		deferred
 		end
 
-	y_root: INTEGER is
+	y_root: INTEGER
 			-- coordinate relative to root
 		deferred
 		end
 
-	state: INTEGER is
+	state: INTEGER
 		deferred
 		end
 
-	same_screen: BOOLEAN is
+	same_screen: BOOLEAN
 		deferred
 		end
 
 feature -- Modification
 
-	set_root (v : INTEGER) is
+	set_root (v : INTEGER)
     	deferred
     	ensure
       		root = v
     	end
 
-  	set_subwindow (v : INTEGER) is
+  	set_subwindow (v : INTEGER)
     	deferred
     	ensure 
       		subwindow = v
     	end
 
-  	set_time (v : INTEGER) is
+  	set_time (v : INTEGER)
     	deferred
     	ensure
       		time = v
     	end
 
-  	set_x (v : INTEGER) is
+  	set_x (v : INTEGER)
     	deferred
     	ensure
       		x = v
     	end
 
-  	set_y (v : INTEGER) is
+  	set_y (v : INTEGER)
     	deferred
     	ensure
       		y = v
     	end
 
-  	set_x_root (v : INTEGER) is
+  	set_x_root (v : INTEGER)
     	deferred
     	ensure
       		x_root = v
     	end
 
-  	set_y_root (v : INTEGER) is
+  	set_y_root (v : INTEGER)
     	deferred
     	ensure
       		y_root = v
     	end
 
-  	set_state (v : INTEGER) is
+  	set_state (v : INTEGER)
     	deferred
     	ensure
       		state.is_equal (v)
     	end
 
-  	set_same_screen (v : BOOLEAN) is
+  	set_same_screen (v : BOOLEAN)
     	deferred
     	ensure
       		same_screen = v

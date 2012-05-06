@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"Eiffel Vision frame. Slyboots implementation"
 	legal: "See notice at end of class."
@@ -34,7 +34,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Initialize `Current'.
 		do
 --			create {SB_FRAME} sb_widget.make_ev
@@ -46,7 +46,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	style: INTEGER is
+	style: INTEGER
 			-- Visual appearance. See: EV_FRAME_CONSTANTS.
 		local
 			gtk_style: INTEGER
@@ -70,7 +70,7 @@ feature -- Access
 
 feature -- Element change
 
-	set_style (a_style: INTEGER) is
+	set_style (a_style: INTEGER)
 			-- Assign `a_style' to `style'.
 		do
 			todo_class_line ("__EV_FRAME_IMP__", "__LINE__")
@@ -93,7 +93,7 @@ feature -- Element change
 
 feature -- Status setting
 
-	align_text_left is
+	align_text_left
 			-- Display `text' left aligned.
 		do
 			todo_class_line ("__EV_FRAME_IMP__", "__LINE__")
@@ -101,7 +101,7 @@ feature -- Status setting
 --			internal_alignment_code := {EV_GTK_EXTERNALS}.gtk_justify_left_enum
 		end
 
-	align_text_right is
+	align_text_right
 			-- Display `text' right aligned.
 		do
 			todo_class_line ("__EV_FRAME_IMP__", "__LINE__")
@@ -109,7 +109,7 @@ feature -- Status setting
 --			internal_alignment_code := {EV_GTK_EXTERNALS}.gtk_justify_right_enum
 		end
 
-	align_text_center is
+	align_text_center
 			-- Display `text' centered.
 		do
 			todo_class_line ("__EV_FRAME_IMP__", "__LINE__")
@@ -119,7 +119,7 @@ feature -- Status setting
 
 feature -- Access
 
-	text_alignment: INTEGER is
+	text_alignment: INTEGER
 			-- Alignment of the text in the label.
 		do
 		todo_class_line ("__EV_FRAME_IMP__", "__LINE__")
@@ -135,7 +135,7 @@ feature -- Access
 --			end
 		end
 
-	text: STRING_32 is
+	text: STRING_32
 			-- Text of the frame
 		do
 			if internal_text = Void then
@@ -146,7 +146,7 @@ feature -- Access
 
 feature -- Element change
 
-	set_text (a_text: STRING_GENERAL) is
+	set_text (a_text: STRING_GENERAL)
 			-- set the `text' of the frame
 		local
 --			a_cs: EV_GTK_C_STRING
@@ -170,7 +170,7 @@ feature {EV_ANY_I} -- Implementation
 			-- Provides a common user interface to possibly platform
 			-- dependent functionality implemented by `Current'
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

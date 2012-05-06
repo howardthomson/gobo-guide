@@ -9,36 +9,36 @@ inherit
       		set_window as set_drawable
     	end
 
-creation 
+create 
 
 	make
 
-creation { X_EVENT }
+create { X_EVENT }
 
 	from_x_struct
 
 feature -- Access
 
-	major_code : INTEGER is
+	major_code : INTEGER
     	do
       		Result := c_major_code (to_external)
     	end
 
-	minor_code : INTEGER is
+	minor_code : INTEGER
     	do
       		Result := c_minor_code (to_external)
     	end
 
 feature -- Modification
 
-	set_major_code (v : INTEGER) is
+	set_major_code (v : INTEGER)
     	do
       		c_set_major_code (to_external, v)
     	ensure
       		major_code = v
     	end
 
-  	set_minor_code (v : INTEGER) is
+  	set_minor_code (v : INTEGER)
     	do
       		c_set_minor_code (to_external, v)
     	ensure
@@ -47,10 +47,10 @@ feature -- Modification
 
 feature { NONE } -- External functions
 
-	c_major_code			(p: POINTER): INTEGER is	external "C struct XNoExposeEvent access major_code use <X11/Xlib.h>"     		end
-	c_minor_code			(p: POINTER): INTEGER is	external "C struct XNoExposeEvent access minor_code use <X11/Xlib.h>"     		end
+	c_major_code			(p: POINTER): INTEGER	external "C struct XNoExposeEvent access major_code use <X11/Xlib.h>"     		end
+	c_minor_code			(p: POINTER): INTEGER	external "C struct XNoExposeEvent access minor_code use <X11/Xlib.h>"     		end
 
-	c_set_major_code		(p: POINTER; i: INTEGER) is    external "C struct XNoExposeEvent access major_code type int use <X11/Xlib.h>"    	end
-	c_set_minor_code		(p: POINTER; i: INTEGER) is    external "C struct XNoExposeEvent access minor_code type int use <X11/Xlib.h>"    	end
+	c_set_major_code		(p: POINTER; i: INTEGER)    external "C struct XNoExposeEvent access major_code type int use <X11/Xlib.h>"    	end
+	c_set_minor_code		(p: POINTER; i: INTEGER)    external "C struct XNoExposeEvent access minor_code type int use <X11/Xlib.h>"    	end
 
 end 

@@ -2,11 +2,11 @@ expanded class HSPLIT_MASK
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 11
-   y_hot: INTEGER is 11
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 11
+   y_hot: INTEGER = 11
+   bits: STRING =
    "%/128/%/247/%/000/%/000/%/128/%/247/%/000/%/000/%/128/%/247/%/000/%/000/%
    %%/128/%/247/%/000/%/000/%/128/%/247/%/000/%/000/%/128/%/247/%/000/%/000/%
    %%/128/%/247/%/000/%/000/%/224/%/247/%/003/%/000/%/240/%/247/%/007/%/000/%

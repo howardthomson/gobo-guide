@@ -9,7 +9,7 @@ inherit
 	SB_WAPI_FILES_AND_DIRS_ACCESS_RIGHTS
 	SB_WAPI_WINDOW_FUNCTIONS
 
-creation
+create
 
 	open_read
 
@@ -20,7 +20,7 @@ feature -- Attributes
 
 feature -- Routines
 
-	open_read(path: STRING) is
+	open_read(path: STRING)
 		require else
 			path /= Void and then path.count > 1
 		local
@@ -43,15 +43,15 @@ feature -- Routines
 			end
 		end
 
-	open_write (path: STRING) is
+	open_write (path: STRING)
 		do
 		end
 
-	close is
+	close
 		do
 		end
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 		do
 			Result := handle /= default_pointer
 		end

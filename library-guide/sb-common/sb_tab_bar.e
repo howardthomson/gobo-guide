@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The tab bar layout manager arranges tab items side by side,
 		and raises the active tab item above the neighboring tab items.
@@ -37,20 +37,20 @@ inherit
 
    SB_TAB_BAR_COMMANDS
 
-creation
+create
 
    make, make_opts
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_TAB_BAR"
 		end
 
 feature -- Creation
 
-	make (p: SB_COMPOSITE; opts: INTEGER) is
+	make (p: SB_COMPOSITE; opts: INTEGER)
 			-- Construct a tab bar
 		do
          	make_opts(p, Void,0, opts, 0,0,0,0,
@@ -58,7 +58,7 @@ feature -- Creation
       	end
 
    make_opts (p: SB_COMPOSITE; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER;
-              x,y,w,h, pl,pr,pt,pb: INTEGER) is
+              x,y,w,h, pl,pr,pt,pb: INTEGER)
          -- Construct a tab bar
       do
          packer_make_opts(p, opts, x,y,w,h, pl,pr,pt,pb, 0,0)
@@ -74,13 +74,13 @@ feature -- Data
 
 feature -- Queries
 
-   get_tab_style: INTEGER is
+   get_tab_style: INTEGER
          -- Return tab bar style
       do
          Result := options & TABBOOK_MASK
       end
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Return default width
       local
          w,wtabs, wmaxtab, t, ntabs: INTEGER
@@ -140,7 +140,7 @@ feature -- Queries
          Result := w + pad_left + pad_right + (border * 2)
       end
 
-   default_height: INTEGER is
+   default_height: INTEGER
          -- Return default height
       local
          h, htabs, hmaxtab, t, ntabs: INTEGER
@@ -202,7 +202,7 @@ feature -- Queries
 
 feature -- Actions
 
-   set_tab_style(style: INTEGER) is
+   set_tab_style(style: INTEGER)
          -- Change tab tab style
       local
          opts: INTEGER;
@@ -215,7 +215,7 @@ feature -- Actions
          end
       end
 
-	set_top_child(panel: INTEGER; notify: BOOLEAN) is
+	set_top_child(panel: INTEGER; notify: BOOLEAN)
 			-- Change currently active tab item;
 			-- this raises the active tab item slightly above the neighboring
 			-- tab items.
@@ -233,7 +233,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (SEL_COMMAND,ID_OPEN_ITEM, type, key) then Result := on_cmd_open_item (sender, key, data)
         	elseif 	match_function_2 (SEL_COMMAND,Id_setvalue,  type, key) then Result := on_cmd_set_value (sender, key, data)
@@ -245,7 +245,7 @@ feature -- Message processing
          	else Result := Precursor(sender, type, key, data) end
       	end
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
          dc: SB_DC_WINDOW
@@ -262,7 +262,7 @@ feature -- Message processing
          Result := True;
       end
 
-   on_focus_next (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_next (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          -- Focus moved to next visible tab
       local
          child: SB_WINDOW
@@ -286,7 +286,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_prev (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_prev (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          -- Focus moved to previous visible tab
       local
          child: SB_WINDOW
@@ -310,35 +310,35 @@ feature -- Message processing
          end
       end
 
-   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (options & TABBOOK_SIDEWAYS) /= Zero then
             Result :=  handle_2 (Current, SEL_FOCUS_PREV, 0, data)
          end
       end
 
-   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (options & TABBOOK_SIDEWAYS) /= Zero then
             Result :=  handle_2 (Current, SEL_FOCUS_NEXT, 0, data)
          end
       end
 
-   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (options & TABBOOK_SIDEWAYS) = Zero then
             Result :=  handle_2 (Current, SEL_FOCUS_PREV, 0, data)
          end
       end
 
-   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if (options & TABBOOK_SIDEWAYS) = Zero then
             Result :=  handle_2 (Current, SEL_FOCUS_NEXT, 0, data)
          end
       end
 
-   on_cmd_open_item (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_open_item (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          -- The sender of the message is the item to open up
       local
          child: SB_WINDOW
@@ -350,7 +350,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_set_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          -- Update value from a message
       local
 		val: INTEGER_REF;
@@ -362,7 +362,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_get_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          -- Obtain value
       local
 		val: INTEGER_REF
@@ -374,14 +374,14 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_open (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_open (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          -- Open item
       do
          set_top_child (selid (selector) - ID_OPEN_FIRST, True)
          Result := True    
       end
 
-   on_upd_open (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_upd_open (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          -- Update the nth button
       local
          msg: INTEGER;
@@ -397,7 +397,7 @@ feature -- Message processing
 
 feature {NONE} -- Implementation
 
-   layout is
+   layout
       local
          i, x, y, w, h, wmaxtab, hmaxtab, newcurrent: INTEGER
          raisetab, tab: SB_WINDOW

@@ -1,4 +1,4 @@
-indexing
+note
 	description	: "Facilities for accessing default pixmaps."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -14,31 +14,31 @@ inherit
 
 feature -- Access
 
-	Information_pixmap: EV_PIXMAP is
+	Information_pixmap: EV_PIXMAP
 			-- Pixmap symbolizing a piece of information.
 		do
 --#			Result := pixmap_from_stock_id ("gtk-dialog-info")
 		end
 
-	Error_pixmap: EV_PIXMAP is
+	Error_pixmap: EV_PIXMAP
 			-- Pixmap symbolizing an error.
 		do
 --#			Result := pixmap_from_stock_id ("gtk-dialog-error")
 		end
 
-	Warning_pixmap: EV_PIXMAP is
+	Warning_pixmap: EV_PIXMAP
 			-- Pixmap symbolizing a warning.
 		do
 --#			Result := pixmap_from_stock_id ("gtk-dialog-warning")
 		end
 
-	Question_pixmap: EV_PIXMAP is
+	Question_pixmap: EV_PIXMAP
 			-- Pixmap symbolizing a question.
 		do
 --#			Result := pixmap_from_stock_id ("gtk-dialog-question")
 		end
 
-	Collate_pixmap: EV_PIXMAP is
+	Collate_pixmap: EV_PIXMAP
 			-- Pixmap symbolizing collated printing.
 		local
 			pixmap_imp: EV_PIXMAP_IMP
@@ -48,7 +48,7 @@ feature -- Access
 			pixmap_imp.set_from_xpm_data (collate_pixmap_xpm)
 		end
 
-	No_collate_pixmap: EV_PIXMAP is
+	No_collate_pixmap: EV_PIXMAP
 			-- Pixmap symbolizing non collated printing.
 		local
 			pixmap_imp: EV_PIXMAP_IMP
@@ -58,7 +58,7 @@ feature -- Access
 			pixmap_imp.set_from_xpm_data (no_collate_pixmap_xpm)
 		end
 
-	Landscape_pixmap: EV_PIXMAP is
+	Landscape_pixmap: EV_PIXMAP
 			-- Pixmap symbolizing landscape printing.
 		local
 			pixmap_imp: EV_PIXMAP_IMP
@@ -68,7 +68,7 @@ feature -- Access
 			pixmap_imp.set_from_xpm_data (landscape_pixmap_xpm)
 		end
 
-	Portrait_pixmap: EV_PIXMAP is
+	Portrait_pixmap: EV_PIXMAP
 			-- Pixmap symbolizing portrait printing.
 		local
 			pixmap_imp: EV_PIXMAP_IMP
@@ -78,7 +78,7 @@ feature -- Access
 			pixmap_imp.set_from_xpm_data (portrait_pixmap_xpm)
 		end
 
-	Default_window_icon: EV_PIXMAP is
+	Default_window_icon: EV_PIXMAP
 			-- Pixmap used as default icon for new windows.
 		local
 			pixmap_imp: EV_PIXMAP_I
@@ -261,7 +261,7 @@ feature {EV_ANY_HANDLER, EV_ANY_I} -- Externals
 --			"wait_cursor_xpm"
 --		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

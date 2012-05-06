@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Eiffel Vision font. GTK implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -24,13 +24,13 @@ create
 
 feature {NONE} -- Initialization
 
- 	old_make (an_interface: like interface) is
+ 	old_make (an_interface: like interface)
  			-- Create the default font.
 		do
 			base_make (an_interface)
 		end
 
-	make is
+	make
 			-- Set up `Current'
 		local
 			l_app_imp: like app_implementation
@@ -71,14 +71,14 @@ feature -- Access
 
 feature -- Element change
 
-	set_family (a_family: INTEGER) is
+	set_family (a_family: INTEGER)
 			-- Set `a_family' as preferred font category.
 		do
 			family := a_family
 			update_font_face
 		end
 
-	set_face_name (a_face: STRING_GENERAL) is
+	set_face_name (a_face: STRING_GENERAL)
 			-- Set the face name for current.
 		local
 --			propvalue: EV_GTK_C_STRING
@@ -89,7 +89,7 @@ feature -- Element change
 			calculate_font_metrics
 		end
 
-	set_weight (a_weight: INTEGER) is
+	set_weight (a_weight: INTEGER)
 			-- Set `a_weight' as preferred font thickness.
 		do
 			weight := a_weight
@@ -97,7 +97,7 @@ feature -- Element change
 			calculate_font_metrics
 		end
 
-	set_shape (a_shape: INTEGER) is
+	set_shape (a_shape: INTEGER)
 			-- Set `a_shape' as preferred font slant.
 		do
 			shape := a_shape
@@ -105,7 +105,7 @@ feature -- Element change
 			calculate_font_metrics
 		end
 
-	set_height (a_height: INTEGER) is
+	set_height (a_height: INTEGER)
 			-- Set `a_height' as preferred font size in screen pixels
 		do
 --			height_in_points := app_implementation.point_value_from_pixel_value (a_height)
@@ -114,7 +114,7 @@ feature -- Element change
 			calculate_font_metrics
 		end
 
-	set_height_in_points (a_height: INTEGER) is
+	set_height_in_points (a_height: INTEGER)
 			-- Set `a_height' as preferred font size in screen pixels
 		do
 --			height_in_points := a_height
@@ -124,7 +124,7 @@ feature -- Element change
 		end
 
 	set_values (a_family, a_weight, a_shape, a_height: INTEGER;
-		a_preferred_families: like preferred_families) is
+		a_preferred_families: like preferred_families)
 			-- Set `a_family', `a_weight', `a_shape' `a_height' and
 			-- `a_preferred_face' at the same time for speed.
 		local
@@ -153,7 +153,7 @@ feature -- Status report
 	ignore_font_metric_calculation: BOOLEAN
 			-- Should the font metric calculation be ignored?
 
-	calculate_font_metrics is
+	calculate_font_metrics
 			-- Calculate metrics for font
 		local
 			a_str_size: TUPLE [INTEGER, INTEGER, INTEGER, INTEGER, INTEGER]
@@ -174,62 +174,62 @@ feature -- Status report
 	descent: INTEGER
 			-- Vertical distance from the origin of the drawing operation to the bottom of the drawn character.
 
-	width: INTEGER is
+	width: INTEGER
 			-- Character width of current fixed-width font.
 		do
 			Result := string_width (once "x")
 		end
 
-	minimum_width: INTEGER is
+	minimum_width: INTEGER
 			-- Width of the smallest character in the font.
 		do
 			Result := string_width (once "l")
 		end
 
-	maximum_width: INTEGER is
+	maximum_width: INTEGER
 			-- Width of the biggest character in the font.
 		do
 			Result := string_width (once "W")
 		end
 
-	string_size (a_string: STRING_GENERAL): like reusable_string_size_tuple is
+	string_size (a_string: STRING_GENERAL): like reusable_string_size_tuple
 			-- `Result' is [width, height, left_offset, right_offset] in pixels of `a_string' in the
 			-- current font, taking into account line breaks ('%N').
 		do
 			-- TODO
 		end
 
-	reusable_string_size_tuple: TUPLE [INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER] is
+	reusable_string_size_tuple: TUPLE [INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER]
 			-- Reusable tuple for `string_size'.
 		once
 			create Result
 		end
 
-	string_width (a_string: STRING_GENERAL): INTEGER is
+	string_width (a_string: STRING_GENERAL): INTEGER
 			-- Width in pixels of `a_string' in the current font.
 		do
 			-- TODO
 		end
 
-	reusable_pango_rectangle_struct: POINTER is
+	reusable_pango_rectangle_struct: POINTER
 			-- PangoRectangle that may be reused to prevent memory allocation, must not be freed
 		once
 --			Result := {EV_GTK_DEPENDENT_EXTERNALS}.c_pango_rectangle_struct_allocate
 		end
 
-	horizontal_resolution: INTEGER is
+	horizontal_resolution: INTEGER
 			-- Horizontal resolution of screen for which the font is designed.
 		do
 			Result := 75
 		end
 
-	vertical_resolution: INTEGER is
+	vertical_resolution: INTEGER
 			-- Vertical resolution of screen for which the font is designed.
 		do
 			Result := 75
 		end
 
-	is_proportional: BOOLEAN is
+	is_proportional: BOOLEAN
 			-- Can characters in the font have different sizes?
 		do
 			Result := True
@@ -237,17 +237,17 @@ feature -- Status report
 
 feature -- {EV_ANY_I} -- Implementation
 
-	update_font_face is
+	update_font_face
 		do
 		end
 
-	update_preferred_faces (a_face: STRING_32) is
+	update_preferred_faces (a_face: STRING_32)
 		do
 		end
 
 feature {NONE} -- Implementation
 
-	app_implementation: EV_APPLICATION_IMP is
+	app_implementation: EV_APPLICATION_IMP
 			-- Return the instance of EV_APPLICATION_IMP.
 		once
 			Result ?= (create {EV_ENVIRONMENT}).application.implementation
@@ -258,18 +258,18 @@ feature {EV_ANY_I} -- Implementation
 	interface: EV_FONT
 		-- Interface coupling object for `Current'
 
-	destroy is
+	destroy
 			-- Flag `Current' as destroyed
 		do
 			set_is_destroyed (True)
 		end
 
-	dispose is
+	dispose
 			-- Clean up `Current'
 		do
 		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

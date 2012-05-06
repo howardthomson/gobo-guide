@@ -1,4 +1,4 @@
-indexing
+note
 
 	todo: "[
 		Establish class type for client in make_from_tuple

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The tab book layout manager arranges pairs of children;
 		the even numbered children (0,2,4,...) are usually tab items,
@@ -38,7 +38,7 @@ inherit
          	class_name
       	end
 
-creation
+create
 
    make, make_opts
 
@@ -393,7 +393,7 @@ feature -- Message processing
 
 feature {NONE} -- Implementation
 
-   layout is
+   layout
       local
          i, x,y,w,h, px,py,pw,ph, wmaxtab,hmaxtab, newcurrent: INTEGER
          raisepane, raisetab, pane, tab: SB_WINDOW

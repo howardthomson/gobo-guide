@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Base class for various item containers like list/icon_list/tree etc"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -21,7 +21,7 @@ inherit
 
 feature -- Item access
 
- 	item(index: GI): GT is
+ 	item(index: GI): GT
       		-- Return the item at the given index
       	require
          	valid_accessor(index);
@@ -30,21 +30,21 @@ feature -- Item access
 
 feature -- Item change
 
- 	set_item_text(index: GI; text: STRING) is
+ 	set_item_text(index: GI; text: STRING)
          	-- Change item text
       	require
          	valid_accessor(index)
       	deferred
       	end
 
- 	set_item_icon(index: GI; icon: SB_ICON) is
+ 	set_item_icon(index: GI; icon: SB_ICON)
         	-- Change item icon
       	require
          	valid_accessor(index)
       	deferred
       	end
 
-	set_item_data(index: GI; data: ANY) is
+	set_item_data(index: GI; data: ANY)
          	-- Change item data
       	require
          	valid_accessor(index)
@@ -54,7 +54,7 @@ feature -- Item change
 
 feature -- Item move
 
- 	move_item(new_index, old_index: GI) is
+ 	move_item(new_index, old_index: GI)
          	-- Remove item from container
       	require
          	valid_accessor(old_index);
@@ -63,7 +63,7 @@ feature -- Item move
          	move_item_notify(new_index, old_index, False)
       	end
 
- 	move_item_notify(new_index, old_index: GI; notify: BOOLEAN) is
+ 	move_item_notify(new_index, old_index: GI; notify: BOOLEAN)
          	-- Remove item from container
       	require
          	valid_accessor(old_index);
@@ -73,7 +73,7 @@ feature -- Item move
 
 feature -- Item removal
 
- 	remove_item(index: GI) is
+ 	remove_item(index: GI)
          	-- Remove item from container
       	require
          	valid_accessor(index);
@@ -81,40 +81,40 @@ feature -- Item removal
          	remove_item_notify(index,False)
       	end
 
- 	remove_item_notify(index: GI; notify: BOOLEAN) is
+ 	remove_item_notify(index: GI; notify: BOOLEAN)
          	-- Remove item from container
       	require
          	valid_accessor(index);
       	deferred
       	end
 
-   	clear_items, wipe_out is
+   	clear_items, wipe_out
       	do
          	clear_items_notify(False)
       	end
 
-   	clear_items_notify(notify: BOOLEAN) is
+   	clear_items_notify(notify: BOOLEAN)
          	-- Remove all items from list
       	deferred
       	end
 
 feature -- Actions
 
-   	recalc is
+   	recalc
       		-- Recalculate layout
       	deferred
       	end
 
-   	update is
+   	update
       	deferred
       	end
 
 feature -- Validation
 
-	valid_accessor(index: GI): BOOLEAN is
+	valid_accessor(index: GI): BOOLEAN
       	deferred
       	end
 
-	DEFAULT_ACCESSOR: GI is do end;	-- Original
+	DEFAULT_ACCESSOR: GI do end;	-- Original
 
 end

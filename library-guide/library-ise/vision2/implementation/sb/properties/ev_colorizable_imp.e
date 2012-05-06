@@ -20,7 +20,7 @@ inherit
 
 feature -- Access
 
-	foreground_color_internal: EV_COLOR is
+	foreground_color_internal: EV_COLOR
 			-- Color of foreground features like text.
 		local
 			color: POINTER
@@ -38,7 +38,7 @@ feature -- Access
 			end
 		end
 
-	background_color_internal: EV_COLOR is
+	background_color_internal: EV_COLOR
 			-- Color of face.
 		local
 			color: POINTER
@@ -58,17 +58,17 @@ feature -- Access
 
 feature -- Status setting
 
-	set_foreground_color (a_color: EV_COLOR) is
+	set_foreground_color (a_color: EV_COLOR)
 			-- Assign `a_color' to `foreground_color'
 		do
 		end
 
-	set_background_color (a_color: EV_COLOR) is
+	set_background_color (a_color: EV_COLOR)
 			-- Assign `a_color' to `background_color'
 		do
 		end
 
-	set_default_colors is
+	set_default_colors
 			-- Set foreground and background color to their default values.
 		do
 			background_color_imp := Void
@@ -85,10 +85,10 @@ feature {NONE} -- Implementation
 	foreground_color_imp: EV_COLOR_IMP
 		-- Color used for the foreground of `Current'
 
-	Prelight_scale: REAL is 1.0909488
+	Prelight_scale: REAL = 1.0909488
 		-- Prelight color is this much lighter than `background_color'.
 
-	Highlight_scale: REAL is 0.90912397
+	Highlight_scale: REAL = 0.90912397
 		-- Highlight color is this much darker than `background_color'.
 
 feature {EV_ANY_I} -- Implementation

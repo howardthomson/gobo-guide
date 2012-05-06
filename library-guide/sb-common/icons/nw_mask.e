@@ -2,11 +2,11 @@ expanded class NW_MASK
 
 feature
 
-   width: INTEGER is 16
-   height: INTEGER is 16
-   x_hot: INTEGER is 3
-   y_hot: INTEGER is 3
-   bits: STRING is
+   width: INTEGER = 16
+   height: INTEGER = 16
+   x_hot: INTEGER = 3
+   y_hot: INTEGER = 3
+   bits: STRING =
    "%/255/%/255/%/255/%/255/%/255/%/255/%/007/%/000/%/247/%/063/%/247/%/063/%
    %%/247/%/063/%/247/%/001/%/247/%/003/%/119/%/007/%/119/%/014/%/119/%/028/%
    %%/119/%/056/%/119/%/048/%/007/%/000/%/007/%/000/%/000/%/000/%/000/%/000/%

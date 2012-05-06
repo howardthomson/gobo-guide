@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"Eiffel Vision button. Slyboots implementation."
 	legal: "See notice at end of class."
@@ -59,7 +59,7 @@ feature {NONE} -- Implementation Attributes
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- `Precursor' initialization,
 			-- create button box to hold label and pixmap.
 		local
@@ -87,7 +87,7 @@ feature -- Access
 
 feature -- Status Setting
 
-	align_text_center is
+	align_text_center
 			-- Display `text' centered.
 		do
 			TODO_class_line ("__EV_BUTTON_IMP__", "align_text_center")
@@ -96,7 +96,7 @@ feature -- Status Setting
 --			{EV_GTK_EXTERNALS}.gtk_alignment_set (button_box, 0.5, 0.5, 0, 0)
 		end
 
-	align_text_left is
+	align_text_left
 			-- Display `text' left aligned.
 		do
 			TODO_class_line ("__EV_BUTTON_IMP__", "align_text_left")
@@ -105,7 +105,7 @@ feature -- Status Setting
 --			{EV_GTK_EXTERNALS}.gtk_alignment_set (button_box, 0.0, 0.5, 0, 0)
 		end
 
-	align_text_right is
+	align_text_right
 			-- Display `text' right aligned.
 		do
 			TODO_class_line ("__EV_BUTTON_IMP__", "align_text_right")
@@ -114,14 +114,14 @@ feature -- Status Setting
 --			{EV_GTK_EXTERNALS}.gtk_alignment_set (button_box, 1.0, 0.5, 0, 0)
 		end
 
-	enable_default_push_button is
+	enable_default_push_button
 			-- Set the style of the button corresponding
 			-- to the default push button.
 		do
 			enable_can_default
 		end
 
-	disable_default_push_button is
+	disable_default_push_button
 			-- Remove the style of the button corresponding
 			-- to the default push button.
 		do
@@ -132,7 +132,7 @@ feature -- Status Setting
 --			{EV_GTK_EXTERNALS}.gtk_widget_queue_draw (visual_widget)
 		end
 
-	enable_can_default is
+	enable_can_default
 			-- Allow the style of the button to be the default push button.
 		do
 			TODO_class_line ("__EV_BUTTON_IMP__", "enable_can_default")
@@ -142,7 +142,7 @@ feature -- Status Setting
 --			{EV_GTK_EXTERNALS}.gtk_widget_queue_draw (visual_widget)
 		end
 
-	set_foreground_color (a_color: EV_COLOR) is
+	set_foreground_color (a_color: EV_COLOR)
 		do
 			TODO_class_line ("__EV_BUTTON_IMP__", "set_foreground_color")
 			
@@ -152,7 +152,7 @@ feature -- Status Setting
 
 feature {NONE} -- implementation
 
-	on_focus_changed (a_has_focus: BOOLEAN) is
+	on_focus_changed (a_has_focus: BOOLEAN)
 			-- Called from focus intermediary agents when focus for `Current' has changed.
 			-- if `a_has_focus' then `Current' has just received focus.
 		local
@@ -195,7 +195,7 @@ feature {EV_ANY_I} -- implementation
 invariant
 	button_box_not_null: is_usable implies button_box /= NULL
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

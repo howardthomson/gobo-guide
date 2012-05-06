@@ -38,13 +38,13 @@ inherit
 			has as array_has
 		end
 
-creation
+create
 
 	make
 	
 feature { ANY }
 			
-	find (key: KEY): ELEMENT is
+	find (key: KEY): ELEMENT
 		local
 			index: INTEGER
 		do
@@ -54,7 +54,7 @@ feature { ANY }
 			end
 		end
 			
-	has (key: KEY): BOOLEAN is
+	has (key: KEY): BOOLEAN
 		do
 			Result := binary_search (key, lower, upper) >= 0
 		end

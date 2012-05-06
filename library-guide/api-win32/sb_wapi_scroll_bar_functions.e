@@ -2,7 +2,7 @@ expanded class SB_WAPI_SCROLL_BAR_FUNCTIONS
 
 feature -- Access
 
-   GetScrollPos (hWnd: POINTER; nBar: INTEGER): INTEGER is
+   GetScrollPos (hWnd: POINTER; nBar: INTEGER): INTEGER
 
 
 
@@ -17,7 +17,7 @@ feature -- Access
 
       end
 
-   SetScrollPos (hWnd: POINTER; fnBar, nPos, fRedraw: INTEGER): INTEGER is
+   SetScrollPos (hWnd: POINTER; fnBar, nPos, fRedraw: INTEGER): INTEGER
 
 
 
@@ -32,7 +32,7 @@ feature -- Access
 
       end
 
-   SetScrollRange (hWnd: POINTER; fnBar, nMinPos, nMaxPos, fRedraw: INTEGER): INTEGER is
+   SetScrollRange (hWnd: POINTER; fnBar, nMinPos, nMaxPos, fRedraw: INTEGER): INTEGER
 
 
 
@@ -47,7 +47,7 @@ feature -- Access
 
       end
 
-   ScrollWindow (hWnd: POINTER; dx, dy: INTEGER; lprcScroll, lprcClip: POINTER): INTEGER is
+   ScrollWindow (hWnd: POINTER; dx, dy: INTEGER; lprcScroll, lprcClip: POINTER): INTEGER
 
 
 
@@ -63,7 +63,7 @@ feature -- Access
       end
 
    ScrollWindowEx (hWnd: POINTER dx, dy: INTEGER; prcScroll, prcClip, hrgnUpdate,
-                   prcUpdate: POINTER; flags: INTEGER): INTEGER is
+                   prcUpdate: POINTER; flags: INTEGER): INTEGER
 
 
 
@@ -78,7 +78,7 @@ feature -- Access
 
       end
 
-   ShowScrollBar (hWnd: POINTER; wBar, bShow: INTEGER): INTEGER is
+   ShowScrollBar (hWnd: POINTER; wBar, bShow: INTEGER): INTEGER
 
 
 

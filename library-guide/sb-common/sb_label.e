@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		A label widget can be used to place a text and/or icon
 		for explanation purposes. The text label may have an
@@ -32,7 +32,7 @@ inherit
 	SB_LABEL_CONSTANTS
 	SB_EXPANDED
 
-creation
+create
 
    make, make_sb, make_opts, make_ev
 
@@ -49,19 +49,19 @@ feature
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_LABEL"
 		end
 
 feature -- Creation
 
-	make_ev is
+	make_ev
 		do
 			make_opts_ev (once "TEST", Void, LABEL_NORMAL, 0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,DEFAULT_PAD,DEFAULT_PAD)
 		end
 
-	make_opts_ev (text: STRING; ic: SB_ICON; opts: INTEGER; x, y, w, h, pl, pr,pt, pb: INTEGER) is
+	make_opts_ev (text: STRING; ic: SB_ICON; opts: INTEGER; x, y, w, h, pl, pr,pt, pb: INTEGER)
     		-- Construct label with given text and icon
       	do
          	frame_make_opts_ev (opts, x,y, w,h, pl,pr, pt,pb)
@@ -79,18 +79,18 @@ feature -- Creation
 			end
 		end
 
-	make (p: SB_COMPOSITE; text: STRING) is
+	make (p: SB_COMPOSITE; text: STRING)
     		-- Construct label with given text
       	do
          	make_opts (p, text, Void, LABEL_NORMAL, 0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,DEFAULT_PAD,DEFAULT_PAD);
       	end
 
-	make_sb (p: SB_COMPOSITE; text: STRING; opts: INTEGER) is
+	make_sb (p: SB_COMPOSITE; text: STRING; opts: INTEGER)
 		do
 			make_opts (p, text, Void, opts, 0,0,0,0, 0,0,0,0)
 		end
 
-	make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; opts: INTEGER; x, y, w, h, pl, pr,pt, pb: INTEGER) is
+	make_opts (p: SB_COMPOSITE; text: STRING; ic: SB_ICON; opts: INTEGER; x, y, w, h, pl, pr,pt, pb: INTEGER)
 			-- Construct label with given text and icon
 		do
 			frame_make_opts (p, opts, x,y, w,h, pl,pr, pt,pb)
@@ -108,7 +108,7 @@ feature -- Creation
 
 feature {NONE} -- Implementation
 
-  label_height (text: STRING): INTEGER is
+  label_height (text: STRING): INTEGER
       local
          l_start, l_end, l: INTEGER
       do
@@ -131,7 +131,7 @@ feature {NONE} -- Implementation
          end
       end
 
-  label_width (text: STRING): INTEGER is
+  label_width (text: STRING): INTEGER
   		-- width of widest line of (potentially) multi-line content
       local
          l_start, l_end, w, l: INTEGER
@@ -158,7 +158,7 @@ feature {NONE} -- Implementation
          end
       end
 
-  draw_label (dc: SB_DC_WINDOW; text: STRING; hot, tx, ty, tw, th: INTEGER) is
+  draw_label (dc: SB_DC_WINDOW; text: STRING; hot, tx, ty, tw, th: INTEGER)
       local
          l_start, l_end, xx, yy, l: INTEGER
       do
@@ -194,7 +194,7 @@ feature {NONE} -- Implementation
          end
       end
 
-   just_x (tw, iw: INTEGER): SB_POINT is
+   just_x (tw, iw: INTEGER): SB_POINT
          -- Justify stuff in x-direction
       local
          s: INTEGER
@@ -251,7 +251,7 @@ feature {NONE} -- Implementation
          create Result.make(ix,tx)
       end
 
-  just_y (th, ih: INTEGER): SB_POINT is
+  just_y (th, ih: INTEGER): SB_POINT
          -- Justify stuff in y-direction
       local
          iy, ty: INTEGER
@@ -306,7 +306,7 @@ feature {NONE} -- Implementation
 
 feature -- Message processing
 
-   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       do
          if		match_function_2 (SEL_COMMAND,		Id_setstringvalue,	type, key) then Result := on_cmd_set_string_value	(sender, key, data);
          elseif match_function_2 (SEL_COMMAND,		Id_getstringvalue,	type, key) then Result := on_cmd_get_string_value	(sender, key, data);
@@ -317,7 +317,7 @@ feature -- Message processing
          else Result := Precursor(sender, type, key, data); end
       end
 
-   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          event: SB_EVENT;
          dc: SB_DC_WINDOW;
@@ -366,7 +366,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_hot_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          window: SB_WINDOW
       do
@@ -390,13 +390,13 @@ feature -- Message processing
          Result := True
       end
 
-   on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_hot_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
          --  Nothing much happens here...
       do
          Result := True
       end
 
-   on_cmd_get_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING;
       do
@@ -409,7 +409,7 @@ feature -- Message processing
       end
 
 
-   on_cmd_set_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_string_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          str: STRING;
       do
@@ -418,7 +418,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_query_help (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_query_help (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not help.is_empty and then (flags & Flag_help) /= 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_setstringvalue, help)
@@ -426,7 +426,7 @@ feature -- Message processing
          end
       end
 
-   on_query_tip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_query_tip (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not tip.is_empty and then (flags & Flag_tip) /= 0 then
             sender.do_handle_2 (Current, SEL_COMMAND, Id_setstringvalue, tip)
@@ -434,7 +434,7 @@ feature -- Message processing
          end
       end
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       do
          Precursor
@@ -444,7 +444,7 @@ feature -- Message processing
          end
       end
 
-  detach_resource is
+  detach_resource
          -- Detach server-side resources
       do
          Precursor
@@ -454,7 +454,7 @@ feature -- Message processing
          end
       end
 
-   enable is
+   enable
          -- Enable the window
       do
          if (flags & Flag_enabled) = 0 then
@@ -463,7 +463,7 @@ feature -- Message processing
          end
       end
 
-   disable is
+   disable
          -- Disable the window
       do
          if (flags & Flag_enabled) /= 0 then
@@ -472,7 +472,7 @@ feature -- Message processing
          end
       end
 
-   default_width: INTEGER is
+   default_width: INTEGER
          -- Return default width
       local
          tw,iw,s,w: INTEGER
@@ -494,7 +494,7 @@ feature -- Message processing
          Result := w + pad_left + pad_right + (border*2)
       end
 
-  default_height: INTEGER is
+  default_height: INTEGER
          -- Return default height
       local
          th, ih, h: INTEGER;
@@ -515,7 +515,7 @@ feature -- Message processing
          Result := h + pad_top + pad_bottom + (border * 2)
       end
 
-   set_text (text: STRING) is
+   set_text (text: STRING)
          -- Set the text for this label
       local
          str: STRING
@@ -532,7 +532,7 @@ feature -- Message processing
          end
       end
 
-   set_icon (ic: SB_ICON) is
+   set_icon (ic: SB_ICON)
          -- Set the icon for this label
       do
          if icon /= ic then
@@ -542,7 +542,7 @@ feature -- Message processing
          end
       end
 
-   set_font (fnt: SB_FONT) is
+   set_font (fnt: SB_FONT)
          -- Set the text font
       require
          fnt /= Void
@@ -554,7 +554,7 @@ feature -- Message processing
          end
       end
 
-   set_text_color (clr: INTEGER) is
+   set_text_color (clr: INTEGER)
          -- Set the current text color
       do
          if clr /= text_color then
@@ -563,7 +563,7 @@ feature -- Message processing
          end
       end
 
-   set_justify (mode: INTEGER) is
+   set_justify (mode: INTEGER)
          -- Set the current text-justification mode.
       local
          opts: INTEGER
@@ -575,13 +575,13 @@ feature -- Message processing
          end
       end
 
-   get_justify: INTEGER is
+   get_justify: INTEGER
          -- Get the current text-justification mode.
       do
          Result := (options & JUSTIFY_MASK)
       end
 
-   set_icon_position (mode: INTEGER) is
+   set_icon_position (mode: INTEGER)
          -- Set the current icon position
       local
          opts: INTEGER;
@@ -594,19 +594,19 @@ feature -- Message processing
          end
       end
 
-   get_icon_position: INTEGER is
+   get_icon_position: INTEGER
          -- Get the current icon position
       do
          Result := (options & ICON_TEXT_MASK)
       end
 
-   set_help_text (text: STRING) is
+   set_help_text (text: STRING)
          -- Set the status line help text for this label
       do
          help := text
       end
 
-   set_tip_text (text: STRING) is
+   set_tip_text (text: STRING)
          -- Set the tool tip message for this label
       do
          tip := text
@@ -614,7 +614,7 @@ feature -- Message processing
 
 feature -- Destruction
 
-   destruct is
+   destruct
       do
          remove_hot_key (hot_key)
          icon := Void

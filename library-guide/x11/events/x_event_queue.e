@@ -9,13 +9,13 @@ inherit
 	X_GLOBAL
 	X11_EXTERNAL_ROUTINES
 
-creation
+create
 
 	make
 
 feature {NONE} -- Creation
 
-  	make (disp: X_DISPLAY) is
+  	make (disp: X_DISPLAY)
     	require
       		disp /= Void
     	do
@@ -28,7 +28,7 @@ feature
 
   	display: X_DISPLAY	-- The display where the events occures
 
-  	next_event (ev: X_EVENT) is
+  	next_event (ev: X_EVENT)
       		-- Fill `ev' with the first event from the event queue
     	require
       		ev /= Void
@@ -36,7 +36,7 @@ feature
       		x_next_event (display.to_external, ev.to_external)
     	end
 
-  	peek_event (ev: X_EVENT) is
+  	peek_event (ev: X_EVENT)
       		-- Fill `ev' with the first event from the event queue, but it does 
       		-- not remove the event from the queue
     	require
@@ -45,7 +45,7 @@ feature
       		x_peek_event (display.to_external, ev.to_external)
     	end
 
-  	check_window_event (win: X_WINDOW; mask: INTEGER; ev: X_EVENT): BOOLEAN is
+  	check_window_event (win: X_WINDOW; mask: INTEGER; ev: X_EVENT): BOOLEAN
       		-- searches the events available on the server connection for 
       		-- the first event that matches the specified window and event mask.
       		-- Returns False if no event is available.
@@ -58,7 +58,7 @@ feature
 				       (mask), ev.to_external) /= 0
     	end
 
-  	check_typed_window_event (win: X_WINDOW; type: INTEGER; ev: X_EVENT): BOOLEAN is
+  	check_typed_window_event (win: X_WINDOW; type: INTEGER; ev: X_EVENT): BOOLEAN
       		-- searches any events available on the server connection for 
       		-- the first event that matches the specified type and window.
       		-- Returns False if no event is available.
@@ -71,7 +71,7 @@ feature
 					     type, ev.to_external) /= 0 
     	end
 
-  	check_mask_event (mask: INTEGER; ev: X_EVENT): BOOLEAN is
+  	check_mask_event (mask: INTEGER; ev: X_EVENT): BOOLEAN
       		-- searches any events available on the server connection for 
       		-- the first event that matches the specified mask
     	require
@@ -82,14 +82,14 @@ feature
 				    ev.to_external) /= 0 
     	end
 
-  	check_typed_event (type: INTEGER; ev: X_EVENT): BOOLEAN is
+  	check_typed_event (type: INTEGER; ev: X_EVENT): BOOLEAN
       		-- searches any events available on the server connection for 
       		-- the first event that matches the specified type.
     	do
       		Result := x_check_typed_event (display.to_external, type, ev.to_external) /= 0 
     	end
 
-  	window_event (win: X_WINDOW; mask: INTEGER; ev: X_EVENT) is
+  	window_event (win: X_WINDOW; mask: INTEGER; ev: X_EVENT)
       		-- searches the event queue for an event that matches both the
       		-- specified window and event mask.
     	require
@@ -100,7 +100,7 @@ feature
       		x_window_event (display.to_external, win.id, (mask), ev.to_external)
     	end
 
-  	mask_event (mask: INTEGER; ev: X_EVENT) is
+  	mask_event (mask: INTEGER; ev: X_EVENT)
       		-- searches the event queue for an event that matches both the
       		-- specified window and event mask.
     	require
@@ -109,7 +109,7 @@ feature
       		x_mask_event (display.to_external, (mask), ev.to_external)
     	end
 
-  	put_back_event (ev: X_EVENT) is
+  	put_back_event (ev: X_EVENT)
       		-- pushes an event back onto the head of the display's event queue
       		-- by copying the event into the queue.
     	require
@@ -121,7 +121,7 @@ feature
 	send_event(win   : X_WINDOW; 
               propag : BOOLEAN; 
               mask   : INTEGER; 
-              ev     : X_EVENT): BOOLEAN is
+              ev     : X_EVENT): BOOLEAN
       		-- identifies the destination window, determines which clients
       		-- should receive the specified events, and ignores any active grabs
     	require
@@ -135,26 +135,26 @@ feature
 
 feature -- special windows used by `send_event'
 
-  	pointer_window: X_WINDOW is
+  	pointer_window: X_WINDOW
     	once
       		create Result.make_special (ptr_window)
     	end
 
-  	input_focus: X_WINDOW is
+  	input_focus: X_WINDOW
     	once
       		create Result.make_special (inp_focus)
     	end
 
 feature
 
-  	allow_events (type, time: INTEGER) is
+  	allow_events (type, time: INTEGER)
       		-- releases some queued events if the client has caused a
       		-- device to freeze.
     	do
       		x_allow_events (display.to_external, type, time)
     	end
 
-  	events_queued (mode: INTEGER): INTEGER is
+  	events_queued (mode: INTEGER): INTEGER
       		-- returns the number of event in the event queue
     	do
       		Result := x_events_queued (display.to_external, mode)
@@ -162,18 +162,18 @@ feature
 
 feature -- events_queued mode value
 
-	Queued_already		: INTEGER is	0
-	Queued_after_flush	: INTEGER is	1
-	Queued_after_reading: INTEGER is	2
+	Queued_already		: INTEGER =	0
+	Queued_after_flush	: INTEGER =	1
+	Queued_after_reading: INTEGER =	2
 
 feature {NONE} -- External functions
 
-  	ptr_window: INTEGER is
+  	ptr_window: INTEGER
     	external "C macro use <X11/Xlib.h>"
     	alias "PointerWindow"
     	end
 
-  	inp_focus: INTEGER is
+  	inp_focus: INTEGER
     	external "C macro use <X11/Xlib.h>"
     	alias "InputFocus"
     	end

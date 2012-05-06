@@ -2,11 +2,11 @@ expanded class DNDMOVE_MASK
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 3
-   y_hot: INTEGER is 2
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 3
+   y_hot: INTEGER = 2
+   bits: STRING =
    "%/000/%/000/%/000/%/000/%/252/%/255/%/000/%/000/%/252/%/255/%/001/%/000/%
    %%/252/%/255/%/003/%/000/%/252/%/255/%/007/%/000/%/252/%/255/%/015/%/000/%
    %%/252/%/255/%/015/%/000/%/252/%/255/%/015/%/000/%/252/%/255/%/015/%/000/%

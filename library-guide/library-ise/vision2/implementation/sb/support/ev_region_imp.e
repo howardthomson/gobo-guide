@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Gtk Implementation for EV_REGION"
 	author: ""
 	date: "$Date: 2006-08-25 12:07:27 -0700 (Fri, 25 Aug 2006) $"
@@ -146,7 +146,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

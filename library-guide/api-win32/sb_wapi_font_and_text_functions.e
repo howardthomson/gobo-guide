@@ -5,7 +5,7 @@ feature -- Access
    CreateFont ( nHeight, nWidth, nEscapement, nOrientation, fnWeight, fdwItalic,
                 fdwUnderline, fdwStrikeOut, fdwCharSet, fdwOutputPrecision: INTEGER;
                 fdwClipPrecision: INTEGER_32; fdwQuality: INTEGER;
-                fdwPitchAndFamily : INTEGER_32; lpszFace: POINTER): POINTER is
+                fdwPitchAndFamily : INTEGER_32; lpszFace: POINTER): POINTER
 
 
 
@@ -21,7 +21,7 @@ feature -- Access
       end
 	----------------------------------------
 
-   GetTextColor (hDC: POINTER): INTEGER is
+   GetTextColor (hDC: POINTER): INTEGER
 
 
 
@@ -37,7 +37,7 @@ feature -- Access
       end
 	----------------------------------------
 
-   CreateFontIndirect (lplf: POINTER): POINTER is
+   CreateFontIndirect (lplf: POINTER): POINTER
 
 
 
@@ -55,7 +55,7 @@ feature -- Access
 
    ExtTextOut (hDC: POINTER; X, Y: INTEGER; fuOptions: INTEGER_32;
                lprc,lpString: POINTER; cbCount: INTEGER;
-               lpDx: POINTER): INTEGER is
+               lpDx: POINTER): INTEGER
 
 
 
@@ -76,7 +76,7 @@ feature -- Access
                          lpString : POINTER;
                          cbString : INTEGER;
                          lpSize : POINTER
-                         ) : INTEGER is
+                         ) : INTEGER
 
 
 
@@ -92,7 +92,7 @@ feature -- Access
       end
 	----------------------------------------
 
-   GetTextMetrics (hDC: POINTER; lptm: POINTER): INTEGER is
+   GetTextMetrics (hDC: POINTER; lptm: POINTER): INTEGER
 
 
 
@@ -108,7 +108,7 @@ feature -- Access
       end
 	----------------------------------------
 
-   SetTextAlign (hDC: POINTER; fMode: INTEGER): INTEGER is
+   SetTextAlign (hDC: POINTER; fMode: INTEGER): INTEGER
 
 
 
@@ -124,7 +124,7 @@ feature -- Access
       end
 	----------------------------------------
 
-   SetTextColor (hDC: POINTER; crColor: INTEGER): INTEGER is
+   SetTextColor (hDC: POINTER; crColor: INTEGER): INTEGER
 
 
 
@@ -141,7 +141,7 @@ feature -- Access
 	----------------------------------------
 
    TextOut (hDC: POINTER; nXStart, nYStart: INTEGER; lpString: POINTER;
-            cbString: INTEGER): INTEGER is
+            cbString: INTEGER): INTEGER
 
 
 

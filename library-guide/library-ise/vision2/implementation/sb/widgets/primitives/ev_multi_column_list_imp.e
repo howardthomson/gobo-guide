@@ -94,7 +94,7 @@ feature {NONE} -- Initialization
 --			{EV_GTK_EXTERNALS}.gtk_widget_show (tree_view)
 --		end
 
-	make is
+	make
 			-- Initialize `Current'
 		local
 			l_release_actions: EV_POINTER_BUTTON_ACTION_SEQUENCE
@@ -122,7 +122,7 @@ feature {NONE} -- Initialization
 
 feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Implementation
 
-	connect_selection_actions is
+	connect_selection_actions
 			-- Connect the selection signal
 		local
 			a_selection: POINTER
@@ -134,7 +134,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Implementation
 			end
 		end
 
-	disconnect_selection_actions is
+	disconnect_selection_actions
 			-- Disconnect the selection signal
 		local
 			a_selection: POINTER
@@ -151,7 +151,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Implementation
 
 feature {NONE} -- Implementation
 
-	call_selection_action_sequences is
+	call_selection_action_sequences
 			-- Call appropriate selection and deselection action sequences
 		local
 			new_selection: ARRAYED_LIST [EV_MULTI_COLUMN_LIST_ROW]
@@ -200,7 +200,7 @@ feature {NONE} -- Implementation
 	previous_selection: ARRAYED_LIST [EV_MULTI_COLUMN_LIST_ROW]
 		-- Previous selection of `Current'
 
-	create_pointer_motion_actions: EV_POINTER_MOTION_ACTION_SEQUENCE is
+	create_pointer_motion_actions: EV_POINTER_MOTION_ACTION_SEQUENCE
 			-- Create a pointer_motion action sequence.
 		do
 			create Result
@@ -213,7 +213,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Event handling
 			a_x, a_y, a_button: INTEGER;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER)
-		is
+		
 		local
 			t : TUPLE [INTEGER, INTEGER, INTEGER, DOUBLE, DOUBLE, DOUBLE,
 				INTEGER, INTEGER]
@@ -267,7 +267,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Event handling
 
 feature {NONE} -- Implementation
 
-	call_selection_actions (clicked_row: EV_MULTI_COLUMN_LIST_ROW_IMP) is
+	call_selection_actions (clicked_row: EV_MULTI_COLUMN_LIST_ROW_IMP)
 			-- Call the selections actions for `clicked_row'
 		do
 			if not previous_selection.has (clicked_row.interface) then
@@ -280,7 +280,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	call_deselect_actions (deselected_row: EV_MULTI_COLUMN_LIST_ROW_IMP) is
+	call_deselect_actions (deselected_row: EV_MULTI_COLUMN_LIST_ROW_IMP)
 			-- Call deselect actions for `deselected_row'
 		do
 			if deselected_row.deselect_actions_internal /= Void then
@@ -291,7 +291,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	resize_model_if_needed (a_columns: INTEGER) is
+	resize_model_if_needed (a_columns: INTEGER)
 			--
 		local
 			a_type_array: MANAGED_POINTER
@@ -329,7 +329,7 @@ feature {NONE} -- Implementation
 		end
 
 
-	create_list (a_columns: INTEGER) is
+	create_list (a_columns: INTEGER)
 			-- Create the clist with `a_columns' columns.
 		require
 			a_columns_positive: a_columns > 0
@@ -420,7 +420,7 @@ feature {NONE} -- Implementation
 	list_store: POINTER
 		-- Pointer to the Model
 
-	on_pointer_motion (a_motion_tuple: TUPLE [INTEGER, INTEGER, DOUBLE, DOUBLE, DOUBLE, INTEGER, INTEGER]) is
+	on_pointer_motion (a_motion_tuple: TUPLE [INTEGER, INTEGER, DOUBLE, DOUBLE, DOUBLE, INTEGER, INTEGER])
 		local
 			a_row_number: INTEGER
 			a_row_imp: EV_MULTI_COLUMN_LIST_ROW_IMP
@@ -437,7 +437,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	pixmaps_size_changed is
+	pixmaps_size_changed
 			--
 		do
 			--| FIXME IEK Add pixmap scaling code with gtk+ 2
@@ -448,7 +448,7 @@ feature {NONE} -- Implementation
 
 feature -- Access
 
-	column_count: INTEGER is
+	column_count: INTEGER
 			-- Number of columns in the list.
 		local
 			col_list: POINTER
@@ -462,7 +462,7 @@ feature -- Access
 --			end
 		end
 
-	model_column_count: INTEGER is
+	model_column_count: INTEGER
 			-- Number of columns in GtkTreeModel
 		do
 			todo_class_line ("__EV_MULTI_COLUMN_LIST_IMP__", "__LINE__")
@@ -472,19 +472,19 @@ feature -- Access
 --			end
 		end
 
-	rows, count: INTEGER is
+	rows, count: INTEGER
 			-- Number of rows in the list.
 		do
 			Result := ev_children.count
 		end
 
-	i_th (i: INTEGER): EV_MULTI_COLUMN_LIST_ROW is
+	i_th (i: INTEGER): EV_MULTI_COLUMN_LIST_ROW
 			-- `i_th' row in `Current'
 		do
 			Result := (ev_children @ i).interface
 		end
 
-	selected_item: EV_MULTI_COLUMN_LIST_ROW is
+	selected_item: EV_MULTI_COLUMN_LIST_ROW
 			-- Item which is currently selected
 		local
 			a_selection: POINTER
@@ -509,7 +509,7 @@ feature -- Access
 --			end
 		end
 
-	selected_items: ARRAYED_LIST [EV_MULTI_COLUMN_LIST_ROW] is
+	selected_items: ARRAYED_LIST [EV_MULTI_COLUMN_LIST_ROW]
 			-- List of all the selected items. For a single
 			-- selection list, it gives a list with only one
 			-- element which is `selected_item'. Therefore, one
@@ -546,7 +546,7 @@ feature -- Access
 
 feature -- Status report
 
-	selected: BOOLEAN is
+	selected: BOOLEAN
 			-- Is at least one item selected ?
 		local
 			a_selection: POINTER
@@ -557,7 +557,7 @@ feature -- Status report
 --			Result := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_selection_count_selected_rows (a_selection) > 0
 		end
 
-	multiple_selection_enabled: BOOLEAN is
+	multiple_selection_enabled: BOOLEAN
 			-- True if the user can choose several items
 			-- False otherwise.
 		local
@@ -569,7 +569,7 @@ feature -- Status report
 --			Result := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_selection_get_mode (a_selection) = {EV_GTK_EXTERNALS}.gtk_selection_multiple_enum
 		end
 
-	title_shown: BOOLEAN is
+	title_shown: BOOLEAN
 			-- True if the title row is shown.
 			-- False if the title row is not shown.
 		do
@@ -578,14 +578,14 @@ feature -- Status report
 
 feature -- Status setting
 
-	destroy is
+	destroy
 			-- Destroy screen widget implementation and EV_LIST_ITEM objects.
 		do
 			wipe_out
 			Precursor {EV_PRIMITIVE_IMP}
 		end
 
-	show_title_row is
+	show_title_row
 			-- Show the row of the titles.
 		do
 			todo_class_line ("__EV_MULTI_COLUMN_LIST_IMP__", "__LINE__")
@@ -593,7 +593,7 @@ feature -- Status setting
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_set_headers_visible (tree_view, True)
 		end
 
-	hide_title_row is
+	hide_title_row
 			-- Hide the row of the titles.
 		do
 			todo_class_line ("__EV_MULTI_COLUMN_LIST_IMP__", "__LINE__")
@@ -602,7 +602,7 @@ feature -- Status setting
 --			resize_column_to_content (1)
 		end
 
-	enable_multiple_selection is
+	enable_multiple_selection
 			-- Allow the user to do a multiple selection simply
 			-- by clicking on several choices.
 			-- For constants, see EV_GTK_CONSTANTS.
@@ -615,7 +615,7 @@ feature -- Status setting
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_selection_set_mode (a_selection, {EV_GTK_EXTERNALS}.gtk_selection_multiple_enum)
 		end
 
-	disable_multiple_selection is
+	disable_multiple_selection
 			-- Allow the user to do only one selection. It is the
 			-- default status of the list.
 			-- For constants, see EV_GTK_CONSTANTS.
@@ -628,7 +628,7 @@ feature -- Status setting
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_selection_set_mode (a_selection, {EV_GTK_EXTERNALS}.gtk_selection_single_enum)
 		end
 
-	select_item (an_index: INTEGER) is
+	select_item (an_index: INTEGER)
 			-- Select an item at the one-based `index' of the list.
 		local
 			a_selection: POINTER
@@ -644,7 +644,7 @@ feature -- Status setting
 --			end
 		end
 
-	deselect_item (an_index: INTEGER) is
+	deselect_item (an_index: INTEGER)
 			-- Unselect the item at the one-based `index'.
 		local
 			a_selection: POINTER
@@ -660,7 +660,7 @@ feature -- Status setting
 --			end
 		end
 
-	clear_selection is
+	clear_selection
 			-- Clear the selection of the list.
 		local
 			a_selection: POINTER
@@ -671,7 +671,7 @@ feature -- Status setting
 --			{EV_GTK_EXTERNALS}.gtk_tree_selection_unselect_all (a_selection)
 		end
 
-	resize_column_to_content (a_column: INTEGER) is
+	resize_column_to_content (a_column: INTEGER)
 			-- Resize column `a_column' to width of its widest text.
 		local
 			a_column_ptr: POINTER
@@ -682,7 +682,7 @@ feature -- Status setting
 
 feature -- Element change
 
-	column_title_changed (a_txt: STRING_GENERAL; a_column: INTEGER) is
+	column_title_changed (a_txt: STRING_GENERAL; a_column: INTEGER)
 			-- Make `a_txt' the title of the column number.
 		local
 			l_txt: STRING_32
@@ -704,7 +704,7 @@ feature -- Element change
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_column_set_title (a_column_ptr, a_cs.item)
 		end
 
-	column_width_changed (value: INTEGER; a_column: INTEGER) is
+	column_width_changed (value: INTEGER; a_column: INTEGER)
 			-- Make `value' the new width of the column number
 			-- `a_column'.
 		local
@@ -719,7 +719,7 @@ feature -- Element change
 --			end
 		end
 
-	column_alignment_changed (an_alignment: EV_TEXT_ALIGNMENT; a_column: INTEGER) is
+	column_alignment_changed (an_alignment: EV_TEXT_ALIGNMENT; a_column: INTEGER)
 			-- Set alignment of `a_column' to corresponding `alignment_code'.
 		local
 			alignment: REAL
@@ -754,7 +754,7 @@ feature -- Element change
 --			{EV_GTK_EXTERNALS}.g_list_free (a_cell_rend_list)
 		end
 
-	set_row_height (value: INTEGER) is
+	set_row_height (value: INTEGER)
 			-- Make `value' the new height of all the rows.
 		local
 			a_column_ptr, a_cell_rend_list, a_cell_rend: POINTER
@@ -776,7 +776,7 @@ feature -- Element change
 --			{EV_GTK_EXTERNALS}.g_list_free (a_cell_rend_list)
 		end
 
-	wipe_out is
+	wipe_out
 			-- Remove all items.
 		local
 			item_imp: EV_MULTI_COLUMN_LIST_ROW_IMP
@@ -806,7 +806,7 @@ feature -- Element change
 
 feature -- Implementation
 
-	set_to_drag_and_drop: BOOLEAN is
+	set_to_drag_and_drop: BOOLEAN
 			-- Set transport mode to drag and drop.
 		do
 			if pnd_row_imp /= Void then
@@ -816,7 +816,7 @@ feature -- Implementation
 			end
 		end
 
-	able_to_transport (a_button: INTEGER): BOOLEAN is
+	able_to_transport (a_button: INTEGER): BOOLEAN
 			-- Is list or row able to transport PND data using `a_button'.
 		do
 			if pnd_row_imp /= Void then
@@ -826,7 +826,7 @@ feature -- Implementation
 			end
 		end
 
-	ready_for_pnd_menu (a_button, a_type: INTEGER): BOOLEAN is
+	ready_for_pnd_menu (a_button, a_type: INTEGER): BOOLEAN
 			-- Is list or row able to display PND menu using `a_button'
 		do
 			todo_class_line ("__EV_MULTI_COLUMN_LIST_IMP__", "__LINE__")
@@ -840,14 +840,14 @@ feature -- Implementation
 --			end
 		end
 
-	disable_transport is
+	disable_transport
 			-- Disable PND transport
 		do
 			Precursor
 			update_pnd_status
 		end
 
-	update_pnd_status is
+	update_pnd_status
 			-- Update PND status of list and its children.
 		local
 			a_enable_flag: BOOLEAN
@@ -863,7 +863,7 @@ feature -- Implementation
 			update_pnd_connection (a_enable_flag)
 		end
 
-	update_pnd_connection (a_enable: BOOLEAN) is
+	update_pnd_connection (a_enable: BOOLEAN)
 			-- Update the PND connection of `Current' if needed.
 		do
 			if not is_transport_enabled then
@@ -880,7 +880,7 @@ feature -- Implementation
 			a_x, a_y, a_button: INTEGER;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER)
-		is
+		
 			-- Initialize a pick and drop transport.
 		local
 			a_row_index: INTEGER
@@ -912,7 +912,7 @@ feature -- Implementation
 
 	temp_accept_cursor, temp_deny_cursor: EV_POINTER_STYLE
 
-	call_pebble_function (a_x, a_y, a_screen_x, a_screen_y: INTEGER) is
+	call_pebble_function (a_x, a_y, a_screen_x, a_screen_y: INTEGER)
 			-- Set `pebble' using `pebble_function' if present.
 		do
 			temp_pebble := pebble
@@ -928,7 +928,7 @@ feature -- Implementation
 			end
 		end
 
-	pre_pick_steps (a_x, a_y, a_screen_x, a_screen_y: INTEGER) is
+	pre_pick_steps (a_x, a_y, a_screen_x, a_screen_y: INTEGER)
 			-- Steps to perform before transport initiated.
 		do
 			temp_accept_cursor := accept_cursor
@@ -983,7 +983,7 @@ feature -- Implementation
 			modify_widget_appearance (True)
 		end
 
-	post_drop_steps (a_button: INTEGER)  is
+	post_drop_steps (a_button: INTEGER)
 			-- Steps to perform once an attempted drop has happened.
 		do
 			App_implementation.set_x_y_origin (0, 0)
@@ -1011,7 +1011,7 @@ feature -- Implementation
 
 feature {EV_MULTI_COLUMN_LIST_ROW_IMP} -- Implementation
 
-	row_index_from_y_coord (a_y: INTEGER): INTEGER is
+	row_index_from_y_coord (a_y: INTEGER): INTEGER
 			-- Returns the row index at relative coordinate `a_y'.
 		local
 			a_tree_path, a_tree_column: POINTER
@@ -1030,7 +1030,7 @@ feature {EV_MULTI_COLUMN_LIST_ROW_IMP} -- Implementation
 --			end
 		end
 
-	item_from_coords (a_x, a_y: INTEGER): EV_PND_DEFERRED_ITEM is
+	item_from_coords (a_x, a_y: INTEGER): EV_PND_DEFERRED_ITEM
 			-- Returns the row at relative coordinate `a_y'
 		local
 			a_row_index: INTEGER
@@ -1043,7 +1043,7 @@ feature {EV_MULTI_COLUMN_LIST_ROW_IMP} -- Implementation
 
 feature {EV_MULTI_COLUMN_LIST_ROW_IMP}
 
-	set_text_on_position (a_column, a_row: INTEGER; a_text: STRING_GENERAL) is
+	set_text_on_position (a_column, a_row: INTEGER; a_text: STRING_GENERAL)
 			-- Set cell text at (a_column, a_row) to `a_text'.
 		local
 --			a_cs: EV_GTK_C_STRING
@@ -1063,7 +1063,7 @@ feature {EV_MULTI_COLUMN_LIST_ROW_IMP}
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_list_store_set_value (list_store, a_list_iter, a_column, str_value)
 		end
 
-	set_row_pixmap (a_row: INTEGER; a_pixmap: EV_PIXMAP) is
+	set_row_pixmap (a_row: INTEGER; a_pixmap: EV_PIXMAP)
 			-- Set row `a_row' pixmap to `a_pixmap'.
 		local
 			pixmap_imp: EV_PIXMAP_IMP
@@ -1079,7 +1079,7 @@ feature {EV_MULTI_COLUMN_LIST_ROW_IMP}
 --			{EV_GTK_EXTERNALS}.object_unref (a_pixbuf)
 		end
 
-	remove_row_pixmap (a_row: INTEGER) is
+	remove_row_pixmap (a_row: INTEGER)
 			-- Remove pixmap from `a_row'
 		local
 --			a_list_iter: POINTER
@@ -1092,7 +1092,7 @@ feature {EV_MULTI_COLUMN_LIST_ROW_IMP}
 
 feature {NONE} -- Implementation
 
-	update_child (child: EV_MULTI_COLUMN_LIST_ROW_IMP; a_row: INTEGER) is
+	update_child (child: EV_MULTI_COLUMN_LIST_ROW_IMP; a_row: INTEGER)
 			-- Update `child'.
 		require
 			child_exists: child /= Void
@@ -1135,7 +1135,7 @@ feature {NONE} -- Implementation
 			list.go_to (cur)
 		end
 
-	ensure_item_visible (a_item: EV_MULTI_COLUMN_LIST_ROW) is
+	ensure_item_visible (a_item: EV_MULTI_COLUMN_LIST_ROW)
 			-- Ensure `a_item' is visible on the screen.
 		local
 			list_item_imp: EV_MULTI_COLUMN_LIST_ROW_IMP
@@ -1146,7 +1146,7 @@ feature {NONE} -- Implementation
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_path_free (a_path)
 		end
 
-	insert_i_th (v: like item; i: INTEGER) is
+	insert_i_th (v: like item; i: INTEGER)
 			-- Insert `v' at position `i'.
 		local
 			item_imp: EV_MULTI_COLUMN_LIST_ROW_IMP
@@ -1177,7 +1177,7 @@ feature {NONE} -- Implementation
 			child_array.put_left (v)
 		end
 
-	remove_i_th (a_position: INTEGER) is
+	remove_i_th (a_position: INTEGER)
 			-- Remove item from list at `a_position'.
 			-- Set the items parent to void.
 		local
@@ -1194,7 +1194,7 @@ feature {NONE} -- Implementation
 			update_pnd_status
 		end
 
-	row_height: INTEGER is
+	row_height: INTEGER
 			-- Height of rows in `Current'
 		local
 			a_column_ptr: POINTER
@@ -1207,7 +1207,7 @@ feature {NONE} -- Implementation
 
 feature {EV_MULTI_COLUMN_LIST_ROW_IMP} -- Implementation
 
-	expand_column_count_to (a_columns: INTEGER) is
+	expand_column_count_to (a_columns: INTEGER)
 			-- Expand the number of columns to `a_columns'
 		do
 			create_list (a_columns)
@@ -1220,7 +1220,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Implementation
 
 feature {EV_ANY_I} -- Implementation
 
-	visual_widget: POINTER is
+	visual_widget: POINTER
 			-- Pointer to on-screen interactive widget
 		do
 			Result := tree_view
@@ -1231,7 +1231,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_MULTI_COLUMN_LIST;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

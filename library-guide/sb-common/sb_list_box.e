@@ -1,4 +1,4 @@
-indexing
+note
 	description: "ListBox"
 
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
@@ -40,7 +40,7 @@ inherit
 
 	SB_CONSTANTS
 	
-creation
+create
 
    make, make_opts
 
@@ -53,14 +53,14 @@ feature -- Attributes
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_LIST_BOX"
 		end
 
 feature -- Creation
 
-   make (p: SB_COMPOSITE; nvis: INTEGER; opts: INTEGER) is
+   make (p: SB_COMPOSITE; nvis: INTEGER; opts: INTEGER)
          -- Construct tree list box
       local
          o: INTEGER;
@@ -74,7 +74,7 @@ feature -- Creation
       end
 
    make_opts (p: SB_COMPOSITE; nvis: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER;
-              x,y, w,h, pl,pr, pt,pb: INTEGER) is
+              x,y, w,h, pl,pr, pt,pb: INTEGER)
          -- Construct tree list box
       do
          packer_make_opts(p, opts, x,y,w,h, 0,0,0,0, 0,0)
@@ -98,7 +98,7 @@ feature -- Creation
 
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
 			-- Return default with
 		local
 			ww, pw: INTEGER;
@@ -108,7 +108,7 @@ feature -- Queries
 			Result := ww.max(pw)
 		end
 
-	default_height: INTEGER is
+	default_height: INTEGER
 			-- Return default height
 		local
 			th, bh: INTEGER;
@@ -118,37 +118,37 @@ feature -- Queries
 			Result := th.max(bh) + (border * 2);
 		end
 
-   items_count: INTEGER is
+   items_count: INTEGER
          -- Return number of items
       do
          Result := list.items_count
       end
 
-   visible_rows: INTEGER is
+   visible_rows: INTEGER
          -- Return number of visible items
       do
          Result := list.visible_rows
       end
 
-   is_pane_shown: BOOLEAN is
+   is_pane_shown: BOOLEAN
          -- Is the pane is_shown
       do
          Result := pane.is_shown
       end
 
-   help_text: STRING is
+   help_text: STRING
          -- Return help text
       do
          Result := field.help
       end
 
-   tip_text: STRING is
+   tip_text: STRING
          -- Return tip text
       do
          Result := field.tip
       end
 
-   font: SB_FONT is
+   font: SB_FONT
          -- Return font
       do
          Result := field.font
@@ -156,19 +156,19 @@ feature -- Queries
 
 feature -- Item queries
 
-   current_item: INTEGER is
+   current_item: INTEGER
          -- Return current item
       do
          Result := list.current_item
       end
 
-   find_item_by_name(text: STRING): INTEGER is
+   find_item_by_name(text: STRING): INTEGER
          -- Search items for item by name, starting from first item case insensitive.
       do
          Result := list.find_item_by_name(text)
       end
 
-   find_item_by_name_opts(text: STRING; start: INTEGER; flgs: INTEGER): INTEGER is
+   find_item_by_name_opts(text: STRING; start: INTEGER; flgs: INTEGER): INTEGER
          -- Search items for item by name, starting from start item; the
          -- flags argument controls the search direction, and case 
          -- sensitivity.
@@ -176,7 +176,7 @@ feature -- Item queries
          Result := list.find_item_by_name_opts(text, start, flgs)
       end
 
-   is_item_current(item: INTEGER): BOOLEAN is
+   is_item_current(item: INTEGER): BOOLEAN
          -- Return True if item is the current item
       do
          Result := list.is_item_current(item)
@@ -184,13 +184,13 @@ feature -- Item queries
 
 feature -- Actions
 
-   set_visible_rows(nvis: INTEGER) is
+   set_visible_rows(nvis: INTEGER)
          -- Set number of visible items to determine default height
       do
          list.set_visible_rows(nvis)
       end
 
-   enable is
+   enable
          -- Enable widget
       do
          if (flags & Flag_enabled) = 0 then
@@ -201,7 +201,7 @@ feature -- Actions
          end
       end
 
-   disable is
+   disable
          -- Disable widget
       do
          if (flags & Flag_enabled) /= 0 then
@@ -212,7 +212,7 @@ feature -- Actions
          end
       end
 
-   set_font(fnt: SB_FONT) is
+   set_font(fnt: SB_FONT)
          -- Change font
       require
          fnt /= Void
@@ -222,13 +222,13 @@ feature -- Actions
          recalc
       end
 
-   set_help_text(txt: STRING) is
+   set_help_text(txt: STRING)
          -- Change help text
       do
          field.set_help_text(txt)
       end
 
-   set_tip_text(txt: STRING) is
+   set_tip_text(txt: STRING)
          -- Change tip text
       do
          field.set_tip_text(txt)
@@ -237,7 +237,7 @@ feature -- Actions
 feature -- Item actions
 
 
-   replace_item_with_new(index: INTEGER; text: STRING; icon: SB_ICON; data: ANY) is
+   replace_item_with_new(index: INTEGER; text: STRING; icon: SB_ICON; data: ANY)
       do
          list.replace_item_with_new(index, text, icon, data, False)
          if is_item_current(index) then
@@ -247,7 +247,7 @@ feature -- Item actions
          recalc
       end
 
-   insert_item(index: INTEGER; text: STRING; icon: SB_ICON; data: ANY) is
+   insert_item(index: INTEGER; text: STRING; icon: SB_ICON; data: ANY)
          -- Insert item at index
       do
          list.insert_new_item(index, text, icon, data, False)
@@ -259,7 +259,7 @@ feature -- Item actions
       end
 
 
-   append_item(text: STRING; icon: SB_ICON; data: ANY) is
+   append_item(text: STRING; icon: SB_ICON; data: ANY)
          -- Append item
       do
          list.append_new_item(text, icon, data, False)
@@ -271,7 +271,7 @@ feature -- Item actions
       end
 
 
-   prepend_item(text: STRING; icon: SB_ICON; data: ANY) is
+   prepend_item(text: STRING; icon: SB_ICON; data: ANY)
          -- Prepend item
       do
          list.prepend_new_item(text, icon, data, False)
@@ -282,7 +282,7 @@ feature -- Item actions
          recalc
       end
 
-   move_item(newindex, oldindex: INTEGER) is
+   move_item(newindex, oldindex: INTEGER)
          -- Move item from oldindex to newindex
       local
          cur: INTEGER;
@@ -302,7 +302,7 @@ feature -- Item actions
          recalc;
       end
 
-   remove_item(index: INTEGER) is
+   remove_item(index: INTEGER)
          -- Remove given item
       local
          c: INTEGER
@@ -322,7 +322,7 @@ feature -- Item actions
          recalc
       end
 
-   clear_items is
+   clear_items
          -- Remove all items from list
       do
          list.clear_items
@@ -331,13 +331,13 @@ feature -- Item actions
          recalc
       end
 
-   sort_items is
+   sort_items
          -- Sort the toplevel items with the sort function
       do
          list.sort_items
       end
 
-   set_current_item(index: INTEGER) is
+   set_current_item(index: INTEGER)
          -- Change current item
       do
          list.set_current_item(index, False)
@@ -350,7 +350,7 @@ feature -- Item actions
          end
       end
 
-   set_item_text(index: INTEGER; text: STRING) is
+   set_item_text(index: INTEGER; text: STRING)
          -- Change item label
       do
          if is_item_current(index) then field.set_text(text) end
@@ -358,7 +358,7 @@ feature -- Item actions
          recalc
       end
 
-   set_item_icon(index: INTEGER; icon: SB_ICON) is
+   set_item_icon(index: INTEGER; icon: SB_ICON)
          -- Change item's icon
       do
          if is_item_current(index) then field.set_icon(icon) end
@@ -366,7 +366,7 @@ feature -- Item actions
          recalc;
       end
 
-   set_item_data(index: INTEGER; data: ANY) is
+   set_item_data(index: INTEGER; data: ANY)
          -- Change item's user data
       do
          list.set_item_data(index, data)
@@ -374,7 +374,7 @@ feature -- Item actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, selector: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, selector: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (SEL_FOCUS_SELF,		0,				type, selector) then Result := on_focus_self 		(sender, selector, data)
          	elseif  match_function_2 (SEL_FOCUS_UP,			0,				type, selector) then Result := on_focus_up 			(sender, selector, data)
@@ -390,17 +390,17 @@ feature -- Message processing
          	end
       end
 
-	on_focus_self(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_focus_self(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		do
 			Result := field.handle_2 (sender, SEL_FOCUS_SELF, 0, data)
 		end
 
-	index_ref(i: INTEGER): SE_REFERENCE [ INTEGER ] is	-- SE 2.1
+	index_ref(i: INTEGER): SE_REFERENCE [ INTEGER ]	-- SE 2.1
 		do
 			create Result.set_item(i)
 		end
 
-	on_focus_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_focus_up(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			index: INTEGER;
 		do
@@ -417,7 +417,7 @@ feature -- Message processing
 			Result := True
 		end
 
-   on_focus_down(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_down(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          index: INTEGER;
       do
@@ -431,7 +431,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_list_update(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_list_update(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
       do
          if not is_pane_shown and then message_target /= Void 
@@ -441,7 +441,7 @@ feature -- Message processing
          end
       end
 
-	on_list_changed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_list_changed(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	local
         	index: INTEGER_REF
       	do
@@ -450,13 +450,13 @@ feature -- Message processing
          	end
       	end
 
-   on_field_button(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_field_button(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          button.do_handle_2 (Current, SEL_COMMAND, Id_post, Void)      -- Post the list
          Result := True
       end
 
-   on_list_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_list_clicked(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
 		 i: INTEGER
       do
@@ -470,7 +470,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_set_value, on_cmd_set_int_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_set_value, on_cmd_set_int_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
 		i: INTEGER
       do
@@ -479,7 +479,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_get_int_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_get_int_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          index: INTEGER_REF
       do
@@ -490,21 +490,21 @@ feature -- Message processing
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
          -- Create server-side resources
       do
          Precursor
          pane.create_resource
       end
 
-   detach_resource is
+   detach_resource
          -- Detach server-side resources
       do
          pane.detach_resource
          Precursor
       end
 
-   destroy_resource is
+   destroy_resource
          -- Destroy server-side resources
       do
          pane.destroy_resource
@@ -513,7 +513,7 @@ feature -- Resource management
 
 feature {NONE} -- Implementation
 
-	layout is
+	layout
 		local
 			button_width, field_width, item_height: INTEGER;
 		do

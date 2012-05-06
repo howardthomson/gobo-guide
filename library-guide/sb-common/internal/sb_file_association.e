@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Registers stuff to know about the extension"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"

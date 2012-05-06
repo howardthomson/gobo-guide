@@ -1,4 +1,4 @@
-indexing
+note
    description: "SB_SPINNER constants"
    author: "Eugene Melekhov <eugene_melekhov@mail.ru>"
    copyright: "Copyright (c) 2002, Eugene Melekhov and others"
@@ -13,10 +13,10 @@ inherit
 
 feature -- Spinner Options
 
-   SPIN_NORMAL: INTEGER is 0         	-- Normal, non-cyclic
-   SPIN_CYCLIC: INTEGER is 0x00020000	-- Cyclic spinner
-   SPIN_NOTEXT: INTEGER is 0x00040000	-- No text visible
-   SPIN_NOMAX : INTEGER is 0x00080000	-- Spin all the way up to infinity
-   SPIN_NOMIN : INTEGER is 0x00100000	-- Spin all the way down to -infinity
+   SPIN_NORMAL: INTEGER = 0         	-- Normal, non-cyclic
+   SPIN_CYCLIC: INTEGER = 0x00020000	-- Cyclic spinner
+   SPIN_NOTEXT: INTEGER = 0x00040000	-- No text visible
+   SPIN_NOMAX : INTEGER = 0x00080000	-- Spin all the way up to infinity
+   SPIN_NOMIN : INTEGER = 0x00100000	-- Spin all the way down to -infinity
 
 end

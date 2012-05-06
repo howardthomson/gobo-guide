@@ -1,4 +1,4 @@
-indexing
+note
 	description: "EiffelVision pixmap, Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -79,7 +79,7 @@ feature {NONE} -- Implementation Attributes
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Initialize `Current'
 		local
 			l_app_imp: like app_implementation
@@ -94,7 +94,7 @@ feature {NONE} -- Initialization
 			clear
 		end
 
-	init_from_pointer_style (a_pointer_style: EV_POINTER_STYLE) is
+	init_from_pointer_style (a_pointer_style: EV_POINTER_STYLE)
 			-- Initialize from `a_pointer_style'
 		local
 			a_pointer_style_imp: EV_POINTER_STYLE_IMP
@@ -149,7 +149,7 @@ feature {NONE} -- Initialization
 			end
 		end
 
-	init_from_pixel_buffer (a_pixel_buffer: EV_PIXEL_BUFFER) is
+	init_from_pixel_buffer (a_pixel_buffer: EV_PIXEL_BUFFER)
 			-- Initialize from `a_pixel_buffer'
 		local
 			l_pixel_buffer_imp: EV_PIXEL_BUFFER_IMP
@@ -160,13 +160,13 @@ feature {NONE} -- Initialization
 
 feature -- Drawing operations
 
-	redraw is
+	redraw
 			-- Force `Current' to redraw itself.
 		do
 			update_if_needed
 		end
 
-	flush is
+	flush
 			-- Ensure that the appearance of `Current' is updated on screen
 			-- immediately. Any changes that have not yet been reflected will
 			-- become visible.
@@ -174,7 +174,7 @@ feature -- Drawing operations
 			refresh_now
 		end
 
-	update_if_needed is
+	update_if_needed
 			-- Update `Current' if needed.
 		do
 			if is_displayed then
@@ -184,7 +184,7 @@ feature -- Drawing operations
 
 feature -- Measurement
 
-	width: INTEGER is
+	width: INTEGER
 			-- Width of the pixmap in pixels.
 		local
 			a_y: INTEGER
@@ -192,7 +192,7 @@ feature -- Measurement
 			Result := sb_pixmap_window.width
 		end
 
-	height: INTEGER is
+	height: INTEGER
 			-- height of the pixmap.
 		local
 			a_x: INTEGER
@@ -202,20 +202,20 @@ feature -- Measurement
 
 feature -- Element change
 
-	read_from_named_file (file_name: STRING_GENERAL) is
+	read_from_named_file (file_name: STRING_GENERAL)
 			-- Attempt to load pixmap data from a file specified by `file_name'.
 		do
 			todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ 6")
 		end
 
-	set_with_default is
+	set_with_default
 			-- Initialize the pixmap with the default
 			-- pixmap (Vision2 logo)
 		do
 --			set_from_xpm_data (default_pixmap_xpm)
 		end
 
-	stretch (a_x, a_y: INTEGER) is
+	stretch (a_x, a_y: INTEGER)
 			-- Stretch the image to fit in size `a_x' by `a_y'.
 		local
 			a_gdkpixbuf, scaled_pixbuf: POINTER
@@ -225,7 +225,7 @@ feature -- Element change
 			todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ 7")
 		end
 
-	set_size (a_width, a_height: INTEGER) is
+	set_size (a_width, a_height: INTEGER)
 			-- Set the size of the pixmap to `a_width' by `a_height'.
 		local
 			oldpix, oldmask: POINTER
@@ -236,7 +236,7 @@ feature -- Element change
 			todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ 8")
 		end
 
-	reset_for_buffering (a_width, a_height: INTEGER) is
+	reset_for_buffering (a_width, a_height: INTEGER)
 			-- Resets the size of the pixmap without keeping original image or clearing background.
 		local
 			gdkpix: POINTER
@@ -246,7 +246,7 @@ feature -- Element change
 			end
 		end
 
-	set_mask (a_mask: EV_BITMAP) is
+	set_mask (a_mask: EV_BITMAP)
 			-- Set the GdkBitmap used for masking `Current'.
 		local
 			a_mask_imp: EV_BITMAP_IMP
@@ -256,14 +256,14 @@ feature -- Element change
 
 feature -- Access
 
-	raw_image_data: EV_RAW_IMAGE_DATA is
+	raw_image_data: EV_RAW_IMAGE_DATA
 		do
 			todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ 11")
 		end
 
 feature -- Duplication
 
-	copy_pixmap (other: EV_PIXMAP) is
+	copy_pixmap (other: EV_PIXMAP)
 			-- Update `Current' to have same appearance as `other'.
 			-- (So as to satisfy `is_equal'.)
 		local
@@ -274,13 +274,13 @@ feature -- Duplication
 
 feature {EV_STOCK_PIXMAPS_IMP, EV_PIXMAPABLE_IMP, EV_PIXEL_BUFFER_IMP} -- Implementation
 
-	set_pixmap (gdkpix, gdkmask: POINTER) is
+	set_pixmap (gdkpix, gdkmask: POINTER)
 			-- Set the GtkPixmap using Gdk pixmap data and mask.
 		do
 			todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ 15")
 		end
 
-	set_from_xpm_data (a_xpm_data: POINTER) is
+	set_from_xpm_data (a_xpm_data: POINTER)
 			-- Pixmap symbolizing a piece of information.
 		require
 			xpm_data_not_null: a_xpm_data /= NULL
@@ -290,7 +290,7 @@ feature {EV_STOCK_PIXMAPS_IMP, EV_PIXMAPABLE_IMP, EV_PIXEL_BUFFER_IMP} -- Implem
 			todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ 16")
 		end
 
-	set_from_stock_id (a_stock_id: POINTER) is
+	set_from_stock_id (a_stock_id: POINTER)
 			-- Pixmap symbolizing a piece of information
 		require
 			a_stock_id_not_null: a_stock_id /= NULL
@@ -302,7 +302,7 @@ feature {EV_STOCK_PIXMAPS_IMP, EV_PIXMAPABLE_IMP, EV_PIXEL_BUFFER_IMP} -- Implem
 
 feature {EV_INTERMEDIARY_ROUTINES} -- Implementation
 
-	call_expose_actions (a_x, a_y, a_width, a_height: INTEGER) is
+	call_expose_actions (a_x, a_y, a_width, a_height: INTEGER)
 			-- Call the expose actions for the drawing area.
 		do
 			if expose_actions_internal /= Void then
@@ -312,7 +312,7 @@ feature {EV_INTERMEDIARY_ROUTINES} -- Implementation
 
 feature {NONE} -- Implementation
 
-	save_to_named_file (a_format: EV_GRAPHICAL_FORMAT; a_filename: FILE_NAME) is
+	save_to_named_file (a_format: EV_GRAPHICAL_FORMAT; a_filename: FILE_NAME)
 			-- Save `Current' in `a_format' to `a_filename'
 		local
 			a_gdkpixbuf, stretched_pixbuf: POINTER
@@ -328,7 +328,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	destroy is
+	destroy
 			-- Destroy the pixmap and resources.
 		do
 --			set_pixmap (NULL, NULL)
@@ -336,7 +336,7 @@ feature {NONE} -- Implementation
 			Precursor {EV_PRIMITIVE_IMP}
 		end
 
-	dispose is
+	dispose
 			-- Clear up resources if needed in object disposal.
 		do
 			-- TODO
@@ -355,7 +355,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_PIXMAP;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

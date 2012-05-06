@@ -1,4 +1,4 @@
-indexing
+note
 	author: "Howard Thomson"
 	copyright: "[
 		--|---------------------------------------------------------|
@@ -43,7 +43,7 @@ feature -- Attributes
 				
 feature {NONE} -- Creation
 
-	make_size(size: INTEGER) is
+	make_size(size: INTEGER)
 		deferred
 		ensure
 			map_success: is_mapped
@@ -51,7 +51,7 @@ feature {NONE} -- Creation
 
 --	make_from_file(fd: POSIX_FILE_DESCRIPTOR) is	-- Linux version
 --	make_from_file(fd: SB_FILE_HANDLE) is			-- Win32 version
-	make_from_file(fd: ANY) is						-- deferred version
+	make_from_file(fd: ANY)						-- deferred version
 		deferred
 		ensure
 			map_success: is_mapped
@@ -59,14 +59,14 @@ feature {NONE} -- Creation
 
 feature -- Linkage control
 
-	set_next(n: like next) is
+	set_next(n: like next)
 		do
 			next := n
 		end
 
 feature -- Test !!
 
-	test_print is
+	test_print
 		local
 			s: STRING
 		do
@@ -76,7 +76,7 @@ feature -- Test !!
 --			io.put_string("%N")
 		end
 
-	copy_from(other: like Current) is
+	copy_from(other: like Current)
 			-- TEMP to test operation
 		local
 			from_p, to_p: C_POINTER
@@ -91,12 +91,12 @@ feature -- Test !!
 			gap_end := other.gap_end
 		end
 
-	done_with is
+	done_with
 		do
 			dispose
 		end
 
-	touch is
+	touch
 			-- Read all the buffer bytes:
 			-- Access to page-in
 		local
@@ -117,13 +117,13 @@ feature -- Test !!
 
 feature {NONE} -- Implementation
 
-	size_rounded(n: INTEGER): INTEGER is
+	size_rounded(n: INTEGER): INTEGER
 			-- use page_size sys call
 		do
 			Result := ((n + 4095) // 4096) * 4096
 		end
 
-	dispose is
+	dispose
 			-- Unmap page addressed by page_buf if needed
 		deferred
 		ensure then

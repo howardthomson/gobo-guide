@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Base class for all windows"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -104,32 +104,32 @@ feature -- attributes
 feature  -- Common DND types
 
    	delete_type: INTEGER;         -- Delete request
-   	delete_type_name: STRING is "DELETE"
+   	delete_type_name: STRING = "DELETE"
 
    	text_type: INTEGER;         -- Ascii text request
-   	text_type_name : STRING is "text/plain"
+   	text_type_name : STRING = "text/plain"
 
-   	string_type: INTEGER is
+   	string_type: INTEGER
          -- Clipboard text type (pre-registered)
 		deferred
 		end
 
    	color_type: INTEGER;         -- Color
-   	color_type_name: STRING is "application/x-color"
+   	color_type_name: STRING = "application/x-color"
 
    	uri_list_type: INTEGER;         -- URI List
-   	uri_list_type_name: STRING is "text/uri-list"
+   	uri_list_type_name: STRING = "text/uri-list"
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_WINDOW"
 		end
 
 feature -- Creation
 
-	make_ev is
+	make_ev
 		do
 			make_drawable (0, 0)
 			application.register_window (current_w)
@@ -145,7 +145,7 @@ feature -- Creation
 			drag_cursor /= Void
 		end
 
-	make (p: SB_COMPOSITE; opts: INTEGER; x, y, w, h: INTEGER) is
+	make (p: SB_COMPOSITE; opts: INTEGER; x, y, w, h: INTEGER)
     	require
         	p /= Void
       	do
@@ -173,7 +173,7 @@ feature -- Creation
 
 feature { EV_WIDGET_IMP, EV_MENU_BAR_IMP } -- Creation special
 
-	set_parent (p: SB_COMPOSITE) is
+	set_parent (p: SB_COMPOSITE)
 		do
 --	print ("set_parent -- generating_type = "); print (generating_type); print (" Current: "); print (($Current).out)
 --	print (" new parent: "); print (($p).out); print ("%N")
@@ -202,7 +202,7 @@ feature { EV_WIDGET_IMP, EV_MENU_BAR_IMP } -- Creation special
          	visual /= Void
 		end
 
-	make_root (app: SB_APPLICATION; vis: SB_VISUAL) is
+	make_root (app: SB_APPLICATION; vis: SB_VISUAL)
 			-- Only used for the root window
 		do
          	make_drawable (1,1)
@@ -215,7 +215,7 @@ feature { EV_WIDGET_IMP, EV_MENU_BAR_IMP } -- Creation special
          			| Layout_fix_width | Layout_fix_height
       	end
 
-	make_shell (app: SB_APPLICATION; own: SB_WINDOW; opts: INTEGER; x, y, w, h: INTEGER) is
+	make_shell (app: SB_APPLICATION; own: SB_WINDOW; opts: INTEGER; x, y, w, h: INTEGER)
     		-- Used for shell windows
       	do
          	make_drawable (w, h)
@@ -245,7 +245,7 @@ feature { EV_WIDGET_IMP, EV_MENU_BAR_IMP } -- Creation special
 
 feature -- resource creation/deletion
 
-	create_resource is
+	create_resource
 			-- Create all of the server-side resources for this window
 		require else
 			parent /= Void and then parent.is_attached
@@ -271,11 +271,11 @@ end
 			end
 		end
 
-	create_resource_imp is
+	create_resource_imp
 		deferred
 		end
 
-   detach_resource is
+   detach_resource
          -- Detach the server-side resources for this window
       do
          	-- Detach visual
@@ -298,11 +298,11 @@ end
          end
       end
 
-	detach_resource_imp is
+	detach_resource_imp
    		deferred
    		end
 
-	on_destroy_imp is
+	on_destroy_imp
 			-- event handling: SEL_DESTROY from SB_APPLICATION
 		do
 			on_destroy_def
@@ -313,11 +313,11 @@ end
 			reset_resource_id
 		end
 
-	on_destroy_def is
+	on_destroy_def
 		deferred
 		end
 
-	destroy_resource is
+	destroy_resource
          	-- Destroy the server-side resources for this window
 		do
          	if is_attached then
@@ -333,24 +333,24 @@ end
          	end
       	end
 
-	destroy_resource_imp is
+	destroy_resource_imp
 		deferred
 		end
 
-	update_so_references is
+	update_so_references
 		do
 		end
 
 feature -- Event processing: refresh window
 
-	process (app: SB_APPLICATION) is
+	process (app: SB_APPLICATION)
 		do
 			do_handle_2 (app, SEL_UPDATE, 0, Void)
 		end
 
 feature
 
-	ungrab is
+	ungrab
 			-- remove any mouse/keyboard grabs
 		do
          	if application.mouse_grab_window = Current then
@@ -369,13 +369,13 @@ feature
 
 feature
 
-	current_w: SB_WINDOW is
+	current_w: SB_WINDOW
 			-- 	Current as an SB_WINDOW
 		do
 			Result ?= Current
 		end
 
-   	get_shell: SB_WINDOW is
+   	get_shell: SB_WINDOW
       	do
          	from
             	Result := current_w
@@ -386,7 +386,7 @@ feature
          	end
       	end
 
-   	get_root: SB_WINDOW is
+   	get_root: SB_WINDOW
       	do
          	from
             	Result := current_w
@@ -397,58 +397,58 @@ feature
          	end
       	end
 
-	set_window_key (key: INTEGER) is
+	set_window_key (key: INTEGER)
     		-- Change window key
       	do
          	window_key := key
       	end
 
-   	default_width: INTEGER is
+   	default_width: INTEGER
          	-- Return the default width of this window
       	do
          	Result := 1
       	end
 
-   	default_height: INTEGER is
+   	default_height: INTEGER
          	-- Return the default height of this window
       	do
          	Result := 1
       	end
 
-   	width_for_height (given_height: INTEGER): INTEGER is
+   	width_for_height (given_height: INTEGER): INTEGER
          	-- Return width for given height
       	do
          	Result := default_width
       	end
 
-   	height_for_width (given_width: INTEGER): INTEGER is
+   	height_for_width (given_width: INTEGER): INTEGER
          	-- Return height for given width
       	do
          	Result := default_height
       	end
 
-   	set_x (x: INTEGER) is
+   	set_x (x: INTEGER)
          	-- Set this window's x-coordinate, in the parent's coordinate system
       	do
          	x_pos := x
          	recalc
       	end
 
-   	set_y (y: INTEGER) is
+   	set_y (y: INTEGER)
          	-- Set this window's y-coordinate, in the parent's coordinate system
       	do
          	y_pos := y
          	recalc
       	end
 
-	set_width (w: INTEGER) is
+	set_width (w: INTEGER)
 			-- Set the window width
 		do
 			width_sb := w.max (minimum_width)
 			recalc
 		end
 
-   set_height (h: INTEGER) is
+   set_height (h: INTEGER)
          -- Set the window height
       do
          if h < 0 then
@@ -459,7 +459,7 @@ feature
          recalc
       end
 
-   set_layout_hints (lout: INTEGER) is
+   set_layout_hints (lout: INTEGER)
          -- Set layout hints for this window
       local
          opts: INTEGER
@@ -471,19 +471,19 @@ feature
          end
       end
 
-   layout_hints: INTEGER is
+   layout_hints: INTEGER
          -- Get layout hints for this window
       do
          Result := options & Layout_mask
       end
 
-   set_accel_table (at: SB_ACCEL_TABLE) is
+   set_accel_table (at: SB_ACCEL_TABLE)
          -- Set the accelerator table
       do
          accel_table := at
       end
 
-   add_hot_key (code: INTEGER) is
+   add_hot_key (code: INTEGER)
          -- Add a hot key
       local
          accel: SB_ACCEL_TABLE
@@ -502,7 +502,7 @@ feature
          end
       end
 
-   remove_hot_key (code: INTEGER) is
+   remove_hot_key (code: INTEGER)
          -- Remove a hot key
       local
          accel: SB_ACCEL_TABLE
@@ -521,13 +521,13 @@ feature
          end
       end
 
-   is_shell: BOOLEAN is
+   is_shell: BOOLEAN
          -- Return true if window is a shell window
       do
          Result := (flags & Flag_shell) = Flag_shell
       end
 
-   is_child_of (window: SB_WINDOW): BOOLEAN is
+   is_child_of (window: SB_WINDOW): BOOLEAN
          -- Is the specified window this window's parent
       local
          w: SB_WINDOW
@@ -547,7 +547,7 @@ feature
          end
       end
 
-	is_owner_of (window: SB_WINDOW): BOOLEAN is
+	is_owner_of (window: SB_WINDOW): BOOLEAN
    			-- True if specified window is owned by this window
 		local
 			w: SB_WINDOW
@@ -564,7 +564,7 @@ feature
    			end
    		end
 
-   contains_child (child: SB_WINDOW): BOOLEAN is
+   contains_child (child: SB_WINDOW): BOOLEAN
          -- Is the specified window a child of this window
       local
          ch: SB_WINDOW
@@ -582,7 +582,7 @@ feature
          end
       end
 
-   get_child_at (x, y: INTEGER): SB_WINDOW is
+   get_child_at (x, y: INTEGER): SB_WINDOW
          -- Return the child window at specified coordinates (if any)
       local
          child: SB_WINDOW
@@ -603,7 +603,7 @@ feature
          end
       end
 
-	child_count: INTEGER is
+	child_count: INTEGER
     		-- Return the number of child windows for this window
     	local
         	child: SB_WINDOW
@@ -618,7 +618,7 @@ feature
          	end
       	end
 
-	index_of_child (window: SB_WINDOW): INTEGER is
+	index_of_child (window: SB_WINDOW): INTEGER
 			-- Return the index (starting from 0) of the specified
 			-- child window, or -1 if the window is not a child.
 		local
@@ -638,7 +638,7 @@ feature
          	end
       	end
 
-   child_at_index (index: INTEGER): SB_WINDOW is
+   child_at_index (index: INTEGER): SB_WINDOW
          -- Return the child window at specified index,
          -- or Void if the index is < 0 or out of range
       local
@@ -657,7 +657,7 @@ feature
          end
       end
 
-   common_ancestor (a,b: SB_WINDOW): SB_WINDOW is
+   common_ancestor (a,b: SB_WINDOW): SB_WINDOW
          -- Return the common ancestor of window a and window b
       local
          p1, p2: SB_WINDOW
@@ -690,7 +690,7 @@ feature
          end
       end
 
-	set_default_cursor (cursor: SB_CURSOR) is
+	set_default_cursor (cursor: SB_CURSOR)
     		-- Set the default cursor for this window
       	require
          	good_cursor: cursor /= Void
@@ -705,11 +705,11 @@ feature
          	end
       	end
 
-	set_default_cursor_imp (cursor: SB_CURSOR) is
+	set_default_cursor_imp (cursor: SB_CURSOR)
 		deferred
 		end
 
-   	set_drag_cursor (cursor: SB_CURSOR) is
+   	set_drag_cursor (cursor: SB_CURSOR)
          -- Set the drag cursor for this window
     	require
          	good_cursor: cursor /= Void
@@ -724,47 +724,47 @@ feature
          	end
       	end
 
-   	set_drag_cursor_imp (cursor: SB_CURSOR) is
+   	set_drag_cursor_imp (cursor: SB_CURSOR)
    		deferred
    		end
 
-   	get_cursor_position: SB_CURSOR_POSITION is
+   	get_cursor_position: SB_CURSOR_POSITION
          	-- Return the cursor position and mouse button-state
 		deferred
       	end
 
-   	set_cursor_position (x,y: INTEGER): BOOLEAN is
+   	set_cursor_position (x,y: INTEGER): BOOLEAN
          	-- Warp the cursor to the new position
 		deferred
       	end
 
-   is_enabled: BOOLEAN is
+   is_enabled: BOOLEAN
          -- Return true if this window is able to receive
          -- mouse and keyboard events
       do
          Result := (flags & Flag_enabled) = Flag_enabled
       end
 
-   is_active: BOOLEAN is
+   is_active: BOOLEAN
          -- Return true if the window is active
       do
          Result := (flags & Flag_active) = Flag_active
       end
 
-   can_focus: BOOLEAN is
+   can_focus: BOOLEAN
          -- Return true if this window is a control capable of
          -- receiving the focus
       do
          Result := False
       end
 
-   has_focus: BOOLEAN is
+   has_focus: BOOLEAN
          -- Return true if this window has the focus
       do
          Result := (flags & Flag_focused) = Flag_focused
       end
 
-   set_focus is
+   set_focus
          -- Set focus to this widget.
          -- The chain of focus from shell down to a control is changed.
          -- Widgets now in the chain may or may not gain real focus,
@@ -786,7 +786,7 @@ feature
          flags := flags | Flag_focused
       end
 
-   kill_focus is
+   kill_focus
          -- Remove the focus from this window
       do
          if parent /= Void and then parent.focus_child = Current then
@@ -801,7 +801,7 @@ feature
          unset_flags (Flag_help)
       end
 
-   set_default (enable_: INTEGER) is
+   set_default (enable_: INTEGER)
          -- Make widget drawn as default
       local
          win: SB_WINDOW
@@ -827,13 +827,13 @@ feature
          end
       end
 
-  is_flag_default: BOOLEAN is
+  is_flag_default: BOOLEAN
          -- Return true if widget is drawn as default
       do
          Result := (flags & Flag_default) = Flag_default
       end
 
-   set_initial (enable_: BOOLEAN) is
+   set_initial (enable_: BOOLEAN)
       local
          win: SB_WINDOW
       do
@@ -849,12 +849,12 @@ feature
          end
       end
 
-   is_initial: BOOLEAN is
+   is_initial: BOOLEAN
       do
          Result := (flags & Flag_initial) = Flag_default
       end
 
-	enable is
+	enable
 			-- Enable the window to receive mouse and keyboard events
 		do
 			if (flags & Flag_enabled) /= Flag_enabled then
@@ -865,11 +865,11 @@ feature
 			end
 		end
 
-	enable_imp is
+	enable_imp
 		deferred
 		end
 
-	disable is
+	disable
 			-- Disable the window from receiving mouse and keyboard events
       	do
         	kill_focus
@@ -881,13 +881,13 @@ feature
          	end
       	end
 
-   	disable_imp is
+   	disable_imp
    		deferred
    		end
 
 feature -- actions (cont'd)
 
-	raise is
+	raise
     		-- Raise this window to the top of the stacking order
 		do
 			if is_attached then
@@ -895,11 +895,11 @@ feature -- actions (cont'd)
          	end
       	end
 
-	raise_imp is
+	raise_imp
    		deferred
    		end
 
-	lower is
+	lower
     		-- Lower this window to the bottom of the stacking order
     	do
 			if is_attached then
@@ -907,11 +907,11 @@ feature -- actions (cont'd)
 			end
 		end
 
-	lower_imp is
+	lower_imp
    		deferred
    		end
 
-	move (x, y: INTEGER) is
+	move (x, y: INTEGER)
     		-- Move this window to the specified position in the parent's
 			-- coordinates
 		do
@@ -929,11 +929,11 @@ feature -- actions (cont'd)
          	end
 		end
 
-	move_imp (x, y: INTEGER) is
+	move_imp (x, y: INTEGER)
 		deferred
 		end
 
-   resize (w_, h_: INTEGER) is
+   resize (w_, h_: INTEGER)
          -- Resize this window to the specified width and height
       local
          w, h: INTEGER
@@ -962,11 +962,11 @@ feature -- actions (cont'd)
          end
       end
 
-	resize_imp (w, h: INTEGER) is
+	resize_imp (w, h: INTEGER)
 		deferred
 		end
 
-	position (x, y, w_, h_: INTEGER) is
+	position (x, y, w_, h_: INTEGER)
 			-- Move and resize this window in the parent's coordinates
 		local
 			w,h: INTEGER
@@ -1003,11 +1003,11 @@ feature -- actions (cont'd)
 			end
 		end
 
-	position_imp (x, y, w, h, ow, oh: INTEGER) is
+	position_imp (x, y, w, h, ow, oh: INTEGER)
      	deferred
      	end
 
-   recalc is
+   recalc
          -- Mark this window's layout as dirty
       do
          if parent /= Void then
@@ -1016,7 +1016,7 @@ feature -- actions (cont'd)
          flags := flags | Flag_dirty
       end
 
-   force_refresh is
+   force_refresh
          --  Force a GUI update of this window and its children
       local
          child: SB_WINDOW
@@ -1032,7 +1032,7 @@ feature -- actions (cont'd)
          end
       end
 
-   reparent (new_parent: SB_COMPOSITE) is
+   reparent (new_parent: SB_COMPOSITE)
          -- Change the parent for this window
       require
          new_parent /= Void
@@ -1079,12 +1079,12 @@ feature -- actions (cont'd)
          end
       end
 
-	reparent_imp is
+	reparent_imp
 		deferred
 		end
 
 	frozen -- ???
-	update_rectangle (x_, y_, w_, h_: INTEGER) is
+	update_rectangle (x_, y_, w_, h_: INTEGER)
 			-- Mark the specified rectangle dirty, i.e. to be repainted
 		require
 --			good_width: w_ >= 0
@@ -1123,17 +1123,17 @@ feature -- actions (cont'd)
          	end
 		end
 
-	update_rectangle_imp (x, y, w, h: INTEGER) is
+	update_rectangle_imp (x, y, w, h: INTEGER)
 		deferred
 		end
 
-	update is
+	update
 			-- Mark the entire window client area dirty
 		do
 			update_rectangle (0, 0, width, height);
 		end
 
-   repaint_rectangle (x_, y_, w_, h_: INTEGER) is
+   repaint_rectangle (x_, y_, w_, h_: INTEGER)
          -- If marked but not yet painted, paint the given area
 		require
 			good_width: w_ >= 0
@@ -1167,35 +1167,35 @@ feature -- actions (cont'd)
          end
       end
 
-	repaint_rectangle_imp (x, y, w, h: INTEGER) is
+	repaint_rectangle_imp (x, y, w, h: INTEGER)
 		deferred
 		end
 
-	repaint is
+	repaint
 			-- If marked but not yet painted, paint the given area
 		do
 			repaint_rectangle (0, 0, width, height)
 		end
 
-	grab_mouse is
+	grab_mouse
 			-- Grab the mouse to this window; future mouse events will be
         	-- reported to this window even while the cursor goes outside
         	-- of this window
 		deferred
 		end
 
-   	release_mouse is
+   	release_mouse
          	-- Release the mouse grab
         deferred
       	end
 
-   	is_mouse_grabbed: BOOLEAN is
+   	is_mouse_grabbed: BOOLEAN
          	-- Return true if the window has been grabbed
       	do
          	Result := application.mouse_grab_window = Current;
       	end
 
-   	grab_keyboard is
+   	grab_keyboard
       	do
          	if is_attached then
             	if (flags & Flag_shown) = 0 then
@@ -1207,11 +1207,11 @@ feature -- actions (cont'd)
          	end
       	end
 
-   	grab_keyboard_imp is
+   	grab_keyboard_imp
    		deferred
    		end
 
-   	release_keyboard is
+   	release_keyboard
          	-- Release the mouse grab
       	do
          	if is_attached then
@@ -1220,16 +1220,16 @@ feature -- actions (cont'd)
          	end
       	end
 
-	release_keyboard_imp is
+	release_keyboard_imp
 		deferred
 		end
 
-   is_keyboard_grabbed: BOOLEAN is
+   is_keyboard_grabbed: BOOLEAN
       do
          Result := application.keyboard_grab_window = Current;
       end
 
-   show is
+   show
          -- Show this window
       do
          if (flags & Flag_shown) /= Flag_shown then
@@ -1240,11 +1240,11 @@ feature -- actions (cont'd)
          end
       end
 
-   	show_imp is
+   	show_imp
    		deferred
    		end
 
-	hide is
+	hide
 			-- Hide this window
 		do
          	if is_shown then
@@ -1256,35 +1256,35 @@ feature -- actions (cont'd)
          	end
       	end
 
-	hide_imp is
+	hide_imp
 		deferred
 		end
 
-   is_shown: BOOLEAN is
+   is_shown: BOOLEAN
          -- Return true if the window is shown
       do
          Result := (flags & Flag_shown) = Flag_shown
       end
 
-	is_composite: BOOLEAN is
+	is_composite: BOOLEAN
     		-- Return true if the window is composite
     	do
     		Result := False
     	end
 
-   	is_under_cursor: BOOLEAN is
+   	is_under_cursor: BOOLEAN
          	-- Return true if the window is under the cursor
       	do
          	Result := application.cursor_window = Current
       	end
 
-   	has_selection: BOOLEAN is
+   	has_selection: BOOLEAN
          	-- Return true if this window owns the selection
       	do
          	Result := application.selection_window = Current;
       	end
 
-   acquire_selection (types: ARRAY [ INTEGER ]): BOOLEAN is
+   acquire_selection (types: ARRAY [ INTEGER ]): BOOLEAN
          -- Try to acquire the selection, given a list of drag types
       require
          types /= Void and then not types.is_empty
@@ -1304,7 +1304,7 @@ feature -- actions (cont'd)
         end
      end
 
-  release_selection is
+  release_selection
          --  Release the selection
       do
          if is_attached then
@@ -1316,13 +1316,13 @@ feature -- actions (cont'd)
          end
       end
 
-	has_clipboard: BOOLEAN is
+	has_clipboard: BOOLEAN
     		--  Return true if this window owns the clipboard
 		do
 			Result := application.clipboard_window = Current;
       	end
 
-	acquire_clipboard (types: ARRAY [ INTEGER ]): BOOLEAN is
+	acquire_clipboard (types: ARRAY [ INTEGER ]): BOOLEAN
     		-- Try to acquire the clipboard, given a list of drag types
       	require
         	types /= Void and then not types.is_empty
@@ -1335,11 +1335,11 @@ feature -- actions (cont'd)
          	end
       	end
 
-   	acquire_clipboard_imp (types: ARRAY [ INTEGER ]): BOOLEAN is
+   	acquire_clipboard_imp (types: ARRAY [ INTEGER ]): BOOLEAN
    		deferred
    		end
 
-	release_clipboard: BOOLEAN is
+	release_clipboard: BOOLEAN
 			--  Release the clipboard
 		do
         	if is_attached then
@@ -1351,42 +1351,42 @@ feature -- actions (cont'd)
          	end
       	end
 
-	release_clipboard_imp is
+	release_clipboard_imp
 		deferred
 		end
 
-   enable_drop is
+   enable_drop
          -- Enable this window to receive drops
       do
          flags := flags | Flag_droptarget
       end
 
-   disable_drop is
+   disable_drop
          -- Disable this window from receiving drops
       do
          unset_flags (Flag_droptarget);
       end
 
-   is_drop_enabled: BOOLEAN is
+   is_drop_enabled: BOOLEAN
          -- Return true if this window is able to receive drops
       do
          Result := (flags & Flag_droptarget) = Flag_droptarget;
       end
 
-   is_dragging : BOOLEAN is
+   is_dragging : BOOLEAN
          -- Return true if a drag operaion has been initiated from this
          -- window
       do
          Result := application.drag_window = Current;
       end
 
-   begin_drag (drag: ARRAY [INTEGER]): BOOLEAN is
+   begin_drag (drag: ARRAY [INTEGER]): BOOLEAN
          -- Initiate a drag operation with a list of previously registered
          -- drag types
       do
       end
 
-   frozen do_handle_drag (x, y, action: INTEGER) is
+   frozen do_handle_drag (x, y, action: INTEGER)
          -- When dragging, inform the drop-target of the new position
          --  and the drag action
       local
@@ -1395,13 +1395,13 @@ feature -- actions (cont'd)
          t := handle_drag(x,y,action);
       end
 
-   handle_drag (x, y, action: INTEGER): BOOLEAN is
+   handle_drag (x, y, action: INTEGER): BOOLEAN
          -- When dragging, inform the drop-target of the new position
          --  and the drag action
       do
       end
 
-   frozen do_end_drag (drop: BOOLEAN) is
+   frozen do_end_drag (drop: BOOLEAN)
          -- Terminate the drag operation with or without actually dropping
          --  the data
       local
@@ -1410,59 +1410,59 @@ feature -- actions (cont'd)
          t := end_drag(drop);
       end
 
-   end_drag (drop: BOOLEAN): BOOLEAN is
+   end_drag (drop: BOOLEAN): BOOLEAN
          -- Terminate the drag operation with or without actually dropping
          --  the data
       do
       end
 
-   is_drop_target: BOOLEAN is
+   is_drop_target: BOOLEAN
          -- Return true if this window is the target of a drop
       do
       end
 
-   set_drag_rectangle (x, y, w, h, want_updates: BOOLEAN) is
+   set_drag_rectangle (x, y, w, h, want_updates: BOOLEAN)
          --  When being dragged over, indicate that no further
          --  SEL_DND_MOTION messages are required while the cursor is inside
          --  the given rectangle
       do
       end
 
-   clear_drag_rectangle is
+   clear_drag_rectangle
          -- When being dragged over, indicate we want to receive SEL_DND_MOTION
          -- messages every time the cursor moves
       do
       end
 
-   accept_drop (action: INTEGER) is
+   accept_drop (action: INTEGER)
          -- When being dragged over, indicate acceptance or rejection of the
          -- dragged data
       do
       end
 
-   did_accept: INTEGER is
+   did_accept: INTEGER
          -- The target accepted our drop
       do
       end
 
-   inquire_dnd_types (origin: INTEGER): ARRAY[INTEGER] is
+   inquire_dnd_types (origin: INTEGER): ARRAY[INTEGER]
          -- When being dragged over, inquire the drag types which are
          -- being offered
       do
       end
 
-   offered_dnd_type (origin, type: INTEGER): BOOLEAN is
+   offered_dnd_type (origin, type: INTEGER): BOOLEAN
          -- When being dragged over, return true if we are offered the
          -- given drag type
       do
       end
 
-   inquire_dnd_action: INTEGER is
+   inquire_dnd_action: INTEGER
          -- When being dragged over, return the drag action
       do
       end
 
-	get_dnd_data (origin, type: INTEGER): STRING is
+	get_dnd_data (origin, type: INTEGER): STRING
     		-- Get dropped data; called in response to DND enter or DND drop
     	require
         	is_attached
@@ -1477,7 +1477,7 @@ feature -- actions (cont'd)
 			end
 		end
 
-   set_dnd_data (origin, type: INTEGER; data: STRING): BOOLEAN is
+   set_dnd_data (origin, type: INTEGER; data: STRING): BOOLEAN
        	-- Set DND data; the array must be allocated with FXMALLOC and
        	--  ownership is transferred to the system
       require
@@ -1496,7 +1496,7 @@ feature -- actions (cont'd)
          Result := True
       end
 
-   contains (parentx, parenty: INTEGER): BOOLEAN is
+   contains (parentx, parenty: INTEGER): BOOLEAN
          -- Return true if window logically contains the given point
       do
          Result := x_pos <= parentx and then parentx < x_pos + width
@@ -1504,7 +1504,7 @@ feature -- actions (cont'd)
       end
 
 
-   set_back_color (clr: INTEGER) is
+   set_back_color (clr: INTEGER)
          -- Set window background color
       do
          if clr /= back_color then
@@ -1513,7 +1513,7 @@ feature -- actions (cont'd)
          end
       end
 
-   link_before (sibling: SB_WINDOW) is
+   link_before (sibling: SB_WINDOW)
          -- Relink this window before sibling in the window list
       do
          if sibling /= Current then
@@ -1547,7 +1547,7 @@ feature -- actions (cont'd)
          end
       end
 
-   link_after (sibling: SB_WINDOW) is
+   link_after (sibling: SB_WINDOW)
          -- Relink this window after sibling in the window list
       do
          if sibling /= Current then
@@ -1581,14 +1581,14 @@ feature -- actions (cont'd)
          end
       end
 
-	does_save_under: BOOLEAN is
+	does_save_under: BOOLEAN
 		once
 			Result := False
 		end
 
 feature -- Message processing
 
-	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
     	local
         	ev: SB_EVENT
          	dc: SB_DC_WINDOW
@@ -1605,7 +1605,7 @@ feature -- Message processing
          	Result := True
       	end
 
-   on_map (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_map (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          if message_target /= Void
             and then message_target.handle_2 (Current, SEL_MAP, message, data)
@@ -1614,7 +1614,7 @@ feature -- Message processing
          end
       end
 
-   on_unmap (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_unmap (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          if application.mouse_grab_window = Current then
             application.set_mouse_grab_window (Void)
@@ -1629,7 +1629,7 @@ feature -- Message processing
          end
       end
 
-	on_configure (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+	on_configure (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
 		do
 			if message_target /= Void
 				and then message_target.handle_2 (Current, SEL_CONFIGURE, message, data)
@@ -1638,7 +1638,7 @@ feature -- Message processing
 			end
 		end
 
-   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          Result := True
 
@@ -1658,7 +1658,7 @@ feature -- Message processing
          end
       end
 
-   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          if is_enabled and then message_target /= Void and then
             message_target.handle_2 (Current, SEL_MOTION, message, data)
@@ -1667,7 +1667,7 @@ feature -- Message processing
          end
       end
 
-   on_mouse_wheel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_mouse_wheel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          if is_enabled and then message_target /= Void and then
             message_target.handle_2 (Current, SEL_MOUSEWHEEL, message, data)
@@ -1676,7 +1676,7 @@ feature -- Message processing
          end
       end
 
-   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       local
          event: SB_EVENT
       do
@@ -1698,7 +1698,7 @@ feature -- Message processing
          end
       end
 
-   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       local
          event: SB_EVENT
       do
@@ -1715,7 +1715,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_left_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          unset_flags (Flag_tip)
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data);
@@ -1729,7 +1729,7 @@ feature -- Message processing
          end
       end
 
-   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_left_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          if is_enabled then
             release_mouse;
@@ -1741,7 +1741,7 @@ feature -- Message processing
          end
       end
 
-   on_middle_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_middle_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
 
 		edp_trace.st("SB_WINDOW_DEF::on_middle_btn_press called").d
@@ -1758,7 +1758,7 @@ feature -- Message processing
          end
       end
 
-   on_middle_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_middle_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          if is_enabled then
             release_mouse
@@ -1770,7 +1770,7 @@ feature -- Message processing
          end
       end
 
-	on_right_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+	on_right_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
 		do
 			unset_flags (Flag_tip)
 			do_handle_2 (Current, SEL_FOCUS_SELF, 0, data)
@@ -1786,7 +1786,7 @@ feature -- Message processing
 			end
 		end
 
-   	on_right_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   	on_right_btn_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
    		local
    			ev: SB_EVENT
       	do
@@ -1814,7 +1814,7 @@ feature -- Message processing
 			end
 		end
 
-   	on_begin_drag (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   	on_begin_drag (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       	do
          	if message_target /= Void
             	and then message_target.handle_2 (Current, SEL_BEGINDRAG, message, data)
@@ -1823,7 +1823,7 @@ feature -- Message processing
          	end
       	end
 
-	on_end_drag (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+	on_end_drag (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
 		do
          	if message_target /= Void
             	and then message_target.handle_2 (Current, SEL_ENDDRAG, message, data)
@@ -1832,7 +1832,7 @@ feature -- Message processing
          	end
       	end
 
-   on_dragged (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_dragged (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          if message_target /= Void
             and then message_target.handle_2 (Current, SEL_DRAGGED, message, data)
@@ -1841,7 +1841,7 @@ feature -- Message processing
          end
       end
 
-   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_key_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          if is_enabled and then message_target /= Void
             and then message_target.handle_2 (Current, SEL_KEYPRESS, message, data)
@@ -1850,7 +1850,7 @@ feature -- Message processing
          end
       end
 
-   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_key_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          if is_enabled and then message_target /= Void
             and then message_target.handle_2 (Current, SEL_KEYRELEASE, message, data)
@@ -1859,7 +1859,7 @@ feature -- Message processing
          end
       end
 
-   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   on_ungrabbed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
          if message_target /= Void then
             message_target.do_handle_2 (Current, SEL_UNGRABBED, message, data);
@@ -1870,14 +1870,14 @@ feature -- Message processing
          Result := True
       end
 
-   	on_destroy (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2 is
+   	on_destroy (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
    			-- handle the Destroy_notify event from SB_APPLICATION
       	do
       		on_destroy_imp
 			Result := True
 		end
 
-	on_focus_self (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_focus_self (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	do
         	if is_enabled and then can_focus then
             	set_focus;
@@ -1885,7 +1885,7 @@ feature -- Message processing
          	end
       	end
 
-   on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          flags := flags | Flag_focused;
          if focus_child /= Void then
@@ -1897,7 +1897,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          unset_flags (Flag_focused);
          if focus_child /= Void then
@@ -1909,7 +1909,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_selection_lost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_selection_lost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void then
             message_target.do_handle_2 (Current, SEL_SELECTION_LOST, message, data);
@@ -1917,7 +1917,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_selection_gained (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_selection_gained (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void then
             message_target.do_handle_2 (Current, SEL_SELECTION_GAINED, message, data);
@@ -1925,7 +1925,7 @@ feature -- Message processing
          Result := True
       end
 
-	on_selection_request (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_selection_request (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			s1, s2: STRING
 		do
@@ -1944,7 +1944,7 @@ feature -- Message processing
 			end
 		end
 
-   on_clipboard_lost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_clipboard_lost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void then
             message_target.do_handle_2 (Current, SEL_CLIPBOARD_LOST, message, data);
@@ -1952,7 +1952,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_clipboard_gained (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_clipboard_gained (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void then
             message_target.do_handle_2 (Current, SEL_CLIPBOARD_GAINED, message, data);
@@ -1960,7 +1960,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_clipboard_request (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_clipboard_request (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void and then
             message_target.handle_2 (Current, SEL_CLIPBOARD_REQUEST, message, data)
@@ -1969,7 +1969,7 @@ feature -- Message processing
          end
       end
 
-   on_dnd_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_dnd_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void and then
             message_target.handle_2 (Current, SEL_DND_ENTER, message, data)
@@ -1978,7 +1978,7 @@ feature -- Message processing
          end
       end
 
-   on_dnd_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_dnd_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void and then
             message_target.handle_2 (Current, SEL_DND_LEAVE, message, data)
@@ -1987,7 +1987,7 @@ feature -- Message processing
          end
       end
 
-   on_dnd_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_dnd_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void and then
             message_target.handle_2 (Current, SEL_DND_MOTION, message, data)
@@ -1996,7 +1996,7 @@ feature -- Message processing
          end
       end
 
-   on_dnd_drop (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_dnd_drop (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void and then
             message_target.handle_2 (Current, SEL_DND_DROP, message, data)
@@ -2005,7 +2005,7 @@ feature -- Message processing
          end
       end
 
-   on_dnd_request (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_dnd_request (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if message_target /= Void and then
             message_target.handle_2 (Current, SEL_DND_REQUEST, message, data)
@@ -2014,7 +2014,7 @@ feature -- Message processing
          end
       end
 
-   on_cmd_show (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_show (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if not is_shown then
             show
@@ -2023,7 +2023,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_hide (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_hide (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_shown then
             hide
@@ -2032,7 +2032,7 @@ feature -- Message processing
          Result := True
       end
 
-   	on_upd_toggle_shown (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_upd_toggle_shown (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	local
          	snd: SB_MESSAGE_HANDLER;
       	do
@@ -2047,7 +2047,7 @@ feature -- Message processing
 --			implemented: false
 		end
 
-   on_cmd_toggle_shown (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_toggle_shown (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          if is_shown then
             hide
@@ -2058,37 +2058,37 @@ feature -- Message processing
          Result := True
       end
 
-   on_cmd_raise (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_raise (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          raise
          Result := True
       end
 
-   on_cmd_lower (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_cmd_lower (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       do
          lower
          Result := True
       end
 
-	on_cmd_enable (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_enable (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	enable
          	Result := True
       	end
 
-   	on_cmd_disable (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_disable (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	disable
          	Result := True
       	end
 
-	on_cmd_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_update (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	update
          	Result := True
       	end
 
-   	on_upd_yes (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_upd_yes (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	local
          	snd: SB_MESSAGE_HANDLER
       	do
@@ -2100,12 +2100,12 @@ feature -- Message processing
          	Result := True
       	end
 
-   	on_cmd_delete (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_delete (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	Result := True
       	end
 
-   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       do
          if		match_function_2 (SEL_UPDATE,				0, type, key) then Result := on_update 				(sender, key, data);
          elseif match_function_2 (SEL_PAINT,				0, type, key) then Result := on_paint 				(sender, key, data);
@@ -2160,7 +2160,7 @@ feature -- Message processing
 
 feature -- Destruction
 
-	destruct is
+	destruct
       	do
          	if prev /= Void then
             	prev.set_next (next)
@@ -2205,34 +2205,34 @@ feature -- Destruction
 
 feature {SB_WINDOW_DEF}
 
-   set_last_child (ch: SB_WINDOW) is
+   set_last_child (ch: SB_WINDOW)
       do
          last_child := ch
       end
 
-   set_first_child (ch: SB_WINDOW) is
+   set_first_child (ch: SB_WINDOW)
       do
          first_child := ch
       end
 
-   set_next (nw: SB_WINDOW) is
+   set_next (nw: SB_WINDOW)
       do
          next := nw
       end
 
-   set_prev (pw: SB_WINDOW) is
+   set_prev (pw: SB_WINDOW)
       do
          prev := pw
       end
 
-   set_focus_child(ch: SB_WINDOW) is
+   set_focus_child(ch: SB_WINDOW)
       do
          focus_child := ch
       end
 
 feature { NONE } -- Implementation
 
-   find_default (window: SB_WINDOW): SB_WINDOW is
+   find_default (window: SB_WINDOW): SB_WINDOW
       require
          non_void_window: window /= Void
       local
@@ -2252,7 +2252,7 @@ feature { NONE } -- Implementation
          end
       end
 
-	find_initial (window: SB_WINDOW): SB_WINDOW is
+	find_initial (window: SB_WINDOW): SB_WINDOW
 		require
 			non_void_window: window /= Void
 		local
@@ -2272,36 +2272,36 @@ feature { NONE } -- Implementation
 			end
 		end
 
-	does_override_redirect: BOOLEAN is
+	does_override_redirect: BOOLEAN
 		do
 			Result := False
 		end
 
-	layout is
+	layout
 			-- Propagate window size change
 		do
 			unset_flags (Flag_dirty)
 		end
 
-   	Layout_mask: INTEGER is
+   	Layout_mask: INTEGER
       	once
          	Result := (Layout_side_mask  | Layout_right  | Layout_center_x | Layout_bottom
                      | Layout_center_y   | Layout_fix_x  | Layout_fix_y    | Layout_fix_width
                      | Layout_fix_height | Layout_fill_x | Layout_fill_y)
       	end
 
-   	Layout_side_mask: INTEGER is
+   	Layout_side_mask: INTEGER
       	once
          	Result := (Layout_side_left | Layout_side_right | Layout_side_top | Layout_side_bottom)
       	end
 
-   	Layout_HORIZONTAL_mask: INTEGER is
+   	Layout_HORIZONTAL_mask: INTEGER
          	-- Horizontal placement options
       	once
          	Result := (Layout_left | Layout_right | Layout_center_x | Layout_fix_x | Layout_fill_x);
       	end
 
-	Layout_VERTICAL_mask: INTEGER is
+	Layout_VERTICAL_mask: INTEGER
 			-- Vertical placement options
 		once
 			Result := (Layout_top | Layout_bottom | Layout_center_y | Layout_fix_y | Layout_fill_y);
@@ -2317,7 +2317,7 @@ feature -- Properties
 --	--		Result.count >= 4
 --		end
 
-	add_properties is
+	add_properties
 		local
 		--	p_x: SB_PROPERTY_X
 		--	p_y: SB_PROPERTY_Y
@@ -2330,11 +2330,11 @@ feature -- Properties
 
 feature -- Debugging
 
-	trace_values is
+	trace_values
 		do
 		end
 
-	report_status is
+	report_status
 			-- Report (print) configuration status info
 		do
 			print (once "Reporting status for: "); print (generating_type); print (once " @ "); print (($Current).out); print (once "%N")

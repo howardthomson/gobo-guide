@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Base class for various list/tree etc. items"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -18,12 +18,12 @@ inherit
 
 feature -- Initialization
 
-	make_empty is
+	make_empty
     	do
          	create label.make_empty
       	end
 
-   	make (text: STRING; ic: SB_ICON; dt: ANY) is
+   	make (text: STRING; ic: SB_ICON; dt: ANY)
       	do
          	if text /= Void then
             	create label.make_from_string (text)
@@ -44,51 +44,51 @@ feature -- Data
 
 feature -- Queries
 
-	has_focus: BOOLEAN is
+	has_focus: BOOLEAN
 		do 
          	Result := (state & FOCUS) /= 0
       	end
 
-   	is_selected: BOOLEAN is
+   	is_selected: BOOLEAN
       	do
          	Result := (state & SELECTED) /= 0
       	end
 
-   	is_enabled: BOOLEAN is
+   	is_enabled: BOOLEAN
       	do
          	Result := (state & DISABLED) = 0
       	end
 
-   	is_draggable: BOOLEAN is
+   	is_draggable: BOOLEAN
       	do 
          	Result := (state & DRAGGABLE) /= 0
       	end
 
-	has_expander: BOOLEAN is
+	has_expander: BOOLEAN
 		do
 			Result := (state & EXPANDABLE) /= 0
 		end
 
 feature -- Settings
 
-	set_text (txt: STRING) is
+	set_text (txt: STRING)
 		require
 			txt /= Void
 		do
 			create label.make_from_string (txt)
 		end
 
-   	set_icon (icn: SB_ICON) is
+   	set_icon (icn: SB_ICON)
       	do
          	icon := icn
       	end
 
-	set_data (dt: ANY) is
+	set_data (dt: ANY)
     	do
 			data := dt
       	end
 
-   	set_focus (a_focus: BOOLEAN) is
+   	set_focus (a_focus: BOOLEAN)
       	do
          	if a_focus then
             	state := state | FOCUS
@@ -97,7 +97,7 @@ feature -- Settings
          	end
       	end
 
-   set_selected (a_selected: BOOLEAN) is
+   set_selected (a_selected: BOOLEAN)
       do
          if a_selected then
             state := state | SELECTED
@@ -106,7 +106,7 @@ feature -- Settings
          end
       end
 
-   set_enabled (enabled: BOOLEAN) is
+   set_enabled (enabled: BOOLEAN)
       do
          if enabled then
             state := state & (DISABLED).bit_not
@@ -115,7 +115,7 @@ feature -- Settings
          end
       end
 
-   set_draggable (a_draggable: BOOLEAN) is
+   set_draggable (a_draggable: BOOLEAN)
       do
          if a_draggable then
             state := state | DRAGGABLE;
@@ -124,7 +124,7 @@ feature -- Settings
          end
       end
 
-	set_has_expander (h: BOOLEAN) is
+	set_has_expander (h: BOOLEAN)
 		do
 			if not h then	-- !!!
 				state := state & (EXPANDABLE).bit_not
@@ -135,21 +135,21 @@ feature -- Settings
 
 feature -- Resource management
 
-   	create_resource is
+   	create_resource
       	do
          	if icon /= Void then
             	icon.create_resource
          	end
       	end
 
-   	detach_resource is
+   	detach_resource
       	do
          	if icon /= Void then
             	icon.detach_resource
          	end
       	end
 
-	destroy_resource is
+	destroy_resource
       	do
 	--		if (state & Icon_owned) /= 0 and then icon /= Void then
 	--			icon.destroy_resource
@@ -161,12 +161,12 @@ feature { SB_ITEM, SB_ITEM_CONTAINER }
 
 	state: INTEGER
 
-   	set_state (s: INTEGER) is
+   	set_state (s: INTEGER)
       	do
          	state := s
       	end
 
-	copy_state (other: like Current) is
+	copy_state (other: like Current)
     	require
         	other /= Void
       	do
@@ -175,11 +175,11 @@ feature { SB_ITEM, SB_ITEM_CONTAINER }
 
 feature { NONE } -- Implementation
 
-	SELECTED	: INTEGER is 0x00000001	-- Is Selected ?
-	FOCUS		: INTEGER is 0x00000002	-- Has the Focus ?
-	DISABLED	: INTEGER is 0x00000004	-- Is it disabled ?
-	DRAGGABLE	: INTEGER is 0x00000008	-- Can it be dragged ?
-	EXPANDABLE	: INTEGER is 0x00000010	-- Has +/- icon to expand children ?
+	SELECTED	: INTEGER = 0x00000001	-- Is Selected ?
+	FOCUS		: INTEGER = 0x00000002	-- Has the Focus ?
+	DISABLED	: INTEGER = 0x00000004	-- Is it disabled ?
+	DRAGGABLE	: INTEGER = 0x00000008	-- Can it be dragged ?
+	EXPANDABLE	: INTEGER = 0x00000010	-- Has +/- icon to expand children ?
 
 feature
 

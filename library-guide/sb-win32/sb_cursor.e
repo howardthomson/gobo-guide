@@ -6,14 +6,14 @@ inherit
 
 	SB_CURSOR_DEF
 	
-creation
+create
 	make_from_stock,
 	make_from_bits,
 	make_from_bitmap
 
 feature
 	
-	stock: ARRAY[POINTER] is
+	stock: ARRAY[POINTER]
       	local
          	idc: SB_WAPI_STANDARD_CURSOR_IDS
       	once
@@ -29,7 +29,7 @@ feature
          	>>
       	end
 
-   create_resource is
+   create_resource
          -- Create cursor
       local
          sif: SB_WAPI_SYSTEM_INFORMATION_FUNCTIONS
@@ -81,12 +81,12 @@ feature
          end
       end
 
-   	ext_create_cursor (hInstance: POINTER; width_, height_, hot_x_, hot_y_: INTEGER; source_, mask_: POINTER): POINTER is
+   	ext_create_cursor (hInstance: POINTER; width_, height_, hot_x_, hot_y_: INTEGER; source_, mask_: POINTER): POINTER
       	external "C"
       	alias "sb_cursor_create"
       	end
 
-	destroy_resource is
+	destroy_resource
          	-- Destroy cursor
       	local
          	cf: SB_WAPI_CURSOR_FUNCTIONS

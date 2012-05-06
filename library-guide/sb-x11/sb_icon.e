@@ -1,5 +1,5 @@
 -- X Window System Implementation
-indexing
+note
 
 	todo: "[
 		re-define 'mem: NATIVE_ARRAY' for ISE compatibility
@@ -17,13 +17,13 @@ inherit
 
 	SB_COMMON_CONVERSIONS
 
-creation
+create
 
 	make, make_opts
 
 feature -- Resource management
 
-	create_resource_imp is
+	create_resource_imp
 		local
 			dd: INTEGER	-- Image depth
 		do
@@ -44,14 +44,14 @@ feature -- Resource management
 			create {X_PIXMAP} etch.make (application.root_window.xwin, width.max(1), height.max(1), 1)
 		end
 
-	destroy_resource_imp is
+	destroy_resource_imp
 		do
 		--	TODO
 		end
 
 feature -- Rendering
 
-	sp_fill_with (mp: MANAGED_POINTER; v: CHARACTER) is
+	sp_fill_with (mp: MANAGED_POINTER; v: CHARACTER)
 			-- Fill the area with the specified value
 		local
 			i, nb: INTEGER
@@ -67,7 +67,7 @@ feature -- Rendering
 			end
 		end
 
-	render is
+	render
 			-- Render icon X Windows
 		local
 			vis: X_VISUAL
@@ -241,7 +241,7 @@ feature -- Rendering
 			end
 		end
 
-	dark_color (r, g, b: INTEGER): INTEGER is
+	dark_color (r, g, b: INTEGER): INTEGER
 		do
 			if   ((r & 0x00ff) 
 				+ (g & 0x00ff) 
@@ -252,12 +252,12 @@ feature -- Rendering
 			end
 		end
 
-	is_dark_color (r,g,b: INTEGER): BOOLEAN is
+	is_dark_color (r,g,b: INTEGER): BOOLEAN
 		do
 			Result := ((r+g+b) & 0x00ff) < 382
 		end
 		
-	resize_imp(w, h: INTEGER) is
+	resize_imp(w, h: INTEGER)
 		local
 			dd: INTEGER
 		do

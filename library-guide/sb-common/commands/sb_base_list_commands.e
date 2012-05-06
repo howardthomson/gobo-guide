@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_LIST commands"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -16,8 +16,8 @@ inherit
 
 feature
 
-	ID_TIPTIMER		: INTEGER is once Result := SCROLL_AREA_ID_LAST + 0 end
-	ID_LOOKUPTIMER	: INTEGER is once Result := SCROLL_AREA_ID_LAST + 1 end
-	Id_last			: INTEGER is once Result := SCROLL_AREA_ID_LAST + 2 end
+	ID_TIPTIMER		: INTEGER once Result := SCROLL_AREA_ID_LAST + 0 end
+	ID_LOOKUPTIMER	: INTEGER once Result := SCROLL_AREA_ID_LAST + 1 end
+	Id_last			: INTEGER once Result := SCROLL_AREA_ID_LAST + 2 end
 
 end

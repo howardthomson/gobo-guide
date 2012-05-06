@@ -1,4 +1,4 @@
-indexing 
+note 
 	description: "Eiffel Vision range. GTK+ implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -22,7 +22,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	initialize is
+	initialize
 			-- Initialize `Current'
 		do
 			todo_class_line ("__EV_RANGE_IMP__", "__LINE__")
@@ -36,7 +36,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_RANGE;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

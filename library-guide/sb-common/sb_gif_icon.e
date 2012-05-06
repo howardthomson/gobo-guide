@@ -1,4 +1,4 @@
-indexing
+note
 	description:"GIF Icon"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -22,21 +22,21 @@ inherit
          	save_pixels
       	end
 
-creation
+create
 
    	make,
    	make_opts
 
 feature -- Creation
 
-   	make(a: SB_APPLICATION; pix: ARRAY [ INTEGER_8 ]) is
+   	make(a: SB_APPLICATION; pix: ARRAY [ INTEGER_8 ])
          	-- Construct an icon from memory stream formatted as CompuServe GIF 
          	-- format
       	do
          	make_opts (a, pix, sbrgb (192,192,192), Zero, 1, 1)
       	end
 
-	make_opts (a: SB_APPLICATION; pix: ARRAY[INTEGER_8]; clr: INTEGER; opts: INTEGER; w,h: INTEGER) is
+	make_opts (a: SB_APPLICATION; pix: ARRAY[INTEGER_8]; clr: INTEGER; opts: INTEGER; w,h: INTEGER)
     		-- Construct an icon from memory stream
     		-- formatted as CompuServe GIF format
       	local
@@ -52,14 +52,14 @@ feature -- Creation
          	end
       	end
 
-   save_pixels (store: SB_STREAM) is
+   save_pixels (store: SB_STREAM)
          -- Save pixels into stream in [un]GIF format
       do
          -- TODO: Implement
       end
 
 
-   load_pixels (store: SB_STREAM) is
+   load_pixels (store: SB_STREAM)
          -- Load pixels from stream in CompuServe GIF format
       local
          gio: SB_GIF_IO

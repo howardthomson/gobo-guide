@@ -1,4 +1,4 @@
-indexing
+note
 
 		description: "Tree item"
 
@@ -32,13 +32,13 @@ inherit
          	detach_resource
       	end
 
-creation
+create
 
 	make_empty, make
 
 feature -- Creation
 
-	make (text: STRING; oi,ci: SB_ICON; dt: ANY) is
+	make (text: STRING; oi,ci: SB_ICON; dt: ANY)
 		do
 			base_make (text, oi, dt)
 			closed_icon := ci
@@ -60,7 +60,7 @@ feature -- Data
 
 feature -- Queries
 
-	below_item: like Current is
+	below_item: like Current
   			-- Item immediately below on screen
 		local
         	item: like Current
@@ -79,7 +79,7 @@ feature -- Queries
          	end
       	end
 
-  	above_item: like Current is
+  	above_item: like Current
       	local
          	item: like Current
       	do
@@ -97,7 +97,7 @@ feature -- Queries
          	end
       	end
 
-   children_count: INTEGER is
+   children_count: INTEGER
       local
          item: SB_TREE_LIST_ITEM
       do
@@ -111,13 +111,13 @@ feature -- Queries
          end
       end
 
-   is_leaf: BOOLEAN is
+   is_leaf: BOOLEAN
          -- Return True if node is a leaf-item, i.e. has no children
       do
          Result := first_child = Void;
       end
 
-	width (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]): INTEGER is
+	width (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]): INTEGER
 		local
 			w, oiw, ciw: INTEGER
 		do
@@ -135,7 +135,7 @@ feature -- Queries
 			Result := SIDE_SPACING + w
 		end
 
-	height (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]): INTEGER is
+	height (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]): INTEGER
 		local
 			th,		-- Text height
 			oih,	-- Open icon height
@@ -158,50 +158,50 @@ feature -- Queries
 			Result := th.max (oih.max (cih))
 		end
 
-	is_opened: BOOLEAN is
+	is_opened: BOOLEAN
 		do
 			Result := (state & OPENED) /= 0
 		end
 
-	is_expanded: BOOLEAN is
+	is_expanded: BOOLEAN
 		do
 			Result := (state & EXPANDED_MASK) /= 0
 		end
 
-   has_items: BOOLEAN is
+   has_items: BOOLEAN
       do
          Result := (state & HASITEMS) /= 0
             or else first_child /= Void
       end
 
-	is_multi_line: BOOLEAN is
+	is_multi_line: BOOLEAN
 		do
 			Result := (state & Multi_line) /= 0
 		end
 
 feature -- setter routines (modified)
 
-	set_first_child (i: like Current) is
+	set_first_child (i: like Current)
 		do
 			first_child := i
 		end
 
-	set_last_child (i: like Current) is
+	set_last_child (i: like Current)
 		do
 			last_child := i
 		end
 
-	set_prev (i: like Current) is
+	set_prev (i: like Current)
 		do
 			prev := i
 		end
 
-	set_next (i: like Current) is
+	set_next (i: like Current)
 		do
 			next := i;
 		end
 
-	set_parent (i: like Current) is
+	set_parent (i: like Current)
 		do
 			parent := i;
 		end
@@ -209,7 +209,7 @@ feature -- setter routines (modified)
 
 feature -- Resource management
 
-   create_resource is
+   create_resource
       do
          Precursor
          if closed_icon /= Void then
@@ -217,7 +217,7 @@ feature -- Resource management
          end
       end
 
-   detach_resource is
+   detach_resource
       do
          Precursor
          if closed_icon /= Void then
@@ -227,7 +227,7 @@ feature -- Resource management
 
 feature {SB_GENERIC_TREE_LIST}
 
-   draw (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]; dc: SB_DC; x_, y_, w, h: INTEGER) is
+   draw (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]; dc: SB_DC; x_, y_, w, h: INTEGER)
       local
          ih,th,tw: INTEGER
          xx,yy: INTEGER
@@ -287,7 +287,7 @@ feature {SB_GENERIC_TREE_LIST}
          end
       end
 
-	multi_line_width (a_font: SB_FONT; s: STRING): INTEGER is
+	multi_line_width (a_font: SB_FONT; s: STRING): INTEGER
 		local
 			c: CHARACTER	-- Current character in string
 			i: INTEGER		-- Index through string
@@ -332,12 +332,12 @@ feature {SB_GENERIC_TREE_LIST}
 			Result := wmax
 		end
 
-	multi_line_height (a_font: SB_FONT; s: STRING): INTEGER is
+	multi_line_height (a_font: SB_FONT; s: STRING): INTEGER
 		do
 			Result := a_font.get_font_height * (1 + s.occurrences('%N'))
 		end
 
-	draw_multi_line_text (dc: SB_DC; a_font: SB_FONT; a_x, a_y: INTEGER; s: STRING) is
+	draw_multi_line_text (dc: SB_DC; a_font: SB_FONT; a_x, a_y: INTEGER; s: STRING)
 		--	dc.draw_text(a_x, a_y, s)
 		local
 			c: CHARACTER	-- Current character in string
@@ -385,12 +385,12 @@ feature {SB_GENERIC_TREE_LIST}
 		end
 
 
-	draw_other_icons (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]; dc: SB_DC; x_, y_, w, h: INTEGER): INTEGER is
+	draw_other_icons (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]; dc: SB_DC; x_, y_, w, h: INTEGER): INTEGER
 		do
 			Result := 0
 		end
 
-   item_hit (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]; x_, y_: INTEGER): INTEGER is
+   item_hit (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]; x_, y_: INTEGER): INTEGER
          -- Return item hit code: 0 no hit; 1 hit the icon; 2 hit the text
       local
          oiw, oih,	-- open icon width/height
@@ -436,12 +436,12 @@ feature {SB_GENERIC_TREE_LIST}
 
 feature -- Actions
 
-   	set_closed_icon (a_icon: SB_ICON) is
+   	set_closed_icon (a_icon: SB_ICON)
       	do
          	closed_icon := a_icon
       	end
 
-   	set_opened (a_opened: BOOLEAN) is
+   	set_opened (a_opened: BOOLEAN)
       	do
          	if a_opened then
             	state := state | OPENED
@@ -450,7 +450,7 @@ feature -- Actions
          	end
       	end
 
-   	set_expanded (a_expanded: BOOLEAN) is
+   	set_expanded (a_expanded: BOOLEAN)
       	do
          	if a_expanded then
             	state := state | EXPANDED_MASK
@@ -459,7 +459,7 @@ feature -- Actions
          	end
       	end
 
-	set_has_items (a_hasitems: BOOLEAN) is
+	set_has_items (a_hasitems: BOOLEAN)
       	do
          	if a_hasitems then
             	state := state | HASITEMS
@@ -468,7 +468,7 @@ feature -- Actions
          	end
       	end
 
-	set_multi_line (a_multi_line: BOOLEAN) is
+	set_multi_line (a_multi_line: BOOLEAN)
       	do
          	if a_multi_line then
             	state := state | Multi_line
@@ -479,26 +479,26 @@ feature -- Actions
 
 feature {NONE} -- Implementation
 
-   	OPENED		 : INTEGER is 0x00000020
-   	EXPANDED_MASK: INTEGER is 0x00000040
-   	HASITEMS	 : INTEGER is 0x00000080
-	Multi_line	 : INTEGER is 0x00000100	-- Is Multi Line [Has newline chars]
+   	OPENED		 : INTEGER = 0x00000020
+   	EXPANDED_MASK: INTEGER = 0x00000040
+   	HASITEMS	 : INTEGER = 0x00000080
+	Multi_line	 : INTEGER = 0x00000100	-- Is Multi Line [Has newline chars]
 
-   	ICON_SPACING  : INTEGER is 4         -- Spacing between icon and label
-   	SIDE_SPACING  : INTEGER is 6         -- Left or right spacing between items
-   	LINE_SPACING  : INTEGER is 4         -- Line spacing between items
-   	DEFAULT_INDENT: INTEGER is 8         -- Indent between parent and child
+   	ICON_SPACING  : INTEGER = 4         -- Spacing between icon and label
+   	SIDE_SPACING  : INTEGER = 6         -- Left or right spacing between items
+   	LINE_SPACING  : INTEGER = 4         -- Line spacing between items
+   	DEFAULT_INDENT: INTEGER = 8         -- Indent between parent and child
 
 feature { SB_GENERIC_TREE_LIST }
 
    	x, y: INTEGER;
 
-   	set_x (a_x: INTEGER) is
+   	set_x (a_x: INTEGER)
       	do
          	x := a_x
       	end
 
-	set_y (a_y: INTEGER) is
+	set_y (a_y: INTEGER)
       	do
          	y := a_y
       	end

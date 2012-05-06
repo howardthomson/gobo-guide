@@ -2,11 +2,11 @@ expanded class RESIZETOPRIGHT_MASK
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 11
-   y_hot: INTEGER is 12
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 11
+   y_hot: INTEGER = 12
+   bits: STRING =
    "%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%
    %%/000/%/000/%/000/%/000/%/000/%/240/%/015/%/000/%/000/%/240/%/015/%/000/%
    %%/000/%/240/%/015/%/000/%/000/%/240/%/015/%/000/%/000/%/248/%/015/%/000/%

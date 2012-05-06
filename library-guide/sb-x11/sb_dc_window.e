@@ -1,6 +1,6 @@
 -- X Window System Implementation
 
-indexing
+note
 	description: "[
 		Window Device Context The Window Device Context allows drawing
    		into an SB_DRAWABLE, such as an on-screen window (SB_WINDOW and derivatives)
@@ -95,7 +95,7 @@ inherit
 
 	X11_EXTERNAL_ROUTINES
 
-creation
+create
 
 	make_once, make, make_event
 
@@ -107,12 +107,12 @@ feature -- Attributes
 
 feature -- Creation
 
-    make_def is
+    make_def
         do
       		reset_flags
       	end
 
-	make_event_def (drawable: SB_DRAWABLE; event: SB_EVENT) is
+	make_event_def (drawable: SB_DRAWABLE; event: SB_EVENT)
 			-- Construct for painting in response to expose;
 			-- This sets the clip rectangle to the exposed rectangle
 		require else
@@ -125,7 +125,7 @@ feature -- Creation
 			set_flags (Gc_clip_mask)
       	end
 
-	reset_clip is
+	reset_clip
 		do
 			clip_x := 0
 			clip_y := 0
@@ -133,7 +133,7 @@ feature -- Creation
 			clip_h := 32767
 		end
 
-  start (drawable: SB_DRAWABLE) is
+  start (drawable: SB_DRAWABLE)
          -- Begin locks in a drawable surface
       require else
          drawable /= Void and then drawable.is_attached
@@ -154,12 +154,12 @@ feature -- Creation
 			-- TODO
       end
 
-	gcv: X_GC_VALUES is
+	gcv: X_GC_VALUES
 		once
 			create Result.make
 		end
 
-	stop is
+	stop
 			-- End unlock the drawable surface
 		do
 --			fx_trace(0, <<"SB_DC_WINDOW::stop">>)
@@ -215,7 +215,7 @@ feature -- Creation
 	id: INTEGER
 		-- X id of surface
 
-	set_surface (new_surface: SB_DRAWABLE) is
+	set_surface (new_surface: SB_DRAWABLE)
 			-- Assign to surface, and update derived attributes
 		local
 			ws: SB_WINDOW
@@ -235,7 +235,7 @@ feature -- Creation
 		end
 		
 
-	read_pixel (x, y: INTEGER): INTEGER is
+	read_pixel (x, y: INTEGER): INTEGER
 		-- Read back pixel
 		require else
 			valid_surface: surface /= Void or else fxerror("FXDCWindow::readPixel: DC not connected to drawable.%N")
@@ -254,14 +254,14 @@ feature -- Creation
 
    -- Draw points
 
-	draw_point (x, y : INTEGER) is
+	draw_point (x, y : INTEGER)
       		-- uses the foreground pixel and function components of the GC
       		-- to draw a single point into the drawable.
     	do
       		x_draw_point (display.to_external, id, gc.to_external, x, y)
     	end
 
-	draw_points (points: ARRAY [ SB_POINT ]) is
+	draw_points (points: ARRAY [ SB_POINT ])
    		local
    			x_points: ARRAY [ INTEGER_16 ]
     	do
@@ -269,7 +269,7 @@ feature -- Creation
 			x_draw_points(display.to_external, id, gc.to_external, x_points.area.item_address (0), points.count, CoordModeOrigin)
       	end
 
-	draw_points_rel(points: ARRAY [ SB_POINT ]) is
+	draw_points_rel(points: ARRAY [ SB_POINT ])
 		local
    			x_points: ARRAY [ INTEGER_16 ]
       	do
@@ -279,14 +279,14 @@ feature -- Creation
 
    	-- Draw lines
 
-  	draw_line (x1, y1, x2, y2 : INTEGER) is
+  	draw_line (x1, y1, x2, y2 : INTEGER)
       		-- uses the components of the GC to draw a line
       		-- between the specified set of points (x1, y1) and (x2, y2)
     	do
       		x_draw_line (display.to_external, id, gc.to_external, x1, y1, x2, y2)
     	end
 
-   	draw_lines (points: ARRAY [ SB_POINT ]) is
+   	draw_lines (points: ARRAY [ SB_POINT ])
    		local
    			x_points: ARRAY [ INTEGER_16 ]
       	do
@@ -294,7 +294,7 @@ feature -- Creation
 			x_draw_lines(display.to_external, id, gc.to_external, x_points.area.item_address (0), points.count, CoordModeOrigin)
 		end
 
-	draw_lines_num (points: ARRAY [ SB_POINT ]; num: INTEGER) is
+	draw_lines_num (points: ARRAY [ SB_POINT ]; num: INTEGER)
    		local
    			x_points: ARRAY [ INTEGER_16 ]
       	do
@@ -303,7 +303,7 @@ feature -- Creation
 		end
 		
 
-   	draw_lines_rel (points: ARRAY [ SB_POINT ]) is
+   	draw_lines_rel (points: ARRAY [ SB_POINT ])
    		local
    			x_points: ARRAY [ INTEGER_16 ]
       	do
@@ -311,39 +311,39 @@ feature -- Creation
 			x_draw_lines (display.to_external, id, gc.to_external, x_points.area.item_address (0), points.count, CoordModePrevious)
       	end
 
-	draw_line_segments(segments: ARRAY [ SB_SEGMENT ]) is
+	draw_line_segments(segments: ARRAY [ SB_SEGMENT ])
       	do
   			x_draw_segments (display.to_external, id, gc.to_external, segments.area.item_address (0), segments.count);
       	end
 
    -- Draw rectangles
 
-   	draw_rectangle (x, y, w, h: INTEGER) is
+   	draw_rectangle (x, y, w, h: INTEGER)
       	do
   			x_draw_rectangle (display.to_external, id, gc.to_external, x, y, w, h)
       	end
 
-   	draw_rectangles (rectangles: ARRAY [ SB_RECTANGLE ]) is
+   	draw_rectangles (rectangles: ARRAY [ SB_RECTANGLE ])
       	do
 			x_draw_rectangles (display.to_external, id, gc.to_external, rectangles.area.item_address (0), rectangles.count)
       	end
 
    	-- Draw arcs
-   	draw_arc(x, y, w, h, ang1, ang2: INTEGER) is
+   	draw_arc(x, y, w, h, ang1, ang2: INTEGER)
       	do
   			x_draw_arc(display.to_external, id, gc.to_external, x, y, w, h, ang1, ang2)
 		ensure then
 			implemented: false
       	end
 
-   	draw_arcs (arcs: ARRAY [ SB_ARC ]) is
+   	draw_arcs (arcs: ARRAY [ SB_ARC ])
       	do
   			x_draw_arcs (display.to_external, id, gc.to_external, arcs.area.item_address (0), arcs.count)
       	end
 
 	-- Filled rectangles
 
-	fill_rectangle (x, y, w, h: INTEGER) is
+	fill_rectangle (x, y, w, h: INTEGER)
    			--   require else
 			-- surface /= Void
 		do
@@ -351,7 +351,7 @@ feature -- Creation
 			x_fill_rectangle (display.to_external, id, gc.to_external, x, y, w, h)
       	end
 
-	fill_rectangles (rectangles: ARRAY [ SB_RECTANGLE ]) is
+	fill_rectangles (rectangles: ARRAY [ SB_RECTANGLE ])
 			-- fill the specified rectangle
 		do
 			x_fill_rectangles(display.to_external, id, gc.to_external, rectangles.area.item_address (0), rectangles.count);
@@ -360,17 +360,17 @@ feature -- Creation
 -- fill_chord and fill_chords ???
 
 -- Filled arcs
-	fill_arc (x, y, w, h, ang1, ang2: INTEGER) is
+	fill_arc (x, y, w, h, ang1, ang2: INTEGER)
 		do
 			x_fill_arc (display.to_external, id, gc.to_external, x, y, w, h, ang1, ang2);
 		end
 
-	fill_arcs (arcs: ARRAY [ SB_ARC ]) is
+	fill_arcs (arcs: ARRAY [ SB_ARC ])
 		do
 			x_fill_arcs (display.to_external, id, gc.to_external, arcs.area.item_address (0), arcs.count);
       end
 
-	to_x_points (points: ARRAY [ SB_POINT ]): ARRAY [ INTEGER_16 ] is
+	to_x_points (points: ARRAY [ SB_POINT ]): ARRAY [ INTEGER_16 ]
 		local
 			i, j: INTEGER
 		do
@@ -388,7 +388,7 @@ feature -- Creation
 			check Result.count = (2 * points.count) end
 		end
 
-	fill_polygon (points: ARRAY [ SB_POINT ]) is
+	fill_polygon (points: ARRAY [ SB_POINT ])
 			-- Filled polygon
    		local
    			x_points: ARRAY [ INTEGER_16 ]
@@ -397,7 +397,7 @@ feature -- Creation
 			x_fill_polygon (display.to_external, id, gc.to_external, x_points.area.item_address (0), points.count, Convex, CoordModeOrigin);
 		end
 
-	fill_polygon_num (points: ARRAY [ SB_POINT ]; num: INTEGER) is
+	fill_polygon_num (points: ARRAY [ SB_POINT ]; num: INTEGER)
 			-- Filled polygon
    		local
    			x_points: ARRAY [ INTEGER_16 ]
@@ -406,7 +406,7 @@ feature -- Creation
 			x_fill_polygon (display.to_external, id, gc.to_external, x_points.area.item_address (0), num, Convex, CoordModeOrigin);
 		end
 
-	fill_concave_polygon (points: ARRAY [ SB_POINT ]) is
+	fill_concave_polygon (points: ARRAY [ SB_POINT ])
    		local
    			x_points: ARRAY [ INTEGER_16 ]
 		do
@@ -414,7 +414,7 @@ feature -- Creation
 			x_fill_polygon (display.to_external, id, gc.to_external, x_points.area.item_address (0), points.count, Nonconvex, CoordModeOrigin);
 		end
 
-   fill_complex_polygon (points: ARRAY [ SB_POINT ]) is
+   fill_complex_polygon (points: ARRAY [ SB_POINT ])
    		local
    			x_points: ARRAY [ INTEGER_16 ]
 		do
@@ -423,7 +423,7 @@ feature -- Creation
 		end
 
 
-	fill_polygon_rel (points: ARRAY [ SB_POINT ]) is
+	fill_polygon_rel (points: ARRAY [ SB_POINT ])
 			-- Filled polygon with relative points
    		local
    			x_points: ARRAY [ INTEGER_16 ]
@@ -432,7 +432,7 @@ feature -- Creation
 			x_fill_polygon (display.to_external, id, gc.to_external, x_points.area.item_address (0), points.count, Convex, CoordModePrevious);
 		end
 
-	fill_concave_polygon_rel (points: ARRAY [ SB_POINT ]) is
+	fill_concave_polygon_rel (points: ARRAY [ SB_POINT ])
    		local
    			x_points: ARRAY [ INTEGER_16 ]
 		do
@@ -440,7 +440,7 @@ feature -- Creation
 			x_fill_polygon (display.to_external, id, gc.to_external, x_points.area.item_address (0), points.count, Nonconvex, CoordModePrevious);
 		end
 
-   fill_complex_polygon_rel (points: ARRAY [ SB_POINT ]) is
+   fill_complex_polygon_rel (points: ARRAY [ SB_POINT ])
    		local
    			x_points: ARRAY [ INTEGER_16 ]
       do
@@ -448,7 +448,7 @@ feature -- Creation
 			x_fill_polygon (display.to_external, id, gc.to_external, x_points.area.item_address (0), points.count, Complex, CoordModePrevious);
 		end
 
-	draw_hash_box (x, y, w, h,b: INTEGER) is
+	draw_hash_box (x, y, w, h,b: INTEGER)
 			-- Draw hashed box
 		require else
 			surface /= Void or else fxerror("FXDCWindow::drawHashBox: DC not connected to drawable.")
@@ -469,7 +469,7 @@ feature -- Creation
 			gc.change (gcv)
 		end
 
-	draw_focus_rectangle (x, y, w, h: INTEGER) is
+	draw_focus_rectangle (x, y, w, h: INTEGER)
          	-- Draw focus rectangle
     	do
     		gcv.reset
@@ -498,7 +498,7 @@ feature -- Creation
 			gc.change (gcv)
       	end
 
-   	draw_area (source: SB_DRAWABLE; sx, sy, sw, sh, dx, dy: INTEGER) is
+   	draw_area (source: SB_DRAWABLE; sx, sy, sw, sh, dx, dy: INTEGER)
          	-- Draw area from source
       	do
       		todo("SB_DC_WINDOW::draw_area")
@@ -507,7 +507,7 @@ feature -- Creation
 			implemented: false
 		end
 
-	draw_image (image: SB_IMAGE; dx, dy: INTEGER) is
+	draw_image (image: SB_IMAGE; dx, dy: INTEGER)
          	-- Draw image
       	do
       		todo("SB_DC_WINDOW::draw_image")
@@ -516,7 +516,7 @@ feature -- Creation
 			implemented: false
 		end
 
-	draw_bitmap (bitmap: SB_BITMAP; dx, dy: INTEGER) is
+	draw_bitmap (bitmap: SB_BITMAP; dx, dy: INTEGER)
 			-- Draw bitmap
 		do
 			todo("SB_DC_WINDOW::draw_bitmap")
@@ -527,7 +527,7 @@ feature -- Creation
 
 		xx, yy, ww, hh: INTEGER
 
-	intersect (px, py, pw, ph, qx, qy, qw, qh: INTEGER) is
+	intersect (px, py, pw, ph, qx, qy, qw, qh: INTEGER)
 			-- Intersection between rectangles
 		do
 			xx := px.max (qx)
@@ -536,7 +536,7 @@ feature -- Creation
 			hh := (py + ph).min (qy + qh) - yy
    		end
 
-	draw_icon (icon: SB_ICON; dx, dy: INTEGER) is
+	draw_icon (icon: SB_ICON; dx, dy: INTEGER)
 			-- Draw icon on surface
    		require else
    			valid_icon: icon /= Void
@@ -559,7 +559,7 @@ feature -- Creation
     		end
 		end
 
-	draw_icon_shaded (icon: SB_ICON; dx, dy: INTEGER) is
+	draw_icon_shaded (icon: SB_ICON; dx, dy: INTEGER)
 		require else
 			surface /= Void or else fxerror("FXDCWindow::drawIconShaded: DC not connected to drawable.")
 		--	(icon /= Void and then icon.id /= 0 and then icon.shape /= 0)
@@ -599,7 +599,7 @@ feature -- Creation
 
 --	draw_icon_sunken(icon: SB_ICON; dx, dy: INTEGER) is do end
 
-	draw_icon_sunken(icon: SB_ICON; dx, dy: INTEGER) is
+	draw_icon_sunken(icon: SB_ICON; dx, dy: INTEGER)
   		local
   			base: INTEGER	--SB_COLOR
   			clr: INTEGER	--SB_COLOR
@@ -643,18 +643,18 @@ feature -- Creation
 
 	-- Draw string
 
-	draw_text_offset (x, y: INTEGER; string: STRING; strt,length: INTEGER) is
+	draw_text_offset (x, y: INTEGER; string: STRING; strt,length: INTEGER)
 			-- Draw text, at x,y, index from strt to (strt+length-1)
 		do
 			x_draw_string (display.to_external, id, gc.to_external, x,y, string_to_external(string) + (strt - 1), length)
 		end
 
-   	draw_image_text_offset (x, y: INTEGER; string: STRING; strt, length: INTEGER) is
+   	draw_image_text_offset (x, y: INTEGER; string: STRING; strt, length: INTEGER)
       	do
   			x_draw_image_string (display.to_external, id, gc.to_external, x,y, string_to_external(string) + (strt - 1), length)
       	end
 
-	set_foreground (clr: INTEGER) is
+	set_foreground (clr: INTEGER)
     		-- Set foreground drawing color
     	do
 			devfg := visual.pixel (clr)
@@ -663,7 +663,7 @@ feature -- Creation
 			fg := clr
       	end
 
-	set_background(clr: INTEGER) is
+	set_background(clr: INTEGER)
 			-- Set background drawing color
 		do
   			devbg := visual.pixel (clr)
@@ -672,7 +672,7 @@ feature -- Creation
   			bg := clr
       	end
 
-	set_dashes (dashoffset: INTEGER; dashpattern: ARRAY [ INTEGER ]) is
+	set_dashes (dashoffset: INTEGER; dashpattern: ARRAY [ INTEGER ])
 			-- Set dash pattern
 		local
 			array_8: ARRAY [ INTEGER_8 ]
@@ -683,7 +683,7 @@ feature -- Creation
 			flags := flags | Gc_dash_list | Gc_dash_offset	
 		end
 
-	to_integer_8 (an_array: ARRAY [ INTEGER ]): ARRAY [ INTEGER_8 ] is
+	to_integer_8 (an_array: ARRAY [ INTEGER ]): ARRAY [ INTEGER_8 ]
 		require
 			not_void: an_array /= Void
 			nonzero_count: an_array.count > 0
@@ -703,7 +703,7 @@ feature -- Creation
 			end
 		end
 
-	set_line_width (linewidth: INTEGER) is
+	set_line_width (linewidth: INTEGER)
 			-- Set line width
 		do
 			gcv.reset
@@ -713,7 +713,7 @@ feature -- Creation
 			width := linewidth
 		end
 
-	set_line_cap (capstyle: INTEGER) is
+	set_line_cap (capstyle: INTEGER)
 			-- Set line cap style
 		do
 			gcv.reset
@@ -723,7 +723,7 @@ feature -- Creation
 			cap := capstyle
 		end
 
-	set_line_join (joinstyle: INTEGER) is
+	set_line_join (joinstyle: INTEGER)
 			-- Set line join style
 		do
 			gcv.reset
@@ -733,7 +733,7 @@ feature -- Creation
 			join := joinstyle
 		end
 
-	set_line_style (linestyle: INTEGER) is
+	set_line_style (linestyle: INTEGER)
 			-- Set line style
 		do
 			todo("SB_DC_WINDOW::set_line_style")
@@ -744,7 +744,7 @@ feature -- Creation
 			style := linestyle
 		end
 
-	set_fill_style(fillstyle: INTEGER) is
+	set_fill_style(fillstyle: INTEGER)
 			-- Set fill style
 		do
 			XSetFillStyle (display.to_external, gc.to_external, fillstyle);
@@ -752,13 +752,13 @@ feature -- Creation
 			fill := fillstyle;
 		end
 
-	set_fill_rule (fillrule: INTEGER) is
+	set_fill_rule (fillrule: INTEGER)
 			-- Set fill rule
 		do
 			todo("SB_DC_WINDOW::set_fill_rule")
 		end
 
-	set_function(func: INTEGER) is
+	set_function(func: INTEGER)
 			-- Set blit function
 		do
 			XSetFunction (display.to_external, gc.to_external, func)
@@ -766,7 +766,7 @@ feature -- Creation
 			rop := func
 		end
 
-	set_tile(image: SB_IMAGE; dx, dy: INTEGER) is
+	set_tile(image: SB_IMAGE; dx, dy: INTEGER)
 			-- Set the tile
 		do
      		todo("SB_DC_WINDOW::set_tile")
@@ -784,7 +784,7 @@ feature -- Creation
 			ty := dy
 		end
 
-	set_stipple (bitmap: SB_BITMAP; dx, dy: INTEGER) is
+	set_stipple (bitmap: SB_BITMAP; dx, dy: INTEGER)
 			-- Set the stipple pattern
 		require
 			surface /= Void or else fxerror("FXDCWindow::setStipple: DC not connected to drawable.")
@@ -806,7 +806,7 @@ feature -- Creation
 		ensure f: false
 		end
 
-	set_stipple_pattern (a_pat: INTEGER; dx, dy: INTEGER) is
+	set_stipple_pattern (a_pat: INTEGER; dx, dy: INTEGER)
 			-- Set the stipple pattern
 		require else
 			surface /= Void or else fxerror("FXDCWindow::setStipple: DC not connected to drawable.")
@@ -833,7 +833,7 @@ feature -- Creation
 			ty := dy
 		end
 
-	set_clip_region (region: SB_REGION) is
+	set_clip_region (region: SB_REGION)
     		-- Set clip region
     	require else
 			surface /= Void or else fxerror("FXDCWindow::setClipRegion: DC not connected to drawable.")
@@ -844,7 +844,7 @@ feature -- Creation
 			flags := flags | Gc_clip_mask;
       	end
 
-	set_clip_rectangle_coords (x, y, w, h: INTEGER) is
+	set_clip_rectangle_coords (x, y, w, h: INTEGER)
 			-- Set clip rectangle
       	require else
 			surface /= Void or else fxerror("FXDCWindow::setClipRectangle: DC not connected to drawable.")
@@ -861,14 +861,14 @@ feature -- Creation
 			flags := flags | Gc_clip_mask
       	end
 
-	set_clip_rectangle (a_rect: SB_RECTANGLE) is
+	set_clip_rectangle (a_rect: SB_RECTANGLE)
     		-- Set clip rectangle
     	do
       		gc.set_clip_rectangle (0, 0, a_rect.x, a_rect.y, a_rect.w, a_rect.h)
 			flags := flags | Gc_clip_mask
 		end
 
-	clear_clip_rectangle is
+	clear_clip_rectangle
          	-- Clear clipping
       	do
       		clip_x := rect_x
@@ -879,19 +879,19 @@ feature -- Creation
 			flags := flags | Gc_clip_mask
       	end
 
-	set_clip_mask(a_mask: SB_BITMAP; dx, dy: INTEGER) is
+	set_clip_mask(a_mask: SB_BITMAP; dx, dy: INTEGER)
 			-- Set clip mask
 		do
       		todo ("SB_DC_WINDOW::set_clip_mask")
       	end
 
-	clear_clip_mask is
+	clear_clip_mask
     		-- Clear clip mask
     	do
       		todo ("SB_DC_WINDOW::clear_clip_mask")
     	end
 
-	set_font (fnt: SB_FONT) is
+	set_font (fnt: SB_FONT)
 		require else
 			fnt /= Void and then fnt.is_attached
 		--	surface /= Void
@@ -901,7 +901,7 @@ feature -- Creation
 			font := fnt
 		end
 
-	clip_children(yes: BOOLEAN) is
+	clip_children(yes: BOOLEAN)
     		-- Clip against child windows
 		require else
 			surface /= Void or else fxerror("FXDCWindow::clipChildren: window has not yet been created.")

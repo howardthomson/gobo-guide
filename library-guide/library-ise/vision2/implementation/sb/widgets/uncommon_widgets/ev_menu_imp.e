@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Eiffel Vision menu. SLyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -50,7 +50,7 @@ print ("EV_MENU_IMP::make ...%N")
 			Precursor {EV_MENU_ITEM_LIST_IMP}
 		end
 
-	initialize is
+	initialize
 		do
 print ("EV_MENU_IMP::initialize ...%N")
 			TODO_class_line ("EV_MENU_IMP", "#1")
@@ -60,7 +60,7 @@ print ("EV_MENU_IMP::initialize ...%N")
 
 feature -- Basic operations
 
-	show is
+	show
 			-- Pop up on the current pointer position.
 		local
 			pc: EV_COORDINATE
@@ -73,7 +73,7 @@ feature -- Basic operations
 --			end
 		end
 
-	show_at (a_widget: EV_WIDGET; a_x, a_y: INTEGER) is
+	show_at (a_widget: EV_WIDGET; a_x, a_y: INTEGER)
 			-- Pop up on `a_x', `a_y' relative to the top-left corner of `a_widget'.
 		do
 --			if not interface.is_empty then
@@ -86,7 +86,7 @@ feature -- Basic operations
 
 feature {EV_ANY_I} -- Implementation
 
-	on_activate is
+	on_activate
 		local
 			p_imp: EV_MENU_ITEM_LIST_IMP
 		do
@@ -105,14 +105,14 @@ feature {EV_ANY_I} -- Implementation
 
 feature {NONE} -- Implementation
 
-	destroy is
+	destroy
 			-- Destroy the menu
 		do
 			interface.wipe_out
 			Precursor {EV_MENU_ITEM_IMP}
 		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

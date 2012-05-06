@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Drag and Drop cursor bits"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -8,12 +8,12 @@ expanded class DNDCOPY
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 3
-   y_hot: INTEGER is 2
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 3
+   y_hot: INTEGER = 2
    
-   bits: STRING is
+   bits: STRING =
    "%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/248/%/255/%/000/%/000/%
    %%/024/%/064/%/001/%/000/%/056/%/064/%/002/%/000/%/120/%/064/%/004/%/000/%
    %%/248/%/192/%/007/%/000/%/248/%/001/%/004/%/000/%/248/%/003/%/004/%/000/%

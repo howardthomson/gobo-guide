@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Menu bar"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -32,14 +32,14 @@ create
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_MENU_BAR"
 		end
 
 feature -- Creation
 
-   	make (p: SB_COMPOSITE; opts: INTEGER) is
+   	make (p: SB_COMPOSITE; opts: INTEGER)
          	-- Construct a non-floatable menubar.
          	-- The menubar can not be undocked.
       	do
@@ -47,7 +47,7 @@ feature -- Creation
                    0,0,0,0, 3,3,2,2, DEFAULT_SPACING, DEFAULT_SPACING)
       	end
 
-   make_float (p,q: SB_COMPOSITE; opts: INTEGER) is
+   make_float (p,q: SB_COMPOSITE; opts: INTEGER)
          -- Construct a floatable menubar
          -- Normally, the menubar is docked under window p.
          -- When floated, the menubar can be docked under window q, which is
@@ -57,7 +57,7 @@ feature -- Creation
                    0, 0,0,0, 3,3,2,2, DEFAULT_SPACING, DEFAULT_SPACING)
       end
 
-   make_opts (p,q: SB_COMPOSITE; opts: INTEGER; x, y, w, h, pl, pr, pt, pb, hs, vs: INTEGER) is
+   make_opts (p,q: SB_COMPOSITE; opts: INTEGER; x, y, w, h, pl, pr, pt, pb, hs, vs: INTEGER)
       do
          Precursor (p,q, opts, x,y,w,h, pl,pr,pt,pb, hs,vs)
          flags := flags | Flag_enabled
@@ -66,7 +66,7 @@ feature -- Creation
 
 feature -- Queries
 
-   contains (parentx, parenty: INTEGER): BOOLEAN is
+   contains (parentx, parenty: INTEGER): BOOLEAN
          -- Return true if popup contains this point
       local
          pt: SB_POINT
@@ -85,7 +85,7 @@ feature -- Queries
 
 feature -- Message processing
 
-   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+   handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
       do
          if     match_function_2 (SEL_ENTER,              0, type, key) then Result := on_enter         (sender, key, data)
          elseif match_function_2 (SEL_LEFTBUTTONPRESS,    0, type, key) then Result := on_button_press  (sender, key, data)
@@ -103,7 +103,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW
       do
@@ -135,7 +135,7 @@ feature -- Message processing
          end
       end
 
-   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_focus_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          child: SB_WINDOW
       do
@@ -167,7 +167,7 @@ feature -- Message processing
          end
       end
 
-   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_enter (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
          pt: SB_POINT
@@ -188,7 +188,7 @@ feature -- Message processing
          Result := True
       end
 
-   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   on_leave (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       local
          ev: SB_EVENT
          pt: SB_POINT
@@ -208,7 +208,7 @@ feature -- Message processing
          end
       end
 
-	on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_motion (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			ev: SB_EVENT
 			pt: SB_POINT
@@ -230,13 +230,13 @@ feature -- Message processing
 			Result := False
 		end
 
-	on_button_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_button_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		do
 			do_handle_2 (Current, SEL_COMMAND, Id_unpost, Void)
 			Result := True
 		end
 
-	on_button_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_button_release (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			ev: SB_EVENT
 		do
@@ -248,7 +248,7 @@ feature -- Message processing
 			Result := True
 		end
 
-	on_cmd_unpost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_unpost (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		do
 			if focus_child /= Void then
 				focus_child.kill_focus

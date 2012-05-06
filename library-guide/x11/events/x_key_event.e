@@ -14,39 +14,39 @@ create
 
 	make
 
-creation {X_EVENT}
+create {X_EVENT}
 
 	from_x_struct
 
 feature -- Consultation
 
-	root:		INTEGER is  do      Result := c_root		(to_external)	end
-	subwindow:	INTEGER is  do      Result := c_subwindow	(to_external)	end
-	time:		INTEGER is  do      Result := c_time		(to_external)	end
-	x:			INTEGER is  do      Result := c_x			(to_external)	end
-	y:			INTEGER is  do      Result := c_y			(to_external)	end
-	x_root:		INTEGER is  do      Result := c_x_root		(to_external)	end
-	y_root:		INTEGER is  do      Result := c_y_root		(to_external)	end
-	state:		INTEGER is	do      Result := c_state		(to_external)	end
-	same_screen:BOOLEAN is	do      Result := c_same_screen	(to_external)	end
-	keycode:	INTEGER is	do      Result := c_keycode		(to_external)	end
+	root:		INTEGER  do      Result := c_root		(to_external)	end
+	subwindow:	INTEGER  do      Result := c_subwindow	(to_external)	end
+	time:		INTEGER  do      Result := c_time		(to_external)	end
+	x:			INTEGER  do      Result := c_x			(to_external)	end
+	y:			INTEGER  do      Result := c_y			(to_external)	end
+	x_root:		INTEGER  do      Result := c_x_root		(to_external)	end
+	y_root:		INTEGER  do      Result := c_y_root		(to_external)	end
+	state:		INTEGER	do      Result := c_state		(to_external)	end
+	same_screen:BOOLEAN	do      Result := c_same_screen	(to_external)	end
+	keycode:	INTEGER	do      Result := c_keycode		(to_external)	end
 
 feature -- Modification
 
-  	set_root 		(v : INTEGER) 	is do c_set_root 		(to_external, v)    end
-  	set_subwindow 	(v : INTEGER) 	is do c_set_subwindow 	(to_external, v)    end
-  	set_time 		(v : INTEGER) 	is do c_set_time 		(to_external, v)    end
-  	set_x 			(v : INTEGER) 	is do c_set_x 			(to_external, v)    end
-  	set_y 			(v : INTEGER) 	is do c_set_y 			(to_external, v)    end
-  	set_x_root 		(v : INTEGER) 	is do c_set_x_root 		(to_external, v)    end
-  	set_y_root 		(v : INTEGER) 	is do c_set_y_root 		(to_external, v)    end
-  	set_state 		(v : INTEGER) 	is do c_set_state 		(to_external, v) 	end
-	set_same_screen	(v : BOOLEAN) 	is do c_set_same_screen	(to_external, v)    end
-	set_keycode		(v : INTEGER) 	is do c_set_keycode		(to_external, v)    end
+  	set_root 		(v : INTEGER) do c_set_root 		(to_external, v)    end
+  	set_subwindow 	(v : INTEGER) do c_set_subwindow 	(to_external, v)    end
+  	set_time 		(v : INTEGER) do c_set_time 		(to_external, v)    end
+  	set_x 			(v : INTEGER) do c_set_x 			(to_external, v)    end
+  	set_y 			(v : INTEGER) do c_set_y 			(to_external, v)    end
+  	set_x_root 		(v : INTEGER) do c_set_x_root 		(to_external, v)    end
+  	set_y_root 		(v : INTEGER) do c_set_y_root 		(to_external, v)    end
+  	set_state 		(v : INTEGER) do c_set_state 		(to_external, v) 	end
+	set_same_screen	(v : BOOLEAN) do c_set_same_screen	(to_external, v)    end
+	set_keycode		(v : INTEGER) do c_set_keycode		(to_external, v)    end
 
 feature
 
-	lookup_string: STRING is
+	lookup_string: STRING
 		local
 			i: INTEGER
 			is64bit: BOOLEAN
@@ -81,7 +81,7 @@ feature
 
 feature {NONE}
 
-	buffer: STRING is
+	buffer: STRING
 		once
 			create Result.make_filled(' ', 256)
 		end
@@ -90,28 +90,28 @@ feature {NONE} -- External functions
 
 -- Access macros
 
-	c_root			(p: POINTER): INTEGER is	external "C struct XKeyEvent access root 		use <X11/Xlib.h>"   end
-	c_subwindow    	(p: POINTER): INTEGER is	external "C struct XKeyEvent access subwindow 	use <X11/Xlib.h>"   end
-	c_time         	(p: POINTER): INTEGER is	external "C struct XKeyEvent access time 		use <X11/Xlib.h>"   end
-	c_x            	(p: POINTER): INTEGER is	external "C struct XKeyEvent access x 			use <X11/Xlib.h>"   end
-	c_y            	(p: POINTER): INTEGER is	external "C struct XKeyEvent access y 			use <X11/Xlib.h>"   end
-	c_x_root       	(p: POINTER): INTEGER is	external "C struct XKeyEvent access x_root 		use <X11/Xlib.h>"   end
-	c_y_root       	(p: POINTER): INTEGER is	external "C struct XKeyEvent access y_root 		use <X11/Xlib.h>"   end
-	c_state			(p: POINTER): INTEGER  is	external "C struct XKeyEvent access state 		use <X11/Xlib.h>"	end
-	c_keycode		(p: POINTER): INTEGER is	external "C struct XKeyEvent access keycode 	use <X11/Xlib.h>"	end
-	c_same_screen	(p: POINTER): BOOLEAN is	external "C struct XKeyEvent access same_screen use <X11/Xlib.h>"	end
+	c_root			(p: POINTER): INTEGER	external "C struct XKeyEvent access root 		use <X11/Xlib.h>"   end
+	c_subwindow    	(p: POINTER): INTEGER	external "C struct XKeyEvent access subwindow 	use <X11/Xlib.h>"   end
+	c_time         	(p: POINTER): INTEGER	external "C struct XKeyEvent access time 		use <X11/Xlib.h>"   end
+	c_x            	(p: POINTER): INTEGER	external "C struct XKeyEvent access x 			use <X11/Xlib.h>"   end
+	c_y            	(p: POINTER): INTEGER	external "C struct XKeyEvent access y 			use <X11/Xlib.h>"   end
+	c_x_root       	(p: POINTER): INTEGER	external "C struct XKeyEvent access x_root 		use <X11/Xlib.h>"   end
+	c_y_root       	(p: POINTER): INTEGER	external "C struct XKeyEvent access y_root 		use <X11/Xlib.h>"   end
+	c_state			(p: POINTER): INTEGER	external "C struct XKeyEvent access state 		use <X11/Xlib.h>"	end
+	c_keycode		(p: POINTER): INTEGER	external "C struct XKeyEvent access keycode 	use <X11/Xlib.h>"	end
+	c_same_screen	(p: POINTER): BOOLEAN	external "C struct XKeyEvent access same_screen use <X11/Xlib.h>"	end
 
 -- Set macros
 
-	c_set_root			(p: POINTER; i: INTEGER) is external "C struct XKeyEvent access root        type Window 	  use <X11/Xlib.h>" end
-	c_set_subwindow		(p: POINTER; i: INTEGER) is external "C struct XKeyEvent access subwindow   type Window 	  use <X11/Xlib.h>"	end
-	c_set_time			(p: POINTER; i: INTEGER) is	external "C struct XKeyEvent access time        type Time   	  use <X11/Xlib.h>" end
-	c_set_x				(p: POINTER; i: INTEGER) is external "C struct XKeyEvent access x           type int 		  use <X11/Xlib.h>" end
-	c_set_y				(p: POINTER; i: INTEGER) is external "C struct XKeyEvent access y           type int 		  use <X11/Xlib.h>" end
-	c_set_x_root		(p: POINTER; i: INTEGER) is	external "C struct XKeyEvent access x_root      type int 		  use <X11/Xlib.h>" end
-	c_set_y_root		(p: POINTER; i: INTEGER) is	external "C struct XKeyEvent access y_root      type int 		  use <X11/Xlib.h>" end
-	c_set_state			(p: POINTER; i: INTEGER) is external "C struct XKeyEvent access state       type unsigned int use <X11/Xlib.h>"	end
-	c_set_keycode		(p: POINTER; i: INTEGER) is external "C struct XKeyEvent access keycode     type unsigned int use <X11/Xlib.h>"	end
-	c_set_same_screen	(p: POINTER; i: BOOLEAN) is external "C struct XKeyEvent access same_screen type Bool         use <X11/Xlib.h>"	end
+	c_set_root			(p: POINTER; i: INTEGER) external "C struct XKeyEvent access root        type Window 	  use <X11/Xlib.h>" end
+	c_set_subwindow		(p: POINTER; i: INTEGER) external "C struct XKeyEvent access subwindow   type Window 	  use <X11/Xlib.h>"	end
+	c_set_time			(p: POINTER; i: INTEGER)	external "C struct XKeyEvent access time        type Time   	  use <X11/Xlib.h>" end
+	c_set_x				(p: POINTER; i: INTEGER) external "C struct XKeyEvent access x           type int 		  use <X11/Xlib.h>" end
+	c_set_y				(p: POINTER; i: INTEGER) external "C struct XKeyEvent access y           type int 		  use <X11/Xlib.h>" end
+	c_set_x_root		(p: POINTER; i: INTEGER)	external "C struct XKeyEvent access x_root      type int 		  use <X11/Xlib.h>" end
+	c_set_y_root		(p: POINTER; i: INTEGER)	external "C struct XKeyEvent access y_root      type int 		  use <X11/Xlib.h>" end
+	c_set_state			(p: POINTER; i: INTEGER) external "C struct XKeyEvent access state       type unsigned int use <X11/Xlib.h>"	end
+	c_set_keycode		(p: POINTER; i: INTEGER) external "C struct XKeyEvent access keycode     type unsigned int use <X11/Xlib.h>"	end
+	c_set_same_screen	(p: POINTER; i: BOOLEAN) external "C struct XKeyEvent access same_screen type Bool         use <X11/Xlib.h>"	end
 
 end

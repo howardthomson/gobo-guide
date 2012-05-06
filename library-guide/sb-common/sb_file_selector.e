@@ -1,4 +1,4 @@
-indexing
+note
 	description:"File selection widget"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -30,7 +30,7 @@ inherit
 --	SB_MESSAGE_REFFER
 	SB_REFERENCE_BOOLEAN
 	
-creation
+create
 
 	make, make_opts
 
@@ -295,7 +295,7 @@ feature -- Queries
          Result := filebox.directory;
       end
 
-   item_space: INTEGER is
+   item_space: INTEGER
          -- Return the inter-item spacing (in pixels)
       do
          Result := filebox.item_space;
@@ -423,7 +423,7 @@ feature -- Actions
 			filebox.set_pattern(pattern_from_text(filefilter.item_text(n)));
 		end
 
-   set_pattern_text(patno: INTEGER; text: STRING) is
+   set_pattern_text(patno: INTEGER; text: STRING)
          -- Change pattern text for pattern number
       require
          patno > 0 and then patno <= patterns_count
@@ -500,7 +500,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (SEL_COMMAND,				ID_ACCEPT,		type, key) then Result := on_cmd_accept 			(sender,key,data);
         	elseif  match_function_2 (SEL_CHANGED,				ID_ACCEPT,		type, key) then Result := on_file_changed 			(sender,key,data);
@@ -1010,7 +1010,7 @@ feature { NONE } -- Implementation
          end
       end
 
-	extension_from_pattern (ptrn: STRING): STRING is
+	extension_from_pattern (ptrn: STRING): STRING
 			-- Return the first extension "ext1" found in the pattern if the
          	-- pattern is of the form "*.ext1,*.ext2,..." or the is_empty string
          	-- if the pattern contains other wildcard combinations.
@@ -1050,7 +1050,7 @@ feature { NONE } -- Implementation
          	end
 		end
    
-	tbuplevel: ARRAY [ INTEGER_8 ] is
+	tbuplevel: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1068,7 +1068,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	tbnewfolder: ARRAY [ INTEGER_8 ] is
+	tbnewfolder: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1085,7 +1085,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	tbbigicons: ARRAY [ INTEGER_8 ] is
+	tbbigicons: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1101,7 +1101,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	tbdetails: ARRAY [ INTEGER_8 ] is
+	tbdetails: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1117,7 +1117,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	tblist: ARRAY [ INTEGER_8 ] is
+	tblist: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1134,7 +1134,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	home: ARRAY [ INTEGER_8 ] is
+	home: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1154,7 +1154,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	fileshown: ARRAY [ INTEGER_8 ] is
+	fileshown: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1175,7 +1175,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	filehidden: ARRAY [ INTEGER_8 ] is
+	filehidden: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1192,7 +1192,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	mark: ARRAY [ INTEGER_8 ] is
+	mark: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1211,7 +1211,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	clear: ARRAY [ INTEGER_8 ] is
+	clear: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1232,7 +1232,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	work: ARRAY [ INTEGER_8 ] is
+	work: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1248,7 +1248,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	dlgnewfolder: ARRAY [ INTEGER_8 ] is
+	dlgnewfolder: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x20, 0x00, 
@@ -1277,7 +1277,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	deletefile: ARRAY [ INTEGER_8 ] is
+	deletefile: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x42, 0x4D, 0x7E, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -1299,7 +1299,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	copyfile: ARRAY [ INTEGER_8 ] is
+	copyfile: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1318,7 +1318,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	movefile: ARRAY [ INTEGER_8 ] is
+	movefile: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 
@@ -1339,7 +1339,7 @@ feature { NONE } -- Implementation
 			>>
 		end
 
-	linkfile: ARRAY [ INTEGER_8 ] is
+	linkfile: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 

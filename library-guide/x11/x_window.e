@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Implementation of Xlib's Window"
 
@@ -18,12 +18,12 @@ inherit
 	X_WINDOW_CONSTANTS
 	X_PORTABILITY_ROUTINES
 
-creation 
+create 
 
 	make,
 	from_external
 
-creation { X_EVENT_QUEUE, X_GLOBAL }
+create { X_EVENT_QUEUE, X_GLOBAL }
 
 	make_special
 
@@ -36,7 +36,7 @@ feature { NONE } -- Creation
 			window_class : INTEGER;
 			visual       : X_VISUAL;
 			mask         : INTEGER;
-			attributes   : X_SET_WINDOW_ATTRIBUTES) is
+			attributes   : X_SET_WINDOW_ATTRIBUTES)
     	require
       		parent     /= Void
       		visual     /= Void
@@ -56,7 +56,7 @@ feature { NONE } -- Creation
 		end
 	----------------------------------------------------------
 
-	from_external (disp: X_DISPLAY; scr: INTEGER; xid: INTEGER) is
+	from_external (disp: X_DISPLAY; scr: INTEGER; xid: INTEGER)
     	require
     		disp /= Void
 			scr  <  disp.screen_count
@@ -67,14 +67,14 @@ feature { NONE } -- Creation
 		end
 	----------------------------------------------------------
 
-	make_special (xid : INTEGER) is
+	make_special (xid : INTEGER)
     	do
     		id := xid
 		end
 
 feature -- Destruction
 
-	destroy is
+	destroy
     	require
       		not is_same_resource(display.root_window(screen))
     	do
@@ -82,7 +82,7 @@ feature -- Destruction
     	end
 	----------------------------------------------------------
 
-  	destroy_subwindows is
+  	destroy_subwindows
     	do
       		x_destroy_subwindows(display.to_external, id)
     	end
@@ -94,7 +94,7 @@ feature
 
 feature -- configuration
 
-	get_attributes: X_WINDOW_ATTRIBUTES is
+	get_attributes: X_WINDOW_ATTRIBUTES
     	-- Returns the current attributes for this window
     	do
 			create Result.make
@@ -102,7 +102,7 @@ feature -- configuration
 		end
 	----------------------------------------------------------
 
-	change_attributes (mask: INTEGER; swa: X_SET_WINDOW_ATTRIBUTES) is
+	change_attributes (mask: INTEGER; swa: X_SET_WINDOW_ATTRIBUTES)
 			-- Depending on the mask, `change_attributes' uses the window 
 			-- attributes in the swa structure to change the specified
 			-- window attributes
@@ -114,7 +114,7 @@ feature -- configuration
 		end
 	----------------------------------------------------------
 
-	define_cursor (cursor: X_CURSOR) is
+	define_cursor (cursor: X_CURSOR)
 			-- If a cursor is set, it will be used when the pointer is in 
 			-- the window.  If the cursor is `None_cursor', this method undoes
 			-- the effect of a previous `define_cursor' call
@@ -123,7 +123,7 @@ feature -- configuration
 		end
 	----------------------------------------------------------
 
-	select_input (mask: INTEGER) is
+	select_input (mask: INTEGER)
 			-- requests that the X server report the events associated
 			-- with the specified event mask.
 		require
@@ -133,7 +133,7 @@ feature -- configuration
 		end
 	----------------------------------------------------------
 
-	set_transient_for_hint (win: X_WINDOW) is
+	set_transient_for_hint (win: X_WINDOW)
 			-- sets the WM_TRANSIENT_FOR property of the specified window
 			-- to the specified window.
 		require
@@ -143,7 +143,7 @@ feature -- configuration
 		end
 	----------------------------------------------------------
 
-	set_wm_hints (val: X_WM_HINTS) is
+	set_wm_hints (val: X_WM_HINTS)
 			-- sets the window manager hints.
 		require
 			not is_same_resource (display.root_window (screen))
@@ -169,7 +169,7 @@ feature -- configuration
 --		end
 	----------------------------------------------------------
 
-	set_class_hint (ch: X_CLASS_HINT) is
+	set_class_hint (ch: X_CLASS_HINT)
 			-- sets the class hint for the specified window.
 		require
 			ch /= Void
@@ -190,7 +190,7 @@ feature -- configuration
 
 feature -- name and title
 
-	store_name (name: STRING) is
+	store_name (name: STRING)
       		-- assigns the name passed to `name' to the window
     	require
       		not is_same_resource (display.root_window (screen))
@@ -198,7 +198,7 @@ feature -- name and title
       		x_store_name (display.to_external, id, string_to_external(name))
     	end
 
-	set_icon_name (name: STRING) is
+	set_icon_name (name: STRING)
 			-- sets the name to be displayed in a window's icon
 		require
 			not is_same_resource (display.root_window (screen))
@@ -208,7 +208,7 @@ feature -- name and title
   
 feature -- mapping
 
-  	map is
+  	map
       		-- Maps the window and all of its subwindows that have had map requests.
     	require
       		not is_same_resource (display.root_window (screen))
@@ -216,7 +216,7 @@ feature -- mapping
       		x_map_window (display.to_external, id)
     	end
 
-  	unmap is
+  	unmap
       		-- unmap the window and all its subwindows.
     	require
       		not is_same_resource (display.root_window (screen))
@@ -224,7 +224,7 @@ feature -- mapping
       		x_unmap_window (display.to_external, id)
     	end
 
-  	map_subwindows is
+  	map_subwindows
       		-- maps all subwindows for `Current' window in top-to-bottom
       		-- stacking order.
     	require
@@ -233,7 +233,7 @@ feature -- mapping
       		x_map_subwindows (display.to_external, id)
     	end
 
-  	unmap_subwindows is
+  	unmap_subwindows
       		-- unmaps all subwindows for `Current' window.
     	require
       		not is_same_resource (display.root_window (screen))
@@ -241,7 +241,7 @@ feature -- mapping
       		x_unmap_subwindows (display.to_external, id)
     	end
 
-  	map_raised is
+  	map_raised
       		-- similar to `map'. it also raises the window.
     	require
       		not is_same_resource (display.root_window (screen))
@@ -251,7 +251,7 @@ feature -- mapping
 
 feature -- window stack
 
-  	raise_window is
+  	raise_window
       		-- raises the specified window to the top of the stack so that 
       		-- no sibling window obscures it.
     	require
@@ -260,7 +260,7 @@ feature -- window stack
       		x_raise_window (display.to_external, id)
     	end
 
-  	lower is 
+  	lower 
       		-- lowers the specified window to the bottom of the stack so that 
       		-- it does not obscure any sibling windows.
     	require
@@ -269,21 +269,21 @@ feature -- window stack
       		x_lower_window (display.to_external, id)
     	end
 
-  	circulate_subwindows_up is
+  	circulate_subwindows_up
       		-- raises the lowest mapped child of the window that is partially 
       		-- or completely occluded by another child
     	do
       		x_circulate_subwindows_up (display.to_external, id)
     	end
 
-  	circulate_subwindows_down is
+  	circulate_subwindows_down
       		-- lowers the highest mapped child of the window that partially 
       		-- or completely occludes another child
     	do
       		x_circulate_subwindows_down (display.to_external, id)
     	end
 
-  	reparent (parent : X_WINDOW; x, y : INTEGER) is
+  	reparent (parent : X_WINDOW; x, y : INTEGER)
       		-- removes `Current' from its current position in the hierarchy,
       		-- and inserts it as the child of the specified `parent' window
     	require
@@ -294,7 +294,7 @@ feature -- window stack
 
 feature -- Focus
 
-  	set_input_focus (revert_to, time : INTEGER) is
+  	set_input_focus (revert_to, time : INTEGER)
       		-- changes the input focus and the last-focus-change time
     	do
       		x_set_input_focus (display.to_external, id, revert_to, time)
@@ -302,7 +302,7 @@ feature -- Focus
 
 feature -- size and location
 
-  	get_geometry is
+  	get_geometry
       		-- fills the following attributes : last_root_id,  last_x, 
       		-- last_y, last_width, last_height, last_border_width, last_depth.
     	do
@@ -325,7 +325,7 @@ feature -- size and location
   	last_border_width : INTEGER
   	last_depth        : INTEGER
 
-  	translate_coordinates (win : X_WINDOW; x, y : INTEGER) : BOOLEAN is
+  	translate_coordinates (win : X_WINDOW; x, y : INTEGER) : BOOLEAN
 			-- If it returns True, it takes the `x' and `y' coordinates
 			-- relative to the window's origin and returns these coordinates
 			-- to `last_translated_x' and `last_translated_y' relative to 
@@ -349,7 +349,7 @@ feature -- size and location
   	last_translated_y     : INTEGER
   	last_translated_child : INTEGER
 
-  	move (x, y: INTEGER) is
+  	move (x, y: INTEGER)
       		-- moves the specified window to the specified x and y coordinates
     	require
       		not is_same_resource (display.root_window (screen))
@@ -359,7 +359,7 @@ feature -- size and location
       		x_move_window (display.to_external, id, x, y)
     	end
 
-  	resize (width, height: INTEGER) is
+  	resize (width, height: INTEGER)
       		-- changes the inside dimensions of the specified window, not
       		-- including its borders.
     	require
@@ -370,7 +370,7 @@ feature -- size and location
       		x_resize_window (display.to_external, id, width, height)
     	end
 
-  	move_resize (x, y, width, height: INTEGER) is
+  	move_resize (x, y, width, height: INTEGER)
       		-- changes the size and location of the window
     	require
       		not is_same_resource (display.root_window (screen))
@@ -382,12 +382,12 @@ feature -- size and location
       		x_move_resize_window (display.to_external, id, x, y, width, height)
     	end
 
-	withdraw_window is
+	withdraw_window
 		do
 			x_withdraw_window(display.to_external, id, display.default_screen)
 		end
 
-  	set_border_width (w : INTEGER) is
+  	set_border_width (w : INTEGER)
       		-- sets the specified window's border width to the specified width.
     	require
       		not is_same_resource (display.root_window (screen))
@@ -395,7 +395,7 @@ feature -- size and location
       		x_set_window_border_width (display.to_external, id, w)
     	end
 
-	set_wm_normal_hints (sh: X_SIZE_HINTS) is
+	set_wm_normal_hints (sh: X_SIZE_HINTS)
 			-- replaces the size hints for the WM_NORMAL_HINTS property on 
 			-- the window
 		require
@@ -404,7 +404,7 @@ feature -- size and location
 			x_set_wm_normal_hints (display.to_external, id, sh.to_external)
 		end
 
-	get_wm_normal_hints: X_SIZE_HINTS is
+	get_wm_normal_hints: X_SIZE_HINTS
       		-- returns the size hints stored in the WM_NORMAL_HINTS property
       		-- on the window. `last_supplied_hints' is set.
     	do
@@ -425,7 +425,7 @@ feature -- grabbing
                 keyboard_sync : INTEGER;
                 confine_win   : X_WINDOW;
                 curs          : X_CURSOR;
-                time          : INTEGER) : INTEGER is
+                time          : INTEGER) : INTEGER
       -- grabs control of the pointer and returns `Grab_success' if 
       -- the grab was successful.
 		require
@@ -438,7 +438,7 @@ feature -- grabbing
 				keyboard_sync, confine_win.id, curs.id, time)
 		end
 
-  	ungrab_pointer (time: INTEGER) is
+  	ungrab_pointer (time: INTEGER)
       		-- releases the pointer and any queued events if this client has
       		-- actively grabbed the pointer from `grab_pointer', 
       		-- `grab_button', or from a normal button press.
@@ -452,7 +452,7 @@ feature -- grabbing
 
   change_active_pointer_grab (mask : INTEGER; 
                               curs : X_CURSOR;
-                              time : INTEGER) is
+                              time : INTEGER)
       -- changes the specified dynamic parameters if the pointer is
       -- actively grabbed by the client and if the specified time is 
       -- no earlier than the last-pointer-grab time and no later than
@@ -472,7 +472,7 @@ feature -- grabbing
                pointer_sync,
                keyboard_sync : INTEGER;
                confine_win   : X_WINDOW;
-               curs          : X_CURSOR) is
+               curs          : X_CURSOR)
       -- establishes a passive grab.
       -- `button' = 0 means any button.
     require
@@ -485,7 +485,7 @@ feature -- grabbing
 		     confine_win.id, curs.id)
     end
 
-	ungrab_button (button, modifs: INTEGER) is
+	ungrab_button (button, modifs: INTEGER)
 			-- releases the passive button/key combination on the window if it
 			-- was grabbed by this client.
 		do
@@ -495,7 +495,7 @@ feature -- grabbing
 	grab_keyboard (owner_ev      : BOOLEAN; 
                  pointer_sync, 
                  keyboard_sync : INTEGER; 
-                 time          : INTEGER) is
+                 time          : INTEGER)
 			-- grabs control of the keyboard and generates `Focus_in' and 
 			-- `Focus_out' events.
 		require
@@ -505,7 +505,7 @@ feature -- grabbing
 						pointer_sync, keyboard_sync, time)
 		end
   
-  ungrab_keyboard (time: INTEGER) is
+  ungrab_keyboard (time: INTEGER)
       -- releases the keyboard and any queued events if this client 
       -- has it actively grabbed from either grab_keyboard or grab_key.
     do
@@ -516,7 +516,7 @@ feature -- grabbing
             modifs        : INTEGER; 
             owner_ev      : BOOLEAN;
             pointer_sync,
-            keyboard_sync : INTEGER) is
+            keyboard_sync : INTEGER)
       -- establishes a passive grab on the keyboard.
     require
       not is_same_resource (display.root_window (screen))
@@ -525,7 +525,7 @@ feature -- grabbing
                   id, owner_ev, pointer_sync, keyboard_sync)
     end
 
-	ungrab_key (key_code, modifs : INTEGER) is
+	ungrab_key (key_code, modifs : INTEGER)
 			-- releases the key combination on the specified window if it 
 			-- was grabbed by this client.
 		do
@@ -540,7 +540,7 @@ feature -- Properties
 			format,
 			mode    : INTEGER;
         	buf     : POINTER;
-			n_elem  : INTEGER) is
+			n_elem  : INTEGER)
 		require
 			prop   /= Void
 			type   /= Void
@@ -551,7 +551,7 @@ feature -- Properties
                          format, mode, buf, n_elem)
 		end
 
-	get_property (prop,	type: X_ATOM; start, len: INTEGER; del: BOOLEAN) : BOOLEAN is
+	get_property (prop,	type: X_ATOM; start, len: INTEGER; del: BOOLEAN) : BOOLEAN
 		require
 			prop /= Void
 			type /= Void
@@ -572,7 +572,7 @@ feature -- Properties
 	last_property_bytes_after : INTEGER
 	last_property             : POINTER
 
-  	set_wm_protocols (prot: ARRAY [ INTEGER ]): INTEGER is
+  	set_wm_protocols (prot: ARRAY [ INTEGER ]): INTEGER
     	do
       		Result := x_set_wm_protocols (display.to_external, id,
 				 	array_to_external(prot),
@@ -588,256 +588,256 @@ feature {NONE} -- External functions
 
 	x_create_window (d: POINTER; wid, x, y, w, h, bw, 
                    pl, typ: INTEGER; vis: POINTER; 
-                   mask: INTEGER; attr: POINTER) : INTEGER is
+                   mask: INTEGER; attr: POINTER) : INTEGER
 		external "C use <X11/Xlib.h>"
 		alias "XCreateWindow"
 		end
 
-  	x_destroy_window (d: POINTER; rid: INTEGER) is
+  	x_destroy_window (d: POINTER; rid: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XDestroyWindow"
     	end
 
-  	x_destroy_subwindows (d: POINTER; rid: INTEGER) is
+  	x_destroy_subwindows (d: POINTER; rid: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XDestroySubwindows"
     	end
 
-  	x_get_window_attributes (d: POINTER; wid: INTEGER; attr: POINTER) is
+  	x_get_window_attributes (d: POINTER; wid: INTEGER; attr: POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XGetWindowAttributes"
     	end
 
-  	x_change_window_attributes (d: POINTER; wid: INTEGER; msk: INTEGER; buf: POINTER) is
+  	x_change_window_attributes (d: POINTER; wid: INTEGER; msk: INTEGER; buf: POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XChangeWindowAttributes"
     	end
 
-  	x_define_cursor (d : POINTER; rid, cid : INTEGER) is
+  	x_define_cursor (d : POINTER; rid, cid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XDefineCursor"
     	end
 
-  	x_select_input (d : POINTER; rid, msk : INTEGER) is
+  	x_select_input (d : POINTER; rid, msk : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XSelectInput"
     	end
 
-  	x_set_transient_for_hint (d : POINTER; wid, tid : INTEGER) is
+  	x_set_transient_for_hint (d : POINTER; wid, tid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XSetTransientForHint"
     	end
 
-  	x_set_wm_hints (d : POINTER; wid : INTEGER; wmh : POINTER) is
+  	x_set_wm_hints (d : POINTER; wid : INTEGER; wmh : POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XSetWMHints"
     	end
 
-  	x_get_wm_hints (d : POINTER; wid : INTEGER) : POINTER is
+  	x_get_wm_hints (d : POINTER; wid : INTEGER) : POINTER
     	external "C use <X11/Xlib.h>"
     	alias "XGetWMHints"
     	end
 
-  	x_set_class_hint (d : POINTER; wid : INTEGER; p : POINTER) is
+  	x_set_class_hint (d : POINTER; wid : INTEGER; p : POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XSetClassHint"
     	end
 
-  	x_get_class_hint (d : POINTER; wid : INTEGER; p : POINTER) : INTEGER is
+  	x_get_class_hint (d : POINTER; wid : INTEGER; p : POINTER) : INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XGetClassHint"
     	end
 
-  	x_store_name (d : POINTER; wid : INTEGER; str : POINTER) is
+  	x_store_name (d : POINTER; wid : INTEGER; str : POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XStoreName"
     	end
 
-  	x_fetch_name (d : POINTER; wid : INTEGER; str : POINTER) : INTEGER is
+  	x_fetch_name (d : POINTER; wid : INTEGER; str : POINTER) : INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XFetchName"
     	end
 
-  	x_set_icon_name (d : POINTER; wid : INTEGER; nm : POINTER) is
+  	x_set_icon_name (d : POINTER; wid : INTEGER; nm : POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XSetWMIconName"	-- Was XSetIconName
     	end
 
-  	x_get_icon_name (d : POINTER; wid : INTEGER; nm : POINTER) is
+  	x_get_icon_name (d : POINTER; wid : INTEGER; nm : POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XGetIconName"
     	end
 
-  	x_map_window (d : POINTER; rid : INTEGER) is
+  	x_map_window (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XMapWindow"
     	end
 
-  	x_unmap_window (d : POINTER; rid : INTEGER) is
+  	x_unmap_window (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XUnmapWindow"
     	end
 
-  	x_map_subwindows (d : POINTER; rid : INTEGER) is
+  	x_map_subwindows (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XMapSubwindows"
     	end
 
-  	x_unmap_subwindows (d : POINTER; rid : INTEGER) is
+  	x_unmap_subwindows (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XUnmapSubwindows"
     	end
 
-  	x_map_raised (d : POINTER; rid : INTEGER) is
+  	x_map_raised (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XMapRaised"
     	end
 
-  	x_raise_window (d : POINTER; rid : INTEGER) is
+  	x_raise_window (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XRaiseWindow"
     	end
 
-  	x_lower_window (d : POINTER; rid : INTEGER) is
+  	x_lower_window (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XLowerWindow"
     	end
 
-  	x_circulate_subwindows_up (d : POINTER; rid : INTEGER) is
+  	x_circulate_subwindows_up (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XCirculateSubwindowsUp"
     	end
 
-  	x_circulate_subwindows_down (d : POINTER; rid : INTEGER) is
+  	x_circulate_subwindows_down (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XCirculateSubwindowsDown"
     	end
 
-  	x_reparent_window (d : POINTER; rid, pid, x, y : INTEGER) is
+  	x_reparent_window (d : POINTER; rid, pid, x, y : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XReparentWindow"
     	end
 
-  	x_set_input_focus (d : POINTER; rid, i, j : INTEGER) is
+  	x_set_input_focus (d : POINTER; rid, i, j : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XSetInputFocus"
     	end
 
   	x_get_geometry (d : POINTER; wid : INTEGER; 
-                  rid, x, y, w, h, brdr, dpth : POINTER) is
+                  rid, x, y, w, h, brdr, dpth : POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XGetGeometry"
     	end  
 
   	x_translate_coordinates (d : POINTER; rid, wid, x, y : INTEGER;
-                           rx, ry, rc : POINTER) : BOOLEAN is
+                           rx, ry, rc : POINTER) : BOOLEAN
     	external "C use <X11/Xlib.h>"
     	alias "XTranslateCoordinates"
     	end
 
-  	x_move_window (d : POINTER; rid, x, y : INTEGER) is
+  	x_move_window (d : POINTER; rid, x, y : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XMoveWindow"
     	end
 
-  	x_resize_window (d : POINTER; rid, w, h : INTEGER) is
+  	x_resize_window (d : POINTER; rid, w, h : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XResizeWindow"
     	end
 
-  	x_move_resize_window (d : POINTER; rid, x, y, w, h : INTEGER) is
+  	x_move_resize_window (d : POINTER; rid, x, y, w, h : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XMoveResizeWindow"
     	end
 
-  	x_set_window_border_width (d : POINTER; rid, w : INTEGER) is
+  	x_set_window_border_width (d : POINTER; rid, w : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XSetWindowBorderWidth"
     	end
 
-  	x_set_wm_normal_hints (d : POINTER; rid : INTEGER; sh : POINTER) is
+  	x_set_wm_normal_hints (d : POINTER; rid : INTEGER; sh : POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XSetWMNormalHints"
     	end
 
-  	x_get_wm_normal_hints (d : POINTER; rid : INTEGER; sh, hs : POINTER) is
+  	x_get_wm_normal_hints (d : POINTER; rid : INTEGER; sh, hs : POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XGetWMNormalHints"
     	end
 
-  	x_query_tree (d: POINTER; wid: INTEGER; r, p, t, nb: POINTER) is
+  	x_query_tree (d: POINTER; wid: INTEGER; r, p, t, nb: POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XQueryTree"
     	end
 
   	x_grab_pointer (d: POINTER; wid: INTEGER; own: BOOLEAN; 
-                  msk, ps, ks, cid, mid, time: INTEGER): INTEGER is
+                  msk, ps, ks, cid, mid, time: INTEGER): INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XGrabPointer"
     	end
 
-  	x_ungrab_pointer (d: POINTER; time: INTEGER) is
+  	x_ungrab_pointer (d: POINTER; time: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XUngrabPointer"
     	end
 
-  	x_change_active_pointer_grab (d: POINTER; mask, cid, time: INTEGER) is
+  	x_change_active_pointer_grab (d: POINTER; mask, cid, time: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XChangeActivePointerGrab"
     	end
 
   	x_grab_button (d: POINTER; but, mod, wid : INTEGER; 
-                 own: BOOLEAN; msk, ps, ks, cid, mid: INTEGER) is
+                 own: BOOLEAN; msk, ps, ks, cid, mid: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XGrabButton"
     	end
 
-  	x_ungrab_button (d: POINTER; but, mod, wid: INTEGER) is
+  	x_ungrab_button (d: POINTER; but, mod, wid: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XUngrabButton"
     	end
 
   	x_grab_keyboard (d: POINTER; wid: INTEGER; 
-                   own: BOOLEAN; ps, ks, time: INTEGER) is
+                   own: BOOLEAN; ps, ks, time: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XGrabKeyboard"
     	end
 
-	x_ungrab_keyboard (d : POINTER; time : INTEGER) is
+	x_ungrab_keyboard (d : POINTER; time : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XUngrabKeyboard"
     	end
 
 	x_grab_key (d :POINTER; kc, mod, wid : INTEGER; 
-                 own : BOOLEAN; ps, ks : INTEGER) is
+                 own : BOOLEAN; ps, ks : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XGrabKey"
     	end
 
-	x_ungrab_key (d : POINTER; kc, mod, wid : INTEGER) is
+	x_ungrab_key (d : POINTER; kc, mod, wid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XUngrabKey"
     	end
 
   	x_change_property (d : POINTER; id1, id2, id3, f, m : INTEGER;
-                     b : POINTER; nb : INTEGER) is
+                     b : POINTER; nb : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XChangeProperty"
     	end
 
   	x_get_window_property (d : POINTER; id1, id2, off, len : INTEGER;
                          del : BOOLEAN; id3 : INTEGER;
-                         r1, r2, r3, r4, r5 : POINTER) : INTEGER is
+                         r1, r2, r3, r4, r5 : POINTER) : INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XGetWindowProperty"
     	end
 
-	x_set_wm_protocols (d : POINTER; wid : INTEGER; p : POINTER; i : INTEGER) : INTEGER is
+	x_set_wm_protocols (d : POINTER; wid : INTEGER; p : POINTER; i : INTEGER) : INTEGER
 		external "C use <X11/Xlib.h>"
     	alias "XSetWMProtocols"
     	end
 
-	x_withdraw_window (d: POINTER; rid, scr: INTEGER) is
+	x_withdraw_window (d: POINTER; rid, scr: INTEGER)
 		external "C use <X11/Xlib.h>"
 		alias "XWithdrawWindow"
 		end

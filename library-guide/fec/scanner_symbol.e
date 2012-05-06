@@ -1,4 +1,4 @@
-indexing
+note
 
 	todo: "[
 		Implement text regeneration for:
@@ -92,17 +92,17 @@ inherit
 			is_equal	-- use is_equal from COMPARABLE
 		end
 
-creation {SCANNER_GOBO}
+create {SCANNER_GOBO}
 
 	make
 
-creation {ANY}
+create {ANY}
 
 	default_create
 
 feature -- Creation
 
-	make is
+	make
 		do
 		end
 
@@ -120,7 +120,7 @@ feature { ANY }
 	
 	cached_width: INTEGER
 
-	width (s: SCANNER): INTEGER is
+	width (s: SCANNER): INTEGER
 		require
 		--	valid_type: type = s_edit_text implies cached_width
 				-- text only in editing class instance
@@ -134,24 +134,24 @@ feature { ANY }
 			Result := cached_width
 		end
 
-	set_width (new_width: INTEGER) is
+	set_width (new_width: INTEGER)
 		do
 			cached_width := new_width
 		end
 
-	line: INTEGER is
+	line: INTEGER
 		do
 			Result := pos_line (position)
 		end
 
-	column: INTEGER is
+	column: INTEGER
 		do
 			Result := pos_column (position)
 		end
 
 feature {NONE}
 
-	string_width (s: STRING): INTEGER is
+	string_width (s: STRING): INTEGER
 			-- Calculate width of string 's' carting from current position,
 			-- and allowing for tabs and tab positions
 			-- Tab positions build-in as every 4 columns
@@ -181,7 +181,7 @@ feature {NONE}
 
 feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }	
 
-	incr_column (by: INTEGER) is
+	incr_column (by: INTEGER)
 			-- Adjust column position, to the right
 		require
 --			valid_new_column: (pos_column (position) + by) >= 0
@@ -190,7 +190,7 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 			position := pos_init (pos_line (position), pos_column (position) + by)
 		end
 
-	incr_line (by: INTEGER) is
+	incr_line (by: INTEGER)
 			-- Adjust line position, down
 		require
 --			valid_new_column: (pos_line (position) + by) >= 0
@@ -201,29 +201,29 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 
 	special: INTEGER;      
 	 	
-	set (new_type: INTEGER; new_special: INTEGER; new_position: INTEGER_64) is
+	set (new_type: INTEGER; new_special: INTEGER; new_position: INTEGER_64)
 		do
 			type := new_type 
 			position := new_position
 			special := new_special 	
 		end
 
-	set_type (a_type: INTEGER) is
+	set_type (a_type: INTEGER)
 		do
 			type := a_type
 		end
 
-	set_special (a_special: INTEGER) is
+	set_special (a_special: INTEGER)
 		do
 			special := a_special
 		end
 
-	set_position (a_position: INTEGER_64) is
+	set_position (a_position: INTEGER_64)
 		do
 			position := a_position
 		end
 
-	text, string_value (s: SCANNER): STRING is
+	text, string_value (s: SCANNER): STRING
 		local
 			exp_tabs: BOOLEAN	-- Flag to expand tabs
 		do
@@ -349,7 +349,7 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 			end
 		end
 
-	escaped (quoted, is_escaped: BOOLEAN): STRING is
+	escaped (quoted, is_escaped: BOOLEAN): STRING
 		local
 			s: STRING
 			c: CHARACTER
@@ -366,7 +366,7 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 			Result := s
 		end
 
-	decimal (quoted: BOOLEAN; w: INTEGER): STRING is
+	decimal (quoted: BOOLEAN; w: INTEGER): STRING
 			-- re-generate decimal character code
 		require
 			width_ok: w >= 1 and then w <= 3
@@ -388,14 +388,14 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 			Result := s
 		end
 
-	symbol_string: STRING is
+	symbol_string: STRING
 		once
 			create Result.make (10)
 		end
 
 feature -- for COMPARABLE
 
-	infix "<" (other: like Current): BOOLEAN is
+	infix "<" (other: like Current): BOOLEAN
 		do
 			if type < other.type
 			or else (type = other.type and then special < other.special) then
@@ -405,18 +405,18 @@ feature -- for COMPARABLE
 
 feature -- for HASHABLE
 
-	hash_code: INTEGER is
+	hash_code: INTEGER
 		do
 			Result := (special * 256) + type
 		end
 
 feature -- Status assigned by parsing process
 
-	is_class_name: BOOLEAN is
+	is_class_name: BOOLEAN
 		do
 		end
 
-	is_feature_name: BOOLEAN is
+	is_feature_name: BOOLEAN
 		do
 		end
 

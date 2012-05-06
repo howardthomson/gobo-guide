@@ -2,11 +2,11 @@ expanded class DRAG_MASK
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 13
-   y_hot: INTEGER is 13
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 13
+   y_hot: INTEGER = 13
+   bits: STRING =
    "%/000/%/032/%/000/%/000/%/000/%/112/%/000/%/000/%/000/%/248/%/000/%/000/%
    %%/000/%/252/%/001/%/000/%/000/%/254/%/003/%/000/%/000/%/255/%/007/%/000/%
    %%/000/%/255/%/007/%/000/%/000/%/252/%/001/%/000/%/096/%/252/%/049/%/000/%

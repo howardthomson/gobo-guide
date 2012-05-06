@@ -1,4 +1,4 @@
-indexing
+note
 	platform:	"Linux / X Window System Implementation"
 	description:	"Widely used file queries and operations"
 	author:		"Howard Thomson <howard.thomson@dial.pipex.com>"
@@ -22,15 +22,15 @@ inherit
 
 feature -- Implementation of deferred routines
 
-	list_files_opts(path, pattern: STRING; flags: INTEGER): ARRAY [ STRING ] is
+	list_files_opts(path, pattern: STRING; flags: INTEGER): ARRAY [ STRING ]
 		do
 		end
 
 feature
 
-	nyi_test: BOOLEAN is False
+	nyi_test: BOOLEAN = False
 
-	environment (var: STRING): STRING is
+	environment (var: STRING): STRING
     		-- Return value of environment variable name
 		require else
 			valid_name: var /= Void and then not var.is_empty
@@ -38,7 +38,7 @@ feature
 			Result := Execution_environment.variable_value (var)
 		end
 
-	user_directory (user: STRING): STRING is
+	user_directory (user: STRING): STRING
 			-- Return the home directory for a given user.
 		do
 --			if nyi_test then not_yet_implemented end
@@ -46,7 +46,7 @@ feature
 			Result := (once "/").twin
 		end
 
-	temp_directory: STRING is
+	temp_directory: STRING
     		-- Return temporary directory.
 		do
          	-- Conform Linux File Hierarchy standard; this should be
@@ -54,7 +54,7 @@ feature
          	Result := "/tmp"
       	end
 
-   	current_directory: STRING is
+   	current_directory: STRING
          	-- Get the current working directory
       	local
          	buffer: STRING;
@@ -65,31 +65,31 @@ feature
 			Result := current_working_directory
       	end
 
-	current_drive: STRING is
+	current_drive: STRING
          	-- Return the current drive (for Linux systems)
       	do
          	create Result.make_empty
       	end
 
-	set_current_directory (path: STRING) is
+	set_current_directory (path: STRING)
 			-- Set the current working directory
 		do
 			if nyi_test then not_yet_implemented end
 		end
 
-	set_current_drive (drv: STRING): BOOLEAN is
+	set_current_drive (drv: STRING): BOOLEAN
 			-- Set the current drive (for Win32 systems)
 		do
 			if nyi_test then not_yet_implemented end
 		end
 
-	drive (file: STRING): STRING is
+	drive (file: STRING): STRING
     		-- Return the drive letter prefixing Current file name (if any).
       	do
          	create Result.make_empty
       	end
 
-   	expand(file: STRING): STRING is      
+   	expand(file: STRING): STRING      
          	-- Perform tilde or environment variable expansion
         require else
         	non_void_file: file /= Void
@@ -143,7 +143,7 @@ feature
 			end
       	end
 
-	absolute_with_base (base, file: STRING): STRING is
+	absolute_with_base (base, file: STRING): STRING
 			-- Return absolute path from base directory and file name
 		require else
 			file /= Void and then base /= Void
@@ -159,7 +159,7 @@ feature
 			end
 		end
 
-	relative_with_base(base, file: STRING): STRING is
+	relative_with_base(base, file: STRING): STRING
 			-- Return relative path of file to given base directory
 			-- Examples:
 			--
@@ -241,13 +241,13 @@ feature
 			end
 		end
 
-	root(file: STRING): STRING is
+	root(file: STRING): STRING
 			-- Return root directory of a given path
 		do
 			Result := PATHSEPSTRING
 		end
 
-	enquote (file: STRING; a_force_quotes: BOOLEAN): STRING is
+	enquote (file: STRING; a_force_quotes: BOOLEAN): STRING
 			-- Enquote filename to make safe for shell
     	require else
         	file /= Void
@@ -303,7 +303,7 @@ feature
          	if force_quotes then Result := "'" + Result + "'" end
 		end
 
-	dequote (file: STRING): STRING is
+	dequote (file: STRING): STRING
 			-- Dequote filename to get original again
 		local
 			i, e: INTEGER
@@ -349,7 +349,7 @@ feature
 			end
 		end
 
-	is_file (file: STRING): BOOLEAN is
+	is_file (file: STRING): BOOLEAN
 			-- Return true if input path is a file name
 		do
 			Result := file_system.is_file_readable (file)

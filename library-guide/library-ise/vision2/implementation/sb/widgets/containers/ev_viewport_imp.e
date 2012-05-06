@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Eiffel Vision viewport. GTK+ implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -35,7 +35,7 @@ create
 
 feature {NONE} -- Initialization
 
-	needs_event_box: BOOLEAN is
+	needs_event_box: BOOLEAN
 			-- Does `a_widget' need an event box?
 		do
 			Result := False
@@ -56,13 +56,13 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	x_offset: INTEGER is
+	x_offset: INTEGER
 			-- Horizontal position of viewport relative to `item'.
 		do
 			Result := internal_x_offset
 		end
 
-	y_offset: INTEGER is
+	y_offset: INTEGER
 			-- Vertical position of viewport relative to `item'.
 		do
 			Result := internal_y_offset
@@ -70,7 +70,7 @@ feature -- Access
 
 feature -- Element change
 
-	block_resize_actions is
+	block_resize_actions
 			-- Block any resize actions that may occur.
 		do
 			if item /= Void then
@@ -81,7 +81,7 @@ feature -- Element change
 			end
 		end
 
-	unblock_resize_actions is
+	unblock_resize_actions
 			-- Unblock all resize actions.
 		do
 			if item /= Void then
@@ -91,7 +91,7 @@ feature -- Element change
 			end
 		end
 
-	set_x_offset (a_x: INTEGER) is
+	set_x_offset (a_x: INTEGER)
 			-- Set `x_offset' to `a_x'.
 		do
 			set_offset (a_x, internal_y_offset)
@@ -136,13 +136,13 @@ feature -- Element change
 			end
 		end
 
-	set_y_offset (a_y: INTEGER) is
+	set_y_offset (a_y: INTEGER)
 			-- Set `y_offset' to `a_y'.
 		do
 			set_offset (internal_x_offset, a_y)
 		end
 
-	set_item_size (a_width, a_height: INTEGER) is
+	set_item_size (a_width, a_height: INTEGER)
 			-- Set `a_widget.width' to `a_width'.
 			-- Set `a_widget.height' to `a_height'.
 		local
@@ -161,7 +161,7 @@ feature -- Element change
 
 feature {NONE} -- Implementation
 
-	on_removed_item (a_widget_imp: EV_WIDGET_IMP) is
+	on_removed_item (a_widget_imp: EV_WIDGET_IMP)
 			-- Reset minimum size.
 		do
 			Precursor (a_widget_imp)
@@ -175,7 +175,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_VIEWPORT;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

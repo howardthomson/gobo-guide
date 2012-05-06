@@ -6,13 +6,13 @@ inherit
 
 	SB_DIR_BOX_DEF
 
-creation
+create
 
    make, make_opts
 
 feature -- Actions
 
-	set_directory(pathname: STRING) is
+	set_directory(pathname: STRING)
 			-- Set current directory
 		local
          	itt: SB_TREE_LIST_ITEM;

@@ -1,4 +1,4 @@
-indexing
+note
 
 	author: "Stephane Hillion"
 	copyright: "Copyright (c) 1998-2006, Stephane Hillion and Howard Thomson"
@@ -22,24 +22,24 @@ inherit
 
 	X_STRUCT
 	
-creation 
+create 
 
 	make
 
-creation { X_WINDOW }
+create { X_WINDOW }
 
 	from_x_struct
 
 feature -- GC Debug
 
-	class_name: STRING is
+	class_name: STRING
 		do
 			Result := once "X_CLASS_HINT"
 		end
 
 feature -- Access
 
-	res_name: STRING is
+	res_name: STRING
 			-- returns the application name.
 		require
 			to_external /= default_pointer
@@ -52,7 +52,7 @@ feature -- Access
 			end
 		end
 
-	res_class: STRING is
+	res_class: STRING
 			-- returns the application class.
 		require
 			to_external /= default_pointer
@@ -67,7 +67,7 @@ feature -- Access
 
 feature -- Modification
 
-	set_res_name (val: STRING) is
+	set_res_name (val: STRING)
 			-- sets the 'res_name' attribute.
 		require
 			val /= Void
@@ -79,7 +79,7 @@ feature -- Modification
 --			res_name.is_equal (val)
 		end
 
-	set_res_class (val: STRING) is
+	set_res_class (val: STRING)
 			-- sets the 'res_class' attribute.
 		require
 			val /= Void
@@ -93,17 +93,17 @@ feature -- Modification
 
 feature { NONE }
 
-	size: INTEGER is
+	size: INTEGER
 		external
 			"C macro use <X11/Xutil.h>"
 		alias
 			"sizeof(XClassHint)"
 		end
 
-	c_res_name  (p: POINTER): POINTER is	external "C struct XClassHint access res_name 	  use <X11/Xutil.h>"     end
-	c_res_class (p: POINTER): POINTER is	external "C struct XClassHint access res_class 	  use <X11/Xutil.h>"     end
+	c_res_name  (p: POINTER): POINTER	external "C struct XClassHint access res_name 	  use <X11/Xutil.h>"     end
+	c_res_class (p: POINTER): POINTER	external "C struct XClassHint access res_class 	  use <X11/Xutil.h>"     end
 
-	c_set_res_name  (p: POINTER; v: POINTER) is	external "C struct XClassHint access res_name  type char* use <X11/Xutil.h>"     end
-	c_set_res_class (p: POINTER; v: POINTER) is	external "C struct XClassHint access res_class type char* use <X11/Xutil.h>"     end
+	c_set_res_name  (p: POINTER; v: POINTER)	external "C struct XClassHint access res_name  type char* use <X11/Xutil.h>"     end
+	c_set_res_class (p: POINTER; v: POINTER)	external "C struct XClassHint access res_class type char* use <X11/Xutil.h>"     end
 
 end 

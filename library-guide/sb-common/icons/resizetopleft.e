@@ -2,11 +2,11 @@ expanded class RESIZETOPLEFT
 
 feature
 
-   width: INTEGER is 32
-   height: INTEGER is 32
-   x_hot: INTEGER is 12
-   y_hot: INTEGER is 12
-   bits: STRING is
+   width: INTEGER = 32
+   height: INTEGER = 32
+   x_hot: INTEGER = 12
+   y_hot: INTEGER = 12
+   bits: STRING =
    "%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%
    %%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/000/%/224/%/007/%/000/%/000/%
    %%/032/%/002/%/000/%/000/%/032/%/004/%/000/%/000/%/032/%/008/%/000/%/000/%

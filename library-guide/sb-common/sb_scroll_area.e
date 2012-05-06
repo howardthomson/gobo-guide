@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The scroll area widget manages a content area and a viewport
 		area through which the content is viewed.  When the content area
@@ -56,30 +56,30 @@ inherit
 
 	SB_SCROLL_BAR_CONSTANTS
 
-creation
+create
 
 	make, make_opts, make_ev
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_SCROLL_AREA"
 		end
 
 feature {NONE} -- Creation
 
-	make_ev is
+	make_ev
 		do
 			make (Void, 0)
 		end
 
-	make (p: SB_COMPOSITE; opts: INTEGER) is
+	make (p: SB_COMPOSITE; opts: INTEGER)
 		do
 			make_opts (p, opts, 0,0,0,0)
 		end
 
-	make_opts (p: SB_COMPOSITE; opts: INTEGER; x,y, w,h: INTEGER) is
+	make_opts (p: SB_COMPOSITE; opts: INTEGER; x,y, w,h: INTEGER)
 		do
         	composite_make (p, opts, x,y, w,h)
          	flags := flags | Flag_shown
@@ -93,7 +93,7 @@ feature {NONE} -- Creation
         	content_h := 1
 		end
 
-	XXset_parent (a_parent: SB_COMPOSITE) is
+	XXset_parent (a_parent: SB_COMPOSITE)
 		do
 			Precursor (a_parent)
 	--		if parent = Void then
@@ -125,7 +125,7 @@ feature { NONE } -- Implementation attributes
    
 feature -- Queries
 
-	default_width: INTEGER is
+	default_width: INTEGER
     		-- Get default width
       	local
          	w: INTEGER
@@ -141,7 +141,7 @@ feature -- Queries
          	Result := w.max(1)
       	end
 
-	default_height: INTEGER is
+	default_height: INTEGER
 			-- Get default height
 		local
          	h: INTEGER
@@ -156,44 +156,44 @@ feature -- Queries
          	Result := h.max(1)
       	end
 
-	viewport_height: INTEGER is
+	viewport_height: INTEGER
     		-- Return viewport height
       	do
          	Result := height
       	end
 
-	viewport_width: INTEGER is
+	viewport_width: INTEGER
     		-- Return viewport width
       	do
          	Result := width
       	end
 
-	content_width: INTEGER is
+	content_width: INTEGER
     		-- Return content width
       	do
          	Result := 1
       	end
 
-	content_height: INTEGER is
+	content_height: INTEGER
     		-- Return content height
       	do
          	Result := 1
       	end
 
-	get_scroll_style: INTEGER is
+	get_scroll_style: INTEGER
     		-- Return scroll style
       	do
          	Result := (options & SCROLLER_MASK)
       	end
 
-	is_h_scrollable: BOOLEAN is
+	is_h_scrollable: BOOLEAN
     		-- Return True if horizontally scrollable
 		do
         	Result :=  (options & HSCROLLER_NEVER ) = 0 
         	   or else (options & HSCROLLER_ALWAYS) = 0
       	end
 
-	is_v_scrollable: BOOLEAN is
+	is_v_scrollable: BOOLEAN
     		-- Return True if vertically scrollable
 		do
 			Result := (options & VSCROLLER_NEVER ) = 0
@@ -202,7 +202,7 @@ feature -- Queries
 
 feature -- Actions
 
-	set_scroll_style (style: INTEGER) is
+	set_scroll_style (style: INTEGER)
     		-- Change scroll style
       	local
          	opts: INTEGER
@@ -214,7 +214,7 @@ feature -- Actions
          	end
       	end
 
-   set_scroll_position (x, y: INTEGER) is
+   set_scroll_position (x, y: INTEGER)
          -- Set the current position
       local
          new_x, new_y: INTEGER
@@ -233,7 +233,7 @@ feature -- Actions
          end
       end
 
-	move_contents (x, y: INTEGER) is
+	move_contents (x, y: INTEGER)
     		-- Move content
     	local
          	dx, dy: INTEGER
@@ -248,7 +248,7 @@ feature -- Actions
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (SEL_MOUSEWHEEL,0,				type, key) then Result := on_v_mouse_wheel (sender, key, data)
         	elseif  match_function_2 (SEL_COMMAND, Id_hscrolled,	type, key) then Result := on_h_scroller_changed (sender, key, data)
@@ -260,37 +260,37 @@ feature -- Message processing
         	end
 		end
 
-   	on_key_press (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN is
+   	on_key_press (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN
    		do
    		--	fx_trace(0, <<"SB_SCROLL_AREA::on_key_press">>)
    			Result := Precursor (sender, key, data)
    		end
 
-   	on_key_release (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN is
+   	on_key_release (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN
    		do
    		--	fx_trace(0, <<"SB_SCROLL_AREA::on_key_release">>)
    			Result := Precursor (sender, key, data)
    		end
 
-   	on_right_btn_press (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN is
+   	on_right_btn_press (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN
    		do
    		--	fx_trace(0, <<"SB_SCROLL_AREA::on_right_btn_press">>)
    			Result := Precursor (sender, key, data)
    		end
 
-   	on_right_btn_release (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN is
+   	on_right_btn_release (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN
    		do
    		--	fx_trace(0, <<"SB_SCROLL_AREA::on_right_btn_release">>)
    			Result := Precursor (sender, key, data)
    		end
 
-	on_h_mouse_wheel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_h_mouse_wheel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
     	do
         	h_scroll_bar.do_handle_2 (sender, SEL_MOUSEWHEEL, selector, data)
         	Result := True
       	end
 
-	on_v_mouse_wheel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_v_mouse_wheel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 			-- Process (vertical ?) mouse wheel event
 			-- Occurs only if window is 'enabled'
     	do
@@ -298,7 +298,7 @@ feature -- Message processing
         	Result := True
       	end
 
-	on_h_scroller_changed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_h_scroller_changed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 			-- Called from horizontal scroll bar on change
 	   	local
 	       	i: INTEGER
@@ -313,7 +313,7 @@ feature -- Message processing
 	       	Result := True
 	   	end
 
-	on_v_scroller_changed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_v_scroller_changed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 			-- Called from vertical scroll bar on change
 		local
 			i: INTEGER
@@ -328,7 +328,7 @@ feature -- Message processing
 			Result := True
 		end
 
-	on_h_scroller_dragged (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_h_scroller_dragged (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 	  	local
 	       	i: INTEGER
 	       	new_x: INTEGER;
@@ -344,7 +344,7 @@ feature -- Message processing
 	       	Result := True
 	   	end
 
-	on_v_scroller_dragged (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_v_scroller_dragged (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 	   	local
 			i: INTEGER
 	       	new_y: INTEGER
@@ -360,7 +360,7 @@ feature -- Message processing
 	       	Result := True
 	   	end
 
-	on_auto_scroll (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_auto_scroll (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			dx, dy: INTEGER
 			cp: SB_CURSOR_POSITION
@@ -425,7 +425,7 @@ feature -- Message processing
 
 feature -- Destruction
 
-	destruct is
+	destruct
     	do
         	if scroll_timer /= Void then
 				application.remove_timeout (scroll_timer)
@@ -440,17 +440,17 @@ feature -- Destruction
 
 feature { NONE } -- Implementation
 
-	AUTOSCROLL_FUDGE: INTEGER is 11
+	AUTOSCROLL_FUDGE: INTEGER = 11
 			-- Proximity to wall at which we start autoscrolling
 
-	SCROLLER_MASK: INTEGER is
+	SCROLLER_MASK: INTEGER
     	once
         	Result := (HSCROLLER_ALWAYS | HSCROLLER_NEVER
         			| VSCROLLER_ALWAYS | VSCROLLER_NEVER
         			| SCROLLERS_DONT_TRACK);
 		end
 
-	layout is
+	layout
     	local
         	new_x, new_y, sh_h, sv_w: INTEGER
 		do
@@ -539,7 +539,7 @@ feature { NONE } -- Implementation
          	unset_flags (Flag_dirty)
       	end
 
-   start_auto_scroll (x, y: INTEGER; only_when_inside: BOOLEAN): BOOLEAN is
+   start_auto_scroll (x, y: INTEGER; only_when_inside: BOOLEAN): BOOLEAN
       local
          autoscrolling: BOOLEAN
       do
@@ -582,7 +582,7 @@ feature { NONE } -- Implementation
          Result := autoscrolling
       end
 
-	stop_auto_scroll is
+	stop_auto_scroll
     	do
          	if scroll_timer /= Void then
             	application.remove_timeout (scroll_timer)
@@ -591,7 +591,7 @@ feature { NONE } -- Implementation
          	unset_flags (Flag_scrollinside)
     	end
 
-	acceleration: ARRAY [ INTEGER ] is
+	acceleration: ARRAY [ INTEGER ]
     	once
 --         	Result := { ARRAY [ INTEGER ] 1, << 1, 1, 1, 2, 3, 4, 6, 7, 8, 16, 32, 64 >> }	-- GEC/EDP Version
          	Result := << 1, 1, 1, 2, 3, 4, 6, 7, 8, 16, 32, 64 >>

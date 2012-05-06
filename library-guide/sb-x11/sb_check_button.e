@@ -1,4 +1,4 @@
-indexing
+note
 	platform: "X11"
 	todo: "[
 		Rewrite to use expanded version of SB_SEGMENT for ARRAY.
@@ -16,7 +16,7 @@ create
 
 feature
 
-	seg_make(ix, iy: INTEGER): ARRAY [ SB_SEGMENT ] is
+	seg_make(ix, iy: INTEGER): ARRAY [ SB_SEGMENT ]
 		local
          	seg: ARRAY [SB_SEGMENT];
          	s: SB_SEGMENT;

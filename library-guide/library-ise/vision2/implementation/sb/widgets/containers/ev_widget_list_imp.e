@@ -41,7 +41,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Initialize `Current'
 		do
 			Precursor {EV_CONTAINER_IMP}
@@ -63,7 +63,7 @@ print ("EV_WIDGET_LIST_IMP::insert_ith ...%N")
 print ("EV_WIDGET_LIST_IMP::insert_ith exit ...%N")
 		end
 
-	remove_i_th (i: INTEGER) is
+	remove_i_th (i: INTEGER)
 			-- Remove item at `i'-th position.
 		local
 			v_imp: EV_WIDGET_IMP

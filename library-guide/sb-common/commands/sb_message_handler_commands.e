@@ -1,4 +1,4 @@
-indexing
+note
 	description:"SB_MESSAGE_HANDLER constants"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -9,6 +9,6 @@ expanded class SB_MESSAGE_HANDLER_COMMANDS
 
 feature
 
-	Id_last: INTEGER is 0;
+	Id_last: INTEGER = 0;
 
 end

@@ -13,18 +13,18 @@ feature
 
 	minimum_height_sb: INTEGER
 
-	set_minimum_height (a_minimum_height: like minimum_height) is
+	set_minimum_height (a_minimum_height: like minimum_height)
 		do
 			minimum_height_sb := a_minimum_height
 		end
 
-	once_property_minimum_height: SB_PROPERTY_MINIMUM_WIDTH is
+	once_property_minimum_height: SB_PROPERTY_MINIMUM_WIDTH
 		once
 			create Result
 --			once_properties.add_last (Result)
 		end
 
-	add_property_minimum_height is
+	add_property_minimum_height
 		local
 			p: SB_PROPERTY_MINIMUM_HEIGHT
 		do

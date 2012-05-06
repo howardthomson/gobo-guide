@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Icon List item"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -25,13 +25,13 @@ inherit
 		export { NONE } all
 		end
 
-creation
+create
 
 	make_empty, make
 
 feature -- Creation
 
-	make(text: STRING; bi,mi: SB_ICON; dt: ANY) is
+	make(text: STRING; bi,mi: SB_ICON; dt: ANY)
     	do
         	base_make(text,mi,dt);
         	big_icon := bi;
@@ -43,7 +43,7 @@ feature -- Data
 
 feature -- Queries
 
-   width (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]): INTEGER is
+   width (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]): INTEGER
       local
          options: INTEGER;
          iw,tw: INTEGER;
@@ -63,7 +63,7 @@ feature -- Queries
          end
       end
 
-   height (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]): INTEGER is
+   height (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]): INTEGER
       local
          options: INTEGER;
          ih,th: INTEGER;
@@ -87,20 +87,20 @@ feature -- Queries
 
 feature -- Actions
 
-   set_big_icon(icn: SB_ICON) is
+   set_big_icon(icn: SB_ICON)
       do
          big_icon := icn;
       end
 
 feature -- Resource management
 
-	create_resource is
+	create_resource
     	do
          	Precursor;
          	if big_icon /= Void then big_icon.create_resource; end
       	end
 
-   	detach_resource is
+   	detach_resource
       	do
          	Precursor;
          	if big_icon /= Void then big_icon.detach_resource; end
@@ -108,7 +108,7 @@ feature -- Resource management
 
 feature {SB_GENERIC_ICON_LIST, SB_FILE_LIST} -- Implementation
 
-   	draw (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]; dc: SB_DC; x, y, w, h: INTEGER) is
+   	draw (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]; dc: SB_DC; x, y, w, h: INTEGER)
       	local
          	options: INTEGER;
       	do
@@ -122,7 +122,7 @@ feature {SB_GENERIC_ICON_LIST, SB_FILE_LIST} -- Implementation
          	end
       	end
 
-   draw_big_icon (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]; dc: SB_DC; x, y, w, h: INTEGER) is
+   draw_big_icon (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]; dc: SB_DC; x, y, w, h: INTEGER)
       local
          iw, ih, tw, th, ss, tlen, tdrw, dw, s, sp, xt, yt, xi, yi: INTEGER
          font: SB_FONT
@@ -179,7 +179,7 @@ feature {SB_GENERIC_ICON_LIST, SB_FILE_LIST} -- Implementation
          end
       end
 
-   draw_mini_icon (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]; dc: SB_DC; x_, y_, w, h: INTEGER) is
+   draw_mini_icon (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]; dc: SB_DC; x_, y_, w, h: INTEGER)
       local
          iw,ih,tw,th,tlen,tdrw,dw,s,sp: INTEGER
          x,y: INTEGER;
@@ -237,7 +237,7 @@ feature {SB_GENERIC_ICON_LIST, SB_FILE_LIST} -- Implementation
          end
       end
 
-   draw_details (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]; dc: SB_DC; x_, y_, w, h: INTEGER) is
+   draw_details (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]; dc: SB_DC; x_, y_, w, h: INTEGER)
       local
          font: SB_FONT;
          header: SB_HEADER;
@@ -321,7 +321,7 @@ feature {SB_GENERIC_ICON_LIST, SB_FILE_LIST} -- Implementation
          end
       end
 
-   item_hit (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]; rx,ry,rw,rh: INTEGER): INTEGER is
+   item_hit (list: SB_GENERIC_ICON_LIST [ SB_ICON_LIST_ITEM ]; rx,ry,rw,rh: INTEGER): INTEGER
          -- See if item got hit and where:
          --		0 is outside,
          --		1 is icon,
@@ -397,22 +397,22 @@ feature {SB_GENERIC_ICON_LIST, SB_FILE_LIST} -- Implementation
          end
       end
 
-	SIDE_SPACING: INTEGER is 4;
+	SIDE_SPACING: INTEGER = 4;
     	-- Left or right spacing between items
 
-	DETAIL_TEXT_SPACING: INTEGER is 2;
+	DETAIL_TEXT_SPACING: INTEGER = 2;
         -- Spacing between text and icon in detail icon mode
 
-	MINI_TEXT_SPACING: INTEGER is 2;
+	MINI_TEXT_SPACING: INTEGER = 2;
         -- Spacing between text and icon in mini icon mode
 
-	BIG_LINE_SPACING: INTEGER is 6;
+	BIG_LINE_SPACING: INTEGER = 6;
         -- Line spacing in big icon mode
 
-	BIG_TEXT_SPACING: INTEGER is 2;    
+	BIG_TEXT_SPACING: INTEGER = 2;    
         -- Spacing between text and icon in big icon mode
 
-	count(txt: STRING; start: INTEGER): INTEGER is
+	count(txt: STRING; start: INTEGER): INTEGER
     		-- Helper function
       	local
          	i, e: INTEGER;

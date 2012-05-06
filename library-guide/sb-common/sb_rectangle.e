@@ -7,7 +7,7 @@ feature
 	w: INTEGER_16
 	h: INTEGER_16
 
-	set, set_xywh (a_x, a_y, a_w, a_h: INTEGER) is
+	set, set_xywh (a_x, a_y, a_w, a_h: INTEGER)
     	do
       		x := a_x.to_integer_16
 			y := a_y.to_integer_16
@@ -15,29 +15,29 @@ feature
       		h := a_h.to_integer_16
       	end
 
-   	set_x (a_x: INTEGER) is
+   	set_x (a_x: INTEGER)
       	do	
       		x := a_x.to_integer_16
       	end
 
-   	set_y (a_y: INTEGER) is
+   	set_y (a_y: INTEGER)
       	do	
 			y := a_y.to_integer_16
       	end
 
-   	set_w (a_w: INTEGER) is
+   	set_w (a_w: INTEGER)
       	do	
       		w := a_w.to_integer_16
       	end
 
-   	set_h (a_h: INTEGER) is
+   	set_h (a_h: INTEGER)
       	do	
       		h := a_h.to_integer_16
       	end
 
 feature -- Union and Intersection
 
-	intersect (p, q: like Current): like Current is
+	intersect (p, q: like Current): like Current
 			-- Intersection between rectangles
 		local
 			xx,yy,ww,hh: INTEGER_16

@@ -5,20 +5,20 @@ inherit
 
 	X_ANY_EVENT
 
-creation 
+create 
 
 	make,
 	from_x_struct
 
 feature -- Access
 
-	mode  : INTEGER is	do	Result := c_mode (to_external)    end
-	detail: INTEGER is	do	Result := c_detail (to_external)    end
+	mode  : INTEGER	do	Result := c_mode (to_external)    end
+	detail: INTEGER	do	Result := c_detail (to_external)    end
   
 feature -- Modification
 
-	set_mode	(v: INTEGER) is	do	c_set_mode	(to_external, v)	ensure	mode   = v    end
-	set_detail	(v: INTEGER) is	do	c_set_detail(to_external, v)	ensure	detail = v    end
+	set_mode	(v: INTEGER)	do	c_set_mode	(to_external, v)	ensure	mode   = v    end
+	set_detail	(v: INTEGER)	do	c_set_detail(to_external, v)	ensure	detail = v    end
 
 feature -- mode values
 
@@ -39,10 +39,10 @@ feature -- detail values
 
 feature { NONE } -- External functions
 
-	c_mode			(p: POINTER): INTEGER is	external "C struct XFocusChangeEvent access mode use <X11/Xlib.h>"     		end
-	c_detail		(p: POINTER): INTEGER is	external "C struct XFocusChangeEvent access detail use <X11/Xlib.h>"     	end
+	c_mode			(p: POINTER): INTEGER	external "C struct XFocusChangeEvent access mode use <X11/Xlib.h>"     		end
+	c_detail		(p: POINTER): INTEGER	external "C struct XFocusChangeEvent access detail use <X11/Xlib.h>"     	end
 
-	c_set_mode		(p: POINTER; i: INTEGER) is    external "C struct XFocusChangeEvent access mode type int use <X11/Xlib.h>"    	end
-	c_set_detail	(p: POINTER; i: INTEGER) is    external "C struct XFocusChangeEvent access detail type int use <X11/Xlib.h>"    	end
+	c_set_mode		(p: POINTER; i: INTEGER)    external "C struct XFocusChangeEvent access mode type int use <X11/Xlib.h>"    	end
+	c_set_detail	(p: POINTER; i: INTEGER)    external "C struct XFocusChangeEvent access detail type int use <X11/Xlib.h>"    	end
 
 end 

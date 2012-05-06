@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"EiffelVision Tree, Slyboots implementation"
 	legal: "See notice at end of class."
@@ -63,7 +63,7 @@ feature {EV_SB_WIDGET_IMP, EV_TREE_NODE_IMP} -- Implementation Attributes
 
 feature {NONE} -- Initialization
 
-	needs_event_box: BOOLEAN is
+	needs_event_box: BOOLEAN
 			-- Does `a_widget' need an event box?
 		do
 			Result := True
@@ -83,7 +83,7 @@ feature {NONE} -- Initialization
 		do
 		end
 
-	call_selection_action_sequences is
+	call_selection_action_sequences
 			-- Call the appropriate selection action sequences
 		local
 			a_selected_item: EV_TREE_NODE
@@ -115,7 +115,7 @@ feature {NONE} -- Initialization
 			previous_selected_item := a_selected_item
 		end
 
-	create_pointer_motion_actions: EV_POINTER_MOTION_ACTION_SEQUENCE is
+	create_pointer_motion_actions: EV_POINTER_MOTION_ACTION_SEQUENCE
 			-- Create a pointer_motion action sequence.
 		do
 			create Result
@@ -126,7 +126,7 @@ feature {NONE} -- Initialization
 			a_x, a_y, a_button: INTEGER;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER)
-		is
+		
 		local
 			t : TUPLE [INTEGER, INTEGER, INTEGER, DOUBLE, DOUBLE, DOUBLE,
 				INTEGER, INTEGER]
@@ -144,7 +144,7 @@ feature {NONE} -- Initialization
 			TODO_class_line ("EV_TREE_IMP", "__LINE__")
 		end
 
-	on_pointer_motion (a_motion_tuple: TUPLE [INTEGER, INTEGER, DOUBLE, DOUBLE, DOUBLE, INTEGER, INTEGER]) is
+	on_pointer_motion (a_motion_tuple: TUPLE [INTEGER, INTEGER, DOUBLE, DOUBLE, DOUBLE, INTEGER, INTEGER])
 		local
 			a_row_imp: EV_TREE_NODE_IMP
 		do
@@ -161,7 +161,7 @@ feature {NONE} -- Initialization
 
 feature -- Status report
 
-	selected_item: EV_TREE_NODE is
+	selected_item: EV_TREE_NODE
 			-- Item which is currently selected
 		local
 			a_selection: POINTER
@@ -174,7 +174,7 @@ feature -- Status report
 			Result := a_tree_node_imp.interface
 		end
 
-	selected: BOOLEAN is
+	selected: BOOLEAN
 			-- Is one item selected?
 		do
 			Result := selected_item /= Void
@@ -182,7 +182,7 @@ feature -- Status report
 
 feature -- Implementation
 
-	ensure_item_visible (an_item: EV_TREE_NODE) is
+	ensure_item_visible (an_item: EV_TREE_NODE)
 			-- Ensure `an_item' is visible in `Current'.
 			-- Tree nodes may be expanded to achieve this.
 		local
@@ -192,7 +192,7 @@ feature -- Implementation
 			TODO_class_line ("EV_TREE_IMP", "__LINE__")
 		end
 
-	set_to_drag_and_drop: BOOLEAN is
+	set_to_drag_and_drop: BOOLEAN
 		do
 			if pnd_row_imp /= Void then
 				Result := pnd_row_imp.mode_is_drag_and_drop
@@ -201,7 +201,7 @@ feature -- Implementation
 			end
 		end
 
-	able_to_transport (a_button: INTEGER): BOOLEAN is
+	able_to_transport (a_button: INTEGER): BOOLEAN
 			-- Is list or row able to transport PND data using `a_button'.
 		do
 			if pnd_row_imp /= Void then
@@ -211,7 +211,7 @@ feature -- Implementation
 			end
 		end
 
-	ready_for_pnd_menu (a_button, a_type: INTEGER): BOOLEAN is
+	ready_for_pnd_menu (a_button, a_type: INTEGER): BOOLEAN
 			-- Is list or row able to display PND menu using `a_button'
 		do
 			if a_button = 3 and then a_type = {EV_GTK_EXTERNALS}.gdk_button_release_enum then
@@ -223,13 +223,13 @@ feature -- Implementation
 			end
 		end
 
-	disable_transport is
+	disable_transport
 		do
 			Precursor
 			update_pnd_status
 		end
 
-	update_pnd_status is
+	update_pnd_status
 			-- Update PND status of list and its children.
 		local
 			a_enable_flag: BOOLEAN
@@ -257,7 +257,7 @@ feature -- Implementation
 			update_pnd_connection (a_enable_flag)
 		end
 
-	update_pnd_connection (a_enable: BOOLEAN) is
+	update_pnd_connection (a_enable: BOOLEAN)
 			-- Update the PND connection status for `Current'.
 		do
 			if not is_transport_enabled then
@@ -274,7 +274,7 @@ feature -- Implementation
 			a_x, a_y, a_button: INTEGER;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER)
-		is
+		
 			-- Initialize a pick and drop transport.
 		do
 			pnd_row_imp := item_from_coords (a_x, a_y)
@@ -301,7 +301,7 @@ feature -- Implementation
 
 	temp_accept_cursor, temp_deny_cursor: EV_POINTER_STYLE
 
-	call_pebble_function (a_x, a_y, a_screen_x, a_screen_y: INTEGER) is
+	call_pebble_function (a_x, a_y, a_screen_x, a_screen_y: INTEGER)
 			-- Set `pebble' using `pebble_function' if present.
 		do
 			temp_pebble := pebble
@@ -317,7 +317,7 @@ feature -- Implementation
 			end
 		end
 
-	pre_pick_steps (a_x, a_y, a_screen_x, a_screen_y: INTEGER) is
+	pre_pick_steps (a_x, a_y, a_screen_x, a_screen_y: INTEGER)
 			-- Steps to perform before transport initiated.
 		do
 			temp_accept_cursor := accept_cursor
@@ -372,7 +372,7 @@ feature -- Implementation
 			modify_widget_appearance (True)
 		end
 
-	post_drop_steps (a_button: INTEGER)  is
+	post_drop_steps (a_button: INTEGER)
 			-- Steps to perform once an attempted drop has happened.
 		do
 			App_implementation.set_x_y_origin (0, 0)
@@ -401,7 +401,7 @@ feature -- Implementation
 
 feature {EV_TREE_NODE_IMP}
 
-	item_from_coords (a_x, a_y: INTEGER): EV_TREE_NODE_IMP is
+	item_from_coords (a_x, a_y: INTEGER): EV_TREE_NODE_IMP
 			-- Returns the row index at relative coordinate `a_y'.
 		local
 			a_tree_path, a_tree_column: POINTER
@@ -439,13 +439,13 @@ feature {NONE} -- Implementation
 	previous_selected_item: EV_TREE_NODE
 			-- Item that was selected previously.
 
-	append (s: SEQUENCE [EV_TREE_ITEM]) is
+	append (s: SEQUENCE [EV_TREE_ITEM])
 			-- Add 's' to 'Current'
 		do
 			Precursor (s)
 		end
 
-	insert_i_th (v: like item; i: INTEGER) is
+	insert_i_th (v: like item; i: INTEGER)
 			-- Insert `v' at position `i'.
 		local
 			item_imp: EV_TREE_NODE_IMP
@@ -464,7 +464,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	remove_i_th (a_position: INTEGER) is
+	remove_i_th (a_position: INTEGER)
 			-- Remove item at `a_position'
 		local
 			item_imp: EV_TREE_NODE_IMP
@@ -480,31 +480,31 @@ feature {NONE} -- Implementation
 
 feature {EV_TREE_NODE_IMP} -- Implementation
 
-	get_text_from_position (a_tree_node_imp: EV_TREE_NODE_IMP): STRING_32 is
+	get_text_from_position (a_tree_node_imp: EV_TREE_NODE_IMP): STRING_32
 			-- Retrieve cell text from `a_tree_node_imp`
 		do
 			-- TODO
 		end
 
-	set_text_on_position (a_tree_node_imp: EV_TREE_NODE_IMP; a_text: STRING_GENERAL) is
+	set_text_on_position (a_tree_node_imp: EV_TREE_NODE_IMP; a_text: STRING_GENERAL)
 			-- Set cell text at to `a_text'.
 		do
 			-- TODO
 		end
 
-	update_row_pixmap (a_tree_node_imp: EV_TREE_NODE_IMP) is
+	update_row_pixmap (a_tree_node_imp: EV_TREE_NODE_IMP)
 			-- Set the pixmap for `a_tree_node_imp'.
 		do
 			-- TODO
 		end
 
-	set_row_height (value: INTEGER) is
+	set_row_height (value: INTEGER)
 			-- Make `value' the new height of all the rows.
 		do
 			-- TODO
 		end
 
-	row_height: INTEGER is
+	row_height: INTEGER
 			-- Height of rows in `Current'
 		do
 			-- TODO
@@ -512,7 +512,7 @@ feature {EV_TREE_NODE_IMP} -- Implementation
 
 feature {NONE} -- Implementation
 
-	pixmaps_size_changed is
+	pixmaps_size_changed
 			-- The size of the displayed pixmaps has just
 			-- changed.
 		do
@@ -524,7 +524,7 @@ feature {EV_ANY_I} -- Implementation
 
 	interface: EV_TREE;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

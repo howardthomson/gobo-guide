@@ -14,34 +14,34 @@ inherit
 			set_window as set_event
 		end
 
-creation 
+create 
 
 	make
 
-creation { X_EVENT }
+create { X_EVENT }
 
 	from_x_struct
 
 feature -- Consultation
 
-	window : INTEGER is
+	window : INTEGER
 		do
 	--		Result := x_unmap_event_window (to_external)
 		end
 
-	from_configure : BOOLEAN is
+	from_configure : BOOLEAN
 		do
 	--		Result := x_unmap_event_from_configure (to_external)
 		end  
 
 feature -- Modification
 
-	set_window (v : INTEGER) is
+	set_window (v : INTEGER)
     	do
     --		c_set_window (to_external, v)
     	end
 
-  	set_from_configure (v : BOOLEAN) is
+  	set_from_configure (v : BOOLEAN)
     	do
     --		c_set_from_configure (to_external, v)
     	end

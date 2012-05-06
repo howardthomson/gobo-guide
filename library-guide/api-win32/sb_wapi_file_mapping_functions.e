@@ -3,7 +3,7 @@ expanded class SB_WAPI_FILE_MAPPING_FUNCTIONS
 feature
 
    CreateFileMapping(hFile: POINTER; lpFileMappingAttributes: POINTER;
-                     flProtect: INTEGER_32; dwMaximumSizeHigh,dwMaximumSizeLow: INTEGER; lpName: POINTER): POINTER is
+                     flProtect: INTEGER_32; dwMaximumSizeHigh,dwMaximumSizeLow: INTEGER; lpName: POINTER): POINTER
 
 
 
@@ -19,7 +19,7 @@ feature
       end
 
 
-   FlushViewOfFile (lpBaseAddress: POINTER; dwNumberOfBytesToFlush: INTEGER): INTEGER is
+   FlushViewOfFile (lpBaseAddress: POINTER; dwNumberOfBytesToFlush: INTEGER): INTEGER
 
 
 
@@ -35,7 +35,7 @@ feature
       end
 
    MapViewOfFile (hFileMappingObject: POINTER; dwDesiredAccess: INTEGER_32;
-                  dwFileOffsetHigh, dwFileOffsetLow,dwNumberOfBytesToMap : INTEGER): POINTER is
+                  dwFileOffsetHigh, dwFileOffsetLow,dwNumberOfBytesToMap : INTEGER): POINTER
 
 
 
@@ -52,7 +52,7 @@ feature
 
    MapViewOfFileEx (hFileMappingObject: POINTER; dwDesiredAccess: INTEGER_32; 
                     dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap: INTEGER;
-                    lpBaseAddress: POINTER) : POINTER is
+                    lpBaseAddress: POINTER) : POINTER
 
 
 
@@ -67,7 +67,7 @@ feature
 
       end
 
-   OpenFileMapping(dwDesiredAccess: INTEGER_32; bInheritHandle: INTEGER; lpName: POINTER): POINTER is
+   OpenFileMapping(dwDesiredAccess: INTEGER_32; bInheritHandle: INTEGER; lpName: POINTER): POINTER
 
 
 
@@ -82,7 +82,7 @@ feature
 
       end
 
-   UnmapViewOfFile(lpBaseAddress: POINTER): INTEGER is
+   UnmapViewOfFile(lpBaseAddress: POINTER): INTEGER
 
 
 

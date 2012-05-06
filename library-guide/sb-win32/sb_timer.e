@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Timer"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -14,7 +14,7 @@ inherit
 	
 feature
 
-	process(app: SB_APPLICATION) is
+	process(app: SB_APPLICATION)
 		do
 			if target.handle(app, mksel(Sel_timeout, message), Void) then
 				app.refresh
@@ -24,7 +24,7 @@ feature
 
 	next: SB_TIMER
 
-	set_next(t: SB_TIMER) is
+	set_next(t: SB_TIMER)
 		do
 			next := t
 		end
@@ -32,12 +32,12 @@ feature
 	target: SB_MESSAGE_HANDLER
 	message: INTEGER
 
-	set_target(new_target: like target) is
+	set_target(new_target: like target)
 		do
 			target := new_target
 		end
 
-	set_message(new_message: like message) is
+	set_message(new_message: like message)
 		do
 			message := new_message
 		end
@@ -52,7 +52,7 @@ feature
 	seconds,
 	micro_secs:	INTEGER			-- Time due
 
-	set_time(a_seconds, a_micro_secs: INTEGER) is
+	set_time(a_seconds, a_micro_secs: INTEGER)
 		do
 			seconds := a_seconds
 			micro_secs := a_micro_secs
@@ -69,7 +69,7 @@ feature
 --			end
 --		end
 
-	precedes(other: like Current): BOOLEAN is
+	precedes(other: like Current): BOOLEAN
 			-- Does Current precede other in time ?
 		do
 			Result := other.seconds > seconds

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Directory Box"
 	author: "Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright: "Copyright (c) 2002, Eugene Melekhov and others"
@@ -31,7 +31,7 @@ feature -- Data
 feature -- Creation
 
 	make_opts (p: SB_COMPOSITE; nvis: INTEGER; tgt: SB_MESSAGE_HANDLER; sel: INTEGER; opts: INTEGER;
-				x, y, w, h, pl, pr, pt, pb: INTEGER) is
+				x, y, w, h, pl, pr, pt, pb: INTEGER)
 			-- Construct tree list box
       	do
          	Precursor(p, nvis, tgt, sel, opts, x,y,w,h, pl,pr,pt,pb)
@@ -50,13 +50,13 @@ feature -- Creation
 
 feature
 
-	set_directory(s: STRING) is
+	set_directory(s: STRING)
 		deferred
 		end
 
 feature -- Message processing
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
 		do
         	if	   match_function_2 (SEL_CHANGED, 0,				type, key) then Result := on_changed				(sender,key,data)
         	elseif match_function_2 (SEL_COMMAND, 0,				type, key) then Result := on_command				(sender,key,data)
@@ -67,7 +67,7 @@ feature -- Message processing
         	end
       	end
 
-   	on_changed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_changed (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	local
          	it: SB_TREE_LIST_ITEM
       	do
@@ -76,7 +76,7 @@ feature -- Message processing
          	Result := True
       	end
 
-   	on_command (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_command (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	local
          	it: SB_TREE_LIST_ITEM
       	do
@@ -87,7 +87,7 @@ feature -- Message processing
 			Result := True
 		end
 
-	on_cmd_set_value,on_cmd_set_string_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_set_value,on_cmd_set_string_value(sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			str: STRING;
 		do
@@ -95,7 +95,7 @@ feature -- Message processing
 			set_directory(str)
 		end
 
-	on_cmd_get_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_get_value (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			str: STRING
 		do
@@ -106,7 +106,7 @@ feature -- Message processing
 
 feature -- Resource management
 
-	create_resource is
+	create_resource
 			-- Create server-side resources
 		do
         	Precursor
@@ -121,7 +121,7 @@ feature -- Resource management
          	zipdiskicon	.create_resource
 		end
 
-	detach_resource is
+	detach_resource
     		-- Detach server-side resources
       	do
          	foldericon	.detach_resource
@@ -136,7 +136,7 @@ feature -- Resource management
          	Precursor
 		end
 
-   destroy_resource is
+   destroy_resource
          -- Destroy server-side resources
       do
          Precursor
@@ -144,7 +144,7 @@ feature -- Resource management
 
 feature -- Destruction
 
-	destruct is
+	destruct
 		do
 			foldericon	.destruct;
          	cdromicon	.destruct;
@@ -171,7 +171,7 @@ feature {NONE} -- Implementation
 	nethoodicon	: SB_ICON
 	zipdiskicon	: SB_ICON
 
-  itempath (it: SB_TREE_LIST_ITEM): STRING is
+  itempath (it: SB_TREE_LIST_ITEM): STRING
       local
          itt: like it
       do
@@ -190,7 +190,7 @@ feature {NONE} -- Implementation
          end
       end
 
-	desktop: ARRAY [ INTEGER_8 ] is
+	desktop: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x42, 0x4D, 0xF6, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -227,7 +227,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	mycomputer: ARRAY [ INTEGER_8 ] is
+	mycomputer: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x42, 0x4D, 0xF6, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -264,7 +264,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	floppy: ARRAY [ INTEGER_8 ] is
+	floppy: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x42, 0x4D, 0xF6, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -301,7 +301,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	harddisk: ARRAY [ INTEGER_8 ] is
+	harddisk: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x42, 0x4D, 0xF6, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -338,7 +338,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	networkdisk: ARRAY [ INTEGER_8 ] is
+	networkdisk: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x42, 0x4D, 0xF6, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -375,7 +375,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	cdrom: ARRAY [ INTEGER_8 ] is
+	cdrom: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x42, 0x4D, 0xF6, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -412,7 +412,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	zipdisk: ARRAY [ INTEGER_8 ] is
+	zipdisk: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x42, 0x4D, 0xF6, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -449,7 +449,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	nethood: ARRAY [ INTEGER_8 ] is
+	nethood: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x42, 0x4D, 0xF6, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -486,7 +486,7 @@ feature {NONE} -- Implementation
 			>>
 		end
 
-	folder: ARRAY [ INTEGER_8 ] is
+	folder: ARRAY [ INTEGER_8 ]
 		once
 			Result := <<
 				0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 

@@ -12,7 +12,7 @@ feature
 					len0: INTEGER;
 					changed1: ARRAY [ BOOLEAN ];
 					len1: INTEGER;
-		): CHANGE is
+		): CHANGE
 		local
 			script: CHANGE
 			i0, i1: INTEGER

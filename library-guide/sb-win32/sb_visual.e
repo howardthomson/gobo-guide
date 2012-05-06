@@ -1,4 +1,4 @@
-indexing
+note
    	description: "Visual describes pixel format of a drawable"
    	author: "Eugene Melekhov <eugene_melekhov@mail.ru>"
    	copyright: "Copyright (c) 2002, Eugene Melekhov and others"
@@ -13,19 +13,19 @@ inherit
 
 	SB_DEFS
 
-creation
+create
 
    make
 
 feature -- Creation
 
-	make_imp is
+	make_imp
 		do
 			hPalette := default_pointer
 			pixel_format := 0
 		end
 
-	create_resource_imp is
+	create_resource_imp
     		-- Create resource
 		local
 			hdc: POINTER
@@ -71,7 +71,7 @@ feature -- Creation
         	resource_id := default_pointer + 1
 		end
 
-	destroy_resource_imp is
+	destroy_resource_imp
 			-- Destroy resource
 		local
          	t: INTEGER
@@ -85,13 +85,13 @@ feature -- Creation
 
 feature
 
-   pixel (clr: INTEGER): INTEGER is
+   pixel (clr: INTEGER): INTEGER
          -- Get device pixel value for color
       do
          Result := wapi_wmc.PALETTERGB (sbredval (clr), sbgreenval (clr), sbblueval (clr))
       end
 
-   color (pix: INTEGER): INTEGER is
+   color (pix: INTEGER): INTEGER
          -- Get color value for device pixel value
       do
          Result := wapi_wmc.PALETTEINDEX (pix)
@@ -105,7 +105,7 @@ feature {ANY} -- Implementation
 	pixel_format: INTEGER
 			-- PIXELFORMAT number
 
-	create_all_purpose_palette: POINTER is
+	create_all_purpose_palette: POINTER
 		external "C"
 		alias "sb_visual_create_palette"
 		end

@@ -1,4 +1,4 @@
-indexing
+note
 
 		description:"Case insensitive string comparison class"
 
@@ -15,7 +15,7 @@ inherit
 
 feature -- Comparition
 
-	compare (a, b: STRING; len: INTEGER): INTEGER is
+	compare (a, b: STRING; len: INTEGER): INTEGER
 		local
 			i, j: INTEGER
 			e1, e2: INTEGER

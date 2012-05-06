@@ -1,4 +1,4 @@
-indexing
+note
 	description:"Widely used file queries and operations"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
 	copyright:	"Copyright (c) 2002, Eugene Melekhov and others"
@@ -32,62 +32,62 @@ inherit
 
 feature
 
-	environment(var: STRING): STRING is
+	environment(var: STRING): STRING
     		-- Return value of environment variable name
 		require
 			valid_name: var /= Void and then not var.is_empty
 		deferred
 		end
 
-	home_directory: STRING is
+	home_directory: STRING
 		-- Return the home directory for the current user.
 		do
 			Result := user_directory("");
 		end
 
-	user_directory(user: STRING): STRING is
+	user_directory(user: STRING): STRING
 			-- Return the home directory for a given user.
 		require
 			user /= Void
 		deferred
 		end
 
-   	temp_directory: STRING is
+   	temp_directory: STRING
          	-- Return temporary directory.
 		deferred
       	end
 
-   	current_directory: STRING is
+   	current_directory: STRING
          	-- Get the current working directory
 		deferred
       	end
 
-   	current_drive: STRING is
+   	current_drive: STRING
         	-- Return the current drive (for Win32 systems)
 		deferred
 		end
 
-   	exec_path: STRING is
+   	exec_path: STRING
          	-- Get executable path
       	do
          	Result := environment("PATH");
       	end
 
-   	set_current_directory(path: STRING) is
+   	set_current_directory(path: STRING)
          	-- Set the current working directory
       	require
          	path /= Void and then not path.is_empty
 		deferred
       	end
 
-   	set_current_drive(drv: STRING): BOOLEAN is
+   	set_current_drive(drv: STRING): BOOLEAN
          	-- Set the current drive (for Win32 systems)
       	require
          	drv /= Void and then drv.count >= 2
 		deferred
       	end
 
-   	directory(file: STRING): STRING is
+   	directory(file: STRING): STRING
     		-- Return the directory part of the path name.
          	-- Note that directory("/bla/bla/") is "/bla/bla" and NOT "/bla".
          	-- However, directory("/bla/bla") is "/bla" as we expect not 
@@ -123,7 +123,7 @@ feature
         	end
 		end
 
-	name(file: STRING): STRING is
+	name(file: STRING): STRING
     		-- Return name and extension part of the path name.
         	-- Note that name("/bla/bla/") is "" and NOT "bla".
         	-- However, name("/bla/bla") is "bla" as we expect not 
@@ -156,7 +156,7 @@ feature
          	end
       	end
 
-	title(file: STRING): STRING is
+	title(file: STRING): STRING
          -- Return file title, i.e. document name only
          --
          --  /path/aa        -> aa
@@ -206,7 +206,7 @@ feature
          end
       end
 
-   extension(file: STRING): STRING is
+   extension(file: STRING): STRING
          -- Return extension part of the file name
          --
          --  /path/aa        -> ""
@@ -256,7 +256,7 @@ feature
          end
       end
 
-   strip_extension(file: STRING): STRING is
+   strip_extension(file: STRING): STRING
          -- Return file name less the extension
          --
          --  /path/aa        -> /path/aa
@@ -305,14 +305,14 @@ feature
          end
       end
 
-	drive(file: STRING): STRING is
+	drive(file: STRING): STRING
     		-- Return the drive letter prefixing Current file name (if any).
 		require
         	file /= Void
 		deferred
       	end
 
-   	expand(file: STRING): STRING is      
+   	expand(file: STRING): STRING      
          	-- Perform tilde or environment variable expansion
       	require
          	file /= Void
@@ -321,7 +321,7 @@ feature
 
 --### 'todo' from here #################################################
 
-	simplify(file: STRING): STRING is
+	simplify(file: STRING): STRING
 	    	-- Simplify a file path; the path will remain relative if it was relative,
 	        -- or absolute if it was absolute.  Also, a trailing "/" will be preserved
 	        -- as Current is important in other functions.
@@ -447,7 +447,7 @@ feature
           	end
 		end
 
-	absolute(file: STRING): STRING is
+	absolute(file: STRING): STRING
          	-- Return absolute path from current directory and file name
       	require
          	file /= Void
@@ -482,14 +482,14 @@ feature
          	end
 		end
 
-	absolute_with_base(base, file: STRING): STRING is
+	absolute_with_base(base, file: STRING): STRING
 			-- Return absolute path from base directory and file name
 		require
 			file /= Void and then base /= Void
 		deferred
 		end
 
-	relative(file: STRING): STRING is
+	relative(file: STRING): STRING
 			-- Return relative path of file to the current directory
 		require
 			file /= Void
@@ -497,7 +497,7 @@ feature
 			Result := relative_with_base(current_directory, file);
 		end
 
-	relative_with_base(base, file: STRING): STRING is
+	relative_with_base(base, file: STRING): STRING
 			-- Return relative path of file to given base directory
 			-- Examples:
 			--
@@ -516,21 +516,21 @@ feature
 		deferred
 		end
 
-	root(file: STRING): STRING is
+	root(file: STRING): STRING
 			-- Return root directory of a given path
 		require
 			file /= Void
 		deferred
 		end
 
-	enquote(file: STRING; forcequotes_: BOOLEAN): STRING is
+	enquote(file: STRING; forcequotes_: BOOLEAN): STRING
 			-- Enquote filename to make safe for shell
 		require
 			file /= Void
 		deferred
 		end
 
-	dequote(file: STRING): STRING is
+	dequote(file: STRING): STRING
 			-- Dequote filename to get original again
 		require
 			file /= Void
@@ -538,7 +538,7 @@ feature
 		end
 
 
-	unique_filename(file: STRING): STRING is
+	unique_filename(file: STRING): STRING
 			-- Generate unique filename of the form pathnameXXX.ext, where
 			-- pathname.ext is the original input file, and XXX is a number,
 			-- possibly is_empty, that makes the file unique.
@@ -573,7 +573,7 @@ feature
 			implemented: false
 		end
 
-	search(pathlist, file: STRING): STRING is
+	search(pathlist, file: STRING): STRING
 			-- Search path list for this file, return full path name for first 
 			-- occurrence
 		require
@@ -582,7 +582,7 @@ feature
 			not_implemented;
 		end
 
-	up_level(file: STRING): STRING is
+	up_level(file: STRING): STRING
 			-- Return path to directory above input directory name
 		require
 			file /= Void
@@ -644,7 +644,7 @@ feature
 --         end
 --      end
 
-	is_top_directory(file: STRING): BOOLEAN is
+	is_top_directory(file: STRING): BOOLEAN
 			-- Return true if input directory is a top-level directory
 		require
 			file /= Void
@@ -661,21 +661,21 @@ feature
 			end
 		end
 
-	is_file(file: STRING): BOOLEAN is
+	is_file(file: STRING): BOOLEAN
 			-- Return true if input path is a file name
 		require
 			file /= Void
 		deferred
 		end
 
-	is_link(file: STRING): BOOLEAN is
+	is_link(file: STRING): BOOLEAN
 			-- Return true if input path is a link
 		require
 			filename_not_void: file /= Void
 		do
 		end
 
-	is_directory(path: STRING): BOOLEAN is
+	is_directory(path: STRING): BOOLEAN
 			-- Return true if input path is a directory
 		require
 			path /= Void
@@ -713,7 +713,7 @@ feature
 --#endif
 --		end
 
-	is_writable, is_writeable(file: STRING): BOOLEAN is
+	is_writable, is_writeable(file: STRING): BOOLEAN
 			-- Return true if file is writable
 		require
 			file /= Void
@@ -734,7 +734,7 @@ feature
 --			implemented: false
 		end
 
-	is_executable(file: STRING): BOOLEAN is
+	is_executable(file: STRING): BOOLEAN
 --   -- Return true if file is executable
 --      require
 --         file /= Void
@@ -934,7 +934,7 @@ feature
 --         end
 --      end
 
-	created(file: STRING): INTEGER is
+	created(file: STRING): INTEGER
 			-- Return created time for Current file
 		require
 			file /= Void
@@ -946,7 +946,7 @@ feature
 --         end
 		end
 
-	touched(file: STRING): INTEGER is
+	touched(file: STRING): INTEGER
 			-- Return touched time for Current file
 		require
 			file /= Void
@@ -958,7 +958,7 @@ feature
 --         end
 		end
 
-	match(pattern, file: STRING): BOOLEAN is
+	match(pattern, file: STRING): BOOLEAN
 			-- Match filenames using *, ?, [^a-z], and so on
 		require
 			pattern /= Void and then file /= Void
@@ -966,12 +966,12 @@ feature
 			Result := match_opts(pattern, file, FILEMATCH_NOESCAPE | FILEMATCH_FILE_NAME);
 		end
 
-	pattern_matcher: RX_PCRE_REGULAR_EXPRESSION is
+	pattern_matcher: RX_PCRE_REGULAR_EXPRESSION
 		once
 			create Result.make
 		end
 
-	match_opts(pattern, file: STRING; flags: INTEGER): BOOLEAN is
+	match_opts(pattern, file: STRING; flags: INTEGER): BOOLEAN
 			-- Match filenames using *, ?, [^a-z], and so on
 		require
         	pattern /= Void and then file /= Void
@@ -988,7 +988,7 @@ feature
 			end
 		end
 
-	list_files(path, pattern: STRING): ARRAY[STRING] is
+	list_files(path, pattern: STRING): ARRAY[STRING]
 			-- List files in a given directory.
 			-- Returns the array of string which matched the
 			-- pattern or satisfied the flag conditions.
@@ -996,7 +996,7 @@ feature
 			Result := list_files_opts(path, pattern, LIST_MATCHING_FILES | LIST_MATCHING_DIRS);
 		end
 
-	list_files_opts(path, pattern: STRING; flags: INTEGER): ARRAY[STRING] is
+	list_files_opts(path, pattern: STRING; flags: INTEGER): ARRAY[STRING]
 		require
         	path /= Void and then not path.is_empty
         	pattern /= Void and then not pattern.is_empty
@@ -1056,13 +1056,13 @@ feature
 --      end
 
 
-	set_mode(file: STRING; a_mode: INTEGER) is
+	set_mode(file: STRING; a_mode: INTEGER)
 			-- Change the mode flags for Current file
 		do         
 			not_implemented
 		end
 
-	create_directory(path: STRING; a_mode: INTEGER): BOOLEAN is
+	create_directory(path: STRING; a_mode: INTEGER): BOOLEAN
 			-- Create new directory
 		require
 			path /= Void and then not path.is_empty
@@ -1070,7 +1070,7 @@ feature
 			not_implemented
 		end
 
-	create_file(file: STRING; a_mode: INTEGER) is
+	create_file(file: STRING; a_mode: INTEGER)
 			-- Create new (is_empty) file
 		require
 			file /= Void and then not file.is_empty
@@ -1078,7 +1078,7 @@ feature
 			not_implemented
 		end
 
-	concatenate_files(srcfile1, srcfile2, dstfile: STRING; overwrite: BOOLEAN) is
+	concatenate_files(srcfile1, srcfile2, dstfile: STRING; overwrite: BOOLEAN)
     		-- Concatenate srcfile1 and srcfile2 to a dstfile.
         	-- If overwrite is true, then the operation fails if dstfile already exists.
         	-- srcfile1 and srcfile2 should not be the same as dstfile.
@@ -1090,7 +1090,7 @@ feature
          	not_implemented
       	end
 
-	remove_file(file: STRING): BOOLEAN is
+	remove_file(file: STRING): BOOLEAN
     		-- Remove file or directory, recursively.
       	require
          	file /= Void and then not file.is_empty
@@ -1098,7 +1098,7 @@ feature
 			not_implemented
 		end
 
-	copy_file( srcfile,dstfile: STRING; overwrite: BOOLEAN) is
+	copy_file( srcfile,dstfile: STRING; overwrite: BOOLEAN)
     		-- Copy file or directory, recursively
       	require
       		implemented: false
@@ -1108,7 +1108,7 @@ feature
          	not_implemented
       	end
 
-	move_file(srcfile, dstfile: STRING; overwrite: BOOLEAN) is
+	move_file(srcfile, dstfile: STRING; overwrite: BOOLEAN)
     		-- Rename or move file or directory
 		require
 			srcfile /= Void and then not srcfile.is_empty 
@@ -1117,7 +1117,7 @@ feature
          	not_implemented
       	end
 
-	create_link(srcfile, dstfile: STRING; overwrite: BOOLEAN) is
+	create_link(srcfile, dstfile: STRING; overwrite: BOOLEAN)
     		-- Link file
       	require
          	srcfile /= Void and then not srcfile.is_empty 
@@ -1126,7 +1126,7 @@ feature
          	not_implemented
       	end
 
-	create_symlink(srcfile, dstfile: STRING overwrite: BOOLEAN) is
+	create_symlink(srcfile, dstfile: STRING overwrite: BOOLEAN)
     		-- Symbolic link file
     	require
          	srcfile /= Void and then not srcfile.is_empty 
@@ -1135,7 +1135,7 @@ feature
          	not_implemented
       	end
 
-	symlink(file: STRING): STRING is
+	symlink(file: STRING): STRING
     		-- Read symbolic link
     	require
          	file /= Void and then not file.is_empty 
@@ -1143,6 +1143,6 @@ feature
          	create Result.make_empty
       	end
 
-	timeformat: STRING is once Result := "%%m/%%d/%%Y %%H:%%M:%%S" end
+	timeformat: STRING once Result := "%%m/%%d/%%Y %%H:%%M:%%S" end
 
 end

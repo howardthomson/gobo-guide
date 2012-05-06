@@ -1,4 +1,4 @@
-indexing
+note
 	platform:	"Win32 Implementation"
 	description:"Widely used file queries and operations"
 	author:		"Eugene Melekhov <eugene_melekhov@mail.ru>"
@@ -15,7 +15,7 @@ inherit
 
 feature -- Implementation of deferred routines
 
-	list_files_opts (path, pattern: STRING; flags: INTEGER_32): ARRAY[STRING] is
+	list_files_opts (path, pattern: STRING; flags: INTEGER_32): ARRAY[STRING]
 			-- List files in a given directory.
 			-- Returns the array of string which matched the
 			-- pattern or satisfied the flag conditions.
@@ -84,7 +84,7 @@ feature -- Implementation of deferred routines
 
 feature
 
-   environment (var: STRING): STRING is
+   environment (var: STRING): STRING
          -- Return value of environment variable name
       local
          buffer_size: INTEGER
@@ -115,7 +115,7 @@ feature
          end
       end
 
-   user_directory (user: STRING): STRING is
+   user_directory (user: STRING): STRING
          -- Return the home directory for a given user.
       local
          key, str1, str2: STRING
@@ -161,7 +161,7 @@ feature
          end
       end
 
-   temp_directory: STRING is
+   temp_directory: STRING
          -- Return temporary directory.
       local
          buffer: STRING
@@ -180,7 +180,7 @@ feature
          end
       end
 
-   current_directory: STRING is
+   current_directory: STRING
          -- Get the current working directory
       local
          buffer: STRING
@@ -196,7 +196,7 @@ feature
          end
       end
 
-   	current_drive: STRING is
+   	current_drive: STRING
          	-- Return the current drive (for Win32 systems)
       	local
          	buffer: STRING
@@ -213,7 +213,7 @@ feature
          	end
       	end
 
-   	set_current_directory (path: STRING) is
+   	set_current_directory (path: STRING)
          	-- Set the current working directory
       	local
          	t: INTEGER
@@ -223,7 +223,7 @@ feature
          	mem.collection_on
       	end
 
-   set_current_drive (drv: STRING): BOOLEAN is
+   set_current_drive (drv: STRING): BOOLEAN
          -- Set the current drive (for Win32 systems)
       local
          t: INTEGER
@@ -239,7 +239,7 @@ feature
          end
       end
 
-	drive (file: STRING): STRING is
+	drive (file: STRING): STRING
     		-- Return the drive letter prefixing Current file name (if any).
 		require else
         	file /= Void
@@ -254,7 +254,7 @@ feature
          	end
       	end
 
-	expand (file: STRING): STRING is      
+	expand (file: STRING): STRING      
 			-- Perform tilde or environment variable expansion
 		local
          	buffer_size: INTEGER
@@ -283,7 +283,7 @@ feature
 			end
 		end
 
-	absolute_with_base (base, file: STRING): STRING is
+	absolute_with_base (base, file: STRING): STRING
 			-- Return absolute path from base directory and file name
 		require else
 			file /= Void and then base /= Void
@@ -313,7 +313,7 @@ feature
 			end
 		end
 
-	relative_with_base (base, file: STRING): STRING is
+	relative_with_base (base, file: STRING): STRING
 			-- Return relative path of file to given base directory
 			-- Examples:
 			--
@@ -395,7 +395,7 @@ feature
 			end
 		end
 
-	root (file: STRING): STRING is
+	root (file: STRING): STRING
 			-- Return root directory of a given path
 		do
 			if not file.is_empty and then ISPATHSEP (file.item (1)) then
@@ -416,7 +416,7 @@ feature
 			end
 		end
 
-	enquote (file: STRING; forcequotes_: BOOLEAN): STRING is
+	enquote (file: STRING; forcequotes_: BOOLEAN): STRING
          	-- Enquote filename to make safe for shell
     	require else
         	file /= Void
@@ -454,7 +454,7 @@ feature
 			if forcequotes then Result := "%"" + Result + "%"" end
 		end
 
-   dequote (file: STRING): STRING is
+   dequote (file: STRING): STRING
          -- Dequote filename to get original again
       local
          i, e: INTEGER
@@ -492,7 +492,7 @@ feature
          end
       end
 
-	is_file (file: STRING): BOOLEAN is
+	is_file (file: STRING): BOOLEAN
 			-- Return true if input path is a file name
 		local
 			atts: INTEGER_32
@@ -518,47 +518,47 @@ feature { NONE } -- Implementation
    	wapi_fa	: SB_WAPI_FILE_ACTIONS
    	wapi_hf	: SB_WAPI_HANDLE_AND_OBJECT_FUNCTIONS
 
-   	ext_size (file: POINTER): INTEGER is
+   	ext_size (file: POINTER): INTEGER
       	external "C"
       	alias "sb_file_size"
       	end
 
-   	ext_modified (file: POINTER): INTEGER is
+   	ext_modified (file: POINTER): INTEGER
       	external "C"
       	alias "sb_file_modified"
       	end
 
-   	ext_accessed (file: POINTER): INTEGER is
+   	ext_accessed (file: POINTER): INTEGER
       	external "C"
       	alias "sb_file_accessed"
       	end
 
-   	ext_created (file: POINTER): INTEGER is
+   	ext_created (file: POINTER): INTEGER
       	external "C"
       	alias "sb_file_created"
       	end
 
-   	ext_touched (file: POINTER): INTEGER is
+   	ext_touched (file: POINTER): INTEGER
       	external "C"
       	alias "sb_file_touched"
       	end
 
-   	ext_executable (file: POINTER): BOOLEAN is
+   	ext_executable (file: POINTER): BOOLEAN
       	external "C"
       	alias "sb_file_executable"
       	end
 
-   	ext_mode (file: POINTER): INTEGER_32 is
+   	ext_mode (file: POINTER): INTEGER_32
       	external "C"
       	alias "sb_file_mode"
       	end
 
-   	ext_match (pattern, file: POINTER): BOOLEAN is
+   	ext_match (pattern, file: POINTER): BOOLEAN
       	external "C"
       	alias "sbfilematch"
       	end
 
-	ext_format_time (buffer: POINTER; bufsize: INTEGER; format: POINTER; filetime: INTEGER): INTEGER is
+	ext_format_time (buffer: POINTER; bufsize: INTEGER; format: POINTER; filetime: INTEGER): INTEGER
     	external "C"
     	alias "sb_format_time"
     	end

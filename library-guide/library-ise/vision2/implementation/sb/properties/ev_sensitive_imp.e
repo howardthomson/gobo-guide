@@ -20,36 +20,36 @@ inherit
 
 feature -- Status report
 
-	is_sensitive: BOOLEAN is
+	is_sensitive: BOOLEAN
 			-- Is the object sensitive to user input.
 		do
 		end
 
 feature -- Status setting
 
-	enable_sensitive is
+	enable_sensitive
 			-- Allow the object to be sensitive to user input.
 		do
 		end
 
-	disable_sensitive is
+	disable_sensitive
 			-- Set the object to ignore all user input.
 		do
 		end
 
 feature {EV_ANY_I} -- Implementation
 
-	has_parent: BOOLEAN is
+	has_parent: BOOLEAN
 			-- Is `Current' parented?
 		do
 			Result := parent /= Void
 		end
 
-	parent: EV_ANY is
+	parent: EV_ANY
 		deferred
 		end
 
-	parent_is_sensitive: BOOLEAN is
+	parent_is_sensitive: BOOLEAN
 			-- Is `parent' sensitive?
 		local
 			sensitive_parent: EV_SENSITIVE

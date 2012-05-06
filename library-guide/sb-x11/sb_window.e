@@ -1,5 +1,5 @@
 -- X Window System Implementation
-indexing
+note
 
 	todo: "[
 		string_type - Define XA_STRING in an X related class
@@ -28,7 +28,7 @@ feature -- attributes
 
 	xwin: X_WINDOW
 
-	xdwin: X_DRAWABLE_WINDOW is
+	xdwin: X_DRAWABLE_WINDOW
 		do
 			Result ?= xwin
 		ensure
@@ -43,7 +43,7 @@ feature -- attributes
 
 feature -- resource creation/deletion
 
-	create_resource_imp is
+	create_resource_imp
 		require else
 			parent /= Void implies parent.xwin /= Void
 			owner /= Void implies owner.xwin /= Void
@@ -175,12 +175,12 @@ feature -- resource creation/deletion
 			end
 		end
 
-	detach_resource_imp is
+	detach_resource_imp
 		do
 			-- TODO
 		end
 
-	destroy_resource_imp is
+	destroy_resource_imp
 			-- Destroy the server-side resources for this window
 		do
 			application.wcontext.remove (Current)
@@ -198,20 +198,20 @@ feature -- resource creation/deletion
         	xwin.destroy
 		end
 
-	on_destroy_def is
+	on_destroy_def
 		do
 			application.wcontext.remove (Current)
 		end
 
 feature
 
-	string_type: INTEGER is
+	string_type: INTEGER
 			-- Clipboard text type (pre-registered)
 		once
 			Result := Xa_string
 		end
 
-	basic_event_mask: INTEGER is
+	basic_event_mask: INTEGER
 			-- Basic events
 		once
 			Result := Structure_notify_mask
@@ -221,19 +221,19 @@ feature
 					| Key_press_mask	| Key_release_mask
 		end
 
-	shell_event_mask: INTEGER is
+	shell_event_mask: INTEGER
 			-- Additional events for shell widget events
 		once
 			Result := Focus_change_mask | Structure_notify_mask
 		end
 
-	enabled_event_mask: INTEGER is
+	enabled_event_mask: INTEGER
 			-- Additional events for enabled widgets
 		once
 			Result := Button_press_mask | Button_release_mask | Pointer_motion_mask
 		end
 
-	grab_event_mask: INTEGER is
+	grab_event_mask: INTEGER
 			-- These events are grabbed for mouse grabs
 		once
 			Result := ButtonPressMask | ButtonReleaseMask
@@ -241,7 +241,7 @@ feature
 				| EnterWindowMask | LeaveWindowMask
 		end
 
-	not_propagate_mask: INTEGER is
+	not_propagate_mask: INTEGER
 			-- Do not propagate mask
 		once
 			Result := KeyPressMask | KeyReleaseMask
@@ -249,12 +249,12 @@ feature
 					| PointerMotionMask | ButtonMotionMask
 		end
 
-	set_default_cursor_imp(cursor: SB_CURSOR) is
+	set_default_cursor_imp(cursor: SB_CURSOR)
 		do
 			xwin.define_cursor(cursor.xid)
 		end
 
-   	set_drag_cursor_imp (cursor: SB_CURSOR) is
+   	set_drag_cursor_imp (cursor: SB_CURSOR)
          	-- Set the drag cursor for this window
       	require else
          	good_cursor: cursor /= Void
@@ -265,7 +265,7 @@ feature
       		end
       	end
 
-   	get_cursor_position: SB_CURSOR_POSITION is
+   	get_cursor_position: SB_CURSOR_POSITION
          	-- Return the cursor position and mouse button-state
       	do
          	if (is_attached) then
@@ -275,7 +275,7 @@ feature
          	end
       	end
 
-	set_cursor_position (x, y : INTEGER): BOOLEAN is
+	set_cursor_position (x, y : INTEGER): BOOLEAN
          	-- Warp the cursor to the new position
       	do
          	if is_attached then
@@ -286,7 +286,7 @@ feature
          	end
       	end
 
-	enable_imp is
+	enable_imp
          	-- Enable the window to receive mouse and keyboard events
       	local
       		events: INTEGER
@@ -298,7 +298,7 @@ feature
 		   	xwin.select_input (events)
 		end
 
-	disable_imp is
+	disable_imp
     		-- Disable the window from receiving mouse and keyboard events
       	local
       		events: INTEGER
@@ -321,35 +321,35 @@ feature
 			end
 		end
 
-	display: X_DISPLAY is
+	display: X_DISPLAY
 		do
 			Result := application.display
 		end
 
-	flush is
+	flush
 		do
 			display.flush
 		end
 
-	raise_imp is
+	raise_imp
 			-- Raise this window to the top of the stacking order
       	do
 			xwin.raise_window
       	end
 
-	lower_imp is
+	lower_imp
 		do
 			xwin.lower
 		end
 
-	move_imp (x, y: INTEGER) is
+	move_imp (x, y: INTEGER)
          	-- Move this window to the specified position in the parent's
          	-- coordinates
       	do
 			xwin.move (x, y)
       	end
 
-   	resize_imp (w, h: INTEGER) is
+   	resize_imp (w, h: INTEGER)
          	-- Resize this window to the specified width and height
       	do
 			if 0 < w and 0 < h then
@@ -364,7 +364,7 @@ feature
 			end
       	end
 
-   	position_imp (x, y, w, h, ow, oh: INTEGER) is
+   	position_imp (x, y, w, h, ow, oh: INTEGER)
          	-- Move and resize this window in the parent's coordinates
       	local
          	resized: BOOLEAN
@@ -381,13 +381,13 @@ feature
       		end
       	end
       
-   	reparent_imp is
+   	reparent_imp
          	-- Change the parent for this window
 		do
 			xwin.reparent (parent.xwin, 0, 0)
       	end
 
-	scroll (x, y, w, h, dx, dy : INTEGER) is
+	scroll (x, y, w, h, dx, dy : INTEGER)
         	-- Scroll rectangle x,y,w,h by a shift of dx,dy
       	local
 			tx,ty,fx,fy,ex,ey,ew,eh: INTEGER
@@ -454,13 +454,13 @@ feature
 			end
 		end
 
-	update_rectangle_imp (x, y, w, h : INTEGER) is
+	update_rectangle_imp (x, y, w, h : INTEGER)
         	-- Mark the specified rectangle dirty, i.e. to be repainted
 		do
 			application.add_repaint (xwin.id, x,y, w,h, True)
 		end
 
-	repaint_rectangle_imp (ax, ay, aw, ah: INTEGER) is
+	repaint_rectangle_imp (ax, ay, aw, ah: INTEGER)
 			-- If marked but not yet painted, paint the given area
 		local
 			x,y,w,h: INTEGER
@@ -487,7 +487,7 @@ feature
 			end
 		end
 
-	grab_mouse is
+	grab_mouse
          	-- Grab the mouse to this window; future mouse events will be
          	-- reported to this window even while the cursor goes outside
          	-- of this window
@@ -503,7 +503,7 @@ feature
          	end
       	end
 
-   	release_mouse is
+   	release_mouse
          	-- Release the mouse grab
       	do
          	if is_attached then
@@ -513,7 +513,7 @@ feature
          	end
       	end
 
-	show_imp is
+	show_imp
 			-- Show this window
 		do
 			if 0 < width and then 0 < height then
@@ -521,7 +521,7 @@ feature
 			end
 		end
 
-   	hide_imp is
+   	hide_imp
          	-- Hide this window
       	do
 			if application.mouse_grab_window = Current then
@@ -538,7 +538,7 @@ feature
 			xwin.unmap
       end
 
-   translate_coordinates_from (fromwindow: SB_WINDOW; fromx, fromy: INTEGER): SB_POINT is
+   translate_coordinates_from (fromwindow: SB_WINDOW; fromx, fromy: INTEGER): SB_POINT
          -- Translate coordinates from fromwindow's coordinate space to
          -- this window's coordinate space
       require -- else
@@ -553,7 +553,7 @@ feature
          end
       end
 
-   translate_coordinates_to (towindow: SB_WINDOW; fromx, fromy: INTEGER): SB_POINT is
+   translate_coordinates_to (towindow: SB_WINDOW; fromx, fromy: INTEGER): SB_POINT
          -- Translate coordinates from this window's coordinate space
          --  to towindow's coordinate space
       require -- else
@@ -568,7 +568,7 @@ feature
          end
       end
 
-   acquire_clipboard_imp(types: ARRAY[INTEGER]): BOOLEAN is
+   acquire_clipboard_imp(types: ARRAY[INTEGER]): BOOLEAN
          -- Try to acquire the clipboard, given a list of drag types
       require else
          types /= Void and then not types.is_empty
@@ -591,7 +591,7 @@ feature
 		--	end
       end
 
-	release_clipboard_imp is
+	release_clipboard_imp
 		require else
 			implemented: false
 		do
@@ -604,21 +604,21 @@ feature
 
 feature { NONE } -- Implementation
 
-	add_colormap_windows is
+	add_colormap_windows
 		do
 		end
       
-	rem_colormap_windows is
+	rem_colormap_windows
     	do
       	end
 
 feature -- Implementation features - to be moved to appropriate textual location
 
-	grab_keyboard_imp is
+	grab_keyboard_imp
 		do
 		end
 
-	release_keyboard_imp is
+	release_keyboard_imp
 		do
 		end
 

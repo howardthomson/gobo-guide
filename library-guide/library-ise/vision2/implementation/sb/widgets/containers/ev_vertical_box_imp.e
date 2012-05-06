@@ -1,4 +1,4 @@
-indexing
+note
 	description: 
 		"EiffelVision vertical box. Slyboots implementation."
 	legal: "See notice at end of class."
@@ -87,7 +87,7 @@ feature {EV_ANY_I} -- Implementation
 
     interface: EV_VERTICAL_BOX;
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[
