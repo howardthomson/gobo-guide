@@ -86,11 +86,12 @@
 		<cluster name="pointer"/>
 	</cluster>
 
-	<cluster name="mutex">
+	<!--cluster name="mutex">
 		<option name="ecf_library" value="${ISE_LIBRARY}/library/thread/thread.ecf"/>
 		<option name="recursive" value="true"/>
 		<option name="read_only" value="true"/>
 		<option name="exclude" value="classic" if="${GOBO_DOTNET}"/>
 		<option name="exclude" value="dotnet" unless="${GOBO_DOTNET}"/>
-	</cluster>
+	</cluster-->
+	
 </library>

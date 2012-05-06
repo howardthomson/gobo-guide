@@ -75,6 +75,7 @@
 
 	<cluster name="lib_sha1" location="/data/eiffel/lib/sha1"/>
 
+	<cluster name="ise_thread" location="${ISE_EIFFEL}/library/thread/classic"/>
 	
 	<option name="c_compiler_options" value="-m32" if="${m32}"/>
 	<option name="c_compiler_options" value="-L/usr/X11R6/lib"/>
