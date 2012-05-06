@@ -4,7 +4,7 @@
 --| Ashford, Middlesex TW15 3EB								|
 --| United Kingdom											|
 --|---------------------------------------------------------|
-indexing
+note
 	description: "[
 		Tree List of Eiffel Classes
 		Subtrees for different versions
@@ -26,7 +26,7 @@ inherit
 			on_right_btn_press
 		end
 
-creation
+create
 
 	make
 
@@ -39,14 +39,14 @@ feature
 
 feature -- Generic item creation
 
-	create_item (text: STRING; oi, ci: SB_ICON; data: ANY): EDP_CLASS_LIST_ITEM is
+	create_item (text: STRING; oi, ci: SB_ICON; data: ANY): EDP_CLASS_LIST_ITEM
 		do
 			create Result.make (text, oi, ci, data)
 		end
 
 feature -- Menu click processing
 
-	class_tree_menu: SB_MENU_PANE is
+	class_tree_menu: SB_MENU_PANE
 		local
 		--	sub_menu: SB_MENU_
 			command: SB_MENU_COMMAND
@@ -56,7 +56,7 @@ feature -- Menu click processing
 			create command.make_sb (Result, "Open Class Window", Current, 2)
 		end			
 
-	on_right_btn_press (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN is
+	on_right_btn_press (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN
 		local
 			et_c: ET_CLASS
 			c: EDP_CLASS

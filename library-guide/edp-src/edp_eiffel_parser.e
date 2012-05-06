@@ -4,7 +4,7 @@
 --| Ashford, Middlesex TW15 3EB								|
 --| United Kingdom											|
 --|---------------------------------------------------------|
-indexing
+note
 
 	description:
 
@@ -43,13 +43,13 @@ inherit
 --			make as make_edp_file_names
 --		end
 
-creation
+create
 
 	make, make_with_factory
 
 feature -- Creation / Initialization
 
-	reset is
+	reset
 		do
 			scanner := Void
 			precursor
@@ -61,7 +61,7 @@ feature -- Access
 
 feature -- Parsing
 
-	x_parse_file (a_file: KI_CHARACTER_INPUT_STREAM; a_filename: STRING; a_time_stamp: INTEGER; a_cluster: ET_CLUSTER) is
+	x_parse_file (a_file: KI_CHARACTER_INPUT_STREAM; a_filename: STRING; a_time_stamp: INTEGER; a_cluster: ET_CLUSTER)
 			-- Parse all classes in `a_file' within cluster `a_cluster'.
 			-- `a_filename' is the filename of `a_file' and `a_time_stamp'
 			-- its time stamp just before it was open.
@@ -96,7 +96,7 @@ feature -- Parsing
 
 feature -- Tokens
 
-	has_break: BOOLEAN is
+	has_break: BOOLEAN
 			-- Has a break been scanned?
 		do
 			if scanner = Void then
@@ -110,7 +110,7 @@ feature -- Tokens
 --			definition: Result = (last_break_end > last_text_count)
 		end
 
-	has_comment: BOOLEAN is
+	has_comment: BOOLEAN
 			-- Has a comment been scanned?
 		do
 			if scanner = Void then
@@ -124,7 +124,7 @@ feature -- Tokens
 --			definition: Result = (last_comment_end > last_text_count)
 		end
 
-	last_literal_count: INTEGER is
+	last_literal_count: INTEGER
 			-- Number of characters in `last_literal'
 		do
 			if scanner = Void then
@@ -138,7 +138,7 @@ feature -- Tokens
 --			definition: Result = last_literal.count
 		end
 
-	last_literal: STRING is
+	last_literal: STRING
 			-- Last literal scanned
 		do
 			if scanner = Void then
@@ -150,7 +150,7 @@ feature -- Tokens
 --			last_literal_not_void: Result /= Void
 		end
 
-	last_identifier: ET_IDENTIFIER is
+	last_identifier: ET_IDENTIFIER
 			-- Last identifier scanned
 		local
 		do
@@ -167,7 +167,7 @@ feature {NONE} -- Processing
 
 --###################################################################################
 
-	read_token is
+	read_token
 		do
 			if scanner /= Void then
 				read_scanner_token
@@ -176,7 +176,7 @@ feature {NONE} -- Processing
 			end
 		end
 
-	read_scanner_token is
+	read_scanner_token
 			-- Read next token from the scanner
 			-- Combine/skip scanner tokens as necessary
 		local

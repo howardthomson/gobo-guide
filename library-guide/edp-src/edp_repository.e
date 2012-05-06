@@ -8,7 +8,7 @@
 --		Project		The set of clusters for a given project
 --		Universe	The set of all known classes & clusters
 
-indexing
+note
 	description: "[
 		This singleton class, reachable from EDP_GLOBALS, links to all
 		instances of:
@@ -65,7 +65,7 @@ inherit
 			is_equal
 		end
 
-creation
+create
 	make
 
 feature -- Constant attributes
@@ -78,23 +78,23 @@ feature -- Constant attributes
 
 	Load_default,
 	Load_failed,
-	Load_done: INTEGER is unique
+	Load_done: INTEGER = unique
 	
 feature
 
-	make is
+	make
 		do
 			create clusters.make(128)
 			create scanners.make(512)
 		end
 
-	load is
+	load
 			-- Load from default location(s)
 		do
 			load_from(".edp_repository")
 		end
 
-	load_from(fname: STRING) is
+	load_from(fname: STRING)
 			-- Create/initialise from lines in a text file
 		local
 --			fh: TEXT_FILE_READ
@@ -129,13 +129,13 @@ feature
 --			end	
 		end
 
-	gobo: STRING is "${GOBO}"
-	eposix: STRING is "${EPOSIX}"
+	gobo: STRING = "${GOBO}"
+	eposix: STRING = "${EPOSIX}"
 
-	gobo_path	: STRING is "/data/eiffel/lib/gobo"
-	eposix_path : STRING is "/data/eiffel/lib/eposix"
+	gobo_path	: STRING = "/data/eiffel/lib/gobo"
+	eposix_path : STRING = "/data/eiffel/lib/eposix"
 	
-	expand_filename(s: STRING): STRING is
+	expand_filename(s: STRING): STRING
 			-- expand ${env_name} into equivalent value
 			-- Temporary version for ${EPOSIX} and ${GOBO} only !!
 		local
@@ -169,7 +169,7 @@ feature
 				
 				
 
-	add_cluster(s: STRING; recursive: BOOLEAN): BOOLEAN is
+	add_cluster(s: STRING; recursive: BOOLEAN): BOOLEAN
 			-- Create and append new EDP_CLUSTER element
 			-- Check that no existing recursive cluster includes the
 			-- argument as a sub-directory
@@ -204,7 +204,7 @@ feature
 				
 		end
 
-	expand is
+	expand
 			-- expand file list by walking file tree
 		local
 			i: INTEGER
@@ -220,7 +220,7 @@ feature
 			end
 		end
 
-	add_to_project(p: EDP_PROJECT) is
+	add_to_project(p: EDP_PROJECT)
 			-- Add all clusters of repository to the project
 		local
 			i: INTEGER
@@ -239,7 +239,7 @@ feature -- factory routines
 
 	any_class_window: EDP_CLASS_WINDOW
 
-	open_class_window(p: EDP_PROJECT; s: STRING) is
+	open_class_window(p: EDP_PROJECT; s: STRING)
 		do
 			create any_class_window.make(Void)
 			any_class_window.create_resource
@@ -247,24 +247,24 @@ feature -- factory routines
 
 feature -- string storage
 
-	edp_unique_strings: EDP_STRING_STORE is
+	edp_unique_strings: EDP_STRING_STORE
 		once
 			create Result.make
 		end
 
-	infix "#" (a_string: STRING): INTEGER is
+	infix "#" (a_string: STRING): INTEGER
 		do
 			Result := edp_unique_strings # a_string
 		end
 
-	infix "@" (i: INTEGER): STRING is
+	infix "@" (i: INTEGER): STRING
 		do
 			Result := edp_unique_strings @ i
 		end
 
 feature {NONE} -- invariant facilities
 
-	singleton_memory: EDP_REPOSITORY is
+	singleton_memory: EDP_REPOSITORY
 		once
 			Result := Current
 		end

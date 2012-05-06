@@ -57,7 +57,7 @@ inherit
 
 	SB_SPLITTER_CONSTANTS
 
-creation {EDP_CLASS, EDP_REPOSITORY}
+create {EDP_CLASS, EDP_REPOSITORY}
 
 	make
 
@@ -66,7 +66,7 @@ feature -- creation routines
 	the_class	: EDP_CLASS
 	the_class_2 : EDP_CLASS
 
-	make (a_class: EDP_CLASS) is
+	make (a_class: EDP_CLASS)
 		-- Creation wrt a specific class
 		require
 			class_not_void: a_class /= Void
@@ -80,7 +80,7 @@ feature -- creation routines
 
 feature -- destruction
 
-	destruct is
+	destruct
 		do
 			the_class.window_destroyed
 			Precursor
@@ -97,7 +97,7 @@ feature -- window structure
 	editor		: EDP_SYMBOL_EDITOR
 	editor_2	: EDP_SYMBOL_EDITOR
 	
-	make_window is
+	make_window
 		do
 			make_top_title (get_app, new_title)
 
@@ -117,7 +117,7 @@ feature -- window structure
 			end
 		end
 
-	make_comparison_window is			
+	make_comparison_window			
 		do
 				-- Setup for the second class
 			the_class_2 ?= the_class.et_class.overridden_class.data
@@ -145,12 +145,12 @@ feature -- window structure
 -- Could it be Void ?? Invariant, I think, requires non-Void
 -- In that case, it should not be a Once function ....
 
-	class_processor: GECMP_AST_PROCESSOR is
+	class_processor: GECMP_AST_PROCESSOR
 		once
 			create Result.make (Void)
 		end
 
-	mark_differences is
+	mark_differences
 			-- Mark the symbols where different
 		local
 			as1, as2: ARRAY [ SCANNER_SYMBOL ]
@@ -163,7 +163,7 @@ feature -- window structure
 			diff.mark_symbols
 		end
 
-	new_title: STRING is
+	new_title: STRING
 		do
 			create Result.make(20)
 			Result.append(the_class.et_class.name.name)

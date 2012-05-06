@@ -4,7 +4,7 @@
 --| Ashford, Middlesex TW15 3EB								|
 --| United Kingdom											|
 --|---------------------------------------------------------|
-indexing
+note
 
 	description: "[
 		Additional parent to ET_AST_LEAF to provide for processor to
@@ -21,7 +21,7 @@ feature -- Attributes
 
 feature -- Routines
 
-	set_scanner_symbol(a_symbol: like scanner_symbol) is
+	set_scanner_symbol(a_symbol: like scanner_symbol)
 		do
 			scanner_symbol := a_symbol
 		end

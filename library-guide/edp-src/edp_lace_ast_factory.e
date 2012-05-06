@@ -20,7 +20,7 @@ create
 
 feature -- EDP adapted SYSTEM creation routine
 
-	new_system: ET_LACE_SYSTEM is
+	new_system: ET_LACE_SYSTEM
 			-- New Eiffel system adapted for EDP
 		do
 			create {EDP_SYSTEM} Result.make
@@ -29,7 +29,7 @@ print(once "EDP_LACE_AST_FACTORY.new_system called%N")
 
 feature -- Eiffel AST factory
 
-	new_ast_factory: ET_AST_FACTORY is
+	new_ast_factory: ET_AST_FACTORY
 			-- New Eiffel AST factory
 		local
 			f: EDP_AST_FACTORY

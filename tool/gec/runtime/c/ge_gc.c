@@ -1938,6 +1938,7 @@ GC__full_collect (gc_arena_t *pgc) {
 		GC__mark_roots(pgc);	/* Check assertions about item__is_allocated */
 #endif
 		report_end_full_collect();
+#if 0
 		printf("gc_collect_cycle = %6d  ", gc_collect_cycle);
 		printf("free_space = %10ld, used_space = %10ld, mapped_space = %10ld, diff = %ld, ",
 			free_space, used_space, mapped_space,
@@ -1946,6 +1947,7 @@ GC__full_collect (gc_arena_t *pgc) {
 		ratio /= mapped_space;
 		printf("used / mapped = %3ld ", ratio);
 		printf("\n");
+#endif
 #if 0
 		if (gc_collect_cycle == 1) {
 			GC__dump_arenas(); exit(0);
@@ -2215,6 +2217,10 @@ GC__dump_page_info(gc_arena_t *pa) {
 GC__dump_page(gc_arena_t *pa, int page_no) {
 
 	}
+
+long free_space;
+long used_space;
+long mapped_space;
 
 #else
 

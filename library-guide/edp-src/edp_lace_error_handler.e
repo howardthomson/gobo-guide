@@ -4,7 +4,7 @@
 --| Ashford, Middlesex TW15 3EB								|
 --| United Kingdom											|
 --|---------------------------------------------------------|
-indexing
+note
 
 	description:
 
@@ -22,7 +22,7 @@ inherit
 
 	ET_LACE_ERROR_HANDLER
 
-creation
+create
 
 	make
 
@@ -32,7 +32,7 @@ feature -- Attributes
 
 feature -- Creation
 
-	make(an_error_target: EDP_ERROR_TARGET) is
+	make(an_error_target: EDP_ERROR_TARGET)
 		do
 			make_null
 			error_target := an_error_target

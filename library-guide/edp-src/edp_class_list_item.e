@@ -4,7 +4,7 @@
 --| Ashford, Middlesex TW15 3EB								|
 --| United Kingdom											|
 --|---------------------------------------------------------|
-indexing
+note
 	description: "[
 		Tree list item specific to Class file status
 	]"
@@ -39,18 +39,18 @@ inherit
 			draw_other_icons
 		end
 
-creation
+create
 
 	make, make_empty
 
 feature -- status
 
-	S_unused	: INTEGER is 0	-- Repository only
-	S_name_clash: INTEGER is 1	-- In clusters, multiple files
-	S_overridden: INTEGER is 2	-- In clusters but overridden by other class
-	S_invalid	: INTEGER is 3	-- Error, scan/parse/validation failed
-	S_warnings	: INTEGER is 4	-- Warnings issued
-	S_in_system	: INTEGER is 5	-- Is in_system
+	S_unused	: INTEGER = 0	-- Repository only
+	S_name_clash: INTEGER = 1	-- In clusters, multiple files
+	S_overridden: INTEGER = 2	-- In clusters but overridden by other class
+	S_invalid	: INTEGER = 3	-- Error, scan/parse/validation failed
+	S_warnings	: INTEGER = 4	-- Warnings issued
+	S_in_system	: INTEGER = 5	-- Is in_system
 
 feature -- Class status values
 
@@ -75,7 +75,7 @@ feature -- File status values
 
 	system_status: INTEGER
 
-	set_status (c: ET_CLASS) is
+	set_status (c: ET_CLASS)
 			-- Set status of the class_name item
 		do
 			if system_status = S_invalid then
@@ -96,7 +96,7 @@ feature -- File status values
 			if system_status = S_invalid then set_expanded (True) end
 		end
 
-	set_file_status (c: ET_CLASS) is
+	set_file_status (c: ET_CLASS)
 			-- Set status of this filename item
 		do
 			if system_status = S_invalid then
@@ -114,7 +114,7 @@ feature -- File status values
 			if system_status = S_invalid then set_expanded (True) end
 		end
 
-	set_status_from (other: like Current) is
+	set_status_from (other: like Current)
 		do
 			if other.system_status = S_invalid then
 				system_status := S_invalid
@@ -126,19 +126,19 @@ feature -- File status values
 			if system_status = S_invalid then set_expanded (True) end
 		end
 
-	set_status_ok is
+	set_status_ok
 		do
 			system_status := S_in_system
 		end
 
-	set_status_invalid is
+	set_status_invalid
 		do
 			system_status := S_invalid
 		end
 
 feature -- display
 
-	draw_other_icons (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]; dc: SB_DC; a_x, a_y, w, h: INTEGER): INTEGER is
+	draw_other_icons (list: SB_GENERIC_TREE_LIST [ SB_TREE_LIST_ITEM ]; dc: SB_DC; a_x, a_y, w, h: INTEGER): INTEGER
 		local
 			l_color: INTEGER
 		do

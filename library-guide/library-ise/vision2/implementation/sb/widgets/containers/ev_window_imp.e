@@ -80,7 +80,7 @@ feature {NONE} -- Attributes
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Create the vertical box `vbox' and horizontal box `container_widget'
 			-- to put in the window.
 			-- The `vbox' will be able to contain the menu bar, the `container_widget'
@@ -125,7 +125,7 @@ feature  -- Access
 			-- Maximum height that application wishes widget
 			-- instance to have.
 
-	title: STRING_32 is
+	title: STRING_32
 			-- Application name to be displayed by
 			-- the window manager.
 		do
@@ -154,7 +154,7 @@ feature -- Status setting
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 5")
 		end
 
-	internal_enable_border is
+	internal_enable_border
 			-- Ensure a border is displayed around `Current'.
 		local
 			l_decor: INTEGER
@@ -162,7 +162,7 @@ feature -- Status setting
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 7")
 		end
 
-	internal_disable_border is
+	internal_disable_border
 			-- Ensure no border is displayed around `Current'.
 		local
 			l_decor: INTEGER
@@ -175,7 +175,7 @@ feature -- Status setting
 	disable_user_resize_called: BOOLEAN
 		-- Has `disable_user_resize' been called?
 
-	disable_user_resize is
+	disable_user_resize
 			-- Forbid the resize of the window.
 		do
 			disable_user_resize_called := True
@@ -185,7 +185,7 @@ feature -- Status setting
 			end
 		end
 
-	enable_user_resize is
+	enable_user_resize
 			-- Allow the resize of the window.
 		do
 			user_can_resize := True
@@ -194,7 +194,7 @@ feature -- Status setting
 			end
 		end
 
-	allow_resize is
+	allow_resize
 			-- Allow the resize of the window.
 		local
 			l_geometry: POINTER
@@ -203,7 +203,7 @@ feature -- Status setting
 			internal_enable_border
 		end
 
-	show is
+	show
 			-- Map the Window to the screen.
 		do
 			if not is_show_requested then
@@ -226,7 +226,7 @@ feature -- Status setting
 	call_show_actions: BOOLEAN
 		-- Should the show actions be called?
 
-	hide is
+	hide
 			-- Unmap the Window from the screen.
 		local
 			a_x_pos, a_y_pos: INTEGER
@@ -244,19 +244,19 @@ feature -- Status setting
 
 feature -- Element change
 
-	set_maximum_width (a_max_width: INTEGER) is
+	set_maximum_width (a_max_width: INTEGER)
 			-- Set `maximum_width' to `a_max_width'.
 		do
 			internal_set_maximum_size (a_max_width, maximum_height)
 		end
 
-	set_maximum_height (a_max_height: INTEGER) is
+	set_maximum_height (a_max_height: INTEGER)
 			-- Set `maximum_height' to `a_max_height'.
 		do
 			internal_set_maximum_size (maximum_width, a_max_height)
 		end
 
-	set_title (new_title: STRING_GENERAL) is
+	set_title (new_title: STRING_GENERAL)
 			-- Set `title' to `new_title'.
 		local
 			l_title_32: STRING_32
@@ -268,7 +268,7 @@ feature -- Element change
 			end
 		end
 
-	set_menu_bar (a_menu_bar: EV_MENU_BAR) is
+	set_menu_bar (a_menu_bar: EV_MENU_BAR)
 			-- Set `menu_bar' to `a_menu_bar'.
 		local
 			mb_imp: detachable EV_MENU_BAR_IMP
@@ -281,7 +281,7 @@ feature -- Element change
 			menu_bar := a_menu_bar
 		end
 
-	remove_menu_bar is
+	remove_menu_bar
 			-- Set `menu_bar' to `Void'.
 		local
 			mb_imp: detachable EV_MENU_BAR_IMP
@@ -299,7 +299,7 @@ feature {EV_SB_WINDOW_IMP} -- Access
 
 feature {NONE} -- Accelerators
 
-	connect_accelerator (an_accel: EV_ACCELERATOR) is
+	connect_accelerator (an_accel: EV_ACCELERATOR)
 			-- Connect key combination `an_accel' to this window.
 		local
 			acc_imp: EV_ACCELERATOR_IMP
@@ -307,7 +307,7 @@ feature {NONE} -- Accelerators
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 12")
 		end
 
-	disconnect_accelerator (an_accel: EV_ACCELERATOR) is
+	disconnect_accelerator (an_accel: EV_ACCELERATOR)
 			-- Disconnect key combination `an_accel' from this window.
 		local
 			acc_imp: EV_ACCELERATOR_IMP
@@ -320,7 +320,7 @@ feature {NONE} -- Accelerators
 
 feature {EV_ANY_IMP} -- Implementation
 
-	destroy is
+	destroy
 			-- Destroy `Current'
 		do
 			disable_capture
@@ -330,7 +330,7 @@ feature {EV_ANY_IMP} -- Implementation
 
 feature {EV_APPLICATION_IMP} -- Implementation
 
-	on_widget_mapped is
+	on_widget_mapped
 			-- `Current' has been mapped to the screen.
 		do
 			Precursor
@@ -356,7 +356,7 @@ feature {NONE} -- Implementation
 	previously_focused_widget: POINTER
 		-- Widget that was previously focused within `Current'.
 
-	set_focused_widget (a_widget: EV_WIDGET_IMP) is
+	set_focused_widget (a_widget: EV_WIDGET_IMP)
 			-- Set currently focused widget to `a_widget'.
 		do
 			if a_widget /= Void then
@@ -369,7 +369,7 @@ feature {NONE} -- Implementation
 	previous_x_position, previous_y_position: INTEGER
 		-- Positions of previously set x and y coordinates of `Current'.
 
-	initialize_client_area is
+	initialize_client_area
 			-- Initialize the client area of 'Current'.
 		local
 			bar_imp: EV_VERTICAL_BOX_IMP
@@ -379,7 +379,7 @@ feature {NONE} -- Implementation
 
 feature {EV_INTERMEDIARY_ROUTINES, EV_APPLICATION_IMP} -- Implementation
 
-	on_size_allocate (a_x, a_y, a_width, a_height: INTEGER) is
+	on_size_allocate (a_x, a_y, a_width, a_height: INTEGER)
 			-- GdkEventConfigure event occurred.
 		local
 			l_x_pos, l_y_pos: INTEGER
@@ -387,13 +387,13 @@ feature {EV_INTERMEDIARY_ROUTINES, EV_APPLICATION_IMP} -- Implementation
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 15")
 		end
 
-	call_window_state_event (a_changed_mask, a_new_state: INTEGER) is
+	call_window_state_event (a_changed_mask, a_new_state: INTEGER)
 			-- Call either minimize, maximize or restore actions for window
 		do
 			-- Move implementation from EV_TITLED_WINDOW_IMP when necessary
 		end
 
-	on_set_focus_event (a_widget_ptr: POINTER) is
+	on_set_focus_event (a_widget_ptr: POINTER)
 			-- The focus of a widget has changed within `Current'.
 		local
 			l_previously_focused_widget: EV_WIDGET_IMP
@@ -444,13 +444,13 @@ feature {EV_SB_WINDOW_IMP, EV_PICK_AND_DROPABLE_IMP, EV_APPLICATION_IMP} -- Impl
 			Result := modal_window_count > 0
 		end
 
-	allow_window_manager_focus is
+	allow_window_manager_focus
 			-- Allow the window manager to give the focus to `Current'.
 		do
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 16")
 		end
 
-	disallow_window_manager_focus is
+	disallow_window_manager_focus
 			-- Disallow the window manager to give the focus to `Current'.
 		do
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 17")
@@ -458,7 +458,7 @@ feature {EV_SB_WINDOW_IMP, EV_PICK_AND_DROPABLE_IMP, EV_APPLICATION_IMP} -- Impl
 
 feature {EV_MENU_BAR_IMP, EV_ACCELERATOR_IMP, EV_APPLICATION_IMP} -- Implementation
 
-	on_focus_changed (a_has_focus: BOOLEAN) is
+	on_focus_changed (a_has_focus: BOOLEAN)
 			-- Called from focus intermediary agents when focus for `Current' has changed.
 			-- if `a_has_focus' then `Current' has just received focus.
 		do
@@ -479,7 +479,7 @@ feature {EV_ACCELERATOR_IMP, EV_MENU_BAR_IMP} -- Implementation
 
 feature {EV_INTERMEDIARY_ROUTINES}
 
-	call_close_request_actions is
+	call_close_request_actions
 			-- Call the close request actions.
 		do
 			if close_request_actions_internal /= Void

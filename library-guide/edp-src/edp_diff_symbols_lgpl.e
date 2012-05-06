@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Mark Differences between sets of SCANNER_SYMBOLs"
 
@@ -20,13 +20,13 @@ create
 
 feature -- Symbol marking
 
-	mark_symbols is
+	mark_symbols
 		do
 			mark_symbols_in (filevec_0)
 			mark_symbols_in (filevec_1)
 		end
 			
-	mark_symbols_in (f: FILE_DATA [ G ]) is			
+	mark_symbols_in (f: FILE_DATA [ G ])			
 			-- Mark the symbols that don't match
 		local
 			s: G

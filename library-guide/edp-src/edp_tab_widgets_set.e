@@ -16,34 +16,34 @@ feature -- Attributes
 
 feature -- Setters
 
-	set_ace_tab(w: like ace_tab) is
+	set_ace_tab(w: like ace_tab)
 		do
 			ace_tab := w
 		end
 
-	set_classes_tab(w: like classes_tab) is
+	set_classes_tab(w: like classes_tab)
 		do
 			classes_tab := w
 		end
 
-	set_features_tab(w: like features_tab) is
+	set_features_tab(w: like features_tab)
 		do
 			features_tab := w
 		end
 
-	set_cluster_errors_tab(w: like cluster_errors_tab) is
+	set_cluster_errors_tab(w: like cluster_errors_tab)
 		do
 			cluster_errors_tab := w
 		end
 
-	set_errors_tab(w: like errors_tab) is
+	set_errors_tab(w: like errors_tab)
 		do
 			errors_tab := w
 		end
 
 feature -- Show / Hide
 
-	show is
+	show
 			-- Show all tabs
 		do
 			ace_tab.show
@@ -52,7 +52,7 @@ feature -- Show / Hide
 			errors_tab.show
 		end
 
-	hide is
+	hide
 			-- Hide all tabs
 		do
 			ace_tab.hide

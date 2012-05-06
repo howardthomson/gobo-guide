@@ -7,7 +7,7 @@
 
 -- Cluster / Directory of (Eiffel ?) Classes
 
-indexing
+note
 	description: "A cluster of Eiffel Classes"
 	author: "Howard Thomson"
 	todo: "[
@@ -30,12 +30,12 @@ inherit
 
 	EDP_GLOBAL
 
-creation
+create
 	make
 
 feature -- Attributes
 
-	cluster_info_file_name: STRING is ".edp_db"
+	cluster_info_file_name: STRING = ".edp_db"
 
 	directory_path: STRING
 	
@@ -46,20 +46,20 @@ feature -- Attributes
 	
 	class_name_clash: BOOLEAN
 
-	locked: BOOLEAN is
+	locked: BOOLEAN
 		-- is class not editable ?
 		do
 		end
 
-	Status_null			: INTEGER is 0	-- No validity checks yet done
-	Status_invalid_path	: INTEGER is 1
-	Status_files_ok		: INTEGER is 2	-- No conflicting file updates
-	Status_names_ok		: INTEGER is 3	-- No conflicting class names
-	Status_OK			: INTEGER is 4
+	Status_null			: INTEGER = 0	-- No validity checks yet done
+	Status_invalid_path	: INTEGER = 1
+	Status_files_ok		: INTEGER = 2	-- No conflicting file updates
+	Status_names_ok		: INTEGER = 3	-- No conflicting class names
+	Status_OK			: INTEGER = 4
 
 feature -- Creation
 
-	make (a_name: like name_id; a_pathname: like pathname_id; a_universe: ET_UNIVERSE) is
+	make (a_name: like name_id; a_pathname: like pathname_id; a_universe: ET_UNIVERSE)
 			-- Create new cluster
 		do
 			directory_path := a_pathname.name.twin
@@ -67,7 +67,7 @@ feature -- Creation
 			precursor (a_name, a_pathname, a_universe)
 		end
 
-	add_classes, expand is
+	add_classes, expand
 		require
 			valid_directory: not directory_path.is_empty	-- ???
 		local
@@ -117,7 +117,7 @@ feature -- Creation
 --			classes.add_tail (ec)
 --		end
 
-	has(a_name: STRING): BOOLEAN is
+	has(a_name: STRING): BOOLEAN
 		-- is there a class named 'name' in this cluster
 		local
 			i: INTEGER
@@ -137,7 +137,7 @@ feature -- Creation
 		end
 			
 
-	fn_to_cn (s: STRING): STRING is
+	fn_to_cn (s: STRING): STRING
 		-- Convert filename to classname
 		-- [ ..../ ] classname.e
 		local
@@ -155,7 +155,7 @@ feature -- Creation
 			end
 		end
 
-	set_directory_path (path: STRING) is
+	set_directory_path (path: STRING)
 		-- new value for 'directory_path'
 		do
 			if (path.count + 1) > directory_path.count then	-- SE STRING bug
@@ -165,13 +165,13 @@ feature -- Creation
 			io.put_string (directory_path); io.put_string ("%N")
 		end
 
-	load_file_names is
+	load_file_names
 		-- Scan directory path for all matching file names
 		do
 			add_classes	-- Match '*.e' TODO
 		end
 
-	get_universe(p: EDP_PROJECT) is
+	get_universe(p: EDP_PROJECT)
 		-- Add the classes from this cluster to the project
 		local
 			i: INTEGER	-- counter
@@ -187,7 +187,7 @@ feature -- Creation
 --			end
 		end
 
-	is_parent (s: STRING): BOOLEAN is
+	is_parent (s: STRING): BOOLEAN
 			-- Check whether directory_path is a substring of s
 		require
 			valid_path: directory_path /= Void
@@ -197,7 +197,7 @@ feature -- Creation
 --			end
 		end
 
-	scan_cluster(p: EDP_PROJECT) is
+	scan_cluster(p: EDP_PROJECT)
 		local
 			i: INTEGER
 			c: EDP_CLASS

@@ -1,4 +1,4 @@
-indexing
+note
 
 	author: "Howard Thomson"
 
@@ -39,20 +39,20 @@ feature
 
 	filename_id: INTEGER	-- id of filename string in EDP_FILE_NAMES.strings
 
-	filename: STRING is
+	filename: STRING
 		deferred
 		end
 
 feature { NONE } -- shared singleton
 
-	all_files: EDP_FILE_NAMES is
+	all_files: EDP_FILE_NAMES
 		once
 			create Result.make
 		end
 
 feature { NONE }	-- Creation
 
-	make (fname: STRING) is
+	make (fname: STRING)
 		local
 			fi:	INTEGER	-- filename index
 			xi: INTEGER	-- existing file index

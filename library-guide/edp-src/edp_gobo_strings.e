@@ -16,7 +16,7 @@ inherit	--insert
 
 feature
 
-	gobo_strings: DS_HASH_TABLE [INTEGER, STRING] is
+	gobo_strings: DS_HASH_TABLE [INTEGER, STRING]
 			-- Strings known by the current scanner, and the associated
 			-- hash codes when they are used as identifier
 		once

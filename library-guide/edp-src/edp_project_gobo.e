@@ -12,7 +12,7 @@ inherit
 	EDP_PROJECT
 	KL_SHARED_FILE_SYSTEM
 
-creation
+create
 
 	make, make_from_ace_file
 
@@ -41,7 +41,7 @@ feature -- Target info
 
 feature -- Creation
 
-	make_from_ace_file (a_filename: STRING; an_error_target: EDP_ERROR_TARGET) is
+	make_from_ace_file (a_filename: STRING; an_error_target: EDP_ERROR_TARGET)
 		require
 			filename_not_void: a_filename /= Void
 		do
@@ -50,7 +50,7 @@ feature -- Creation
 			parse_ace_file
 		end
 
-	parse_ace_file is
+	parse_ace_file
 		local
 			file: KL_TEXT_INPUT_FILE
 		do
@@ -71,7 +71,7 @@ feature -- Creation
 			end
 		end
 
-	reload_ace_file is
+	reload_ace_file
 		local
 			file: KL_TEXT_INPUT_FILE
 		do
@@ -88,7 +88,7 @@ feature -- Creation
 			end
 		end
 
-	pre_parse is
+	pre_parse
 			-- Process all clusters and map filenames to
 			-- class names by pre-processing cluster files
 		do
@@ -115,7 +115,7 @@ feature -- Creation
 
 feature -- Display classes
 
-	set_classes_tree (a_target: EDP_DISPLAY_TARGET) is
+	set_classes_tree (a_target: EDP_DISPLAY_TARGET)
 		require
 			a_target_not_void: a_target /= Void
 		local
@@ -140,7 +140,7 @@ feature -- Display classes
 			a_target.sort_classes
 		end
 
-	parse_all is
+	parse_all
 			-- Parse and check, as far as possible, all class files
 		local
 			u: EDP_UNIVERSE
@@ -165,7 +165,7 @@ feature -- Display classes
 --			end
 		end
 			
-	generate_c_code is
+	generate_c_code
 			-- Generate C code for current system.
 		local
 			l_generator: ET_C_GENERATOR
@@ -174,7 +174,7 @@ feature -- Display classes
 			l_generator.generate (et_system.universe.system_name)
 		end
 
---	validate is
+--	validate
 --		local
 --			u: EDP_UNIVERSE
 --		do
@@ -200,7 +200,7 @@ feature -- Display classes
 --			end
 --		end
 
-	validate is
+	validate
 		local
 			u: EDP_UNIVERSE
 		do
@@ -222,7 +222,7 @@ feature -- Display classes
 			end
 		end
 
-	system_name: STRING is
+	system_name: STRING
 			-- The name of the system to be built
 			-- Read from the Ace file ...
 		do

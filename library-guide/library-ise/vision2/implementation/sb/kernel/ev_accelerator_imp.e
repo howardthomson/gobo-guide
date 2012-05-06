@@ -1,4 +1,4 @@
-indexing
+note
 	description: "EiffelVision accelerator. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -42,7 +42,7 @@ feature {EV_SB_WINDOW_IMP} -- Implementation
 			Result := generate_accel_id (key, control_required, alt_required, shift_required)
 		end
 
-	generate_accel_id (a_key: EV_KEY; a_control_required, a_alt_required, a_shift_required: BOOLEAN): INTEGER is
+	generate_accel_id (a_key: EV_KEY; a_control_required, a_alt_required, a_shift_required: BOOLEAN): INTEGER
 		do
 			Result := a_key.code
 			Result := Result |<< 8
@@ -76,43 +76,43 @@ feature -- Access
 
 feature -- Element change
 
-	set_key (a_key: EV_KEY) is
+	set_key (a_key: EV_KEY)
 			-- Set `a_key' as new key that has to be pressed.
 		do
 			key := a_key.twin
 		end
 
-	enable_shift_required is
+	enable_shift_required
 			-- "Shift" must be pressed for the key combination.
 		do
 			shift_required := True
 		end
 
-	disable_shift_required is
+	disable_shift_required
 			-- "Shift" is not part of the key combination.
 		do
 			shift_required := False
 		end
 
-	enable_alt_required is
+	enable_alt_required
 			-- "Alt" must be pressed for the key combination.
 		do
 			alt_required := True
 		end
 
-	disable_alt_required is
+	disable_alt_required
 			-- "Alt" is not part of the key combination.
 		do
 			alt_required := False
 		end
 
-	enable_control_required is
+	enable_control_required
 			-- "Control" must be pressed for the key combination.
 		do
 			control_required := True
 		end
 
-	disable_control_required is
+	disable_control_required
 			-- "Control" is not part of the key combination.
 		do
 			control_required := False
@@ -125,14 +125,14 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Implementation
 
-	destroy is
+	destroy
 			-- Free resources of `Current'
 		do
 			key := Void
 			set_is_destroyed (True)
 		end
 
-indexing
+note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
 	source: "[

@@ -181,33 +181,33 @@ feature
 
 
 
-	 s_and_then				: INTEGER is 401
-	 s_or_else				: INTEGER is 402
+	 s_and_then				: INTEGER = 401
+	 s_or_else				: INTEGER = 402
 
-	 s_character_escaped	: INTEGER is 403
-	 s_character_decimal_1	: INTEGER is 404
-	 s_character_decimal_2	: INTEGER is 405
-	 s_character_decimal_3	: INTEGER is 406
+	 s_character_escaped	: INTEGER = 403
+	 s_character_decimal_1	: INTEGER = 404
+	 s_character_decimal_2	: INTEGER = 405
+	 s_character_decimal_3	: INTEGER = 406
 
-	 s_string_prefix		: INTEGER is 407
-	 s_str_left_bracket		: INTEGER is 408
-	 s_str_left_brace		: INTEGER is 409
-	 s_string_infix			: INTEGER is 410
-	 s_string_escaped		: INTEGER is 411
-	 s_string_decimal_1		: INTEGER is 412
-	 s_string_decimal_2		: INTEGER is 413
-	 s_string_decimal_3		: INTEGER is 414
-	 s_str_gap_start		: INTEGER is 415
-	 s_str_gap_end			: INTEGER is 416
-	 s_string_suffix		: INTEGER is 417
-	 s_str_right_bracket	: INTEGER is 418
-	 s_str_right_brace		: INTEGER is 419
-	 s_comment				: INTEGER is 420
-	 s_bangbang				: INTEGER is 421
-	 s_raw_text				: INTEGER is 422
-	 s_edit_text			: INTEGER is 423
-	 s_eof					: INTEGER is 424
-	 s_bit					: INTEGER is 425
+	 s_string_prefix		: INTEGER = 407
+	 s_str_left_bracket		: INTEGER = 408
+	 s_str_left_brace		: INTEGER = 409
+	 s_string_infix			: INTEGER = 410
+	 s_string_escaped		: INTEGER = 411
+	 s_string_decimal_1		: INTEGER = 412
+	 s_string_decimal_2		: INTEGER = 413
+	 s_string_decimal_3		: INTEGER = 414
+	 s_str_gap_start		: INTEGER = 415
+	 s_str_gap_end			: INTEGER = 416
+	 s_string_suffix		: INTEGER = 417
+	 s_str_right_bracket	: INTEGER = 418
+	 s_str_right_brace		: INTEGER = 419
+	 s_comment				: INTEGER = 420
+	 s_bangbang				: INTEGER = 421
+	 s_raw_text				: INTEGER = 422
+	 s_edit_text			: INTEGER = 423
+	 s_eof					: INTEGER = 424
+	 s_bit					: INTEGER = 425
 
 
 

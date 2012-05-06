@@ -9,7 +9,7 @@ indexing
 	date: "$Date$"
 	revision: "$Revision$"
 
-class GEC
+class GEC_GOBO
 
 inherit
 

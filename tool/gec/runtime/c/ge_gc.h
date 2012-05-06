@@ -399,9 +399,9 @@ inline void			ARENA__set_free_list(gc_arena_t *, int, int);
 void GC__full_collect();
 
 
-long free_space;
-long used_space;
-long mapped_space;
+extern long free_space;
+extern long used_space;
+extern long mapped_space;
 
 #define ARENA_MAGIC 0xa0e0a234
 

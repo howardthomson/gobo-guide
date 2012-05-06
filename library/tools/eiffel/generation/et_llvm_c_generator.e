@@ -24,6 +24,7 @@ note
 	
 	todo: "[
 		Note tcc 0.9.25 compiles C very fast, but does not correctly compile the runtime in GE_setup_signal_handling ...
+		For tcc and varargs, need to include $TCC/lib/x86_64/libtcc1.o in object files
 		
 		Fix TYPE.name generating ->a1 references and assignments [Done]
 
@@ -717,25 +718,24 @@ feature {NONE} -- Compilation script generation
 				l_file.put_line (l_command_name)
 				l_file.put_new_line
 				
-				if true then
-						-- Compile last C file contatining the runtime code separately ...
-						-- 'tcc' compiles much faster than gcc or lcc, but does not correctly
-						-- compile the runtime code, specifically GE_setup_signal_handling()
-					l_file.put_string (l_last_c_filename)
-					l_file.put_character ('.')
-					l_file.put_character ('o')
-					l_file.put_character (':')
-					l_file.put_character (' ')
-					l_file.put_string (l_last_c_filename)
-					l_file.put_character ('.')
-					l_file.put_character ('c')
-					l_file.put_new_line
-					l_file.put_character ('%T')
-					l_ccrt_template := l_c_config.item ("ccrt")
-					l_command_name := template_expander.expand_from_values (l_ccrt_template, l_variables)
-					l_file.put_line (l_command_name)
-					l_file.put_new_line
-				end
+					-- Compile last C file containing the runtime code separately ...
+					-- 'tcc' compiles much faster than gcc or lcc, but does not correctly
+					-- compile the runtime code, specifically GE_setup_signal_handling()
+					-- [TODO] Add #include path for tcc specific varargs ...
+				l_file.put_string (l_last_c_filename)
+				l_file.put_character ('.')
+				l_file.put_character ('o')
+				l_file.put_character (':')
+				l_file.put_character (' ')
+				l_file.put_string (l_last_c_filename)
+				l_file.put_character ('.')
+				l_file.put_character ('c')
+				l_file.put_new_line
+				l_file.put_character ('%T')
+				l_ccrt_template := l_c_config.item ("ccrt")
+				l_command_name := template_expander.expand_from_values (l_ccrt_template, l_variables)
+				l_file.put_line (l_command_name)
+				l_file.put_new_line
 
 				l_file.close
 			else

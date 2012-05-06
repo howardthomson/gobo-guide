@@ -19,7 +19,7 @@ inherit
 			report_validity_error
 		end
 
-creation
+create
 
 	make
 
@@ -29,21 +29,21 @@ feature -- Attributes
 
 feature -- Creation
 
-	make is
+	make
 		do
 		--	make_standard
 			make_null
 			is_ge := True
 		end
 
-	set_target (a_target: EDP_ERROR_TARGET) is
+	set_target (a_target: EDP_ERROR_TARGET)
 		do
 			target := a_target
 		end
 
 feature -- Report routines
 
-	report_validity_error (an_error: ET_VALIDITY_ERROR) is
+	report_validity_error (an_error: ET_VALIDITY_ERROR)
 		do
 			if (not is_ge) or (not an_error.ge_reported) then
 				print (once "EDP_ERROR_HANDLER.report_validity_error called%N")
@@ -54,7 +54,7 @@ feature -- Report routines
 			Precursor (an_error)
 		end
 
-	report_cluster_error (an_error: ET_CLUSTER_ERROR) is
+	report_cluster_error (an_error: ET_CLUSTER_ERROR)
 			-- Report cluster error.
 		do
 			if target /= Void then
@@ -65,7 +65,7 @@ feature -- Report routines
 			end
 		end
 
-	report_error (an_error: UT_ERROR) is
+	report_error (an_error: UT_ERROR)
 		do
 			if target /= Void then
 				target.report_error (an_error)
@@ -74,7 +74,7 @@ feature -- Report routines
 			end
 		end
 
-	report_warning (a_message: UT_ERROR) is
+	report_warning (a_message: UT_ERROR)
 		do
 			if target /= Void then
 		--		target.report_warning (a_message)
@@ -84,7 +84,7 @@ feature -- Report routines
 			end
 		end
 
-	report_info (an_info: UT_ERROR) is
+	report_info (an_info: UT_ERROR)
 		do
 			if target /= Void then
 		--		target.report_info(an_info)
@@ -96,7 +96,7 @@ feature -- Report routines
 
 feature -- Compilation report
 
-	report_preparsing_status (a_cluster: ET_CLUSTER) is
+	report_preparsing_status (a_cluster: ET_CLUSTER)
 			-- Report that `a_cluster' is currently being preparsed.
 		require else
 			a_cluster_not_void: a_cluster /= Void
@@ -108,7 +108,7 @@ feature -- Compilation report
 			end
 		end
 
-	report_compilation_status (a_processor: ET_AST_PROCESSOR; a_class: ET_CLASS) is
+	report_compilation_status (a_processor: ET_AST_PROCESSOR; a_class: ET_CLASS)
 			-- Report that `a_processor' is currently processing `a_class'.
 		require else
 			a_processor_not_void: a_processor /= Void

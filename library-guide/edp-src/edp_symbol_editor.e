@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Window for viewing/editing scanned symbol sequences.
 		Edited symbols revert to Unscanned status.
@@ -119,20 +119,20 @@ feature -- Attributes
 	
 feature -- Focus [ Move to event section when working ]
 
-	can_focus: BOOLEAN is
+	can_focus: BOOLEAN
 			-- Tree List widget can receive focus
 		once
 			Result := True;
 		end
 
-	set_focus is
+	set_focus
 			-- Move the focus to this window
 		do
 			Precursor;
 			set_default(SB_TRUE)
 		end
 
-	kill_focus is
+	kill_focus
 			-- Remove the focus from this window
 		do
 			Precursor;
@@ -141,7 +141,7 @@ feature -- Focus [ Move to event section when working ]
 
 feature -- option values
 
-	is_editable: BOOLEAN is
+	is_editable: BOOLEAN
 			-- Return True if text field may be edited
 		do
 			Result := (options & TEXTFIELD_READONLY) = Zero
@@ -149,14 +149,14 @@ feature -- option values
 
 feature -- class name
 
-	class_name: STRING is
+	class_name: STRING
 		once
 			Result := "SB_SYMBOL_EDITOR"
 		end
 
 feature -- Creation
 
-	make (p: SB_COMPOSITE; s: SCANNER) is
+	make (p: SB_COMPOSITE; s: SCANNER)
 		require
 			valid_parent: p /= Void
 			valid_scanner: s /= Void
@@ -173,7 +173,7 @@ feature -- Creation
 		--	set_default_cursor (application.cursors @ Def_xsplit_cursor)
 		end
 
-	create_resource is
+	create_resource
 		do
 			Precursor
 			ws := once "w"
@@ -190,17 +190,17 @@ feature -- Creation
 
 feature -- Redefined routines
 
-	content_width: INTEGER is
+	content_width: INTEGER
 		do
 			Result := scanner.max_column * fw + 1
 		end
 
-	content_height: INTEGER is
+	content_height: INTEGER
 		do
 			Result := scanner.max_line * fh + 1
 		end
 
-	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_paint (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		local
 			ev: SB_EVENT
 			dc: SB_DC_WINDOW
@@ -226,7 +226,7 @@ feature -- Redefined routines
          	Result := True
 		end
 
-	draw_symbols (dc: SB_DC_WINDOW; ev: SB_EVENT) is
+	draw_symbols (dc: SB_DC_WINDOW; ev: SB_EVENT)
 		local
 			i: INTEGER					-- Symbol index
 			s, s_next: SCANNER_SYMBOL	-- Scanner symbol
@@ -283,7 +283,7 @@ feature -- Redefined routines
 			end
 		end
 
-	is_selected (i: INTEGER): BOOLEAN is
+	is_selected (i: INTEGER): BOOLEAN
 			-- Is the symbol @ i in the current selected text ?
 			-- NB Does not account for partial symbol selection!
 		do
@@ -292,7 +292,7 @@ feature -- Redefined routines
 			end
 		end
 
-	draw_cursor (state: INTEGER) is
+	draw_cursor (state: INTEGER)
 		local
 			dc: SB_DC_WINDOW
 		do
@@ -312,7 +312,7 @@ feature -- Redefined routines
 			end
 		end
 
-	dc_draw_cursor (dc: SB_DC_WINDOW; draw: BOOLEAN) is
+	dc_draw_cursor (dc: SB_DC_WINDOW; draw: BOOLEAN)
 		local
 			cx, cy: INTEGER	-- Cursor x,y
 		do
@@ -327,12 +327,12 @@ feature -- Redefined routines
 			end
 		end
 
-	tab_expanded_string: STRING is
+	tab_expanded_string: STRING
 		once
 			create Result.make (250)
 		end
 
-	expand_tabs(s: STRING; col: INTEGER): STRING is
+	expand_tabs(s: STRING; col: INTEGER): STRING
 		local
 			es: STRING		-- local ref to destination string
 			i: INTEGER		-- current source string index
@@ -365,7 +365,7 @@ feature -- Redefined routines
 
 feature -- event handling
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, key: INTEGER; data: ANY): BOOLEAN
     	do
         	if		match_function_2 (Sel_timeout, ID_BLINK,			type, key) then Result := on_blink 					(sender,key,data)
        	-- 	elseif  match_function_2 (Sel_timeout, Id_autoscroll,		type, key) then Result := on_auto_scroll 			(sender,key,data)
@@ -407,7 +407,7 @@ feature -- event handling
         	end
 		end
 
-   	on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_focus_in (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	Result := Precursor (sender, selector, data)
          	if is_editable then
@@ -422,7 +422,7 @@ feature -- event handling
          	Result := True;
       	end
 
-   	on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_focus_out (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
          	Result := Precursor (sender, selector, data)
          	if blinker /= Void then application.remove_timeout (blinker); blinker := Void end
@@ -433,14 +433,14 @@ feature -- event handling
       	end
 
 
-	on_blink (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_blink (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 		do
         	draw_cursor (flags.bit_xor (Flag_caret))
         	blinker := application.add_timeout (application.blink_speed, Current, ID_BLINK)
         	Result := False
       	end
 
-	on_key_press (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN is
+	on_key_press (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN
     	local
     		event: SB_EVENT
     	do
@@ -643,99 +643,99 @@ feature -- event handling
 
 --############################### Cursor Position Events ##################################
 
-	on_cmd_cursor_home (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_cursor_home (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 			-- Move cursor to start of text
 		do
 			set_cursor (1, 1)
         	Result := True
     	end
 
-   	on_cmd_cursor_end (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_cursor_end (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 			-- Move cursor to end of text
       	do
       		-- TODO
         	Result := True
       	end
 
-	on_cmd_cursor_home_line (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+	on_cmd_cursor_home_line (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 			-- Move cursor to start of line
 		do
 			set_cursor (1, cursor_line)
         	Result := True
     	end
 
-   	on_cmd_cursor_end_line (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_cursor_end_line (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 			-- Move cursor to end of line
       	do
       		-- TODO
         	Result := True
       	end
 
-   	on_cmd_cursor_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_cursor_left (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
 			set_cursor (cursor_column - 1, cursor_line)
         	Result := True
       	end
 
-   	on_cmd_cursor_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_cursor_right (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
 			-- Move cursor right one character
       	do
 			set_cursor (cursor_column + 1, cursor_line)
         	Result := True
       	end
 
-   	on_cmd_cursor_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_cursor_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
 			set_cursor (cursor_column, cursor_line - 1)
         	Result := True
       	end
 
-   	on_cmd_cursor_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_cursor_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
 			set_cursor(cursor_column, cursor_line + 1)
         	Result := True
       	end
 
-   	on_cmd_cursor_page_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_cursor_page_up (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
         	Result := True
       	end
 
-   	on_cmd_cursor_page_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_cursor_page_down (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
         	Result := True
       	end
 
 --#################################### Selection events #########################################
 
-   	on_cmd_mark (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_mark (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
         	Result := True
       	end
 
-   	on_cmd_extend (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_extend (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
         	Result := True
       	end
 
-   	on_cmd_select_all (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_select_all (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
         	Result := True
       	end
 
-   	on_cmd_deselect_all (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_deselect_all (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
         	Result := True
       	end
 
-   	on_cmd_copy_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_copy_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
         	Result := True
       	end
 
 --############################### Modifying Events ##############################################
 
-   	on_cmd_insert_string (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_insert_string (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
    			-- Insert new text at current cursor position
 		local
 			s: STRING
@@ -751,7 +751,7 @@ feature -- event handling
         	Result := True
       	end
 
-   	on_cmd_overstrike_string (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_overstrike_string (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
    			-- Replace current selected text (if any) by new text
 		local
 			event: SB_EVENT
@@ -768,7 +768,7 @@ feature -- event handling
         	Result := True
       	end
 
-   	on_cmd_backspace (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_backspace (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
    			-- Backspace and remove one character
 		local
 			last_line: INTEGER
@@ -794,7 +794,7 @@ feature -- event handling
         	Result := True
       	end
 
-   	on_cmd_delete (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_delete (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
    			-- Delete one character, cursor stays put
       	do
 --			scanner.set_insertion_point(cursor_line, cursor_column, True)
@@ -808,19 +808,19 @@ feature -- event handling
         	Result := True
       	end
 
-   	on_cmd_cut_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_cut_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
    			-- Cut the selected text, push on cut buffer
       	do
         	Result := True
       	end
 
-   	on_cmd_paste_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_paste_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
    			-- Paste selection
       	do
         	Result := True
       	end
 
-   	on_cmd_delete_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_delete_sel (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
    			-- Delete the selection
       	do
         	Result := True
@@ -828,7 +828,7 @@ feature -- event handling
 
 --##################################################
 
-   	on_cmd_toggle_editable (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN is
+   	on_cmd_toggle_editable (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): BOOLEAN
       	do
       		if (options & TEXTFIELD_READONLY) = Zero then
       			options := options | TEXTFIELD_READONLY
@@ -840,7 +840,7 @@ feature -- event handling
 
 --#############
 
-	make_ins (event: SB_EVENT): BOOLEAN is
+	make_ins (event: SB_EVENT): BOOLEAN
 		do
 			Result := True;
         	if (event.state & (CONTROLMASK | ALTMASK)) /= Zero
@@ -859,7 +859,7 @@ feature -- event handling
       	end
 
 
-	on_left_btn_press (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN is
+	on_left_btn_press (sender: SB_MESSAGE_HANDLER; key: INTEGER; data: ANY): BOOLEAN
 		local
 			ev: SB_EVENT
 		do
@@ -873,7 +873,7 @@ feature -- event handling
 --			scanner.place_cursor(cursor_line, cursor_column)
 		end
 
-	set_cursor (col, line: INTEGER) is
+	set_cursor (col, line: INTEGER)
 		local
 			new_col, new_line: INTEGER
 		do
@@ -895,7 +895,7 @@ feature -- event handling
 			end
 		end
 
-	set_cursor_xy (ax, ay: INTEGER): BOOLEAN is
+	set_cursor_xy (ax, ay: INTEGER): BOOLEAN
 			-- Try to position cursor at x,y in window
 		local
 			l, c: INTEGER	-- Line/Column of click position
@@ -913,7 +913,7 @@ feature -- event handling
 		--	edp_trace.st ("set_cursor_xy(").n(ax.out).n(", ").n(ay.out).n("): cl/cc ").n(cursor_line.out).n("/").n(cursor_column.out).d
 		end
 
-	update_current_line is
+	update_current_line
 			-- Update screen for current line
 		do
 			update_rectangle (0, cursor_line * fh - font.ascent, width, fh)

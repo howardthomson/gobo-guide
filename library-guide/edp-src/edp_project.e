@@ -31,7 +31,7 @@ feature -- Attributes
 	Status_validated,		-- Eiffel class set is Eiffel valid
 	Status_generated,		-- Byte (internal) code generated
 	Status_compiled			-- Compiled to (native) executable file
-		:INTEGER is unique
+		:INTEGER = unique
 
 	--	Find: Identify Class Universe
 	--	Load: 
@@ -48,7 +48,7 @@ feature {NONE} -- Attributes (Redundant ?)
 
 feature { NONE } -- Redundant routines ?
 
-	set_trace_parsing(tp: BOOLEAN) is
+	set_trace_parsing(tp: BOOLEAN)
 		do
 			trace_parsing := tp
 		end
@@ -57,31 +57,31 @@ feature -- Status
 
 	status: INTEGER	-- Current project status
 
-	is_walked: BOOLEAN is
+	is_walked: BOOLEAN
 			-- Have all Cluster directories been tree walked ?
 		do
 			Result := status >= Status_universe_OK
 		end
 
-	is_loaded: BOOLEAN is
+	is_loaded: BOOLEAN
 			-- Have all required classes been loaded ?
 		do
 			Result := status >= Status_loaded
 		end
 		
-	is_validated: BOOLEAN is
+	is_validated: BOOLEAN
 			-- Has the project been confirmed as Eiffel valid ?
 		do
 			Result := status >= Status_validated
 		end
 
-	is_generated: BOOLEAN is
+	is_generated: BOOLEAN
 			-- Has intermediate code been generated ?
 		do
 			Result := status >= Status_generated
 		end
 
-	is_compiled: BOOLEAN is
+	is_compiled: BOOLEAN
 			-- Has executable code been generated ?
 		do
 			Result := status >= Status_compiled
@@ -89,12 +89,12 @@ feature -- Status
 
 feature -- Status reset
 
-	set_null is
+	set_null
 		do
 			status := Status_null
 		end
 
-	set_load_failed is
+	set_load_failed
 		require
 			-- status = Status_null
 		do
@@ -103,7 +103,7 @@ feature -- Status reset
 			status = Status_load_failed
 		end
 
-	set_not_validated is
+	set_not_validated
 			-- Revert to requires validation after editing loaded file(s)
 		require
 			status >= Status_loaded
@@ -113,7 +113,7 @@ feature -- Status reset
 
 feature -- creation
 
-	make (name: STRING) is
+	make (name: STRING)
 		do
 			project_name := name
 			set_null
@@ -133,7 +133,7 @@ feature -- setup ---------------------------------------------------------------
 
 feature -- GUI -------------------------------------------------------------------
 
-	set_display_target (t: EDP_DISPLAY_TARGET) is
+	set_display_target (t: EDP_DISPLAY_TARGET)
 			-- window to report events and info to
 			--| change to non GUI ancestor class to
 			--| permit non-GUI executable
@@ -143,7 +143,7 @@ feature -- GUI -----------------------------------------------------------------
 		
 feature -- Process ---------------------------------------------------------------
 		
-	pre_parse is
+	pre_parse
 			-- identify class set from selected clusters
 			-- check for updated original source text
 			-- invalidate cached class info as required
@@ -152,13 +152,13 @@ feature -- Process -------------------------------------------------------------
 		deferred
 		end
 
-	parse_all is
+	parse_all
 		deferred
 		end
 
 		----------------------------------------------------------------------------
 		
-	validate is
+	validate
 			-- check all classes in project for Eiffel validity
 			-- confirm status of root class and creation routine
 		require
@@ -168,7 +168,7 @@ feature -- Process -------------------------------------------------------------
 
 	--------------------------------------------------------------------------------------------------------
 
-	compile is
+	compile
 			-- generate executable project
 		require
 		do
@@ -178,7 +178,7 @@ feature -- Process -------------------------------------------------------------
 			end
 		end
 
-	execute is
+	execute
 			-- run the project executable
 		require
 			--is_generated or is_compiled
@@ -189,7 +189,7 @@ feature -- Process -------------------------------------------------------------
 ---------------------------------------------------------------------------------
 
 --#####################################!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	add_cluster (s: STRING) is
+	add_cluster (s: STRING)
 		local
 			c: EDP_CLUSTER
 		do
@@ -200,7 +200,7 @@ feature -- Process -------------------------------------------------------------
 		end
 		---------------------------------------------------------------------------------------------------------------
 
-	add_cluster_obj (c: EDP_CLUSTER) is
+	add_cluster_obj (c: EDP_CLUSTER)
 			-- Add cluster if not already in
 		do
 --			if not clusters.has(c) then
@@ -211,7 +211,7 @@ feature -- Process -------------------------------------------------------------
 --			end
 		end
 
-	add_class (edpc: EDP_CLASS) is
+	add_class (edpc: EDP_CLASS)
 		do
 			if display_target /= Void then
 				display_target.add_class (edpc)

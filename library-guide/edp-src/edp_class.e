@@ -1,4 +1,4 @@
-indexing
+note
 	copyright: "[
 		--|---------------------------------------------------------|
 		--| Copyright (c) Howard Thomson 1999,2000					|
@@ -35,12 +35,12 @@ feature { ANY }
 
 	et_class: ET_CLASS
 
-	set_et_class (a_class: ET_CLASS) is
+	set_et_class (a_class: ET_CLASS)
 		do
 			et_class := a_class
 		end
 
-	filename: STRING is
+	filename: STRING
 		do
 			Result := et_class.filename
 		end
@@ -49,17 +49,17 @@ feature { ANY }
 
 	status: INTEGER	-- State with respect to original source file
 
-	Status_null:		INTEGER is 0	-- No content yet defined
-	Status_load_failed:	INTEGER is 1	-- File open/read failed
-	Status_loaded:		INTEGER is 2	-- File read OK
-	Status_scan_fail:	INTEGER is 3	-- Scanned with errors
-	Status_scanned:		INTEGER is 4	-- Successfully lexically tokenised
-	Status_parse_failed:INTEGER is 5	-- Parse errors found
-	Status_parsed:		INTEGER is 6	-- Eiffel parse OK
+	Status_null:		INTEGER = 0	-- No content yet defined
+	Status_load_failed:	INTEGER = 1	-- File open/read failed
+	Status_loaded:		INTEGER = 2	-- File read OK
+	Status_scan_fail:	INTEGER = 3	-- Scanned with errors
+	Status_scanned:		INTEGER = 4	-- Successfully lexically tokenised
+	Status_parse_failed:INTEGER = 5	-- Parse errors found
+	Status_parsed:		INTEGER = 6	-- Eiffel parse OK
 
 feature
 
-	status_string: STRING is
+	status_string: STRING
 			-- current status value as a string
 		do
 			inspect status
@@ -77,13 +77,13 @@ feature
 
 feature {NONE} -- Status
 
-	parsed: BOOLEAN is
+	parsed: BOOLEAN
 		do
 		end
 
 feature {NONE} -- Redundant routines .... ?
 
-	parse (p: EDP_PROJECT) is
+	parse (p: EDP_PROJECT)
 		require
 			not_parsed: not parsed
 		do
@@ -118,7 +118,7 @@ feature -- Window creation/deletion
 
 	class_window: EDP_CLASS_WINDOW
 
-	make_class_window is
+	make_class_window
 		do
 			if class_window = Void and then filename /= Void then
 				create class_window.make (Current)
@@ -128,7 +128,7 @@ feature -- Window creation/deletion
 			end
 		end
 
-	window_destroyed is
+	window_destroyed
 		do
 			class_window := Void
 		end

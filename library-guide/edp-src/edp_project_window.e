@@ -235,7 +235,7 @@ end
 		end -- make_window
 		---------------------------
 
-	make_menu_bar: SB_MENU_BAR is
+	make_menu_bar: SB_MENU_BAR
 			-- Create the menu bar
 		local
 			menu_pane,
@@ -279,33 +279,33 @@ end
 		---------------------------
 
 	-- Toolbar item ids
-	Tb_new		: INTEGER is 1	-- New Project ...
-	Tb_open		: INTEGER is 2	-- Open Project ...
-	Tb_close	: INTEGER is 3	-- Close Project
+	Tb_new		: INTEGER = 1	-- New Project ...
+	Tb_open		: INTEGER = 2	-- Open Project ...
+	Tb_close	: INTEGER = 3	-- Close Project
 
-	Tb_load		: INTEGER is 4	-- Identify Eiffel files in repository
-	Tb_scan		: INTEGER is 5	-- Load and Scan all files
-	Tb_pre_parse: INTEGER is 6	-- Pre-parse clusters and locate/identify classes
-	Tb_parse	: INTEGER is 7	-- Parse and load project dependant classes
-	Tb_validate	: INTEGER is 8	-- Validate Project for Eiffel correctness
-	Tb_generate	: INTEGER is 9	-- Generate interpretable (byte)code
-	Tb_compile	: INTEGER is 10	-- Compile to target machine
-	Tb_execute	: INTEGER is 11	-- Run the project
+	Tb_load		: INTEGER = 4	-- Identify Eiffel files in repository
+	Tb_scan		: INTEGER = 5	-- Load and Scan all files
+	Tb_pre_parse: INTEGER = 6	-- Pre-parse clusters and locate/identify classes
+	Tb_parse	: INTEGER = 7	-- Parse and load project dependant classes
+	Tb_validate	: INTEGER = 8	-- Validate Project for Eiffel correctness
+	Tb_generate	: INTEGER = 9	-- Generate interpretable (byte)code
+	Tb_compile	: INTEGER = 10	-- Compile to target machine
+	Tb_execute	: INTEGER = 11	-- Run the project
 
---	Tb_stop		: INTEGER is 12	-- Stop long-running action
-	Tb_quit		: INTEGER is 13	-- Quit EDP
-	Tb_test		: INTEGER is 14	-- TEMP Test tag
+--	Tb_stop		: INTEGER = 12	-- Stop long-running action
+	Tb_quit		: INTEGER = 13	-- Quit EDP
+	Tb_test		: INTEGER = 14	-- TEMP Test tag
 
 	Tb_project_select
-				: INTEGER is 15	-- Projects list combo-box selection event
+				: INTEGER = 15	-- Projects list combo-box selection event
 
-	Tb_make_form: INTEGER is 16	-- Make new Form ...
+	Tb_make_form: INTEGER = 16	-- Make new Form ...
 
-	Tb_last		: INTEGER is 17
+	Tb_last		: INTEGER = 17
 
 	projects_list_box: SB_LIST_BOX
 
-	make_toolbar (a_parent: SB_COMPOSITE): SB_TOOL_BAR is
+	make_toolbar (a_parent: SB_COMPOSITE): SB_TOOL_BAR
 		local
 			b: SB_BUTTON
 		do
@@ -326,7 +326,7 @@ end
 			Result.show
 		end
 
-	toolbar_execute (tag: INTEGER) is
+	toolbar_execute (tag: INTEGER)
 		local
 			s: STRING
 			done: BOOLEAN
@@ -410,7 +410,7 @@ end
 			end
 		end
 
-	add_chore (an_agent: PROCEDURE [ ANY, TUPLE ]) is
+	add_chore (an_agent: PROCEDURE [ ANY, TUPLE ])
 		local
 			c: SB_CHORE
 		do
@@ -418,7 +418,7 @@ end
 			application.add_chore (c)
 		end
 
-	make_new_form is
+	make_new_form
 			-- Create a new top level Form window
 		local
 			f: SB_FORM
@@ -426,7 +426,7 @@ end
 			create f.make_for_design
 		end
 
-	open_project is
+	open_project
 		local
 			filename: STRING
 			new_project: EDP_PROJECT_GOBO
@@ -449,19 +449,19 @@ end
 			end
 		end
 
-	set_status (s: STRING) is
+	set_status (s: STRING)
 		do
 			status_line.set_text (s)
 		end
 
-	get_project_info is
+	get_project_info
 		-- Create GUI data from project
 		do
 		end
 
 	----------------------------------------------------------------------
 
-	add_cluster (c: EDP_CLUSTER) is
+	add_cluster (c: EDP_CLUSTER)
 			-- Add an entry to the repository load paths
 		local
 			s: STRING
@@ -470,13 +470,13 @@ end
 --			repository_tree.create_item_last (Void, s, Void, Void, c, False).discard_result
 		end
 
-	classes_wipe_out is
+	classes_wipe_out
 			-- Clear classes list for current project
 		do
 			classes_tree.wipe_out
 		end
 
-	edp_class (a_class: ET_CLASS): EDP_CLASS is
+	edp_class (a_class: ET_CLASS): EDP_CLASS
 		do
 			Result ?= a_class.data
 			if Result = Void then
@@ -486,7 +486,7 @@ end
 			end
 		end
 
-	add_class (c: ET_CLASS) is
+	add_class (c: ET_CLASS)
 			-- Add an entry to the cluster subtree and the classes tree
 		local
 			edpc: EDP_CLASS
@@ -530,7 +530,7 @@ end
 	--		end
 		end
 
-	add_class_status (c: ET_CLASS; ti: EDP_CLASS_LIST_ITEM) is
+	add_class_status (c: ET_CLASS; ti: EDP_CLASS_LIST_ITEM)
 			-- Add status items to class item
 			-- Called from add_class above
 		local
@@ -611,19 +611,19 @@ end
 			classes_tree.sort_child_items (i)
 		end
 
-	sort_classes is
+	sort_classes
 		do
 			classes_tree.sort_root_items
 		end
 
 feature -- EDP_DISPLAY_TARGET implementation
 
-	errors_wipe_out (a_project: EDP_PROJECT) is
+	errors_wipe_out (a_project: EDP_PROJECT)
 		do
 			errors_list.wipe_out
 		end
 
-	report_error (an_error: UT_ERROR) is
+	report_error (an_error: UT_ERROR)
 		do
 			--	Add to errors tree
 --			errors_list.create_item_last (Void, an_error.default_message, Void, Void, Void, False).discard_result
@@ -631,12 +631,12 @@ feature -- EDP_DISPLAY_TARGET implementation
 		--	.... TODO
 		end
 
-	report_warning (a_warning: UT_ERROR) is
+	report_warning (a_warning: UT_ERROR)
 		do
 			print ("EDP_PROJECT_WINDOW.report_warning called%N")
 		end
 
-	report_info (an_info: UT_ERROR) is
+	report_info (an_info: UT_ERROR)
 		do
 			print ("EDP_PROJECT_WINDOW.report_info called%N")
 		end
@@ -645,13 +645,13 @@ feature {NONE} -- Save file names if in-system classes
 
 	in_system_file: PLAIN_TEXT_FILE
 
-	open_in_system_report_file is
+	open_in_system_report_file
 			-- Create/truncate file for in_system filenames
 		do
 			create {PLAIN_TEXT_FILE} in_system_file.make_create_read_write ("in_system_filenames")
 		end
 
-	close_in_system_report_file is
+	close_in_system_report_file
 			-- Close file for in_system filenames
 		do
 			if in_system_file /= Void then
@@ -659,7 +659,7 @@ feature {NONE} -- Save file names if in-system classes
 			end
 		end
 
-	report_to_file (c: ET_CLASS) is
+	report_to_file (c: ET_CLASS)
 			-- Report filenames of classes in_system
 			-- to file
 		require
@@ -679,12 +679,12 @@ feature -- Properties
 
 -- SB_PROPERTY below may need to be altered to SB_PROPERTY_VALUE
 
-	property (i: INTEGER): SB_PROPERTY is
+	property (i: INTEGER): SB_PROPERTY
 		do
 
 		end
 
-	XXproperties: ARRAY [ SB_PROPERTY ] is
+	XXproperties: ARRAY [ SB_PROPERTY ]
 		require
 			implemented: true
 			enabled: false
@@ -697,7 +697,7 @@ feature -- Properties
 
 feature -- event handling
 
-	handle_2 (sender: SB_MESSAGE_HANDLER; type, a_msg: INTEGER; data: ANY): BOOLEAN is
+	handle_2 (sender: SB_MESSAGE_HANDLER; type, a_msg: INTEGER; data: ANY): BOOLEAN
 		do
 			if match_functions_2 (SEL_COMMAND, Tb_new, Tb_last, type, a_msg) then
 				toolbar_execute (a_msg)

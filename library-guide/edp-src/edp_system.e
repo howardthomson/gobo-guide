@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -22,7 +22,7 @@ create
 
 feature -- Display classes
 
-	XXset_classes_tree (a_target: EDP_DISPLAY_TARGET) is
+	XXset_classes_tree (a_target: EDP_DISPLAY_TARGET)
 		require
 			a_target_not_void: a_target /= Void
 		local

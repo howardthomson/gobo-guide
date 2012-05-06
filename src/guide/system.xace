@@ -11,6 +11,7 @@
 
 	<root class="GUIDE" creation="make"/>
 	<option name="console_application" value="false"/>
+	<option name="syntax" value="transitional"/>
 	<option unless="${DEBUG}">
 		<option name="assertion" value="none"/>
 		<option name="garbage_collector" value="none"/>
@@ -39,33 +40,8 @@
 	<mount location="${GOBO}/library/math/library.xace"/>
 	<mount location="${GOBO}/library/time/library.xace"/>
 
-	<cluster name="free_elks" location="${GOBO}/library/free_elks">
-		<option name="abstract" value="true"/>
-		<cluster name="fake">
-			<option name="exclude" value="any.e"/>
-		</cluster>
-		<cluster name="kernel">
-			<!--option name="exclude" value="any.e"/-->
-		</cluster>
-		<cluster name="refactoring"/>
-		<cluster name="structures">
-			<cluster name="access"/>
-			<cluster name="cursor_tree"/>
-			<cluster name="cursors"/>
-			<cluster name="dispenser"/>
-			<cluster name="iteration"/>
-			<cluster name="list"/>
-			<cluster name="set">
-				<cluster name="strategies"/>
-			</cluster>
-			<cluster name="sort"/>
-			<cluster name="storage"/>
-			<cluster name="table"/>
-			<cluster name="traversing"/>
-			<cluster name="tree"/>
-		</cluster>
-		<cluster name="support"/>
-	</cluster>
+	<mount location="${GOBO}/library/kernel.xace"/>
+
 
 	<cluster name="guide" location="${GOBO}/src/guide"/>
 	<cluster name="gc_tests" location="${GOBO}/src/gctest"/>
@@ -81,25 +57,6 @@
 
 	<cluster name="edp_fec" 			location="${GOBO}/library-guide/fec"/>
 	
-	<!--cluster name="edp_sb" 				location="${GOBO}/library-guide/sb-x11"/>
-	<cluster name="edp_sb_common" 		location="${GOBO}/library-guide/sb-common">
-		<cluster name="icons"/>
-		<cluster name="constants"/>
-		<cluster name="commands"/>
-		<cluster name="internal"/>
-		<cluster name="kernel"/>
-		<cluster name="properties"/>
-		<cluster name="widgets">
-			<cluster name="containers"/>
-			<cluster name="primitives"/>
-			<cluster name="dialogs"/>
-			<cluster name="uncommon_widgets"/>
-		</cluster>		
-	</cluster>
-	<cluster name="edp_x11" 			location="${GOBO}/library-guide/x11"/>
-	<cluster name="edp_x11_events" 		location="${GOBO}/library-guide/x11/events"/>
-	<cluster name="edp_pointer" 		location="${GOBO}/library-guide/pointer"/-->
-
 	<cluster name="gecmp" 				location="${GOBO}/src/gecmp"/>
 
 	<cluster name="gec"					location="$GOBO/src/gec"/>
@@ -116,18 +73,21 @@
 	</cluster>
 
 	<cluster name="lib_sha1" location="/data/eiffel/lib/sha1"/>
+
 	
 	<option name="c_compiler_options" value="-m32" if="${m32}"/>
 	<option name="c_compiler_options" value="-L/usr/X11R6/lib"/>
 	<option name="c_compiler_options" value="-I/data/eiffel/lib/zeromq/include"/>
 	<option name="c_compiler_options" value="-I${GOBO}/library-guide/sha1"/>
 	<option name="c_compiler_options" value="-DXUTIL_DEFINE_FUNCTIONS"/>
+
 	<option name="link" value="-m32" if="${m32}"/>
 	<option name="link" value="-lX11"/>
-	<option name="link" value="/data/git/gobo-guide-2/library-guide/sha1/sha1.o"/>
+	<option name="link" value="${GOBO}/library-guide/sha1/sha1.o"/>
 	<option name="link" value="-lpthread"/>
 	<option name="link" value="-lrt"/>
 	<option name="link" value="-lm"/>
 	<option name="link" value="${GOBO}/library-guide/c_code/pointer_access${bit_64}.o"/>
 	<option name="link" value="${GOBO}/library-guide/c_code/x_error${bit_64}.o"/>
+	<option name="link" value="/data/git/tinycc/tinycc/lib/x86_64/libtcc1.o"/>
 </system>

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		The set of all file_names known to edp.
 	]"
@@ -12,13 +12,13 @@ indexing
 	]"
 class EDP_FILE_NAMES
 
-creation
+create
 
 	make
 
 feature
 
-	make is
+	make
 		do
 		end
 
@@ -32,7 +32,7 @@ feature
 --			create Result.make
 --		end
 
-	find(findex: INTEGER): INTEGER is
+	find(findex: INTEGER): INTEGER
 		local
 			i: INTEGER
 		do
@@ -46,7 +46,7 @@ feature
 --			end
 		end
 		
-	has(findex: INTEGER): BOOLEAN is
+	has(findex: INTEGER): BOOLEAN
 		do
 			Result := find(findex) > 0
 		end

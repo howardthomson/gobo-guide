@@ -1,12 +1,15 @@
---|---------------------------------------------------------|
---| Copyright (c) Howard Thomson 1999-2011					|
---| 52 Ashford Crescent										|
---| Ashford, Middlesex TW15 3EB								|
---| United Kingdom											|
---|---------------------------------------------------------|
 note
 	Project:	"Eiffel Design Project -- EDP"
 	Version:	"Eiffel Vision version"
+
+	copyright: "[
+		--|---------------------------------------------------------|
+		--| Copyright (c) Howard Thomson 1999-2011					|
+		--| 52 Ashford Crescent										|
+		--| Ashford, Middlesex TW15 3EB								|
+		--| United Kingdom											|
+		--|---------------------------------------------------------|
+	]"
 
 class GUIDE_EV
 
@@ -40,7 +43,7 @@ feature
 
 	gec: GEC
 
-	make is
+	make
 			-- Startup for Eiffel Design Project Application
 		local
 			failed: BOOLEAN
@@ -48,7 +51,8 @@ feature
 		do
 			if arguments.argument (0).is_equal ("gec")
 			or else arguments.argument (0).is_equal ("./gec") then
-				create gec.execute
+					-- run 'execute' from GEC
+				execute
 			elseif arguments.argument (0).is_equal ("./test_gc") then
 				create gc_test.make
 			else
@@ -67,7 +71,7 @@ feature
 
 	pw: EDP_PROJECT_WINDOW
 
-	prepare is
+	prepare
 		do
 			create np.make ("edp")
 			create pw.from_project (np)

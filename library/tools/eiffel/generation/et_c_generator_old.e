@@ -70,7 +70,7 @@ indexing
 		print_types modified, to check for l_expanded_sorter.has( a-previously-added-expanded-type )
 	]"
 
-class ET_C_GENERATOR
+class ET_C_GENERATOR_OLD	-- ET_C_GENERATOR renamed; 'ec' is fussy !!!
 
 inherit
 

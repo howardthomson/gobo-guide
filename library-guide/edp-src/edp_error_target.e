@@ -4,7 +4,7 @@
 --| Ashford, Middlesex TW15 3EB								|
 --| United Kingdom											|
 --|---------------------------------------------------------|
-indexing
+note
 
 	description: "Class target for error reporting"
 	
@@ -12,15 +12,15 @@ deferred class EDP_ERROR_TARGET
 
 feature
 
-	report_error(an_error: UT_ERROR) is
+	report_error(an_error: UT_ERROR)
 		deferred
 		end
 
-	report_warning(a_warning: UT_ERROR) is
+	report_warning(a_warning: UT_ERROR)
 		deferred
 		end
 
-	report_info(an_info: UT_ERROR) is
+	report_info(an_info: UT_ERROR)
 		deferred
 		end
 

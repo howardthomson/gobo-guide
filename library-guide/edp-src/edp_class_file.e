@@ -4,7 +4,7 @@
 --| Ashford, Middlesex TW15 3EB								|
 --| United Kingdom											|
 --|---------------------------------------------------------|
-indexing
+note
 
 	todo: "[
 		FIX GEC complaints Lines 64/65/70/72 (+5)
@@ -35,7 +35,7 @@ feature -- Attributes
 
 feature -- Status
 
-	scanned: BOOLEAN is
+	scanned: BOOLEAN
 		do
 --#			Result := scanner /= Void and then scanner.scanned_ok
 		end
@@ -44,7 +44,7 @@ feature -- Scanning
 
 	edp_str: STRING
 	
-	scan is
+	scan
 			-- GOBO Gelex scanner version
 		require
 			not_scanned: not scanned

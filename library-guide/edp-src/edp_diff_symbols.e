@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Mark Differences between sets of SCANNER_SYMBOLs"
 
@@ -25,7 +25,7 @@ create
 
 feature -- Token equality
 
-	equal_tokens (a, b: G): BOOLEAN is
+	equal_tokens (a, b: G): BOOLEAN
 		local
 			la, lb: ET_AST_LEAF
 			l, c: INTEGER
@@ -55,14 +55,14 @@ feature -- Token equality
 
 feature -- Symbol marking (DIFF from ISE Version)
 
-	diff_compare is
+	diff_compare
 		do
 --print ("EDP_DIFF_SYMBOLS.diff_compare%N")
 			compute_lcs
 --			print_all_matches
 		end
 
-	print_all_matches is
+	print_all_matches
 		local
 			i, nb: INTEGER
 		do
@@ -79,12 +79,12 @@ feature -- Symbol marking (DIFF from ISE Version)
 			end
 		end
 
-	pnl is
+	pnl
 		do
 			print (once "%N")
 		end
 
-	mark_symbols is
+	mark_symbols
 		local
 			i, nb, nb2, si, di: INTEGER
 			s: G
@@ -144,7 +144,7 @@ feature -- Symbol marking (DIFF from ISE Version)
 			end			
 		end
 
-	set_status (s: G; new_status: INTEGER) is
+	set_status (s: G; new_status: INTEGER)
 			-- Set new status, unless status is 'ignore'
 		do
 			if s.is_match_exclude then

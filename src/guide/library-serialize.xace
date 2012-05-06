@@ -8,7 +8,7 @@
 		license: "Eiffel Forum License v2 (see forum.txt)"
 	</description>
 
-	<cluster name="serialize" location="/data/Eiffel67/compatible/library/base/ise/serialization">
+	<cluster name="serialize" location="${ISE_EIFFEL}/compatible/library/base/ise/serialization">
 		<option name="abstract" value="true"/>
 		<cluster name="errors"/>
 		<cluster name="model"/>

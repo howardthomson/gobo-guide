@@ -4,7 +4,7 @@
 --| Ashford, Middlesex TW15 3EB								|
 --| United Kingdom											|
 --|---------------------------------------------------------|
-indexing
+note
 	description:"Global facilities class for EDP based programs"
 	author:		"Howard Thomson"
 
@@ -19,24 +19,24 @@ feature {NONE} -- shared strings
 
 	shared_gobo_strings: EDP_GOBO_STRINGS
 
-	gobo_strings: DS_HASH_TABLE [INTEGER, STRING] is
+	gobo_strings: DS_HASH_TABLE [INTEGER, STRING]
 		once
 			Result := shared_gobo_strings.gobo_strings
 		end
 	
 feature -- Tracing
 
-	trace_start is
+	trace_start
 		do
 		end
 
-	trace_stop is
+	trace_stop
 		do
 		end
 
 feature -- Repository
 
-	repository: EDP_REPOSITORY is
+	repository: EDP_REPOSITORY
 		once
 			create Result.make
 		end

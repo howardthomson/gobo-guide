@@ -12,7 +12,7 @@ inherit
 
 feature
 
-	compare(a, b: EDP_CLASS_LIST_ITEM): INTEGER is
+	compare(a, b: EDP_CLASS_LIST_ITEM): INTEGER
 		do
 			Result := a.label.three_way_comparison(b.label)
 		end

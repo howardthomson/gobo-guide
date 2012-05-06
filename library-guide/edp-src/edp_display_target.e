@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 		Deferred class, an instance of which receives updates
 		and events about the state of and progress in a Project
@@ -14,27 +14,27 @@ deferred class EDP_DISPLAY_TARGET
 
 feature -- Configuration
 
-	add_cluster (c: EDP_CLUSTER) is
+	add_cluster (c: EDP_CLUSTER)
 		deferred
 		end
 
 feature -- Classes
 
-	classes_wipe_out is
+	classes_wipe_out
 		deferred
 		end
 
-	add_class (c: ET_CLASS) is
+	add_class (c: ET_CLASS)
 		deferred
 		end
 
-	sort_classes is
+	sort_classes
 		deferred
 		end
 
 feature -- Warnings & errors
 
-	errors_wipe_out (a_project: EDP_PROJECT) is
+	errors_wipe_out (a_project: EDP_PROJECT)
 			-- Clear the reported warnings and errors for the project
 		deferred
 		end

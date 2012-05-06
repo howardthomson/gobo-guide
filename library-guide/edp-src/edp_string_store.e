@@ -10,7 +10,7 @@ inherit
 
 	MY_STRINGS	-- TEMP
 
-creation
+create
 
 	make
 
