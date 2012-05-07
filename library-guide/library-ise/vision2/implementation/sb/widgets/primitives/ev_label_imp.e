@@ -62,6 +62,23 @@ feature -- Access
 			angle := a_angle
 		end
 
+feature -- Status Setting
+
+	align_text_top
+			-- Set vertical text alignment of current label to top.
+		do
+		end
+
+	align_text_vertical_center
+			-- Set text alignment of current label to be in the center vertically.
+		do
+		end
+
+	align_text_bottom
+			-- Set vertical text alignment of current label to bottom.
+		do
+		end
+
 feature {EV_ANY_I} -- Implementation
 
 	interface: EV_LABEL;

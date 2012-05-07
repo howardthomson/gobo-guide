@@ -23,7 +23,7 @@
 
 	<target name="init_system">
 		<set name="system" value="guide"/>
-		<set name="system_dir" value="${GOBO}/src/${system}"/>
+		<set name="system_dir" value="${GUIDE}/src/${system}"/>
 	</target>
 
 	<target name="compile_ge" depend="prepare_compile">
@@ -84,8 +84,8 @@
 			-L/usr/X11R6/lib
 			-lX11 -lrt
 			-lm
-			${GOBO}/guide/c_code/pointer_access.o
-			${GOBO}/guide/c_code/x_error.o" unless="${GOBO_OS}=windows"/>
+			${GUIDE}/guide/c_code/pointer_access.o
+			${GUIDE}/guide/c_code/x_error.o" unless="${GOBO_OS}=windows"/>
 	</target>
 
 </project>

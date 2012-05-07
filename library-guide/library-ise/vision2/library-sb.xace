@@ -46,7 +46,7 @@
 			</cluster>
 		</cluster>
 	</cluster>
-	<cluster name="slyboots" location="${GOBO}/library-guide/library-ise/vision2">
+	<cluster name="slyboots" location="${GUIDE}/library-guide/library-ise/vision2">
 		<cluster name="implementation" recursive="true" prefix="imp_">
 			<cluster name="sb">
 				<cluster name="events"/>
@@ -64,7 +64,7 @@
 			</cluster>
 		</cluster>
 	</cluster>
-	<cluster name="slyboots_imp" location="${GOBO}/library-guide" prefix="simp_">
+	<cluster name="slyboots_imp" location="${GUIDE}/library-guide" prefix="simp_">
 		<cluster name="sb-common">
 			<cluster name="icons"/>
 			<cluster name="constants"/>

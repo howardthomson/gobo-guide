@@ -167,7 +167,7 @@ feature { ANY }
 
 --------------------------------------------------------------------------------
 	
-	item, infix "@" (pos: INTEGER): ELEMENT
+	item alias "@" (pos: INTEGER): ELEMENT
 		require
 			1 <= pos
 			pos <= count

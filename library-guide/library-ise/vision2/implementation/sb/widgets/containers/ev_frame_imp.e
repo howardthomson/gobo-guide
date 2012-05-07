@@ -156,6 +156,17 @@ feature -- Element change
 --			{EV_GTK_EXTERNALS}.gtk_frame_set_label (container_widget, a_cs.item)
 		end
 
+	set_border_width (value: INTEGER)
+			-- Assign `value' to `border_width'.
+--		require
+--			positive_value: value >= 0
+		do
+--		ensure
+--			border_assigned: border_width = value
+		end
+
+
+
 feature {NONE} -- Implementation
 
 	internal_text: STRING_32

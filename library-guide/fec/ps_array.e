@@ -56,7 +56,7 @@ feature { ANY }
 	count: INTEGER
 			-- number of elements in the array
 
-	item, infix "@" (i: INTEGER): ELEMENT
+	item alias "@" (i: INTEGER): ELEMENT
 		do
 			Result := data.item (i)
 		end

@@ -40,3 +40,8 @@ Fix: once ("process") etc
 	Edited [temporarily] in vision2 in Eiffel70 libraries EV_ENVIRONMENT_I (?)
 
 	Update gexace from gobo-eiffel, to fix syntax options when compiling ise
+
+	ev_dynamic_list altered temporarily ... Syntax error
+
+	EV_WIDGET_LIST changed, inheritance select clause issue with Gobo compilation
+	

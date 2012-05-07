@@ -392,6 +392,18 @@ feature {NONE} -- Implementation
 		--	Result := True	-- ???
 		end
 
+	set_selection (a_start_pos, a_end_pos: INTEGER)
+			-- Select (highlight) the characters between valid caret positions `a_start_pos' and `a_end_pos'.
+--		require
+--			valid_start: a_start_pos > 0 and a_start_pos <= text_length + 1
+--			valid_end: a_end_pos > 0 and a_end_pos <= text_length + 1
+		do
+--		ensure
+--			selection_set: a_start_pos /= a_end_pos = has_selection
+		end
+
+
+
 feature {EV_ANY_I} -- Implementation
 
 	interface: EV_TEXT;
