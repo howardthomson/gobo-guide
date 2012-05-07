@@ -24,6 +24,7 @@ feature -- Option names
 	array_optimization_name: STRING = "array_optimization"
 	assembly_name: STRING = "assembly"
 	assertion_name: STRING = "assertion"
+	attached_by_default_name: STRING = "attached_by_default"
 	automatic_backup_name: STRING = "automatic_backup"
 	callback_name: STRING = "callback"
 	case_insensitive_name: STRING = "case_insensitive"
@@ -110,6 +111,7 @@ feature -- Option names
 	verbose_name: STRING = "verbose"
 	version_name: STRING = "version"
 	visible_filename_name: STRING = "visible_filename"
+	void_safety_name: STRING = "void_safety"
 	warning_name: STRING = "warning"
 	wedit_name: STRING = "wedit"
 
@@ -121,99 +123,101 @@ feature -- Option codes
 	array_optimization_code: INTEGER = 4
 	assembly_code: INTEGER = 5
 	assertion_code: INTEGER = 6
-	automatic_backup_code: INTEGER = 7
-	callback_code: INTEGER = 8
-	case_insensitive_code: INTEGER = 9
-	check_generic_creation_constraint_code: INTEGER = 10
-	check_vape_code: INTEGER = 11
-	clean_code: INTEGER = 12
-	cls_compliant_code: INTEGER = 13
-	component_code: INTEGER = 14
-	console_application_code: INTEGER = 15
-	create_keyword_extension_code: INTEGER = 16
-	culture_code: INTEGER = 17
-	c_compiler_options_code: INTEGER = 18
-	dead_code_removal_code: INTEGER = 19
-	debug_option_code: INTEGER = 20
-	debug_tag_code: INTEGER = 21
-	debugger_code: INTEGER = 22
-	document_code: INTEGER = 23
-	dotnet_naming_convention_code: INTEGER = 24
-	dynamic_runtime_code: INTEGER = 25
-	ecf_library_code: INTEGER = 26
-	enforce_unique_class_names_code: INTEGER = 27
-	exception_trace_code: INTEGER = 28
-	exclude_code: INTEGER = 29
-	export_option_code: INTEGER = 30
-	external_runtime_code: INTEGER = 31
-	finalize_option_code: INTEGER = 32
-	flat_fst_optimization_code: INTEGER = 33
-	force_32bits_code: INTEGER = 34
-	fst_expansion_factor_code: INTEGER = 35
-	fst_optimization_code: INTEGER = 36
-	full_class_checking_code: INTEGER = 37
-	garbage_collector_code: INTEGER = 38
-	gc_info_code: INTEGER = 39
-	heap_size_code: INTEGER = 40
-	header_code: INTEGER = 41
-	high_memory_compiler_code: INTEGER = 42
-	il_verifiable_code: INTEGER = 43
-	include_code: INTEGER = 44
-	inlining_code: INTEGER = 45
-	inlining_size_code: INTEGER = 46
-	jumps_optimization_code: INTEGER = 47
-	layout_code: INTEGER = 48
-	layout_optimization_code: INTEGER = 49
-	leaves_optimization_code: INTEGER = 50
-	line_generation_code: INTEGER = 51
-	link_code: INTEGER = 52
-	linker_code: INTEGER = 53
-	linux_fpu_double_precision_code: INTEGER = 54
-	manifest_string_trace_code: INTEGER = 55
-	map_code: INTEGER = 56
-	metadata_cache_path_code: INTEGER = 57
-	msil_assembly_compatibility_code: INTEGER = 58
-	msil_classes_per_module_code: INTEGER = 59
-	msil_clr_version_code: INTEGER = 60
-	msil_culture_code: INTEGER = 61
-	msil_generation_code: INTEGER = 62
-	msil_generation_version_code: INTEGER = 63
-	msil_key_file_name_code: INTEGER = 64
-	msil_use_optimized_precompile_code: INTEGER = 65
-	multithreaded_code: INTEGER = 66
-	namespace_code: INTEGER = 67
-	no_default_lib_code: INTEGER = 68
-	old_verbatim_strings_code: INTEGER = 69
-	override_cluster_code: INTEGER = 70
-	portable_code_generation_code: INTEGER = 71
-	precompiled_code: INTEGER = 72
-	prefix_option_code: INTEGER = 73
-	profile_code: INTEGER = 74
-	public_key_token_code: INTEGER = 75
-	read_only_code: INTEGER = 76
-	recursive_code: INTEGER = 77
-	reloads_optimization_code: INTEGER = 78
-	shared_library_definition_code: INTEGER = 79
-	split_code: INTEGER = 80
-	stack_size_code: INTEGER = 81
-	storable_code: INTEGER = 82
-	storable_filename_code: INTEGER = 83
-	strip_option_code: INTEGER = 84
-	syntax_code: INTEGER = 85
-	target_code: INTEGER = 86
-	trace_code: INTEGER = 87
-	use_cluster_name_as_namespace_code: INTEGER = 88
-	use_full_cluster_name_as_namespace_code: INTEGER = 89
-	verbose_code: INTEGER = 90
-	version_code: INTEGER = 91
-	visible_filename_code: INTEGER = 92
-	warning_code: INTEGER = 93
-	wedit_code: INTEGER = 94
+	attached_by_default_code: INTEGER = 7
+	automatic_backup_code: INTEGER = 8
+	callback_code: INTEGER = 9
+	case_insensitive_code: INTEGER = 10
+	check_generic_creation_constraint_code: INTEGER = 11
+	check_vape_code: INTEGER = 12
+	clean_code: INTEGER = 13
+	cls_compliant_code: INTEGER = 14
+	component_code: INTEGER = 15
+	console_application_code: INTEGER = 16
+	create_keyword_extension_code: INTEGER = 17
+	culture_code: INTEGER = 18
+	c_compiler_options_code: INTEGER = 19
+	dead_code_removal_code: INTEGER = 20
+	debug_option_code: INTEGER = 21
+	debug_tag_code: INTEGER = 22
+	debugger_code: INTEGER = 23
+	document_code: INTEGER = 24
+	dotnet_naming_convention_code: INTEGER = 25
+	dynamic_runtime_code: INTEGER = 26
+	ecf_library_code: INTEGER = 27
+	enforce_unique_class_names_code: INTEGER = 28
+	exception_trace_code: INTEGER = 29
+	exclude_code: INTEGER = 30
+	export_option_code: INTEGER = 31
+	external_runtime_code: INTEGER = 32
+	finalize_option_code: INTEGER = 33
+	flat_fst_optimization_code: INTEGER = 34
+	force_32bits_code: INTEGER = 35
+	fst_expansion_factor_code: INTEGER = 36
+	fst_optimization_code: INTEGER = 37
+	full_class_checking_code: INTEGER = 38
+	garbage_collector_code: INTEGER = 39
+	gc_info_code: INTEGER = 40
+	heap_size_code: INTEGER = 41
+	header_code: INTEGER = 42
+	high_memory_compiler_code: INTEGER = 43
+	il_verifiable_code: INTEGER = 44
+	include_code: INTEGER = 45
+	inlining_code: INTEGER = 46
+	inlining_size_code: INTEGER = 47
+	jumps_optimization_code: INTEGER = 48
+	layout_code: INTEGER = 49
+	layout_optimization_code: INTEGER = 50
+	leaves_optimization_code: INTEGER = 51
+	line_generation_code: INTEGER = 52
+	link_code: INTEGER = 53
+	linker_code: INTEGER = 54
+	linux_fpu_double_precision_code: INTEGER = 55
+	manifest_string_trace_code: INTEGER = 56
+	map_code: INTEGER = 57
+	metadata_cache_path_code: INTEGER = 58
+	msil_assembly_compatibility_code: INTEGER = 59
+	msil_classes_per_module_code: INTEGER = 60
+	msil_clr_version_code: INTEGER = 61
+	msil_culture_code: INTEGER = 62
+	msil_generation_code: INTEGER = 63
+	msil_generation_version_code: INTEGER = 64
+	msil_key_file_name_code: INTEGER = 65
+	msil_use_optimized_precompile_code: INTEGER = 66
+	multithreaded_code: INTEGER = 67
+	namespace_code: INTEGER = 68
+	no_default_lib_code: INTEGER = 69
+	old_verbatim_strings_code: INTEGER = 70
+	override_cluster_code: INTEGER = 71
+	portable_code_generation_code: INTEGER = 72
+	precompiled_code: INTEGER = 73
+	prefix_option_code: INTEGER = 74
+	profile_code: INTEGER = 75
+	public_key_token_code: INTEGER = 76
+	read_only_code: INTEGER = 77
+	recursive_code: INTEGER = 78
+	reloads_optimization_code: INTEGER = 79
+	shared_library_definition_code: INTEGER = 80
+	split_code: INTEGER = 81
+	stack_size_code: INTEGER = 82
+	storable_code: INTEGER = 83
+	storable_filename_code: INTEGER = 84
+	strip_option_code: INTEGER = 85
+	syntax_code: INTEGER = 86
+	target_code: INTEGER = 87
+	trace_code: INTEGER = 88
+	use_cluster_name_as_namespace_code: INTEGER = 89
+	use_full_cluster_name_as_namespace_code: INTEGER = 90
+	verbose_code: INTEGER = 91
+	version_code: INTEGER = 92
+	visible_filename_code: INTEGER = 93
+	void_safety_code: INTEGER = 94
+	warning_code: INTEGER = 95
+	wedit_code: INTEGER = 96
 
 	option_codes: DS_HASH_TABLE [INTEGER, STRING]
 			-- Mapping option names -> option codes
 		once
-			create Result.make_map (94)
+			create Result.make_map (96)
 			Result.set_key_equality_tester (string_equality_tester)
 			Result.put_new (abstract_code, abstract_name)
 			Result.put_new (address_expression_code, address_expression_name)
@@ -221,6 +225,7 @@ feature -- Option codes
 			Result.put_new (array_optimization_code, array_optimization_name)
 			Result.put_new (assembly_code, assembly_name)
 			Result.put_new (assertion_code, assertion_name)
+			Result.put_new (attached_by_default_code, attached_by_default_name)
 			Result.put_new (automatic_backup_code, automatic_backup_name)
 			Result.put_new (callback_code, callback_name)
 			Result.put_new (case_insensitive_code, case_insensitive_name)
@@ -307,6 +312,7 @@ feature -- Option codes
 			Result.put_new (verbose_code, verbose_name)
 			Result.put_new (version_code, version_name)
 			Result.put_new (visible_filename_code, visible_filename_name)
+			Result.put_new (void_safety_code, void_safety_name)
 			Result.put_new (warning_code, warning_name)
 			Result.put_new (wedit_code, wedit_name)
 		ensure
@@ -323,6 +329,7 @@ feature -- Option values
 	check_value: STRING = "check"
 	class_value: STRING = "class"
 	com_value: STRING = "com"
+	complete_value: STRING = "complete"
 	constant_value: STRING = "constant"
 	default_value: STRING = "default"
 	dll_value: STRING = "dll"
@@ -340,6 +347,7 @@ feature -- Option values
 	none_value: STRING = "none"
 	obsolete_value: STRING = "obsolete"
 	once_value: STRING = "once"
+	on_demand_value: STRING = "on_demand"
 	require_value: STRING = "require"
 	sequential_value: STRING = "sequential"
 	standard_value: STRING = "standard"

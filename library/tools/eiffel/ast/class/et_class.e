@@ -5,10 +5,10 @@ note
 		"Eiffel classes"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 1999-2010, Eric Bezault and others"
+	copyright: "Copyright (c) 1999-2011, Eric Bezault and others"
 	license: "MIT License"
-	date: "$Date: 2010/09/15 $"
-	revision: "$Revision: #43 $"
+	date: "$Date: 2011/09/15 $"
+	revision: "$Revision: #46 $"
 
 class ET_CLASS
 
@@ -231,8 +231,8 @@ feature -- Initialization
 			-- Do nothing if interface not checked.
 		do
 			reset_implementation_checked
-			queries.reset_after_features_flattened
-			procedures.reset_after_features_flattened
+			queries.reset_after_interface_checked
+			procedures.reset_after_interface_checked
 			if invariants /= Void then
 				invariants.reset
 			end
@@ -610,7 +610,7 @@ feature -- Preparsing
 	filename: STRING
 			-- Filename
 
-	group: ET_GROUP
+	group: ET_PRIMARY_GROUP
 			-- Group (e.g. cluster or .NET assembly) to which current class belongs
 
 	universe: ET_UNIVERSE
@@ -787,12 +787,16 @@ feature -- Preparsing status
 		end
 
 	is_in_group_recursive (a_group: ET_GROUP): BOOLEAN
-			-- Is current class in `a_group' or recursively
-			-- in one of its subgroups?
+			-- Has current class been declared in `a_group' or
+			-- recursively in one of its subgroups?
 		require
 			a_group_not_void: a_group /= Void
 		do
 			if group = a_group then
+				Result := True
+			elseif a_group.universe /= universe then
+				Result := False
+			elseif ANY_.to_any (a_group) = universe then
 				Result := True
 			else
 				Result := a_group.has_subgroup (group)
@@ -837,6 +841,8 @@ feature -- Preparsing status
 
 	is_overridden: BOOLEAN
 			-- Is current class overridden by another class?
+			--
+			-- Note that this routine does not take into account the ignored status of classes.
 		do
 			Result := (master_class_in_universe.actual_class /= Current)
 		ensure
@@ -1445,7 +1451,7 @@ feature -- Conversion
 			other_type: ET_TYPE
 		do
 			if convert_features /= Void then
-				other_type := tokens.like_current
+				other_type := tokens.identity_type
 				nb := convert_features.count
 				from i := 1 until i > nb loop
 					a_feature := convert_features.convert_feature (i)
@@ -1475,7 +1481,7 @@ feature -- Conversion
 			other_type: ET_TYPE
 		do
 			if convert_features /= Void then
-				other_type := tokens.like_current
+				other_type := tokens.identity_type
 				nb := convert_features.count
 				from i := 1 until i > nb loop
 					a_feature := convert_features.convert_feature (i)

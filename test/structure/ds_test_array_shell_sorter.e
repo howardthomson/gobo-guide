@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,7 +6,7 @@ indexing
 
 	test_status: "ok_to_run"
 	library: "Gobo Eiffel Structure Library"
-	copyright: "Copyright (c) 2001, Eric Bezault and others"
+	copyright: "Copyright (c) 2001-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -23,7 +23,7 @@ create
 
 feature -- Test
 
-	test_make is
+	test_make
 			-- Test feature `make'.
 		local
 			a_comparator: KL_COMPARABLE_COMPARATOR [INTEGER]
@@ -36,14 +36,14 @@ feature -- Test
 			assert_same ("comparator_set", a_comparator, a_sorter.comparator)
 		end
 
-	test_sorted is
+	test_sorted
 			-- Test feature `sorted'.
 		local
 			a_comparator: KL_COMPARABLE_COMPARATOR [INTEGER]
 			a_sorter: DS_ARRAY_SHELL_SORTER [INTEGER]
 			empty: ARRAY [INTEGER]
 		do
-			create empty.make (1, 0)
+			create empty.make_filled (0, 1, 0)
 			create a_comparator.make
 			create a_sorter.make (a_comparator)
 			assert ("sorted1", a_sorter.sorted (empty))
@@ -52,14 +52,14 @@ feature -- Test
 			assert ("not_sorted2", not a_sorter.sorted (<<INTEGER_.to_integer (4), 3, 2, 1>>))
 		end
 
-	test_reverse_sorted is
+	test_reverse_sorted
 			-- Test feature `reverse_sorted'.
 		local
 			a_comparator: KL_COMPARABLE_COMPARATOR [INTEGER]
 			a_sorter: DS_ARRAY_SHELL_SORTER [INTEGER]
 			empty: ARRAY [INTEGER]
 		do
-			create empty.make (1, 0)
+			create empty.make_filled (0, 1, 0)
 			create a_comparator.make
 			create a_sorter.make (a_comparator)
 			assert ("reverse_sorted1", a_sorter.reverse_sorted (empty))
@@ -68,7 +68,7 @@ feature -- Test
 			assert ("reverse_sorted2", a_sorter.reverse_sorted (<<INTEGER_.to_integer (4), 3, 2, 1>>))
 		end
 
-	test_sort is
+	test_sort
 			-- Test feature `sort'.
 		local
 			a_comparator: KL_COMPARABLE_COMPARATOR [INTEGER]
@@ -76,7 +76,7 @@ feature -- Test
 			empty: ARRAY [INTEGER]
 			an_array: ARRAY [INTEGER]
 		do
-			create empty.make (1, 0)
+			create empty.make_filled (0, 1, 0)
 			create a_comparator.make
 			create a_sorter.make (a_comparator)
 				-- Sort empty array.
@@ -103,7 +103,7 @@ feature -- Test
 			assert_iarrays_same ("items3", <<INTEGER_.to_integer (1), 2, 3, 4>>, an_array)
 		end
 
-	test_reverse_sort is
+	test_reverse_sort
 			-- Test feature `reverse_sort'.
 		local
 			a_comparator: KL_COMPARABLE_COMPARATOR [INTEGER]
@@ -111,7 +111,7 @@ feature -- Test
 			empty: ARRAY [INTEGER]
 			an_array: ARRAY [INTEGER]
 		do
-			create empty.make (1, 0)
+			create empty.make_filled (0, 1, 0)
 			create a_comparator.make
 			create a_sorter.make (a_comparator)
 				-- Reverse sort empty array.

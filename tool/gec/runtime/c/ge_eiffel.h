@@ -4,7 +4,7 @@
 		"C declarations for the Gobo Eiffel runtime."
 
 	system: "Gobo Eiffel Compiler"
-	copyright: "Copyright (c) 2005-2007, Eric Bezault and others"
+	copyright: "Copyright (c) 2005-2010, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date: 2008-10-26 19:24:44 +0000 (Sun, 26 Oct 2008) $"
 	revision: "$Revision: 6538 $"
@@ -114,6 +114,7 @@ typedef struct {int16_t id;} EIF_ANY;
 #else
 typedef struct {int id;} EIF_ANY;
 #endif
+
 typedef EIF_ANY* EIF_REFERENCE;
 typedef char EIF_BOOLEAN;
 typedef unsigned char EIF_CHARACTER_8;
@@ -167,6 +168,7 @@ typedef double EIF_REAL_64;
 #if 0
 #define EIF_PROCEDURE EIF_POINTER
 #endif
+
 #define EIF_OBJECT EIF_REFERENCE
 #define EIF_OBJ EIF_OBJECT
 #define EIF_INTEGER EIF_INTEGER_32

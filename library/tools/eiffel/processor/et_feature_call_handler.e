@@ -5,7 +5,7 @@ note
 		"Eiffel feature call handlers: traverse features and report when feature calls are found."
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2008-2010, Eric Bezault and others"
+	copyright: "Copyright (c) 2008-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date: 2010/04/06 $"
 	revision: "$Revision: #12 $"
@@ -907,9 +907,19 @@ feature {ET_AST_NODE} -- Processing
 	process_check_instruction (an_instruction: ET_CHECK_INSTRUCTION)
 			-- Process `an_instruction'.
 			-- Set `has_fatal_error' if a fatal error occurred.
+		local
+			l_compound: ET_COMPOUND
+			had_error: BOOLEAN
 		do
 			reset_fatal_error (False)
-			if assertions_enabled then
+			l_compound := an_instruction.then_compound
+			if l_compound /= Void then
+				process_compound (l_compound)
+				had_error := has_fatal_error
+				process_assertions (an_instruction)
+				had_error := had_error or has_fatal_error
+				reset_fatal_error (had_error)
+			elseif assertions_enabled then
 				process_assertions (an_instruction)
 			end
 		end
@@ -1357,9 +1367,21 @@ feature {ET_AST_NODE} -- Processing
 
 	process_extended_attribute (a_feature: ET_EXTENDED_ATTRIBUTE)
 			-- Process `a_feature'.
+			-- Set `has_fatal_error' if a fatal error occurred.
+		do
+			process_extended_attribute_closure (a_feature)
+		end
+
+	process_extended_attribute_closure (a_feature: ET_EXTENDED_ATTRIBUTE_CLOSURE)
+			-- Process `a_feature'.
+			-- Set `has_fatal_error' if a fatal error occurred.
+		require
+			a_feature_not_void: a_feature /= Void
 		local
 			l_preconditions: ET_PRECONDITIONS
+			l_locals: ET_LOCAL_VARIABLE_LIST
 			l_postconditions: ET_POSTCONDITIONS
+			l_compound: ET_COMPOUND
 			had_error: BOOLEAN
 		do
 			reset_fatal_error (False)
@@ -1373,11 +1395,30 @@ feature {ET_AST_NODE} -- Processing
 					process_preconditions (l_preconditions)
 					had_error := had_error or has_fatal_error
 				end
+			end
+			if anchored_types_enabled then
+				l_locals := a_feature.locals
+				if l_locals /= Void then
+					process_local_variable_list (l_locals)
+					had_error := had_error or has_fatal_error
+				end
+			end
+			l_compound := a_feature.compound
+			if l_compound /= Void then
+				process_compound (l_compound)
+				had_error := had_error or has_fatal_error
+			end
+			if assertions_enabled then
 				l_postconditions := a_feature.postconditions
 				if l_postconditions /= Void then
 					process_postconditions (l_postconditions)
 					had_error := had_error or has_fatal_error
 				end
+			end
+			l_compound := a_feature.rescue_clause
+			if l_compound /= Void then
+				process_compound (l_compound)
+				had_error := had_error or has_fatal_error
 			end
 			reset_fatal_error (had_error)
 		end
@@ -2992,11 +3033,11 @@ feature {NONE} -- Expression types
 		do
 			reset_fatal_error (False)
 			if current_inline_agent /= Void then
-				expression_type_finder.find_expression_type_in_agent (a_expression, current_inline_agent, current_feature, a_context, current_system.any_type)
+				expression_type_finder.find_expression_type_in_agent (a_expression, current_inline_agent, current_feature, a_context, current_system.detachable_any_type)
 			elseif current_feature.is_feature then
-				expression_type_finder.find_expression_type_in_feature (a_expression, current_feature.as_feature, a_context, current_system.any_type)
+				expression_type_finder.find_expression_type_in_feature (a_expression, current_feature.as_feature, a_context, current_system.detachable_any_type)
 			else
-				expression_type_finder.find_expression_type_in_invariant (a_expression, current_feature.as_invariants, a_context, current_system.any_type)
+				expression_type_finder.find_expression_type_in_invariant (a_expression, current_feature.as_invariants, a_context, current_system.detachable_any_type)
 			end
 			reset_fatal_error (expression_type_finder.has_fatal_error)
 		end

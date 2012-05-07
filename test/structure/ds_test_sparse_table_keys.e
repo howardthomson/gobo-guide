@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,7 +6,7 @@ indexing
 
 	test_status: "ok_to_run"
 	library: "Gobo Eiffel Structure Library"
-	copyright: "Copyright (c) 2007, Eric Bezault and others"
+	copyright: "Copyright (c) 2007-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -23,7 +23,7 @@ create
 
 feature -- Test
 
-	test_do_all is
+	test_do_all
 			-- Test feature `do_all'.
 		local
 			a_table1: DS_HASH_TABLE [STRING, INTEGER]
@@ -45,7 +45,7 @@ feature -- Test
 			assert ("empty1", a_list2.is_empty)
 		end
 
-	test_do_all_with_index is
+	test_do_all_with_index
 			-- Test feature `do_all_with_index'.
 		local
 			a_table1: DS_HASH_TABLE [STRING, INTEGER]
@@ -57,17 +57,17 @@ feature -- Test
 			a_table1.force_last ("three", 3)
 			a_table1.force_last ("two", 2)
 			a_table1.force_last ("one", 1)
-			create an_array2.make (0, 6)
+			create an_array2.make_filled (0, 0, 6)
 			a_table1.keys.do_all_with_index (agent an_array2.put)
 			assert_iarrays_same ("items1", <<INTEGER_.to_integer (0), 5, 4, 3, 2, 1, 0>>, an_array2)
 				-- Empty table.
 			create a_table1.make (0)
-			create an_array2.make (0, 1)
+			create an_array2.make_filled (0, 0, 1)
 			a_table1.keys.do_all_with_index (agent an_array2.put)
 			assert_iarrays_same ("items2", <<INTEGER_.to_integer (0), 0>>, an_array2)
 		end
 
-	test_do_if is
+	test_do_if
 			-- Test feature `do_if'.
 		local
 			a_table1: DS_HASH_TABLE [STRING, INTEGER]
@@ -89,7 +89,7 @@ feature -- Test
 			assert ("empty1", a_list2.is_empty)
 		end
 
-	test_do_if_with_index is
+	test_do_if_with_index
 			-- Test feature `do_if_with_index'.
 		local
 			a_table1: DS_HASH_TABLE [STRING, INTEGER]
@@ -101,17 +101,17 @@ feature -- Test
 			a_table1.force_last ("six", 6)
 			a_table1.force_last ("four", 4)
 			a_table1.force_last ("one", 1)
-			create an_array2.make (1, 5)
+			create an_array2.make_filled (0, 1, 5)
 			a_table1.keys.do_if_with_index (agent an_array2.put, agent same_integers)
 			assert_iarrays_same ("items1", <<INTEGER_.to_integer (0), 2, 0, 4, 0>>, an_array2)
 				-- Empty table.
 			create a_table1.make (0)
-			create an_array2.make (0, 1)
+			create an_array2.make_filled (0, 0, 1)
 			a_table1.keys.do_if_with_index (agent an_array2.put, agent same_integers)
 			assert_iarrays_same ("items2", <<INTEGER_.to_integer (0), 0>>, an_array2)
 		end
 
-	test_there_exists is
+	test_there_exists
 			-- Test feature `there_exists'.
 		local
 			a_table1: DS_HASH_TABLE [STRING, INTEGER]
@@ -133,7 +133,7 @@ feature -- Test
 			assert ("there_dont_exist2", not a_table1.keys.there_exists (agent INTEGER_.is_even))
 		end
 
-	test_for_all is
+	test_for_all
 			-- Test feature `for_all'.
 		local
 			a_table1: DS_HASH_TABLE [STRING, INTEGER]
@@ -155,7 +155,7 @@ feature -- Test
 			assert ("for_all2", a_table1.keys.for_all (agent INTEGER_.is_even))
 		end
 
-	test_twin is
+	test_twin
 			-- Test feature `twin'.
 		local
 			l_table1: DS_HASH_TABLE [STRING, INTEGER]
@@ -187,7 +187,7 @@ feature -- Test
 
 feature {NONE} -- Implementation
 
-	same_integers (i, j: INTEGER): BOOLEAN is
+	same_integers (i, j: INTEGER): BOOLEAN
 			-- Is `i' equal to `j'?
 			-- (Used as agent to test iterators.)
 		do

@@ -5,7 +5,7 @@ note
 		"Eiffel adapted .NET assembly lists"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2008-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2008-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -15,6 +15,9 @@ class ET_ADAPTED_DOTNET_ASSEMBLIES
 inherit
 
 	ANY
+
+	KL_IMPORTED_STRING_ROUTINES
+		export {NONE} all end
 
 create
 
@@ -64,6 +67,28 @@ feature -- Access
 			Result := dotnet_assemblies.item (i)
 		ensure
 			dotnet_assembly_not_void: Result /= Void
+		end
+
+	dotnet_assembly_by_name (a_name: STRING): like dotnet_assembly
+			-- .NET assembly with name `a_name';
+			-- Void if not such .NET assembly
+		require
+			a_name_not_void: a_name /= Void
+			a_name_not_empty: a_name.count > 0
+		local
+			i, nb: INTEGER
+			l_dotnet_assembly: like dotnet_assembly
+		do
+			nb := dotnet_assemblies.count
+			from i := nb until i < 1 loop
+				l_dotnet_assembly := dotnet_assemblies.item (i)
+				if STRING_.same_case_insensitive (l_dotnet_assembly.name, a_name) then
+					Result := l_dotnet_assembly
+					i := 0
+				else
+					i := i - 1
+				end
+			end
 		end
 
 	adapted_dotnet_assembly (a_dotnet_assembly: ET_DOTNET_ASSEMBLY): ET_ADAPTED_DOTNET_ASSEMBLY
@@ -135,6 +160,26 @@ feature -- Iteration
 			end
 		end
 
+	do_if (an_action: PROCEDURE [ANY, TUPLE [ET_DOTNET_ASSEMBLY]]; a_test: FUNCTION [ANY, TUPLE [ET_DOTNET_ASSEMBLY], BOOLEAN])
+			-- Apply `an_action' to every .NET assembly that satisfies `a_test', from first to last.
+			-- (Semantics not guaranteed if `an_action' changes the list.)
+		require
+			an_action_not_void: an_action /= Void
+			a_test_not_void: a_test /= Void
+		local
+			i, nb: INTEGER
+			l_assembly: ET_DOTNET_ASSEMBLY
+		do
+			nb := dotnet_assemblies.count
+			from i := 1 until i > nb loop
+				l_assembly := dotnet_assemblies.item (i).dotnet_assembly
+				if a_test.item ([l_assembly]) then
+					an_action.call ([l_assembly])
+				end
+				i := i + 1
+			end
+		end
+
 	universes_do_all (an_action: PROCEDURE [ANY, TUPLE [ET_UNIVERSE]])
 			-- Apply `an_action' to every .NET assembly (viewed as a universe), from first to last.
 			-- (Semantics not guaranteed if `an_action' changes the list.)
@@ -177,6 +222,16 @@ feature -- Iteration
 			an_action_not_void: an_action /= Void
 		do
 			dotnet_assemblies.do_all (an_action)
+		end
+
+	do_adapted_if (an_action: PROCEDURE [ANY, TUPLE [ET_ADAPTED_DOTNET_ASSEMBLY]]; a_test: FUNCTION [ANY, TUPLE [ET_ADAPTED_DOTNET_ASSEMBLY], BOOLEAN])
+			-- Apply `an_action' to every .NET assembly which satisfies `a_test', from first to last.
+			-- (Semantics not guaranteed if `an_action' changes the list.)
+		require
+			an_action_not_void: an_action /= Void
+			a_test_not_void: a_test /= Void
+		do
+			dotnet_assemblies.do_if (an_action, a_test)
 		end
 
 	do_recursive (an_action: PROCEDURE [ANY, TUPLE [ET_DOTNET_ASSEMBLY]])

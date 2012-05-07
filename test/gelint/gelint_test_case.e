@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -29,7 +29,7 @@ inherit
 
 feature {NONE} -- Test
 
-	compile_and_test (a_test_name: STRING) is
+	compile_and_test (a_test_name: STRING)
 			-- Compile and test `a_test_name'.
 		require
 			a_test_not_void: a_test_name /= Void
@@ -55,7 +55,7 @@ feature {NONE} -- Test
 			end
 		end
 
-	are_output_files_equal (a_filename1, a_filename2: STRING): BOOLEAN is
+	are_output_files_equal (a_filename1, a_filename2: STRING): BOOLEAN
 			-- Is there no difference between the files named
 			-- `a_filename1' and `a_filename2'?
 			-- (Expand environment variables in filenames.)
@@ -70,7 +70,7 @@ feature {NONE} -- Test
 
 feature {NONE} -- Test Gobo Eiffel Compiler
 
-	compile_and_test_gec (a_test_name: STRING) is
+	compile_and_test_gec (a_test_name: STRING)
 			-- Compile and test `a_test_name' with gec.
 		require
 			a_test_not_void: a_test_name /= Void
@@ -108,7 +108,7 @@ feature {NONE} -- Test Gobo Eiffel Compiler
 			end
 		end
 
-	filter_output_gec (an_input_filename, an_output_filename: STRING) is
+	filter_output_gec (an_input_filename, an_output_filename: STRING)
 			-- Filter text from file `an_input_filename' and append it to the end of file `an_output_filename'.
 		require
 			an_input_filename_not_void: an_input_filename /= Void
@@ -117,16 +117,21 @@ feature {NONE} -- Test Gobo Eiffel Compiler
 			out_file: KL_TEXT_OUTPUT_FILE
 			in_file: KL_TEXT_INPUT_FILE
 			a_line: STRING
-			a_pattern1: STRING
-			a_regexp1: RX_PCRE_REGULAR_EXPRESSION
+			a_pattern1, a_pattern2: STRING
+			a_regexp1, a_regexp2: RX_PCRE_REGULAR_EXPRESSION
 			l_empty_line: BOOLEAN
 		do
-				-- Compile regexp.
+				-- Compile regexps.
 			a_pattern1 := "BUILD FAILED!"
 			create a_regexp1.make
 			a_regexp1.compile (a_pattern1)
 			assert ("cannot compile regexp '" + a_pattern1 + "'", a_regexp1.is_compiled)
 			a_regexp1.optimize
+			a_pattern2 := "aa[0-9]+\.c"
+			create a_regexp2.make
+			a_regexp2.compile (a_pattern2)
+			assert ("cannot compile regexp '" + a_pattern2 + "'", a_regexp2.is_compiled)
+			a_regexp2.optimize
 				-- Copy files.
 			create out_file.make (an_output_filename)
 			out_file.open_append
@@ -140,11 +145,14 @@ feature {NONE} -- Test Gobo Eiffel Compiler
 						in_file.end_of_file
 					loop
 						a_line := in_file.last_string
-						if a_regexp1.recognizes (a_line) then
+						if a_line.is_empty then
+							l_empty_line := True
+						elseif a_regexp1.recognizes (a_line) then
 								-- Skip this line and the previous empty line.
 							l_empty_line := False
-						elseif a_line.is_empty then
-							l_empty_line := True
+						elseif a_regexp2.recognizes (a_line) then
+								-- Skip this line and the previous empty line.
+							l_empty_line := False
 						else
 							if l_empty_line then
 								out_file.put_new_line
@@ -153,6 +161,7 @@ feature {NONE} -- Test Gobo Eiffel Compiler
 							out_file.put_line (a_line)
 						end
 						a_regexp1.wipe_out
+						a_regexp2.wipe_out
 						in_file.read_line
 					end
 					in_file.close
@@ -171,7 +180,7 @@ feature {NONE} -- Test Gobo Eiffel Compiler
 
 feature {NONE} -- Test gelint
 
-	compile_and_test_gelint (a_test_name: STRING) is
+	compile_and_test_gelint (a_test_name: STRING)
 			-- Compile and test `a_test_name' with gelint.
 		require
 			a_test_not_void: a_test_name /= Void
@@ -200,7 +209,7 @@ feature {NONE} -- Test gelint
 			end
 		end
 
-	filter_output_gelint (an_input_filename, an_output_filename: STRING) is
+	filter_output_gelint (an_input_filename, an_output_filename: STRING)
 			-- Filter text from file `an_input_filename' and append it to the end of file `an_output_filename'.
 		require
 			an_input_filename_not_void: an_input_filename /= Void
@@ -232,11 +241,11 @@ feature {NONE} -- Test gelint
 						in_file.end_of_file
 					loop
 						a_line := in_file.last_string
-						if a_regexp1.recognizes (a_line) then
+						if a_line.is_empty then
+							l_empty_line := True
+						elseif a_regexp1.recognizes (a_line) then
 								-- Skip this line and the previous empty line.
 							l_empty_line := False
-						elseif a_line.is_empty then
-							l_empty_line := True
 						else
 							if l_empty_line then
 								out_file.put_new_line
@@ -263,7 +272,7 @@ feature {NONE} -- Test gelint
 
 feature {NONE} -- Test ISE Eiffel
 
-	compile_and_test_ise (a_test_name: STRING) is
+	compile_and_test_ise (a_test_name: STRING)
 			-- Compile and test `a_test_name' with ISE Eiffel.
 		require
 			a_test_not_void: a_test_name /= Void
@@ -301,7 +310,7 @@ feature {NONE} -- Test ISE Eiffel
 			end
 		end
 
-	filter_output_ise (an_input_filename, an_output_filename: STRING) is
+	filter_output_ise (an_input_filename, an_output_filename: STRING)
 			-- Filter text from file `an_input_filename' and append it to the end of file `an_output_filename'.
 		require
 			an_input_filename_not_void: an_input_filename /= Void
@@ -310,8 +319,8 @@ feature {NONE} -- Test ISE Eiffel
 			out_file: KL_TEXT_OUTPUT_FILE
 			in_file: KL_TEXT_INPUT_FILE
 			a_line: STRING
-			a_pattern1, a_pattern2, a_pattern3, a_pattern4, a_pattern5, a_pattern6, a_pattern7: STRING
-			a_regexp1, a_regexp2, a_regexp3, a_regexp4, a_regexp5, a_regexp6, a_regexp7: RX_PCRE_REGULAR_EXPRESSION
+			a_pattern1, a_pattern2, a_pattern3, a_pattern4, a_pattern5, a_pattern6, a_pattern7, a_pattern8: STRING
+			a_regexp1, a_regexp2, a_regexp3, a_regexp4, a_regexp5, a_regexp6, a_regexp7, a_regexp8: RX_PCRE_REGULAR_EXPRESSION
 			l_empty_line: BOOLEAN
 		do
 				-- Compile regexps.
@@ -320,12 +329,12 @@ feature {NONE} -- Test ISE Eiffel
 			a_regexp1.compile (a_pattern1)
 			assert ("cannot compile regexp '" + a_pattern1 + "'", a_regexp1.is_compiled)
 			a_regexp1.optimize
-			a_pattern2 := "(\[ *[0-9]+%% - *[0-9]+\] (Degree -?[0-9]+|Generating Auxiliary Files))|(Features done: [0-9]+\sFeatures to go: [0-9]+)|(Degree 6: Examining System)|(Degree 5: Parsing Classes)|(Degree 4: Analyzing Inheritance)|(Degree 3: Checking Types)|(Degree 2: Generating Byte Code)|(Degree -1: Generating Code)"
+			a_pattern2 := "(\[ *[0-9]+%% - *[0-9]+\] (Degree -?[0-9]+|Generating Auxiliary Files))|(Features done: [0-9]+\sFeatures to go: [0-9]+)|(Degree 6: Examining System)|(Degree 5: Parsing Classes)|(Degree 4: Analyzing Inheritance)|(Degree 3: Checking Types)|(Degree 2: Generating Byte Code)|(Degree -1: Generating Code)|(Degree -2: Constructing Polymorphic Table)|(Degree -3: Generating Optimized Code)"
 			create a_regexp2.make
 			a_regexp2.compile (a_pattern2)
 			assert ("cannot compile regexp '" + a_pattern2 + "'", a_regexp2.is_compiled)
 			a_regexp2.optimize
-			a_pattern3 := "(Eiffel Compilation Manager)|(Freezing System Changes)|(System Recompiled\.)|(C compilation completed)|(Preparing C compilation\.\.\.)|(Removing Dead Code)|(\s*\(version .*\))|(Version .*)|(\s*1 file\(s\) copied\.)"
+			a_pattern3 := "(Eiffel Compilation Manager)|(Freezing System Changes)|(System Recompiled\.)|(C compilation completed)|(Preparing C compilation\.\.\.)|(Removing Dead Code)|(Removing Unused Code)|(\s*\(version .*\))|(Version .*)|(\s*1 file\(s\) copied\.)"
 			create a_regexp3.make
 			a_regexp3.compile (a_pattern3)
 			assert ("cannot compile regexp '" + a_pattern3 + "'", a_regexp3.is_compiled)
@@ -350,6 +359,11 @@ feature {NONE} -- Test ISE Eiffel
 			a_regexp7.compile (a_pattern7)
 			assert ("cannot compile regexp '" + a_pattern7 + "'", a_regexp7.is_compiled)
 			a_regexp7.optimize
+			a_pattern8 := "WARNING: Option '[^']+' was found in neither CONFIG\.EIF nor registry\."
+			create a_regexp8.make
+			a_regexp8.compile (a_pattern8)
+			assert ("cannot compile regexp '" + a_pattern8 + "'", a_regexp8.is_compiled)
+			a_regexp8.optimize
 				-- Copy files.
 			create out_file.make (an_output_filename)
 			out_file.open_append
@@ -369,22 +383,25 @@ feature {NONE} -- Test ISE Eiffel
 								-- Skip this line and the previous empty line.
 							l_empty_line := False
 						elseif a_regexp2.matches (a_line) then
-								-- Skip this line.
+								-- Skip this line and the previous empty line.
 							l_empty_line := False
 						elseif a_regexp3.recognizes (a_line) then
-								-- Skip this line.
+								-- Skip this line and the previous empty line.
 							l_empty_line := False
 						elseif a_regexp4.recognizes (a_line) then
-								-- Skip this line.
+								-- Skip this line and the previous empty line.
 							l_empty_line := False
 						elseif a_regexp5.matches (a_line) then
-								-- Skip this line.
+								-- Skip this line and the previous empty line.
 							l_empty_line := False
 						elseif a_regexp6.matches (a_line) then
-								-- Skip this line.
+								-- Skip this line and the previous empty line.
 							l_empty_line := False
 						elseif a_regexp7.matches (a_line) then
-								-- Skip this line.
+								-- Skip this line and the previous empty line.
+							l_empty_line := False
+						elseif a_regexp8.matches (a_line) then
+								-- Skip this line and the previous empty line.
 							l_empty_line := False
 						else
 							if l_empty_line then
@@ -400,6 +417,7 @@ feature {NONE} -- Test ISE Eiffel
 						a_regexp5.wipe_out
 						a_regexp6.wipe_out
 						a_regexp7.wipe_out
+						a_regexp8.wipe_out
 						in_file.read_line
 					end
 					in_file.close
@@ -416,7 +434,7 @@ feature {NONE} -- Test ISE Eiffel
 			end
 		end
 
-	concat_output1_ise is
+	concat_output1_ise
 			-- Concat the logs of the compilation to 'output.log'.
 		local
 			out_file: KL_TEXT_OUTPUT_FILE
@@ -509,7 +527,7 @@ feature {NONE} -- Test ISE Eiffel
 
 feature -- Execution
 
-	set_up is
+	set_up
 			-- Setup for a test.
 		local
 			a_testdir: STRING
@@ -522,7 +540,7 @@ feature -- Execution
 			file_system.cd (a_testdir)
 		end
 
-	tear_down is
+	tear_down
 			-- Tear down after a test.
 		do
 			if old_cwd /= Void then
@@ -537,7 +555,7 @@ feature -- Execution
 
 feature {NONE} -- Directory and file names
 
-	program_name: STRING is
+	program_name: STRING
 			-- Program name
 		once
 			Result := "aa"
@@ -546,7 +564,7 @@ feature {NONE} -- Directory and file names
 			program_name_not_empty: Result.count > 0
 		end
 
-	rule_dirname: STRING is
+	rule_dirname: STRING
 			-- Name of the directory containing the tests of the rule being tested
 		deferred
 		ensure
@@ -554,7 +572,7 @@ feature {NONE} -- Directory and file names
 			rule_dirname_not_empty: Result.count > 0
 		end
 
-	program_dirname (a_test_name: STRING): STRING is
+	program_dirname (a_test_name: STRING): STRING
 			-- Name of program source directory for `a_test_name'
 		require
 			a_test_not_void: a_test_name /= Void
@@ -566,7 +584,7 @@ feature {NONE} -- Directory and file names
 			program_dirname_not_empty: Result.count > 0
 		end
 
-	program_exe: STRING is
+	program_exe: STRING
 			-- Name of program executable filename
 		do
 			Result := file_system.pathname (file_system.relative_current_directory, program_name + file_system.exe_extension)
@@ -575,7 +593,7 @@ feature {NONE} -- Directory and file names
 			program_exe_not_empty: Result.count > 0
 		end
 
-	geant_filename (a_test_name: STRING): STRING is
+	geant_filename (a_test_name: STRING): STRING
 			-- Name of geant build file used for compilation of `a_test_name'
 		require
 			a_test_not_void: a_test_name /= Void
@@ -587,7 +605,7 @@ feature {NONE} -- Directory and file names
 			geant_filename_not_empty: Result.count > 0
 		end
 
-	xace_filename (a_test_name: STRING): STRING is
+	xace_filename (a_test_name: STRING): STRING
 			-- Name of Xace file used for compilation of `a_test_name'
 		require
 			a_test_not_void: a_test_name /= Void
@@ -599,7 +617,7 @@ feature {NONE} -- Directory and file names
 			xace_filename_not_empty: Result.count > 0
 		end
 
-	testdir: STRING is
+	testdir: STRING
 			-- Name of temporary directory where to run the test
 		deferred
 		ensure
@@ -609,16 +627,16 @@ feature {NONE} -- Directory and file names
 
 feature {NONE} -- Output logs
 
-	output_log_filename: STRING is "output.log"
+	output_log_filename: STRING = "output.log"
 			-- Test output log filename
 
-	output1_log_filename: STRING is "output1.log"
+	output1_log_filename: STRING = "output1.log"
 			-- Compilation output log filename
 
-	error1_log_filename: STRING is "error1.log"
+	error1_log_filename: STRING = "error1.log"
 			-- Compilation error log filename
 
-	output1_log: STRING is
+	output1_log: STRING
 			-- Where and how to redirect compilation output logs
 		once
 			Result := " > " + output1_log_filename + " 2> " + error1_log_filename
@@ -627,13 +645,13 @@ feature {NONE} -- Output logs
 			output1_log_not_empty: Result.count > 0
 		end
 
-	output2_log_filename: STRING is "output2.log"
+	output2_log_filename: STRING = "output2.log"
 			-- Execution output log filename
 
-	error2_log_filename: STRING is "error2.log"
+	error2_log_filename: STRING = "error2.log"
 			-- Execution error log filename
 
-	output2_log: STRING is
+	output2_log: STRING
 			-- Where and how to redirect execution output logs
 		once
 			Result := " > " + output2_log_filename + " 2> " + error2_log_filename
@@ -642,13 +660,13 @@ feature {NONE} -- Output logs
 			output2_log_not_empty: Result.count > 0
 		end
 
-	output3_log_filename: STRING is "output3.log"
+	output3_log_filename: STRING = "output3.log"
 			-- Cleaning output log filename
 
-	error3_log_filename: STRING is "error3.log"
+	error3_log_filename: STRING = "error3.log"
 			-- Cleaning error log filename
 
-	output3_log: STRING is
+	output3_log: STRING
 			-- Where and how to redirect cleaning output logs
 		once
 			Result := " > " + output3_log_filename + " 2> " + error3_log_filename
@@ -657,7 +675,7 @@ feature {NONE} -- Output logs
 			output3_log_not_empty: Result.count > 0
 		end
 
-	concat_output1 (a_filter: PROCEDURE [ANY, TUPLE [STRING, STRING]]) is
+	concat_output1 (a_filter: PROCEDURE [ANY, TUPLE [STRING, STRING]])
 			-- Concat the logs of the compilation to 'output.log'.
 		require
 			a_filter_not_void: a_filter /= Void
@@ -667,7 +685,7 @@ feature {NONE} -- Output logs
 			a_filter.call ([error1_log_filename, output_log_filename])
 		end
 
-	concat_output2 is
+	concat_output2
 			-- Concat the logs of the execution to 'output.log'.
 		local
 			out_file: KL_TEXT_OUTPUT_FILE
@@ -678,7 +696,7 @@ feature {NONE} -- Output logs
 			l_input_filename: STRING
 		do
 				-- Compile regexp.
-			a_pattern1 := "<[0-9]{16}>(.*)"
+			a_pattern1 := "<[0-9A-F]{16}>(.*)"
 			create a_regexp1.make
 			a_regexp1.compile (a_pattern1)
 			assert ("cannot compile regexp '" + a_pattern1 + "'", a_regexp1.is_compiled)
@@ -727,14 +745,14 @@ feature {NONE} -- Output logs
 			end
 		end
 
-	concat_output3 is
+	concat_output3
 			-- Concat the logs of the cleaning to 'output.log'.
 		do
 			file_system.concat_files (output_log_filename, output3_log_filename)
 			file_system.concat_files (output_log_filename, error3_log_filename)
 		end
 
-	output_recognized (a_filename1: STRING; a_directory1: KL_DIRECTORY; a_regexp1: RX_REGULAR_EXPRESSION; a_filename2: STRING): BOOLEAN is
+	output_recognized (a_filename1: STRING; a_directory1: KL_DIRECTORY; a_regexp1: RX_REGULAR_EXPRESSION; a_filename2: STRING): BOOLEAN
 			-- Is `a_filename1' of the form expected by `a_regexp1' in `a_directory1',
 			-- and then is there no difference between the contents of files named
 			-- `a_filename1' and `a_filename2' (after the environment variables in
@@ -808,7 +826,7 @@ feature {NONE} -- Output logs
 
 feature {NONE} -- Execution
 
-	execute_shell (a_shell_command: STRING) is
+	execute_shell (a_shell_command: STRING)
 			-- Execute `a_shell_command'.
 		require
 			a_shell_command_not_void: a_shell_command /= Void
@@ -822,7 +840,7 @@ feature {NONE} -- Execution
 
 feature {NONE} -- Regular expressions
 
-	passed_filename_regexp (a_file_extension: STRING): RX_PCRE_REGULAR_EXPRESSION is
+	passed_filename_regexp (a_file_extension: STRING): RX_PCRE_REGULAR_EXPRESSION
 			-- Regular expression corresponding to names of files containing possible passed output logs
 			-- `a_file_extension' is the expected file extension, without the leading dot.
 		require
@@ -836,7 +854,7 @@ feature {NONE} -- Regular expressions
 			passed_regexp_gec_compiled: Result.is_compiled
 		end
 
-	failed_filename_regexp (a_file_extension: STRING): RX_PCRE_REGULAR_EXPRESSION is
+	failed_filename_regexp (a_file_extension: STRING): RX_PCRE_REGULAR_EXPRESSION
 			-- Regular expression corresponding to names of files containing possible failed output logs;
 			-- `a_file_extension' is the expected file extension, without the leading dot.
 		require

@@ -5,7 +5,7 @@ note
 		"Eiffel type checkers"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2003-2010, Eric Bezault and others"
+	copyright: "Copyright (c) 2003-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -546,24 +546,24 @@ feature {NONE} -- Validity checking
 						nb := an_actuals.count
 						from i := 1 until i > nb loop
 							an_actual := an_actuals.type (i)
+							had_error := has_fatal_error
+							an_actual.process (Current)
+							reset_fatal_error (has_fatal_error or had_error)
 							a_formal := a_formals.formal_parameter (i)
 							if a_formal.is_expanded then
 								if not an_actual.is_type_expanded (current_type) then
 									set_fatal_error
-									error_handler.report_gvtcg5b_error (current_class, a_type, an_actual, a_formal)
+									error_handler.report_gvtcg5b_error (current_class, current_class_impl, a_type, an_actual, a_formal)
 								end
 							elseif a_formal.is_reference then
 								if not an_actual.is_type_reference (current_type) then
 									set_fatal_error
-									error_handler.report_gvtcg5a_error (current_class, a_type, an_actual, a_formal)
+									error_handler.report_gvtcg5a_error (current_class, current_class_impl, a_type, an_actual, a_formal)
 								end
 							end
-							had_error := has_fatal_error
-							an_actual.process (Current)
-							reset_fatal_error (has_fatal_error or had_error)
 							a_constraint := a_formal.constraint
 							if a_constraint = Void then
-								a_constraint := current_system.any_type
+								a_constraint := current_system.detachable_any_type
 							end
 								-- If we have:
 								--
@@ -666,10 +666,9 @@ feature {NONE} -- Validity checking
 							a_type.resolve_like_feature (l_query)
 							resolved := True
 							if in_qualified_anchored_type then
-								if  l_query.type.has_identifier_anchored_type then
+								if  l_query.type.depends_on_qualified_anchored_type (current_class) then
 										-- Error: the type of the anchor appearing in a qualified
-										-- anchored type should not contain anchored types
-										-- (other than 'like Current').
+										-- anchored type should not depend on a qualified anchored type.
 										-- This is a way to avoid cycles in qualified anchored types.
 									set_fatal_error
 									error_handler.report_vtat2b_error (current_class, current_class_impl, a_type)
@@ -692,10 +691,9 @@ feature {NONE} -- Validity checking
 											a_type.resolve_like_argument (l_feature)
 											resolved := True
 											if in_qualified_anchored_type then
-												if args.item (l_index).type.has_identifier_anchored_type then
+												if args.item (l_index).type.depends_on_qualified_anchored_type (current_class) then
 														-- Error: the type of the anchor appearing in a qualified
-														-- anchored type should not contain anchored types
-														-- (other than 'like Current').
+														-- anchored type should not depend on a qualified anchored type.
 														-- This is a way to avoid cycles in qualified anchored types.
 													set_fatal_error
 													error_handler.report_vtat2b_error (current_class, current_class_impl, a_type)
@@ -730,10 +728,9 @@ feature {NONE} -- Validity checking
 							args := l_feature.arguments
 							l_index := a_type.index
 							if args /= Void and then l_index <= args.count then
-								if args.item (l_index).type.has_identifier_anchored_type then
+								if args.item (l_index).type.depends_on_qualified_anchored_type (current_class) then
 										-- Error: the type of the anchor appearing in a qualified
-										-- anchored type should not contain anchored types
-										-- (other than 'like Current').
+										-- anchored type should not depend on a qualified anchored type.
 										-- This is a way to avoid cycles in qualified anchored types.
 									set_fatal_error
 									error_handler.report_vtat2b_error (current_class, current_class_impl, a_type)
@@ -754,10 +751,9 @@ feature {NONE} -- Validity checking
 					else
 						l_query := current_class.seeded_query (l_seed)
 						if l_query /= Void then
-							if  l_query.type.has_identifier_anchored_type then
+							if  l_query.type.depends_on_qualified_anchored_type (current_class) then
 									-- Error: the type of the anchor appearing in a qualified
-									-- anchored type should not contain anchored types
-									-- (other than 'like Current').
+									-- anchored type should not depend on a qualified anchored type.
 									-- This is a way to avoid cycles in qualified anchored types.
 								set_fatal_error
 								error_handler.report_vtat2b_error (current_class, current_class_impl, a_type)
@@ -817,10 +813,9 @@ feature {NONE} -- Validity checking
 							if l_query /= Void then
 								a_type.resolve_identifier_type (l_query.first_seed)
 -- TODO: check that `l_query' is exported to `current_class'.
-								if  l_query.type.has_identifier_anchored_type then
+								if  l_query.type.depends_on_qualified_anchored_type (l_class) then
 										-- Error: the type of the anchor appearing in a qualified
-										-- anchored type should not contain anchored types
-										-- (other than 'like Current').
+										-- anchored type should not depend on a qualified anchored type.
 										-- This is a way to avoid cycles in qualified anchored types.
 									set_fatal_error
 									error_handler.report_vtat2b_error (current_class, current_class_impl, a_type)
@@ -841,10 +836,9 @@ feature {NONE} -- Validity checking
 						l_query := l_class.seeded_query (l_seed)
 						if l_query /= Void then
 -- TODO: check that `l_query' is exported to `current_class'.
-							if l_query.type.has_identifier_anchored_type then
+							if l_query.type.depends_on_qualified_anchored_type (l_class) then
 									-- Error: the type of the anchor appearing in a qualified
-									-- anchored type should not contain anchored types
-									-- (other than 'like Current').
+									-- anchored type should not depend on a qualified anchored type.
 									-- This is a way to avoid cycles in qualified anchored types.
 								set_fatal_error
 								error_handler.report_vtat2b_error (current_class, current_class_impl, a_type)

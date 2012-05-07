@@ -5,7 +5,7 @@ note
 		"Eiffel Abstract Syntax Tree factories"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2001-2010, Eric Bezault and others"
+	copyright: "Copyright (c) 2001-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -1485,6 +1485,22 @@ feature -- AST nodes
 			end
 		end
 
+	new_attachment_separate_keywords (a_attachment_keyword: ET_KEYWORD; a_separateness_keyword: ET_KEYWORD): ET_ATTACHMENT_SEPARATE_KEYWORDS
+			-- New attachment keyword ('attached' or 'detachable') followed by the keyword 'separate'
+		do
+			if a_attachment_keyword /= Void and a_separateness_keyword /= Void then
+				create Result.make (a_attachment_keyword, a_separateness_keyword)
+			end
+		end
+
+	new_attachment_symbol_separate_keyword (a_attachment_symbol: ET_SYMBOL; a_separateness_keyword: ET_KEYWORD): ET_ATTACHMENT_SYMBOL_SEPARATE_KEYWORD
+			-- New attachment symbol ('!' or '?') followed by the keyword 'separate'
+		do
+			if a_attachment_symbol /= Void and a_separateness_keyword /= Void then
+				create Result.make (a_attachment_symbol, a_separateness_keyword)
+			end
+		end
+
 	new_attribute (a_name: ET_EXTENDED_FEATURE_NAME; a_type: ET_DECLARED_TYPE; an_assigner: ET_ASSIGNER;
 		a_semicolon: ET_SEMICOLON_SYMBOL; a_clients: ET_CLIENT_LIST;
 		a_feature_clause: ET_FEATURE_CLAUSE; a_class: ET_CLASS): ET_ATTRIBUTE
@@ -1494,6 +1510,15 @@ feature -- AST nodes
 				create Result.make (a_name, a_type, a_class)
 				Result.set_assigner (an_assigner)
 				Result.set_clients (a_clients)
+			end
+		end
+
+	new_attribute_compound (a_attribute: ET_KEYWORD; a_compound: ET_COMPOUND): ET_COMPOUND
+			-- New compound preceded by a 'attribute' keyword
+		do
+			if a_compound /= Void then
+				Result := a_compound
+				Result.set_keyword (tokens.attribute_keyword)
 			end
 		end
 
@@ -1580,12 +1605,13 @@ feature -- AST nodes
 			end
 		end
 
-	new_check_instruction (a_check: ET_KEYWORD; an_end: ET_KEYWORD; nb: INTEGER): ET_CHECK_INSTRUCTION
+	new_check_instruction (a_check: ET_KEYWORD; a_then_compound: ET_COMPOUND; an_end: ET_KEYWORD; nb: INTEGER): ET_CHECK_INSTRUCTION
 			-- New check instruction with given capacity
 		require
 			nb_positive: nb >= 0
 		do
 			create Result.make_with_capacity (nb)
+			Result.set_then_compound (a_then_compound)
 			if a_check /= Void and then not a_check.position.is_null then
 				Result.set_check_keyword (a_check)
 			end
@@ -1662,9 +1688,13 @@ feature -- AST nodes
 		require
 			nb_positive: nb >= 0
 		do
-			if nb > 0 then
-				create Result.make_with_capacity (nb)
-			end
+			create Result.make_with_capacity (nb)
+		end
+
+	new_empty_compound: ET_COMPOUND
+			-- New empty instruction compound
+		do
+			Result := Void
 		end
 
 	new_conditional (a_keyword: ET_KEYWORD; an_expression: ET_EXPRESSION): ET_CONDITIONAL
@@ -2099,10 +2129,10 @@ feature -- AST nodes
 
 	new_extended_attribute (a_name: ET_EXTENDED_FEATURE_NAME;
 		a_type: ET_DECLARED_TYPE; an_assigner: ET_ASSIGNER;  a_first_indexing: ET_INDEXING_LIST;
-		an_obsolete: ET_OBSOLETE; a_preconditions: ET_PRECONDITIONS; a_attribute: ET_KEYWORD;
-		a_postconditions: ET_POSTCONDITIONS; an_end: ET_KEYWORD;
-		a_semicolon: ET_SEMICOLON_SYMBOL; a_clients: ET_CLIENT_LIST;
-		a_feature_clause: ET_FEATURE_CLAUSE; a_class: ET_CLASS): ET_EXTENDED_ATTRIBUTE
+		an_obsolete: ET_OBSOLETE; a_preconditions: ET_PRECONDITIONS; a_locals: ET_LOCAL_VARIABLE_LIST;
+		a_compound: ET_COMPOUND; a_postconditions: ET_POSTCONDITIONS;
+		a_rescue_clause: ET_COMPOUND; an_end: ET_KEYWORD; a_semicolon: ET_SEMICOLON_SYMBOL;
+		a_clients: ET_CLIENT_LIST; a_feature_clause: ET_FEATURE_CLAUSE; a_class: ET_CLASS): ET_EXTENDED_ATTRIBUTE
 			-- New extended attribute declaration
 		do
 			if a_name /= Void and a_type /= Void and a_clients /= Void and a_class /= Void then
@@ -2110,7 +2140,10 @@ feature -- AST nodes
 				Result.set_assigner (an_assigner)
 				Result.set_obsolete_message (an_obsolete)
 				Result.set_preconditions (a_preconditions)
+				Result.set_locals (a_locals)
+				Result.set_compound (a_compound)
 				Result.set_postconditions (a_postconditions)
+				Result.set_rescue_clause (a_rescue_clause)
 				Result.set_clients (a_clients)
 				Result.set_first_indexing (a_first_indexing)
 			end
@@ -2945,8 +2978,8 @@ feature -- AST nodes
 
 	new_once_function (a_name: ET_EXTENDED_FEATURE_NAME; args: ET_FORMAL_ARGUMENT_LIST; a_type: ET_DECLARED_TYPE;
 		an_assigner: ET_ASSIGNER; an_is: ET_KEYWORD; a_first_indexing: ET_INDEXING_LIST; an_obsolete: ET_OBSOLETE;
-		a_preconditions: ET_PRECONDITIONS; a_locals: ET_LOCAL_VARIABLE_LIST; a_compound: ET_COMPOUND;
-		a_postconditions: ET_POSTCONDITIONS; a_rescue: ET_COMPOUND; an_end: ET_KEYWORD;
+		a_preconditions: ET_PRECONDITIONS; a_locals: ET_LOCAL_VARIABLE_LIST; a_keys: ET_MANIFEST_STRING_LIST;
+		a_compound: ET_COMPOUND; a_postconditions: ET_POSTCONDITIONS; a_rescue: ET_COMPOUND; an_end: ET_KEYWORD;
 		a_semicolon: ET_SEMICOLON_SYMBOL; a_clients: ET_CLIENT_LIST;
 		a_feature_clause: ET_FEATURE_CLAUSE; a_class: ET_CLASS): ET_ONCE_FUNCTION
 			-- New once function
@@ -2960,6 +2993,7 @@ feature -- AST nodes
 				Result.set_obsolete_message (an_obsolete)
 				Result.set_preconditions (a_preconditions)
 				Result.set_locals (a_locals)
+				Result.set_keys (a_keys)
 				Result.set_compound (a_compound)
 				Result.set_postconditions (a_postconditions)
 				Result.set_rescue_clause (a_rescue)
@@ -2969,8 +3003,9 @@ feature -- AST nodes
 		end
 
 	new_once_function_inline_agent (an_agent: ET_AGENT_KEYWORD; a_formal_args: ET_FORMAL_ARGUMENT_LIST; a_type: ET_DECLARED_TYPE;
-		a_preconditions: ET_PRECONDITIONS; a_locals: ET_LOCAL_VARIABLE_LIST; a_compound: ET_COMPOUND; a_postconditions: ET_POSTCONDITIONS;
-		a_rescue: ET_COMPOUND; an_end: ET_KEYWORD; an_actual_args: ET_AGENT_ARGUMENT_OPERAND_LIST): ET_ONCE_FUNCTION_INLINE_AGENT
+		a_preconditions: ET_PRECONDITIONS; a_locals: ET_LOCAL_VARIABLE_LIST; a_keys: ET_MANIFEST_STRING_LIST;
+		a_compound: ET_COMPOUND; a_postconditions: ET_POSTCONDITIONS; a_rescue: ET_COMPOUND; an_end: ET_KEYWORD;
+		an_actual_args: ET_AGENT_ARGUMENT_OPERAND_LIST): ET_ONCE_FUNCTION_INLINE_AGENT
 			-- New inline agent whose associated feature is a once function
 		do
 			if a_type /= Void then
@@ -2980,6 +3015,7 @@ feature -- AST nodes
 				end
 				Result.set_preconditions (a_preconditions)
 				Result.set_locals (a_locals)
+				Result.set_keys (a_keys)
 				Result.set_compound (a_compound)
 				Result.set_postconditions (a_postconditions)
 				Result.set_rescue_clause (a_rescue)
@@ -2999,8 +3035,8 @@ feature -- AST nodes
 
 	new_once_procedure (a_name: ET_EXTENDED_FEATURE_NAME; args: ET_FORMAL_ARGUMENT_LIST;
 		an_is: ET_KEYWORD; a_first_indexing: ET_INDEXING_LIST; an_obsolete: ET_OBSOLETE; a_preconditions: ET_PRECONDITIONS;
-		a_locals: ET_LOCAL_VARIABLE_LIST; a_compound: ET_COMPOUND; a_postconditions: ET_POSTCONDITIONS;
-		a_rescue: ET_COMPOUND; an_end: ET_KEYWORD; a_semicolon: ET_SEMICOLON_SYMBOL;
+		a_locals: ET_LOCAL_VARIABLE_LIST; a_keys: ET_MANIFEST_STRING_LIST; a_compound: ET_COMPOUND;
+		a_postconditions: ET_POSTCONDITIONS; a_rescue: ET_COMPOUND; an_end: ET_KEYWORD; a_semicolon: ET_SEMICOLON_SYMBOL;
 		a_clients: ET_CLIENT_LIST; a_feature_clause: ET_FEATURE_CLAUSE;
 		a_class: ET_CLASS): ET_ONCE_PROCEDURE
 			-- New once procedure
@@ -3013,6 +3049,7 @@ feature -- AST nodes
 				Result.set_obsolete_message (an_obsolete)
 				Result.set_preconditions (a_preconditions)
 				Result.set_locals (a_locals)
+				Result.set_keys (a_keys)
 				Result.set_compound (a_compound)
 				Result.set_postconditions (a_postconditions)
 				Result.set_rescue_clause (a_rescue)
@@ -3022,8 +3059,9 @@ feature -- AST nodes
 		end
 
 	new_once_procedure_inline_agent (an_agent: ET_AGENT_KEYWORD; a_formal_args: ET_FORMAL_ARGUMENT_LIST;
-		a_preconditions: ET_PRECONDITIONS; a_locals: ET_LOCAL_VARIABLE_LIST; a_compound: ET_COMPOUND; a_postconditions: ET_POSTCONDITIONS;
-		a_rescue: ET_COMPOUND; an_end: ET_KEYWORD; an_actual_args: ET_AGENT_ARGUMENT_OPERAND_LIST): ET_ONCE_PROCEDURE_INLINE_AGENT
+		a_preconditions: ET_PRECONDITIONS; a_locals: ET_LOCAL_VARIABLE_LIST; a_keys: ET_MANIFEST_STRING_LIST;
+		a_compound: ET_COMPOUND; a_postconditions: ET_POSTCONDITIONS; a_rescue: ET_COMPOUND; an_end: ET_KEYWORD;
+		an_actual_args: ET_AGENT_ARGUMENT_OPERAND_LIST): ET_ONCE_PROCEDURE_INLINE_AGENT
 			-- New inline agent whose associated feature is a once procedure
 		do
 			create Result.make (a_formal_args, an_actual_args)
@@ -3032,6 +3070,7 @@ feature -- AST nodes
 			end
 			Result.set_preconditions (a_preconditions)
 			Result.set_locals (a_locals)
+			Result.set_keys (a_keys)
 			Result.set_compound (a_compound)
 			Result.set_postconditions (a_postconditions)
 			Result.set_rescue_clause (a_rescue)
@@ -3227,11 +3266,11 @@ feature -- AST nodes
 			end
 		end
 
-	new_qualified_like_type (a_type: ET_LIKE_TYPE; a_name: ET_QUALIFIED_FEATURE_NAME): ET_QUALIFIED_LIKE_TYPE
+	new_qualified_like_type (a_type_mark: ET_TYPE_MARK; a_type: ET_LIKE_TYPE; a_name: ET_QUALIFIED_FEATURE_NAME): ET_QUALIFIED_LIKE_TYPE
 			-- New qualified anchored type of the form 'like a.b.c'
 		do
 			if a_type /= Void and a_name /= Void then
-				create Result.make (a_type, a_name)
+				create Result.make (a_type_mark, a_type, a_name)
 			end
 		end
 

@@ -1,4 +1,4 @@
-indexing
+note
 
 	test: "first line %
 
@@ -24,7 +24,7 @@ create
 
 feature
 
-	make is
+	make
 		do
 		end
 

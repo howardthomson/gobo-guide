@@ -6,16 +6,18 @@ create
 
 feature
 
-	make is
+	make
 		do
 			f
 		end
 
-	f is
+	f
 		local
-			p: PROCEDURE [ANY, TUPLE]
+			p: detachable PROCEDURE [ANY, TUPLE]
+			s: detachable STRING
 		do
-			if {a: STRING} "gobo" then
+			s := "gobo"
+			if attached s as a then
 				p := agent
 					do
 						print (a)

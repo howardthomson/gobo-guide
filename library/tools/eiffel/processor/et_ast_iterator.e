@@ -5,7 +5,7 @@ note
 		"Eiffel AST iterators"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2003-2010, Eric Bezault and others"
+	copyright: "Copyright (c) 2003-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -177,6 +177,20 @@ feature {ET_AST_NODE} -- Processing
 			an_instruction.target.process (Current)
 			an_instruction.assign_attempt_symbol.process (Current)
 			an_instruction.source.process (Current)
+		end
+
+	process_attachment_separate_keywords (a_keywords: ET_ATTACHMENT_SEPARATE_KEYWORDS)
+			-- Process `a_keywords'.
+		do
+			a_keywords.attachment_keyword.process (Current)
+			a_keywords.separateness_keyword.process (Current)
+		end
+
+	process_attachment_symbol_separate_keyword (a_keywords: ET_ATTACHMENT_SYMBOL_SEPARATE_KEYWORD)
+			-- Process `a_keywords'.
+		do
+			a_keywords.attachment_symbol.process (Current)
+			a_keywords.separateness_keyword.process (Current)
 		end
 
 	process_attribute (a_feature: ET_ATTRIBUTE)
@@ -418,12 +432,17 @@ feature {ET_AST_NODE} -- Processing
 			-- Process `an_instruction'.
 		local
 			i, nb: INTEGER
+			l_compound: ET_COMPOUND
 		do
 			an_instruction.check_keyword.process (Current)
 			nb := an_instruction.count
 			from i := 1 until i > nb loop
 				an_instruction.item (i).process (Current)
 				i := i + 1
+			end
+			l_compound := an_instruction.then_compound
+			if l_compound /= Void then
+				l_compound.process (Current)
 			end
 			an_instruction.end_keyword.process (Current)
 		end
@@ -1331,6 +1350,8 @@ feature {ET_AST_NODE} -- Processing
 			a_postconditions: ET_POSTCONDITIONS
 			a_semicolon: ET_SEMICOLON_SYMBOL
 			an_assigner: ET_ASSIGNER
+			a_locals: ET_LOCAL_VARIABLE_LIST
+			a_compound: ET_COMPOUND
 		do
 			from
 				a_synonym := a_feature
@@ -1361,10 +1382,21 @@ feature {ET_AST_NODE} -- Processing
 			if a_preconditions /= Void then
 				a_preconditions.process (Current)
 			end
-			a_feature.attribute_keyword.process (Current)
+			a_locals := a_feature.locals
+			if a_locals /= Void then
+				a_locals.process (Current)
+			end
+			a_compound := a_feature.compound
+			if a_compound /= Void then
+				a_compound.process (Current)
+			end
 			a_postconditions := a_feature.postconditions
 			if a_postconditions /= Void then
 				a_postconditions.process (Current)
+			end
+			a_compound := a_feature.rescue_clause
+			if a_compound /= Void then
+				a_compound.process (Current)
 			end
 			a_feature.end_keyword.process (Current)
 			a_semicolon := a_feature.semicolon
@@ -1911,6 +1943,12 @@ feature {ET_AST_NODE} -- Processing
 			an_instruction.end_keyword.process (Current)
 		end
 
+	process_implicit_type_mark (a_type_mark: ET_IMPLICIT_TYPE_MARK)
+			-- Process `a_type_mark'.
+		do
+			-- Implicit type marks are ignored.
+		end
+
 	process_indexing (an_indexing: ET_INDEXING)
 			-- Process `an_indexing'.
 		do
@@ -2331,6 +2369,8 @@ feature {ET_AST_NODE} -- Processing
 			a_semicolon: ET_SEMICOLON_SYMBOL
 			a_is_keyword: ET_KEYWORD
 			an_assigner: ET_ASSIGNER
+			a_keys: ET_MANIFEST_STRING_LIST
+			i, nb: INTEGER
 		do
 			from
 				a_synonym := a_feature
@@ -2375,7 +2415,18 @@ feature {ET_AST_NODE} -- Processing
 			end
 			a_compound := a_feature.compound
 			if a_compound /= Void then
-				a_compound.process (Current)
+				a_compound.keyword.process (Current)
+			end
+			a_keys := a_feature.keys
+			if a_keys /= Void then
+				a_keys.process (Current)
+			end
+			if a_compound /= Void then
+				nb := a_compound.count
+				from i := 1 until i > nb loop
+					a_compound.item (i).process (Current)
+					i := i + 1
+				end
 			end
 			a_postconditions := a_feature.postconditions
 			if a_postconditions /= Void then
@@ -2401,6 +2452,8 @@ feature {ET_AST_NODE} -- Processing
 			a_locals: ET_LOCAL_VARIABLE_LIST
 			a_postconditions: ET_POSTCONDITIONS
 			a_compound: ET_COMPOUND
+			a_keys: ET_MANIFEST_STRING_LIST
+			i, nb: INTEGER
 		do
 			an_expression.agent_keyword.process (Current)
 			a_formal_arguments := an_expression.formal_arguments
@@ -2418,7 +2471,18 @@ feature {ET_AST_NODE} -- Processing
 			end
 			a_compound := an_expression.compound
 			if a_compound /= Void then
-				a_compound.process (Current)
+				a_compound.keyword.process (Current)
+			end
+			a_keys := an_expression.keys
+			if a_keys /= Void then
+				a_keys.process (Current)
+			end
+			if a_compound /= Void then
+				nb := a_compound.count
+				from i := 1 until i > nb loop
+					a_compound.item (i).process (Current)
+					i := i + 1
+				end
 			end
 			a_postconditions := an_expression.postconditions
 			if a_postconditions /= Void then
@@ -2456,6 +2520,8 @@ feature {ET_AST_NODE} -- Processing
 			a_compound: ET_COMPOUND
 			a_semicolon: ET_SEMICOLON_SYMBOL
 			a_is_keyword: ET_KEYWORD
+			a_keys: ET_MANIFEST_STRING_LIST
+			i, nb: INTEGER
 		do
 			from
 				a_synonym := a_feature
@@ -2495,7 +2561,18 @@ feature {ET_AST_NODE} -- Processing
 			end
 			a_compound := a_feature.compound
 			if a_compound /= Void then
-				a_compound.process (Current)
+				a_compound.keyword.process (Current)
+			end
+			a_keys := a_feature.keys
+			if a_keys /= Void then
+				a_keys.process (Current)
+			end
+			if a_compound /= Void then
+				nb := a_compound.count
+				from i := 1 until i > nb loop
+					a_compound.item (i).process (Current)
+					i := i + 1
+				end
 			end
 			a_postconditions := a_feature.postconditions
 			if a_postconditions /= Void then
@@ -2521,6 +2598,8 @@ feature {ET_AST_NODE} -- Processing
 			a_locals: ET_LOCAL_VARIABLE_LIST
 			a_postconditions: ET_POSTCONDITIONS
 			a_compound: ET_COMPOUND
+			a_keys: ET_MANIFEST_STRING_LIST
+			i, nb: INTEGER
 		do
 			an_expression.agent_keyword.process (Current)
 			a_formal_arguments := an_expression.formal_arguments
@@ -2537,7 +2616,18 @@ feature {ET_AST_NODE} -- Processing
 			end
 			a_compound := an_expression.compound
 			if a_compound /= Void then
-				a_compound.process (Current)
+				a_compound.keyword.process (Current)
+			end
+			a_keys := an_expression.keys
+			if a_keys /= Void then
+				a_keys.process (Current)
+			end
+			if a_compound /= Void then
+				nb := a_compound.count
+				from i := 1 until i > nb loop
+					a_compound.item (i).process (Current)
+					i := i + 1
+				end
 			end
 			a_postconditions := an_expression.postconditions
 			if a_postconditions /= Void then
@@ -2739,7 +2829,13 @@ feature {ET_AST_NODE} -- Processing
 
 	process_qualified_like_braced_type (a_type: ET_QUALIFIED_LIKE_BRACED_TYPE)
 			-- Process `a_type'.
+		local
+			l_type_mark: ET_TYPE_MARK
 		do
+			l_type_mark := a_type.type_mark
+			if l_type_mark /= Void then
+				l_type_mark.process (Current)
+			end
 			a_type.like_keyword.process (Current)
 			a_type.left_brace.process (Current)
 			a_type.target_type.process (Current)
@@ -2749,7 +2845,13 @@ feature {ET_AST_NODE} -- Processing
 
 	process_qualified_like_type (a_type: ET_QUALIFIED_LIKE_TYPE)
 			-- Process `a_type'.
+		local
+			l_type_mark: ET_TYPE_MARK
 		do
+			l_type_mark := a_type.type_mark
+			if l_type_mark /= Void then
+				l_type_mark.process (Current)
+			end
 			a_type.target_type.process (Current)
 			a_type.qualified_name.process (Current)
 		end

@@ -5,7 +5,7 @@ note
 		"ECF Eiffel class libraries"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2008-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2008-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -16,7 +16,10 @@ inherit
 
 	ET_LIBRARY
 		rename
-			make as make_library
+			make as make_library,
+			pathname as filename
+		undefine
+			filename
 		redefine
 			name, library
 		end
@@ -24,7 +27,8 @@ inherit
 	ET_ECF_INTERNAL_UNIVERSE
 		rename
 			make as make_config,
-			universe as library
+			universe as library,
+			has_class as has_class_by_name
 		undefine
 			kind_name
 		redefine

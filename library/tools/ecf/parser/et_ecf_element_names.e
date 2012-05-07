@@ -5,7 +5,7 @@ note
 		"ECF XML element names"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2008-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2008-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -16,6 +16,9 @@ feature -- Constants
 
 	xml_all_classes: STRING = "all_classes"
 			-- "all_classes" attribute name
+
+	xml_assembly: STRING = "assembly"
+			-- "assembly" element name
 
 	xml_build: STRING = "build"
 			-- "build" attribute name
@@ -28,6 +31,9 @@ feature -- Constants
 
 	xml_compiler: STRING = "compiler"
 			-- "compiler" attribute value
+
+	xml_concurrency: STRING = "concurrency"
+			-- "concurrency" element name
 
 	xml_condition: STRING = "condition"
 			-- "condition" element name
@@ -65,6 +71,9 @@ feature -- Constants
 	xml_include: STRING = "include"
 			-- "include" attribute name
 
+	xml_is_attached_by_default: STRING = "is_attached_by_default"
+			-- "is_attached_by_default" attribute name
+
 	xml_library: STRING = "library"
 			-- "library" attribute name
 
@@ -86,8 +95,17 @@ feature -- Constants
 	xml_name: STRING = "name"
 			-- "name" attribute name
 
+	xml_new_name: STRING = "new_name"
+			-- "new_name" attribute name
+
 	xml_location: STRING = "location"
 			-- "location" attribute name
+
+	xml_old_name: STRING = "old_name"
+			-- "old_name" attribute name
+
+	xml_option: STRING = "option"
+			-- "option" element name
 
 	xml_override: STRING = "override"
 			-- "override" element name
@@ -95,11 +113,23 @@ feature -- Constants
 	xml_platform: STRING = "platform"
 			-- "platform" element name
 
+	xml_prefix: STRING = "prefix"
+			-- "prefix" attribute name
+
+	xml_readonly: STRING = "readonly"
+			-- "recursive" attribute name
+
 	xml_recursive: STRING = "recursive"
 			-- "recursive" attribute name
 
+	xml_renaming: STRING = "renaming"
+			-- "renaming" element name
+
 	xml_root: STRING = "root"
 			-- "root" element name
+
+	xml_setting: STRING = "setting"
+			-- "setting" element name
 
 	xml_system: STRING = "system"
 			-- "system" element name
@@ -121,6 +151,9 @@ feature -- Constants
 
 	xml_version: STRING = "version"
 			-- "version" element name
+
+	xml_void_safety: STRING = "void_safety"
+			-- "void_safety" attribute name
 
 feature -- Namespaces
 

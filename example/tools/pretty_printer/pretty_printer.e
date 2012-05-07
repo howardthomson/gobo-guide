@@ -1,10 +1,10 @@
-indexing
+note
 
 	description:
 
 		"Eiffel pretty-printer"
 
-	copyright: "Copyright (c) 2008-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2008-2010, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -26,7 +26,7 @@ create
 
 feature {NONE} -- Execution
 
-	execute is
+	execute
 			-- Execute tool.
 		local
 			a_system: ET_SYSTEM
@@ -38,6 +38,7 @@ feature {NONE} -- Execution
 			a_time_stamp: INTEGER
 			a_parser: ET_EIFFEL_PARSER
 			a_eiffel_error_handler: ET_ERROR_HANDLER
+			a_class_text: STRING
 		do
 			Arguments.set_program_name ("pretty_printer")
 			create error_handler.make_standard
@@ -75,14 +76,22 @@ feature {NONE} -- Execution
 						std.output.append (in_file)
 						in_file.close
 					else
+						create a_class_text.make (1024)
+						from
+							in_file.read_string (1024)
+						until
+							in_file.end_of_file
+						loop
+							a_class_text.append_string (in_file.last_string)
+							in_file.read_string (1024)
+						end
+						in_file.close
 						create out_file.make (out_filename)
 						out_file.recursive_open_write
 						if out_file.is_open_write then
-							out_file.append (in_file)
+							out_file.put_string (a_class_text)
 							out_file.close
-							in_file.close
 						else
-							in_file.close
 							report_cannot_write_error (out_filename)
 							Exceptions.die (1)
 						end
@@ -113,7 +122,7 @@ feature {NONE} -- Execution
 			end
 		end
 
-	read_arguments is
+	read_arguments
 			-- Read command-line arguments.
 		do
 				-- Read filenames.
@@ -145,7 +154,7 @@ feature -- Access
 
 feature -- Error handling
 
-	report_cannot_read_error (a_filename: STRING) is
+	report_cannot_read_error (a_filename: STRING)
 			-- Report that `a_filename' cannot be
 			-- opened in read mode.
 		require
@@ -157,7 +166,7 @@ feature -- Error handling
 			error_handler.report_error (an_error)
 		end
 
-	report_cannot_write_error (a_filename: STRING) is
+	report_cannot_write_error (a_filename: STRING)
 			-- Report that `a_filename' cannot be
 			-- opened in write mode.
 		require
@@ -169,13 +178,13 @@ feature -- Error handling
 			error_handler.report_error (an_error)
 		end
 
-	report_usage_error is
+	report_usage_error
 			-- Report usage error.
 		do
 			error_handler.report_error (Usage_message)
 		end
 
-	Usage_message: UT_USAGE_MESSAGE is
+	Usage_message: UT_USAGE_MESSAGE
 			-- Usage message
 		once
 			create Result.make ("input_filename [output_filename]")

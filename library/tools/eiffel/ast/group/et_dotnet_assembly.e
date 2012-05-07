@@ -5,7 +5,7 @@ note
 		"Eiffel .NET assemblies of classes"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2006-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2006-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -14,7 +14,13 @@ class ET_DOTNET_ASSEMBLY
 
 inherit
 
-	ET_GROUP
+	ET_PRIMARY_GROUP
+		rename
+			group as dotnet_assembly,
+			has_class_recursive as has_class,
+			class_count_recursive as class_count,
+			classes_do_recursive as classes_do_all,
+			classes_do_if_recursive as classes_do_if
 		undefine
 			current_system, hash_code,
 			dotnet_assembly, lower_name,
@@ -22,12 +28,18 @@ inherit
 			relative_name, relative_lower_name
 		redefine
 			is_dotnet_assembly,
-			kind_name
+			kind_name,
+			kind_name_plural,
+			has_class,
+			class_count,
+			classes_do_all,
+			classes_do_if
 		end
 
 	ET_UNIVERSE
 		rename
-			universe as dotnet_assembly
+			universe as dotnet_assembly,
+			has_class as has_class_by_name
 		redefine
 			import_classes,
 			add_universe_recursive,
@@ -35,7 +47,10 @@ inherit
 			universes_do_if,
 			dotnet_assembly,
 			adapted_universe,
-			kind_name
+			kind_name,
+			class_count,
+			classes_do_all,
+			classes_do_if
 		end
 
 	ET_ADAPTED_DOTNET_ASSEMBLY
@@ -78,15 +93,52 @@ feature -- Status report
 			-- groups take precedence over classes with same names but in
 			-- non-override group? (see 'override_cluster' in ISE's LACE.)
 
-	is_read_only: BOOLEAN = True
-			-- Is current group a read-only group?
-			-- In other words, are changes in this group and in its classes
-			-- not taken into account when repreparsing or reparsing
-			-- the universe? (see 'library' in ISE's LACE.)
-
 	is_implicit: BOOLEAN
 			-- Has current assembly not been explicitly declared
 			-- but is instead the result of assembly dependences?
+
+	has_group_by_name (a_names: ARRAY [STRING]): BOOLEAN
+			-- Is there a group named `a_names' starting from within current universe
+			-- and recursively traversing dependent universes if needed?
+			-- Do not take into account missing implicit subclusters.
+		do
+			Result := has_group_by_name_at_index (a_names, a_names.lower)
+		end
+
+	has_class (a_class: ET_CLASS): BOOLEAN
+			-- Has `a_class' been declared in current .NET assembly?
+			-- Do not take into account overridden classes.
+		do
+			Result := a_class.universe = Current and then not a_class.is_overridden
+		end
+
+feature {ET_DOTNET_ASSEMBLY, ET_INTERNAL_UNIVERSE} -- Status report
+
+	has_group_by_name_at_index (a_names: ARRAY [STRING]; a_index: INTEGER): BOOLEAN
+			-- Is there a group named `a_names', ignoring the entries before `a_index',
+			-- starting from within current universe and recursively traversing
+			-- dependent universes if needed?
+			-- Do not take into account missing implicit subclusters.
+		require
+			a_names_not_void: a_names /= Void
+			no_void_name: not a_names.has (Void)
+			no_empty_name: not a_names.there_exists (agent {STRING}.is_empty)
+		local
+			nb: INTEGER
+			l_dotnet_assembly: ET_DOTNET_ASSEMBLY
+		do
+			nb := a_names.upper
+			if a_index <= nb then
+				l_dotnet_assembly := referenced_assemblies.dotnet_assembly_by_name (a_names.item (a_index))
+				if l_dotnet_assembly /= Void then
+					if a_index = nb then
+						Result := True
+					else
+						Result := l_dotnet_assembly.has_group_by_name_at_index (a_names, a_index + 1)
+					end
+				end
+			end
+		end
 
 feature -- Access
 
@@ -101,6 +153,16 @@ feature -- Access
 	referenced_assemblies: ET_DOTNET_ASSEMBLIES
 			-- .NET assemblies that current universe depends on
 
+	group_by_name (a_names: ARRAY [STRING]): ET_GROUP
+			-- Group named `a_names' starting from within current universe
+			-- and recursively traversing dependent universes if needed
+			--
+			-- Add missing implicit subclusters if needed.
+			-- Void if not such group.
+		do
+			Result := group_by_name_at_index (a_names, a_names.lower)
+		end
+
 	adapted_universe (a_universe: ET_UNIVERSE): ET_ADAPTED_UNIVERSE
 			-- Adapted version of `a_universe' viewed from current universe
 			-- when it depends on it, Void otherwise
@@ -112,7 +174,7 @@ feature -- Access
 			l_dotnet_assembly: ET_DOTNET_ASSEMBLY
 		do
 			l_dotnet_assembly ?= a_universe
-			if l_dotnet_assembly /= Void and then referenced_assemblies.assemblies.has (l_dotnet_assembly) then
+			if l_dotnet_assembly /= Void and then referenced_assemblies.dotnet_assemblies.has (l_dotnet_assembly) then
 				Result := l_dotnet_assembly
 			end
 		end
@@ -132,6 +194,44 @@ feature -- Access
 			-- Name of the kind of group or universe (e.g. "cluster", "assembly", "library", etc.)
 		once
 			Result := "assembly"
+		end
+
+	kind_name_plural: STRING
+			-- Plural form of name of the kind of group (e.g. "clusters", "assemblies", "libraries", etc.)
+		once
+			Result := "assemblies"
+		end
+
+feature {ET_DOTNET_ASSEMBLY, ET_INTERNAL_UNIVERSE} -- Access
+
+	group_by_name_at_index (a_names: ARRAY [STRING]; a_index: INTEGER): ET_GROUP
+			-- Group named `a_names', ignoring the entries before `a_index',
+			-- starting from within current universe and recursively traversing
+			-- dependent universes if needed
+			--
+			-- Add missing implicit subclusters if needed.
+			-- Void if not such group.
+		require
+			a_names_not_void: a_names /= Void
+			no_void_name: not a_names.has (Void)
+			no_empty_name: not a_names.there_exists (agent {STRING}.is_empty)
+		local
+			nb: INTEGER
+			l_dotnet_assembly: ET_DOTNET_ASSEMBLY
+		do
+			nb := a_names.upper
+			if a_index <= nb then
+				l_dotnet_assembly := referenced_assemblies.dotnet_assembly_by_name (a_names.item (a_index))
+				if l_dotnet_assembly /= Void then
+					if a_index = nb then
+						Result := l_dotnet_assembly
+					else
+						Result := l_dotnet_assembly.group_by_name_at_index (a_names, a_index + 1)
+					end
+				end
+			end
+		ensure
+			not_void_if_has: has_group_by_name_at_index (a_names, a_index) implies Result /= Void
 		end
 
 feature -- Status setting
@@ -166,6 +266,15 @@ feature -- Setting
 			referenced_assemblies_set: referenced_assemblies = a_assemblies
 		end
 
+feature -- Measurement
+
+	class_count: INTEGER
+			-- Number of classes declared locally in current .NET assembly.
+			-- Do not take into account overridden classes.
+		do
+			Result := precursor {ET_UNIVERSE}
+		end
+
 feature -- Nested
 
 	parent: ET_DOTNET_ASSEMBLY
@@ -175,6 +284,21 @@ feature -- Nested
 		end
 
 feature -- Iteration
+
+	classes_do_all (an_action: PROCEDURE [ANY, TUPLE [ET_CLASS]])
+			-- Apply `an_action' on all classes declared locally in current .NET assembly.
+			-- Do not take into account overridden classes.
+		do
+			precursor {ET_UNIVERSE} (an_action)
+		end
+
+	classes_do_if (an_action: PROCEDURE [ANY, TUPLE [ET_CLASS]]; a_test: FUNCTION [ANY, TUPLE [ET_CLASS], BOOLEAN])
+			-- Apply `an_action' on all classes declared locally in current .NET assembly
+			-- that satisfy `a_test'.
+			-- Do not take into account overridden classes.
+		do
+			precursor {ET_UNIVERSE} (an_action, a_test)
+		end
 
 	universes_do_all (an_action: PROCEDURE [ANY, TUPLE [ET_UNIVERSE]])
 			-- Apply `an_action' to every universe that current universe depends on.
@@ -211,6 +335,18 @@ feature -- Relations
 				a_visited.force_last (Current)
 				referenced_assemblies.do_all (agent {ET_DOTNET_ASSEMBLY}.add_dotnet_assembly_recursive (a_visited))
 			end
+		end
+
+feature {ET_INTERNAL_UNIVERSE} -- Parsing
+
+	is_consumable: BOOLEAN
+			-- Will current .NET assembly need to be consumed
+			-- next time a universe depending on it will be
+			-- preparsed or parsed.
+		do
+-- TODO: .NET assemblies are currently considered read-only,
+-- regardless of the value of `is_read_only'.
+			Result := not is_preparsed
 		end
 
 feature {ET_DOTNET_ASSEMBLY_CONSUMER} -- Parsing

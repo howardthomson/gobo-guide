@@ -45,7 +45,7 @@ feature -- Access
 			Result := tokens.agent_keyword_name
 		end
 
-	XXX_hash_code: INTEGER
+	hash_code: INTEGER
 			-- Hash code
 		do
 			Result := code.code

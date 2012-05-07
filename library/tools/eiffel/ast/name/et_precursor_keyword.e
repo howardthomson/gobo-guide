@@ -47,7 +47,7 @@ feature -- Access
 			Result := tokens.precursor_keyword_name
 		end
 
-	XX_hash_code: INTEGER
+	hash_code: INTEGER
 			-- Hash code
 		do
 			Result := code.code

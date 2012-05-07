@@ -6,7 +6,7 @@ note
 		in clusters, or imported from libraries or .NET assemblies.
 	]"
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2008-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2008-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date: 2008-12-23 16:09:12 +0100 (Tue, 23 Dec 2008) $"
 	revision: "$Revision: 6570 $"
@@ -42,11 +42,29 @@ feature {NONE} -- Initialization
 
 feature -- Status report
 
+	has_group_by_name (a_names: ARRAY [STRING]): BOOLEAN
+			-- Is there a group named `a_names' starting from within current universe
+			-- and recursively traversing dependent universes if needed?
+			-- Do not take into account missing implicit subclusters.
+		do
+			Result := has_group_by_name_at_index (a_names, a_names.lower)
+		end
+
 	has_cluster (a_cluster: ET_CLUSTER): BOOLEAN
 			-- Is `a_cluster' one of the clusters or recursively
 			-- subclusters of current universe?
 		do
-			Result := clusters.has_subcluster (a_cluster)
+			if a_cluster.universe = Current then
+				Result := clusters.has_subcluster (a_cluster)
+			end
+		end
+
+	has_cluster_recursive (a_cluster: ET_CLUSTER): BOOLEAN
+			-- Is `a_cluster' one of the clusters or recursively
+			-- subclusters of current universe or recursively in
+			-- one of the universes it depends on?
+		do
+			Result := internal_universes_there_exists (agent {ET_INTERNAL_UNIVERSE}.has_cluster (a_cluster))
 		end
 
 	has_cluster_by_name (a_names: ARRAY [STRING]): BOOLEAN
@@ -60,6 +78,18 @@ feature -- Status report
 			Result := clusters.has_subcluster_by_name (a_names)
 		end
 
+	has_cluster_by_name_recursive (a_names: ARRAY [STRING]): BOOLEAN
+			-- Is there a cluster named `a_names' in universe
+			-- or recursively in one of the universes it depends on?
+			-- Do not take into account missing implicit subclusters.
+		require
+			a_names_not_void: a_names /= Void
+			no_void_name: not a_names.has (Void)
+			no_empty_name: not a_names.there_exists (agent {STRING}.is_empty)
+		do
+			Result := internal_universes_there_exists (agent {ET_INTERNAL_UNIVERSE}.has_cluster_by_name (a_names))
+		end
+
 	has_cluster_with_absolute_pathname (a_pathname: STRING): BOOLEAN
 			-- Is there a cluster with absolute pathname `a_pathname' in universe?
 			--
@@ -70,6 +100,59 @@ feature -- Status report
 			a_pathname_absolute: file_system.is_absolute_pathname (a_pathname)
 		do
 			Result := clusters.has_subcluster_with_absolute_pathname (a_pathname)
+		end
+
+	has_cluster_with_absolute_pathname_recursive (a_pathname: STRING): BOOLEAN
+			-- Is there a cluster with absolute pathname `a_pathname' in universe
+			-- or recursively in one of the universes it depends on?
+			--
+			-- `a_pathname' is expected to be a canonical absolute pathname.
+			-- Do not take into account missing implicit subclusters.
+		require
+			a_pathname_not_void: a_pathname /= Void
+			a_pathname_absolute: file_system.is_absolute_pathname (a_pathname)
+		do
+			Result := internal_universes_there_exists (agent {ET_INTERNAL_UNIVERSE}.has_cluster_with_absolute_pathname (a_pathname))
+		end
+
+feature {ET_INTERNAL_UNIVERSE} -- Status report
+
+	has_group_by_name_at_index (a_names: ARRAY [STRING]; a_index: INTEGER): BOOLEAN
+			-- Is there a group named `a_names', ignoring the entries before `a_index',
+			-- starting from within current universe and recursively traversing
+			-- dependent universes if needed?
+			-- Do not take into account missing implicit subclusters.
+		require
+			a_names_not_void: a_names /= Void
+			no_void_name: not a_names.has (Void)
+			no_empty_name: not a_names.there_exists (agent {STRING}.is_empty)
+		local
+			nb: INTEGER
+			l_library: ET_LIBRARY
+			l_dotnet_assembly: ET_DOTNET_ASSEMBLY
+		do
+			nb := a_names.upper
+			if a_index <= nb then
+				l_library := library_by_name (a_names.item (a_index))
+				if l_library /= Void then
+					if a_index = nb then
+						Result := True
+					else
+						Result := l_library.has_group_by_name_at_index (a_names, a_index + 1)
+					end
+				else
+					l_dotnet_assembly := dotnet_assembly_by_name (a_names.item (a_index))
+					if l_dotnet_assembly /= Void then
+						if a_index = nb then
+							Result := True
+						else
+							Result := l_dotnet_assembly.has_group_by_name_at_index (a_names, a_index + 1)
+						end
+					else
+						Result := clusters.has_subcluster_by_name_at_index (a_names, a_index)
+					end
+				end
+			end
 		end
 
 feature -- Access
@@ -98,6 +181,46 @@ feature -- Access
 			not_void_if_has: has_cluster_by_name (a_names) implies Result /= Void
 		end
 
+	library_by_name (a_name: STRING): ET_LIBRARY
+			-- Library with name `a_name';
+			-- Void if not such library
+		require
+			a_name_not_void: a_name /= Void
+			a_name_not_empty: a_name.count > 0
+		local
+			l_adapted_library: ET_ADAPTED_LIBRARY
+		do
+			l_adapted_library := libraries.library_by_name (a_name)
+			if l_adapted_library /= Void then
+				Result := l_adapted_library.library
+			end
+		end
+
+	dotnet_assembly_by_name (a_name: STRING): ET_DOTNET_ASSEMBLY
+			-- .NET assembly with name `a_name';
+			-- Void if not such .NET assembly
+		require
+			a_name_not_void: a_name /= Void
+			a_name_not_empty: a_name.count > 0
+		local
+			l_adapted_dotnet_assembly: ET_ADAPTED_DOTNET_ASSEMBLY
+		do
+			l_adapted_dotnet_assembly := dotnet_assemblies.dotnet_assembly_by_name (a_name)
+			if l_adapted_dotnet_assembly /= Void then
+				Result := l_adapted_dotnet_assembly.dotnet_assembly
+			end
+		end
+
+	group_by_name (a_names: ARRAY [STRING]): ET_GROUP
+			-- Group named `a_names' starting from within current universe
+			-- and recursively traversing dependent universes if needed
+			--
+			-- Add missing implicit subclusters if needed.
+			-- Void if not such group.
+		do
+			Result := group_by_name_at_index (a_names, a_names.lower)
+		end
+
 	cluster_with_absolute_pathname (a_pathname: STRING): ET_CLUSTER
 			-- Cluster with absolute pathname `a_pathname' in current universe
 			--
@@ -111,6 +234,26 @@ feature -- Access
 			Result := clusters.subcluster_with_absolute_pathname (a_pathname)
 		ensure
 			not_void_if_has: has_cluster_with_absolute_pathname (a_pathname) implies Result /= Void
+		end
+
+	cluster_with_absolute_pathname_recursive (a_pathname: STRING): ET_CLUSTER
+			-- Cluster with absolute pathname `a_pathname' in current universe
+			-- or recursively in one of the universes it depends on.
+			--
+			-- `a_pathname' is expected to be a canonical absolute pathname.
+			-- Add missing implicit subclusters if needed.
+			-- Void if not such cluster.
+		require
+			a_pathname_not_void: a_pathname /= Void
+			a_pathname_absolute: file_system.is_absolute_pathname (a_pathname)
+		local
+			l_cell: DS_CELL [ET_CLUSTER]
+		do
+			create l_cell.make (Void)
+			internal_universes_do_recursive (agent {ET_INTERNAL_UNIVERSE}.do_cluster_with_absolute_pathname (a_pathname, agent l_cell.put))
+			Result := l_cell.item
+		ensure
+			not_void_if_has: has_cluster_with_absolute_pathname_recursive (a_pathname) implies Result /= Void
 		end
 
 	adapted_universe (a_universe: ET_UNIVERSE): ET_ADAPTED_UNIVERSE
@@ -135,12 +278,56 @@ feature -- Access
 			end
 		end
 
+feature {ET_INTERNAL_UNIVERSE} -- Access
+
+	group_by_name_at_index (a_names: ARRAY [STRING]; a_index: INTEGER): ET_GROUP
+			-- Group named `a_names', ignoring the entries before `a_index',
+			-- starting from within current universe and recursively traversing
+			-- dependent universes if needed
+			--
+			-- Add missing implicit subclusters if needed.
+			-- Void if not such group.
+		require
+			a_names_not_void: a_names /= Void
+			no_void_name: not a_names.has (Void)
+			no_empty_name: not a_names.there_exists (agent {STRING}.is_empty)
+		local
+			nb: INTEGER
+			l_library: ET_LIBRARY
+			l_dotnet_assembly: ET_DOTNET_ASSEMBLY
+		do
+			nb := a_names.upper
+			if a_index <= nb then
+				l_library := library_by_name (a_names.item (a_index))
+				if l_library /= Void then
+					if a_index = nb then
+						Result := l_library
+					else
+						Result := l_library.group_by_name_at_index (a_names, a_index + 1)
+					end
+				else
+					l_dotnet_assembly := dotnet_assembly_by_name (a_names.item (a_index))
+					if l_dotnet_assembly /= Void then
+						if a_index = nb then
+							Result := l_dotnet_assembly
+						else
+							Result := l_dotnet_assembly.group_by_name_at_index (a_names, a_index + 1)
+						end
+					else
+						Result := clusters.subcluster_by_name_at_index (a_names, a_index)
+					end
+				end
+			end
+		ensure
+			not_void_if_has: has_group_by_name_at_index (a_names, a_index) implies Result /= Void
+		end
+
 feature -- Measurement
 
 	cluster_count: INTEGER
 			-- Number of non-abstract clusters and recursively subclusters in current universe
 		do
-			Result := clusters.count
+			Result := clusters.count_recursive
 		ensure
 			cluster_count_not_negavite: Result >= 0
 		end
@@ -163,9 +350,11 @@ feature -- Measurement
 
 	override_cluster_count: INTEGER
 			-- Number of non-abstract non-read-only override clusters and recursively subclusters
-			-- in current universe
+			-- in current universe; 0 if current universe is read only
 		do
-			Result := clusters.override_count
+			if not is_read_only then
+				Result := clusters.override_count_recursive
+			end
 		ensure
 			override_cluster_count_not_negavite: Result >= 0
 		end
@@ -188,9 +377,11 @@ feature -- Measurement
 
 	read_write_cluster_count: INTEGER
 			-- Number of non-abstract non-read-only clusters and recursively subclusters
-			-- in current universe
+			-- in current universe; 0 if current universe is read only
 		do
-			Result := clusters.read_write_count
+			if not is_read_only then
+				Result := clusters.read_write_count_recursive
+			end
 		ensure
 			read_write_cluster_count_not_negavite: Result >= 0
 		end
@@ -337,6 +528,47 @@ feature -- Iteration
 			end
 		end
 
+	internal_universes_there_exists (a_test: FUNCTION [ANY, TUPLE [ET_INTERNAL_UNIVERSE], BOOLEAN]): BOOLEAN
+			-- Is `a_test' true for at least current universe or recursively one
+			-- of the internal universes it depends on?
+		require
+			a_test_not_void: a_test /= Void
+		local
+			l_visited: DS_HASH_SET [ET_INTERNAL_UNIVERSE]
+		do
+			create l_visited.make (initial_universes_capacity)
+			add_internal_universe_recursive (l_visited)
+			from l_visited.start until l_visited.after loop
+				if a_test.item ([l_visited.item_for_iteration]) then
+					Result := True
+						-- Jump out of the loop.
+					l_visited.go_after
+				else
+					l_visited.forth
+				end
+			end
+		end
+
+	dotnet_assemblies_do_all (a_action: PROCEDURE [ANY, TUPLE [ET_DOTNET_ASSEMBLY]])
+			-- Apply `a_action' to every .NET assembly of `dotnet_assemblies', from first to last.
+			-- (Semantics not guaranteed if `a_action' changes the list.)
+		require
+			a_action_not_void: a_action /= Void
+		do
+			dotnet_assemblies.do_all (a_action)
+		end
+
+	dotnet_assemblies_do_if (an_action: PROCEDURE [ANY, TUPLE [ET_DOTNET_ASSEMBLY]]; a_test: FUNCTION [ANY, TUPLE [ET_DOTNET_ASSEMBLY], BOOLEAN])
+			-- Apply `an_action' to every .NET assembly  of `dotnet_assemblies'
+			-- that satisfies `a_test', from first to last.
+			-- (Semantics not guaranteed if `an_action' changes the list.)
+		require
+			an_action_not_void: an_action /= Void
+			a_test_not_void: a_test /= Void
+		do
+			dotnet_assemblies.do_if (an_action, a_test)
+		end
+
 feature -- Relations
 
 	add_universe_recursive (a_visited: DS_HASH_SET [ET_UNIVERSE])
@@ -362,6 +594,24 @@ feature -- Relations
 			end
 		end
 
+feature -- Actions
+
+	do_cluster_with_absolute_pathname (a_pathname: STRING; a_action: PROCEDURE [ANY, TUPLE [ET_CLUSTER]])
+			-- Execute `a_action' on cluster with absolute pathname `a_pathname' in current universe.
+			-- Do nothing if not such cluster.
+		require
+			a_pathname_not_void: a_pathname /= Void
+			a_pathname_absolute: file_system.is_absolute_pathname (a_pathname)
+			a_action_not_void: a_action /= Void
+		local
+			l_cluster: ET_CLUSTER
+		do
+			l_cluster := cluster_with_absolute_pathname (a_pathname)
+			if l_cluster /= Void then
+				a_action.call ([l_cluster])
+			end
+		end
+
 feature -- Parsing
 
 	preparse
@@ -383,8 +633,7 @@ feature -- Parsing
 			if not is_preparsed then
 				is_preparsed := True
 				clusters.do_all (agent {ET_CLUSTER}.process (current_system.eiffel_preparser))
-			else
--- TODO: .NET assemblies are currently considered read-only.
+			elseif not is_read_only then
 					-- Take care of possibly removed classes (either their old files do not exist
 					-- anymore, or they have been modified and may contain another class).
 					-- Note that if a file contains two classes and is modified between the
@@ -412,11 +661,14 @@ feature -- Parsing
 			-- preparsing works. Read the header comments of these features
 			-- for more details.
 		local
+			l_assembly_set: DS_HASH_SET [ET_DOTNET_ASSEMBLY]
 			l_assemblies: ET_DOTNET_ASSEMBLIES
 		do
 				-- First preparse locally all dependent universes.
+			create l_assembly_set.make (dotnet_assemblies.count)
+			internal_universes_do_recursive (agent {ET_INTERNAL_UNIVERSE}.dotnet_assemblies_do_if (agent l_assembly_set.force_last, agent {ET_DOTNET_ASSEMBLY}.is_consumable))
 			create l_assemblies.make_empty
-			dotnet_assemblies.do_all (agent l_assemblies.put_last)
+			l_assembly_set.do_all (agent l_assemblies.put_last)
 			current_system.dotnet_assembly_consumer.consume_assemblies (l_assemblies)
 			dotnet_assemblies.do_recursive (agent {ET_DOTNET_ASSEMBLY}.preparse)
 			libraries.do_recursive (agent {ET_LIBRARY}.preparse)
@@ -454,8 +706,7 @@ feature -- Parsing
 			if not is_preparsed then
 				is_preparsed := True
 				clusters.do_all (agent {ET_CLUSTER}.process (current_system.eiffel_parser))
-			else
--- TODO: .NET assemblies are currently considered read-only.
+			elseif not is_read_only then
 					-- Take care of possibly removed classes (either their old files do not exist
 					-- anymore, or they have been modified and may contain another class).
 					-- Note that if a file contains two classes and is modified between the
@@ -485,11 +736,14 @@ feature -- Parsing
 			-- preparsing works. Read the header comments of these features
 			-- for more details.
 		local
+			l_assembly_set: DS_HASH_SET [ET_DOTNET_ASSEMBLY]
 			l_assemblies: ET_DOTNET_ASSEMBLIES
 		do
 				-- First preparse locally all dependent universes.
+			create l_assembly_set.make (dotnet_assemblies.count)
+			internal_universes_do_recursive (agent {ET_INTERNAL_UNIVERSE}.dotnet_assemblies_do_if (agent l_assembly_set.force_last, agent {ET_DOTNET_ASSEMBLY}.is_consumable))
 			create l_assemblies.make_empty
-			dotnet_assemblies.do_all (agent l_assemblies.put_last)
+			l_assembly_set.do_all (agent l_assemblies.put_last)
 			current_system.dotnet_assembly_consumer.consume_assemblies (l_assemblies)
 			dotnet_assemblies.do_recursive (agent {ET_DOTNET_ASSEMBLY}.parse_all)
 			libraries.do_recursive (agent {ET_LIBRARY}.parse_all)

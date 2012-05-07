@@ -84,7 +84,28 @@ create
 	make_eack,
 	make_eacl,
 	make_eacm,
-	make_eacn
+	make_eacn,
+	make_eaco,
+	make_eacp,
+	make_eacq,
+	make_eacr,
+	make_eacs,
+	make_eact,
+	make_eacu,
+	make_eacv,
+	make_eacw,
+	make_eacx,
+	make_eacy,
+	make_eacz,
+	make_eada,
+	make_eadb,
+	make_eadc,
+	make_eadd,
+	make_eade,
+	make_esnm,
+	make_esne,
+	make_esvm,
+	make_esve
 
 feature {NONE} -- Initialization
 
@@ -1749,6 +1770,534 @@ feature {NONE} -- Initialization
 			-- dollar4: $4 = column
 		end
 
+	make_eaco (a_renaming_clause: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACO error: the old name of the renaming clause is missing.
+		require
+			a_renaming_clause_not_void: a_renaming_clause /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_renaming_clause.position
+			code := eaco_code
+			default_template := default_message_template (eaco_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_eacp (a_old_name_attribute_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACP error: the old name of the renaming clause is empty.
+		require
+			a_old_name_attribute_name_not_void: a_old_name_attribute_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_old_name_attribute_name.position
+			code := eacp_code
+			default_template := default_message_template (eacp_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_eacq (a_renaming_clause: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACQ error: the new name of the renaming clause is missing.
+		require
+			a_renaming_clause_not_void: a_renaming_clause /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_renaming_clause.position
+			code := eacq_code
+			default_template := default_message_template (eacq_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_eacr (a_new_name_attribute_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACR error: the new name of the renaming clause is empty.
+		require
+			a_new_name_attribute_name_not_void: a_new_name_attribute_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_new_name_attribute_name.position
+			code := eacr_code
+			default_template := default_message_template (eacr_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_eacs (a_old_name_attribute_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACS error: the old name of the renaming clause already
+			-- appears in another renaming clause.
+		require
+			a_old_name_attribute_name_not_void: a_old_name_attribute_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_old_name_attribute_name.position
+			code := eacs_code
+			default_template := default_message_template (eacs_default_template)
+			create parameters.make_filled (empty_string, 1, 5)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+			parameters.put (a_old_name_attribute_name.upper_name, 5)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+			-- dollar5: $5 = old name
+		end
+
+	make_eact (a_readonly_attribute_name: ET_IDENTIFIER; a_readonly_value: STRING; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACT error: the readonly attribute of the cluster should be a boolean.
+		require
+			a_readonly_attribute_name_not_void: a_readonly_attribute_name /= Void
+			a_readonly_value_not_void: a_readonly_value /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_readonly_attribute_name.position
+			code := eact_code
+			default_template := default_message_template (eact_default_template)
+			create parameters.make_filled (empty_string, 1, 5)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+			parameters.put (a_readonly_value, 5)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+			-- dollar5: $5 = readonly value
+		end
+
+	make_eacu (a_readonly_attribute_name: ET_IDENTIFIER; a_readonly_value: STRING; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACU error: the readonly attribute of the override should be a boolean.
+		require
+			a_readonly_attribute_name_not_void: a_readonly_attribute_name /= Void
+			a_readonly_value_not_void: a_readonly_value /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_readonly_attribute_name.position
+			code := eacu_code
+			default_template := default_message_template (eacu_default_template)
+			create parameters.make_filled (empty_string, 1, 5)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+			parameters.put (a_readonly_value, 5)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+			-- dollar5: $5 = readonly value
+		end
+
+	make_eacv (a_readonly_attribute_name: ET_IDENTIFIER; a_readonly_value: STRING; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACV error: the readonly attribute of the library should be a boolean.
+		require
+			a_readonly_attribute_name_not_void: a_readonly_attribute_name /= Void
+			a_readonly_value_not_void: a_readonly_value /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_readonly_attribute_name.position
+			code := eacv_code
+			default_template := default_message_template (eacv_default_template)
+			create parameters.make_filled (empty_string, 1, 5)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+			parameters.put (a_readonly_value, 5)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+			-- dollar5: $5 = readonly value
+		end
+
+	make_eacw (a_readonly_attribute_name: ET_IDENTIFIER; a_readonly_value: STRING; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACW error: the readonly attribute of the .NET assembly should be a boolean.
+		require
+			a_readonly_attribute_name_not_void: a_readonly_attribute_name /= Void
+			a_readonly_value_not_void: a_readonly_value /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_readonly_attribute_name.position
+			code := eacw_code
+			default_template := default_message_template (eacw_default_template)
+			create parameters.make_filled (empty_string, 1, 5)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+			parameters.put (a_readonly_value, 5)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+			-- dollar5: $5 = readonly value
+		end
+
+	make_eacx (a_assembly_element_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACX error: the name of the assembly is missing.
+		require
+			a_assembly_element_name_not_void: a_assembly_element_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_assembly_element_name.position
+			code := eacx_code
+			default_template := default_message_template (eacx_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_eacy (a_assembly_element_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACY error: the location of the assembly is missing.
+		require
+			a_assembly_element_name_not_void: a_assembly_element_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_assembly_element_name.position
+			code := eacy_code
+			default_template := default_message_template (eacy_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_eacz (a_name_attribute_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EACZ error: the name of the assembly is empty.
+		require
+			a_name_attribute_name_not_void: a_name_attribute_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_name_attribute_name.position
+			code := eacz_code
+			default_template := default_message_template (eacz_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_eada (a_location_attribute_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EADA error: the filename of the assembly is empty.
+		require
+			a_location_attribute_name_not_void: a_location_attribute_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_location_attribute_name.position
+			code := eada_code
+			default_template := default_message_template (eada_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_eadb (a_value_attribute_name, a_excluded_value_attribute_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EADB error: cannot have both value and excluded_value in concurrency condition.
+		require
+			a_value_attribute_name_not_void: a_value_attribute_name /= Void
+			a_excluded_value_attribute_name_not_void: a_excluded_value_attribute_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_excluded_value_attribute_name.position
+			code := eadb_code
+			default_template := default_message_template (eadb_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_eadc (a_value_attribute_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EADC error: the value in concurrency condition is empty.
+		require
+			a_value_attribute_name_not_void: a_value_attribute_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_value_attribute_name.position
+			code := eadc_code
+			default_template := default_message_template (eadc_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_eadd (a_excluded_value_attribute_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EADD error: the excluded value in concurrency condition is empty.
+		require
+			a_excluded_value_attribute_name_not_void: a_excluded_value_attribute_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_excluded_value_attribute_name.position
+			code := eadd_code
+			default_template := default_message_template (eadd_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_eade (a_platform_element_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new EADE error: value or excluded value missing in concurrency condition.
+		require
+			a_platform_element_name_not_void: a_platform_element_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_platform_element_name.position
+			code := eade_code
+			default_template := default_message_template (eade_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_esnm (a_setting_element_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new ESNM error: the name of the setting missing.
+			--
+			-- ESNM: Ecf Setting Name Missing
+		require
+			a_setting_element_name_not_void: a_setting_element_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_setting_element_name.position
+			code := esnm_code
+			default_template := default_message_template (esnm_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_esne (a_name_attribute_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new ESNE error: the name of the setting is empty.
+			--
+			-- ESNE: Ecf Setting Name Empty
+		require
+			a_name_attribute_name_not_void: a_name_attribute_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_name_attribute_name.position
+			code := esne_code
+			default_template := default_message_template (esne_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_esvm (a_setting_element_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new ESVM error: the value of the setting missing.
+			--
+			-- ESVM: Ecf Setting Value Missing
+		require
+			a_setting_element_name_not_void: a_setting_element_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_setting_element_name.position
+			code := esvm_code
+			default_template := default_message_template (esvm_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
+	make_esve (a_value_attribute_name: ET_IDENTIFIER; a_universe: ET_ECF_INTERNAL_UNIVERSE)
+			-- Create a new ESVE error: the value of the setting is empty.
+			--
+			-- ESVE: Ecf Setting Value Empty
+		require
+			a_value_attribute_name_not_void: a_value_attribute_name /= Void
+			a_universe_not_void: a_universe /= Void
+		do
+			universe := a_universe
+			position := a_value_attribute_name.position
+			code := esve_code
+			default_template := default_message_template (esve_default_template)
+			create parameters.make_filled (empty_string, 1, 4)
+			parameters.put (code, 1)
+			parameters.put (filename, 2)
+			parameters.put (position.line.out, 3)
+			parameters.put (position.column.out, 4)
+		ensure
+			universe_set: universe = a_universe
+			-- dollar0: $0 = program name
+			-- dollar1: $1 = code
+			-- dollar2: $2 = filename
+			-- dollar3: $3 = line
+			-- dollar4: $4 = column
+		end
+
 feature -- Access
 
 	default_template: STRING
@@ -1896,6 +2445,27 @@ feature {NONE} -- Implementation
 	eacl_default_template: STRING = "'location' attribute in element 'external_library' is empty."
 	eacm_default_template: STRING = "'location' attribute is missing in element 'external_object'."
 	eacn_default_template: STRING = "'location' attribute in element 'external_object' is empty."
+	eaco_default_template: STRING = "'old_name' attribute is missing in 'renaming' clause."
+	eacp_default_template: STRING = "'old_name' attribute in 'renaming' clause is empty."
+	eacq_default_template: STRING = "'new_name' attribute is missing in 'renaming' clause."
+	eacr_default_template: STRING = "'new_name' attribute in 'renaming' clause is empty."
+	eacs_default_template: STRING = "'old_name' attribute $5 already appears in another 'renaming' clause."
+	eact_default_template: STRING = "'readonly' attribute %"$5%" in element 'cluster' should be a boolean."
+	eacu_default_template: STRING = "'readonly' attribute %"$5%" in element 'override' should be a boolean."
+	eacv_default_template: STRING = "'readonly' attribute %"$5%" in element 'library' should be a boolean."
+	eacw_default_template: STRING = "'readonly' attribute %"$5%" in element 'assembly' should be a boolean."
+	eacx_default_template: STRING = "'name' attribute is missing in element 'assembly'."
+	eacy_default_template: STRING = "'location' attribute is missing in element 'assembly'."
+	eacz_default_template: STRING = "'name' attribute in element 'assembly' is empty."
+	eada_default_template: STRING = "'location' attribute in element 'assembly' is empty."
+	eadb_default_template: STRING = "cannot have both 'value' and 'excluded_value' in 'concurrency' condition."
+	eadc_default_template: STRING = "'value' attribute in 'concurrency' condition is empty."
+	eadd_default_template: STRING = "'excluded_value' attribute in 'concurrency' condition is empty."
+	eade_default_template: STRING = "'value' or 'excluded_value' attribute is missing in 'concurrency' condition."
+	esnm_default_template: STRING = "'name' attribute is missing in element 'setting'."
+	esne_default_template: STRING = "'name' attribute in element 'setting' is empty."
+	esvm_default_template: STRING = "'value' attribute is missing in element 'setting'."
+	esve_default_template: STRING = "'value' attribute in element 'setting' is empty."
 			-- Default templates
 
 	syntax_code: STRING = "ESYN"
@@ -1965,6 +2535,27 @@ feature {NONE} -- Implementation
 	eacl_code: STRING = "EACL"
 	eacm_code: STRING = "EACM"
 	eacn_code: STRING = "EACN"
+	eaco_code: STRING = "EACO"
+	eacp_code: STRING = "EACP"
+	eacq_code: STRING = "EACQ"
+	eacr_code: STRING = "EACR"
+	eacs_code: STRING = "EACS"
+	eact_code: STRING = "EACT"
+	eacu_code: STRING = "EACU"
+	eacv_code: STRING = "EACV"
+	eacw_code: STRING = "EACW"
+	eacx_code: STRING = "EACX"
+	eacy_code: STRING = "EACY"
+	eacz_code: STRING = "EACZ"
+	eada_code: STRING = "EADA"
+	eadb_code: STRING = "EADB"
+	eadc_code: STRING = "EADC"
+	eadd_code: STRING = "EADD"
+	eade_code: STRING = "EADE"
+	esnm_code: STRING = "ESNM"
+	esne_code: STRING = "ESNE"
+	esvm_code: STRING = "ESVM"
+	esve_code: STRING = "ESVE"
 			-- Error codes
 
 invariant

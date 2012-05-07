@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,7 +6,7 @@ indexing
 
 	test_status: "ok_to_run"
 	library: "Gobo Eiffel Structure Library"
-	copyright: "Copyright (c) 2008, Daniel Tuser and others"
+	copyright: "Copyright (c) 2008-2011, Daniel Tuser and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -23,7 +23,7 @@ create
 
 feature -- Test
 
-	test_avl_tree_set is
+	test_avl_tree_set
 			-- Test features of DS_AVL_TREE_SET.
 		local
 			l_set: DS_AVL_TREE_SET [INTEGER]
@@ -64,7 +64,7 @@ feature -- Test
 			assert_iarrays_same ("items9", <<INTEGER_.to_integer (8)>>, l_set.to_array)
 		end
 
-	test_avl_tree_set_cursor is
+	test_avl_tree_set_cursor
 			-- Test the cursor implementation for binary search trees.
 		local
 			l_comparator: KL_COMPARABLE_COMPARATOR [INTEGER]
@@ -119,7 +119,7 @@ feature -- Test
 			assert ("before3", l_cursor_1.before)
 		end
 
-	test_void is
+	test_void
 			-- Test with Void items.
 		local
 			l_set: DS_AVL_TREE_SET [STRING]
@@ -155,7 +155,7 @@ feature -- Test
 			l_set.remove ("4")
 		end
 
-	test_do_all is
+	test_do_all
 			-- Test feature 'do_all'.
 		local
 			l_set: DS_AVL_TREE_SET [INTEGER]
@@ -179,7 +179,7 @@ feature -- Test
 			assert ("empty1", l_list.is_empty)
 		end
 
-	test_do_all_with_index is
+	test_do_all_with_index
 			-- Test feature 'do_all_with_index'.
 		local
 			l_set: DS_AVL_TREE_SET [INTEGER]
@@ -193,17 +193,17 @@ feature -- Test
 			l_set.force_last (3)
 			l_set.force_last (2)
 			l_set.force_last (1)
-			create l_array.make (0, 6)
+			create l_array.make_filled (0, 0, 6)
 			l_set.do_all_with_index (agent l_array.put)
 			assert_iarrays_same ("items1", <<INTEGER_.to_integer (0), 1, 2, 3, 4, 5, 0>>, l_array)
 				-- Empty set.
 			create l_set.make (l_comparator)
-			create l_array.make (0, 1)
+			create l_array.make_filled (0, 0, 1)
 			l_set.do_all_with_index (agent l_array.put)
 			assert_iarrays_same ("items2", <<INTEGER_.to_integer (0), 0>>, l_array)
 		end
 
-	test_do_if is
+	test_do_if
 			-- Test feature 'do_if'.
 		local
 			l_set: DS_AVL_TREE_SET [INTEGER]
@@ -227,7 +227,7 @@ feature -- Test
 			assert ("empty1", l_list.is_empty)
 		end
 
-	test_do_if_with_index is
+	test_do_if_with_index
 			-- Test feature 'do_if_with_index'.
 		local
 			l_set: DS_AVL_TREE_SET [INTEGER]
@@ -241,17 +241,17 @@ feature -- Test
 			l_set.force_last (6)
 			l_set.force_last (4)
 			l_set.force_last (1)
-			create l_array.make (1, 5)
+			create l_array.make_filled (0, 1, 5)
 			l_set.do_if_with_index (agent l_array.put, agent same_integers)
 			assert_iarrays_same ("items1", <<INTEGER_.to_integer (1), 2, 0, 0, 0>>, l_array)
 				-- Empty set.
 			create l_set.make (l_comparator)
-			create l_array.make (0, 1)
+			create l_array.make_filled (0, 0, 1)
 			l_set.do_if_with_index (agent l_array.put, agent same_integers)
 			assert_iarrays_same ("items2", <<INTEGER_.to_integer (0), 0>>, l_array)
 		end
 
-	test_there_exists is
+	test_there_exists
 			-- Test feature 'there_exists'.
 		local
 			l_set: DS_AVL_TREE_SET [INTEGER]
@@ -275,7 +275,7 @@ feature -- Test
 			assert ("there_dont_exist2", not l_set.there_exists (agent INTEGER_.is_even))
 		end
 
-	test_for_all is
+	test_for_all
 			-- Test feature 'for_all'.
 		local
 			l_set: DS_AVL_TREE_SET [INTEGER]
@@ -299,7 +299,7 @@ feature -- Test
 			assert ("for_all2", l_set.for_all (agent INTEGER_.is_even))
 		end
 
-	test_copy is
+	test_copy
 			-- Test features based on `copy'.
 		local
 			l_comparator: KL_COMPARABLE_COMPARATOR [STRING]
@@ -371,7 +371,7 @@ feature -- Test
 
 feature {NONE} -- Implementation
 
-	same_integers (i, j: INTEGER): BOOLEAN is
+	same_integers (i, j: INTEGER): BOOLEAN
 			-- Is `i' equal to `j'?
 			-- (Used as agent to test iterators.)
 		do

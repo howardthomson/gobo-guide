@@ -5,7 +5,7 @@ note
 		"Eiffel adapted class library lists"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2008-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2008-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -15,6 +15,9 @@ class ET_ADAPTED_LIBRARIES
 inherit
 
 	ANY
+
+	KL_IMPORTED_STRING_ROUTINES
+		export {NONE} all end
 
 create
 
@@ -64,6 +67,28 @@ feature -- Access
 			Result := libraries.item (i)
 		ensure
 			library_not_void: Result /= Void
+		end
+
+	library_by_name (a_name: STRING): ET_ADAPTED_LIBRARY
+			-- Library with name `a_name';
+			-- Void if not such library
+		require
+			a_name_not_void: a_name /= Void
+			a_name_not_empty: a_name.count > 0
+		local
+			i, nb: INTEGER
+			l_library: ET_ADAPTED_LIBRARY
+		do
+			nb := libraries.count
+			from i := nb until i < 1 loop
+				l_library := libraries.item (i)
+				if STRING_.same_case_insensitive (l_library.name, a_name) then
+					Result := l_library
+					i := 0
+				else
+					i := i - 1
+				end
+			end
 		end
 
 	adapted_library (a_library: ET_LIBRARY): ET_ADAPTED_LIBRARY
@@ -135,6 +160,26 @@ feature -- Iteration
 			end
 		end
 
+	do_if (an_action: PROCEDURE [ANY, TUPLE [ET_LIBRARY]]; a_test: FUNCTION [ANY, TUPLE [ET_LIBRARY], BOOLEAN])
+			-- Apply `an_action' to every library that satisfies `a_test', from first to last.
+			-- (Semantics not guaranteed if `an_action' changes the list.)
+		require
+			an_action_not_void: an_action /= Void
+			a_test_not_void: a_test /= Void
+		local
+			i, nb: INTEGER
+			l_library: ET_LIBRARY
+		do
+			nb := libraries.count
+			from i := 1 until i > nb loop
+				l_library := libraries.item (i).library
+				if a_test.item ([l_library]) then
+					an_action.call ([l_library])
+				end
+				i := i + 1
+			end
+		end
+
 	universes_do_all (an_action: PROCEDURE [ANY, TUPLE [ET_UNIVERSE]])
 			-- Apply `an_action' to every library (viewed as a universe), from first to last.
 			-- (Semantics not guaranteed if `an_action' changes the list.)
@@ -177,6 +222,16 @@ feature -- Iteration
 			an_action_not_void: an_action /= Void
 		do
 			libraries.do_all (an_action)
+		end
+
+	do_adapted_if (an_action: PROCEDURE [ANY, TUPLE [ET_ADAPTED_LIBRARY]]; a_test: FUNCTION [ANY, TUPLE [ET_ADAPTED_LIBRARY], BOOLEAN])
+			-- Apply `an_action' to every library which satisfies `a_test', from first to last.
+			-- (Semantics not guaranteed if `an_action' changes the list.)
+		require
+			an_action_not_void: an_action /= Void
+			a_test_not_void: a_test /= Void
+		do
+			libraries.do_if (an_action, a_test)
 		end
 
 	do_recursive (an_action: PROCEDURE [ANY, TUPLE [ET_LIBRARY]])

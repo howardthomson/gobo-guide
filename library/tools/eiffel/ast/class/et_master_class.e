@@ -371,7 +371,7 @@ feature -- Access
 				if Result = Void then
 					l_imported_class := first_imported_class
 					if l_imported_class /= Void then
-						Result := first_local_non_override_class
+						Result := l_imported_class.first_local_non_override_class
 					end
 				end
 			end
@@ -449,6 +449,12 @@ feature -- Status report
 			end
 			if other_local_non_override_classes /= Void then
 				nb := nb + other_local_non_override_classes.count
+			end
+			if first_local_ignored_class /= Void then
+				nb := nb + 1
+			end
+			if other_local_ignored_classes /= Void then
+				nb := nb + other_local_ignored_classes.count
 			end
 			if first_imported_class /= Void then
 				nb := nb + 1
@@ -1393,9 +1399,22 @@ feature {NONE} -- Element change
 			-- Update `is_modified' accordingly.
 		require
 			a_class_not_void: a_class /= Void
+		local
+			l_old_intrinsic_class: ET_NAMED_CLASS
 		do
 			if intrinsic_class /= a_class then
-				if intrinsic_class.is_override (universe) then
+				l_old_intrinsic_class := intrinsic_class
+				intrinsic_class := a_class
+				if attached {ET_CLASS} l_old_intrinsic_class as l_old_class and then (l_old_class.is_unknown and l_old_class /= tokens.unknown_class) then
+						-- This class has probably been removed from the universe.
+						-- We don't know whether it was an override class or not,
+						-- so make as if it was an override class just in case.
+					if first_imported_class /= Void then
+						unmark_overridden (first_imported_class)
+						other_imported_classes.do_all (agent unmark_overridden)
+					end
+				end
+				if l_old_intrinsic_class.is_override (universe) then
 					if not a_class.is_override (universe) then
 						if first_imported_class /= Void then
 							unmark_overridden (first_imported_class)
@@ -1408,7 +1427,6 @@ feature {NONE} -- Element change
 						other_imported_classes.do_all (agent mark_overridden)
 					end
 				end
-				intrinsic_class := a_class
 				if first_overriding_class = Void then
 					is_modified := True
 					set_marked (is_marked)

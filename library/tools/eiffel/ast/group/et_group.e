@@ -5,7 +5,7 @@ note
 		"Groups of Eiffel classes"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2006-2010, Eric Bezault and others"
+	copyright: "Copyright (c) 2006-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date: 2010/09/15 $"
 	revision: "$Revision: #9 $"
@@ -14,6 +14,7 @@ deferred class ET_GROUP
 
 inherit
 
+	ET_ADAPTED_GROUP
 	HASHABLE
 	DEBUG_OUTPUT
 	KL_IMPORTED_ANY_ROUTINES
@@ -38,8 +39,26 @@ feature -- Initialization
 
 feature -- Status report
 
+	is_primary: BOOLEAN
+			-- Is current group a primary group?
+		do
+			-- Result := False
+		end
+
+	is_secondary: BOOLEAN
+			-- Is current group a secondary group?
+		do
+			-- Result := False
+		end
+
 	is_cluster: BOOLEAN
 			-- Is current group a cluster?
+		do
+			-- Result := False
+		end
+
+	is_library: BOOLEAN
+			-- Is current group a library?
 		do
 			-- Result := False
 		end
@@ -106,6 +125,22 @@ feature -- Status report
 			end
 		end
 
+	has_class (a_class: ET_CLASS): BOOLEAN
+			-- Is `a_class' part of current group?
+		require
+			a_class_not_void: a_class /= Void
+		deferred
+		end
+
+	has_class_recursive (a_class: ET_CLASS): BOOLEAN
+			-- Is `a_class' part of current group
+			-- or recusively one of its subgroups?
+		require
+			a_class_not_void: a_class /= Void
+		do
+			Result := has_class (a_class)
+		end
+
 feature -- Access
 
 	universe: ET_UNIVERSE
@@ -121,38 +156,6 @@ feature -- Access
 			Result := universe.current_system
 		ensure
 			current_system_not_void: Result /= Void
-		end
-
-	name: STRING
-			-- Name
-		deferred
-		ensure
-			name_not_void: Result /= Void
-			name_not_empty: Result.count > 0
-		end
-
-	lower_name: STRING
-			-- Lower-name of group
-			-- (May return the same object as `name' if already in lower case.)
-		local
-			i, nb: INTEGER
-			c: CHARACTER
-		do
-			Result := name
-			nb := Result.count
-			from i := 1 until i > nb loop
-				c := Result.item (i)
-				if c >= 'A' and c <= 'Z' then
-					Result := Result.as_lower
-					i := nb + 1 -- Jump out of the loop.
-				else
-					i := i + 1
-				end
-			end
-		ensure
-			lower_name_not_void: Result /= Void
-			lower_name_not_empty: Result.count > 0
-			definition: Result.same_string (name.as_lower)
 		end
 
 	prefixed_name: STRING
@@ -307,12 +310,201 @@ feature -- Access
 			aboslute_pathname_not_empty: Result.count > 0
 		end
 
+	kind_name: STRING
+			-- Name of the kind of group (e.g. "cluster", "assembly", "library", etc.)
+		once
+			Result := "group"
+		ensure
+			kind_name_not_void: Result /= Void
+		end
+
+	kind_lower_name: STRING
+			-- Lower-name of the kind of group (e.g. "cluster", "assembly", "library", etc.)
+			-- (May return the same object as `kind_name' if already in lower case.)
+		local
+			i, nb: INTEGER
+			c: CHARACTER
+		do
+			Result := kind_name
+			nb := Result.count
+			from i := 1 until i > nb loop
+				c := Result.item (i)
+				if c >= 'A' and c <= 'Z' then
+					Result := Result.as_lower
+					i := nb + 1 -- Jump out of the loop.
+				else
+					i := i + 1
+				end
+			end
+		ensure
+			kind_lower_name_not_void: Result /= Void
+			kind_lower_name_not_empty: Result.count > 0
+			definition: Result.same_string (kind_name.as_lower)
+		end
+
+	kind_capitalized_name: STRING
+			-- Capitalized name of the kind of group (e.g. "Cluster", "Assembly", "Library", etc.)
+			-- (May return the same object as `kind_name' if already capitalized.)
+		local
+			i, nb: INTEGER
+			c: CHARACTER
+		do
+			Result := kind_name
+			nb := Result.count
+			c := Result.item (1)
+			if c >= 'a' and c <= 'z' then
+				Result := Result.as_lower
+				Result.put (c.as_upper, 1)
+			else
+				from i := 2 until i > nb loop
+					c := Result.item (i)
+					if c >= 'A' and c <= 'Z' then
+						Result := Result.as_lower
+						i := nb + 1 -- Jump out of the loop.
+					else
+						i := i + 1
+					end
+				end
+			end
+		ensure
+			kind_capitalized_name_not_void: Result /= Void
+			kind_capitalized_name_not_empty: Result.count > 0
+		end
+
+	kind_name_plural: STRING
+			-- Plural form of name of the kind of group (e.g. "clusters", "assemblies", "libraries", etc.)
+		do
+			Result := kind_name + "s"
+		ensure
+			kind_name_plural_not_void: Result /= Void
+		end
+
+	kind_lower_name_plural: STRING
+			-- Lower-name of the kind of group (e.g. "clusters", "assemblies", "libraries", etc.)
+			-- (May return the same object as `kind_name_plural' if already in lower case.)
+		local
+			i, nb: INTEGER
+			c: CHARACTER
+		do
+			Result := kind_name_plural
+			nb := Result.count
+			from i := 1 until i > nb loop
+				c := Result.item (i)
+				if c >= 'A' and c <= 'Z' then
+					Result := Result.as_lower
+					i := nb + 1 -- Jump out of the loop.
+				else
+					i := i + 1
+				end
+			end
+		ensure
+			kind_lower_name_plural_not_void: Result /= Void
+			kind_lower_name_plural_not_empty: Result.count > 0
+			definition: Result.same_string (kind_lower_name_plural.as_lower)
+		end
+
+	kind_capitalized_name_plural: STRING
+			-- Capitalized name of the kind of group (e.g. "Clusters", "Assemblies", "Libraries", etc.)
+			-- (May return the same object as `kind_name_plural' if already capitalized.)
+		local
+			i, nb: INTEGER
+			c: CHARACTER
+		do
+			Result := kind_name_plural
+			nb := Result.count
+			c := Result.item (1)
+			if c >= 'a' and c <= 'z' then
+				Result := Result.as_lower
+				Result.put (c.as_upper, 1)
+			else
+				from i := 2 until i > nb loop
+					c := Result.item (i)
+					if c >= 'A' and c <= 'Z' then
+						Result := Result.as_lower
+						i := nb + 1 -- Jump out of the loop.
+					else
+						i := i + 1
+					end
+				end
+			end
+		ensure
+			kind_capitalized_name_plural_not_void: Result /= Void
+			kind_capitalized_name_plural_not_empty: Result.count > 0
+		end
+
+	hash_code: INTEGER
+			-- Hash code value
+		do
+			Result := name.hash_code
+		end
+
+	data: ANY
+			-- Arbitrary user data
+
+	group: ET_GROUP
+			-- Group being adapted
+		do
+			Result := Current
+		ensure then
+			definition: Result = Current
+		end
+
+feature -- Measurement
+
+	class_count: INTEGER
+			-- Number of classes which are part of current group
+		deferred
+		ensure
+			class_count_not_negative: Result >= 0
+		end
+
+	class_count_recursive: INTEGER
+			-- Number of classes which are part of current group
+			-- or recursively one of its subgroups
+		do
+			Result := class_count
+		ensure
+			class_coun_recursivet_not_negative: Result >= 0
+		end
+
+feature -- Conversion
+
+	as_primary: ET_PRIMARY_GROUP
+			-- Current group viewed as a primary group
+		require
+			is_primary: is_primary
+		do
+			check is_primary: is_primary end
+		ensure
+			definition: ANY_.same_objects (Result, Current)
+		end
+
+	as_secondary: ET_SECONDARY_GROUP
+			-- Current group viewed as a secondary group
+		require
+			is_secondary: is_secondary
+		do
+			check is_secondary: is_secondary end
+		ensure
+			definition: ANY_.same_objects (Result, Current)
+		end
+
 	cluster: ET_CLUSTER
 			-- Current group viewed as a cluster
 		require
 			is_cluster: is_cluster
 		do
 			check is_cluster: is_cluster end
+		ensure
+			definition: ANY_.same_objects (Result, Current)
+		end
+
+	library: ET_LIBRARY
+			-- Current group viewed as a library
+		require
+			is_library: is_library
+		do
+			check is_library: is_library end
 		ensure
 			definition: ANY_.same_objects (Result, Current)
 		end
@@ -326,23 +518,6 @@ feature -- Access
 		ensure
 			definition: ANY_.same_objects (Result, Current)
 		end
-
-	kind_name: STRING
-			-- Name of the kind of group (e.g. "cluster", "assembly", etc.)
-		once
-			Result := "group"
-		ensure
-			kind_name_not_void: Result /= Void
-		end
-
-	hash_code: INTEGER
-			-- Hash code value
-		do
-			Result := name.hash_code
-		end
-
-	data: ANY
-			-- Arbitrary user data
 
 feature -- Nested
 
@@ -384,6 +559,43 @@ feature -- Setting
 			data := a_data
 		ensure
 			data_set: data = a_data
+		end
+
+feature -- Iteration
+
+	classes_do_all (an_action: PROCEDURE [ANY, TUPLE [ET_CLASS]])
+			-- Apply `an_action' on all classes which are part of current group.
+		require
+			an_action_not_void: an_action /= Void
+		deferred
+		end
+
+	classes_do_if (an_action: PROCEDURE [ANY, TUPLE [ET_CLASS]]; a_test: FUNCTION [ANY, TUPLE [ET_CLASS], BOOLEAN])
+			-- Apply `an_action' on all classes which are part of current group
+			-- that satisfy `a_test'.
+		require
+			an_action_not_void: an_action /= Void
+			a_test_not_void: a_test /= Void
+		deferred
+		end
+
+	classes_do_recursive (an_action: PROCEDURE [ANY, TUPLE [ET_CLASS]])
+			-- Apply `an_action' on all classes which are part of current group
+			-- or recursively one of its subgroups.
+		require
+			an_action_not_void: an_action /= Void
+		do
+			classes_do_all (an_action)
+		end
+
+	classes_do_if_recursive (an_action: PROCEDURE [ANY, TUPLE [ET_CLASS]]; a_test: FUNCTION [ANY, TUPLE [ET_CLASS], BOOLEAN])
+			-- Apply `an_action' on all classes which are part of current group
+			-- or recursively one of its subgroups and which satisfy `a_test'.
+		require
+			an_action_not_void: an_action /= Void
+			a_test_not_void: a_test /= Void
+		do
+			classes_do_if (an_action, a_test)
 		end
 
 feature -- Output

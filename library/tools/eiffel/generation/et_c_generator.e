@@ -1,11 +1,11 @@
-indexing
+note
 
 	description:
 
 		"C code generators"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2004-2008, Eric Bezault and others"
+	copyright: "Copyright (c) 2004-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date: 2008-05-19 14:47:30 +0100 (Mon, 19 May 2008) $"
 	revision: "$Revision: 6421 $"

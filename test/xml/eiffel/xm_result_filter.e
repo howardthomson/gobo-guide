@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -13,13 +13,13 @@ indexing
 class XM_RESULT_FILTER
 
 inherit
-	
+
 	XM_CALLBACKS_FILTER
 		redefine
 			on_start,
 			on_content
 		end
-		
+
 	KL_IMPORTED_STRING_ROUTINES
 		export {NONE} all end
 
@@ -32,14 +32,14 @@ feature
 
 	content: STRING
 			-- Collected content
-	
-	on_start is
+
+	on_start
 			-- Initialize.
 		do
 			create content.make_empty
 		end
-		
-	on_content (a_string: STRING) is
+
+	on_content (a_string: STRING)
 			-- Append to content.
 		do
 			content := STRING_.appended_string (content, a_string)

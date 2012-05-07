@@ -4,7 +4,7 @@ note
 
 		"Gobo Eiffel Compiler"
 
-	copyright: "Copyright (c) 2005-2009, Eric Bezault and others"
+	copyright: "Copyright (c) 2005-2010, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -29,6 +29,9 @@ inherit
 	UT_SHARED_ISE_VERSIONS
 		export {NONE} all end
 
+	ET_SHARED_ISE_VARIABLES
+		export {NONE} all end
+
 	ET_SHARED_ERROR_HANDLERS
 		export {NONE} all end
 
@@ -49,6 +52,9 @@ feature -- Execution
 			nb: INTEGER
 		do
 			Arguments.set_program_name ("gec")
+				-- For compatibility with ISE's tools, define the environment
+				-- variable "$ISE_LIBRARY" to $ISE_EIFFEL" if not set yet.
+			ise_variables.set_ise_library_variable
 			create error_handler.make_standard
 			parse_arguments
 			a_filename := ace_filename
@@ -175,15 +181,37 @@ feature {NONE} -- Eiffel config file parsing
 		local
 			l_ecf_parser: ET_ECF_SYSTEM_PARSER
 			l_ecf_error_handler: ET_ECF_ERROR_HANDLER
+			l_gobo_eiffel: STRING
+			l_ecf_system: ET_ECF_SYSTEM
+			l_target: ET_ECF_TARGET
+			l_value: STRING
 		do
 			last_system := Void
+			l_gobo_eiffel := Execution_environment.variable_value ("GOBO_EIFFEL")
+			if l_gobo_eiffel = Void or else l_gobo_eiffel.is_empty then
+				Execution_environment.set_variable_value ("GOBO_EIFFEL", "ge")
+			end
 			create l_ecf_error_handler.make_standard
 			create l_ecf_parser.make (l_ecf_error_handler)
+			l_ecf_parser.set_finalize_mode (is_finalize)
 			l_ecf_parser.parse_file (a_file)
 			if not l_ecf_error_handler.has_error then
-				last_system := l_ecf_parser.last_system
+				l_ecf_system := l_ecf_parser.last_system
+				if l_ecf_system /= Void then
+					l_target := l_ecf_system.selected_target
+					if l_target /= Void then
+						l_value := l_target.variables.value ("gelint")
+						if l_value /= Void and then l_value.is_boolean then
+							ecf_gelint_option := l_value.to_boolean
+						end
+					end
+					last_system := l_ecf_system
+				end
 			end
 		end
+
+	ecf_gelint_option: BOOLEAN
+			-- Same as command-line option --gelint, but specified from the ECF file
 
 feature {NONE} -- Processing
 
@@ -309,7 +337,7 @@ feature -- Status report
 	is_gelint: BOOLEAN
 			-- Should gelint be run on the full content of each class being compiled?
 		do
-			Result := gelint_flag.was_found
+			Result := gelint_flag.was_found or ecf_gelint_option
 		end
 
 	catcall_error_mode: BOOLEAN
@@ -327,7 +355,7 @@ feature -- Status report
 	qualified_anchored_types_enabled: BOOLEAN
 			-- Are Qualified Anchored Types allowed?
 		do
-			Result := qat_option.was_found and then qat_option.parameter
+			Result := not qat_option.was_found or else qat_option.parameter
 		end
 
 	no_c_compile: BOOLEAN
@@ -429,7 +457,7 @@ feature -- Argument parsing
 			a_parser.options.force_last (catcall_option)
 				-- qat
 			create qat_option.make_with_long_form ("qat")
-			qat_option.set_description ("Are Qualified Anchored Types allowed? (default: no)")
+			qat_option.set_description ("Are Qualified Anchored Types allowed? (default: yes)")
 			qat_option.set_parameter_description ("no|yes")
 			a_parser.options.force_last (qat_option)
 				-- cc

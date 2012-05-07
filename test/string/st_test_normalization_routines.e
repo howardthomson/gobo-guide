@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,10 +6,10 @@ indexing
 
 	test_status: "ok_to_run"
 	library: "Gobo Eiffel String Library"
-	copyright: "Copyright (c) 2005, Colin Adams and others"
+	copyright: "Copyright (c) 2005-2011, Colin Adams and others"
 	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "$Date: 2011/01/04 $"
+	revision: "$Revision: #8 $"
 
 class ST_TEST_NORMALIZATION_ROUTINES
 
@@ -27,7 +27,7 @@ create
 
 feature -- Test
 
-	test_decomposition is
+	test_decomposition
 			-- Test `decomposition_type_property' and `decomposition_mapping_property'.
 		local
 			a_string: STRING
@@ -53,7 +53,7 @@ feature -- Test
 			assert ("a_acute_c_acute_cedilla fifth character is acute", a_string.item_code (5) = 769)
 		end
 
-	test_normalization is
+	test_normalization
 			-- Test normalization routines using test data file.
 		local
 			a_file: KL_TEXT_INPUT_FILE
@@ -85,7 +85,7 @@ feature -- Test
 							end
 							if not a_line.is_empty then
 								some_fields := a_splitter.split_greedy (a_line)
-								if some_fields.count /= Test_file_field_count then
+								if some_fields.count /= Normalization_test_file_field_count then
 									assert ("Bad data line in NormalizationTest.txt - wrong number of fields - data line is: " + a_file.last_string, False)
 								else
 									c1 := decoded_string (some_fields.item (1))
@@ -108,12 +108,14 @@ feature -- Test
 					end
 				end
 				a_file.close
+			else
+				assert ("test_considered_successful_when_normalization_test_file_not_installed", True)
 			end
 		end
 
 feature -- Access
 
-	a_acute_c_acute_cedilla: STRING is
+	a_acute_c_acute_cedilla: STRING
 			-- Partially composed string
 		once
 			Result := STRING_.concat (unicode.code_to_string (225), unicode.code_to_string (99))
@@ -124,12 +126,12 @@ feature -- Access
 			four_codes: Result.count = 4
 		end
 
-	Test_file_field_count: INTEGER is 6
+	Normalization_test_file_field_count: INTEGER = 6
 			-- Number of fields in "NormalizationTest.txt"
 
 feature {NONE} -- Implementation
 
-	data_dirname: STRING is
+	data_dirname: STRING
 			-- Name of directory containing data files
 		once
 			Result := file_system.nested_pathname ("${GOBO}", <<"test", "string", "data">>)
@@ -138,7 +140,7 @@ feature {NONE} -- Implementation
 			data_dirname_not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	normalization_test_filename: STRING is
+	normalization_test_filename: STRING
 			-- Pathname of file '.txt'
 		once
 			Result := file_system.pathname (data_dirname, "NormalizationTest.txt")
@@ -147,7 +149,7 @@ feature {NONE} -- Implementation
 			normalization_test_filename_not_empty: not Result.is_empty
 		end
 
-	run_test_data (c1, c2, c3, c4, c5: STRING; a_line_number: INTEGER) is
+	run_test_data (c1, c2, c3, c4, c5: STRING; a_line_number: INTEGER)
 			-- Run tests against data from "NormalizationTest.txt".
 		require
 			column_one_not_empty: c1 /= Void and then not c1.is_empty
@@ -185,7 +187,7 @@ feature {NONE} -- Implementation
 			assert_strings_equal ("NFKC (column 5) equals column 4 on line " + a_line_number.out + " in NormalizationTest.txt", c4, to_nfkc (c5))
 		end
 
-	check_all_normal_forms_identity (a_code: INTEGER) is
+	check_all_normal_forms_identity (a_code: INTEGER)
 			-- Check that NFX (`a_code') = `a_code' for all normal forms.
 		do
 			if unicode.valid_non_surrogate_code (a_code) then
@@ -198,7 +200,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	decoded_string (a_column: STRING): STRING is
+	decoded_string (a_column: STRING): STRING
 			-- String decoded from code points in `a_column'
 		require
 			a_column_not_void: a_column /= Void

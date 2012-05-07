@@ -6,14 +6,14 @@ create
 
 feature
 
-	make is
+	make
 		local
 			bb: BB
-			s: ?STRING
+			s: detachable STRING
 			b: BOOLEAN
 		do
 			create bb
-			b := bb and then {l: STRING} s and then l.is_empty
+			b := bb and then attached s as l and then l.is_empty
 		end
 
 end

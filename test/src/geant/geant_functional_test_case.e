@@ -1,14 +1,14 @@
-indexing
+note
 
 	description:
 
 		"Base class for functional geant tests"
 
 	library: "Gobo Eiffel Ant"
-	copyright: "Copyright (c) 2008, Sven Ehrke and others"
+	copyright: "Copyright (c) 2008-2011, Sven Ehrke and others"
 	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "$Date: 2008-10-25 22:20:42 +0200 (Sat, 25 Oct 2008) $"
+	revision: "$Revision: 6536 $"
 
 deferred class GEANT_FUNCTIONAL_TEST_CASE
 
@@ -25,18 +25,18 @@ inherit
 	KL_SHARED_STANDARD_FILES
 		export {NONE} all end
 
-	KL_SHARED_EXECUTION_ENVIRONMENT
-		export {NONE} all end
-
 	KL_SHARED_EXCEPTIONS
 		export {NONE} all end
 
 	KL_SHARED_FILE_SYSTEM
 		export {NONE} all end
 
+	GEANT_SHARED_PROPERTIES
+		export {NONE} all end
+
 feature -- Execution
 
-	set_up is
+	set_up
 			-- Setup for a test.
 		do
  			test_dir := Execution_environment.variable_value ("GOBO")
@@ -73,7 +73,7 @@ feature -- Execution
 			expected_exit_code := 0
 		end
 
-	tear_down is
+	tear_down
 			-- Tear down after a test.
 		do
 			file_system.set_current_working_directory (old_cwd)
@@ -81,7 +81,7 @@ feature -- Execution
 
 feature {NONE} -- Implementation
 
-	write_build_file (a_tag, a_filename: STRING)is
+	write_build_file (a_tag, a_filename: STRING)
 			-- Write concrete build file for test named `a_tag' into file named `a_filename';
 			-- use `project' as a template for the buildfile content, if existing replace
 			-- token 'TEST_TAG' with `a_tag' and token 'TASKS' with `tasks'.
@@ -117,7 +117,7 @@ feature {NONE} -- Implementation
 	test_dir: STRING
 			-- Test directory used as current working directory during test run
 
-	basic_test (a_tag: STRING) is
+	basic_test (a_tag: STRING)
 			-- Run test with tag `a_tag.
 			-- Note: since all geant functional tests work very similar this routine
 			-- issues the individual steps of such a test. The behavior can be
@@ -156,7 +156,7 @@ feature {NONE} -- Implementation
 			if expected_stdout_txt /= Void then
 				a_expected := expected_stdout_txt + "" -- clone `expected_stdout_txt'
 				if expected_task_output /= Void then
-					s := STRING_.replaced_all_substrings (expected_task_output, "%T%T%T%T|", "")
+					s := removed_indentation (expected_task_output)
 					a_expected := STRING_.replaced_first_substring (a_expected, "TASK_OUTPUT", s)
 				end
 				assert_filecontent_equal_to_string (a_tag, a_stdout, a_expected)
@@ -164,13 +164,12 @@ feature {NONE} -- Implementation
 
 				-- Check stderr:
 			if expected_stderr_txt /= Void then
-				a_expected := expected_stderr_txt + "" -- clone `expected_stderr_txt'
-				a_expected := STRING_.replaced_all_substrings (a_expected, "%T%T%T%T|", "")
+				a_expected := removed_indentation (expected_stderr_txt)
 				assert_filecontent_equal_to_string (a_tag, a_stderr, a_expected)
 			end
 
 			if expected_out_txt /= Void then
-				s := STRING_.replaced_all_substrings (expected_out_txt, "%T%T%T%T|", "")
+				s := removed_indentation (expected_out_txt)
 				assert_filecontent_equal_to_string (a_tag, test_dir + "/out.txt", s)
 			end
 		end
@@ -203,7 +202,7 @@ feature {NONE} -- Implementation
 	expected_exit_code: INTEGER
 			-- exit code the call to 'geant' is expected to return
 
-	project: STRING is
+	project: STRING =
 			-- Buildfile content for test
 			-- NOTE: "[ means left aligned, "{ means as is
 		"[
@@ -215,7 +214,7 @@ feature {NONE} -- Implementation
 			</project>
 		]"
 
-	default_expected_stdout_txt: STRING is
+	default_expected_stdout_txt: STRING
 			-- Template text for default output of build run,
 			-- which contains placeholder 'TASK_OUTPUT' which will
 			-- be replaced during test run
@@ -230,7 +229,7 @@ feature {NONE} -- Implementation
 			result_is_verbose_template: verbose implies Result = default_expected_verbose_stdout_txt
 		end
 
-	default_expected_verbose_stdout_txt: STRING is
+	default_expected_verbose_stdout_txt: STRING =
 		-- Default text written to stdout by geant when `verbose' = True
 "{
 Loading Project's configuration from build.eant
@@ -241,7 +240,7 @@ build1.t1:
 TASK_OUTPUT
 }"
 
-	default_expected_non_verbose_stdout_txt: STRING is
+	default_expected_non_verbose_stdout_txt: STRING =
 		-- Default text written to stdout by geant when `verbose' = False
 "{
 TASK_OUTPUT
@@ -249,7 +248,7 @@ TASK_OUTPUT
 
 feature {NONE} -- Assertion routines
 
-	assert_filecontent_equal_to_string (a_tag, a_filename, a_expected_content: STRING) is
+	assert_filecontent_equal_to_string (a_tag, a_filename, a_expected_content: STRING)
 			-- Assert there is no difference between the content of
 			-- the file named `a_filename' and a_expected_content'
 			-- (Expand environment variables in `a_filename'.)
@@ -275,6 +274,41 @@ feature {NONE} -- Assertion routines
 
 				-- Compare filecontents:
 			assert_files_equal (a_tag, a_filename, a_filename_expected)
+		end
+
+	assert_file_time_stamps_equal (a_tag, a_unixpath1, a_unixpath2: STRING)
+			-- Assert that timestamp of file referred to by `a_unixpath1' and timestamp
+			-- of file referred to by `a_unixpath2' are equal
+		require
+			a_tag_not_void: a_tag /= Void
+			a_unixpath1_not_void: a_unixpath1 /= Void
+			a_unixpath1_not_empty: not a_unixpath1.is_empty
+			a_unixpath2_not_void: a_unixpath2 /= Void
+			a_unixpath2_not_empty: not a_unixpath2.is_empty
+		local
+			a_timestamp1, a_timestamp2: INTEGER
+			a_path1, a_path2: STRING
+		do
+			a_path1 := path (a_unixpath1)
+			assert (a_tag, file_system.file_exists (a_path1))
+			a_timestamp1 := file_system.file_time_stamp (a_path1)
+
+			a_path2 := path (a_unixpath2)
+			assert (a_tag, file_system.file_exists (a_path2))
+			a_timestamp2 := file_system.file_time_stamp (a_path2)
+
+			assert_integers_equal (a_tag, a_timestamp1, a_timestamp2)
+		end
+
+	path (a_unix_path_string: STRING): STRING
+			-- `a_unix_path_string', path string in unix format converted to the current filesystem format
+		require
+			a_unix_path_string_not_void: a_unix_path_string /= Void
+			a_unix_path_string_not_empty: not a_unix_path_string.is_empty
+		do
+			Result := file_system.pathname_from_file_system (a_unix_path_string, unix_file_system)
+		ensure
+			Result_not_void: Result /= Void
 		end
 
 end

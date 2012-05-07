@@ -5,7 +5,7 @@ note
 		"Eiffel cluster lists"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 1999-2008, Eric Bezault and others"
+	copyright: "Copyright (c) 1999-2011, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -78,31 +78,8 @@ feature -- Status report
 			a_names_not_void: a_names /= Void
 			no_void_name: not a_names.has (Void)
 			no_empty_name: not a_names.there_exists (agent {STRING}.is_empty)
-		local
-			l_name: STRING
-			i, nb: INTEGER
-			l_clusters: ET_CLUSTERS
-			l_cluster: ET_CLUSTER
 		do
-			Result := True
-			l_clusters := Current
-			i := a_names.lower
-			nb := a_names.upper
-			from until i > nb loop
-				if l_clusters /= Void then
-					l_name := a_names.item (i)
-					l_cluster := l_clusters.cluster_by_name (l_name)
-				else
-					l_cluster := Void
-				end
-				if l_cluster /= Void then
-					l_clusters := l_cluster.subclusters
-					i := i + 1
-				else
-					Result := False
-					i := nb + 1 -- Jump out of the loop.
-				end
-			end
+			Result := has_subcluster_by_name_at_index (a_names, a_names.lower)
 		end
 
 	has_subcluster_with_absolute_pathname (a_pathname: STRING): BOOLEAN
@@ -127,13 +104,50 @@ feature -- Status report
 			end
 		end
 
+feature {ET_INTERNAL_UNIVERSE} -- Status report
+
+	has_subcluster_by_name_at_index (a_names: ARRAY [STRING]; a_index: INTEGER): BOOLEAN
+			-- Is there a subcluster (recursively) named `a_names',
+			-- ignoring the entries before `a_index', in current clusters?
+			-- Do not take into account missing implicit subclusters.
+		require
+			a_names_not_void: a_names /= Void
+			no_void_name: not a_names.has (Void)
+			no_empty_name: not a_names.there_exists (agent {STRING}.is_empty)
+		local
+			l_name: STRING
+			i, nb: INTEGER
+			l_clusters: ET_CLUSTERS
+			l_cluster: ET_CLUSTER
+		do
+			Result := True
+			l_clusters := Current
+			i := a_index
+			nb := a_names.upper
+			from until i > nb loop
+				if l_clusters /= Void then
+					l_name := a_names.item (i)
+					l_cluster := l_clusters.cluster_by_name (l_name)
+				else
+					l_cluster := Void
+				end
+				if l_cluster /= Void then
+					l_clusters := l_cluster.subclusters
+					i := i + 1
+				else
+					Result := False
+					i := nb + 1 -- Jump out of the loop.
+				end
+			end
+		end
+
 feature -- Access
 
 	cluster (i: INTEGER): ET_CLUSTER
 			-- `i'-th cluster
 		require
 			i_large_enough: i >= 1
-			i_small_enough: i <= clusters.count
+			i_small_enough: i <= count
 		do
 			Result := clusters.item (i)
 		ensure
@@ -177,8 +191,75 @@ feature -- Access
 			not_void_if_has: has_subcluster_by_name (a_names) implies Result /= Void
 		end
 
+	subcluster_with_absolute_pathname (a_pathname: STRING): ET_CLUSTER
+			-- Subcluster (recursively) with absolute pathname `a_pathname' in current clusters
+			--
+			-- `a_pathname' is expected to be a canonical absolute pathname.
+			-- Add missing implicit subclusters if needed.
+			-- Void if not such cluster.
+		require
+			a_pathname_not_void: a_pathname /= Void
+			a_pathname_absolute: file_system.is_absolute_pathname (a_pathname)
+		local
+			i, nb: INTEGER
+		do
+			nb := clusters.count
+			from i := 1 until i > nb loop
+				Result := clusters.item (i).cluster_with_absolute_pathname (a_pathname)
+				if Result /= Void then
+					i := nb + 1
+				end
+				i := i + 1
+			end
+		ensure
+			not_void_if_has: has_subcluster_with_absolute_pathname (a_pathname) implies Result /= Void
+		end
+
+	clusters: DS_ARRAYED_LIST [like cluster]
+			-- Clusters
+
+feature {ET_INTERNAL_UNIVERSE} -- Access
+
+	subcluster_by_name_at_index (a_names: ARRAY [STRING]; a_index: INTEGER): ET_CLUSTER
+			-- Subcluster (recursively) named `a_names', ignoring the entries before `a_index',
+			-- in current clusters
+			--
+			-- Add missing implicit subclusters if needed.
+			-- Void if not such cluster.
+		require
+			a_names_not_void: a_names /= Void
+			no_void_name: not a_names.has (Void)
+			no_empty_name: not a_names.there_exists (agent {STRING}.is_empty)
+		do
+			Result := subcluster_by_name_at_index_with_parent (a_names, a_index, Void)
+		ensure
+			not_void_if_has: has_subcluster_by_name_at_index (a_names, a_index) implies Result /= Void
+		end
+
+feature {ET_CLUSTER} -- Access
+
 	subcluster_by_name_with_parent (a_names: ARRAY [STRING]; a_parent_cluster: ET_CLUSTER): ET_CLUSTER
 			-- Subcluster (recursively) named `a_names' in current clusters
+			--
+			-- If `a_parent_cluster' is not Void, then it is considered to be
+			-- the parent cluster of the current clusters.
+			-- Add missing implicit subclusters if needed.
+			-- Void if not such cluster.
+		require
+			a_names_not_void: a_names /= Void
+			no_void_name: not a_names.has (Void)
+			no_empty_name: not a_names.there_exists (agent {STRING}.is_empty)
+		do
+			Result := subcluster_by_name_at_index_with_parent (a_names, a_names.lower, a_parent_cluster)
+		ensure
+			not_void_if_has: has_subcluster_by_name (a_names) implies Result /= Void
+		end
+
+feature {NONE} -- Access
+
+	subcluster_by_name_at_index_with_parent (a_names: ARRAY [STRING]; a_index: INTEGER; a_parent_cluster: ET_CLUSTER): ET_CLUSTER
+			-- Subcluster (recursively) named `a_names', ignoring the entries before `a_index',
+			-- in current clusters
 			--
 			-- If `a_parent_cluster' is not Void, then it is considered to be
 			-- the parent cluster of the current clusters.
@@ -196,7 +277,7 @@ feature -- Access
 		do
 			l_clusters := Current
 			l_parent_cluster := a_parent_cluster
-			i := a_names.lower
+			i := a_index
 			nb := a_names.upper
 			from until i > nb loop
 				if l_clusters /= Void then
@@ -231,35 +312,8 @@ feature -- Access
 				end
 			end
 		ensure
-			not_void_if_has: has_subcluster_by_name (a_names) implies Result /= Void
+			not_void_if_has: has_subcluster_by_name_at_index (a_names, a_index) implies Result /= Void
 		end
-
-	subcluster_with_absolute_pathname (a_pathname: STRING): ET_CLUSTER
-			-- Subcluster (recursively) with absolute pathname `a_pathname' in current clusters
-			--
-			-- `a_pathname' is expected to be a canonical absolute pathname.
-			-- Add missing implicit subclusters if needed.
-			-- Void if not such cluster.
-		require
-			a_pathname_not_void: a_pathname /= Void
-			a_pathname_absolute: file_system.is_absolute_pathname (a_pathname)
-		local
-			i, nb: INTEGER
-		do
-			nb := clusters.count
-			from i := 1 until i > nb loop
-				Result := clusters.item (i).cluster_with_absolute_pathname (a_pathname)
-				if Result /= Void then
-					i := nb + 1
-				end
-				i := i + 1
-			end
-		ensure
-			not_void_if_has: has_subcluster_with_absolute_pathname (a_pathname) implies Result /= Void
-		end
-
-	clusters: DS_ARRAYED_LIST [like cluster]
-			-- Clusters
 
 feature -- Iterators
 
@@ -270,10 +324,32 @@ feature -- Iterators
 			an_action_not_void: an_action /= Void
 		local
 			i, nb: INTEGER
+			l_cluster: like cluster
 		do
 			nb := clusters.count
 			from i := 1 until i > nb loop
-				an_action.call ([clusters.item (i)])
+				l_cluster := clusters.item (i)
+				an_action.call ([l_cluster])
+				i := i + 1
+			end
+		end
+
+	do_if (an_action: PROCEDURE [ANY, TUPLE [ET_CLUSTER]]; a_test: FUNCTION [ANY, TUPLE [ET_CLUSTER], BOOLEAN])
+			-- Apply `an_action' to every cluster which satisfies `a_test'.
+			-- (Semantics not guaranteed if `an_action' adds or removes clusters.)
+		require
+			an_action_not_void: an_action /= Void
+			a_test_not_void: a_test /= Void
+		local
+			i, nb: INTEGER
+			l_cluster: like cluster
+		do
+			nb := clusters.count
+			from i := 1 until i > nb loop
+				l_cluster := clusters.item (i)
+				if a_test.item ([l_cluster]) then
+					an_action.call ([l_cluster])
+				end
 				i := i + 1
 			end
 		end
@@ -289,6 +365,7 @@ feature -- Iterators
 			an_action_not_void: an_action /= Void
 		local
 			i, nb: INTEGER
+			l_cluster: like cluster
 		do
 			if a_stop_request = Void then
 				do_all (an_action)
@@ -298,7 +375,8 @@ feature -- Iterators
 					if a_stop_request.item ([]) then
 						i := nb + 1
 					else
-						an_action.call ([clusters.item (i)])
+						l_cluster := clusters.item (i)
+						an_action.call ([l_cluster])
 						i := i + 1
 					end
 				end
@@ -312,7 +390,7 @@ feature -- Iterators
 			an_action_not_void: an_action /= Void
 		local
 			i, nb: INTEGER
-			l_cluster: ET_CLUSTER
+			l_cluster: like cluster
 			l_subclusters: ET_CLUSTERS
 		do
 			nb := clusters.count
@@ -338,7 +416,7 @@ feature -- Iterators
 			an_action_not_void: an_action /= Void
 		local
 			i, nb: INTEGER
-			l_cluster: ET_CLUSTER
+			l_cluster: like cluster
 			l_subclusters: ET_CLUSTERS
 		do
 			if a_stop_request = Void then
@@ -368,7 +446,7 @@ feature -- Iterators
 			an_action_not_void: an_action /= Void
 		local
 			i, nb: INTEGER
-			l_cluster: ET_CLUSTER
+			l_cluster: like cluster
 			l_subclusters: ET_CLUSTERS
 		do
 			nb := clusters.count
@@ -396,7 +474,7 @@ feature -- Iterators
 			an_action_not_void: an_action /= Void
 		local
 			i, nb: INTEGER
-			l_cluster: ET_CLUSTER
+			l_cluster: like cluster
 			l_subclusters: ET_CLUSTERS
 		do
 			if a_stop_request = Void then
@@ -424,45 +502,53 @@ feature -- Iterators
 feature -- Measurement
 
 	count: INTEGER
+			-- Number of clusters
+		do
+			Result := clusters.count
+		ensure
+			count_not_negative: Result >= 0
+		end
+
+	count_recursive: INTEGER
 			-- Number (recursively) of non-abstract clusters
 		local
 			i, nb: INTEGER
 		do
 			nb := clusters.count
 			from i := 1 until i > nb loop
-				Result := Result + clusters.item (i).count
+				Result := Result + clusters.item (i).count_recursive
 				i := i + 1
 			end
 		ensure
-			count_non_negative: Result >= 0
+			count_recursive_not_negative: Result >= 0
 		end
 
-	override_count: INTEGER
+	override_count_recursive: INTEGER
 			-- Number (recursively) of non-abstract non-read-only override clusters
 		local
 			i, nb: INTEGER
 		do
 			nb := clusters.count
 			from i := 1 until i > nb loop
-				Result := Result + clusters.item (i).override_count
+				Result := Result + clusters.item (i).override_count_recursive
 				i := i + 1
 			end
 		ensure
-			override_count_non_negative: Result >= 0
+			override_count_recursive_not_negative: Result >= 0
 		end
 
-	read_write_count: INTEGER
+	read_write_count_recursive: INTEGER
 			-- Number (recursively) of non-abstract non-read-only clusters
 		local
 			i, nb: INTEGER
 		do
 			nb := clusters.count
 			from i := 1 until i > nb loop
-				Result := Result + clusters.item (i).read_write_count
+				Result := Result + clusters.item (i).read_write_count_recursive
 				i := i + 1
 			end
 		ensure
-			read_write_count_non_negative: Result >= 0
+			read_write_count_recursive_not_negative: Result >= 0
 		end
 
 feature -- Status setting

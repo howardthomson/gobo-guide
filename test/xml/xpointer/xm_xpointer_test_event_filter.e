@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,10 +6,10 @@ indexing
 
 	test_status: "ok_to_run"
 	library: "Gobo Eiffel XPointer Library"
-	copyright: "Copyright (c) 2005, Colin Adams and others"
+	copyright: "Copyright (c) 2005-2011, Colin Adams and others"
 	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "$Date: 2010/05/03 $"
+	revision: "$Revision: #7 $"
 
 class XM_XPOINTER_TEST_EVENT_FILTER
 
@@ -35,7 +35,7 @@ create
 
 feature -- Test
 
-	test_shorthand_with_xml_id is
+	test_shorthand_with_xml_id
 			-- Test parsing shorthand pointer
 		local
 			a_filter: XM_XPOINTER_EVENT_FILTER
@@ -45,7 +45,7 @@ feature -- Test
 			a_sink: XM_PRETTY_PRINT_FILTER
 			a_resolver: XM_URI_EXTERNAL_RESOLVER
 		do
-			system_id := test_event_xml_uri.full_reference
+			system_id := xml_test_event_uri.full_reference
 			a_parser := new_eiffel_parser
 			a_resolver := new_resolver_current_directory
 			a_parser.set_resolver (a_resolver)
@@ -61,7 +61,7 @@ feature -- Test
 			assert ("Correct output", a_sink.last_output.count = 338)
 		end
 
-	test_shorthand_with_dtd_declared_id is
+	test_shorthand_with_dtd_declared_id
 			-- Test parsing shorthand pointer, and changing the xpointer
 		local
 			a_filter: XM_XPOINTER_EVENT_FILTER
@@ -71,7 +71,7 @@ feature -- Test
 			a_sink: XM_PRETTY_PRINT_FILTER
 			a_resolver: XM_URI_EXTERNAL_RESOLVER
 		do
-			system_id := test_event_xml_uri.full_reference
+			system_id := xml_test_event_uri.full_reference
 			a_parser := new_eiffel_parser
 			a_resolver := new_resolver_current_directory
 			a_parser.set_resolver (a_resolver)
@@ -89,7 +89,7 @@ feature -- Test
 			assert ("Correct output", a_sink.last_output.count = 134)
 		end
 
-	test_pass_through is
+	test_pass_through
 			-- Test as pure pass through filter
 		local
 			a_filter: XM_XPOINTER_EVENT_FILTER
@@ -99,7 +99,7 @@ feature -- Test
 			a_sink: XM_PRETTY_PRINT_FILTER
 			a_resolver: XM_URI_EXTERNAL_RESOLVER
 		do
-			system_id := test_event_xml_uri.full_reference
+			system_id := xml_test_event_uri.full_reference
 			a_parser := new_eiffel_parser
 			a_resolver := new_resolver_current_directory
 			a_parser.set_resolver (a_resolver)
@@ -121,7 +121,7 @@ feature -- Test
 
 feature {NONE} -- Implementation
 
-	data_dirname: STRING is
+	data_dirname: STRING
 			-- Name of directory containing data files
 		once
 			Result := file_system.nested_pathname ("${GOBO}",
@@ -132,7 +132,7 @@ feature {NONE} -- Implementation
 			data_dirname_not_empty: not Result.is_empty
 		end
 
-	test_event_xml_uri: UT_URI is
+	xml_test_event_uri: UT_URI
 			-- URI of file 'test_event.xml'
 		local
 			a_path: STRING
@@ -140,7 +140,7 @@ feature {NONE} -- Implementation
 			a_path := file_system.pathname (data_dirname, "test_event.xml")
 			Result := File_uri.filename_to_uri (a_path)
 		ensure
-			test_event_xml_uri_not_void: Result /= Void
+			xml_test_event_uri_not_void: Result /= Void
 		end
 
 end

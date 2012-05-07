@@ -1,14 +1,14 @@
-indexing
+note
 
 	description:
 
 		"Internal errors"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2003-2005, Eric Bezault and others"
-	license: "Eiffel Forum License v2 (see forum.txt)"
-	date: "$Date: 2006/04/15 22:03:14 $"
-	revision: "$Revision: 1.26 $"
+	copyright: "Copyright (c) 2003-2011, Eric Bezault and others"
+	license: "MIT License"
+	date: "$Date$"
+	revision: "$Revision$"
 
 	edp_mods: "[
 		Added make_giaaa_cl with __CLASS__, __LINE__ arguments
@@ -26,13 +26,13 @@ create
 
 feature {NONE} -- Initialization
 
-	make_giaaa is
+	make_giaaa
 			-- Create a new GIAAA error.
 		do
 			code := giaaa_template_code
 			etl_code := giaaa_etl_code
 			default_template := gi_default_template
-			create parameters.make (1, 1)
+			create parameters.make_filled (empty_string, 1, 1)
 			parameters.put (etl_code, 1)
 		ensure
 			-- dollar0: $0 = program name
@@ -58,16 +58,16 @@ feature {NONE} -- Initialization
 
 feature {NONE} -- Implementation
 
-	gi_default_template: STRING is "[$1] internal error."
+	gi_default_template: STRING = "[$1] internal error."
 			-- Default templates
 
-	gi_default_template_cl: STRING is "[$1] internal error in class [$2] at line [$3]."
+	gi_default_template_cl: STRING - "[$1] internal error in class [$2] at line [$3]."
 			-- Default templates
 
-	giaaa_etl_code: STRING is "GIAAA"
+	giaaa_etl_code: STRING = "GIAAA"
 			-- ETL validity codes
 
-	giaaa_template_code: STRING is "giaaa"
+	giaaa_template_code: STRING = "giaaa"
 		-- Template error codes
 
 end
