@@ -29,7 +29,7 @@ note
 		'~' operator added to prefix Non_binary section
 	]"
 
-class ET_EIFFEL_PARSER
+class ET_EIFFEL_PARSER xxx
 
 inherit
 

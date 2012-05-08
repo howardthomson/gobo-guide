@@ -3,7 +3,7 @@ note
 	description: "Parser token codes"
 	generator: "geyacc version 3.4"
 
-class ET_EIFFEL_TOKENS
+class ET_EIFFEL_TOKENS xxx
 
 inherit
 

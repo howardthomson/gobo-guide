@@ -61,7 +61,7 @@ feature {NONE} -- Implementation
 	gi_default_template: STRING = "[$1] internal error."
 			-- Default templates
 
-	gi_default_template_cl: STRING - "[$1] internal error in class [$2] at line [$3]."
+	gi_default_template_cl: STRING = "[$1] internal error in class [$2] at line [$3]."
 			-- Default templates
 
 	giaaa_etl_code: STRING = "GIAAA"

@@ -193,11 +193,11 @@ feature -- Access
 			end
 		end
 
-	hash_code: INTEGER
-			-- Hash code
-		do
-			Result := code.code
-		end
+--	XXX_hash_code: INTEGER
+--			-- Hash code
+--		do
+--			Result := code.code
+--		end
 
 feature -- Status setting
 

@@ -18,20 +18,8 @@ extern "C" {
 #endif
 
 /*
- * Initialize data to keep track of object ids.
+ *	Weak pointers.
  */
-void GE_init_identified(void) {
-#if 0
-	GE_id_objects = (GE_weak_pointer***) 0;
-	GE_id_objects_capacity = 0;
-	GE_last_object_id = 0;
-#endif
-}
-
-/*
-	Get a new id for `object', assuming it is NOT in the stack.
-	Weak pointers.
-*/
 
 /*
  * Weak pointer structure.

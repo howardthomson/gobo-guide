@@ -44,4 +44,6 @@ Fix: once ("process") etc
 	ev_dynamic_list altered temporarily ... Syntax error
 
 	EV_WIDGET_LIST changed, inheritance select clause issue with Gobo compilation
+
+	Fix mismatch in argument count between et_eiffel_parser.y and ET_AST_FACTORY.new_qualified_like_type
 	

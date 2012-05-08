@@ -47,11 +47,11 @@ feature -- Access
 			Result := tokens.precursor_keyword_name
 		end
 
-	hash_code: INTEGER
-			-- Hash code
-		do
-			Result := code.code
-		end
+--	hash_code: INTEGER
+--			-- Hash code
+--		do
+--			Result := code.code
+--		end
 
 feature -- Comparison
 
