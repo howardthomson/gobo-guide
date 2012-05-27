@@ -18,7 +18,7 @@ inherit
 	EV_PRIMITIVE_IMP
 		rename
 			make_sb_window as make_window,
-			make_ev as make_window_ev,
+			make_ev as make_window_ev
 		undefine
 			class_name,
 			on_paint,

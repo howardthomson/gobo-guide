@@ -26,6 +26,8 @@ inherit
 
 	EV_CONTAINER_IMP
 		redefine
+			resize,
+			make,
 			interface	--,
 --			needs_event_box
 		end
@@ -40,7 +42,7 @@ feature {NONE} -- Implementation
                         -- Create a table widget with `par' as
                         -- parent.
 		do
-			base_make (an_interface)
+--			base_make (an_interface)
 --			set_c_object ({EV_GTK_EXTERNALS}.gtk_table_new (Default_row_spacing, Default_column_spacing, Default_homogeneous))
 
 			-- Initialize internal values

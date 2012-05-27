@@ -10,6 +10,10 @@
 		revision: "$Revision: 1.10 $"
 	</description>
 
+	<cluster name="ise_event" location="${ISE_EIFFEL}/library/base/ise/event"/>
+
+
+	
 	<cluster name="vision2" location="${ISE_EIFFEL}/library/vision2">
 		<option name="abstract" value="true"/>
 		<cluster name="contrib"/>

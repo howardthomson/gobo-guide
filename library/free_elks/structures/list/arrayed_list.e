@@ -13,6 +13,10 @@ note
 	date: "$Date$"
 	revision: "$Revision$"
 
+	todo: "[
+		Fix export status of 'area', required by Vision2 ...
+	]"
+
 class ARRAYED_LIST [G] inherit
 
 	ARRAY [G]
@@ -33,10 +37,11 @@ class ARRAYED_LIST [G] inherit
 			{ARRAYED_LIST}
 				array_make, subcopy, upper, lower,
 				same_items, subarray
-			{ARRAYED_LIST, OBJECT_GRAPH_TRAVERSABLE}
-				area
+	--		{ARRAYED_LIST, OBJECT_GRAPH_TRAVERSABLE}
+	--			area
 			{ANY}
-				capacity, all_default
+				capacity, all_default,
+				area
 		undefine
 			linear_representation, prunable, put, is_equal,
 			prune, occurrences, extendible, fill

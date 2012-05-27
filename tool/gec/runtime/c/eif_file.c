@@ -668,7 +668,7 @@ void file_stat(char *path, struct stat *buf) {
 #ifdef HAS_LSTAT
 	status = lstat(path, buf);
 	if (status == 0) {
-		/* We found a file, not let's check if it is not a symbolic link,
+		/* We found a file, now let's check if it is not a symbolic link,
 		 * if it is the case, we need to call `stat' to make sure the link
 		 * is valid. It is going to slow down current call by stating twice
 		 * the info, but this case is quite rare and there is a benefit

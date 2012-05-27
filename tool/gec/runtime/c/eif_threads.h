@@ -13,7 +13,9 @@
 #ifndef EIF_THREADS_H
 #define EIF_THREADS_H
 
+#if 1
 #include "eif_cecil.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,6 +1,6 @@
 note
 	description:
-		"Eiffel Vision Environment. GTK implementation."
+		"Eiffel Vision Environment. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	keywords: "environment, global, system"

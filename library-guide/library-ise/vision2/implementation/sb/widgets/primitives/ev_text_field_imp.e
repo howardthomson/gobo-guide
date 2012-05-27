@@ -19,18 +19,14 @@ inherit
 		redefine
 			make,
 			interface,
-		--	visual_widget,
 			create_change_actions,
-		--	needs_event_box,
 			on_key_event,
-			set_minimum_width_in_characters,
---			initialize
+			set_minimum_width_in_characters
 		end
 
 	EV_FONTABLE_IMP
 		redefine
-			interface	--,
-	--		visual_widget
+			interface
 		end
 
 	EV_TEXT_FIELD_ACTION_SEQUENCES_IMP
@@ -43,6 +39,14 @@ inherit
 
 create
 	make
+
+feature -- To move elsewhere ...
+
+	set_selection (a_start_pos, a_end_pos: INTEGER)
+			-- Select (highlight) the characters between valid caret positions `a_start_pos' and `a_end_pos'.
+		do
+			TODO_class_line ("EV_TEXT_FIELD_IMP::set_selection", "__LINE__")
+		end
 
 feature {NONE} -- Initialization
 

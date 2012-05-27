@@ -560,6 +560,15 @@ feature -- Resizing
 
 feature -- Removal
 
+	wipe_out
+			-- Reset count to zero.
+		do
+			set_count (0)
+		ensure
+			same_capacity: capacity = old capacity
+			count_reset: count = 0
+		end
+
 	clear_all
 			-- Reset all items to default values.
 		local
