@@ -27297,6 +27297,8 @@ feature {NONE} -- Feature name generation
 
 -- GC mods
 
+-- TODO: Exclude non-reference types from the 'locals.' prepend code ?
+
 	print_local_name (a_name: ET_IDENTIFIER; a_file: KI_TEXT_OUTPUT_STREAM)
 			-- Print name of local variable `a_name' to `a_file'.
 		require

@@ -1,5 +1,14 @@
 GUIDE -- TODO
 
+Develop tracing facility, enabled as part of compilation inclusion of class DEBUG_TRACING or similar
+
+	Routines:
+		enable_tracing
+		enable_tracing_to_depth (n)
+			-- Depth of call tree to trace ...
+			
+		disable_tracing
+
 Fix 'resources' messages from SB_xx classes
 
 Compilation warning messages
@@ -30,7 +39,9 @@ Improved TYPE implementation ...
 
 generating_type ... !!!! Needless code duplication ...
 
-va_start, va_arg, va_end not supported by tcc
+va_start, va_arg, va_end [not supported] by tcc
+	Link in libtcc1.o ...
+	
 
 
 

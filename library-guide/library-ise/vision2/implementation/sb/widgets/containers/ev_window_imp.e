@@ -277,7 +277,7 @@ feature -- Element change
 			
 			mb_imp ?= a_menu_bar.implementation
 			mb_imp.set_parent_window_imp (Current)	-- ???
---			mb_imp.sb_widget.set_parent (vbox)
+			mb_imp.sb_widget.set_parent (vbox)
 			menu_bar := a_menu_bar
 		end
 

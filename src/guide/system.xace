@@ -9,8 +9,8 @@
 		revision: "$Revision: 1.2 $"
 	</description>
 
-	<!--root class="GUIDE" creation="make"/-->
-	<root class="GEC" creation="execute"/>
+	<root class="GUIDE" creation="make"/>
+	<!--root class="GEC" creation="execute"/-->
 	<option name="console_application" value="false"/>
 	<option name="syntax" value="transitional"/>
 	<option unless="${DEBUG}">
@@ -44,27 +44,27 @@
 	<mount location="${GOBO}/library/kernel.xace"/>
 
 
-	<cluster name="guide" location="${GOBO}/src/guide"/>
-	<cluster name="gc_tests" location="${GOBO}/src/gctest"/>
+	<cluster name="guide" location="${GUIDE}/src/guide"/>
+	<cluster name="gc_tests" location="${GUIDE}/src/gctest"/>
 
-	<cluster name="edp_parse" 			location="${GOBO}/library-guide/parse">
+	<cluster name="edp_parse" 			location="${GUIDE}/library-guide/parse">
 		<option name="exclude" value="et_eiffel_parser.e"/>
 		<option name="exclude" value="et_eiffel_tokens.e"/>
 	</cluster>
-	<cluster name="edp_src" 			location="${GOBO}/library-guide/edp-src">
+	<cluster name="edp_src" 			location="${GUIDE}/library-guide/edp-src">
 		<option name="exclude" value="any.e"/>
 	</cluster>
-	<cluster name="edp_diff" 			location="${GOBO}/library-guide/diff"/>
+	<cluster name="edp_diff" 			location="${GUIDE}/library-guide/diff"/>
 
-	<cluster name="edp_fec" 			location="${GOBO}/library-guide/fec"/>
+	<cluster name="edp_fec" 			location="${GUIDE}/library-guide/fec"/>
 	
-	<cluster name="gecmp" 				location="${GOBO}/src/gecmp"/>
+	<cluster name="gecmp" 				location="${GUIDE}/src/gecmp"/>
 
-	<cluster name="gec"					location="$GOBO/src/gec"/>
+	<cluster name="gec"					location="$GUIDE/src/gec"/>
 
-	<mount location="${GOBO}/library-guide/library-ise/vision2/library-sb.xace"/>
+	<mount location="${GUIDE}/library-guide/library-ise/vision2/library-sb.xace"/>
 
-	<mount location="${GOBO}/src/guide/library-serialize.xace"/>
+	<mount location="${GUIDE}/src/guide/library-serialize.xace"/>
 
 	<cluster name="llvm" location="${LLVM}">
 		<cluster name="x86_64"/>
@@ -77,21 +77,22 @@
 	<cluster name="lib_sha1" location="/data/eiffel/lib/sha1"/>
 
 	<cluster name="ise_thread" location="${ISE_EIFFEL}/library/thread/classic"/>
-	<cluster name="ise_event" location="${ISE_EIFFEL}/library/base/ise/event" if="${GOBO_EIFFEL}=ge"/>
+	<!--cluster name="ise_event" location="${ISE_EIFFEL}/library/base/ise/event" if="${GOBO_EIFFEL}=ge"/-->
 	
 	<option name="c_compiler_options" value="-m32" if="${m32}"/>
 	<option name="c_compiler_options" value="-L/usr/X11R6/lib"/>
 	<option name="c_compiler_options" value="-I/data/eiffel/lib/zeromq/include"/>
 	<option name="c_compiler_options" value="-I${GOBO}/library-guide/sha1"/>
 	<option name="c_compiler_options" value="-DXUTIL_DEFINE_FUNCTIONS"/>
+	<option name="c_compiler_options" value="-I$GOBO/tool/gec/runtime/c"/>
 
 	<option name="link" value="-m32" if="${m32}"/>
 	<option name="link" value="${GOBO}/library-guide/sha1/sha1.o"/>
+	<option name="link" value="/data/git/tinycc/tinycc/lib/x86_64/libtcc1.o"/>
 	<option name="link" value="-lpthread"/>
 	<option name="link" value="-lrt"/>
 	<option name="link" value="-lm"/>
 	<option name="link" value="${GOBO}/library-guide/c_code/pointer_access${bit_64}.o"/>
 	<option name="link" value="${GOBO}/library-guide/c_code/x_error${bit_64}.o"/>
 	<option name="link" value="-lX11"/>
-	<option name="link" value="/data/git/tinycc/tinycc/lib/x86_64/libtcc1.o"/>
 </system>

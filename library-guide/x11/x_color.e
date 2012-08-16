@@ -80,20 +80,6 @@ feature -- X routine calls
 		once
 			fx_trace(0, <<"X_COLOR::query_default_color - not implemented ?">>)
 		end
-
-feature -- C struct accesses
-
---	c_pixel	(p: POINTER): INTEGER is external "C struct XColor get pixel use <X11/Xlib.h>" end
---	c_red	(p: POINTER): INTEGER is external "C struct XColor get red	 use <X11/Xlib.h>" end
---	c_green	(p: POINTER): INTEGER is external "C struct XColor get green use <X11/Xlib.h>" end
---	c_blue	(p: POINTER): INTEGER is external "C struct XColor get blue	 use <X11/Xlib.h>" end
---	c_flags	(p: POINTER): INTEGER is external "C struct XColor get flags use <X11/Xlib.h>" end
-
---	c_put_pixel	(p: POINTER; i: INTEGER) is external "C struct XColor set pixel use <X11/Xlib.h>" end
---	c_put_red	(p: POINTER; i: INTEGER) is external "C struct XColor set red	use <X11/Xlib.h>" end
---	c_put_green	(p: POINTER; i: INTEGER) is external "C struct XColor set green use <X11/Xlib.h>" end
---	c_put_blue	(p: POINTER; i: INTEGER) is external "C struct XColor set blue	use <X11/Xlib.h>" end
---	c_put_flags	(p: POINTER; i: INTEGER) is external "C struct XColor set flags use <X11/Xlib.h>" end
 	
 feature -- C struct accesses
 
