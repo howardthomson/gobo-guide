@@ -46,9 +46,12 @@
 	<cluster name="edp_fec" 			location="${GUIDE}/library-guide/fec"/>
 	<cluster name="gecmp" 				location="${GUIDE}/src/gecmp"/>
 	<cluster name="gec"				location="$GUIDE/src/gec"/>
+	<cluster name="c_ptr"				location="${GUIDE}/library-guide/pointer"/>
 
-	<mount location="${GOBO}/library-guide/library-ise/vision2/library-gtk.xace"/>
-
+	<mount location="${GOBO}/library-guide/library-ise/vision2/library-gtk.xace" if="${GOBO_EIFFEL=ge"/>
+	<cluster name="vision2" if="${GOBO_EIFFEL=ise">
+		<option name="ecf_library" value="${ISE_LIBRARY}/library/vision2/vision2.ecf"/>
+	</cluster>
 
 	<mount location="${GUIDE}/src/guide/library-serialize.xace"/>
 
