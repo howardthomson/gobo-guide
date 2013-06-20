@@ -31,7 +31,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface)
+	XX_make (an_interface: like interface)
 			-- Create a menu item.
 		do
 			base_make (an_interface)
@@ -69,7 +69,7 @@ feature {EV_ANY_I} -- Implementation
 			if is_selected then
 				ignore_select_actions := True
 --				{EV_GTK_EXTERNALS}.gtk_check_menu_item_set_active (c_object, False)
-				ignore_select_actions := False				
+				ignore_select_actions := False
 			end
 		end
 

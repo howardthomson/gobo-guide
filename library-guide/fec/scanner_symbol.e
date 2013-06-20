@@ -11,7 +11,7 @@ note
 --
 --  Copyright (C) 1997 Fridtjof Siebert
 --    EMail: fridi@gr.opengroup.org
---    SMail: Fridtjof Siebert 
+--    SMail: Fridtjof Siebert
 --           5b rue du 26 mai 1944
 --           38940 St. Martin le Vinoux
 --           Grenoble
@@ -31,7 +31,7 @@ note
 --
 --------------------------------------------------------------------------------
 
-class SCANNER_SYMBOL  
+class SCANNER_SYMBOL
 
 inherit
 
@@ -107,7 +107,7 @@ feature -- Creation
 		end
 
 feature { ANY }
-	
+
 	type: INTEGER		-- Symbol type as in SCANNER_SYMBOLS
 
 	sequence: INTEGER
@@ -115,9 +115,9 @@ feature { ANY }
 		-- source text, or inserted into the altered symbol set.
 		-- Line and Column number NOT stored here, only relative column no
 		-- Line no deduced from tree information
-	
+
 	position: INTEGER_64  -- Position in source text
-	
+
 	cached_width: INTEGER
 
 	width (s: SCANNER): INTEGER
@@ -179,7 +179,7 @@ feature {NONE}
 			Result := j2 - j1
 		end
 
-feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }	
+feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 
 	incr_column (by: INTEGER)
 			-- Adjust column position, to the right
@@ -199,13 +199,13 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 			position := pos_init (pos_line (position) + by, pos_column (position))
 		end
 
-	special: INTEGER;      
-	 	
+	special: INTEGER;
+
 	set (new_type: INTEGER; new_special: INTEGER; new_position: INTEGER_64)
 		do
-			type := new_type 
+			type := new_type
 			position := new_position
-			special := new_special 	
+			special := new_special
 		end
 
 	set_type (a_type: INTEGER)
@@ -260,7 +260,7 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 			when s_right_brace        	then Result := once "}"
 			when s_left_array		 	then Result := once "<<"
 			when s_right_array		 	then Result := once ">>"
-			when s_assign   	       	then Result := once ":="			
+			when s_assign   	       	then Result := once ":="
 			when s_reverse	        	then Result := once "?="
 			when s_dollar_sign        	then Result := once "$"
 		--	when s_percent            	then Result := once "%%"
@@ -287,7 +287,7 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 			when s_str_div				then Result := once "%"//%""
 			when s_str_mod				then Result := once "%"\\%""
 			when s_str_power			then Result := once "%"^%""
-			
+
 			when s_str_lt              	then Result := once "%"<%""
 			when s_str_gt             	then Result := once "%">%""
 			when s_str_le		      	then Result := once "%"<=%""
@@ -305,7 +305,7 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 			when s_str_left_brace		then Result := once "%"{"
 
 			when s_freeop				then Result := repository @ special;		-- Free operator
-			when s_str_freeop      		then Result := repository @ special;		-- Free operator string   
+			when s_str_freeop      		then Result := repository @ special;		-- Free operator string
 
 			when s_identifier           then Result := repository @ special;	-- Feature, class or tag name
 				if Result = Void then
@@ -324,28 +324,28 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 			when s_string_decimal_1		then Result := decimal (False, 1)					-- e.g. %/1/ within string
 			when s_string_decimal_2		then Result := decimal (False, 2)					-- e.g. %/12/ within string
 			when s_string_decimal_3		then Result := decimal (False, 3)					-- e.g. %/123/ within string
-			when s_str_gap_start,	
-				 s_str_gap_end			then Result := once "%%"							-- Line/String continuation character        
+			when s_str_gap_start,
+				 s_str_gap_end			then Result := once "%%"							-- Line/String continuation character
 			when s_character            then Result := escaped (True, False)					-- Character Constant e.g. "'c'" or "'%B'"
 			when s_character_escaped	then Result := escaped (True, True)					-- Character Constant Escaped e.g. '%N'
 			when s_character_decimal_1	then Result := decimal (True, 1)						-- e.g. '%/1/'
 			when s_character_decimal_2	then Result := decimal (True, 2)						-- e.g. '%/12/'
 			when s_character_decimal_3	then Result := decimal (True, 3)						-- e.g. '%/123/'
-			when s_real                 then Result := repository @ special;		-- Real Constant e.g. "1234.5678e-90"            
-			when s_bit_sequence         then Result := repository @ special;		-- 010101B          
-			when s_comment              then Result := repository @ special;		-- Comment, started by "--" 
-											exp_tabs := True            
+			when s_real                 then Result := repository @ special;		-- Real Constant e.g. "1234.5678e-90"
+			when s_bit_sequence         then Result := repository @ special;		-- 010101B
+			when s_comment              then Result := repository @ special;		-- Comment, started by "--"
+											exp_tabs := True
 			when s_raw_text				then Result := repository @ special;		-- Edited or scan-failed raw text
 			when s_edit_text			then Result := s.edit_string						-- Currently edited string
 			when s_whitespace			then Result := once ""								-- Non-displayable infill
-			when s_eof                  then Result := once "<EOF>";						-- End Of File               
+			when s_eof                  then Result := once "<EOF>";						-- End Of File
 
 			else
 			--	Result := once "#"
 			end
 			if Result = Void then
 				Result := once "?"
-				fx_trace(0, << "SCANNER_SYMBOL::string_value - Void Result for symbol type: ", s.token_string(type), type.out >>)
+	--			fx_trace(0, << "SCANNER_SYMBOL::string_value - Void Result for symbol type: ", s.token_string(type), type.out >>)
 			end
 		end
 
@@ -358,9 +358,9 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 			if quoted then s.extend ('%'') end
 			if is_escaped then
 				s.extend ('%%')
-				s.extend (special.to_character)
+				s.extend (special.to_character_8)
 			else
-				s.extend (special.to_character)
+				s.extend (special.to_character_8)
 			end
 			if quoted then s.extend ('%'') end
 			Result := s
@@ -382,7 +382,7 @@ feature { SCANNER_EIFFEL, SCANNER_GOBO, EDP_SYMBOL_EDITOR, SCANNER_SYMBOL }
 			s.extend ('/')
 			s.append (special.out)
 			-- ## TODO ## ??
-					
+
 			s.extend('/')
 			if quoted then s.extend('%'') end
 			Result := s

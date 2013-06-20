@@ -21,7 +21,8 @@ inherit
 			{EV_ANY_I, EV_INTERMEDIARY_ROUTINES}
 				is_destroyed
 		redefine
-			launch, focused_widget, make
+		--	launch, 
+			focused_widget, make
 		end
 
 	EV_APPLICATION_ACTION_SEQUENCES_IMP

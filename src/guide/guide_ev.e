@@ -24,17 +24,12 @@ inherit
 		end
 
 	EV_APPLICATION
-		rename
---			make as make_app,
---			arguments as sb_arguments
---			copy as ev_copy
-		end
 
-	EDP_GLOBAL
-		undefine
-			default_create,
-			copy
-		end
+--	EDP_GLOBAL
+--		undefine
+--			default_create,
+--			copy
+--		end
 
 create
 	make
@@ -47,14 +42,14 @@ feature
 			-- Startup for Eiffel Design Project Application
 		local
 			failed: BOOLEAN
-			gc_test: EDP_GC_TEST	-- See $GOBO/src/gctest
+--			gc_test: EDP_GC_TEST	-- See $GOBO/src/gctest
 		do
 			if arguments.argument (0).is_equal ("gec")
 			or else arguments.argument (0).is_equal ("./gec") then
 					-- run 'execute' from GEC
 				execute
-			elseif arguments.argument (0).is_equal ("./test_gc") then
-				create gc_test.make
+--			elseif arguments.argument (0).is_equal ("./test_gc") then
+--				create gc_test.make
 			else
 				if not failed then
 				--	parse_arguments

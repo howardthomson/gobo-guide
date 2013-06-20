@@ -27,7 +27,7 @@ feature -- Attributes (Ace)
 	et_lace_clusters: ET_LACE_CLUSTERS
 	et_system: ET_LACE_SYSTEM
 	et_lace_parser: ET_LACE_PARSER
-	
+
 	lace_error_handler: EDP_LACE_ERROR_HANDLER
 	lace_ast_factory: ET_LACE_AST_FACTORY
 
@@ -35,7 +35,7 @@ feature -- Target info
 
 	filename: STRING
 			-- file name of ace file
-	
+
 	error_target: EDP_ERROR_TARGET
 			-- GUI Error reporting target
 
@@ -84,7 +84,7 @@ feature -- Creation
 					et_lace_parser.parse_file (file)
 					file.close
 					et_system := Void
-				end					
+				end
 			end
 		end
 
@@ -99,7 +99,7 @@ feature -- Creation
 				if et_system = Void then
 					et_system := et_lace_parser.last_system
 					et_system.activate_processors
-					if false then				
+					if false then
 						et_system.set_use_reference_keyword (True)
 						et_system.set_use_attribute_keyword (False)
 					end
@@ -111,7 +111,7 @@ feature -- Creation
 					set_classes_tree (display_target)
 				end
 			end
-		end			
+		end
 
 feature -- Display classes
 
@@ -164,14 +164,14 @@ feature -- Display classes
 --				end
 --			end
 		end
-			
+
 	generate_c_code
 			-- Generate C code for current system.
 		local
 			l_generator: ET_C_GENERATOR
 		do
-			create l_generator.make (et_system)
-			l_generator.generate (et_system.universe.system_name)
+--			create l_generator.make (et_system)
+--			l_generator.generate (et_system.universe.system_name)
 		end
 
 --	validate

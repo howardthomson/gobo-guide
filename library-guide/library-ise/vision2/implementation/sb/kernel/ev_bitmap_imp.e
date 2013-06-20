@@ -77,7 +77,7 @@ feature {EV_PIXMAP_IMP} -- Implementation
 
 feature {NONE} -- Implementation
 
-	app_implementation: EV_APPLICATION_IMP
+	XX_app_implementation: EV_APPLICATION_IMP
 			-- Access to application object implementation.
 		local
 			env: EV_ENVIRONMENT
@@ -104,7 +104,7 @@ feature {NONE} -- Implementation
 	destroy
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "destroy")
-			
+
 			if drawable /= default_pointer then
 --				{EV_GTK_EXTERNALS}.gdk_bitmap_unref (drawable)
 				drawable := default_pointer

@@ -1,3 +1,8 @@
+note
+	TODO: "[
+			Fix creation of local 's' in 'make' ...
+		]"
+
 class EDP_GC_TEST
 
 create
@@ -26,7 +31,7 @@ feature -- Creation
 				i := random.item
 				i := i.bit_and ((1 |<< 11) - 1)
 				i := i |<< 4
-				create s.make (i)
+--				create s.make (i)
 				random.forth
 				j := random.item.bit_and (4095)
 				gc_roots.put (s, j + 1)

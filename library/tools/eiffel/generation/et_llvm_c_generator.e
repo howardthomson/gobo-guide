@@ -21,7 +21,7 @@ note
 		trace entry/exit
 		Fix failure to report: "unable to read/include XXX.h file"
 	]"
-	
+
 	todo: "[
 		Note tcc 0.9.25 compiles C very fast, but does not correctly compile the runtime in GE_setup_signal_handling ...
 		For tcc and varargs, need to include $TCC/lib/x86_64/libtcc1.o in object files
@@ -277,7 +277,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_system: like current_dynamic_system) is
+	make (a_system: like current_dynamic_system)
 			-- Create a new C code generator.
 		local
 			l_buffer: STRING
@@ -366,11 +366,11 @@ feature {NONE} -- Initialization
 --	llvm_factory: LLVM_X86_64_INSTRUCTION_FACTORY
 
 
-	enable_incremental_recompilation: BOOLEAN is False
+	enable_incremental_recompilation: BOOLEAN = False
 
 feature -- Generation
 
-	generate (a_system_name: STRING) is
+	generate (a_system_name: STRING)
 			-- Generate C code and C compilation script file for `current_dynamic_system'.
 			-- Set `has_fatal_error' if a fatal error occurred.
 		do
@@ -388,12 +388,12 @@ print("Generating code ...%N")
 			end
 		end
 
-	enable_class_generation_tracking is
-		external "C"
+	enable_class_generation_tracking
+		do	--	external "C"
 		end
 
-	disable_class_generation_tracking is
-		external "C"
+	disable_class_generation_tracking
+		do	--	external "C"
 		end
 
 feature {NONE} -- Compilation script generation
@@ -594,7 +594,7 @@ feature {NONE} -- Compilation script generation
 			end
 		end
 
-	generate_makefile (a_system_name: STRING) is
+	generate_makefile (a_system_name: STRING)
 			-- Generate C compilation script file for `current_dynamic_system'.
 			-- Set `has_fatal_error' if a fatal error occurred.
 		require
@@ -698,7 +698,7 @@ feature {NONE} -- Compilation script generation
 				l_file.put_string ("OBJECT_FILES = ")
 				l_file.put_line (l_obj_filenames)
 				l_file.put_new_line
-				
+
 				l_file.put_string (a_system_name)
 				l_file.put_line (": ${OBJECT_FILES}")
 				l_file.put_new_line
@@ -717,7 +717,7 @@ feature {NONE} -- Compilation script generation
 				l_command_name := template_expander.expand_from_values (l_cc_template, l_variables)
 				l_file.put_line (l_command_name)
 				l_file.put_new_line
-				
+
 					-- Compile last C file containing the runtime code separately ...
 					-- 'tcc' compiles much faster than gcc or lcc, but does not correctly
 					-- compile the runtime code, specifically GE_setup_signal_handling()
@@ -949,7 +949,7 @@ feature {NONE} -- Compilation script generation
 
 feature {NONE} -- LLVM code Generation
 
-	generate_code (a_system_name: STRING) is
+	generate_code (a_system_name: STRING)
 			-- Generate C code for `current_dynamic_system'.
 			-- Set `has_fatal_error' if a fatal error occurred.
 		require
@@ -984,7 +984,7 @@ feature {NONE} -- LLVM code Generation
 				generate_signatures
 					-- Get available IDs and signatures for already compiled routines
 				load_dynamic_libraries
-				
+
 				generate_ids
 
 				if trace_mode then
@@ -1039,7 +1039,7 @@ feature {NONE} -- LLVM code Generation
 				print_types (header_file)					-- Hashes ...
 				flush_to_c_file
 				header_file.put_new_line
-				
+
 				print_default_declarations					-- Hashes ...
 				current_file.put_new_line
 				flush_to_c_file
@@ -1195,21 +1195,21 @@ feature {NONE} -- LLVM code Generation
 --			l_serializer.serialize (Current, "test_saved_state", False)
 		end
 
-	generate_signatures is
+	generate_signatures
 		local
 			l_signature_generator: ET_CODE_SIGNATURE_GENERATOR
 		do
 			create l_signature_generator.make (current_dynamic_system)
 		end
 
-	load_dynamic_libraries is
+	load_dynamic_libraries
 		local
 --			l_library_loader: ET_DYNAMIC_LIBRARY_LOADER
 		do
-			
+
 		end
 
-	generate_ids is
+	generate_ids
 			-- Generate IDs for any routines that have not already been matched to
 			-- previously generated code ...
 		local
@@ -1231,7 +1231,7 @@ feature {NONE} -- LLVM code Generation
 				Precursor
 			else
 				l_count := 0	-- TODO assign based on highest allocated value
-								-- from previously compiled code ?? 
+								-- from previously compiled code ??
 				l_dynamic_types := current_dynamic_system.dynamic_types
 				nb := l_dynamic_types.count
 				from i := 1 until i > nb loop
@@ -1361,9 +1361,11 @@ feature {NONE} -- LLVM code Generation
 			end
 		end
 
-feature -- External routines
+feature {NONE} -- External routines
+	-- Note, export status changed due to restricted export status of elements of the 'require' clauses
+	-- of some of the routines in this feature clause ...
 
-	print_external_routine (a_feature: ET_EXTERNAL_ROUTINE; a_static: BOOLEAN; a_creation: BOOLEAN) is
+	print_external_routine (a_feature: ET_EXTERNAL_ROUTINE; a_static: BOOLEAN; a_creation: BOOLEAN)
 			-- Print `a_feature' to `current_file' and its signature to `header_file'.
 		local
 			l_result_type_set: ET_DYNAMIC_TYPE_SET
@@ -1822,7 +1824,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 
 --## EDP Mods ...
 
-	print_trace_routine_entry (a_feature: ET_ROUTINE) is
+	print_trace_routine_entry (a_feature: ET_ROUTINE)
 		local
 			s: STRING
 		do
@@ -1840,8 +1842,8 @@ print ("**** language not recognized: " + l_language_string + "%N")
 				current_file.put_line("\n%", trace_routine_count++);")
 			end
 		end
-	
-	print_trace_routine_exit (a_feature: ET_ROUTINE) is
+
+	print_trace_routine_exit (a_feature: ET_ROUTINE)
 		do
 			if is_trace_class (a_feature) then
 				print_indentation
@@ -2076,7 +2078,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			end
 		end
 
-	print_external_builtin_function_function_body (a_feature: ET_EXTERNAL_ROUTINE) is
+	print_external_builtin_function_function_body (a_feature: ET_EXTERNAL_ROUTINE)
 			-- Print to `current_file' the body of built-in feature `a_feature'.
 			-- `a_feature' is a built-in function introduced in class "FUNCTION".
 		require
@@ -2101,7 +2103,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			end
 		end
 
-	print_external_builtin_identified_function_body (a_feature: ET_EXTERNAL_ROUTINE) is
+	print_external_builtin_identified_function_body (a_feature: ET_EXTERNAL_ROUTINE)
 			-- Print to `current_file' the body of built-in feature `a_feature'.
 			-- `a_feature' is a built-in function introduced in class "IDENTIFIED" and relates classes.
 		require
@@ -2740,7 +2742,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			a_feature_is_function: a_feature.is_function
 			a_feature_is_builtin: a_feature.is_builtin
 			a_feature_is_builtin_tuple: (a_feature.builtin_code // builtin_capacity) = builtin_tuple_class
-			valid_feature: current_feature.static_feature = a_feature
+--			valid_feature: current_feature.static_feature = a_feature
 		do
 			inspect a_feature.builtin_code \\ builtin_capacity
 			when builtin_tuple_boolean_item then
@@ -2991,7 +2993,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			a_feature_not_void: a_feature /= Void
 			a_feature_is_procedure: a_feature.is_procedure
 			a_feature_is_builtin: a_feature.is_builtin
-			a_feature_is_builtin_boolean: (a_feature.builtin_code // builtin_capacity) = builtin_boolean_class
+--			a_feature_is_builtin_boolean: (a_feature.builtin_code // builtin_capacity) = builtin_boolean_class
 			valid_feature: current_feature.static_feature = a_feature
 		do
 			inspect a_feature.builtin_code \\ builtin_capacity
@@ -4336,9 +4338,9 @@ feature -- Internal routines
 			else
 				l_name.append (routine_name_as_string (current_feature, current_type))
 			end
-		end				
-	
-	print_internal_routine (a_feature: ET_INTERNAL_ROUTINE; a_static: BOOLEAN; a_creation: BOOLEAN) is
+		end
+
+	print_internal_routine (a_feature: ET_INTERNAL_ROUTINE; a_static: BOOLEAN; a_creation: BOOLEAN)
 			-- Print `a_feature' to `current_file' and its signature to `header_file'.
 		local
 			l_result_type_set: ET_DYNAMIC_TYPE_SET
@@ -4415,7 +4417,7 @@ feature -- Internal routines
 					--	or l_result_type.has_nested_reference_attributes
 						then
 							once_gc_references.force_last (l_once_feature)
-						end						
+						end
 					end
 				end
 			end
@@ -4662,9 +4664,9 @@ feature -- Internal routines
 					-- to describe the offsets, in bytes, from the locals
 					-- struct of all the references in the stack frame
 					-- Include locals, arguments and temporaries
-					
+
 					-- TODO Don't generate stack descriptor unless needed.
-					
+
 				current_file := current_function_header_buffer
 				descriptor_file := current_function_stack_descriptor_buffer
 				indent
@@ -4775,7 +4777,7 @@ feature -- Internal routines
 						i := i + 1
 					end
 						-- Emit descriptor struct
-					descriptor_file.put_string (once "GE_stack_t_N(")					
+					descriptor_file.put_string (once "GE_stack_t_N(")
 					descriptor_file.put_integer (nb_gc_references)
 					descriptor_file.put_character (')')
 					descriptor_file.put_character (' ')
@@ -4845,7 +4847,7 @@ feature -- Internal routines
 					current_file.put_string (STRING_.replaced_all_substrings (current_feature.static_feature.lower_name, "%"", "'"))
 					current_file.put_character ('"')
 					current_file.put_character (';')
-					current_file.put_new_line			
+					current_file.put_new_line
 				end
 				dedent
 			end
@@ -5168,7 +5170,7 @@ feature -- Internal routines
 			end
 
 --###################################################################################
-			
+
 				-- Clean up.
 			reset_rescue_data
 			current_call_info := old_call_info
@@ -5203,7 +5205,7 @@ feature -- Internal routines
 			a_file.put_character ('_')
 			a_file.put_character ('t')
 			a_file.put_character (')')
-			a_file.put_character ('(')								
+			a_file.put_character ('(')
 			a_file.put_character ('(')
 			a_file.put_character ('c')
 			a_file.put_character ('h')
@@ -5858,7 +5860,7 @@ feature {NONE} -- Instruction generation
 			-- TODO: emit unimplemented warning
 		end
 
-	print_compound (a_compound: ET_COMPOUND) is
+	print_compound (a_compound: ET_COMPOUND)
 			-- Print `a_compound'.
 		require
 			a_compound_not_void: a_compound /= Void
@@ -5872,7 +5874,7 @@ feature {NONE} -- Instruction generation
 			end
 		end
 
-	print_create_instruction (an_instruction: ET_CREATE_INSTRUCTION) is
+	print_create_instruction (an_instruction: ET_CREATE_INSTRUCTION)
 			-- Print `an_instruction'.
 		require
 			an_instruction_not_void: an_instruction /= Void
@@ -5983,7 +5985,7 @@ feature {NONE} -- Instruction generation
 			end
 		end
 
-	print_debug_instruction (an_instruction: ET_DEBUG_INSTRUCTION) is
+	print_debug_instruction (an_instruction: ET_DEBUG_INSTRUCTION)
 			-- Print `an_instruction'.
 		require
 			an_instruction_not_void: an_instruction /= Void
@@ -6939,7 +6941,7 @@ feature {NONE} -- Procedure call generation
 			end
 		end
 
-	print_non_inlined_procedure_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN) is
+	print_non_inlined_procedure_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
 			-- Print to `current_file' a non-inlined version of a call to procedure `a_feature' (static binding).
 			-- `a_target_type' is the dynamic type of the target.
 			-- `a_check_void' means that we need to check whether the target is Void or not.
@@ -7260,7 +7262,7 @@ feature {NONE} -- Procedure call generation
 feature {NONE} -- Expression generation
 
 	print_argument_attachment_expression (an_expression: ET_EXPRESSION; a_source_type_set: ET_DYNAMIC_TYPE_SET; a_target_type: ET_DYNAMIC_TYPE)
-			-- 
+			--
 		local
 			l_is_reference: BOOLEAN
 			l_temp: ET_IDENTIFIER
@@ -26402,7 +26404,7 @@ feature {NONE} -- Type generation
 				a_file.put_new_line
 			end
 		end
-		
+
 -- GC Mods
 
 	print_eif_type_struct (a_file: KI_TEXT_OUTPUT_STREAM)
@@ -27799,7 +27801,7 @@ feature {NONE} -- Convenience
 
 feature -- EDP GC Mark routines
 
-	print_edp_gc_mark_routines is
+	print_edp_gc_mark_routines
 			-- Print routines to mark objects reachable from each object type
 			-- Boxed items may contain references ...
 			-- SPECIAL [ EXPANDED_TYPE_CONTAINING_REFERENCES ]
@@ -27870,7 +27872,7 @@ feature -- EDP GC Mark routines
 						current_file.put_new_line
 						current_file.put_character ('{')
 						current_file.put_new_line
-						indent						
+						indent
 						l_special_type ?= l_type
 						if l_special_type /= Void then
 								-- Mark items.
@@ -28042,7 +28044,7 @@ print (once "GC mark Routine for a tuple with item(s) of an Expanded_type%N")
 			current_file.put_new_line
 		end
 
-	print_gc_mark_attribute (an_attribute_type_set: ET_DYNAMIC_TYPE_SET; a_print_attribute_access: PROCEDURE [ANY, TUPLE]) is
+	print_gc_mark_attribute (an_attribute_type_set: ET_DYNAMIC_TYPE_SET; a_print_attribute_access: PROCEDURE [ANY, TUPLE])
 			-- Print to `current_file' the instructions needed to mark an attribute
 			-- of `current_type' whose dynamic type set is `an_attribute_type_set'.
 			-- `a_print_attribute_access' is used to print to `current_file'
@@ -28061,7 +28063,7 @@ print (once "GC mark Routine for a tuple with item(s) of an Expanded_type%N")
 			current_file.put_new_line
 		end
 
-	print_gc_mark_once_values_and_inline_constants is
+	print_gc_mark_once_values_and_inline_constants
 			-- Print routine to GC mark all constant and
 			-- once-value references
 		local
@@ -28108,10 +28110,10 @@ print (once "GC mark Routine for a tuple with item(s) of an Expanded_type%N")
 			current_file.put_character ('}')
 			current_file.put_new_line
 			current_file.put_new_line
-			
+
 		end
 
-	print_stack_descriptor_name (a_feature: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE; a_static, a_creation: BOOLEAN; a_file: KI_TEXT_OUTPUT_STREAM) is
+	print_stack_descriptor_name (a_feature: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE; a_static, a_creation: BOOLEAN; a_file: KI_TEXT_OUTPUT_STREAM)
 			-- Print the name of the global pointer, once allocated, for
 			-- the stack layout descriptor for this routine
 		do
@@ -28340,7 +28342,7 @@ feature {NONE} -- Output files/buffers
 
 	current_file_extension: STRING
 			-- File extension for the currently open file
-			
+
 	set_file_extension (a_file_extension: STRING)
 			-- Set the extension string for the next C file
 		do
@@ -28429,7 +28431,7 @@ feature {NONE} -- Output files/buffers
 		local
 			l_hash_code: STRING
 			l_code_hash_table: like code_hash_table
-			l_routine_name: STRING
+--			l_routine_name: STRING
 		do
 			l_code_hash_table:= code_hash_table
 			hash_stream_processor.init
@@ -28466,7 +28468,7 @@ feature {NONE} -- Output files/buffers
 			header_file.put_character ('v')
 			header_file.put_integer (code_recompilation_version)
 			header_file.put_new_line
-				-- Associate 
+				-- Associate
 		--	code_mapping_table
 		end
 
@@ -29690,7 +29692,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make (l_buffer)
 		end
 
-	routine_name_as_string (a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
+	routine_name_as_string (a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print name of `a_routine' from `a_type' to `a_file'.
 		require
 			a_routine_not_void: a_routine /= Void
@@ -29704,7 +29706,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	static_routine_name_as_string (a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
+	static_routine_name_as_string (a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print name of static feature `a_feature' to `a_file'.
 		require
 			a_routine_not_void: a_routine /= Void
@@ -29719,7 +29721,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	creation_procedure_name_as_string (a_procedure: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
+	creation_procedure_name_as_string (a_procedure: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print name of creation procedure `a_procedure' to `a_file'.
 		require
 			a_procedure_not_void: a_procedure /= Void
@@ -29734,7 +29736,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	attribute_name_as_string (an_attribute: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
+	attribute_name_as_string (an_attribute: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print to `a_file' the name of `an_attribute' for objects of type `a_type'.
 		require
 			an_attribute_not_void: an_attribute /= Void
@@ -29748,7 +29750,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	attribute_type_id_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING is
+	attribute_type_id_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print to `a_file' the name of the 'type_id' pseudo attribute for objects of type `a_type'
 		require
 			a_type_not_void: a_type /= Void
@@ -29761,7 +29763,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	attribute_special_item_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING is
+	attribute_special_item_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print to `a_file' the name of the 'item' pseudo attribute for 'SPECIAL' objects of type `a_type'.
 		require
 			a_type_not_void: a_type /= Void
@@ -29774,7 +29776,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	attribute_special_count_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING is
+	attribute_special_count_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print to `a_file' the name of the 'count' pseudo attribute for 'SPECIAL' objects of type `a_type'.
 		require
 			a_type_not_void: a_type /= Void
@@ -29787,7 +29789,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	attribute_tuple_item_name_as_string (i: INTEGER; a_type: ET_DYNAMIC_TYPE): STRING is
+	attribute_tuple_item_name_as_string (i: INTEGER; a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print to `a_file' then name of the `i'-th 'item' pseudo attribute for 'TUPLE' objects of type `a_type'.
 		require
 			a_type_not_void: a_type /= Void
@@ -29800,7 +29802,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	attribute_routine_function_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING is
+	attribute_routine_function_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print to `a_file' the name of the function pointer pseudo attribute for 'ROUTINE' objects of type `a_type'.
 		require
 			a_type_not_void: a_type /= Void
@@ -29813,7 +29815,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	boxed_attribute_item_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING is
+	boxed_attribute_item_name_as_string (a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print to `a_file' then name of the 'item' pseudo attribute of boxed version of `a_type'.
 			-- (The boxed version of a type makes sure that each object
 			-- of that type contains its type-id. It can be the type itself
@@ -29829,7 +29831,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	call_name_as_string (a_call: ET_CALL_COMPONENT; a_caller: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE): STRING is
+	call_name_as_string (a_call: ET_CALL_COMPONENT; a_caller: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE): STRING
 			-- Print name of `a_call' appearing in `a_caller' with `a_target_type' as target static type to `a_file'.
 		require
 			a_call_not_void: a_call /= Void
@@ -29844,7 +29846,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	argument_name_as_string (a_name: ET_IDENTIFIER): STRING is
+	argument_name_as_string (a_name: ET_IDENTIFIER): STRING
 			-- Print name of argument `a_name' to `a_file'.
 		require
 			a_name_not_void: a_name /= Void
@@ -29858,7 +29860,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	local_name_as_string (a_name: ET_IDENTIFIER): STRING is
+	local_name_as_string (a_name: ET_IDENTIFIER): STRING
 			-- Print name of local variable `a_name' to `a_file'.
 		require
 			a_name_not_void: a_name /= Void
@@ -29872,7 +29874,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	object_test_local_name_as_string (a_name: ET_IDENTIFIER): STRING is
+	object_test_local_name_as_string (a_name: ET_IDENTIFIER): STRING
 			-- Print name of object-test local `a_name' to `a_file'.
 		require
 			a_name_not_void: a_name /= Void
@@ -29886,7 +29888,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	object_test_function_name_as_string (i: INTEGER; a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
+	object_test_function_name_as_string (i: INTEGER; a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print name of `i'-th object-test function appearing in `a_routine' from `a_type' to `a_file'.
 		require
 			a_routine_not_void: a_routine /= Void
@@ -29900,13 +29902,11 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	temp_name_as_string (a_name: ET_IDENTIFIER): STRING is
+	temp_name_as_string (a_name: ET_IDENTIFIER): STRING
 			-- Print name of temporary variable `a_name' to `a_file'.
 		require
 			a_name_not_void: a_name /= Void
 			a_name_temp: a_name.is_temporary
-			a_file_not_void: a_file /= Void
-			a_file_open_write: a_file.is_open_write
 		local
 			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
 		do
@@ -29916,7 +29916,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	current_name_as_string: STRING is
+	current_name_as_string: STRING
 			-- Print name of 'Current' to `a_file'.
 		local
 			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
@@ -29924,10 +29924,10 @@ feature {NONE} -- LLVM name generation
 			l_name_string_buffer := once_name_string_buffer
 			STRING_.wipe_out (l_name_string_buffer.string)
 			print_current_name (l_name_string_buffer)
-			create Result.make_from_string (l_name_string)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	result_name_as_string: STRING is
+	result_name_as_string: STRING
 			-- Print name of 'Result' to `a_file'.
 		local
 			l_name_string_buffer: KL_STRING_OUTPUT_STREAM
@@ -29938,7 +29938,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	once_status_name_as_string (a_feature: ET_FEATURE): STRING is
+	once_status_name_as_string (a_feature: ET_FEATURE): STRING
 			-- Print name of variable holding the status of execution
 			-- of the once-feature `a_feature' to `a_file'.
 		require
@@ -29953,7 +29953,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	once_value_name_as_string (a_feature: ET_FEATURE): STRING is
+	once_value_name_as_string (a_feature: ET_FEATURE): STRING
 			-- Print name of variable holding the value of first
 			-- execution of the once-feature `a_feature' to `a_file'.
 		require
@@ -29968,7 +29968,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	agent_creation_name_as_string (i: INTEGER; a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
+	agent_creation_name_as_string (i: INTEGER; a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print name of creation function of `i'-th agent appearing in `a_routine' from `a_type' to `a_file'.
 		require
 			a_routine_not_void: a_routine /= Void
@@ -29982,7 +29982,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	agent_function_name_as_string (i: INTEGER; a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
+	agent_function_name_as_string (i: INTEGER; a_routine: ET_DYNAMIC_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print name of function associated with `i'-th agent appearing in `a_routine' from `a_type' to `a_file'.
 		require
 			a_routine_not_void: a_routine /= Void
@@ -29996,7 +29996,7 @@ feature {NONE} -- LLVM name generation
 			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	inline_constant_name_as_string (a_constant: ET_INLINE_CONSTANT): STRING is
+	inline_constant_name_as_string (a_constant: ET_INLINE_CONSTANT): STRING
 			-- Print name of variable holding the value of inline constant
 			-- `a_constant' (such as a once manifest string) to `a_file'.
 		require
@@ -30012,7 +30012,7 @@ feature {NONE} -- LLVM name generation
 
 ------------------------------------------------------------------------------------------------
 
-	feature_name_comment_as_string (a_feature: ET_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING is
+	feature_name_comment_as_string (a_feature: ET_FEATURE; a_type: ET_DYNAMIC_TYPE): STRING
 			-- Print name of `a_feature' from `a_type' as a C comment to `a_file'.
 		require
 			a_feature_not_void: a_feature /= Void
@@ -30023,10 +30023,10 @@ feature {NONE} -- LLVM name generation
 			l_name_string_buffer := once_name_string_buffer
 			STRING_.wipe_out (l_name_string_buffer.string)
 			print_feature_name_comment (a_feature, a_type, l_name_string_buffer)
-			create Result.make_from_string (l_name_string)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
-	call_name_comment_as_string (a_call: ET_CALL_COMPONENT; a_caller: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE): STRING is
+	call_name_comment_as_string (a_call: ET_CALL_COMPONENT; a_caller: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE): STRING
 			-- Print name of `a_call', appearing in `a_caller' with `a_type' as target static type, as a C comment to `a_file'.
 		require
 			a_call_not_void: a_call /= Void
@@ -30038,7 +30038,7 @@ feature {NONE} -- LLVM name generation
 			l_name_string_buffer := once_name_string_buffer
 			STRING_.wipe_out (l_name_string_buffer.string)
 			print_call_name_comment (a_call, a_caller, a_target_type, l_name_string_buffer)
-			create Result.make_from_string (l_name_string)
+			create Result.make_from_string (l_name_string_buffer.string)
 		end
 
 feature {NONE} -- External regexp
@@ -30182,7 +30182,7 @@ feature {NONE} -- Constants
 	c_eif_edp_gc: STRING = "EIF_EDP_GC"
 	c_gc_mark: STRING = "gc_mark"
 	c__imp: STRING = "_imp"
-	
+
 	c_ac: STRING = "ac"
 	c_and_then: STRING = "&&"
 	c_arrow: STRING = "->"

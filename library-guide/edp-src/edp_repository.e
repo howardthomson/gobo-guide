@@ -4,7 +4,7 @@
 -- Information retained for objects of type:
 --		Feature		
 --		Class
---		Cluster		A set of classes, named for selection on Projects 
+--		Cluster		A set of classes, named for selection on Projects
 --		Project		The set of clusters for a given project
 --		Universe	The set of all known classes & clusters
 
@@ -79,7 +79,7 @@ feature -- Constant attributes
 	Load_default,
 	Load_failed,
 	Load_done: INTEGER = unique
-	
+
 feature
 
 	make
@@ -134,7 +134,7 @@ feature
 
 	gobo_path	: STRING = "/data/eiffel/lib/gobo"
 	eposix_path : STRING = "/data/eiffel/lib/eposix"
-	
+
 	expand_filename(s: STRING): STRING
 			-- expand ${env_name} into equivalent value
 			-- Temporary version for ${EPOSIX} and ${GOBO} only !!
@@ -166,8 +166,8 @@ feature
 				end
 			end
 		end
-				
-				
+
+
 
 	add_cluster(s: STRING; recursive: BOOLEAN): BOOLEAN
 			-- Create and append new EDP_CLUSTER element
@@ -185,23 +185,23 @@ feature
 			until
 				i > clusters.count or not Result
 			loop
-				c := clusters.item(i)
-				if c.is_recursive and then c.is_parent(s) then
+				c := clusters.item (i)
+				if c.is_recursive and then c.is_parent (s) then
 					Result := False
 				end
 				i := i + 1
 			end
 			if Result then
-				edp_trace.st(once "Repository add: '").n(s).n(once "'").d
-				create id.make((clusters.count + 1).out)
+		--		edp_trace.st (once "Repository add: '").n(s).n(once "'").d
+				create id.make ((clusters.count + 1).out)
 				create cp.make(s)
-				create c.make(id, cp)
+		--		create c.make(id, cp)
 				if recursive then
-					c.set_recursive(True)
+					c.set_recursive (True)
 				end
-				clusters.force_last(c)
+				clusters.force_last (c)
 			end
-				
+
 		end
 
 	expand
@@ -215,7 +215,7 @@ feature
 			until
 				i > clusters.count
 			loop
-				clusters.item(i).expand
+				clusters.item (i).expand
 				i := i + 1
 			end
 		end
@@ -230,7 +230,7 @@ feature
 			until
 				i > clusters.count
 			loop
-				p.add_cluster_obj(clusters @ i)
+				p.add_cluster_obj (clusters @ i)
 				i := i + 1
 			end
 		end
@@ -239,10 +239,10 @@ feature -- factory routines
 
 	any_class_window: EDP_CLASS_WINDOW
 
-	open_class_window(p: EDP_PROJECT; s: STRING)
+	open_class_window (p: EDP_PROJECT; s: STRING)
 		do
-			create any_class_window.make(Void)
-			any_class_window.create_resource
+			create any_class_window.make (Void)
+--			any_class_window.create_resource
 		end
 
 feature -- string storage

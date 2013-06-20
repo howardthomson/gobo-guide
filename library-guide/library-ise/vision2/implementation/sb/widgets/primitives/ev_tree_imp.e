@@ -126,7 +126,7 @@ feature {NONE} -- Initialization
 			a_x, a_y, a_button: INTEGER;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER)
-		
+
 		local
 			t : TUPLE [INTEGER, INTEGER, INTEGER, DOUBLE, DOUBLE, DOUBLE,
 				INTEGER, INTEGER]
@@ -214,13 +214,13 @@ feature -- Implementation
 	ready_for_pnd_menu (a_button, a_type: INTEGER): BOOLEAN
 			-- Is list or row able to display PND menu using `a_button'
 		do
-			if a_button = 3 and then a_type = {EV_GTK_EXTERNALS}.gdk_button_release_enum then
-				if pnd_row_imp /= Void then
-					Result := pnd_row_imp.mode_is_target_menu or else pnd_row_imp.mode_is_configurable_target_menu
-				else
-					Result := mode_is_target_menu or else mode_is_configurable_target_menu
-				end
-			end
+--			if a_button = 3 and then a_type = {EV_GTK_EXTERNALS}.gdk_button_release_enum then
+--				if pnd_row_imp /= Void then
+--					Result := pnd_row_imp.mode_is_target_menu or else pnd_row_imp.mode_is_configurable_target_menu
+--				else
+--					Result := mode_is_target_menu or else mode_is_configurable_target_menu
+--				end
+--			end
 		end
 
 	disable_transport
@@ -274,7 +274,7 @@ feature -- Implementation
 			a_x, a_y, a_button: INTEGER;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER)
-		
+
 			-- Initialize a pick and drop transport.
 		do
 			pnd_row_imp := item_from_coords (a_x, a_y)
@@ -413,25 +413,25 @@ feature {EV_TREE_NODE_IMP}
 			i: INTEGER
 			current_depth_index: INTEGER
 		do
-			a_success := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_get_path_at_pos (tree_view, 1, a_y, $a_tree_path, $a_tree_column, NULL, NULL)
-			if a_success then
-				a_int_ptr := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_path_get_indices (a_tree_path)
-				a_depth := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_path_get_depth (a_tree_path)
-				from
-					create mp.share_from_pointer (a_int_ptr, app_implementation.integer_bytes * a_depth)
-					current_depth_index := mp.read_integer_32 (0) + 1
-					a_tree_node_imp ?= child_array.i_th (current_depth_index).implementation
-					i := 1
-				until
-					i = a_depth
-				loop
-					current_depth_index := mp.read_integer_32 (i * app_implementation.integer_bytes) + 1
-					a_tree_node_imp ?= a_tree_node_imp.child_array.i_th (current_depth_index).implementation
-					i := i + 1
-				end
-				Result := a_tree_node_imp
-				{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_path_free (a_tree_path)
-			end
+--			a_success := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_get_path_at_pos (tree_view, 1, a_y, $a_tree_path, $a_tree_column, NULL, NULL)
+--			if a_success then
+--				a_int_ptr := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_path_get_indices (a_tree_path)
+--				a_depth := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_path_get_depth (a_tree_path)
+--				from
+--					create mp.share_from_pointer (a_int_ptr, app_implementation.integer_bytes * a_depth)
+--					current_depth_index := mp.read_integer_32 (0) + 1
+--					a_tree_node_imp ?= child_array.i_th (current_depth_index).implementation
+--					i := 1
+--				until
+--					i = a_depth
+--				loop
+--					current_depth_index := mp.read_integer_32 (i * app_implementation.integer_bytes) + 1
+--					a_tree_node_imp ?= a_tree_node_imp.child_array.i_th (current_depth_index).implementation
+--					i := i + 1
+--				end
+--				Result := a_tree_node_imp
+--				{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_path_free (a_tree_path)
+--			end
 		end
 
 feature {NONE} -- Implementation

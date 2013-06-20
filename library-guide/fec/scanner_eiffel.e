@@ -1,6 +1,6 @@
 note
 	description: "Scanner for Eiffel texts, using gelex"
-	
+
 	todo: "[
 		scan string -- multi line strings to complete, save input for display &c
 		Fix inheritance hierarchy - SCANNER inherits from SCANNER_GOBO !!
@@ -15,7 +15,7 @@ note
 class SCANNER_EIFFEL
 
 -- The Eiffel Scanner
-	
+
 inherit
 
 	EDP_EIFFEL_SCANNER
@@ -26,7 +26,7 @@ inherit
 
 	POSITION_ROUTINES
 
-create 
+create
 
 	make_from_string
 
@@ -46,12 +46,12 @@ feature { EDP_CLASS }
 	Status_ok			: INTEGER = 5	-- OK
 
 	scan_status: INTEGER
-	
+
 	scanned_ok: BOOLEAN
 		do
 			Result := scan_status = Status_ok
 		end
-	
+
 feature { NONE }
 
 	trace_parse: BOOLEAN = false;	-- Enable trace of parsing process
@@ -92,10 +92,10 @@ feature { NONE }
 	add_symbol (type: INTEGER; special: INTEGER)
 		local
 			new_symbol: SCANNER_SYMBOL
-		do 
+		do
 			create new_symbol
 			new_symbol.set (type, special, symbol_start_position)
-			symbols.force_last (new_symbol)			
+			symbols.force_last (new_symbol)
 		end
 
 --------------------------------------------------------------------------------
@@ -107,10 +107,10 @@ feature { NONE }
 
 	-- What about "[ ... ]" ???
 	-- Also "{ ... }"
-		
+
 
 --------------------------------------------------------------------------------
-		
+
 feature { ANY }
 
 	the_class: EDP_CLASS_FILE
@@ -123,7 +123,7 @@ feature { ANY }
 			scan_status := Status_null
 			set_input_buffer (new_string_buffer (s))
 			scan
-			
+
 			if scan_status /= Status_scan_failed then
 				scan_status := Status_ok
 			end
@@ -185,7 +185,7 @@ feature { ANY }
 
 feature {NONE}
 
-	select_next_symbol (skip_comments: BOOLEAN) 
+	select_next_symbol (skip_comments: BOOLEAN)
 		-- Move to next symbol, skipping comments if 'skip_comments' is true
 		-- Combine multi-line string segments
 		-- Combine "and then" & "or else" keywords
@@ -200,8 +200,8 @@ feature {NONE}
 			p1: INTEGER_64
 		do
 			--trace("select_next_symbol%N")
-			
-			if current_symbol_index < num_symbols then 
+
+			if current_symbol_index < num_symbols then
 				current_symbol_index := current_symbol_index + 1;
 			end
 
@@ -219,15 +219,15 @@ feature {NONE}
 
 			ct := current_symbol.type
 			if ct = s_and
-			then -- 'and then' ? 
+			then -- 'and then' ?
 				if current_symbol_index < num_symbols and then (symbols @ (current_symbol_index + 1)).type = s_then then
 					current_symbol := current_symbol.twin
 					current_symbol.set (s_and_then, 0, current_symbol.position)
 					current_symbol_index := current_symbol_index + 1;
-				end 
+				end
 			elseif ct = s_or
-			then  -- 'or else' ? 
-				if current_symbol_index < num_symbols and then (symbols @ (current_symbol_index + 1)).type = s_else then 
+			then  -- 'or else' ?
+				if current_symbol_index < num_symbols and then (symbols @ (current_symbol_index + 1)).type = s_else then
 					current_symbol := current_symbol.twin
 					current_symbol.set(s_or_else, 0, current_symbol.position)
 					current_symbol_index := current_symbol_index + 1;
@@ -257,7 +257,7 @@ feature {NONE}
 			then -- Convert %/123/ to yy
 				create current_symbol
 				current_symbol.set (s_character, current_symbol.special, current_symbol.position)
-			end			
+			end
 		ensure
 			current_symbol_index = num_symbols or current_symbol_index > old current_symbol_index;
 		end; -- next_symbol
@@ -307,10 +307,10 @@ feature {NONE} -- symbol lookup by position
 --	print(once "----------------%N")
 
 
-			from 
+			from
 				min := 1
 				max := num_symbols + 1
-			until  
+			until
 				min >= max or new_edit_index /= 0
 			loop
 				mid := (min+max) // 2
@@ -355,7 +355,7 @@ feature {NONE} -- symbol lookup by position
 --	print(mid.out); print(",")
 --	print(max.out);
 --	print_newline
-			end 
+			end
 			if not Result then
 --	print("Result False - Set from exit value of mid%N")
 				new_edit_index := mid + 1
@@ -391,7 +391,7 @@ feature {NONE} -- symbol lookup by position
 		do
 			print (once "%N")
 		end
-	
+
 feature {SCANNER_SYMBOL} -- Editing routines
 
 	edit_string: STRING
@@ -521,7 +521,7 @@ feature {NONE}
 			-- Result = 1 if backspace into previous line
 			-- Result = 0 otherwise
 		require
-			
+
 		local
 			i, j: INTEGER
 			l_line: INTEGER
@@ -534,7 +534,7 @@ feature {NONE}
 				--	3: Move current symbol (not at leftmost column) leftward
 				--	4: Move current symbol up one line
 				--	5: Move current symbol to end of previous line
-				
+
 			if edit_offset > 0 then
 					-- remove within the current symbol
 				edit_string.remove (edit_offset)
@@ -584,7 +584,7 @@ if edit_offset < 0 then print("#3 edit_offset FAIL%N") end
 				end
 			end
 		end
-	
+
 	adjacent_symbols (i: INTEGER): BOOLEAN
 			-- are symbols at i and i+1 adjacent ?
 			-- are they on the same line ?
@@ -601,7 +601,7 @@ if edit_offset < 0 then print("#3 edit_offset FAIL%N") end
 				Result := True
 			end
 		end
-		
+
 	Xinsert_string (s: STRING)
 		require
 			valid_string: s /= Void and then s.count = 1
@@ -664,7 +664,7 @@ if edit_offset < 0 then print("#1 edit_offset FAIL%N") end
 					openable := set_edit_index (a_line, a_column)
 print("set_edit_index = "); print(edit_index.out); print("%N")
 					if not openable then
-					
+
 						check_assertion("check #1",
 							-- The target line must be a blank line
 							-- or the target column must be before the first symbol on the line
@@ -688,7 +688,7 @@ if edit_offset < 0 then print("#2 edit_offset FAIL%N") end
 						check
 							correct_line: edit_symbol.line = a_line
 						end
-					end					
+					end
 				end
 			end
 		--	edp_trace.st("set_insertion_point: edit_offset = ").n(edit_offset.out).d
@@ -741,7 +741,7 @@ if edit_offset < 0 then print("#2 edit_offset FAIL%N") end
 			edit_string.append (edit_symbol.text (scanner))
 			edit_symbol.set_type(s_edit_text)
 			if at_end then
-				edit_offset := edit_symbol.width (scanner) 
+				edit_offset := edit_symbol.width (scanner)
 			else
 				edit_offset := 0
 			end
@@ -756,12 +756,12 @@ if edit_offset < 0 then print("#2 edit_offset FAIL%N") end
 			s: SCANNER_SYMBOL
 		do
 			if edit_symbol /= Void then
-				if debug_editing then edp_trace.st ("Close_edit_point, edit_string = ").n(edit_string).d end
+		--		if debug_editing then edp_trace.st ("Close_edit_point, edit_string = ").n(edit_string).d end
 				if edit_string.count /= 0 then
 					edit_symbol.set_type(s_raw_text)
 					edit_symbol.set_special(repository # edit_string)
 					s := edit_symbol; edit_symbol := Void --### TEMP to maintain invariant for next line
-					if debug_editing then edp_trace.st ("Close_edit_point, symbol text = ").n(s.text(scanner)).d end
+		--			if debug_editing then edp_trace.st ("Close_edit_point, symbol text = ").n(s.text(scanner)).d end
 				else
 					symbols.remove (edit_index)
 				end
@@ -884,5 +884,5 @@ invariant
 	valid_edit_symbol_1:	edit_symbol /= Void implies edit_symbol.type = s_edit_text
 	valid_edit_symbol_2:	edit_symbol /= Void implies (symbols @ edit_index) = edit_symbol
 	valid_edit_offset:		edit_symbol /= Void implies edit_offset <= edit_string.count
-	
+
 end -- SCANNER_EIFFEL

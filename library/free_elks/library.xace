@@ -33,4 +33,5 @@
 		</cluster>
 		<cluster name="support"/>
 	</cluster>
+	<option name="link" value="-lpthread"/>
 </library>

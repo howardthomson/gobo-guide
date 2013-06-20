@@ -13,7 +13,7 @@
 #ifndef EIF_THREADS_H
 #define EIF_THREADS_H
 
-#if 1
+#if 0
 #include "eif_cecil.h"
 #endif
 

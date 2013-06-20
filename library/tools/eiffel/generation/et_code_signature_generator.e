@@ -110,7 +110,7 @@ feature -- Attributes
 	code_hash: HASH_STREAM_SHA1
 
 	current_dynamic_system: ET_DYNAMIC_SYSTEM
-	
+
 feature -- Creation
 
 	make (a_dynamic_system: ET_DYNAMIC_SYSTEM)
@@ -261,11 +261,11 @@ feature {ET_AST_NODE} -- Processing
 	process_call_agent (an_expression: ET_CALL_AGENT)
 			-- Process `an_expression'.
 		do
-			if an_expression = current_agent then
+--			if an_expression = current_agent then
 --				print_call_agent_body_declaration (an_expression)
-			else
+--			else
 --				print_call_agent (an_expression)
-			end
+--			end
 		end
 
 	process_call_expression (an_expression: ET_CALL_EXPRESSION)
@@ -361,11 +361,11 @@ feature {ET_AST_NODE} -- Processing
 	process_do_function_inline_agent (an_agent: ET_DO_FUNCTION_INLINE_AGENT)
 			-- Process `an_agent'.
 		do
-			if an_agent = current_agent then
+--			if an_agent = current_agent then
 --				print_do_function_inline_agent_body_declaration (an_agent)
-			else
+--			else
 --				print_do_function_inline_agent (an_agent)
-			end
+--			end
 		end
 
 	process_do_procedure (a_feature: ET_DO_PROCEDURE)
@@ -377,11 +377,11 @@ feature {ET_AST_NODE} -- Processing
 	process_do_procedure_inline_agent (an_agent: ET_DO_PROCEDURE_INLINE_AGENT)
 			-- Process `an_agent'.
 		do
-			if an_agent = current_agent then
+--			if an_agent = current_agent then
 --				print_do_procedure_inline_agent_body_declaration (an_agent)
-			else
+--			else
 --				print_do_procedure_inline_agent (an_agent)
-			end
+--			end
 		end
 
 	process_equality_expression (an_expression: ET_EQUALITY_EXPRESSION)
@@ -411,11 +411,11 @@ feature {ET_AST_NODE} -- Processing
 	process_external_function_inline_agent (an_agent: ET_EXTERNAL_FUNCTION_INLINE_AGENT)
 			-- Process `an_agent'.
 		do
-			if an_agent = current_agent then
+--			if an_agent = current_agent then
 --				print_external_function_inline_agent_body_declaration (an_agent)
-			else
+--			else
 --				print_external_function_inline_agent (an_agent)
-			end
+--			end
 		end
 
 	process_external_procedure (a_feature: ET_EXTERNAL_PROCEDURE)
@@ -427,11 +427,11 @@ feature {ET_AST_NODE} -- Processing
 	process_external_procedure_inline_agent (an_agent: ET_EXTERNAL_PROCEDURE_INLINE_AGENT)
 			-- Process `an_agent'.
 		do
-			if an_agent = current_agent then
+--			if an_agent = current_agent then
 --				print_external_procedure_inline_agent_body_declaration (an_agent)
-			else
+--			else
 --				print_external_procedure_inline_agent (an_agent)
-			end
+--			end
 		end
 
 	process_false_constant (a_constant: ET_FALSE_CONSTANT)
@@ -449,8 +449,8 @@ feature {ET_AST_NODE} -- Processing
 	process_hexadecimal_integer_constant (a_constant: ET_HEXADECIMAL_INTEGER_CONSTANT)
 			-- Process `a_constant'.
 		do
-			extend_integer (builtin_natural_64_class)
-			extend_natural_64 (a_constant.value)
+--			extend_integer (builtin_natural_64_class)
+--			extend_natural_64 (a_constant.value)
 		end
 
 	process_identifier (an_identifier: ET_IDENTIFIER)
@@ -568,11 +568,11 @@ feature {ET_AST_NODE} -- Processing
 	process_once_function_inline_agent (an_agent: ET_ONCE_FUNCTION_INLINE_AGENT)
 			-- Process `an_agent'.
 		do
-			if an_agent = current_agent then
+--			if an_agent = current_agent then
 --				print_once_function_inline_agent_body_declaration (an_agent)
-			else
+--			else
 --				print_once_function_inline_agent (an_agent)
-			end
+--			end
 		end
 
 	process_once_manifest_string (an_expression: ET_ONCE_MANIFEST_STRING)
@@ -590,11 +590,11 @@ feature {ET_AST_NODE} -- Processing
 	process_once_procedure_inline_agent (an_agent: ET_ONCE_PROCEDURE_INLINE_AGENT)
 			-- Process `an_agent'.
 		do
-			if an_agent = current_agent then
+--			if an_agent = current_agent then
 --				print_once_procedure_inline_agent_body_declaration (an_agent)
-			else
+--			else
 --				print_once_procedure_inline_agent (an_agent)
-			end
+--			end
 		end
 
 	process_parenthesized_expression (an_expression: ET_PARENTHESIZED_EXPRESSION)

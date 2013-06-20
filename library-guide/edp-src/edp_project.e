@@ -18,7 +18,7 @@ feature -- Attributes
 	project_name:	STRING
 
 	display_target:	EDP_DISPLAY_TARGET
-	
+
 	root_class:		INTEGER	-- Name of root class
 	root_creation:	INTEGER	-- Name of root creation feature
 
@@ -34,14 +34,14 @@ feature -- Attributes
 		:INTEGER = unique
 
 	--	Find: Identify Class Universe
-	--	Load: 
+	--	Load:
 	--	Scan
 	--	Parse
 	--	Ancestors
 	--	Features
 	--	Run-Classes
 
-	
+
 feature {NONE} -- Attributes (Redundant ?)
 
 	trace_parsing: BOOLEAN
@@ -68,7 +68,7 @@ feature -- Status
 		do
 			Result := status >= Status_loaded
 		end
-		
+
 	is_validated: BOOLEAN
 			-- Has the project been confirmed as Eiffel valid ?
 		do
@@ -125,7 +125,7 @@ feature -- setup ---------------------------------------------------------------
 --		do
 --			root_class := root_class_arg
 --		end
-		
+
 --	XXset_root_creation(root_creation_arg: INTEGER) is
 --		do
 --			root_creation := root_creation_arg
@@ -140,9 +140,9 @@ feature -- GUI -----------------------------------------------------------------
 		do
 			display_target := t
 		end
-		
+
 feature -- Process ---------------------------------------------------------------
-		
+
 	pre_parse
 			-- identify class set from selected clusters
 			-- check for updated original source text
@@ -157,7 +157,7 @@ feature -- Process -------------------------------------------------------------
 		end
 
 		----------------------------------------------------------------------------
-		
+
 	validate
 			-- check all classes in project for Eiffel validity
 			-- confirm status of root class and creation routine
@@ -174,7 +174,7 @@ feature -- Process -------------------------------------------------------------
 		do
 			validate
 			if is_generated then
-				
+
 			end
 		end
 
@@ -214,8 +214,8 @@ feature -- Process -------------------------------------------------------------
 	add_class (edpc: EDP_CLASS)
 		do
 			if display_target /= Void then
-				display_target.add_class (edpc)
+--				display_target.add_class (edpc)
 			end
-		end			
+		end
 
 end -- EDP_PROJECT-- The Makefile information for a specific root class and cluster set

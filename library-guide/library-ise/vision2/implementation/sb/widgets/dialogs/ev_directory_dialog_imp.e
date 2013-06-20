@@ -96,14 +96,14 @@ feature -- Element change
 	set_start_directory (a_path: STRING_GENERAL)
 			-- Make `a_path' the base directory.
 		local
-			a_cs: EV_GTK_C_STRING
+--			a_cs: EV_GTK_C_STRING
 		do
-			start_directory := a_path.twin
-			a_cs := start_directory + "/."
-			{EV_GTK_EXTERNALS}.gtk_file_chooser_set_filename (
-				c_object,
-				a_cs.item
-			)
+--			start_directory := a_path.twin
+--			a_cs := start_directory + "/."
+--			{EV_GTK_EXTERNALS}.gtk_file_chooser_set_filename (
+--				c_object,
+--				a_cs.item
+--			)
 		end
 
 feature {NONE} -- Implementation

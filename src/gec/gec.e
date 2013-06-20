@@ -292,7 +292,7 @@ feature {NONE} -- Processing
 					else
 						l_filename := l_system_name + ".Makefile"
 	-- TODO: add -j8, or equivalent, via command option ...
-						create l_command.make ("make -f " + file_system.absolute_pathname (l_filename))
+						create l_command.make ("make -j16 -f " + file_system.absolute_pathname (l_filename))
 					end
 
 					l_command.execute

@@ -10,13 +10,12 @@
 		revision: "$Revision: 1.10 $"
 	</description>
 
-	<cluster name="ise_event" location="${ISE_EIFFEL}/library/base/ise/event"/>
+	<cluster name="ise_event" location="${ISE_EIFFEL}/library/base/ise/event" if="${GOBO_EIFFEL}=ge"/>
 
-
-	
 	<cluster name="vision2" location="${ISE_EIFFEL}/library/vision2">
 		<option name="abstract" value="true"/>
 		<cluster name="contrib"/>
+<!-- Vision2 interface -->
 		<cluster name="interface" recursive="true" prefix="if_">
 			<cluster name="kernel"/>
 			<cluster name="events"/>
@@ -33,6 +32,7 @@
 				<cluster name="primitives"/>
 			</cluster>
 		</cluster>
+<!-- Vision2 implementation interface -->
 		<cluster name="implementation" recursive="true">
 			<cluster name="implementation_interface">
 				<cluster name="events"/>
@@ -50,6 +50,7 @@
 			</cluster>
 		</cluster>
 	</cluster>
+<!-- Vision2 implementation, using Slyboots library (see below) -->
 	<cluster name="slyboots" location="${GUIDE}/library-guide/library-ise/vision2">
 		<cluster name="implementation" recursive="true" prefix="imp_">
 			<cluster name="sb">
@@ -68,6 +69,8 @@
 			</cluster>
 		</cluster>
 	</cluster>
+
+<!-- Previous non-Vision2 compatible Slyboots Eiffel code ...-->
 	<cluster name="slyboots_imp" location="${GUIDE}/library-guide" prefix="simp_">
 		<cluster name="sb-common">
 			<cluster name="icons"/>
@@ -89,13 +92,5 @@
 		</cluster>
 		<cluster name="pointer"/>
 	</cluster>
-
-	<!--cluster name="mutex">
-		<option name="ecf_library" value="${ISE_LIBRARY}/library/thread/thread.ecf"/>
-		<option name="recursive" value="true"/>
-		<option name="read_only" value="true"/>
-		<option name="exclude" value="classic" if="${GOBO_DOTNET}"/>
-		<option name="exclude" value="dotnet" unless="${GOBO_DOTNET}"/>
-	</cluster-->
 	
 </library>

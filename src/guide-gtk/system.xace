@@ -38,14 +38,17 @@
 		<option name="exclude" value="et_eiffel_parser.e"/>
 		<option name="exclude" value="et_eiffel_tokens.e"/>
 	</cluster>
-	<cluster name="edp_src" 	location="${GUIDE}/library-guide/edp-src"/>
-	<cluster name="edp_src_sb" location="${GUIDE}/library-guide/edp-src-sb"/>
-	<cluster name="edp_diff" 	location="${GUIDE}/library-guide/diff"/>
-	<cluster name="edp_fec" 	location="${GUIDE}/library-guide/fec"/>
-	<cluster name="gecmp" 		location="${GUIDE}/src/gecmp"/>
-	<cluster name="gec"		location="$GUIDE/src/gec"/>
+	<cluster name="edp_src" 			location="${GUIDE}/library-guide/edp-src">
+		<option name="exclude" value="any.e"/>
+	</cluster>
+	<cluster name="edp_src_gtk" 		location="${GUIDE}/library-guide/edp-src-gtk"/>
+	<cluster name="edp_diff" 			location="${GUIDE}/library-guide/diff"/>
+	<cluster name="edp_fec" 			location="${GUIDE}/library-guide/fec"/>
+	<cluster name="gecmp" 				location="${GUIDE}/src/gecmp"/>
+	<cluster name="gec"				location="$GUIDE/src/gec"/>
 
-	<mount location="${GOBO}/library-guide/library-ise/vision2/library-sb.xace"/>
+	<mount location="${GOBO}/library-guide/library-ise/vision2/library-gtk.xace"/>
+
 
 	<mount location="${GUIDE}/src/guide/library-serialize.xace"/>
 
@@ -60,6 +63,7 @@
 	<cluster name="lib_sha1" location="/data/eiffel/lib/sha1"/>
 
 	<cluster name="ise_thread" location="${ISE_EIFFEL}/library/thread/classic"/>
+	<!--cluster name="ise_event" location="${ISE_EIFFEL}/library/base/ise/event" if="${GOBO_EIFFEL}=ge"/-->
 	
 	<option name="c_compiler_options" value="-m32" if="${m32}"/>
 	<option name="c_compiler_options" value="-L/usr/X11R6/lib"/>

@@ -28,7 +28,7 @@ inherit
 		end
 
 	ET_TOKEN_CODES
-		export {NONE} all end
+		export {ET_CODE_GENERATOR} all end
 
 	UT_SHARED_TEMPLATE_EXPANDER
 		export {NONE} all end
@@ -594,13 +594,17 @@ feature {NONE} -- Error handling
 			error_handler.report_error (an_error)
 		end
 
-feature {NONE} -- Access
-
-	system_name: STRING
-			-- Name of the system being compiled
+feature 	-- Export status of these features changed due to errors reported by EiffelStudio
+			-- Unacceptable for elements of a 'require' clause to have more restricted export
+			-- status than the feature itself ...
 
 	current_feature: ET_DYNAMIC_FEATURE
 			-- Feature being processed
+
+feature {ET_CODE_GENERATOR} -- Access
+
+	system_name: STRING
+			-- Name of the system being compiled
 
 	current_type: ET_DYNAMIC_TYPE
 			-- Type where `current_feature' belongs
@@ -888,6 +892,21 @@ feature -- EDP specific
 			end
 		end
 
+-- Move these ...
+
+	print_indentation
+		deferred
+		end
+	indent
+		deferred
+		end
+	dedent
+		deferred
+		end
+	current_file: KI_TEXT_OUTPUT_STREAM
+		deferred
+		end
+
 	print_routine_descriptor (a_feature: ET_ROUTINE) is
 			-- Emit the static struct describing the arguments and
 			-- locals, and Result, of a routine
@@ -908,9 +927,6 @@ feature -- EDP specific
 		end
 
 	enable_routine_entry_exit_trace: BOOLEAN is True
-
--- #######################################################################################
-
 
 end
 

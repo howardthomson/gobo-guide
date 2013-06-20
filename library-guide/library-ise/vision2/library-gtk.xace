@@ -10,10 +10,10 @@
 		revision: "$Revision: 1.10 $"
 	</description>
 
-	<cluster name="vision2" location="/data/Eiffel67/library/vision2">
+	<cluster name="vision2" location="${ISE_LIBRARY}/library/vision2">
 		<option name="abstract" value="true"/>
 		<cluster name="contrib"/>
-		<cluster name="interface" recursive="true">
+		<cluster name="interface" recursive="true" prefix="if_">
 			<cluster name="kernel"/>
 			<cluster name="events"/>
 			<cluster name="figures"/>
@@ -29,7 +29,7 @@
 				<cluster name="primitives"/>
 			</cluster>
 		</cluster>
-		<cluster name="implementation" recursive="true">
+		<cluster name="implementation" recursive="true" prefix="iif_">
 			<cluster name="implementation_interface">
 				<cluster name="events"/>
 				<cluster name="items"/>
@@ -46,25 +46,8 @@
 			</cluster>
 		</cluster>
 	</cluster>
-	<!-- cluster name="slyboots" location="${GOBO}/library-guide/library-ise/vision2">
-		<cluster name="implementation" recursive="true">
-			<cluster name="sb">
-				<cluster name="events"/>
-				<cluster name="items"/>
-				<cluster name="kernel"/>
-				<cluster name="pick_and_drop"/>
-				<cluster name="properties"/>
-				<cluster name="support"/>
-				<cluster name="widgets">
-					<cluster name="containers"/>
-					<cluster name="dialogs"/>
-					<cluster name="primitives"/>
-					<cluster name="uncommon_widgets"/>
-				</cluster>
-			</cluster>
-		</cluster>
-	</cluster -->
-	<cluster name="gtk_imp" location="${GOBO}/library-guide/library-ise/vision2/implementation/gtk">
+
+	<cluster name="gtk_imp" location="${ISE_LIBRARY}/library/vision2/implementation/gtk">
 		<cluster name="events"/>
 		<cluster name="items"/>
 		<cluster name="kernel"/>
@@ -79,6 +62,12 @@
 		</cluster>
 	</cluster>
 
-	<cluster name="ise-event" location="/data/Eiffel66/library/base/ise/event"/>
+	<cluster name="ise-event" location="${ISE_LIBRARY}/library/base/ise/event" if="${GOBO_EIFFEL}=ge"/>
 	
+	<option name="c_compiler_options" value="-I${ISE_LIBRARY}/library/vision2/spec/include"/>
+	<option name="c_compiler_options" value="-I${ISE_LIBRARY}/library/vision2/implementation/gtk/Clib"/>
+	<option name="c_compiler_options" value="`${ISE_LIBRARY}/library/vision2/implementation/gtk/Clib/vision2-gtk-config --include_path`"/>
+	<option name="link" value="`${ISE_LIBRARY}/library/vision2/implementation/gtk/Clib/vision2-gtk-config --library`"/>
+	<option name="link" value="`${ISE_LIBRARY}/library/vision2/implementation/gtk/Clib/vision2-gtk-config --object`"/>
+
 </library>

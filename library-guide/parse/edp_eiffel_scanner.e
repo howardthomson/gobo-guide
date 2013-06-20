@@ -27,7 +27,7 @@ note
 		quotes surrounding re-displayed strings (done temp!)
 		prepare for updated/altered spec for free operators
 		use 'more' facility of scanner
-		
+
 		check for valid escaped character - treat as raw text or what ?
 
 		remove <CR> from input - check at end of line in strings/comments etc
@@ -55,7 +55,7 @@ note
 		indication. Rules are only selected on the basis of their order in the rules after match
 		length has been established.
 	]"
-	
+
 deferred class EDP_EIFFEL_SCANNER
 
 inherit
@@ -132,7 +132,7 @@ inherit
 	KL_SHARED_PLATFORM
 
 	EDP_GLOBAL
-	
+
 
 feature -- Status report
 
@@ -178,7 +178,7 @@ end
 	-- Ignore separators
 						fx_trace_local(0, <<"Rule match: 1 ==>", text, "<==">>)
 						last_token := s_whitespace
-					
+
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
 	yy_position := yy_position + yy_end - yy_start - yy_more_len
@@ -190,7 +190,7 @@ end
 	-- Ignore separators
 					--	fx_trace_local(0, <<"Rule match: 2 ==>", text, "<==">>)
 						last_token := s_whitespace
-					
+
 end
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
@@ -207,7 +207,7 @@ end
 						t_col := ((t_col + 4) // 4) * 4
 						t_col := t_col + (3 * (text_count - 1))
 						eif_tab_offset := t_col - column
-					
+
 end
 else
 if yy_act <= 5 then
@@ -223,7 +223,7 @@ end
 					--	fx_trace_local(0, <<"Rule match: 4 ==>", text, "<==">>)
 						last_token := s_whitespace
 						eif_tab_offset := 0
-					
+
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
 	yy_position := yy_position + yy_end - yy_start - yy_more_len
@@ -237,7 +237,7 @@ end
 						last_token := s_comment
 					--	eif_tab_offset := 0
 						last_any_value := text_substring (1, text_count)
-					
+
 end
 else
 	yy_column := yy_column + 3
@@ -452,7 +452,7 @@ end
 									last_token := s_string
 								end
 								last_any_value := text_substring (1, text_count - 0)	-- TEMP retain "'s
-							
+
 end
 end
 end
@@ -474,7 +474,7 @@ end
 								fx_trace_local(0, <<"Rule match: 13 ==>", text, "<==">>)
 								last_token := s_string
 								last_any_value := text
-							
+
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
 	yy_position := yy_position + yy_end - yy_start - yy_more_len
@@ -488,7 +488,7 @@ end
 								set_start_condition(IN_STR)
 								last_token := s_string_prefix
 								last_any_value := text
-							
+
 end
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
@@ -503,7 +503,7 @@ end
 								set_start_condition(IN_STR)
 								last_token := s_string_prefix
 								last_any_value := text
-							
+
 end
 else
 if yy_act <= 29 then
@@ -521,7 +521,7 @@ end
 								set_start_condition(IN_STR)
 								last_token := s_string_prefix
 								last_any_value := text
-							
+
 else
 	yy_end := yy_end - 1
 	yy_column := yy_column + 1
@@ -536,7 +536,7 @@ end
 								set_start_condition(IN_STR)
 								last_token := s_string_prefix
 								last_any_value := text
-							
+
 end
 else
 	yy_end := yy_end - 1
@@ -557,7 +557,7 @@ end
 									last_token := s_str_left_bracket
 								end
 								eif_string_valid := True
-							
+
 end
 end
 else
@@ -582,7 +582,7 @@ end
 									last_token := s_str_left_bracket
 								end
 								eif_string_valid := True
-							
+
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
 	yy_position := yy_position + yy_end - yy_start - yy_more_len
@@ -596,7 +596,7 @@ end
 								last_token := s_string_suffix
 								last_any_value := text
 								set_start_condition (INITIAL)
-							
+
 end
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
@@ -615,7 +615,7 @@ end
 								end
 								set_start_condition(INITIAL)
 								last_any_value := text
-							
+
 end
 else
 if yy_act <= 35 then
@@ -631,7 +631,7 @@ end
 
 								last_token := s_str_gap_start
 								set_start_condition(STR_GAP)
-							
+
 else
 yy_set_column (1)
 	yy_position := yy_position + yy_end - yy_start - yy_more_len
@@ -642,7 +642,7 @@ debug ("GELEX")
 end
 
 								last_token := s_whitespace
-							
+
 end
 else
 	yy_end := yy_start + yy_more_len + 1
@@ -657,7 +657,7 @@ end
 								fx_trace_local(0, <<"Rule match 21b ==>", text, "<==">>)
 								last_token := s_str_gap_end
 								set_start_condition(IN_STR)
-							
+
 end
 end
 end
@@ -677,7 +677,7 @@ end
 								fx_trace_local(0, <<"Rule match 18a: extend string standard ==>", text, "<==">>)
 								last_token := s_string_infix
 								last_any_value := text
-							
+
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
 	yy_position := yy_position + yy_end - yy_start - yy_more_len
@@ -690,7 +690,7 @@ end
 								fx_trace_local(0, <<"Rule match 18a: extend string standard ==>", text, "<==">>)
 								last_token := s_string_infix
 								last_any_value := text
-							
+
 end
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
@@ -704,7 +704,7 @@ end
 								fx_trace_local(0, <<"Rule match 18a: extend string standard ==>", text, "<==">>)
 								last_token := s_string_infix
 								last_any_value := text
-							
+
 end
 else
 if yy_act <= 41 then
@@ -720,7 +720,7 @@ end
 								fx_trace_local(0, <<"Rule match: 15 ==>", text, "<==">>)
 								last_token := s_string_decimal_1
 								last_any_value := text_substring(3,3)
-							
+
 else
 	yy_column := yy_column + 5
 	yy_position := yy_position + 5
@@ -734,7 +734,7 @@ end
 							--	eif_buffer.append_string(text)
 								last_token := s_string_decimal_2
 								last_any_value := text_substring(3,4)
-							
+
 end
 else
 	yy_column := yy_column + 6
@@ -752,7 +752,7 @@ end
 									last_token := s_string_decimal_3
 									last_any_value := text_substring(3,5)
 								end
-							
+
 end
 end
 else
@@ -770,7 +770,7 @@ end
 								fx_trace_local(0, <<"Rule match: 17 ==>", text, "<==">>)
 								last_token := s_raw_text
 								last_any_value := text
-							
+
 else
 	yy_end := yy_start + yy_more_len + 2
 	yy_column := yy_column + 2
@@ -784,7 +784,7 @@ end
 								fx_trace_local(0, <<"Rule match: 18 ==>", text, "<==">>)
 								last_token := s_string_escaped
 								last_any_value := text
-							
+
 end
 else
 	yy_end := yy_end - 1
@@ -800,7 +800,7 @@ end
 								last_token := s_raw_text
 								last_any_value := text
 								set_start_condition (INITIAL)
-							
+
 end
 else
 if yy_act = 46 then
@@ -815,7 +815,7 @@ end
 								last_token := s_raw_text
 								last_any_value := text
 								set_start_condition(IN_STR)
-							
+
 else
 	yy_end := yy_end - 1
 yy_set_line_column
@@ -830,7 +830,7 @@ end
 								last_token := s_raw_text
 								last_any_value := text
 								set_start_condition (INITIAL)
-							
+
 end
 end
 end
@@ -1262,7 +1262,7 @@ pre_action
 debug ("GELEX")
 	std.error.put_line ("Executing scanner user-code from file 'edp_eiffel_scanner.l' at line 457")
 end
-last_token := s_bit		-- 
+last_token := s_bit		--
 else
 	yy_column := yy_column + 5
 	yy_position := yy_position + 5
@@ -1520,7 +1520,7 @@ end
 
 										is_operator := True
 										last_token := s_infix
-									
+
 else
 	yy_column := yy_column + 7
 	yy_position := yy_position + 7
@@ -1677,7 +1677,7 @@ end
 
 										is_operator := True
 										last_token := s_prefix
-									
+
 else
 	yy_column := yy_column + 8
 	yy_position := yy_position + 8
@@ -1879,7 +1879,7 @@ end
 				fx_trace_local(0, <<"Rule match: 6 ==>", text, "<==">>)
 				last_token := s_identifier
 				last_any_value := text
-			
+
 end
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
@@ -1893,7 +1893,7 @@ end
 				fx_trace_local(0, <<"Rule match: 7 ==>", text, "<==">>)
 				last_token := s_freeop
 				last_any_value := text
-			
+
 end
 else
 if yy_act <= 144 then
@@ -2161,7 +2161,7 @@ end
 					--	code_ := text_substring (4, text_count - 2).to_integer
 						last_token := s_character_decimal_1
 						last_any_value := text_substring(4,4); --	INTEGER_.to_character (code_)	-- TEMP
-					
+
 else
 	yy_column := yy_column + 7
 	yy_position := yy_position + 7
@@ -2175,7 +2175,7 @@ end
 					--	code_ := text_substring (4, text_count - 2).to_integer
 						last_token := s_character_decimal_2
 						last_any_value := text_substring(4,5); --	INTEGER_.to_character (code_)	-- TEMP
-					
+
 end
 else
 	yy_column := yy_column + 8
@@ -2190,7 +2190,7 @@ end
 					--	code_ := text_substring (4, text_count - 2).to_integer
 						last_token := s_character_decimal_3
 						last_any_value := text_substring(4,6); --	INTEGER_.to_character (code_)	-- TEMP
-					
+
 end
 end
 else
@@ -2208,7 +2208,7 @@ end
 						fx_trace_local(0, <<"Rule match: 11 ==>", text, "<==">>)
 						last_token := s_character_escaped;
 						last_any_value := text;	-- WAS text_item (3)
-					
+
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
 	yy_position := yy_position + yy_end - yy_start - yy_more_len
@@ -2220,7 +2220,7 @@ end
 
 							fx_trace_local(0, <<"Rule match: 12 ==>", text, "<==">>)
 							last_token := s_raw_text	-- Catch-all rules (no backing up)
-						
+
 end
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
@@ -2233,7 +2233,7 @@ end
 
 							fx_trace_local(0, <<"Rule match: 12 ==>", text, "<==">>)
 							last_token := s_raw_text	-- Catch-all rules (no backing up)
-						
+
 end
 else
 if yy_act <= 173 then
@@ -2256,7 +2256,7 @@ debug ("GELEX")
 end
 	-- Hexadecimal integer
 						last_token := s_integer; last_any_value := text
-					
+
 end
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
@@ -2269,7 +2269,7 @@ end
 
 						last_token := s_integer
 						last_any_value := text
-					
+
 end
 end
 end
@@ -2308,7 +2308,7 @@ end
 
 						last_token := s_real
 						last_any_value := text
-					
+
 end
 else
 if yy_act <= 179 then
@@ -2323,7 +2323,7 @@ end
 
 						last_token := s_real
 						last_any_value := text
-					
+
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
 	yy_position := yy_position + yy_end - yy_start - yy_more_len
@@ -2335,7 +2335,7 @@ end
 
 						last_token := s_real
 						last_any_value := text
-					
+
 end
 else
 	yy_end := yy_end - 1
@@ -2349,7 +2349,7 @@ end
 
 						last_token := s_real
 						last_any_value := text
-					
+
 end
 end
 else
@@ -2366,7 +2366,7 @@ end
 
 						last_token := s_real
 						last_any_value := text
-					
+
 else
 	yy_column := yy_column + yy_end - yy_start - yy_more_len
 	yy_position := yy_position + yy_end - yy_start - yy_more_len
@@ -2378,7 +2378,7 @@ end
 
 						last_token := s_real
 						last_any_value := text
-					
+
 end
 else
 yy_set_line_column
@@ -2393,7 +2393,7 @@ end
 									last_token := s_raw_text
 									last_any_value := text
 									set_start_condition (INITIAL)
-								
+
 end
 else
 if yy_act = 184 then
@@ -2406,16 +2406,16 @@ debug ("GELEX")
 end
 	--### Should accumulate raw_text here, and flush out in post_action ###
 					--#####################################################################
-					fx_trace(0, << "Rule match: 25 ==>", text, "<== line/col: ", line.out, "/", (column+eif_tab_offset).out >>)
+--					fx_trace(0, << "Rule match: 25 ==>", text, "<== line/col: ", line.out, "/", (column+eif_tab_offset).out >>)
 						-- Note position is probably wrong, after text rather than before
 					last_token := s_raw_text
 					last_any_value := text
 					if not file_name_reported then
 						file_name_reported := True
-						fx_trace(0, << once "Scanning error in: %"", file_name, once "%"" >>)
+--						fx_trace(0, << once "Scanning error in: %"", file_name, once "%"" >>)
 					end
-					fx_trace(0, <<" [default single char rule ??]: ">>)
-				
+--					fx_trace(0, <<" [default single char rule ??]: ">>)
+
 else
 yy_set_line_column
 	yy_position := yy_position + 1
@@ -2448,7 +2448,7 @@ end
 	-- End of file
 					last_token := s_eof
 					terminate
-				
+
 			else
 				terminate
 			end
@@ -3501,7 +3501,7 @@ feature {NONE} -- Error reporting
 		deferred
 		end
 
-	file_name_reported: BOOLEAN		
+	file_name_reported: BOOLEAN
 
 feature {NONE} -- Local variables
 
@@ -3595,7 +3595,7 @@ feature {NONE} -- Processing
 		deferred
 		end
 
-feature	
+feature
 	token_count: INTEGER -- TEMP
 	max_column,
 	max_line: INTEGER
@@ -3654,7 +3654,7 @@ feature {NONE}
 						add_symbol(last_token, (s @ 1).code - ('0').code)
 				when s_string_decimal_2, s_character_decimal_2 then
 						s ?= last_any_value
-						add_symbol(last_token, 
+						add_symbol(last_token,
 							 10 * ((s @ 1).code - ('0').code)
 							+ 1 * ((s @ 2).code - ('0').code))
 				when s_string_decimal_3, s_character_decimal_3 then
@@ -3676,7 +3676,7 @@ feature {NONE}
 			--	fx_trace_local(0, <<"line: ", line.out, " column: ", (column + eif_tab_offset).out,
 			--			" position: ", position.out," scan cond: ", start_cond_str, " ",token_name(last_token), ": ", eif_buffer>>)
 			--#DEBUG-end
-			
+
 			elseif last_token = s_string_infix then
 				-- do nothing
 
@@ -3685,13 +3685,13 @@ feature {NONE}
 			--			" position: ", position.out," scan cond: ", start_cond_str, " ",token_name(last_token), ": ", eif_buffer>>)
 			--#DEBUG-end
 
-			elseif last_token /= s_whitespace then 
+			elseif last_token /= s_whitespace then
 
 				-- position after last displayed token is at
 				--	eif_last_line, eif_last_col
 				-- start of current token is at
 				--	line, (column + eif_tab_offset)
-				
+
 				if line /= eif_last_line then
 					eif_last_col := 1
 					from
@@ -3716,12 +3716,12 @@ feature {NONE}
 			--	fx_trace_local(0, <<"line: ", line.out, " column: ", (column + eif_tab_offset).out,
 			--			" position: ", position.out," scan cond: ", start_cond_str, " ",token_name(last_token), ": ", s>>)
 			--#DEBUG-end
-			
+
 				eif_last_col := eif_last_col + s.count
 				last_any_value := Void
 			else
 				check last_token = s_whitespace end
-				
+
 			end
 		end
 
@@ -3837,7 +3837,7 @@ feature {SCANNER_SYMBOL}
 			when s_right_brace        	then Result := once "}"
 			when s_left_array			then Result := once "<<"
 			when s_right_array		 	then Result := once ">>"
-			when s_assign	           	then Result := once ":="			
+			when s_assign	           	then Result := once ":="
 			when s_reverse   	     	then Result := once "?="
 			when s_dollar_sign        	then Result := once "$"
 		--	when s_percent            	then Result := once "%%"
@@ -3861,18 +3861,18 @@ feature {SCANNER_SYMBOL}
 			when s_str_left_bracket		then Result := once "%"["
 			when s_str_right_bracket	then Result := once "%"]"
 
-  				
---			when s_free            		then Result := s.strings_n(special);		-- Free operator string   
---			when s_identifier           then Result := s.strings_n(special);		-- Feature, class or tag name                                  
+
+--			when s_free            		then Result := s.strings_n(special);		-- Free operator string
+--			when s_identifier           then Result := s.strings_n(special);		-- Feature, class or tag name
 --			when s_integer              then Result := once "<INTEGER>";			-- Integer Constant e.g. "42" or "12_345_678"
 --			when s_string, s_string_prefix, s_string_infix, s_string_postfix
---											then Result := s.strings_n(special);	-- String Constant e.g. '"ha%/108/lo"' 
---			--when s_line_continue		then Result := once "%%"						-- Line/String continuation character        
---			when s_character            then Result := once "<CHARACTER>";			-- Character Constant e.g. "'c'" or "'%B'"    
---			when s_real                 then Result := s.strings_n(special);		-- Real Constant e.g. "1234.5678e-90"            
---			when s_bit_sequence         then Result := s.strings_n(special);		-- 010101B          
---			when s_comment              then Result := s.strings_n(special);		-- Comment, started by "--"             
-			when s_eof                  then Result := once "<EOF>";					-- End Of File               
+--											then Result := s.strings_n(special);	-- String Constant e.g. '"ha%/108/lo"'
+--			--when s_line_continue		then Result := once "%%"						-- Line/String continuation character
+--			when s_character            then Result := once "<CHARACTER>";			-- Character Constant e.g. "'c'" or "'%B'"
+--			when s_real                 then Result := s.strings_n(special);		-- Real Constant e.g. "1234.5678e-90"
+--			when s_bit_sequence         then Result := s.strings_n(special);		-- 010101B
+--			when s_comment              then Result := s.strings_n(special);		-- Comment, started by "--"
+			when s_eof                  then Result := once "<EOF>";					-- End Of File
 
 			else
 				Result ?= last_any_value

@@ -89,14 +89,14 @@ feature {NONE} -- Redundant routines .... ?
 		do
 			scan
 			if scanned then
-				trace_s("Parsing : "); trace_s (class_name_string); trace_s("%N")
+		--		trace_s("Parsing : "); trace_s (class_name_string); trace_s("%N")
 				scanner.reset
 --				create parse_class.parse (scanner, class_name)
 			else
 				print("Scan failed ?%N")
 			end
 			if not parsed then
-				print ("ERROR: parse failed: "); print (class_name_string); print("%N")
+--				print ("ERROR: parse failed: "); print (class_name_string); print("%N")
 				p.set_load_failed
 			end
 		end
@@ -123,7 +123,7 @@ feature -- Window creation/deletion
 			if class_window = Void and then filename /= Void then
 				create class_window.make (Current)
 			elseif class_window /= Void then
-				class_window.deiconify	-- un-minimize
+--				class_window.deiconify	-- un-minimize
 				class_window.raise
 			end
 		end
