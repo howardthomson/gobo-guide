@@ -16,7 +16,7 @@ note
 	]"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2008-2011, Eric Bezault and others"
+	copyright: "Copyright (c) 2008-2012, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date: 2010/09/15 $"
 	revision: "$Revision: #18 $"
@@ -781,6 +781,9 @@ feature -- Kernel types
 	integer_64_type: ET_CLASS_TYPE
 			-- Class type "INTEGER_64"
 
+	iterable_detachable_any_type: ET_GENERIC_CLASS_TYPE
+			-- Class type "ITERABLE [detachable ANY]", with implicit 'attached' type mark
+
 	natural_type: ET_CLASS_TYPE
 			-- Class type "NATURAL"
 
@@ -826,6 +829,9 @@ feature -- Kernel types
 	special_any_type: ET_GENERIC_CLASS_TYPE
 			-- Class type "SPECIAL [ANY]", with implicit 'attached' type mark
 
+	special_detachable_any_type: ET_GENERIC_CLASS_TYPE
+			-- Class type "SPECIAL [detachable ANY]", with implicit 'attached' type mark
+
 	string_type: ET_CLASS_TYPE
 			-- Class type "STRING", with implicit 'attached' type mark
 
@@ -852,6 +858,12 @@ feature -- Kernel types
 
 	type_any_type: ET_GENERIC_CLASS_TYPE
 			-- Class type "TYPE [ANY]"
+
+	type_detachable_any_type: ET_GENERIC_CLASS_TYPE
+			-- Class type "TYPE [detachable ANY]"
+
+	detachable_type_detachable_any_type: ET_GENERIC_CLASS_TYPE
+			-- Class type "detachable TYPE [detachable ANY]"
 
 	typed_pointer_any_type: ET_GENERIC_CLASS_TYPE
 			-- Class type "TYPED_POINTER [ANY]"
@@ -885,6 +897,7 @@ feature -- Kernel types
 			set_integer_16_type
 			set_integer_32_type
 			set_integer_64_type
+			set_iterable_type
 			set_natural_type
 			set_natural_8_type
 			set_natural_16_type
@@ -1106,6 +1119,22 @@ feature -- Kernel types
 			create integer_64_convert_feature.make (integer_64_type)
 		end
 
+	set_iterable_type
+			-- Set type with base class "ITERABLE".
+		local
+			l_name: ET_CLASS_NAME
+			l_master_class: ET_MASTER_CLASS
+			l_parameters: ET_ACTUAL_PARAMETER_LIST
+		do
+			l_name := tokens.iterable_class_name
+			l_master_class := master_class (l_name)
+			l_master_class.set_in_system (True)
+				-- Type "ITERABLE [detachable ANY]".
+			create l_parameters.make_with_capacity (1)
+			l_parameters.put_first (detachable_any_type)
+			create iterable_detachable_any_type.make (tokens.implicit_attached_type_mark, l_name, l_parameters, l_master_class)
+		end
+
 	set_natural_type
 			-- Set type "NATURAL".
 		local
@@ -1306,9 +1335,14 @@ feature -- Kernel types
 			l_name := tokens.special_class_name
 			l_master_class := master_class (l_name)
 			l_master_class.set_in_system (True)
+				-- Type "SPECIAL [ANY]".
 			create l_parameters.make_with_capacity (1)
 			l_parameters.put_first (any_type)
 			create special_any_type.make (tokens.implicit_attached_type_mark, l_name, l_parameters, l_master_class)
+				-- Type "SPECIAL [detachable ANY]".
+			create l_parameters.make_with_capacity (1)
+			l_parameters.put_first (detachable_any_type)
+			create special_detachable_any_type.make (tokens.implicit_attached_type_mark, l_name, l_parameters, l_master_class)
 		end
 
 	set_string_type
@@ -1408,6 +1442,10 @@ feature -- Kernel types
 			create l_parameters.make_with_capacity (1)
 			l_parameters.put_first (any_type)
 			create type_any_type.make (Void, l_name, l_parameters, l_master_class)
+			create l_parameters.make_with_capacity (1)
+			l_parameters.put_first (detachable_any_type)
+			create type_detachable_any_type.make (Void, l_name, l_parameters, l_master_class)
+			create detachable_type_detachable_any_type.make (tokens.detachable_keyword, l_name, l_parameters, l_master_class)
 		end
 
 	set_typed_pointer_type
@@ -2326,6 +2364,7 @@ invariant
 	integer_16_type_not_void: integer_16_type /= Void
 	integer_32_type_not_void: integer_32_type /= Void
 	integer_64_type_not_void: integer_64_type /= Void
+	iterable_detachable_any_type_not_void: iterable_detachable_any_type /= Void
 	natural_8_type_not_void: natural_8_type /= Void
 	natural_16_type_not_void: natural_16_type /= Void
 	natural_32_type_not_void: natural_32_type /= Void
@@ -2339,6 +2378,7 @@ invariant
 	real_64_type_not_void: real_64_type /= Void
 	routine_type_not_void: routine_type /= Void
 	special_any_type_not_void: special_any_type /= Void
+	special_detachable_any_type_not_void: special_detachable_any_type /= Void
 	string_8_type_not_void: string_8_type /= Void
 	string_32_type_not_void: string_32_type /= Void
 	system_object_type_not_void: system_object_type /= Void

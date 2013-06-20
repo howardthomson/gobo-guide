@@ -5,7 +5,7 @@ note
 		"Eiffel dynamic type builders"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2004-2011, Eric Bezault and others"
+	copyright: "Copyright (c) 2004-2013, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -35,6 +35,9 @@ inherit
 			check_debug_instruction_validity,
 			check_loop_invariant_validity,
 			check_loop_variant_validity,
+			report_across_cursor,
+			report_across_cursor_declaration,
+			report_across_expression,
 			report_assignment,
 			report_assignment_attempt,
 			report_attribute_address,
@@ -949,14 +952,20 @@ feature {NONE} -- Feature validity
 				end
 			when builtin_type_class then
 				inspect a_feature.builtin_code \\ builtin_capacity
+				when builtin_type_default then
+					report_builtin_type_default (a_feature)
 				when builtin_type_field then
 					report_builtin_type_field (a_feature)
 				when builtin_type_field_count then
 					report_builtin_type_field_count (a_feature)
 				when builtin_type_field_static_type then
 					report_builtin_type_field_static_type (a_feature)
-				when builtin_type_generic_parameter then
-					report_builtin_type_generic_parameter (a_feature)
+				when builtin_type_generic_parameter_type then
+					report_builtin_type_generic_parameter_type (a_feature)
+				when builtin_type_new_instance then
+					report_builtin_type_new_instance (a_feature)
+				when builtin_type_new_special_any_instance then
+					report_builtin_type_new_special_any_instance (a_feature)
 				else
 					report_builtin_function (a_feature)
 				end
@@ -1056,6 +1065,29 @@ feature {NONE} -- Instruction validity
 		end
 
 feature {NONE} -- Event handling
+
+	report_across_cursor (a_name: ET_IDENTIFIER; a_across_component: ET_ACROSS_COMPONENT)
+			-- Report that a call to across cursor `a_name' has been processed.
+		do
+			if current_type = current_dynamic_type.base_type then
+				a_name.set_index (a_across_component.cursor_name.index)
+			end
+		end
+
+	report_across_cursor_declaration (a_name: ET_IDENTIFIER; a_across_component: ET_ACROSS_COMPONENT)
+			-- Report that the declaration of the across cursor `a_name' has been processed.
+		do
+			if current_type = current_dynamic_type.base_type then
+					-- Take care of the type of the across cursor.
+				a_name.set_index (a_across_component.new_cursor_expression.index)
+			end
+		end
+
+	report_across_expression (a_across_expression: ET_ACROSS_EXPRESSION)
+			-- Report that the across expression `a_across_expression' has been processed.
+		do
+			report_constant_expression (a_across_expression, current_universe_impl.boolean_type)
+		end
 
 	report_assignment (an_instruction: ET_ASSIGNMENT)
 			-- Report that an assignment instruction has been processed.
@@ -1661,8 +1693,10 @@ feature {NONE} -- Event handling
 			report_constant_expression (a_constant, a_type)
 		end
 
-	report_object_equality_expression (an_expression: ET_OBJECT_EQUALITY_EXPRESSION)
+	report_object_equality_expression (an_expression: ET_OBJECT_EQUALITY_EXPRESSION; a_target_type: ET_TYPE_CONTEXT)
 			-- Report that an object equality expression has been processed.
+			-- `a_target_type' is the type of the target of the call to 'is_equal'
+			-- internally invoked by the object equality expression.
 		local
 			l_object_equality: ET_DYNAMIC_OBJECT_EQUALITY_EXPRESSION
 			l_target_type_set: ET_DYNAMIC_TYPE_SET
@@ -2898,6 +2932,25 @@ feature {NONE} -- Built-in features
 			end
 		end
 
+	report_builtin_type_default (a_feature: ET_EXTERNAL_FUNCTION)
+			-- Report that built-in feature 'TYPE.default' is being analyzed.
+		require
+			no_error: not has_fatal_error
+			a_feature_not_void: a_feature /= Void
+		local
+			l_result_type: ET_DYNAMIC_TYPE
+		do
+			if current_type = current_dynamic_type.base_type then
+				l_result_type := result_type_set.static_type
+					-- The Result is either expanded or Void.
+					-- Nothing to propagate when it is Void.
+				if l_result_type.is_expanded then
+					mark_type_alive (l_result_type)
+					propagate_builtin_result_dynamic_types (l_result_type, current_dynamic_feature)
+				end
+			end
+		end
+
 	report_builtin_type_field_count (a_feature: ET_EXTERNAL_FUNCTION)
 			-- Report that built-in feature 'TYPE.field_count' is being analyzed.
 		require
@@ -3008,8 +3061,8 @@ feature {NONE} -- Built-in features
 			end
 		end
 
-	report_builtin_type_generic_parameter (a_feature: ET_EXTERNAL_FUNCTION)
-			-- Report that built-in feature 'TYPE.generic_parameter' is being analyzed.
+	report_builtin_type_generic_parameter_type (a_feature: ET_EXTERNAL_FUNCTION)
+			-- Report that built-in feature 'TYPE.generic_parameter_type' is being analyzed.
 		require
 			no_error: not has_fatal_error
 			a_feature_not_void: a_feature /= Void
@@ -3044,6 +3097,61 @@ feature {NONE} -- Built-in features
 							propagate_builtin_result_dynamic_types (l_result_type, current_dynamic_feature)
 							i := i + 1
 						end
+					end
+				end
+			end
+		end
+
+	report_builtin_type_new_instance (a_feature: ET_EXTERNAL_FUNCTION)
+			-- Report that built-in feature 'TYPE.new_instance' is being analyzed.
+		require
+			no_error: not has_fatal_error
+			a_feature_not_void: a_feature /= Void
+		local
+			l_result_type: ET_DYNAMIC_TYPE
+		do
+			if current_type = current_dynamic_type.base_type then
+				l_result_type := result_type_set.static_type
+				if l_result_type.base_class.is_deferred or l_result_type.base_class.is_none then
+						-- Return Void when the base class is deferred, or NONE.
+				elseif current_dynamic_system.is_new_instance_type (l_result_type) then
+						-- Return Void when the result type is not alive (i.e. no object of that
+						-- type has been otherwise created in the system).
+					if current_dynamic_system.new_instance_types /= Void then
+							-- Mark the type as if it has been explicitly specified.
+						mark_type_alive (l_result_type)
+					end
+					propagate_builtin_result_dynamic_types (l_result_type, current_dynamic_feature)
+				end
+			end
+		end
+
+	report_builtin_type_new_special_any_instance (a_feature: ET_EXTERNAL_FUNCTION)
+			-- Report that built-in feature 'TYPE.new_special_any_instance' is being analyzed.
+		require
+			no_error: not has_fatal_error
+			a_feature_not_void: a_feature /= Void
+		local
+			l_parameters: ET_ACTUAL_PARAMETER_LIST
+			l_result_type: ET_DYNAMIC_TYPE
+		do
+			if current_type = current_dynamic_type.base_type then
+				l_parameters := current_type.actual_parameters
+				if l_parameters = Void or else l_parameters.count < 1 then
+						-- Internal error: we should have already checked by now
+						-- that class "TYPE" has a generic parameter.
+					set_fatal_error
+					error_handler.report_giaaa_error
+				else
+					l_result_type := current_dynamic_system.dynamic_type (l_parameters.type (1), current_type)
+					if attached {ET_DYNAMIC_SPECIAL_TYPE} l_result_type as l_special_type and then not l_special_type.item_type_set.static_type.is_expanded and then current_dynamic_system.is_new_instance_type (l_result_type) then
+							-- Return Void when the result type is not alive (i.e. no object
+							-- of that type has been otherwise created in the system).
+						if current_dynamic_system.new_instance_types /= Void then
+								-- Mark the type as if it has been explicitly specified.
+							mark_type_alive (l_special_type)
+						end
+						propagate_builtin_result_dynamic_types (l_special_type, current_dynamic_feature)
 					end
 				end
 			end

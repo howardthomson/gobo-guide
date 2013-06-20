@@ -6,7 +6,7 @@ note
 		%characters (8-bit code between 0 and 255)"
 
 	library: "Gobo Eiffel Kernel Library"
-	copyright: "Copyright (c) 2001-2008, Eric Bezault and others"
+	copyright: "Copyright (c) 2001-2013, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -18,9 +18,6 @@ inherit
 	KI_BINARY_OUTPUT_FILE
 
 	KL_OUTPUT_FILE
-		redefine
-			string_name
-		end
 
 	RAW_FILE
 		rename
@@ -53,6 +50,7 @@ inherit
 			read_stream as old_read_stream,
 			read_line as old_read_line,
 			change_name as old_change_name,
+			change_mode as old_change_mode,
 			flush as old_flush,
 			close as old_close,
 			delete as old_delete,
@@ -64,9 +62,8 @@ inherit
 		redefine
 #ifdef GE
 			old_open_write,
-			old_open_append,
+			old_open_append
 #endif
-			string_name
 		end
 
 create
@@ -74,9 +71,6 @@ create
 	make
 
 feature {NONE} -- Implementation
-
-	string_name: STRING
-			-- Name of file (STRING version)
 
 #ifdef GE
 	old_open_write

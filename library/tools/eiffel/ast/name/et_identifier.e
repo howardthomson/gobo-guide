@@ -5,7 +5,7 @@ note
 		"Eiffel identifiers"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 1999-2008, Eric Bezault and others"
+	copyright: "Copyright (c) 1999-2012, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -23,7 +23,9 @@ inherit
 			is_identifier, is_equal,
 			local_name, argument_name,
 			object_test_local_name,
-			is_object_test_local
+			is_object_test_local,
+			across_cursor_name,
+			is_across_cursor
 		end
 
 	ET_CLASS_NAME
@@ -250,6 +252,12 @@ feature -- Status report
 			Result := (status_code = object_test_local_code)
 		end
 
+	is_across_cursor: BOOLEAN
+			-- Is current identifier actually an across cursor name?
+		do
+			Result := (status_code = across_cursor_code)
+		end
+
 	is_temporary: BOOLEAN
 			-- Is current identifier a temporary variable name?
 			-- (Used in C code generation for example.)
@@ -317,6 +325,18 @@ feature -- Status setting
 			end
 		ensure
 			object_test_local_set: is_object_test_local = b
+		end
+
+	set_across_cursor (b: BOOLEAN)
+			-- Set `is_across_cursor' to `b'.
+		do
+			if b then
+				status_code := across_cursor_code
+			else
+				status_code := no_code
+			end
+		ensure
+			across_local_set: is_across_cursor = b
 		end
 
 	set_temporary (b: BOOLEAN)
@@ -397,21 +417,17 @@ feature -- Comparison
 			-- Are `Current' and `other' the same feature call name?
 			-- (case insensitive)
 		local
-			an_id: ET_IDENTIFIER
 			l_name: STRING
 		do
 			if other = Current then
 				Result := True
-			else
-				an_id ?= other
-				if an_id /= Void then
-					if hash_code = an_id.hash_code then
-						l_name := an_id.name
-						if l_name = name then
-							Result := True
-						else
-							Result := STRING_.same_case_insensitive (name, l_name)
-						end
+			elseif attached {ET_IDENTIFIER} other as an_id then
+				if hash_code = an_id.hash_code then
+					l_name := an_id.name
+					if l_name = name then
+						Result := True
+					else
+						Result := STRING_.same_case_insensitive (name, l_name)
 					end
 				end
 			end
@@ -421,21 +437,17 @@ feature -- Comparison
 			-- Are feature name and `other' the same feature name?
 			-- (case insensitive)
 		local
-			an_id: ET_IDENTIFIER
 			l_name: STRING
 		do
 			if other = Current then
 				Result := True
-			else
-				an_id ?= other
-				if an_id /= Void then
-					if hash_code = an_id.hash_code then
-						l_name := an_id.name
-						if l_name = name then
-							Result := True
-						else
-							Result := STRING_.same_case_insensitive (name, l_name)
-						end
+			elseif attached {ET_IDENTIFIER} other as an_id then
+				if hash_code = an_id.hash_code then
+					l_name := an_id.name
+					if l_name = name then
+						Result := True
+					else
+						Result := STRING_.same_case_insensitive (name, l_name)
 					end
 				end
 			end
@@ -445,21 +457,17 @@ feature -- Comparison
 			-- Are class name and `other' the same class name?
 			-- (case insensitive)
 		local
-			an_id: ET_IDENTIFIER
 			l_name: STRING
 		do
 			if other = Current then
 				Result := True
-			else
-				an_id ?= other
-				if an_id /= Void then
-					if hash_code = an_id.hash_code then
-						l_name := an_id.name
-						if l_name = name then
-							Result := True
-						else
-							Result := STRING_.same_case_insensitive (name, l_name)
-						end
+			elseif attached {ET_IDENTIFIER} other as an_id then
+				if hash_code = an_id.hash_code then
+					l_name := an_id.name
+					if l_name = name then
+						Result := True
+					else
+						Result := STRING_.same_case_insensitive (name, l_name)
 					end
 				end
 			end
@@ -513,6 +521,12 @@ feature -- Conversion
 			Result := Current
 		end
 
+	across_cursor_name: ET_IDENTIFIER
+			-- Current name viewed as an across cursor name
+		do
+			Result := Current
+		end
+
 feature -- Processing
 
 	process (a_processor: ET_AST_PROCESSOR)
@@ -548,6 +562,7 @@ feature {NONE} -- Implementation
 	status_code: CHARACTER
 	local_code: CHARACTER = 'l'
 	object_test_local_code: CHARACTER = 'm'
+	across_cursor_code: CHARACTER = 'u'
 	argument_code: CHARACTER = 'a'
 	temporary_code: CHARACTER = 'v'
 	tuple_label_code: CHARACTER = 't'

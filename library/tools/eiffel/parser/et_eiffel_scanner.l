@@ -6,7 +6,7 @@ note
 		"Scanners for Eiffel parsers"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 1999-2011, Eric Bezault and others"
+	copyright: "Copyright (c) 1999-2013, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -25,7 +25,7 @@ create
 	make
 %}
 
-CHAR_CODE (0*([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]))
+CHAR_CODE ((0*([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]))|(0x[0-9a-fA-F]{1,4}))
 
 UTF8_BOM (\xEF\xBB\xBF)
 
@@ -1249,7 +1249,7 @@ feature -- Scanning
 					-- END INLINING 'yy_at_beginning_of_line'
 					if yyReject_or_variable_trail_context then
 							-- Set up for storing up states.
-						yy_state_stack.put (yy_current_state, 0)
+						SPECIAL_INTEGER_.force (yy_state_stack, yy_current_state, 0)
 						yy_state_count := 1
 					end
 					yy_goto := yyMatch
@@ -1305,7 +1305,7 @@ feature -- Scanning
 						end
 						yy_current_state := yy_nxt.item (yy_base.item (yy_current_state) + yy_c)
 						if yyReject_or_variable_trail_context then
-							yy_state_stack.put (yy_current_state, yy_state_count)
+							SPECIAL_INTEGER_.force (yy_state_stack, yy_current_state, yy_state_count)
 							yy_state_count := yy_state_count + 1
 						end
 						yy_cp := yy_cp + 1

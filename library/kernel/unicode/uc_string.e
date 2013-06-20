@@ -16,7 +16,7 @@ note
 		Use UC_UTF*_STRING to specify the encoding explicitly.
 	]"
 	library: "Gobo Eiffel Kernel Library"
-	copyright: "Copyright (c) 2001-2008, Eric Bezault and others"
+	copyright: "Copyright (c) 2001-2012, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date: 2010/05/03 $"
 	revision: "$Revision: #9 $"
@@ -110,6 +110,7 @@ inherit
 			insert_character,
 			string,
 			same_string,
+			same_string_general,
 			insert_string,
 			insert,
 			prepend,
@@ -202,6 +203,7 @@ inherit
 			insert_character,
 			string,
 			same_string,
+			same_string_general,
 			insert_string,
 			insert,
 			prepend,
@@ -246,7 +248,6 @@ inherit
 	KI_TEXT_OUTPUT_STREAM
 		rename
 			put_character as append_character,
-			put_substring as append_substring,
 			append as append_stream,
 			True_constant as stream_true_constant,
 			False_constant as stream_false_constant
@@ -255,7 +256,7 @@ inherit
 			copy,
 			out
 		redefine
-			append_substring
+			put_substring
 		end
 
 	UC_STRING_HANDLER
@@ -1509,6 +1510,42 @@ feature -- Comparison
 			end
 		end
 
+	same_string_general (other: READABLE_STRING_GENERAL): BOOLEAN
+			-- Do `Current' and `other' have the same character sequence?
+			-- `Current' is considered with its characters which do not
+			-- fit in a CHARACTER replaced by a '%U'.
+			-- (Extended from ELKS 2001 STRING)
+		local
+			i, l_count: INTEGER
+			l_c, l_other_c: NATURAL_32
+		do
+			if other = Current then
+				Result := True
+			elseif other.count = count then
+				l_count := count
+				from
+					Result := True
+					i := 1
+				until
+					i > l_count
+				loop
+					l_c := code (i)
+					if l_c > platform.maximum_character_code.to_natural_32 then
+						l_c := 0
+					end
+					l_other_c := other.code (i)
+					if l_other_c > platform.maximum_character_code.to_natural_32 then
+						l_other_c := 0
+					end
+					if l_c /= l_other_c then
+						Result := False
+						i := l_count
+					end
+					i := i + 1
+				end
+			end
+		end
+
 	same_unicode_string (other: READABLE_STRING_GENERAL): BOOLEAN
 			-- Do `Current' and `other' have the same unicode character sequence?
 		require
@@ -1602,7 +1639,6 @@ feature -- Comparison
 		require
 			other_not_void: other /= Void
 		local
-			uc_string: detachable UC_STRING
 			i, nb, nb1, nb2: INTEGER
 			b1, b2: CHARACTER
 			c1, c2: INTEGER
@@ -1610,11 +1646,7 @@ feature -- Comparison
 		do
 			if other = Current then
 				Result := 0
-			elseif ANY_.same_types (Current, other) then
-				uc_string ?= other
-				check
-					is_uc_string: uc_string /= Void
-				end
+			elseif ANY_.same_types (Current, other) and then attached {UC_STRING} other as uc_string then
 				nb1 := byte_count
 				nb2 := uc_string.byte_count
 				if nb1 < nb2 then
@@ -1928,7 +1960,7 @@ feature -- Element change
 					byte_count := new_byte_count
 				else
 						-- If so, use proper UTF8 encoding.
-					append_substring (a_string, 1, a_string.count)
+					gobo_append_substring (a_string, 1, a_string.count)
 				end
 			else
 				a_uc_string ?= a_string
@@ -1966,17 +1998,22 @@ feature -- Element change
 							byte_count := new_byte_count
 						end
 					else
-						append_substring (a_string, 1, a_string.count)
+						gobo_append_substring (a_string, 1, a_string.count)
 					end
 				else
-					append_substring (a_string, 1, a_string.count)
+					gobo_append_substring (a_string, 1, a_string.count)
 				end
 			end
 		end
 
-	append_substring (a_string: STRING; s, e: INTEGER)
+	gobo_append_substring (a_string: STRING; s, e: INTEGER)
 			-- Append substring of `a_string' between indexes
 			-- `s' and `e' at end of current string.
+		require
+			a_string_not_void: a_string /= Void
+			s_large_enough: s >= 1
+			e_small_enough: e <= a_string.count
+			valid_interval: s <= e + 1
 		local
 			a_substring_count: INTEGER
 			k, nb: INTEGER
@@ -2004,6 +2041,13 @@ feature -- Element change
 			appended: is_equal (old cloned_string + old a_string.substring (s, e))
 		end
 
+	put_substring (a_string: STRING; s, e: INTEGER)
+			-- Write substring of `a_string' between indexes
+			-- `s' and `e' to output stream.
+		do
+			gobo_append_substring (a_string, s, e)
+		end
+		
 	append_utf8 (s: STRING)
 			-- Append UTF-8 encoded string `s' at end of current string.
 		require
@@ -3480,19 +3524,12 @@ feature {NONE} -- Implementation
 			k, z: INTEGER
 			c: CHARACTER
 			a_code: INTEGER
-			a_utf8_string: detachable UC_UTF8_STRING
-			a_uc_string: detachable UC_STRING
-			l_string_8: detachable STRING
 		do
 			check
 				valid_utf8: b = utf8.substring_byte_count (a_string, start_index, end_index)
 			end
 			if b > 0 then
-				if ANY_.same_types (a_string, dummy_string) then
-					l_string_8 ?= a_string
-					check
-						is_string_8: l_string_8 /= Void
-					end
+				if attached {STRING_8} a_string as l_string_8 and then ANY_.same_types (a_string, dummy_string) then
 					nb := end_index - start_index + 1
 					if nb = b then
 						k := i
@@ -3519,11 +3556,7 @@ feature {NONE} -- Implementation
 							j := j + 1
 						end
 					end
-				elseif ANY_.same_types (a_string, Current) then
-					a_uc_string ?= a_string
-					check
-						is_uc_string: a_uc_string /= Void
-					end
+				elseif ANY_.same_types (a_string, Current) and attached {UC_STRING} a_string as a_uc_string then
 					k := i
 					j := a_uc_string.byte_index (start_index)
 					nb := j + b - 1
@@ -3535,50 +3568,44 @@ feature {NONE} -- Implementation
 						k := k + 1
 						j := j + 1
 					end
+				elseif attached {UC_UTF8_STRING} a_string as a_utf8_string then
+					k := i
+					j := a_utf8_string.byte_index (start_index)
+					nb := j + b - 1
+					from
+					until
+						j > nb
+					loop
+						put_byte (a_utf8_string.byte_item (j), k)
+						k := k + 1
+						j := j + 1
+					end
+				elseif attached {UC_STRING} a_string as a_uc_string then
+					k := i
+					j := a_uc_string.byte_index (start_index)
+					nb := j + b - 1
+					from
+					until
+						j > nb
+					loop
+						a_code := a_uc_string.item_code_at_byte_index (j)
+						z := utf8.code_byte_count (a_code)
+						put_code_at_byte_index (a_code, z, k)
+						k := k + z
+						j := a_uc_string.next_byte_index (j)
+					end
 				else
-					a_utf8_string ?= a_string
-					if a_utf8_string /= Void then
-						k := i
-						j := a_utf8_string.byte_index (start_index)
-						nb := j + b - 1
-						from
-						until
-							j > nb
-						loop
-							put_byte (a_utf8_string.byte_item (j), k)
-							k := k + 1
-							j := j + 1
-						end
-					else
-						a_uc_string ?= a_string
-						if a_uc_string /= Void then
-							k := i
-							j := a_uc_string.byte_index (start_index)
-							nb := j + b - 1
-							from
-							until
-								j > nb
-							loop
-								a_code := a_uc_string.item_code_at_byte_index (j)
-								z := utf8.code_byte_count (a_code)
-								put_code_at_byte_index (a_code, z, k)
-								k := k + z
-								j := a_uc_string.next_byte_index (j)
-							end
-						else
-							k := i
-							from
-								j := start_index
-							until
-								j > end_index
-							loop
-								a_code := a_string.code (j).to_integer_32
-								z := utf8.code_byte_count (a_code)
-								put_code_at_byte_index (a_code, z, k)
-								k := k + z
-								j := j + 1
-							end
-						end
+					k := i
+					from
+						j := start_index
+					until
+						j > end_index
+					loop
+						a_code := a_string.code (j).to_integer_32
+						z := utf8.code_byte_count (a_code)
+						put_code_at_byte_index (a_code, z, k)
+						k := k + z
+						j := j + 1
 					end
 				end
 			end

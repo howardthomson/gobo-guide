@@ -5,7 +5,7 @@ note
 		"Eiffel systems"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 1999-2011, Eric Bezault and others"
+	copyright: "Copyright (c) 1999-2012, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date: 2010/09/15 $"
 	revision: "$Revision: #22 $"
@@ -151,6 +151,15 @@ feature -- Feature seeds
 	function_item_seed: INTEGER
 			-- Seed of feature 'item' in class "FUNCTION"
 
+	iterable_new_cursor_seed: INTEGER
+			-- Seed of feature 'new_cursor' in class "ITERABLE"
+
+	iteration_cursor_after_seed: INTEGER
+			-- Seed of feature 'after' in class "ITERATION_CURSOR"
+
+	iteration_cursor_forth_seed: INTEGER
+			-- Seed of feature 'forth' in class "ITERATION_CURSOR"
+
 feature -- Feature seeds setting
 
 	set_default_create_seed (a_seed: INTEGER)
@@ -211,6 +220,36 @@ feature -- Feature seeds setting
 			function_item_seed := a_seed
 		ensure
 			function_item_seed_set: function_item_seed = a_seed
+		end
+
+	set_iterable_new_cursor_seed (a_seed: INTEGER)
+			-- Set `iterable_new_cursor_seed' to `a_seed'.
+		require
+			a_seed_not_negative: a_seed >= 0
+		do
+			iterable_new_cursor_seed := a_seed
+		ensure
+			iterable_new_cursor_seed_set: iterable_new_cursor_seed = a_seed
+		end
+
+	set_iteration_cursor_after_seed (a_seed: INTEGER)
+			-- Set `iteration_cursor_after_seed' to `a_seed'.
+		require
+			a_seed_not_negative: a_seed >= 0
+		do
+			iteration_cursor_after_seed := a_seed
+		ensure
+			iteration_cursor_after_seed_set: iteration_cursor_after_seed = a_seed
+		end
+
+	set_iteration_cursor_forth_seed (a_seed: INTEGER)
+			-- Set `iteration_cursor_forth_seed' to `a_seed'.
+		require
+			a_seed_not_negative: a_seed >= 0
+		do
+			iteration_cursor_forth_seed := a_seed
+		ensure
+			iteration_cursor_forth_seed_set: iteration_cursor_forth_seed = a_seed
 		end
 
 feature -- Class registration
@@ -1154,7 +1193,6 @@ feature -- Compilation
 			-- is received, i.e. `stop_request' starts returning True. No
 			-- interruption if `stop_request' is Void.
 		local
-			l_checker: ET_IMPLEMENTATION_CHECKER
 			l_processor: ET_AST_PROCESSOR
 		do
 				-- Check implementation.
@@ -1163,8 +1201,7 @@ feature -- Compilation
 			else
 				l_processor := implementation_checker
 			end
-			l_checker ?= l_processor
-			if l_checker /= Void then
+			if attached {ET_IMPLEMENTATION_CHECKER} l_processor as l_checker then
 				l_checker.set_flat_mode (flat_mode)
 				l_checker.set_flat_dbc_mode (flat_dbc_mode)
 				l_checker.set_suppliers_enabled (suppliers_enabled)

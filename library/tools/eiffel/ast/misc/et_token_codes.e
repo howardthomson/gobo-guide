@@ -5,7 +5,7 @@ note
 		"Eiffel token and symbol codes"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2002-2010, Eric Bezault and others"
+	copyright: "Copyright (c) 2002-2013, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -48,68 +48,70 @@ feature -- Keyword and symbol codes
 	alias_bracket_code: CHARACTER = '%/100/'
 			-- Alias operator codes
 
-	agent_keyword_code: CHARACTER = '%/1/'
-	alias_keyword_code: CHARACTER = '%/2/'
-	all_keyword_code: CHARACTER = '%/3/'
-	as_keyword_code: CHARACTER = '%/4/'
-	assign_keyword_code: CHARACTER = '%/5/'
-	attached_keyword_code: CHARACTER = '%/6/'
-	attribute_keyword_code: CHARACTER = '%/7/'
-	check_keyword_code: CHARACTER = '%/8/'
-	class_keyword_code: CHARACTER = '%/9/'
-	convert_keyword_code: CHARACTER = '%/10/'
-	create_keyword_code: CHARACTER = '%/11/'
-	creation_keyword_code: CHARACTER = '%/12/'
-	current_keyword_code: CHARACTER = '%/13/'
-	debug_keyword_code: CHARACTER = '%/14/'
-	deferred_keyword_code: CHARACTER = '%/15/'
-	detachable_keyword_code: CHARACTER = '%/16/'
-	do_keyword_code: CHARACTER = '%/17/'
-	else_keyword_code: CHARACTER = '%/18/'
-	elseif_keyword_code: CHARACTER = '%/19/'
-	end_keyword_code: CHARACTER = '%/20/'
-	ensure_keyword_code: CHARACTER = '%/21/'
-	expanded_keyword_code: CHARACTER = '%/22/'
-	export_keyword_code: CHARACTER = '%/23/'
-	external_keyword_code: CHARACTER = '%/24/'
-	false_keyword_code: CHARACTER = '%/25/'
-	feature_keyword_code: CHARACTER = '%/26/'
-	from_keyword_code: CHARACTER = '%/27/'
-	frozen_keyword_code: CHARACTER = '%/28/'
-	if_keyword_code: CHARACTER = '%/29/'
-	indexing_keyword_code: CHARACTER = '%/30/'
-	infix_keyword_code: CHARACTER = '%/31/'
-	inherit_keyword_code: CHARACTER = '%/32/'
-	inspect_keyword_code: CHARACTER = '%/33/'
-	invariant_keyword_code: CHARACTER = '%/34/'
-	is_keyword_code: CHARACTER = '%/35/'
-	like_keyword_code: CHARACTER = '%/36/'
-	local_keyword_code: CHARACTER = '%/37/'
-	loop_keyword_code: CHARACTER = '%/38/'
-	note_keyword_code: CHARACTER = '%/39/'
-	obsolete_keyword_code: CHARACTER = '%/40/'
-	old_keyword_code: CHARACTER = '%/41/'
-	once_keyword_code: CHARACTER = '%/42/'
-	precursor_keyword_code: CHARACTER = '%/43/'
-	prefix_keyword_code: CHARACTER = '%/44/'
-	redefine_keyword_code: CHARACTER = '%/45/'
-	reference_keyword_code: CHARACTER = '%/48/'
-	rename_keyword_code: CHARACTER = '%/47/'
-	require_keyword_code: CHARACTER = '%/48/'
-	rescue_keyword_code: CHARACTER = '%/49/'
-	result_keyword_code: CHARACTER = '%/50/'
-	retry_keyword_code: CHARACTER = '%/51/'
-	select_keyword_code: CHARACTER = '%/52/'
-	separate_keyword_code: CHARACTER = '%/53/'
-	strip_keyword_code: CHARACTER = '%/54/'
-	then_keyword_code: CHARACTER = '%/55/'
-	true_keyword_code: CHARACTER = '%/56/'
-	undefine_keyword_code: CHARACTER = '%/57/'
-	unique_keyword_code: CHARACTER = '%/58/'
-	until_keyword_code: CHARACTER = '%/59/'
-	variant_keyword_code: CHARACTER = '%/60/'
-	void_keyword_code: CHARACTER = '%/61/'
-	when_keyword_code: CHARACTER = '%/62/'
+	across_keyword_code: CHARACTER = '%/1/'
+	agent_keyword_code: CHARACTER = '%/2/'
+	alias_keyword_code: CHARACTER = '%/3/'
+	all_keyword_code: CHARACTER = '%/4/'
+	as_keyword_code: CHARACTER = '%/5/'
+	assign_keyword_code: CHARACTER = '%/6/'
+	attached_keyword_code: CHARACTER = '%/7/'
+	attribute_keyword_code: CHARACTER = '%/8/'
+	check_keyword_code: CHARACTER = '%/9/'
+	class_keyword_code: CHARACTER = '%/10/'
+	convert_keyword_code: CHARACTER = '%/11/'
+	create_keyword_code: CHARACTER = '%/12/'
+	creation_keyword_code: CHARACTER = '%/13/'
+	current_keyword_code: CHARACTER = '%/14/'
+	debug_keyword_code: CHARACTER = '%/15/'
+	deferred_keyword_code: CHARACTER = '%/16/'
+	detachable_keyword_code: CHARACTER = '%/17/'
+	do_keyword_code: CHARACTER = '%/18/'
+	else_keyword_code: CHARACTER = '%/19/'
+	elseif_keyword_code: CHARACTER = '%/20/'
+	end_keyword_code: CHARACTER = '%/21/'
+	ensure_keyword_code: CHARACTER = '%/22/'
+	expanded_keyword_code: CHARACTER = '%/23/'
+	export_keyword_code: CHARACTER = '%/24/'
+	external_keyword_code: CHARACTER = '%/25/'
+	false_keyword_code: CHARACTER = '%/26/'
+	feature_keyword_code: CHARACTER = '%/27/'
+	from_keyword_code: CHARACTER = '%/28/'
+	frozen_keyword_code: CHARACTER = '%/29/'
+	if_keyword_code: CHARACTER = '%/30/'
+	indexing_keyword_code: CHARACTER = '%/31/'
+	infix_keyword_code: CHARACTER = '%/32/'
+	inherit_keyword_code: CHARACTER = '%/33/'
+	inspect_keyword_code: CHARACTER = '%/34/'
+	invariant_keyword_code: CHARACTER = '%/35/'
+	is_keyword_code: CHARACTER = '%/36/'
+	like_keyword_code: CHARACTER = '%/37/'
+	local_keyword_code: CHARACTER = '%/38/'
+	loop_keyword_code: CHARACTER = '%/39/'
+	note_keyword_code: CHARACTER = '%/40/'
+	obsolete_keyword_code: CHARACTER = '%/41/'
+	old_keyword_code: CHARACTER = '%/42/'
+	once_keyword_code: CHARACTER = '%/43/'
+	precursor_keyword_code: CHARACTER = '%/44/'
+	prefix_keyword_code: CHARACTER = '%/45/'
+	redefine_keyword_code: CHARACTER = '%/46/'
+	reference_keyword_code: CHARACTER = '%/47/'
+	rename_keyword_code: CHARACTER = '%/48/'
+	require_keyword_code: CHARACTER = '%/49/'
+	rescue_keyword_code: CHARACTER = '%/50/'
+	result_keyword_code: CHARACTER = '%/51/'
+	retry_keyword_code: CHARACTER = '%/52/'
+	select_keyword_code: CHARACTER = '%/53/'
+	separate_keyword_code: CHARACTER = '%/54/'
+	some_keyword_code: CHARACTER = '%/55/'
+	strip_keyword_code: CHARACTER = '%/56/'
+	then_keyword_code: CHARACTER = '%/57/'
+	true_keyword_code: CHARACTER = '%/58/'
+	undefine_keyword_code: CHARACTER = '%/59/'
+	unique_keyword_code: CHARACTER = '%/60/'
+	until_keyword_code: CHARACTER = '%/61/'
+	variant_keyword_code: CHARACTER = '%/62/'
+	void_keyword_code: CHARACTER = '%/63/'
+	when_keyword_code: CHARACTER = '%/64/'
 			-- Eiffel keyword codes
 
 	arrow_symbol_code: CHARACTER = '%/101/'
@@ -178,15 +180,16 @@ feature -- Built-in codes
 		end
 
 	builtin_special_class: INTEGER = 2
-	builtin_special_make: INTEGER = 1
+	builtin_special_make_empty: INTEGER = 1
 	builtin_special_item: INTEGER = 2
 	builtin_special_put: INTEGER = 3
-	builtin_special_count: INTEGER = 4
-	builtin_special_element_size: INTEGER = 5
-	builtin_special_aliased_resized_area: INTEGER = 6
-	builtin_special_base_address: INTEGER = 7
-	builtin_special_put_default: INTEGER = 8
-	builtin_special_capacity: INTEGER = 9
+	builtin_special_capacity: INTEGER = 4
+	builtin_special_count: INTEGER = 5
+	builtin_special_element_size: INTEGER = 6
+	builtin_special_aliased_resized_area: INTEGER = 7
+	builtin_special_base_address: INTEGER = 8
+	builtin_special_set_count: INTEGER = 9
+	builtin_special_extend: INTEGER = 10
 			-- Codes for built-in features from class "SPECIAL"
 
 	builtin_character_8_class: INTEGER = 3
@@ -280,6 +283,12 @@ feature -- Built-in codes
 	builtin_real_opposite: INTEGER = 17
 	builtin_real_identity: INTEGER = 18
 	builtin_real_out: INTEGER = 19
+	builtin_real_nan: INTEGER = 20
+	builtin_real_negative_infinity: INTEGER = 21
+	builtin_real_positive_infinity: INTEGER = 22
+	builtin_real_is_nan: INTEGER = 23
+	builtin_real_is_negative_infinity: INTEGER = 24
+	builtin_real_is_positive_infinity: INTEGER = 25
 			-- Codes for built-in features from class "REAL" and related classes
 
 	builtin_pointer_feature (a_feature_code: INTEGER): INTEGER
@@ -295,17 +304,19 @@ feature -- Built-in codes
 	builtin_pointer_to_integer_32: INTEGER = 4
 	builtin_pointer_out: INTEGER = 5
 	builtin_pointer_hash_code: INTEGER = 6
+	builtin_pointer_is_default_pointer: INTEGER = 7
 			-- Codes for built-in features from class "POINTER" and related classes
 
-	builtin_arguments_feature (a_feature_code: INTEGER): INTEGER
-			-- Full code for built-in feature from class "ARGUMENTS"
+	builtin_arguments_32_feature (a_feature_code: INTEGER): INTEGER
+			-- Full code for built-in feature from class "ARGUMENTS_32"
 		do
-			Result := builtin_arguments_class * builtin_capacity + a_feature_code
+			Result := builtin_arguments_32_class * builtin_capacity + a_feature_code
 		end
 
-	builtin_arguments_class: INTEGER = 17
-	builtin_arguments_argument: INTEGER = 1
-	builtin_arguments_argument_count: INTEGER = 2
+	builtin_arguments_32_class: INTEGER = 17
+	builtin_arguments_32_argument_count: INTEGER = 1
+	builtin_arguments_32_i_th_argument_pointer: INTEGER = 2
+	builtin_arguments_32_i_th_argument_string: INTEGER = 3
 
 	builtin_platform_feature (a_feature_code: INTEGER): INTEGER
 			-- Full code for built-in feature from class "PLATFORM"
@@ -319,15 +330,16 @@ feature -- Built-in codes
 	builtin_platform_integer_bytes: INTEGER = 3
 	builtin_platform_is_dotnet: INTEGER = 4
 	builtin_platform_is_mac: INTEGER = 5
-	builtin_platform_is_thread_capable: INTEGER = 6
-	builtin_platform_is_unix: INTEGER = 7
-	builtin_platform_is_vms: INTEGER = 8
-	builtin_platform_is_windows: INTEGER = 9
-	builtin_platform_pointer_bytes: INTEGER = 10
-	builtin_platform_real_bytes: INTEGER = 11
-	builtin_platform_wide_character_bytes: INTEGER = 12
-	builtin_platform_double_bytes: INTEGER = 13
-	builtin_platform_is_vxworks: INTEGER = 14
+	builtin_platform_is_scoop_capable: INTEGER = 6
+	builtin_platform_is_thread_capable: INTEGER = 7
+	builtin_platform_is_unix: INTEGER = 8
+	builtin_platform_is_vms: INTEGER = 9
+	builtin_platform_is_windows: INTEGER = 10
+	builtin_platform_pointer_bytes: INTEGER = 11
+	builtin_platform_real_bytes: INTEGER = 12
+	builtin_platform_wide_character_bytes: INTEGER = 13
+	builtin_platform_double_bytes: INTEGER = 14
+	builtin_platform_is_vxworks: INTEGER = 15
 			-- Codes for built-in features from class "PLATFORM"
 
 	builtin_procedure_feature (a_feature_code: INTEGER): INTEGER
@@ -358,48 +370,52 @@ feature -- Built-in codes
 		end
 
 	builtin_type_class: INTEGER = 21
-	builtin_type_base_class_name: INTEGER = 41
-	builtin_type_boolean_field: INTEGER = 1
-	builtin_type_character_8_field: INTEGER = 2
-	builtin_type_character_32_field: INTEGER = 3
-	builtin_type_field: INTEGER = 4
-	builtin_type_field_count: INTEGER = 5
-	builtin_type_field_name: INTEGER = 6
-	builtin_type_field_static_type: INTEGER = 7
-	builtin_type_field_type: INTEGER = 8
-	builtin_type_generating_type: INTEGER = 9
-	builtin_type_generic_parameter: INTEGER = 10
-	builtin_type_generic_parameter_count: INTEGER = 11
-	builtin_type_integer_8_field: INTEGER = 12
-	builtin_type_integer_16_field: INTEGER = 13
-	builtin_type_integer_32_field: INTEGER = 14
-	builtin_type_integer_64_field: INTEGER = 15
-	builtin_type_is_expanded: INTEGER = 42
-	builtin_type_name: INTEGER = 16
-	builtin_type_natural_8_field: INTEGER = 17
-	builtin_type_natural_16_field: INTEGER = 18
-	builtin_type_natural_32_field: INTEGER = 19
-	builtin_type_natural_64_field: INTEGER = 20
-	builtin_type_pointer_field: INTEGER = 21
-	builtin_type_real_32_field: INTEGER = 22
-	builtin_type_real_64_field: INTEGER = 23
-	builtin_type_runtime_name: INTEGER = 24
-	builtin_type_set_boolean_field: INTEGER = 25
-	builtin_type_set_character_8_field: INTEGER = 26
-	builtin_type_set_character_32_field: INTEGER = 27
-	builtin_type_set_integer_8_field: INTEGER = 28
-	builtin_type_set_integer_16_field: INTEGER = 29
-	builtin_type_set_integer_32_field: INTEGER = 30
-	builtin_type_set_integer_64_field: INTEGER = 31
-	builtin_type_set_natural_8_field: INTEGER = 32
-	builtin_type_set_natural_16_field: INTEGER = 33
-	builtin_type_set_natural_32_field: INTEGER = 34
-	builtin_type_set_natural_64_field: INTEGER = 35
-	builtin_type_set_pointer_field: INTEGER = 36
-	builtin_type_set_real_32_field: INTEGER = 37
-	builtin_type_set_real_64_field: INTEGER = 38
-	builtin_type_set_reference_field: INTEGER = 39
-	builtin_type_type_id: INTEGER = 40
+	builtin_type_base_class_name: INTEGER = 1
+	builtin_type_boolean_field: INTEGER = 2
+	builtin_type_character_8_field: INTEGER = 3
+	builtin_type_character_32_field: INTEGER = 4
+	builtin_type_default: INTEGER = 5
+	builtin_type_field: INTEGER = 6
+	builtin_type_field_count: INTEGER = 7
+	builtin_type_field_name: INTEGER = 8
+	builtin_type_field_static_type: INTEGER = 9
+	builtin_type_field_type: INTEGER = 10
+	builtin_type_generating_type: INTEGER = 11
+	builtin_type_generic_parameter_type: INTEGER = 12
+	builtin_type_generic_parameter_count: INTEGER = 13
+	builtin_type_has_default: INTEGER = 14
+	builtin_type_integer_8_field: INTEGER = 15
+	builtin_type_integer_16_field: INTEGER = 16
+	builtin_type_integer_32_field: INTEGER = 17
+	builtin_type_integer_64_field: INTEGER = 18
+	builtin_type_is_expanded: INTEGER = 19
+	builtin_type_name: INTEGER = 20
+	builtin_type_natural_8_field: INTEGER = 21
+	builtin_type_natural_16_field: INTEGER = 22
+	builtin_type_natural_32_field: INTEGER = 23
+	builtin_type_natural_64_field: INTEGER = 24
+	builtin_type_pointer_field: INTEGER = 25
+	builtin_type_real_32_field: INTEGER = 26
+	builtin_type_real_64_field: INTEGER = 27
+	builtin_type_runtime_name: INTEGER = 28
+	builtin_type_set_boolean_field: INTEGER = 29
+	builtin_type_set_character_8_field: INTEGER = 30
+	builtin_type_set_character_32_field: INTEGER = 31
+	builtin_type_set_integer_8_field: INTEGER = 32
+	builtin_type_set_integer_16_field: INTEGER = 33
+	builtin_type_set_integer_32_field: INTEGER = 34
+	builtin_type_set_integer_64_field: INTEGER = 35
+	builtin_type_set_natural_8_field: INTEGER = 36
+	builtin_type_set_natural_16_field: INTEGER = 37
+	builtin_type_set_natural_32_field: INTEGER = 38
+	builtin_type_set_natural_64_field: INTEGER = 39
+	builtin_type_set_pointer_field: INTEGER = 40
+	builtin_type_set_real_32_field: INTEGER = 41
+	builtin_type_set_real_64_field: INTEGER = 42
+	builtin_type_set_reference_field: INTEGER = 43
+	builtin_type_type_id: INTEGER = 44
+	builtin_type_new_instance: INTEGER = 45
+	builtin_type_new_special_any_instance: INTEGER = 46
 			-- Codes for built-in features from class "TYPE"
 
 	builtin_identified_feature (a_feature_code: INTEGER): INTEGER

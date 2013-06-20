@@ -5,7 +5,7 @@ note
 		"Eiffel dynamic types at run-time"
 
 	library: "Gobo Eiffel Tools Library"
-	copyright: "Copyright (c) 2004-2010, Eric Bezault and others"
+	copyright: "Copyright (c) 2004-2013, Eric Bezault and others"
 	license: "MIT License"
 	date: "$Date$"
 	revision: "$Revision$"
@@ -94,7 +94,6 @@ feature {NONE} -- Initialization
 			all_conforming_dynamic_types.put_type (Current)
 			if is_expanded then
 				set_alive
-				conforming_dynamic_types.put_type (Current)
 				conforming_dynamic_types.set_never_void
 				all_conforming_dynamic_types.set_never_void
 			end
@@ -128,7 +127,7 @@ feature -- Status report
 			-- set should also be non-empty. Therefore it is recommended to
 			-- use 'not can_be_void'.)
 		do
-			Result := not base_class.is_none
+			Result := not base_class.is_none and is_alive
 		end
 
 	is_generic: BOOLEAN
@@ -190,7 +189,7 @@ feature -- Status setting
 	set_never_void
 			-- Set `is_never_void' to True.
 		do
-			-- `is_never_void' is already True unless current type is NONE.
+			-- `is_never_void' is already True unless current type is NONE or is not alive.
 		end
 
 feature -- Conformance
@@ -295,7 +294,7 @@ feature -- Measurement
 	count: INTEGER
 			-- Number of types in current type set
 		do
-			if not base_class.is_none then
+			if not base_class.is_none and is_alive then
 				Result := 1
 			end
 		end
@@ -659,6 +658,8 @@ feature -- Features
 				end
 			when builtin_special_class then
 				if (a_builtin_code \\ builtin_capacity) = builtin_special_count then
+					Result := True
+				elseif (a_builtin_code \\ builtin_capacity) = builtin_special_capacity then
 					Result := True
 				end
 			else
