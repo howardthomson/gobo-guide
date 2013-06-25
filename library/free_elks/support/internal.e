@@ -1175,51 +1175,6 @@ feature -- Marking
 --			"eif_unlock_marking"
 		end
 
-feature -- From Eiffel Software (ISE_RUNTIME)
-
-	is_field_transient (i: INTEGER; object: ANY): BOOLEAN
-			-- Is `i'-th field of `object' a transient attribute?
-			-- I.e. an attribute that does not need to be stored?
-		require
-			object_not_void: object /= Void
-			index_large_enough: i >= 1
-			index_small_enough: i <= field_count (object)
-		do
---			Result := is_field_transient_of_type (i, {ISE_RUNTIME}.dynamic_type (object))
-		end
-
-	is_field_transient_of_type (i: INTEGER; a_type_id: INTEGER): BOOLEAN
-			-- Is `i'-th field of `object' a transient attribute?
-			-- I.e. an attribute that does not need to be stored?
-		require
-			a_type_non_negative: a_type_id >= 0
-			index_large_enough: i >= 1
-			index_small_enough: i <= field_count_of_type (a_type_id)
-		do
---			Result := {ISE_RUNTIME}.is_field_transient_of_type (i - 1, a_type_id)
-		end
-
-	is_field_expanded (i: INTEGER; object: ANY): BOOLEAN
-			-- Is `i'-th field of `object' a user-defined expanded attribute?
-		require
-			object_not_void: object /= Void
-			index_large_enough: i >= 1
-			index_small_enough: i <= field_count (object)
-		do
---			Result := is_field_expanded_of_type (i, {ISE_RUNTIME}.dynamic_type (object))
-		end
-
-	is_field_expanded_of_type (i: INTEGER; a_type_id: INTEGER): BOOLEAN
-			-- Is `i'-th field of type `a_type_id' a user-defined expanded attribute?
-		require
-			a_type_non_negative: a_type_id >= 0
-			index_large_enough: i >= 1
-			index_small_enough: i <= field_count_of_type (a_type_id)
-		do
---			Result := {ISE_RUNTIME}.is_field_expanded_of_type (i - 1, a_type_id)
-		end
-
-
 feature {NONE} -- Cached data
 
 	internal_dynamic_type_string_table: STRING_TABLE [INTEGER]

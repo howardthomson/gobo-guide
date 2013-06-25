@@ -820,16 +820,16 @@ int eif_file_stat(EIF_FILENAME path, rt_stat_buf *buf, int follow) {
 	for (;;) {
 		errno = 0;						/* Reset error condition */
 #ifdef HAS_LSTAT
-	status = lstat(path, buf);
-	if (status == 0) {
-		/* We found a file, now let's check if it is not a symbolic link,
-		 * if it is the case, we need to call `stat' to make sure the link
-		 * is valid. It is going to slow down current call by stating twice
-		 * the info, but this case is quite rare and there is a benefit
-		 * in using `lstat' over `stat' the first time as more than 90%
-		 * of the files we stat are not symlink. */
-		if ((buf->st_mode & S_IFLNK) == S_IFLNK) {
-			status = stat(path, buf);
+		status = rt_lstat(path, buf);
+		if ((status == 0) && (follow) && (S_ISLNK(buf->st_mode))) {
+				/* We found a file which is a symbolic link and we are asked to
+				 * follow the link to fetch properties on the link location.
+				 * We call `rt_stat' to make sure the link is valid. It is going to
+				 * slow down current call by stating twice the info, but this
+				 * case is quite rare and there is a benefit in using `lstat'
+				 * over `rt_stat' the first time as more than 90% of the files
+				 * we stat are not symlink. */
+			status = rt_stat (path, buf);
 		}
 #else
 		status = rt_stat (path, buf);		/* Get file statistics */

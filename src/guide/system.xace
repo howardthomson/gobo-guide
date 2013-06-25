@@ -40,10 +40,12 @@
 	</cluster>
 	<cluster name="edp_src" 	location="${GUIDE}/library-guide/edp-src"/>
 	<cluster name="edp_src_sb" location="${GUIDE}/library-guide/edp-src-sb"/>
-	<cluster name="edp_diff" 	location="${GUIDE}/library-guide/diff"/>
+	<!--cluster name="edp_diff" 	location="${GUIDE}/library-guide/diff"/-->
 	<cluster name="edp_fec" 	location="${GUIDE}/library-guide/fec"/>
 	<cluster name="gecmp" 		location="${GUIDE}/src/gecmp"/>
 	<cluster name="gec"		location="$GUIDE/src/gec"/>
+
+	<mount location="${GOBO}/library-guide/library.xace"/>
 
 	<mount location="${GOBO}/library-guide/library-ise/vision2/library-sb.xace"/>
 

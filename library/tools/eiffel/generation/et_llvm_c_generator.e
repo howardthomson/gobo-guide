@@ -29679,7 +29679,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- LLVM Implementation attributes
 
-	current_block: LLVM_BASIC_BLOCK
+--	current_block: LLVM_BASIC_BLOCK
 			-- The current Basic Block for appending LLVM Instructions
 
 feature {NONE} -- LLVM name generation

@@ -36,9 +36,9 @@ feature -- Status report
 
 	is_default_pointer: BOOLEAN
 			-- <Precursor>
-		external
-			"built_in"
-		end
+--		external
+--			"built_in"
+do		end
 
 feature -- Operations
 

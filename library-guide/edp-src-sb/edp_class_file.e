@@ -22,7 +22,7 @@ inherit
 
 	STRING_HANDLER	-- For edp_string creation
 
--- create { EDP_CLASS_FILE_SET }	-- 
+-- create { EDP_CLASS_FILE_SET }	--
 
 
 feature -- Attributes
@@ -43,7 +43,7 @@ feature -- Status
 feature -- Scanning
 
 	edp_str: STRING
-	
+
 	scan
 			-- GOBO Gelex scanner version
 		require
@@ -51,7 +51,7 @@ feature -- Scanning
 			valid_filename: filename /= Void and then filename.count > 0
 		local
 			fd: SB_FILE_HANDLE
-			src: SB_TEXT_PAGE_BUFFER
+		--	src: SB_TEXT_PAGE_BUFFER
 			storage: NATIVE_ARRAY [ CHARACTER ]
 		do
 			if scanner /= Void then
@@ -62,20 +62,20 @@ feature -- Scanning
 
 				create edp_str.make (src.last + 1)
 				edp_str.from_c_substring (src.page_buf, 1, src.last)
-			
+
 				create scanner.make_from_string (Current, edp_str)	--#
-				
+
 				edp_str := Void
-				
+
 				fd.close
 				src.done_with
-				
+
 				-- Check for load_fail XXX
 				if not scanned then
 		--#			print("LOAD-FAIL: "); print(name.name); print("%N")
 				end
 			end
-		end	
+		end
 
 
 end -- class EDP_CLASS_FILE

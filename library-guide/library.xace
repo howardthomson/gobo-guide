@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<library name="library-guide">
+
+	<description>
+		description: "Xace file for the Gobo Eiffel Library libraries"
+		copyright: "Copyright (c) 2001-2006, Eric Bezault and others"
+		license: "MIT License"
+		date: "$Date$"
+		revision: "$Revision$"
+	</description>
+
+	<cluster name="edp_fec" 	location="${GUIDE}/library-guide/fec"/>
+	<cluster name="edp_src" 	location="${GUIDE}/library-guide/edp-src"/>
+	<cluster name="edp_src_sb"	location="${GUIDE}/library-guide/edp-src-sb"/>
+	<cluster name="edp_diff" 	location="${GUIDE}/library-guide/diff"/>
+	<cluster name="edp_parse" 			location="${GUIDE}/library-guide/parse">
+		<option name="exclude" value="et_eiffel_parser.e"/>
+		<option name="exclude" value="et_eiffel_tokens.e"/>
+	</cluster>
+
+</library>

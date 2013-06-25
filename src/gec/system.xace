@@ -34,6 +34,8 @@
 
 	<cluster name="gec" location="${GOBO}/src/gec"/>
 
+	<mount location="${GOBO}/library-guide/library.xace"/>
+
 	<mount location="${GOBO}/library/argument/library.xace"/>
 	<mount location="${GOBO}/library/lexical/library.xace"/>
 	<mount location="${GOBO}/library/parse/library.xace"/>
