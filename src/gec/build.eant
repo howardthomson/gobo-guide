@@ -12,7 +12,7 @@
 	</description>
 
 	<inherit>
-		<parent location="${GOBO}/misc/eiffel.eant">
+		<parent location="${GUIDE}/misc/eiffel.eant">
 			<redefine target="init_system"/>
 		</parent>
 	</inherit>
@@ -22,7 +22,7 @@
 
 	<target name="init_system">
 		<set name="system" value="gec"/>
-		<set name="system_dir" value="${GOBO}/src/${system}"/>
+		<set name="system_dir" value="${GUIDE}/src/${system}"/>
 	</target>
 
 </project>

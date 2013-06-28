@@ -107,7 +107,7 @@ create
 
 feature -- Attributes
 
-	code_hash: HASH_STREAM_SHA1
+--	code_hash: HASH_STREAM_SHA1
 
 	current_dynamic_system: ET_DYNAMIC_SYSTEM
 

@@ -33,9 +33,9 @@ inherit
 			make_default as make
 		end
 
-	EDP_AST_LEAF	-- Added HAT for EDP Project
+--	EDP_AST_LEAF	-- Added HAT for EDP Project
 
-	DIFF_SYMBOL
+--	DIFF_SYMBOL
 
 feature -- Access
 

@@ -34,14 +34,6 @@
 	<cluster name="guide" location="${GUIDE}/src/guide"/>
 	<cluster name="gc_tests" location="${GUIDE}/src/gctest"/>
 
-	<cluster name="edp_parse" 			location="${GUIDE}/library-guide/parse">
-		<option name="exclude" value="et_eiffel_parser.e"/>
-		<option name="exclude" value="et_eiffel_tokens.e"/>
-	</cluster>
-	<cluster name="edp_src" 	location="${GUIDE}/library-guide/edp-src"/>
-	<cluster name="edp_src_sb" location="${GUIDE}/library-guide/edp-src-sb"/>
-	<!--cluster name="edp_diff" 	location="${GUIDE}/library-guide/diff"/-->
-	<cluster name="edp_fec" 	location="${GUIDE}/library-guide/fec"/>
 	<cluster name="gecmp" 		location="${GUIDE}/src/gecmp"/>
 	<cluster name="gec"		location="$GUIDE/src/gec"/>
 
@@ -59,7 +51,6 @@
 		<cluster name="instr_def" location="${LLVM}/instr-def"/>
 	</cluster>
 
-	<cluster name="lib_sha1" location="/data/eiffel/lib/sha1"/>
 
 	<cluster name="ise_thread" location="${ISE_EIFFEL}/library/thread/classic"/>
 	

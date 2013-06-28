@@ -1889,8 +1889,8 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			inspect l_builtin_class
 			when builtin_any_class then
 				print_external_builtin_any_function_body (a_feature)
-			when builtin_arguments_class then
-				print_external_builtin_arguments_function_body (a_feature)
+--			when builtin_arguments_class then
+--				print_external_builtin_arguments_function_body (a_feature)
 			when builtin_boolean_class then
 				print_external_builtin_boolean_function_body (a_feature)
 			when builtin_function_class then
@@ -2836,8 +2836,8 @@ print ("**** language not recognized: " + l_language_string + "%N")
 				print_builtin_type_field_type_body (a_feature)
 			when builtin_type_generating_type then
 				print_builtin_type_generating_type_body (a_feature)
-			when builtin_type_generic_parameter then
-				print_builtin_type_generic_parameter_body (a_feature)
+--			when builtin_type_generic_parameter then
+--				print_builtin_type_generic_parameter_body (a_feature)
 			when builtin_type_generic_parameter_count then
 				fill_call_formal_arguments (a_feature)
 				print_indentation_assign_to_result
@@ -3155,16 +3155,16 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			valid_feature: current_feature.static_feature = a_feature
 		do
 			inspect a_feature.builtin_code \\ builtin_capacity
-			when builtin_special_make then
-				-- Do nothing: already done in `print_malloc_current'.
+--			when builtin_special_make then
+--				-- Do nothing: already done in `print_malloc_current'.
 			when builtin_special_put then
 				fill_call_formal_arguments (a_feature)
 				print_builtin_special_put_call (current_feature, current_type, False)
 				call_operands.wipe_out
-			when builtin_special_put_default then
-				fill_call_formal_arguments (a_feature)
-				print_builtin_special_put_default_call (current_feature, current_type, False)
-				call_operands.wipe_out
+--			when builtin_special_put_default then
+--				fill_call_formal_arguments (a_feature)
+--				print_builtin_special_put_default_call (current_feature, current_type, False)
+--				call_operands.wipe_out
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
@@ -6197,7 +6197,7 @@ feature {NONE} -- Instruction generation
 										current_file.put_string (c_case)
 										current_file.put_character (' ')
 										print_type_cast (l_value_type, current_file)
-										print_escaped_character (INTEGER_.to_character (k))
+										print_escaped_character_8 (INTEGER_.to_character (k))
 										current_file.put_character (':')
 										current_file.put_new_line
 										k := k + 1
@@ -7231,8 +7231,8 @@ feature {NONE} -- Procedure call generation
 			inspect a_feature.builtin_code \\ builtin_capacity
 			when builtin_special_put then
 				print_builtin_special_put_call (a_feature, a_target_type, a_check_void_target)
-			when builtin_special_put_default then
-				print_builtin_special_put_default_call (a_feature, a_target_type, a_check_void_target)
+--			when builtin_special_put_default then
+--				print_builtin_special_put_default_call (a_feature, a_target_type, a_check_void_target)
 			else
 				print_non_inlined_procedure_call (a_feature, a_target_type, a_check_void_target)
 			end
@@ -7831,7 +7831,14 @@ print ("ET_C_GENERATOR.print_bit_constant%N")
 				l_dynamic_type := dynamic_type_set (a_constant).static_type
 				print_type_cast (l_dynamic_type, current_file)
 				current_file.put_character ('(')
-				print_escaped_character (a_constant.value)
+				if current_system.character_32_type.same_named_type (l_dynamic_type.base_type, current_type.base_type, current_type.base_type) then
+					current_file.put_string (c_ge_nat32)
+					current_file.put_character ('(')
+					INTEGER_FORMATTER_.put_decimal_natural_32 (current_file, a_constant.value.natural_32_code)
+					current_file.put_character (')')
+				else
+					print_escaped_character_8 (a_constant.value.to_character_8)
+				end
 				current_file.put_character (')')
 			end
 		end
@@ -12809,8 +12816,8 @@ feature {NONE} -- Query call generation
 			inspect l_builtin_class
 			when builtin_any_class then
 				print_builtin_any_query_call (a_feature, a_target_type, a_check_void_target)
-			when builtin_arguments_class then
-				print_builtin_arguments_query_call (a_feature, a_target_type, a_check_void_target)
+--			when builtin_arguments_class then
+--				print_builtin_arguments_query_call (a_feature, a_target_type, a_check_void_target)
 			when builtin_boolean_class then
 				print_builtin_boolean_query_call (a_feature, a_target_type, a_check_void_target)
 			when builtin_character_8_class then
@@ -27681,7 +27688,7 @@ feature {NONE} -- String generation
 			end
 		end
 
-	print_escaped_character (c: CHARACTER)
+	print_escaped_character_8 (c: CHARACTER)
 			-- Print escaped version of `c'.
 		local
 			l_code: INTEGER
@@ -28413,10 +28420,10 @@ feature {NONE} -- Output files/buffers
 		end
 
 
-	hash_stream_processor: HASH_STREAM_SHA1
-		once
-			create Result.make
-		end
+--	hash_stream_processor: HASH_STREAM_SHA1
+--		once
+--			create Result.make
+--		end
 
 	code_hash_table: DS_HASH_TABLE [STRING, STRING]
 		once
@@ -28434,17 +28441,17 @@ feature {NONE} -- Output files/buffers
 --			l_routine_name: STRING
 		do
 			l_code_hash_table:= code_hash_table
-			hash_stream_processor.init
+--			hash_stream_processor.init
 				-- Process current type, for C struct dependence
 			--TODO
 				-- Process stack descriptor
-			hash_stream_processor.process_string (current_function_stack_descriptor_buffer.string)
+--			hash_stream_processor.process_string (current_function_stack_descriptor_buffer.string)
 				-- Process header buffer
-			hash_stream_processor.process_string (current_function_header_buffer.string)
+--			hash_stream_processor.process_string (current_function_header_buffer.string)
 				-- Process body buffer
-			hash_stream_processor.process_string (current_function_body_buffer.string)
-			hash_stream_processor.finalise
-			l_hash_code := hash_stream_processor.result_as_string
+--			hash_stream_processor.process_string (current_function_body_buffer.string)
+--			hash_stream_processor.finalise
+--			l_hash_code := hash_stream_processor.result_as_string
 			if code_hash_table.has (l_hash_code) then
 					-- We don't need to recompile this code ...
 				STRING_.wipe_out (current_function_stack_descriptor_buffer.string)

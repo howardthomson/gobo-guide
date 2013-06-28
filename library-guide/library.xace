@@ -18,5 +18,6 @@
 		<option name="exclude" value="et_eiffel_parser.e"/>
 		<option name="exclude" value="et_eiffel_tokens.e"/>
 	</cluster>
+	<cluster name="lib_sha1" location="/data/eiffel/lib/sha1"/>
 
 </library>

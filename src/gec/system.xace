@@ -32,21 +32,21 @@
 		<option name="line_generation" value="true"/>
 	</option>
 
-	<cluster name="gec" location="${GOBO}/src/gec"/>
+	<cluster name="gec" location="${GUIDE}/src/gec"/>
 
-	<mount location="${GOBO}/library-guide/library.xace"/>
+	<!--mount location="${GUIDE}/library-guide/library.xace"/-->
 
-	<mount location="${GOBO}/library/argument/library.xace"/>
-	<mount location="${GOBO}/library/lexical/library.xace"/>
-	<mount location="${GOBO}/library/parse/library.xace"/>
-	<mount location="${GOBO}/library/utility/library.xace"/>
-	<mount location="${GOBO}/library/kernel/library.xace"/>
-	<mount location="${GOBO}/library/structure/library.xace"/>
-	<mount location="${GOBO}/library/tools/library.xace"/>
-	<mount location="${GOBO}/library/pattern/library.xace"/>
-	<mount location="${GOBO}/library/xml/library.xace"/>
-	<mount location="${GOBO}/library/string/library.xace"/>
-	<mount location="${GOBO}/library/math/library.xace"/>
-	<mount location="${GOBO}/library/time/library.xace"/>
-	<mount location="${GOBO}/library/kernel.xace"/>
+	<mount location="${GUIDE}/library/argument/library.xace"/>
+	<mount location="${GUIDE}/library/lexical/library.xace"/>
+	<mount location="${GUIDE}/library/parse/library.xace"/>
+	<mount location="${GUIDE}/library/utility/library.xace"/>
+	<mount location="${GUIDE}/library/kernel/library.xace"/>
+	<mount location="${GUIDE}/library/structure/library.xace"/>
+	<mount location="${GUIDE}/library/tools/library.xace"/>
+	<mount location="${GUIDE}/library/pattern/library.xace"/>
+	<mount location="${GUIDE}/library/xml/library.xace"/>
+	<mount location="${GUIDE}/library/string/library.xace"/>
+	<mount location="${GUIDE}/library/math/library.xace"/>
+	<mount location="${GUIDE}/library/time/library.xace"/>
+	<mount location="${GUIDE}/library/kernel.xace"/>
 </system>

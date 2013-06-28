@@ -17,8 +17,8 @@ inherit
 --			make
 		redefine
 			interface,
-			flush,
-			save_to_named_file
+			flush
+--			save_to_named_file
 		end
 
 	EV_PRIMITIVE_IMP
