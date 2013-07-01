@@ -867,9 +867,8 @@ feature {NONE} -- Implementation
 		require
 			n_non_negative: n >= 0
 			valid_new_count: n <= count
---		external
---			"built_in"
-do
+		external
+			"built_in"
 		ensure
 			count_set: count = n
 			capacity_preserved: capacity = old capacity

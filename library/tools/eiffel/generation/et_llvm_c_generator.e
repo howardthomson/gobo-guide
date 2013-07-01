@@ -1311,6 +1311,7 @@ feature {NONE} -- LLVM code Generation
 					if l_type = Void then
 							-- Internal feature: a constant attribute has a type.
 						set_fatal_error
+						print ("GIAAA error in print_constants_declaration%N")
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 					else
 							-- The deanchored form of the type of the constant feature
@@ -1889,8 +1890,8 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			inspect l_builtin_class
 			when builtin_any_class then
 				print_external_builtin_any_function_body (a_feature)
---			when builtin_arguments_class then
---				print_external_builtin_arguments_function_body (a_feature)
+			when builtin_arguments_32_class then
+				print_external_builtin_arguments_32_function_body (a_feature)
 			when builtin_boolean_class then
 				print_external_builtin_boolean_function_body (a_feature)
 			when builtin_function_class then
@@ -1936,6 +1937,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in print_external_builtin_function_body%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
@@ -1997,35 +1999,67 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in print_external_builtin_any_function_body%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
 		end
 
-	print_external_builtin_arguments_function_body (a_feature: ET_EXTERNAL_ROUTINE)
+	XX_print_external_builtin_arguments_function_body (a_feature: ET_EXTERNAL_ROUTINE)
 			-- Print to `current_file' the body of built-in feature `a_feature'.
 			-- `a_feature' is a built-in function introduced in class "ARGUMENTS".
 		require
 			a_feature_not_void: a_feature /= Void
 			a_feature_is_function: a_feature.is_function
 			a_feature_is_builtin: a_feature.is_builtin
-			a_feature_is_builtin_arguments: (a_feature.builtin_code // builtin_capacity) = builtin_arguments_class
+--			a_feature_is_builtin_arguments: (a_feature.builtin_code // builtin_capacity) = builtin_arguments_class
+			valid_feature: current_feature.static_feature = a_feature
+		do
+--			inspect a_feature.builtin_code \\ builtin_capacity
+--			when builtin_arguments_argument then
+--				print_builtin_arguments_argument_body (a_feature)
+--			when builtin_arguments_argument_count then
+--				fill_call_formal_arguments (a_feature)
+--				print_indentation_assign_to_result
+--				print_builtin_arguments_argument_count_call (current_feature, current_type, False)
+--				print_semicolon_newline
+--				call_operands.wipe_out
+--			else
+--					-- Internal error: unknown built-in feature.
+--					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+--				set_fatal_error
+--				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+--			end
+		end
+
+	print_external_builtin_arguments_32_function_body (a_feature: ET_EXTERNAL_ROUTINE)
+			-- Print to `current_file' the body of built-in feature `a_feature'.
+			-- `a_feature' is a built-in function introduced in class "ARGUMENTS_32".
+		require
+			a_feature_not_void: a_feature /= Void
+			a_feature_is_function: a_feature.is_function
+			a_feature_is_builtin: a_feature.is_builtin
+			a_feature_is_builtin_arguments_32: (a_feature.builtin_code // builtin_capacity) = builtin_arguments_32_class
 			valid_feature: current_feature.static_feature = a_feature
 		do
 			inspect a_feature.builtin_code \\ builtin_capacity
-			when builtin_arguments_argument then
-				print_builtin_arguments_argument_body (a_feature)
-			when builtin_arguments_argument_count then
+			when builtin_arguments_32_argument_count then
 				fill_call_formal_arguments (a_feature)
 				print_indentation_assign_to_result
-				print_builtin_arguments_argument_count_call (current_feature, current_type, False)
+				print_builtin_arguments_32_argument_count_call (current_feature, current_type, False)
+				print_semicolon_newline
+				call_operands.wipe_out
+			when builtin_arguments_32_i_th_argument_pointer then
+				fill_call_formal_arguments (a_feature)
+				print_indentation_assign_to_result
+				print_builtin_arguments_32_i_th_argument_pointer_call (current_feature, current_type, False)
 				print_semicolon_newline
 				call_operands.wipe_out
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
-				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				error_handler.report_giaaa_error
 			end
 		end
 
@@ -2073,6 +2107,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in XXXX #1%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
@@ -2098,6 +2133,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in XXXX #2%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
@@ -2129,6 +2165,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in XXXX #3%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
@@ -2156,6 +2193,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in XXXX #4%N")
 				set_fatal_error
 				error_handler.report_giaaa_error
 			end
@@ -2259,6 +2297,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in XXXX #5%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
@@ -2279,6 +2318,12 @@ print ("**** language not recognized: " + l_language_string + "%N")
 				fill_call_formal_arguments (a_feature)
 				print_indentation_assign_to_result
 				print_builtin_pointer_hash_code_call (current_feature, current_type, False)
+				print_semicolon_newline
+				call_operands.wipe_out
+			when builtin_pointer_is_default_pointer then
+				fill_call_formal_arguments (a_feature)
+				print_indentation_assign_to_result
+				print_builtin_pointer_is_default_pointer_call (current_feature, current_type, False)
 				print_semicolon_newline
 				call_operands.wipe_out
 			when builtin_pointer_item then
@@ -2304,6 +2349,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in XXXX #6%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
@@ -2352,6 +2398,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in XXXX #7%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
@@ -2556,6 +2603,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in XXXX #8%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
@@ -2678,6 +2726,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in XXXX #9%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
@@ -2729,6 +2778,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in XXXX #10%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
@@ -2792,6 +2842,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
+				print ("GIAAA error in XXXX #11%N")
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
@@ -2820,6 +2871,12 @@ print ("**** language not recognized: " + l_language_string + "%N")
 				print_builtin_type_character_8_field_body (a_feature)
 			when builtin_type_character_32_field then
 				print_builtin_type_character_32_field_body (a_feature)
+			when builtin_type_default then
+				fill_call_formal_arguments (a_feature)
+				print_indentation_assign_to_result
+				print_builtin_type_default_call (current_feature, current_type, False)
+				print_semicolon_newline
+				call_operands.wipe_out
 			when builtin_type_field then
 				print_builtin_type_field_body (a_feature)
 			when builtin_type_field_count then
@@ -2836,12 +2893,18 @@ print ("**** language not recognized: " + l_language_string + "%N")
 				print_builtin_type_field_type_body (a_feature)
 			when builtin_type_generating_type then
 				print_builtin_type_generating_type_body (a_feature)
---			when builtin_type_generic_parameter then
---				print_builtin_type_generic_parameter_body (a_feature)
+			when builtin_type_generic_parameter_type then
+				print_builtin_type_generic_parameter_type_body (a_feature)
 			when builtin_type_generic_parameter_count then
 				fill_call_formal_arguments (a_feature)
 				print_indentation_assign_to_result
 				print_builtin_type_generic_parameter_count_call (current_feature, current_type, False)
+				print_semicolon_newline
+				call_operands.wipe_out
+			when builtin_type_has_default then
+				fill_call_formal_arguments (a_feature)
+				print_indentation_assign_to_result
+				print_builtin_type_has_default_call (current_feature, current_type, False)
 				print_semicolon_newline
 				call_operands.wipe_out
 			when builtin_type_integer_8_field then
@@ -2872,6 +2935,18 @@ print ("**** language not recognized: " + l_language_string + "%N")
 				print_builtin_type_natural_32_field_body (a_feature)
 			when builtin_type_natural_64_field then
 				print_builtin_type_natural_64_field_body (a_feature)
+			when builtin_type_new_instance then
+				fill_call_formal_arguments (a_feature)
+				print_indentation_assign_to_result
+				print_builtin_type_new_instance_call (current_feature, current_type, False)
+				print_semicolon_newline
+				call_operands.wipe_out
+			when builtin_type_new_special_any_instance then
+				fill_call_formal_arguments (a_feature)
+				print_indentation_assign_to_result
+				print_builtin_type_new_special_any_instance_call (current_feature, current_type, False)
+				print_semicolon_newline
+				call_operands.wipe_out
 			when builtin_type_pointer_field then
 				print_builtin_type_pointer_field_body (a_feature)
 			when builtin_type_real_32_field then
@@ -2894,6 +2969,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
+				print ("GIAAA error in XXXX #12%N")
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
 			end
 		end
@@ -2956,6 +3032,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #13%N")
 			end
 		end
 
@@ -2983,6 +3060,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #14%N")
 			end
 		end
 
@@ -3006,6 +3084,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #15%N")
 			end
 		end
 
@@ -3029,6 +3108,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #16%N")
 			end
 		end
 
@@ -3052,6 +3132,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #17%N")
 			end
 		end
 
@@ -3075,6 +3156,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #18%N")
 			end
 		end
 
@@ -3097,6 +3179,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #19%N")
 			end
 		end
 
@@ -3119,6 +3202,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #20%N")
 			end
 		end
 
@@ -3141,6 +3225,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #21%N")
 			end
 		end
 
@@ -3155,8 +3240,10 @@ print ("**** language not recognized: " + l_language_string + "%N")
 			valid_feature: current_feature.static_feature = a_feature
 		do
 			inspect a_feature.builtin_code \\ builtin_capacity
---			when builtin_special_make then
---				-- Do nothing: already done in `print_malloc_current'.
+			when builtin_special_make_empty then
+				-- Do nothing: already done in `print_malloc_current'.
+			when builtin_special_extend then
+				print_builtin_special_extend_body (a_feature)
 			when builtin_special_put then
 				fill_call_formal_arguments (a_feature)
 				print_builtin_special_put_call (current_feature, current_type, False)
@@ -3165,11 +3252,14 @@ print ("**** language not recognized: " + l_language_string + "%N")
 --				fill_call_formal_arguments (a_feature)
 --				print_builtin_special_put_default_call (current_feature, current_type, False)
 --				call_operands.wipe_out
+			when builtin_special_set_count then
+				print_builtin_special_set_count_body (a_feature)
 			else
 					-- Internal error: unknown built-in feature.
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #22%N")
 			end
 		end
 
@@ -3223,6 +3313,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #23%N")
 			end
 		end
 
@@ -3272,6 +3363,7 @@ print ("**** language not recognized: " + l_language_string + "%N")
 					-- This error should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #24%N")
 			end
 		end
 
@@ -3335,6 +3427,7 @@ feature -- External 'C' ...
 								-- This should have been checked already.
 							set_fatal_error
 							error_handler.report_giaaa_error
+							print ("GIAAA error in XXXX #25%N")
 						else
 							l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 							print_type_declaration (l_actual_parameter, header_file)
@@ -3438,6 +3531,7 @@ feature -- External 'C' ...
 									-- This should have been checked already.
 								set_fatal_error
 								error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+								print ("GIAAA error in XXXX #26%N")
 							else
 								l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 								current_file.put_character ('(')
@@ -3481,6 +3575,7 @@ feature -- External 'C' ...
 									-- This should have been checked already.
 								set_fatal_error
 								error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+								print ("GIAAA error in XXXX #27%N")
 							else
 								l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 								current_file.put_character ('(')
@@ -3577,6 +3672,7 @@ feature -- External 'C' ...
 								-- This should have been checked already.
 							set_fatal_error
 							error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+							print ("GIAAA error in XXXX #28%N")
 						else
 							l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 							current_file.put_character ('(')
@@ -3626,6 +3722,7 @@ feature -- External 'C' ...
 								-- This should have been checked already.
 							set_fatal_error
 							error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+							print ("GIAAA error in XXXX #29%N")
 						else
 							l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 							current_file.put_character ('(')
@@ -3766,6 +3863,7 @@ feature -- External 'C' ...
 													-- This should have been checked already.
 												set_fatal_error
 												error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+												print ("GIAAA error in XXXX #30%N")
 											else
 												l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 												current_file.put_character ('(')
@@ -3906,6 +4004,7 @@ feature -- External 'C' ...
 							-- This should have been checked already.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #31%N")
 					else
 						l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 						current_file.put_character ('(')
@@ -3963,6 +4062,7 @@ feature -- External 'C' ...
 									-- This should have been checked already.
 								set_fatal_error
 								error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+								print ("GIAAA error in XXXX #32%N")
 							else
 								l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 								current_file.put_character ('(')
@@ -4005,6 +4105,7 @@ feature -- External 'C' ...
 									-- This should have been checked already.
 								set_fatal_error
 								error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+								print ("GIAAA error in XXXX #33%N")
 							else
 								l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 								current_file.put_character ('(')
@@ -4191,6 +4292,7 @@ feature -- External 'C' ...
 									-- This should have been checked already.
 								set_fatal_error
 								error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+								print ("GIAAA error in XXXX #34%N")
 							else
 								l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 								print_type_declaration (l_actual_parameter, current_file)
@@ -4241,6 +4343,7 @@ feature -- External 'C' ...
 									-- This should have been checked already.
 								set_fatal_error
 								error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+								print ("GIAAA error in XXXX #35%N")
 							else
 								l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 								current_file.put_character ('(')
@@ -4283,6 +4386,7 @@ feature -- External 'C' ...
 									-- This should have been checked already.
 								set_fatal_error
 								error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+								print ("GIAAA error in XXXX #36%N")
 							else
 								l_actual_parameter := current_dynamic_system.dynamic_type (l_actual_parameters.type (1), current_system.any_type)
 								current_file.put_character ('(')
@@ -5257,6 +5361,7 @@ feature -- Internal routines
 					-- Internal error: inconsistent `current_feature'.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #37%N")
 			else
 				print_attribute_wrapper (a_feature, False)
 			end
@@ -5281,6 +5386,7 @@ feature -- Internal routines
 					-- Internal error: inconsistent `current_feature'.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #38%N")
 			else
 				if current_feature.is_regular then
 					print_attribute_wrapper (a_feature, False)
@@ -5301,6 +5407,7 @@ feature -- Internal routines
 					-- Internal error: inconsistent `current_feature'.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #39%N")
 			else
 				if current_feature.is_regular then
 					print_attribute_wrapper (a_feature, False)
@@ -5342,6 +5449,7 @@ feature -- Internal routines
 					-- Internal error: a query has a result type set.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #40%N")
 			else
 				l_result_type := l_result_type_set.static_type
 				print_type_declaration (l_result_type, header_file)
@@ -5925,6 +6033,7 @@ feature {NONE} -- Instruction generation
 					-- error should have already been reported.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #41%N")
 			else
 				if l_actuals /= Void then
 					nb := l_actuals.count
@@ -6373,6 +6482,7 @@ print ("ET_C_GENERATOR.print_inspect_instruction - range%N")
 					-- implementation class of current feature.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #42%N")
 			else
 				had_error := has_fatal_error
 				has_fatal_error := False
@@ -6387,6 +6497,7 @@ print ("ET_C_GENERATOR.print_inspect_instruction - range%N")
 								-- should already heve been reported.
 							set_fatal_error
 							error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+							print ("GIAAA error in XXXX #43%N")
 						else
 							l_ancestor := l_current_class.ancestor (l_parent_type)
 							if l_ancestor = Void then
@@ -6394,6 +6505,7 @@ print ("ET_C_GENERATOR.print_inspect_instruction - range%N")
 									-- of `l_class_impl', and hence of `l_current_class'.
 								set_fatal_error
 								error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+								print ("GIAAA error in XXXX #44%N")
 							else
 								l_parent_type := l_ancestor
 							end
@@ -6411,6 +6523,7 @@ print ("ET_C_GENERATOR.print_inspect_instruction - range%N")
 							-- features of `l_class_impl'.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #45%N")
 					else
 						l_parent_dynamic_type := current_dynamic_system.dynamic_type (l_parent_type, current_type.base_type)
 						l_dynamic_precursor := current_feature.dynamic_precursor (l_procedure, l_parent_dynamic_type, current_dynamic_system)
@@ -6727,6 +6840,7 @@ print ("ET_C_GENERATOR.print_inspect_instruction - range%N")
 					-- error should have already been reported.
 				set_fatal_error
 				error_handler.report_giaaa_error
+				print ("GIAAA error in XXXX #46%N")
 			else
 				if not l_dynamic_procedure.is_generated then
 					l_dynamic_procedure.set_generated (True)
@@ -6862,6 +6976,7 @@ feature {NONE} -- Procedure call generation
 						-- It has been computed in ET_FEATURE_CHECKER.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #47%N")
 				else
 					print_procedure_call (l_dynamic_feature, a_target_type, a_check_void_target)
 				end
@@ -6891,12 +7006,14 @@ feature {NONE} -- Procedure call generation
 					-- Internal error: the Tuple label setter should have one argument.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #48%N")
 			else
 				l_tuple_type ?= a_target_type
 				if l_tuple_type = Void then
 						-- Internal error: the type of the target should be a Tuple type.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #49%N")
 				else
 					l_seed := a_name.seed
 					l_item_type_sets := l_tuple_type.item_type_sets
@@ -6904,6 +7021,7 @@ feature {NONE} -- Procedure call generation
 							-- Internal error: invalid Tuple label.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #50%N")
 					else
 						print_indentation
 						l_tuple_expression := call_operands.first
@@ -7231,8 +7349,6 @@ feature {NONE} -- Procedure call generation
 			inspect a_feature.builtin_code \\ builtin_capacity
 			when builtin_special_put then
 				print_builtin_special_put_call (a_feature, a_target_type, a_check_void_target)
---			when builtin_special_put_default then
---				print_builtin_special_put_default_call (a_feature, a_target_type, a_check_void_target)
 			else
 				print_non_inlined_procedure_call (a_feature, a_target_type, a_check_void_target)
 			end
@@ -7258,6 +7374,168 @@ feature {NONE} -- Procedure call generation
 				print_non_inlined_procedure_call (a_feature, a_target_type, a_check_void_target)
 			end
 		end
+
+-- TODO: move this routime somewhere more appropriate ...
+	print_builtin_special_extend_body (a_feature: ET_EXTERNAL_ROUTINE)
+			-- Print to `current_file' the body of `a_feature' corresponding
+			-- to built-in feature 'SPECIAL.extend'.
+		require
+			a_feature_not_void: a_feature /= Void
+			valid_feature: current_feature.static_feature = a_feature
+		local
+			l_arguments: ET_FORMAL_ARGUMENT_LIST
+			l_temp: ET_IDENTIFIER
+			l_dynamic_type_set: ET_DYNAMIC_TYPE_SET
+			l_count_type: ET_DYNAMIC_TYPE
+		do
+			l_arguments := a_feature.arguments
+			if not attached {ET_DYNAMIC_SPECIAL_TYPE} current_type as l_special_type then
+					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
+					-- This built-in can only be in class SPECIAL (and its descendants).
+				set_fatal_error
+				error_handler.report_giaaa_error
+			elseif l_arguments = Void or else l_arguments.count /= 1 then
+					-- Internal error: this error should have been reported by the parse.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			elseif l_special_type.attribute_count < 2 then
+					-- Internal error: class "SPECIAL" should have at least the
+					-- features 'count' and 'capacity' as first features.
+					-- Already reported in ET_DYNAMIC_SYSTEM.compile_kernel.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			else
+				l_dynamic_type_set := result_type_set_in_feature (l_special_type.queries.first)
+				l_count_type := l_dynamic_type_set.static_type
+				l_temp := new_temp_variable (l_count_type)
+					-- Increment 'count'.
+				print_indentation
+				print_temp_name (l_temp, current_file)
+				current_file.put_character (' ')
+				current_file.put_character ('=')
+				current_file.put_character (' ')
+				print_attribute_special_count_access (tokens.current_keyword, l_special_type, False)
+				current_file.put_character (';')
+				current_file.put_new_line
+				print_indentation
+				print_attribute_special_count_access (tokens.current_keyword, l_special_type, False)
+				current_file.put_character (' ')
+				current_file.put_character ('=')
+				current_file.put_character (' ')
+				print_temp_name (l_temp, current_file)
+				current_file.put_character (' ')
+				current_file.put_character ('+')
+				current_file.put_character (' ')
+				current_file.put_character ('1')
+				current_file.put_character (' ')
+				current_file.put_character (';')
+				current_file.put_new_line
+					-- Put the new item.
+				print_indentation
+				print_attribute_special_item_access (tokens.current_keyword, l_special_type, False)
+				current_file.put_character ('[')
+				print_temp_name (l_temp, current_file)
+				current_file.put_character (']')
+				current_file.put_character (' ')
+				current_file.put_character ('=')
+				current_file.put_character (' ')
+				print_argument_name (l_arguments.formal_argument (1).name, current_file)
+				current_file.put_character (';')
+				current_file.put_new_line
+			end
+		end
+
+
+-- TODO: move this routime somewhere more appropriate ...
+
+	print_builtin_special_set_count_body (a_feature: ET_EXTERNAL_ROUTINE)
+			-- Print to `current_file' the body of `a_feature' corresponding
+			-- to built-in feature 'SPECIAL.set_count'.
+		require
+			a_feature_not_void: a_feature /= Void
+			valid_feature: current_feature.static_feature = a_feature
+		local
+			l_arguments: ET_FORMAL_ARGUMENT_LIST
+			l_argument_name: ET_IDENTIFIER
+			l_temp: ET_IDENTIFIER
+			l_dynamic_type_set: ET_DYNAMIC_TYPE_SET
+			l_count_type: ET_DYNAMIC_TYPE
+			l_item_type: ET_DYNAMIC_TYPE
+		do
+			l_arguments := a_feature.arguments
+			if not attached {ET_DYNAMIC_SPECIAL_TYPE} current_type as l_special_type then
+					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
+					-- This built-in can only be in class SPECIAL (and its descendants).
+				set_fatal_error
+				error_handler.report_giaaa_error
+			elseif l_arguments = Void or else l_arguments.count /= 1 then
+					-- Internal error: this error should have been reported by the parse.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			elseif l_special_type.attribute_count < 2 then
+					-- Internal error: class "SPECIAL" should have at least the
+					-- features 'count' and 'capacity' as first features.
+					-- Already reported in ET_DYNAMIC_SYSTEM.compile_kernel.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			else
+				l_dynamic_type_set := result_type_set_in_feature (l_special_type.queries.first)
+				l_count_type := l_dynamic_type_set.static_type
+				l_temp := new_temp_variable (l_count_type)
+					-- Set new 'count'.
+				print_indentation
+				print_temp_name (l_temp, current_file)
+				current_file.put_character (' ')
+				current_file.put_character ('=')
+				current_file.put_character (' ')
+				print_attribute_special_count_access (tokens.current_keyword, l_special_type, False)
+				current_file.put_character (';')
+				current_file.put_new_line
+				print_indentation
+				print_attribute_special_count_access (tokens.current_keyword, l_special_type, False)
+				current_file.put_character (' ')
+				current_file.put_character ('=')
+				current_file.put_character (' ')
+				l_argument_name := l_arguments.formal_argument (1).name
+				print_argument_name (l_argument_name, current_file)
+				current_file.put_character (';')
+				current_file.put_new_line
+					-- Clear discarded item slots if needed.
+				current_file.put_string (c_ifndef)
+				current_file.put_character (' ')
+				if l_special_type.has_nested_reference_attributes then
+					current_file.put_line (c_ge_alloc_cleared)
+				else
+					current_file.put_line (c_ge_alloc_atomic_cleared)
+				end
+				print_indentation
+				current_file.put_string (c_memset)
+				current_file.put_character ('(')
+				print_attribute_special_item_access (tokens.current_keyword, l_special_type, False)
+				current_file.put_character ('+')
+				print_argument_name (l_argument_name, current_file)
+				current_file.put_character (',')
+				current_file.put_character ('0')
+				current_file.put_character (',')
+				current_file.put_character ('(')
+				print_temp_name (l_temp, current_file)
+				current_file.put_character ('-')
+				print_argument_name (l_argument_name, current_file)
+				current_file.put_character (')')
+				current_file.put_character ('*')
+				current_file.put_string (c_sizeof)
+				current_file.put_character ('(')
+				l_item_type := l_special_type.item_type_set.static_type
+				print_type_declaration (l_item_type, current_file)
+				current_file.put_character (')')
+				current_file.put_character (')')
+				current_file.put_character (';')
+				current_file.put_new_line
+				current_file.put_line (c_endif)
+			end
+		end
+
+
 
 feature {NONE} -- Expression generation
 
@@ -7981,6 +8259,7 @@ print ("ET_C_GENERATOR.print_bit_constant%N")
 					-- error should have already been reported.
 				set_fatal_error
 				error_handler.report_giaaa_error
+				print ("GIAAA error in XXXX #51%N")
 			else
 				l_actuals := an_expression.arguments
 				if l_actuals /= Void then
@@ -8113,6 +8392,7 @@ print ("ET_C_GENERATOR.print_bit_constant%N")
 						-- `pointer_item' at first position.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #52%N")
 				else
 					print_indentation
 					print_attribute_access (l_queries.first, l_temp, l_dynamic_type, False)
@@ -8290,6 +8570,7 @@ print ("ET_C_GENERATOR.print_bit_constant%N")
 						-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 					set_fatal_error
 					error_handler.report_giaaa_error
+					print ("GIAAA error in XXXX #53%N")
 				else
 					current_file.put_character ('(')
 					if l_left_type_set.can_be_void and l_right_type_set.can_be_void then
@@ -8616,6 +8897,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 						-- `pointer_item' at first position.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #54%N")
 				else
 					print_indentation
 					print_attribute_access (l_queries.first, l_temp, l_dynamic_type, False)
@@ -8688,6 +8970,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 									-- Internal error: we know that `l_query' is an attribute.
 								set_fatal_error
 								error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+								print ("GIAAA error in XXXX #55%N")
 							elseif l_value_type_set.is_expanded then
 								print_type_cast (l_pointer_type, current_file)
 								current_file.put_character ('&')
@@ -8754,6 +9037,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 								-- we should have either $argument, $local or $feature_name.
 							set_fatal_error
 							error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+							print ("GIAAA error in XXXX #56%N")
 						end
 					end
 				end
@@ -8782,6 +9066,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 						-- number of formal and actual aguments is the same.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #57%N")
 				else
 					agent_arguments.actual_argument (l_seed).process (Current)
 				end
@@ -8872,6 +9157,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 							-- Internal error: we should have gotten an error in ET_FEATURE_CHECKER.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #58%N")
 					else
 						current_file.put_string (c_ge_int8)
 						current_file.put_character ('(')
@@ -8883,6 +9169,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 							-- Internal error: we should have gotten an error in ET_FEATURE_CHECKER.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #59%N")
 					else
 						current_file.put_string (c_ge_int16)
 						current_file.put_character ('(')
@@ -8894,6 +9181,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 							-- Internal error: we should have gotten an error in ET_FEATURE_CHECKER.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #60%N")
 					else
 						current_file.put_string (c_ge_int32)
 						current_file.put_character ('(')
@@ -8912,6 +9200,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 							-- Internal error: we should have gotten an error in ET_FEATURE_CHECKER.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #61%N")
 					else
 						current_file.put_string (c_ge_int64)
 						current_file.put_character ('(')
@@ -8930,6 +9219,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 							-- Internal error: we should have gotten an error in ET_FEATURE_CHECKER.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #62%N")
 					else
 						current_file.put_string (c_ge_nat8)
 						current_file.put_character ('(')
@@ -8941,6 +9231,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 							-- Internal error: we should have gotten an error in ET_FEATURE_CHECKER.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #63%N")
 					else
 						current_file.put_string (c_ge_nat16)
 						current_file.put_character ('(')
@@ -8952,6 +9243,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 							-- Internal error: we should have gotten an error in ET_FEATURE_CHECKER.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #64%N")
 					else
 						current_file.put_string (c_ge_nat32)
 						current_file.put_character ('(')
@@ -8963,6 +9255,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 							-- Internal error: we should have gotten an error in ET_FEATURE_CHECKER.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #65%N")
 					else
 						current_file.put_string (c_ge_nat64)
 						current_file.put_character ('(')
@@ -8973,6 +9266,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 						-- Internal error: we should have gotten an error in ET_FEATURE_CHECKER.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #66%N")
 				end
 				current_file.put_character (')')
 			end
@@ -9086,6 +9380,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 					-- Already reported in ET_DYNAMIC_SYSTEM.compile_kernel.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #67%N")
 			else
 				l_queries := l_dynamic_type.queries
 				l_dynamic_type_set := l_queries.first.result_type_set
@@ -9093,6 +9388,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 						-- Error in feature 'area', already reported in ET_DYNAMIC_SYSTEM.compile_kernel.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #68%N")
 				else
 					l_special_type ?= l_dynamic_type_set.static_type
 					if l_special_type = Void then
@@ -9100,6 +9396,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 							-- that the attribute `area' is of SPECIAL type.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in XXXX #69%N")
 					else
 						l_static_item_type := l_special_type.item_type_set.static_type
 					end
@@ -9109,6 +9406,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 						-- Error in feature 'upper', already reported in ET_DYNAMIC_SYSTEM.compile_kernel.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #70%N")
 					l_special_type := Void
 					l_static_item_type := Void
 				else
@@ -9318,6 +9616,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 					-- should be a Tuple_type.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #71%N")
 			else
 				nb := an_expression.count
 				manifest_tuple_types.force_last (l_tuple_type)
@@ -9394,6 +9693,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 						-- type expression.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #72%N")
 				else
 					current_file.put_character ('(')
 					current_file.put_character ('(')
@@ -9602,6 +9902,7 @@ print ("ET_C_GENERATOR.print_expression_address%N")
 						-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #73%N")
 				else
 					current_file.put_character ('(')
 					if l_left_type_set.can_be_void and l_right_type_set.can_be_void then
@@ -10064,6 +10365,7 @@ print ("ET_C_GENERATOR.print_old_expression%N")
 					-- implementation class of current feature.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in XXXX #74%N")
 			else
 				had_error := has_fatal_error
 				has_fatal_error := False
@@ -10079,6 +10381,7 @@ print ("ET_C_GENERATOR.print_old_expression%N")
 								-- should already heve been reported.
 							set_fatal_error
 							error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+							print ("GIAAA error in XXXX #75%N")
 						else
 							l_ancestor := l_current_class.ancestor (l_parent_type)
 							if l_ancestor = Void then
@@ -10086,6 +10389,7 @@ print ("ET_C_GENERATOR.print_old_expression%N")
 									-- of `l_class_impl', and hence of `l_current_class'.
 								set_fatal_error
 								error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+								print ("GIAAA error in XXXX #76%N")
 							else
 								l_parent_type := l_ancestor
 							end
@@ -10240,6 +10544,7 @@ print ("ET_C_GENERATOR.print_old_expression%N")
 						-- by the fact that they are infix features.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #77%N")
 				else
 					print_indentation
 					current_file.put_string (c_if)
@@ -10434,6 +10739,7 @@ print ("ET_C_GENERATOR.print_old_expression%N")
 								-- It has been computed in ET_FEATURE_CHECKER.
 							set_fatal_error
 							error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+							print ("GIAAA error in XXXX #78%N")
 							l_printed := True
 						else
 							if l_query.is_constant_attribute then
@@ -10688,6 +10994,7 @@ print ("ET_C_GENERATOR.print_old_expression%N")
 						-- `pointer_item' at first position.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_result_address%N")
 				else
 					print_indentation
 					print_attribute_access (l_queries.first, l_temp, l_dynamic_type, False)
@@ -10707,6 +11014,7 @@ print ("ET_C_GENERATOR.print_old_expression%N")
 						-- the current feature is a function.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_result_address%N")
 				elseif l_result_type_set.is_expanded then
 					print_type_cast (l_pointer_type, current_file)
 					current_file.put_character ('&')
@@ -10823,10 +11131,12 @@ print ("ET_C_GENERATOR.print_old_expression%N")
 					-- error should have already been reported.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_static_call_expression%N")
 			elseif l_query.is_attribute then
 					-- Internal error: no object available.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_static_call_expression%N")
 			elseif l_query.is_constant_attribute then
 -- TODO: make the difference between expanded and reference "constants".
 				l_constant_attribute ?= l_query
@@ -10834,6 +11144,7 @@ print ("ET_C_GENERATOR.print_old_expression%N")
 						-- Internal error.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_static_call_expression%N")
 				else
 					l_constant := l_constant_attribute.constant
 					old_index := l_constant.index
@@ -10989,6 +11300,7 @@ print ("ET_C_GENERATOR.print_strip_expression%N")
 							-- variables should be known at this stage.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in print_temporary_variable%N")
 					elseif l_static_type.is_expanded then
 							-- Pass the address of the expanded object.
 						current_file.put_character ('&')
@@ -11157,6 +11469,7 @@ print ("ET_C_GENERATOR.print_strip_expression%N")
 					-- Internal error: there should be a query for that seed.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_unqualified_call_expression%N")
 			else
 				l_call_type := l_call_type_set.static_type
 				if l_dynamic_feature.is_attribute then
@@ -11381,6 +11694,7 @@ print ("ET_C_GENERATOR.print_strip_expression%N")
 					-- Internal error: there should be a query for that seed.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_unqualified_identifier_call_expression%N")
 			else
 				l_call_type := l_call_type_set.static_type
 				if l_dynamic_feature.is_attribute then
@@ -11588,6 +11902,7 @@ print ("ET_C_GENERATOR.print_strip_expression%N")
 							-- It has been computed in ET_FEATURE_CHECKER.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in print_writable%N")
 					else
 						print_attribute_access (l_query, tokens.current_keyword, current_type, False)
 					end
@@ -11838,6 +12153,7 @@ feature {NONE} -- Equality generation
 							-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in print_equality_function%N")
 					else
 						l_formal_type := argument_type_set_in_feature (1, l_is_equal_feature).static_type
 						if not l_dynamic_type.conforms_to_type (l_formal_type) then
@@ -12176,6 +12492,7 @@ feature {NONE} -- Equality generation
 							-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in print_object_equality_function%N")
 					else
 						l_formal_type := argument_type_set_in_feature (1, l_is_equal_feature).static_type
 						if not l_dynamic_type.conforms_to_type (l_formal_type) then
@@ -12622,12 +12939,14 @@ feature {NONE} -- Query call generation
 						-- target type should be a Tuple_type.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_adapted_named_query_call%N")
 				else
 					l_tuple_item_type_sets := l_tuple_type.item_type_sets
 					if l_seed < 1 or l_seed > l_tuple_item_type_sets.count then
 							-- Internal error: invalid Tuple label.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in print_adapted_named_query_call%N")
 					else
 						l_query_type_set := l_tuple_item_type_sets.item (l_seed)
 						print_adapted_expression (agent print_attribute_tuple_item_access (l_seed, call_operands.first, a_target_type, a_check_void_target), l_query_type_set, a_result_type)
@@ -12640,6 +12959,7 @@ feature {NONE} -- Query call generation
 						-- It has been computed in ET_FEATURE_CHECKER.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_adapted_named_query_call%N")
 				else
 					print_adapted_query_call (l_dynamic_feature, a_target_type, a_result_type, a_check_void_target)
 				end
@@ -12898,7 +13218,7 @@ feature {NONE} -- Query call generation
 			end
 		end
 
-	print_builtin_arguments_query_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
+	XX_print_builtin_arguments_query_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
 			-- Print to `current_file' a call to query `a_feature' (static binding).
 			-- `a_feature' is a built-in feature introduced in class "ARGUMENTS".
 			-- `a_target_type' is the dynamic type of the target.
@@ -12911,16 +13231,16 @@ feature {NONE} -- Query call generation
 			a_feature_not_void: a_feature /= Void
 			a_feature_is_query: a_feature.result_type_set /= Void
 			a_feature_is_builtin: a_feature.is_builtin
-			a_feature_is_builtin_arguments: (a_feature.builtin_code // builtin_capacity) = builtin_arguments_class
+--			a_feature_is_builtin_arguments: (a_feature.builtin_code // builtin_capacity) = builtin_arguments_class
 			a_target_type_not_void: a_target_type /= Void
 			call_operands_not_empty: not call_operands.is_empty
 		do
-			inspect a_feature.builtin_code \\ builtin_capacity
-			when builtin_arguments_argument_count then
-				print_builtin_arguments_argument_count_call (a_feature, a_target_type, a_check_void_target)
-			else
-				print_non_inlined_query_call (a_feature, a_target_type, a_check_void_target)
-			end
+--			inspect a_feature.builtin_code \\ builtin_capacity
+--			when builtin_arguments_argument_count then
+--				print_builtin_arguments_argument_count_call (a_feature, a_target_type, a_check_void_target)
+--			else
+--				print_non_inlined_query_call (a_feature, a_target_type, a_check_void_target)
+--			end
 		end
 
 	print_builtin_boolean_query_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
@@ -14101,6 +14421,7 @@ feature {NONE} -- Agent generation
 					-- and the attribute 'is_target_closed' as second feature.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_agent_declaration%N")
 			else
 					-- Set 'closed_operands'.
 				print_indentation
@@ -14566,10 +14887,12 @@ feature {NONE} -- Polymorphic call functions generation
 						-- Internal error: a Tuple label can only be applied to a tuple object.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_polymorphic_call_function%N")
 				elseif not l_tuple_type.item_type_sets.valid_index (l_index) then
 						-- Internal error: invalid Tuple label.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_polymorphic_call_function%N")
 				elseif l_actual_arguments /= Void and then not l_actual_arguments.is_empty then
 						-- This is a Tuple label setter.
 					l_formal_arguments_count := 1
@@ -14587,6 +14910,7 @@ feature {NONE} -- Polymorphic call functions generation
 						-- It has been computed in ET_FEATURE_FLATTENER.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_polymorphic_call_function%N")
 				else
 					if l_feature.is_query then
 						l_result_type := current_dynamic_system.dynamic_type (l_feature.type, a_target_type.base_type)
@@ -14687,6 +15011,7 @@ feature {NONE} -- Polymorphic call functions generation
 						-- number of formal arguments.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in XXXX #79%N")
 				elseif l_manifest_tuple /= Void then
 					nb := l_manifest_tuple.count
 					from i := 1 until i > nb loop
@@ -15087,6 +15412,7 @@ feature {NONE} -- Polymorphic call functions generation
 								-- This is checked by the call to `same_declared_signature'.
 							set_fatal_error
 							error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+							print ("GIAAA error in set_polymorphic_call_argument_type_sets%N")
 							l_call := a_last_call
 						elseif l_manifest_tuple /= Void then
 							l_manifest_tuple ?= l_actual_arguments.actual_argument (1)
@@ -15095,6 +15421,7 @@ feature {NONE} -- Polymorphic call functions generation
 									-- This is checked by the call to `same_declared_signature'.
 								set_fatal_error
 								error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+								print ("GIAAA error in set_polymorphic_call_argument_type_sets%N")
 								l_call := a_last_call
 							else
 								from i := 1 until i > nb loop
@@ -15420,6 +15747,7 @@ feature {NONE} -- Deep features generation
 								-- Already reported in ET_DYNAMIC_SYSTEM.compile_kernel.
 							set_fatal_error
 							error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+							print ("GIAAA error in print_deep_twin_function%N")
 						else
 							l_dynamic_type_set := result_type_set_in_feature (l_special_type.queries.first)
 							l_count_type := l_dynamic_type_set.static_type
@@ -16120,6 +16448,7 @@ feature {NONE} -- Built-in feature generation
 					-- Internal error: this error should have been reported by the parse.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_any_conforms_to_body%N")
 			else
 				l_argument_type_set := argument_type_set (1)
 				nb := l_argument_type_set.count
@@ -16323,6 +16652,7 @@ feature {NONE} -- Built-in feature generation
 					-- Internal error: class ANY should be know at this stage.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_any_generating_type_call%N")
 			elseif l_universe.string_32_type.same_named_type (l_result_type.base_type, l_any_class, l_any_class) then
 				current_file.put_string (c_ge_ms32)
 			else
@@ -16356,6 +16686,7 @@ feature {NONE} -- Built-in feature generation
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_any_generator_call%N")
 			else
 				if l_result_type_set.static_type = current_dynamic_system.string_32_type then
 					current_file.put_string (c_ge_ms32)
@@ -16402,10 +16733,12 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_any_same_type_call%N")
 			elseif a_feature.result_type_set = Void then
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_any_same_type_call%N")
 			else
 				l_argument := call_operands.item (2)
 				l_argument_type_set := dynamic_type_set (l_argument)
@@ -16462,10 +16795,12 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_any_standard_is_equal_call%N")
 			elseif a_feature.result_type_set = Void then
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_any_standard_is_equal_call%N")
 			else
 				l_target := call_operands.first
 				l_argument := call_operands.item (2)
@@ -16567,6 +16902,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_any_standard_copy_call%N")
 			else
 				l_special_type ?= a_target_type
 				l_target := call_operands.first
@@ -16581,6 +16917,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 							-- Already reported in ET_DYNAMIC_SYSTEM.compile_kernel.
 						set_fatal_error
 						error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+						print ("GIAAA error in print_builtin_any_standard_copy_call%N")
 					else
 						l_dynamic_type_set := result_type_set_in_feature (l_special_type.queries.first)
 						l_count_type := l_dynamic_type_set.static_type
@@ -16825,6 +17162,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_any_tagged_out_body%N")
 			else
 -- TODO
 				print_indentation
@@ -16962,6 +17300,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 						-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_builtin_any_twin_body%N")
 				else
 					if not l_copy_feature.is_generated then
 						l_copy_feature.set_generated (True)
@@ -16995,6 +17334,74 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 			end
 		end
 
+	print_builtin_arguments_32_argument_count_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
+			-- Print to `current_file' a call (static binding) to `a_feature'
+			-- corresponding to built-in feature 'ARGUMENTS_32.argument_count'.
+			-- `a_target_type' is the dynamic type of the target.
+			-- `a_check_void_target' means that we need to check whether the target is Void or not.
+			-- Operands can be found in `call_operands'.
+		require
+			a_feature_not_void: a_feature /= Void
+			a_target_type_not_void: a_target_type /= Void
+			call_operands_not_empty: not call_operands.is_empty
+		local
+			l_result_type_set: ET_DYNAMIC_TYPE_SET
+		do
+			l_result_type_set := a_feature.result_type_set
+			if l_result_type_set = Void then
+					-- Internal error: `a_feature' is a query.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			else
+				print_type_cast (l_result_type_set.static_type, current_file)
+				current_file.put_character ('(')
+				current_file.put_string (c_ge_argc)
+				current_file.put_character (' ')
+				current_file.put_character ('-')
+				current_file.put_character (' ')
+				current_file.put_character ('1')
+				current_file.put_character (')')
+			end
+		end
+
+	print_builtin_arguments_32_i_th_argument_pointer_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
+			-- Print to `current_file' a call (static binding) to `a_feature'
+			-- corresponding to built-in feature 'ARGUMENTS_32.i_th_argument_pointer'.
+			-- `a_target_type' is the dynamic type of the target.
+			-- `a_check_void_target' means that we need to check whether the target is Void or not.
+			-- Operands can be found in `call_operands'.
+		require
+			a_feature_not_void: a_feature /= Void
+			a_target_type_not_void: a_target_type /= Void
+			call_operands_not_empty: not call_operands.is_empty
+		local
+			l_result_type_set: ET_DYNAMIC_TYPE_SET
+			l_argument: ET_EXPRESSION
+			l_actual_type_set: ET_DYNAMIC_TYPE_SET
+			l_formal_type: ET_DYNAMIC_TYPE
+		do
+			l_result_type_set := a_feature.result_type_set
+			if l_result_type_set = Void then
+					-- Internal error: `a_feature' is a query.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			elseif call_operands.count /= 2 then
+					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			else
+				l_argument := call_operands.item (2)
+				l_actual_type_set := dynamic_type_set (l_argument)
+				l_formal_type := argument_type_set_in_feature (1, a_feature).static_type
+				print_type_cast (l_result_type_set.static_type, current_file)
+				current_file.put_character ('(')
+				current_file.put_string (c_ge_argv)
+				current_file.put_character ('[')
+				print_attachment_expression (l_argument, l_actual_type_set, l_formal_type)
+				current_file.put_character (']')
+				current_file.put_character (')')
+			end
+		end
 	print_builtin_arguments_argument_count_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
 			-- Print to `current_file' a call (static binding) to `a_feature'
 			-- corresponding to built-in feature 'ARGUMENTS.argument_count'.
@@ -17013,6 +17420,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_arguments_argument_count_call%N")
 			else
 				print_type_cast (l_result_type_set.static_type, current_file)
 				current_file.put_character ('(')
@@ -17041,10 +17449,12 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: this error should have been reported by the parser.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_arguments_argument_body #1%N")
 			elseif l_result_type_set = Void then
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_arguments_argument_body #2%N")
 			else
 				print_indentation
 				current_file.put_string (c_char)
@@ -17096,10 +17506,12 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_and_call #1%N")
 			elseif a_feature.result_type_set = Void then
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_and_call #2%N")
 			else
 				l_target := call_operands.first
 				l_argument := call_operands.item (2)
@@ -17112,6 +17524,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 -- TODO: use feature `item'.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_builtin_boolean_and_call #3%N")
 				end
 				current_file.put_character (')')
 				current_file.put_character ('&')
@@ -17145,10 +17558,12 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_and_then_call #1%N")
 			elseif a_feature.result_type_set = Void then
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_and_then_call #2%N")
 			else
 				l_target := call_operands.first
 				l_argument := call_operands.item (2)
@@ -17161,6 +17576,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 -- TODO: use feature `item'.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_builtin_boolean_and_then_call #3%N")
 				end
 				current_file.put_character (')')
 				current_file.put_character ('&')
@@ -17194,10 +17610,12 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_implies_call #1%N")
 			elseif a_feature.result_type_set = Void then
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_implies_call #2%N")
 			else
 				l_target := call_operands.first
 				l_argument := call_operands.item (2)
@@ -17212,6 +17630,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 -- TODO: use feature `item'.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_builtin_boolean_implies_call #3%N")
 				end
 				current_file.put_character (')')
 				current_file.put_character (')')
@@ -17265,6 +17684,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_not_call #1%N")
 			else
 				l_target := call_operands.first
 				print_type_cast (a_feature.result_type_set.static_type, current_file)
@@ -17277,6 +17697,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 -- TODO: use feature `item'.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_builtin_boolean_not_call #2%N")
 				end
 				current_file.put_character (')')
 				current_file.put_character (')')
@@ -17303,10 +17724,12 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_or_call #1%N")
 			elseif a_feature.result_type_set = Void then
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_or_call #2%N")
 			else
 				l_target := call_operands.first
 				l_argument := call_operands.item (2)
@@ -17319,6 +17742,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 -- TODO: use feature `item'.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_builtin_boolean_or_call #3%N")
 				end
 				current_file.put_character (')')
 				current_file.put_character ('|')
@@ -17352,10 +17776,12 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_or_else_call #1%N")
 			elseif a_feature.result_type_set = Void then
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_or_else_call #2%N")
 			else
 				l_target := call_operands.first
 				l_argument := call_operands.item (2)
@@ -17368,6 +17794,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 -- TODO: use feature `item'.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_builtin_boolean_or_else_call #3%N")
 				end
 				current_file.put_character (')')
 				current_file.put_character ('|')
@@ -17406,6 +17833,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_set_item_call%N")
 			else
 				l_target := call_operands.first
 				l_argument := call_operands.item (2)
@@ -17475,10 +17903,12 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_xor_call #1%N")
 			elseif a_feature.result_type_set = Void then
 					-- Internal error: `a_feature' is a query.
 				set_fatal_error
 				error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+				print ("GIAAA error in print_builtin_boolean_xor_call #2%N")
 			else
 				l_target := call_operands.first
 				l_argument := call_operands.item (2)
@@ -17491,6 +17921,7 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 -- TODO: use feature `item'.
 					set_fatal_error
 					error_handler.report_giaaa_error_cl ("__CLASS__", "__LINE__")
+					print ("GIAAA error in print_builtin_boolean_xor_call #3%N")
 				end
 				current_file.put_character (')')
 				current_file.put_character ('^')
@@ -18110,6 +18541,46 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 					current_file.put_string ("0x7FFFFFFF")
 				end
 				current_file.put_character (')')
+				current_file.put_character (')')
+			end
+		end
+
+	print_builtin_pointer_is_default_pointer_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
+			-- Print to `current_file' a call (static binding) to `a_feature'
+			-- corresponding to built-in feature 'POINTER.is_default_pointer'.
+			-- `a_target_type' is the dynamic type of the target.
+			-- `a_check_void_target' means that we need to check whether the target is Void or not.
+			-- Operands can be found in `call_operands'.
+		require
+			a_feature_not_void: a_feature /= Void
+			a_target_type_not_void: a_target_type /= Void
+			call_operands_not_empty: not call_operands.is_empty
+		local
+			l_target: ET_EXPRESSION
+			l_result_type: ET_DYNAMIC_TYPE
+			l_pointer_type: ET_DYNAMIC_TYPE
+		do
+			if a_feature.result_type_set = Void then
+					-- Internal error: `a_feature' is a query.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			else
+				l_target := call_operands.first
+				l_result_type := a_feature.result_type_set.static_type
+				print_type_cast (l_result_type, current_file)
+				current_file.put_character ('(')
+				if a_target_type.is_basic then
+					print_unboxed_expression (l_target, a_target_type, a_check_void_target)
+				else
+-- TODO: use feature `item'.
+					set_fatal_error
+					error_handler.report_giaaa_error
+				end
+				current_file.put_character ('=')
+				current_file.put_character ('=')
+				l_pointer_type := current_dynamic_system.dynamic_type (current_universe_impl.pointer_type, current_type.base_type)
+				print_type_cast (l_pointer_type, current_file)
+				current_file.put_character ('0')
 				current_file.put_character (')')
 			end
 		end
@@ -22299,6 +22770,32 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 			print_builtin_type_basic_expanded_field_body (a_feature)
 		end
 
+	print_builtin_type_default_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
+			-- Print to `current_file' a call (static binding) to `a_feature'
+			-- corresponding to built-in feature 'TYPE.default'.
+			-- `a_target_type' is the dynamic type of the target.
+			-- `a_check_void_target' means that we need to check whether the target is Void or not.
+			-- Operands can be found in `call_operands'.
+		require
+			a_feature_not_void: a_feature /= Void
+			a_target_type_not_void: a_target_type /= Void
+			call_operands_not_empty: not call_operands.is_empty
+		local
+			l_parameters: ET_ACTUAL_PARAMETER_LIST
+			l_type: ET_DYNAMIC_TYPE
+		do
+			l_parameters := a_target_type.base_type.actual_parameters
+			if l_parameters = Void or else l_parameters.count < 1 then
+					-- Internal error: we should have already checked by now
+					-- that class TYPE has a generic parameter.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			else
+				l_type := current_dynamic_system.dynamic_type (l_parameters.type (1), a_target_type.base_type)
+				print_typed_default_entity_value (l_type, current_file)
+			end
+		end
+
 	print_builtin_type_field_body (a_feature: ET_EXTERNAL_ROUTINE)
 			-- Print to `current_file' the body of `a_feature' corresponding
 			-- to built-in feature 'TYPE.field'.
@@ -22699,6 +23196,136 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 			current_file.put_new_line
 		end
 
+	print_builtin_type_generic_parameter_type_body (a_feature: ET_EXTERNAL_ROUTINE)
+			-- Print to `current_file' the body of `a_feature' corresponding
+			-- to built-in feature 'TYPE.generic_parameter_type'.
+		require
+			a_feature_not_void: a_feature /= Void
+			valid_feature: current_feature.static_feature = a_feature
+		local
+			l_parameters: ET_ACTUAL_PARAMETER_LIST
+			l_arguments: ET_FORMAL_ARGUMENT_LIST
+			l_base_type: ET_BASE_TYPE
+			l_type: ET_TYPE
+			l_dynamic_type: ET_DYNAMIC_TYPE
+			l_meta_type: ET_DYNAMIC_TYPE
+			i, nb: INTEGER
+		do
+			l_arguments := a_feature.arguments
+			l_parameters := current_type.base_type.actual_parameters
+			if l_parameters = Void or else l_parameters.count < 1 then
+					-- Internal error: we should have already checked by now
+					-- that class TYPE has a generic parameter.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			elseif l_arguments = Void or else l_arguments.count /= 1 then
+					-- Internal error: this error should have been reported by the parser.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			else
+				l_base_type := l_parameters.type (1).shallow_base_type (current_type.base_type)
+				l_parameters := l_base_type.actual_parameters
+				if l_parameters = Void or else l_parameters.is_empty then
+					-- Do nothing.
+				elseif l_parameters.count = 1 then
+					l_type := l_parameters.type (1)
+					l_dynamic_type := current_dynamic_system.dynamic_type (l_type, current_type.base_type)
+					l_meta_type := l_dynamic_type.meta_type
+					if l_meta_type = Void then
+							-- Internal error: the meta type of the generic parameter should
+							-- have been computed when analyzing the dynamic type sets of
+							-- `a_feature'.
+						set_fatal_error
+						error_handler.report_giaaa_error
+					else
+						print_indentation
+						print_result_name (current_file)
+						current_file.put_character (' ')
+						current_file.put_character ('=')
+						current_file.put_character (' ')
+						current_file.put_character ('(')
+						print_type_declaration (l_meta_type, current_file)
+						current_file.put_character (')')
+						current_file.put_character ('&')
+						current_file.put_character ('(')
+						current_file.put_string (c_ge_types)
+						current_file.put_character ('[')
+						current_file.put_integer (l_dynamic_type.id)
+						current_file.put_character (']')
+						current_file.put_character (')')
+						current_file.put_character (';')
+						current_file.put_new_line
+					end
+				else
+					print_indentation
+					current_file.put_string (c_switch)
+					current_file.put_character (' ')
+					current_file.put_character ('(')
+					print_argument_name (l_arguments.formal_argument (1).name, current_file)
+					current_file.put_character (')')
+					current_file.put_character (' ')
+					current_file.put_character ('{')
+					current_file.put_new_line
+					nb := l_parameters.count
+					from i := 1 until i > nb loop
+						l_type := l_parameters.type (i)
+						l_dynamic_type := current_dynamic_system.dynamic_type (l_type, current_type.base_type)
+						l_meta_type := l_dynamic_type.meta_type
+						if l_meta_type = Void then
+								-- Internal error: the meta type of the generic parameter should
+								-- have been computed when analyzing the dynamic type sets of
+								-- `a_feature'.
+							set_fatal_error
+							error_handler.report_giaaa_error
+						else
+							print_indentation
+							current_file.put_string (c_case)
+							current_file.put_character (' ')
+							current_file.put_integer (i)
+							current_file.put_character (':')
+							current_file.put_new_line
+							indent
+							print_indentation
+							print_result_name (current_file)
+							current_file.put_character (' ')
+							current_file.put_character ('=')
+							current_file.put_character (' ')
+							current_file.put_character ('(')
+							print_type_declaration (l_meta_type, current_file)
+							current_file.put_character (')')
+							current_file.put_character ('&')
+							current_file.put_character ('(')
+							current_file.put_string (c_ge_types)
+							current_file.put_character ('[')
+							current_file.put_integer (l_dynamic_type.id)
+							current_file.put_character (']')
+							current_file.put_character (')')
+							current_file.put_character (';')
+							current_file.put_new_line
+							print_indentation
+							current_file.put_string (c_break)
+							current_file.put_character (';')
+							current_file.put_new_line
+							dedent
+						end
+						i := i + 1
+					end
+					print_indentation
+					current_file.put_string (c_default)
+					current_file.put_character (':')
+					current_file.put_new_line
+					indent
+					print_indentation
+					current_file.put_string ("GE_raise(24);")
+					current_file.put_new_line
+					dedent
+					print_indentation
+					current_file.put_character ('}')
+					current_file.put_new_line
+				end
+			end
+		end
+
 	print_builtin_type_generic_parameter_body (a_feature: ET_EXTERNAL_ROUTINE)
 			-- Print to `current_file' the body of `a_feature' corresponding
 			-- to built-in feature 'TYPE.generic_parameter'.
@@ -22862,6 +23489,36 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 			end
 		end
 
+	print_builtin_type_has_default_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
+			-- Print to `current_file' a call (static binding) to `a_feature'
+			-- corresponding to built-in feature 'TYPE.has_default'.
+			-- `a_target_type' is the dynamic type of the target.
+			-- `a_check_void_target' means that we need to check whether the target is Void or not.
+			-- Operands can be found in `call_operands'.
+		require
+			a_feature_not_void: a_feature /= Void
+			a_target_type_not_void: a_target_type /= Void
+			call_operands_not_empty: not call_operands.is_empty
+		local
+			l_parameters: ET_ACTUAL_PARAMETER_LIST
+		do
+			l_parameters := a_target_type.base_type.actual_parameters
+			if l_parameters = Void or else l_parameters.count < 1 then
+					-- Internal error: we should have already checked by now
+					-- that class TYPE has a generic parameter.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			else
+				if l_parameters.type (1).is_type_expanded (a_target_type.base_type) then
+					current_file.put_string (c_eif_true)
+				elseif l_parameters.type (1).is_type_detachable (a_target_type.base_type) then
+					current_file.put_string (c_eif_true)
+				else
+					current_file.put_string (c_eif_false)
+				end
+			end
+		end
+
 	print_builtin_type_integer_8_field_body (a_feature: ET_EXTERNAL_ROUTINE)
 			-- Print to `current_file' the body of `a_feature' corresponding
 			-- to built-in feature 'TYPE.integer_8_field'.
@@ -23010,6 +23667,211 @@ print ("ET_C_GENERATOR.print_builtin_any_is_deep_equal_body%N")
 			valid_feature: current_feature.static_feature = a_feature
 		do
 			print_builtin_type_basic_expanded_field_body (a_feature)
+		end
+
+	print_builtin_type_new_instance_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
+			-- Print to `current_file' a call (static binding) to `a_feature'
+			-- corresponding to built-in feature 'TYPE.new_instance'.
+			-- `a_target_type' is the dynamic type of the target.
+			-- `a_check_void_target' means that we need to check whether the target is Void or not.
+			-- Operands can be found in `call_operands'.
+		require
+			a_feature_not_void: a_feature /= Void
+			a_target_type_not_void: a_target_type /= Void
+			call_operands_not_empty: not call_operands.is_empty
+		local
+			l_parameters: ET_ACTUAL_PARAMETER_LIST
+			l_type: ET_DYNAMIC_TYPE
+			l_meta_type: ET_DYNAMIC_TYPE
+		do
+			l_parameters := a_target_type.base_type.actual_parameters
+			if l_parameters = Void or else l_parameters.count < 1 then
+					-- Internal error: we should have already checked by now
+					-- that class TYPE has a generic parameter.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			else
+				l_type := current_dynamic_system.dynamic_type (l_parameters.type (1), a_target_type.base_type)
+				if attached {ET_DYNAMIC_SPECIAL_TYPE} l_type as l_special_type then
+						-- This should never happen according to the precondition
+						-- of TYPE.new_instance.
+						-- Raise an exception and return Void.
+					current_file.put_character ('(')
+					current_file.put_string (c_ge_raise)
+					current_file.put_character ('(')
+					current_file.put_character ('2')
+					current_file.put_character ('5')
+					current_file.put_character (')')
+					current_file.put_character (',')
+					current_file.put_character (' ')
+					print_typed_default_entity_value (l_type, current_file)
+					current_file.put_character (')')
+				elseif l_type.base_class.is_deferred or l_type.base_class.is_none then
+					current_file.put_character ('(')
+					current_file.put_string (c_ge_raise)
+					current_file.put_character ('(')
+					current_file.put_character ('1')
+					current_file.put_character ('7')
+					current_file.put_character (')')
+					current_file.put_character (',')
+					current_file.put_character (' ')
+					print_typed_default_entity_value (l_type, current_file)
+					current_file.put_character (')')
+				elseif not current_dynamic_system.is_new_instance_type (l_type) then
+						-- Raise an exception and return Void when the result type has not been
+						-- specified as a type which can have instances created by 'TYPE.new_instance'
+						-- or 'TYPE.new_special_any_instance'.
+					current_file.put_character ('(')
+					current_file.put_string (c_ge_raise)
+					current_file.put_character ('(')
+					current_file.put_character ('2')
+					current_file.put_character ('5')
+					current_file.put_character (')')
+					current_file.put_character (',')
+					current_file.put_character (' ')
+					print_typed_default_entity_value (l_type, current_file)
+					current_file.put_character (')')
+				elseif not l_type.is_alive then
+						-- Raise an exception and return Void when the result type is not alive
+						-- (i.e. no object of that type has been otherwise created in the system).
+					current_file.put_character ('(')
+					current_file.put_string (c_ge_raise)
+					current_file.put_character ('(')
+					current_file.put_character ('2')
+					current_file.put_character ('5')
+					current_file.put_character (')')
+					current_file.put_character (',')
+					current_file.put_character (' ')
+					print_typed_default_entity_value (l_type, current_file)
+					current_file.put_character (')')
+				elseif l_type.base_class.is_type_class then
+						-- Cannot have two instances of class TYPE representing the same Eiffel type.
+					l_meta_type := l_type.meta_type
+					if l_meta_type = Void then
+							-- Internal error: the meta type of the result type should
+							-- have been computed when analyzing the dynamic type sets
+							-- of `a_feature'.
+						set_fatal_error
+						error_handler.report_giaaa_error
+					else
+						current_file.put_character ('(')
+						print_type_declaration (l_meta_type, current_file)
+						current_file.put_character (')')
+						current_file.put_character ('&')
+						current_file.put_character ('(')
+						current_file.put_string (c_ge_types)
+						current_file.put_character ('[')
+						current_file.put_integer (l_type.id)
+						current_file.put_character (']')
+						current_file.put_character (')')
+					end
+				elseif l_type.is_expanded then
+					print_typed_default_entity_value (l_type, current_file)
+				else
+					current_file.put_character ('(')
+					print_type_declaration (l_type, current_file)
+					current_file.put_character (')')
+					current_file.put_character ('(')
+					current_file.put_string (c_ge_new)
+					current_file.put_integer (l_type.id)
+					current_file.put_character ('(')
+					current_file.put_string (c_eif_true)
+					current_file.put_character (')')
+					current_file.put_character (')')
+				end
+			end
+		end
+
+	print_builtin_type_new_special_any_instance_call (a_feature: ET_DYNAMIC_FEATURE; a_target_type: ET_DYNAMIC_TYPE; a_check_void_target: BOOLEAN)
+			-- Print to `current_file' a call (static binding) to `a_feature'
+			-- corresponding to built-in feature 'TYPE.new_special_any_instance'.
+			-- `a_target_type' is the dynamic type of the target.
+			-- `a_check_void_target' means that we need to check whether the target is Void or not.
+			-- Operands can be found in `call_operands'.
+		require
+			a_feature_not_void: a_feature /= Void
+			a_target_type_not_void: a_target_type /= Void
+			call_operands_not_empty: not call_operands.is_empty
+		local
+			l_parameters: ET_ACTUAL_PARAMETER_LIST
+			l_result_type: ET_DYNAMIC_TYPE
+			l_argument: ET_EXPRESSION
+			l_actual_type_set: ET_DYNAMIC_TYPE_SET
+			l_formal_type: ET_DYNAMIC_TYPE
+		do
+			l_parameters := a_target_type.base_type.actual_parameters
+			if l_parameters = Void or else l_parameters.count < 1 then
+					-- Internal error: we should have already checked by now
+					-- that class TYPE has a generic parameter.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			elseif call_operands.count /= 2 then
+					-- Internal error: this should already have been reported in ET_FEATURE_FLATTENER.
+				set_fatal_error
+				error_handler.report_giaaa_error
+			else
+				l_result_type := current_dynamic_system.dynamic_type (l_parameters.type (1), a_target_type.base_type)
+				if not attached {ET_DYNAMIC_SPECIAL_TYPE} l_result_type as l_special_type or else l_special_type.item_type_set.static_type.is_expanded then
+						-- This should never happen according to the precondition
+						-- of TYPE.new_special_any_instance.
+						-- Raise an exception and return Void or
+						-- the default value when the type is expanded.
+					current_file.put_character ('(')
+					current_file.put_string (c_ge_raise)
+					current_file.put_character ('(')
+					current_file.put_character ('2')
+					current_file.put_character ('5')
+					current_file.put_character (')')
+					current_file.put_character (',')
+					current_file.put_character (' ')
+					current_file.put_string (c_eif_void)
+					current_file.put_character (')')
+				elseif not current_dynamic_system.is_new_instance_type (l_result_type) then
+						-- Raise an exception and return Void when the result type has not been
+						-- specified as a type which can have instances created by 'TYPE.new_instance'
+						-- or 'TYPE.new_special_any_instance'.
+					current_file.put_character ('(')
+					current_file.put_string (c_ge_raise)
+					current_file.put_character ('(')
+					current_file.put_character ('2')
+					current_file.put_character ('5')
+					current_file.put_character (')')
+					current_file.put_character (',')
+					current_file.put_character (' ')
+					current_file.put_string (c_eif_void)
+					current_file.put_character (')')
+				elseif not l_result_type.is_alive then
+						-- Raise an exception and return Void when the result type is not alive
+						-- (i.e. no object of that type has been otherwise created in the system).
+					current_file.put_character ('(')
+					current_file.put_string (c_ge_raise)
+					current_file.put_character ('(')
+					current_file.put_character ('2')
+					current_file.put_character ('5')
+					current_file.put_character (')')
+					current_file.put_character (',')
+					current_file.put_character (' ')
+					current_file.put_string (c_eif_void)
+					current_file.put_character (')')
+				else
+					current_file.put_character ('(')
+					print_type_declaration (l_special_type, current_file)
+					current_file.put_character (')')
+					current_file.put_character ('(')
+					current_file.put_string (c_ge_new)
+					current_file.put_integer (l_special_type.id)
+					current_file.put_character ('(')
+					l_argument := call_operands.item (2)
+					l_actual_type_set := dynamic_type_set (l_argument)
+					l_formal_type := argument_type_set_in_feature (1, a_feature).static_type
+					print_attachment_expression (l_argument, l_actual_type_set, l_formal_type)
+					current_file.put_character (',')
+					current_file.put_character (' ')
+					current_file.put_string (c_eif_true)
+					current_file.put_character (')')
+					current_file.put_character (')')
+				end
+			end
 		end
 
 	print_builtin_type_pointer_field_body (a_feature: ET_EXTERNAL_ROUTINE)
@@ -23415,7 +24277,7 @@ feature {NONE} -- C function generation
 			old_call_info: STRING
 		do
 			old_call_info := current_call_info
-			current_file.put_line ("int main(int argc, char** argv)")
+			current_file.put_line ("int GE_main(int argc, char** argv)")
 			current_file.put_character ('{')
 			current_file.put_new_line
 			l_root_type := current_dynamic_system.root_type
@@ -26968,6 +27830,25 @@ feature {NONE} -- Default initialization values generation
 			end
 		end
 
+	print_typed_default_entity_value (a_type: ET_DYNAMIC_TYPE; a_file: KI_TEXT_OUTPUT_STREAM)
+			-- Print to `a_file' a typed version of the default initialization value for
+			-- entities declared of type `a_type'.
+			-- Same as `print_default_entity_value', but preceded by a type cast if needed.
+		require
+			a_type_not_void: a_type /= Void
+			a_file_not_void: a_file /= Void
+			a_file_open_write: a_file.is_open_write
+		do
+			if not a_type.is_expanded or else a_type.is_basic then
+				current_file.put_character ('(')
+				print_type_declaration (a_type, current_file)
+				current_file.put_character (')')
+				a_file.put_character ('0')
+			else
+				print_default_name (a_type, a_file)
+			end
+		end
+
 	print_default_attribute_value (a_type: ET_DYNAMIC_TYPE; a_file: KI_TEXT_OUTPUT_STREAM)
 			-- Print to `a_file' default initialization value for attributes declared of type `a_type'.
 			-- Note that an attribute is a special kind of entity, and therefore
@@ -28194,6 +29075,12 @@ feature {NONE} -- Include files
 				elseif a_filename.same_string ("%"eif_dir.h%"") then
 					include_runtime_header_file ("eif_dir.h", False, a_file)
 				elseif a_filename.same_string ("%"eif_eiffel.h%"") then
+
+-- TODO: Is this the correct solution ?
+					include_runtime_header_file ("eif_threads.h", False, a_file)
+					include_runtime_header_file ("eif_globals.h", False, a_file)
+					include_runtime_header_file ("eif_except.h", False, a_file)
+					
 					include_runtime_header_file ("eif_eiffel.h", False, a_file)
 				elseif a_filename.same_string ("%"eif_except.h%"") then
 					include_runtime_header_file ("eif_except.h", False, a_file)
@@ -28275,7 +29162,9 @@ feature {NONE} -- Include files
 					include_runtime_header_file ("ge_exception.h", False, a_file)
 					included_runtime_c_files.force ("eif_except.c")
 				elseif a_filename.same_string ("eif_file.h") then
+					include_runtime_header_file ("ge_real.h", False, a_file)		-- ??
 					include_runtime_header_file ("eif_except.h", False, a_file)
+					included_runtime_c_files.force ("ge_real.c")
 					included_runtime_c_files.force ("eif_file.c")
 				elseif a_filename.same_string ("eif_main.h") then
 					included_runtime_c_files.force ("eif_main.c")

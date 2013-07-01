@@ -1527,7 +1527,8 @@ EIF_INTEGER eif_file_info(rt_stat_buf *buf, int op) {
 	case 11: /* File type */
 		return (EIF_INTEGER) (buf->st_mode & S_IFMT);
 	case 12: /* Is file a directory */
-		return (EIF_INTEGER)(buf->st_mode & S_IFDIR);
+/*		return (EIF_INTEGER)(buf->st_mode & S_IFDIR); */
+		return (EIF_INTEGER) (S_ISDIR(buf->st_mode));
 #ifdef EIF_WINDOWS /* Incorrect for Linux ... */
 	case 13: /* Is file a regular (plain) one */
 		if (buf->st_mode & S_IFREG || 0 == (buf->st_mode & ~ST_MODE))

@@ -267,7 +267,9 @@ feature {NONE} -- Processing
 			end
 			create {ET_DYNAMIC_PUSH_TYPE_SET_BUILDER} l_builder.make (l_system)
 			l_system.set_dynamic_type_set_builder (l_builder)
+print ("l_system.compile ...%N")
 			l_system.compile
+print ("Compile done ...%N")
 			l_root_type := a_system.root_type
 			if l_root_type = Void then
 				-- Do nothing.
