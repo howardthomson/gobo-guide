@@ -23,5 +23,5 @@
 		</cluster>
 	</cluster>
 
-	<mount location="${GOBO}/library/kernel.xace"/>
+	<!--mount location="${GOBO}/library/kernel.xace"/-->
 </library>

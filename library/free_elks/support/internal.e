@@ -180,9 +180,8 @@ feature -- Creation
 			-- Associated TYPE instance for an object of type id `type_id'
 		require
 			type_id_nonnegative: type_id >= 0
---		external
---			"built_in"
-do -- TEMP		
+		external
+			"built_in"
 		ensure
 			result_not_void: Result /= Void
 		end
@@ -1007,9 +1006,8 @@ feature -- Measurement
 
 	max_type_id: INTEGER
 			-- Maximum value of valid type_id
---		external
---			"built_in"
-do -- TEMP
+		external
+			"built_in"
 		ensure
 			max_type_id_not_negative: Result >= 0
 		end

@@ -48,6 +48,6 @@
 	<mount location="${GUIDE}/library/string/library.xace"/>
 	<mount location="${GUIDE}/library/math/library.xace"/>
 	<mount location="${GUIDE}/library/time/library.xace"/>
-	<!--mount location="${GUIDE}/library/kernel.xace"/-->
+	<mount location="${GUIDE}/library/kernel.xace"/>
 	<option name="link" value="-lpthread"/>
 </system>

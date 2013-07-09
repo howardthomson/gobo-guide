@@ -1527,59 +1527,23 @@ EIF_INTEGER eif_file_info(rt_stat_buf *buf, int op) {
 	case 11: /* File type */
 		return (EIF_INTEGER) (buf->st_mode & S_IFMT);
 	case 12: /* Is file a directory */
-/*		return (EIF_INTEGER)(buf->st_mode & S_IFDIR); */
-		return (EIF_INTEGER) (S_ISDIR(buf->st_mode));
-#ifdef EIF_WINDOWS /* Incorrect for Linux ... */
+		return (EIF_INTEGER) S_ISDIR(buf->st_mode);
 	case 13: /* Is file a regular (plain) one */
-		if (buf->st_mode & S_IFREG || 0 == (buf->st_mode & ~ST_MODE))
-			return (EIF_INTEGER)S_IFREG;
-		else
-			return (EIF_INTEGER)0;
-
-	case 14: /* Is file a device */
-		if (buf->st_mode & S_IFCHR)
-			return (EIF_INTEGER)S_IFCHR;
-		else if (buf->st_mode & S_IFBLK)
-			return (EIF_INTEGER)S_IFBLK;
-		else
-			return (EIF_INTEGER)0;
-
+		if (S_ISREG(buf->st_mode) || (0 == (buf->st_mode & S_IFMT)))
+			return (EIF_INTEGER) EIF_TRUE;
+		return (EIF_INTEGER) 0;
+	case 14: /* Is file a device, ie character or block device. */
+		return (S_ISCHR(buf->st_mode) || S_ISBLK(buf->st_mode));
 	case 15: /* Is file a character device */
-		return (EIF_INTEGER)(buf->st_mode & S_IFCHR);
-
+		return (EIF_INTEGER) S_ISCHR(buf->st_mode);
 	case 16: /* Is file a block device */
-		return (EIF_INTEGER)(buf->st_mode & S_IFBLK);
-
+		return (EIF_INTEGER) S_ISBLK(buf->st_mode);
 	case 17: /* Is file a FIFO */
-		return (EIF_INTEGER)(buf->st_mode & S_IFIFO);
-
+		return (EIF_INTEGER) S_ISFIFO(buf->st_mode);
 	case 18: /* Is file a symbolic link */
-		return (EIF_INTEGER)((buf->st_mode & S_IFLNK) == S_IFLNK);
-
+		return (EIF_INTEGER) S_ISLNK(buf->st_mode);
 	case 19: /* Is file a socket */
-		return (EIF_INTEGER)(buf->st_mode & S_IFSOCK);
-#else
-	case 13: /* Is file a regular (plain) one */
-			return (EIF_INTEGER) S_ISREG(buf->st_mode);
-
-	case 14: /* Is file a device */
-		return (EIF_INTEGER)(S_ISCHR(buf->st_mode) || S_ISBLK(buf->st_mode));
-
-	case 15: /* Is file a character device */
-		return (EIF_INTEGER)(S_ISCHR(buf->st_mode));
-
-	case 16: /* Is file a block device */
-		return (EIF_INTEGER)(S_ISBLK(buf->st_mode));
-
-	case 17: /* Is file a FIFO */
-		return (EIF_INTEGER)(S_ISFIFO(buf->st_mode));
-
-	case 18: /* Is file a symbolic link */
-		return (EIF_INTEGER)(S_ISLNK(buf->st_mode));
-
-	case 19: /* Is file a socket */
-		return (EIF_INTEGER)(S_ISSOCK(buf->st_mode));
-#endif
+		return (EIF_INTEGER) S_ISSOCK(buf->st_mode);
 	default:
 		return (EIF_INTEGER)0;
     }
