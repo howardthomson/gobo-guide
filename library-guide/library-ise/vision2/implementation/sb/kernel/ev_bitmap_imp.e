@@ -16,7 +16,8 @@ inherit
 	EV_DRAWABLE_IMP
 		redefine
 			interface,
-			clear_rectangle
+			clear_rectangle,
+			dispose
 		end
 
 create
@@ -24,10 +25,10 @@ create
 
 feature -- Initialization
 
-	make (an_interface: like interface)
+	make -- (an_interface: like interface)
 			-- Create an empty drawing area.
 		do
-			base_make (an_interface)
+		--	base_make (an_interface)
 			TODO_class_line ("__EV_BITMAP_IMP__", "make")
 		end
 
@@ -38,6 +39,16 @@ feature -- Initialization
 			set_default_colors
 			init_default_values
 			set_is_initialized (True)
+		end
+
+	create_resource
+		do
+			check not_implemented: false end
+		end
+
+	destroy_resource
+		do
+			check not_implemented: false end
 		end
 
 feature -- Status Setting
@@ -58,13 +69,13 @@ feature -- Status Setting
 
 feature -- Access
 
-	width: INTEGER
+	XX_width: INTEGER
 			-- Width in pixels of mask bitmap.
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "width")
 		end
 
-	height: INTEGER
+	XX_height: INTEGER
 			-- Width in pixels of mask bitmap.
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "height")
@@ -72,7 +83,7 @@ feature -- Access
 
 feature {EV_PIXMAP_IMP} -- Implementation
 
---	drawable: POINTER
+	drawable: POINTER
 		-- Pointer to the GdkPixmap objects used for `Current'.
 
 feature {NONE} -- Implementation

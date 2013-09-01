@@ -23,6 +23,7 @@ feature -- Status report
 	is_sensitive: BOOLEAN
 			-- Is the object sensitive to user input.
 		do
+			Result := not internal_non_sensitive
 		end
 
 feature -- Status setting

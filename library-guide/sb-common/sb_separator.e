@@ -87,7 +87,7 @@ feature -- Actions
 		local
 			opts: INTEGER
 		do
-			opts := (options & (SEPARATOR_MASK).bit_not) or (style & SEPARATOR_MASK)
+			opts := (options & (SEPARATOR_MASK).bit_not) | (style & SEPARATOR_MASK)
 			if options /= opts then
 				options := opts
 				recalc
@@ -164,5 +164,5 @@ feature -- Message processing
 			dc.stop
 			Result := True
 		end
-		
+
 end

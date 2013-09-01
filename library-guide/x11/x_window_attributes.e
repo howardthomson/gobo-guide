@@ -5,7 +5,7 @@ class X_WINDOW_ATTRIBUTES
   --| 1998/01/28
   --|
 
-inherit 
+inherit
 
 	X_STRUCT
 	X_WINDOW_CONSTANTS
@@ -30,8 +30,8 @@ feature -- Access
 
 	root					: INTEGER do Result := c_root					(to_external) end
 	window_class			: INTEGER do Result := c_window_class			(to_external) end
-	bit_gravity 			: INTEGER do Result := c_bit_gravity				(to_external) end
-	win_gravity 			: INTEGER do Result := c_win_gravity				(to_external) end
+	bit_gravity 			: INTEGER do Result := c_bit_gravity			(to_external) end
+	win_gravity 			: INTEGER do Result := c_win_gravity			(to_external) end
 	backing_store			: INTEGER do Result := c_backing_store 			(to_external) end
 	backing_planes			: INTEGER do Result := c_backing_planes			(to_external) end
 	backing_pixel			: INTEGER do Result := c_backing_pixel 			(to_external) end
@@ -39,11 +39,11 @@ feature -- Access
 	colormap				: INTEGER do Result := c_colormap				(to_external) end
 	map_installed			: BOOLEAN do Result := c_map_installed 			(to_external) end
 	map_state				: INTEGER do Result := c_map_state				(to_external) end
-	all_event_masks 		: INTEGER do Result := c_all_event_masks			(to_external) end
-	your_event_mask 		: INTEGER do Result := c_your_event_mask			(to_external) end
+	all_event_masks 		: INTEGER do Result := c_all_event_masks		(to_external) end
+	your_event_mask 		: INTEGER do Result := c_your_event_mask		(to_external) end
 	do_not_propagate_mask	: INTEGER do Result := c_do_not_propagate_mask 	(to_external) end
 	override_redirect		: BOOLEAN do Result := c_override_redirect 		(to_external) end
---	screen					: POINTER is do Result := c_screen					(to_external) end
+--	screen					: POINTER is do Result := c_screen				(to_external) end
 
 feature
 
@@ -79,4 +79,4 @@ feature { NONE } -- Implementation
 	c_do_not_propagate_mask	(p: POINTER): INTEGER do end
 	c_override_redirect		(p: POINTER): BOOLEAN do end
 	c_screen				(p: POINTER): POINTER do end
-end 
+end

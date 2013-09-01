@@ -34,7 +34,8 @@ inherit
 			pre_pick_steps,
 			post_drop_steps,
 			call_pebble_function,
-			on_pointer_motion
+			on_pointer_motion,
+			is_tabable_to
 		end
 
 	EV_ITEM_LIST_IMP [EV_TREE_NODE]
@@ -57,6 +58,13 @@ inherit
 create
 	make
 
+feature
+
+	is_tabable_to: BOOLEAN
+		do
+			Result := True
+		end
+		
 feature {EV_SB_WIDGET_IMP, EV_TREE_NODE_IMP} -- Implementation Attributes
 
 	sb_widget: SB_TREE_LIST
@@ -149,14 +157,15 @@ feature {NONE} -- Initialization
 			a_row_imp: EV_TREE_NODE_IMP
 		do
 			Precursor (a_motion_tuple)
-			if not app_implementation.is_in_transport and then a_motion_tuple.integer_item (2) > 0 and a_motion_tuple.integer_item (1) <= width then
-				a_row_imp := item_from_coords (a_motion_tuple.integer_item (1), a_motion_tuple.integer_item (2))
-				if a_row_imp /= Void then
-					if a_row_imp.pointer_motion_actions_internal /= Void then
-						a_row_imp.pointer_motion_actions_internal.call (a_motion_tuple)
-					end
-				end
-			end
+			check false end
+--			if not app_implementation.is_in_transport and then a_motion_tuple.integer_item (2) > 0 and a_motion_tuple.integer_item (1) <= width then
+--				a_row_imp := item_from_coords (a_motion_tuple.integer_item (1), a_motion_tuple.integer_item (2))
+--				if a_row_imp /= Void then
+--					if a_row_imp.pointer_motion_actions_internal /= Void then
+--						a_row_imp.pointer_motion_actions_internal.call (a_motion_tuple)
+--					end
+--				end
+--			end
 		end
 
 feature -- Status report
@@ -322,7 +331,8 @@ feature -- Implementation
 		do
 			temp_accept_cursor := accept_cursor
 			temp_deny_cursor := deny_cursor
-			App_implementation.on_pick (Current, pebble)
+			check false end
+--			App_implementation.on_pick (Current, pebble)
 
 			if pnd_row_imp /= Void then
 				if pnd_row_imp.pick_actions_internal /= Void then

@@ -96,31 +96,31 @@ feature -- window structure
 	split		: SB_SPLITTER
 	editor		: EDP_SYMBOL_EDITOR
 	editor_2	: EDP_SYMBOL_EDITOR
-	
+
 	make_window
 		do
-			make_top_title (get_app, new_title)
+--	--		make_top_title (get_app, new_title)
 
-			resize (600, 800)
-			flags := flags | Flag_enabled
-			if the_class.et_class.overridden_class /= Void then
-				make_comparison_window
-			else
-				create vbox.make (Current)
-				vbox.set_layout_hints (Layout_fill_x | Layout_fill_y)
-				create status_line.make (vbox)
-				status_line.set_layout_hints (Layout_fill_x | Layout_bottom)
-				status_line.status_line.set_text ("Filename: " + the_class.filename)
-				create editor.make (vbox, the_class.scanner)
-				editor.set_layout_hints (Layout_fill_x | Layout_fill_y)
-				show
-			end
+--			resize (600, 800)
+--			flags := flags | Flag_enabled
+--			if the_class.et_class.overridden_class /= Void then
+--				make_comparison_window
+--			else
+--				create vbox.make (Current)
+--				vbox.set_layout_hints (Layout_fill_x | Layout_fill_y)
+--				create status_line.make (vbox)
+--				status_line.set_layout_hints (Layout_fill_x | Layout_bottom)
+--				status_line.status_line.set_text ("Filename: " + the_class.filename)
+--				create editor.make (vbox, the_class.scanner)
+--				editor.set_layout_hints (Layout_fill_x | Layout_fill_y)
+--				show
+--			end
 		end
 
-	make_comparison_window			
+	make_comparison_window
 		do
 				-- Setup for the second class
-			the_class_2 ?= the_class.et_class.overridden_class.data
+		--	the_class_2 ?= the_class.et_class.overridden_class.data
 			the_class_2.scan
 				-- Create the vertical box
 			create vbox.make (Current)

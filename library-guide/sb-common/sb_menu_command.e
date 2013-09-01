@@ -75,15 +75,15 @@ feature -- Creation
          	message := selector
          	accel := u.section (text,'%T',1,1)
          	acckey := u.parse_accel (accel)
-         	if acckey /= 0 then
-            	ownr := get_shell.owner
-            	if ownr /= Void then
-               		table := ownr.accel_table
-               		if table /= Void then
-                  		table.add_accel (acckey, Current, mksel (SEL_COMMAND, Id_accel), 0)
-               		end
-            	end
-         	end
+--         	if acckey /= 0 then
+--            	ownr := get_shell.owner
+--            	if ownr /= Void then
+--               		table := ownr.accel_table
+--               		if table /= Void then
+--                  		table.add_accel (acckey, Current, mksel (SEL_COMMAND, Id_accel), 0)
+--               		end
+--            	end
+--         	end
 		ensure
 			width > 0
       	end
@@ -395,13 +395,13 @@ feature -- Destruction
          ownr: SB_WINDOW
       do
          if acckey /= 0 then
-            ownr := get_shell.owner
-            if owner /= Void then
-               table := ownr.accel_table
-               if table /= Void then
-                  table.remove_accel (acckey)
-               end
-            end
+--            ownr := get_shell.owner
+--            if owner /= Void then
+--               table := ownr.accel_table
+--               if table /= Void then
+--                  table.remove_accel (acckey)
+--               end
+--            end
          end
          Precursor
       end

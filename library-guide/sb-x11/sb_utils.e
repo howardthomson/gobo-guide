@@ -8,12 +8,10 @@ inherit
 
 feature
 
-    sleep(n: INTEGER)
+    sleep (n: INTEGER)
          -- Sleep n microseconds
-        require
-            -- implemented: false
         do
-            todo("SB_UTILS::sleep")
+        	check not_implemented: false end
         end
 
 end

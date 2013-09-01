@@ -97,17 +97,17 @@ feature {NONE} -- Implementation
 	call_close_request_actions
 			-- Call the cancel actions if dialog is closeable.
 		do
-			Precursor {EV_TITLED_WINDOW_IMP}
-			if not has_modal_window and then is_dialog_closeable and then not App_implementation.is_in_transport then
-				if internal_default_cancel_button /= Void and then
-					internal_default_cancel_button.is_sensitive
-				--	and then internal_default_cancel_button.is_displayed
-					then
-						if internal_default_cancel_button.select_actions /= Void then
-							internal_default_cancel_button.select_actions.call (Void)
-						end
-				end
-			end
+--			Precursor {EV_TITLED_WINDOW_IMP}
+--			if not has_modal_window and then is_dialog_closeable and then not App_implementation.is_in_transport then
+--				if internal_default_cancel_button /= Void and then
+--					internal_default_cancel_button.is_sensitive
+--				--	and then internal_default_cancel_button.is_displayed
+--					then
+--						if internal_default_cancel_button.select_actions /= Void then
+--							internal_default_cancel_button.select_actions.call (Void)
+--						end
+--				end
+--			end
 		end
 
 	interface: EV_DIALOG

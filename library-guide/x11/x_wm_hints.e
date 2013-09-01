@@ -1,5 +1,7 @@
 note
 
+	license: "Eiffel Forum License v2 (see forum.txt)"
+
 class X_WM_HINTS
   -- Interface to Xlib's XWMHints structure.
 
@@ -110,7 +112,7 @@ feature
 
 	size: INTEGER
     	external
-    		"C inline use <X11/Xlib.h>"
+    		"C inline use <X11/Xutil.h>"
     	alias
     		"sizeof(XWMHints)"
     	end

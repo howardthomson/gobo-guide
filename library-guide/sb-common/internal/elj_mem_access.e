@@ -39,20 +39,20 @@ feature -- read access
 		ensure
 --			implemented: false
 		end -- as_large_integer
-		
+
 	as_integer (a_offset: INTEGER): INTEGER
 			-- returns the contents of the buffer at offset
 			-- a_offset as integer
 		require
 			valid_offset: fits_into_buffer (a_offset, integer_length)
-			has_storage: pointer /= default_pointer	
+			has_storage: pointer /= default_pointer
 		local
 			ptr: C_POINTER
 		do
 			ptr.set_item (pointer)
 			Result := ptr.get_long_at (a_offset)
 		end -- as_integer
-		
+
 	as_character (a_offset: INTEGER): CHARACTER
 			-- returns the contents of the buffer at offset
 			-- a_offset as character
@@ -65,7 +65,7 @@ feature -- read access
 			ptr.set_item (pointer)
 			Result := ptr.get_char_at(a_offset)
 		end -- as_character
-		
+
 	as_integer_8 (a_offset: INTEGER): INTEGER_8
 			-- returns the contents of the buffer at offset
 			-- a_offset as character
@@ -78,7 +78,7 @@ feature -- read access
 			ptr.set_item (pointer)
 			Result := ptr.get_byte_at (a_offset).as_integer_8
 		end -- as_integer_8
-		
+
 	as_real (a_offset: INTEGER): REAL
 			-- returns the contents of the buffer at offset
 			-- a_offset as real
@@ -91,8 +91,8 @@ feature -- read access
 			ptr.set_item (pointer)
 			Result := ptr.get_float_at(a_offset)
 		end -- as_real
-		
-	as_double (a_offset: INTEGER): REAL
+
+	as_double (a_offset: INTEGER): REAL_64
 			-- returns the contents of the buffer at offset
 			-- a_offset as double
 		require
@@ -106,7 +106,7 @@ feature -- read access
 			ptr.set_item (pointer)
 			Result := ptr.get_double_at(a_offset)
 		end -- as_double
-		
+
 --	Xas_string (a_offset, a_length: INTEGER): STRING is
 --			-- returns the contents of the buffer at offset
 --			-- a_offset as string
@@ -129,7 +129,7 @@ feature -- read access
 --			
 --			c_inline_c ("memcpy(_res, ((char*) _ptr) + _off, _len);%N")
 --		end -- as_string
-		
+
 	as_short (a_offset: INTEGER): INTEGER
 			-- returns the contents of the buffer at offset
 			-- a_offset as integer
@@ -158,9 +158,9 @@ feature -- read access
 		do
 			ptr.set_item (pointer)
 			off := a_offset
-			
+
 --			c_inline_c ("_res = (*(void**)(((char*) _ptr) + _off));%N")
-			
+
 			Result := res
 		end -- as_short
 
@@ -180,10 +180,10 @@ feature -- read access
 			off := a_offset
 			len := a_count
 			val := a_val
-			
+
 --			c_inline_c ("memcpy(_val, ((char*) _ptr) + _off, _len);%N")
 		end -- set_raw
-	
+
 	Xraw_pointer (a_offset: INTEGER): POINTER
 			-- Address of buffer at offset
 		require
@@ -195,9 +195,9 @@ feature -- read access
 		do
 			ptr.set_item (pointer)
 			off := a_offset
-			
+
 --			c_inline_c ("_res = (void*)(((char*) _ptr) + _off);%N")
-			
+
 			Result := res
 		end -- raw_pointer
 
@@ -222,7 +222,7 @@ feature -- write access
 		ensure
 --			value_set: as_large_integer (a_offset) = a_val
 		end -- set_large_integer
-		
+
 	set_integer (a_offset: INTEGER; a_val: INTEGER)
 			-- sets the contents of the buffer at offset
 			-- a_offset as integer
@@ -267,7 +267,7 @@ feature -- write access
 		ensure
 			value_set: as_character (a_offset) = a_val
 		end -- set_character
-		
+
 	XXset_real (a_offset: INTEGER; a_val: REAL)
 			-- sets the contents of the buffer at offset
 			-- a_offset as real
@@ -287,7 +287,7 @@ feature -- write access
 		ensure
 			value_set: as_real (a_offset) = a_val
 		end -- set_real
-		
+
 	XXset_double (a_offset: INTEGER; a_val: REAL)
 			-- sets the contents of the buffer at offset
 			-- a_offset as double
@@ -307,7 +307,7 @@ feature -- write access
 		ensure
 			value_set: as_double (a_offset) = a_val
 		end -- set_double
-		
+
 --	Xset_string (a_offset: INTEGER; a_val: STRING) is
 --			-- sets the contents of the buffer at offset
 --			-- a_offset as string
@@ -330,7 +330,7 @@ feature -- write access
 --		ensure
 --			value_set: a_val.is_equal (as_string (a_offset, a_val.count))
 --		end -- set_string
-		
+
 	set_short (a_offset: INTEGER; a_val: INTEGER)
 			-- sets the contents of the buffer at offset
 			-- a_offset as short
@@ -361,7 +361,7 @@ feature -- write access
 		ensure
 			value_set: as_pointer (a_offset) = a_val
 		end -- set_pointer
-	
+
 --	Xset_raw (a_offset: INTEGER; a_val: POINTER; a_count: INTEGER) is
 --			-- results in a simple mecpy
 --		require
@@ -380,7 +380,7 @@ feature -- write access
 --			
 --			c_inline_c ("memcpy(((char*) _ptr) + _off, _val, _len);%N")
 --		end -- set_raw
-	
+
 	XXchange_size_at (a_offset, a_old_len, a_new_len: INTEGER)
 		require
 			has_storage: pointer /= default_pointer
@@ -403,15 +403,15 @@ feature -- write access
 
 				old_len := a_old_len
 				new_len := a_new_len
-				
+
 				len := new_len - old_len
-				
+
 				sze := size + len
 				old_sze := size
 
 			--	set_buffer_size (sze)
 				ptr := pointer
-				
+
 				len := old_sze - (a_offset + a_old_len)
 
 --				c_inline_c ("memmove(((char*) _ptr) + _off + _new_len, ((char*) _ptr) + _off + _old_len, _len);%N")
@@ -419,7 +419,7 @@ feature -- write access
 		ensure
 			implemented: false
 		end -- change_size_at		
-		
+
 feature
 
 	fits_into_buffer (a_offset, a_length: INTEGER): BOOLEAN
@@ -427,28 +427,28 @@ feature
 		do
 			Result := a_offset + a_length < size	-- ## WAS <= size
 		end -- fits_into_buffer
-	
+
 	integer_length: INTEGER
 			-- returns length of an integer in bytes
 			-- calculation bases on integer_bits from PLATFORM
 		do
 			Result := Integer_bits // 8
 		end -- integer_length
-		
+
 	real_length: INTEGER
 			-- returns length of a real in bytes
 			-- calculation bases on real_bits from PLATFORM
 		do
 			Result := Real_bits // 8
 		end -- real_length
-		
+
 --	double_length: INTEGER is
 --			-- returns length of a double in bytes
 --			-- calculation bases on double_bits from PLATFORM
 --		do
 --			Result := Double_bits // 8
 --		end -- double_length
-		
+
 	character_length: INTEGER
 			-- returns length of a character in bytes
 			-- calculation bases on character_bits from PLATFORM
@@ -473,7 +473,7 @@ feature -- the memory accesses
 	pointer: POINTER
 		deferred
 		end -- pointer
-	
+
 	size: INTEGER
 		deferred
 		end -- size
@@ -494,7 +494,7 @@ feature -- internal string buffering
 		once
 			create Result.make(256)
 		end
-	
+
 	result_buffer: STRING
 		do
 			Result := string_buffer

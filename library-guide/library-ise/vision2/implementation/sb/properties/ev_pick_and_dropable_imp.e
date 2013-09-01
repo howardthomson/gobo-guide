@@ -53,20 +53,20 @@ feature {EV_APPLICATION_IMP} -- Implementation
 				l_call_events := False
 			elseif is_dockable then
 				l_dockable_source ?= l_current
-				if l_dockable_source.awaiting_movement or else app_implementation.docking_source = l_current then
-					l_dockable_source.dragable_motion (
-						a_motion_tuple.integer_32_item (1),
-						a_motion_tuple.integer_32_item (2),
-						a_motion_tuple.double_item (3),
-						a_motion_tuple.double_item (4),
-						a_motion_tuple.double_item (5),
-						a_motion_tuple.integer_32_item (6),
-						a_motion_tuple.integer_32_item (7)
-					)
-				end
-				if app_implementation.docking_source = l_current then
-					l_call_events := False
-				end
+--				if l_dockable_source.awaiting_movement or else app_implementation.docking_source = l_current then
+--					l_dockable_source.dragable_motion (
+--						a_motion_tuple.integer_32_item (1),
+--						a_motion_tuple.integer_32_item (2),
+--						a_motion_tuple.double_item (3),
+--						a_motion_tuple.double_item (4),
+--						a_motion_tuple.double_item (5),
+--						a_motion_tuple.integer_32_item (6),
+--						a_motion_tuple.integer_32_item (7)
+--					)
+--				end
+	--			if app_implementation.docking_source = l_current then
+	--				l_call_events := False
+	--			end
 			end
 			if l_call_events and then pointer_motion_actions_internal /= Void then
 				pointer_motion_actions_internal.call (a_motion_tuple)
@@ -151,7 +151,7 @@ feature -- Implementation
 				-- Force any pending graphics calls.
 --			{EV_GTK_EXTERNALS}.gdk_flush
 			update_pointer_style (pointed_target)
-			app_implementation.on_pick (Current, pebble)
+--			app_implementation.on_pick (Current, pebble)
 			if pick_actions_internal /= Void then
 				pick_actions_internal.call ([a_x, a_y])
 			end
@@ -202,7 +202,7 @@ feature -- Implementation
 			a_x, a_y, a_button: INTEGER; a_press: BOOLEAN;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER; a_menu_only: BOOLEAN)
-		
+
 			-- Initialize a pick and drop transport.
 		do
 			check

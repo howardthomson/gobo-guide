@@ -25,10 +25,16 @@ create
 
 feature {NONE}-- Initialization
 
-	make (an_interface: like interface)
+	old_make (an_interface: like interface)
+			-- Create a gtk pixmap of size (1 * 1) with no mask.
+		do
+			assign_interface (an_interface)
+		end
+
+	make
 			-- Create `Current' with interface `an_interface'.
 		do
-			base_make (an_interface)
+		--	base_make (an_interface)
 		end
 
 	initialize

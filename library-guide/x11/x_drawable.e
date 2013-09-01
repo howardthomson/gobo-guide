@@ -4,7 +4,7 @@ note
 
 	author: "Stephane Hillion"
 	copyright: "Copyright (c) 1998-2006, Stephane Hillion and Howard Thomson"
-	license: "GNU Public License (see COPYING)"
+	license: "Eiffel Forum License v2 (see forum.txt)"
 
 	todo: "[
 		Fix C_VECTOR etc
@@ -12,12 +12,12 @@ note
 
 class X_DRAWABLE
 
-inherit 
+inherit
 
 	X_RESOURCE
 
 	X_PORTABILITY_ROUTINES
-	
+
 feature {NONE} -- Initialization
 
 	init(disp: X_DISPLAY; scr: INTEGER)
@@ -56,25 +56,25 @@ feature -- drawing
 --    	require
 --      		tab /= Void
 --    	do
---      		x_draw_points (display.to_external, id, gc.to_external, tab.to_external, 
+--      		x_draw_points (display.to_external, id, gc.to_external, tab.to_external,
 --		     	tab.count, coord_mode)
 --    	end
 
   	draw_line (x1, y1, x2, y2: INTEGER)
-      		-- uses the components of the GC to draw a line 
+      		-- uses the components of the GC to draw a line
       		-- between the specified set of points (x1, y1) and (x2, y2)
     	do
       		x_draw_line (display.to_external, id, gc.to_external, x1, y1, x2, y2)
     	end
 
 --  	draw_lines is	--###(tab: C_VECTOR [X_POINT]; coord_mode: INTEGER) is
---      		-- uses the components of the GC to draw tab.count-1 lines 
+--      		-- uses the components of the GC to draw tab.count-1 lines
 --      		-- between each pair of points (tab@i, tab@(i+1)) in the array
 --      		-- of X_POINT objects.
 --    	require
 --      		tab /= Void
 --    	do
---      		x_draw_lines (display.to_external, id, gc.to_external, tab.to_external, 
+--      		x_draw_lines (display.to_external, id, gc.to_external, tab.to_external,
 --		    	tab.count, coord_mode)
 --    	end
 
@@ -83,7 +83,7 @@ feature -- drawing
 --    	require
 --      		tab /= Void
 --    	do
---      		x_draw_segments (display.to_external, id, gc.to_external, 
+--      		x_draw_segments (display.to_external, id, gc.to_external,
 --                       tab.to_external, tab.count)
 --    	end
 
@@ -101,7 +101,7 @@ feature -- drawing
 --    	require
 --      		tab /= Void
 --    	do
---      		x_draw_arcs (display.to_external, id, gc.to_external, 
+--      		x_draw_arcs (display.to_external, id, gc.to_external,
 --                   tab.to_external, tab.count)
 --   	 	end
 
@@ -121,7 +121,7 @@ feature -- drawing
 --    	require
 --      		tab /= Void
 --    	do
---      		x_fill_arcs (display.to_external, id, gc.to_external, 
+--      		x_fill_arcs (display.to_external, id, gc.to_external,
 --                   tab.to_external, tab.count)
 --    	end
 
@@ -138,7 +138,7 @@ feature -- drawing
 --    	require
 --      		tab /= Void
 --    	do
---      		x_draw_rectangles (display.to_external, id, gc.to_external, 
+--      		x_draw_rectangles (display.to_external, id, gc.to_external,
 --                         tab.to_external, tab.count)
 --    	end
 
@@ -156,15 +156,15 @@ feature -- drawing
 --    	require
 --      		tab /= Void
 --    	do
---      		x_fill_rectangles (display.to_external, id, gc.to_external, 
+--      		x_fill_rectangles (display.to_external, id, gc.to_external,
 --                         tab.to_external, tab.count)
 --    	end
 
 --  	fill_polygon is	--##(tab: C_VECTOR [X_POINT];
---			fill_mode: INTEGER; 
+--			fill_mode: INTEGER;
 --			coord_mode: INTEGER) is
 --      -- fills the region closed by the specified path.
---      -- The path is closed automatically if the last point in the 
+--      -- The path is closed automatically if the last point in the
 --      -- list does not coincide with the first point.
 --    	require
 --      		tab /= Void
@@ -174,22 +174,22 @@ feature -- drawing
 --    	end
 
   	draw_string (x, y: INTEGER; text: STRING)
-      		-- Each character image, as defined by the font in the GC, is 
+      		-- Each character image, as defined by the font in the GC, is
       		-- treated as an additional mask for a fill operation on the drawable
     	require
       		text /= Void
     	do
-      		x_draw_string (display.to_external, id, gc.to_external, x, y, 
+      		x_draw_string (display.to_external, id, gc.to_external, x, y,
                      string_to_external(text), text.count)
     	end
 
   	draw_image_string (x, y: INTEGER; text: STRING)
-      		-- fills a destination rectangle with the background pixel defined 
+      		-- fills a destination rectangle with the background pixel defined
       		-- in the GC and then paints the text with the foreground pixel
     	require
       		text /= Void
     	do
-      		x_draw_image_string (display.to_external, id, gc.to_external, x, y, 
+      		x_draw_image_string (display.to_external, id, gc.to_external, x, y,
                            string_to_external(text), text.count)
     	end
 
@@ -198,7 +198,7 @@ feature -- drawing
 --		require
 --			tab /= Void
 --		do
---			x_draw_text(display.to_external, id, gc.to_external, 
+--			x_draw_text(display.to_external, id, gc.to_external,
 --				x, y, tab.to_external, tab.count)
 --		end
 
@@ -210,19 +210,19 @@ feature -- copying
     	require
       		ow > 0 and then oh > 0
     	do
-      		x_copy_area (display.to_external, other.id, id, gc.to_external, 
+      		x_copy_area (display.to_external, other.id, id, gc.to_external,
                    ox, oy, ow, oh, x, y)
     	end
 
 	copy_plane (x, y: INTEGER; other: X_DRAWABLE;
               ox, oy, ow, oh, plane_mask: INTEGER)
-      		-- uses a single bit plane of the specified source rectangle 
-      		-- combined with the specified GC to modify the specified 
+      		-- uses a single bit plane of the specified source rectangle
+      		-- combined with the specified GC to modify the specified
       		-- rectangle of Current
     	require
       		ow > 0 and then oh > 0
     	do
-      		x_copy_plane (display.to_external, other.id, id, gc.to_external, 
+      		x_copy_plane (display.to_external, other.id, id, gc.to_external,
                     ox, oy, ow, oh, x, y, plane_mask)
     	end
 
@@ -247,4 +247,4 @@ feature -- copying
 		   		ox, oy, x, y, ow, oh)
     	end
 
-end 
+end

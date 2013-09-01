@@ -14,6 +14,30 @@ inherit
 
 feature -- Access
 
+	Information_pixel_buffer: EV_PIXEL_BUFFER
+			-- Pixel buffer symbolizing a piece of information.
+		do
+--			Result := pixmap_from_stock_id ("gtk-dialog-info")
+		end
+
+	Error_pixel_buffer: EV_PIXEL_BUFFER
+			-- Pixel buffer symbolizing an error.
+		do
+--			Result := pixmap_from_stock_id ("gtk-dialog-error")
+		end
+
+	Warning_pixel_buffer: EV_PIXEL_BUFFER
+			-- Pixel buffer symbolizing a warning.
+		do
+--			Result := pixmap_from_stock_id ("gtk-dialog-warning")
+		end
+
+	Question_pixel_buffer: EV_PIXEL_BUFFER
+			-- Pixel buffer symbolizing a question.
+		do
+--			Result := pixmap_from_stock_id ("gtk-dialog-question")
+		end
+
 	Information_pixmap: EV_PIXMAP
 			-- Pixmap symbolizing a piece of information.
 		do
@@ -114,147 +138,209 @@ feature {NONE} -- Implementation
 
 feature {EV_ANY_HANDLER, EV_ANY_I} -- Externals
 
---	frozen information_pixmap_xpm: POINTER is
+	frozen information_pixmap_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"information_pixmap_xpm"
 --		end
 
---	frozen error_pixmap_xpm: POINTER is
+	frozen error_pixmap_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"error_pixmap_xpm"
 --		end
 
---	frozen warning_pixmap_xpm: POINTER is
+	frozen warning_pixmap_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"warning_pixmap_xpm"
 --		end
 
---	frozen question_pixmap_xpm: POINTER is
+	frozen question_pixmap_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"question_pixmap_xpm"
 --		end
 
---	frozen collate_pixmap_xpm: POINTER is
+	frozen collate_pixmap_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"collate_pixmap_xpm"
 --		end
 
---	frozen no_collate_pixmap_xpm: POINTER is
+	frozen no_collate_pixmap_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"no_collate_pixmap_xpm"
 --		end
 
---	frozen landscape_pixmap_xpm: POINTER is
+	frozen landscape_pixmap_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"landscape_pixmap_xpm"
 --		end
 
---	frozen portrait_pixmap_xpm: POINTER is
+	frozen portrait_pixmap_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"portrait_pixmap_xpm"
 --		end
 
---	frozen busy_cursor_xpm: POINTER is
+	frozen busy_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"busy_cursor_xpm"
 --		end
 
---	frozen crosshair_cursor_xpm: POINTER is
+	frozen crosshair_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"crosshair_cursor_xpm"
 --		end
 
---	frozen help_cursor_xpm: POINTER is
+	frozen help_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"help_cursor_xpm"
 --		end
 
---	frozen ibeam_cursor_xpm: POINTER is
+	frozen ibeam_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"ibeam_cursor_xpm"
 --		end
 
---	frozen no_cursor_xpm: POINTER is
+	frozen no_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"no_cursor_xpm"
 --		end
 
---	frozen sizeall_cursor_xpm: POINTER is
+	frozen sizeall_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"sizeall_cursor_xpm"
 --		end
 
---	frozen sizenesw_cursor_xpm: POINTER is
+	frozen sizenesw_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"sizenesw_cursor_xpm"
 --		end
 
---	frozen sizens_cursor_xpm: POINTER is
---		external
---			"C | %"ev_c_util.h%""
+	frozen sizens_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
+--		"C | %"ev_c_util.h%""
 --		alias
 --			"sizens_cursor_xpm"
 --		end
 
---	frozen sizenwse_cursor_xpm: POINTER is
+	frozen sizenwse_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"sizenwse_cursor_xpm"
 --		end
 
---	frozen sizewe_cursor_xpm: POINTER is
+	frozen sizewe_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"sizewe_cursor_xpm"
 --		end
 
---	frozen standard_cursor_xpm: POINTER is
+	frozen standard_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"standard_cursor_xpm"
 --		end
 
---	frozen uparrow_cursor_xpm: POINTER is
+	frozen uparrow_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias
 --			"uparrow_cursor_xpm"
 --		end
 
---	frozen wait_cursor_xpm: POINTER is
+	frozen wait_cursor_xpm: POINTER
+		do
+			check not_implemente: false end
+		end
 --		external
 --			"C | %"ev_c_util.h%""
 --		alias

@@ -21,6 +21,8 @@ feature -- Initialization
 	tooltip: STRING_32
 			-- Tooltip that has been set.
 		do
+			-- TODO ...
+			create Result.make_empty
 		end
 
 feature -- Element change

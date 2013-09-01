@@ -73,10 +73,10 @@ feature {NONE} -- Initialization
 --				print ("EV_BUTTON_IMP -- l_composite = Void !%N")
 --			end
 
---			pixmapable_imp_initialize
---			textable_imp_initialize
---			align_text_center
---			Precursor {EV_PRIMITIVE_IMP}
+			pixmapable_imp_initialize
+			textable_imp_initialize
+			align_text_center
+			Precursor {EV_PRIMITIVE_IMP}
 		end
 
 feature -- Access
@@ -91,7 +91,7 @@ feature -- Status Setting
 			-- Display `text' centered.
 		do
 			TODO_class_line ("__EV_BUTTON_IMP__", "align_text_center")
-			
+
 			Precursor {EV_TEXTABLE_IMP}
 --			{EV_GTK_EXTERNALS}.gtk_alignment_set (button_box, 0.5, 0.5, 0, 0)
 		end
@@ -100,7 +100,7 @@ feature -- Status Setting
 			-- Display `text' left aligned.
 		do
 			TODO_class_line ("__EV_BUTTON_IMP__", "align_text_left")
-			
+
 			Precursor {EV_TEXTABLE_IMP}
 --			{EV_GTK_EXTERNALS}.gtk_alignment_set (button_box, 0.0, 0.5, 0, 0)
 		end
@@ -109,7 +109,7 @@ feature -- Status Setting
 			-- Display `text' right aligned.
 		do
 			TODO_class_line ("__EV_BUTTON_IMP__", "align_text_right")
-			
+
 			Precursor {EV_TEXTABLE_IMP}
 --			{EV_GTK_EXTERNALS}.gtk_alignment_set (button_box, 1.0, 0.5, 0, 0)
 		end
@@ -126,7 +126,7 @@ feature -- Status Setting
 			-- to the default push button.
 		do
 			TODO_class_line ("__EV_BUTTON_IMP__", "disable_default_push_button")
-			
+
 			is_default_push_button := False
 --			{EV_GTK_EXTERNALS}.gtk_widget_unset_flags (visual_widget, {EV_GTK_ENUMS}.gtk_has_default_enum)
 --			{EV_GTK_EXTERNALS}.gtk_widget_queue_draw (visual_widget)
@@ -136,7 +136,7 @@ feature -- Status Setting
 			-- Allow the style of the button to be the default push button.
 		do
 			TODO_class_line ("__EV_BUTTON_IMP__", "enable_can_default")
-			
+
 			is_default_push_button := True
 --			{EV_GTK_EXTERNALS}.gtk_widget_set_flags (visual_widget, {EV_GTK_ENUMS}.gtk_has_default_enum)
 --			{EV_GTK_EXTERNALS}.gtk_widget_queue_draw (visual_widget)
@@ -145,7 +145,7 @@ feature -- Status Setting
 	set_foreground_color (a_color: EV_COLOR)
 		do
 			TODO_class_line ("__EV_BUTTON_IMP__", "set_foreground_color")
-			
+
 			Precursor {EV_PRIMITIVE_IMP} (a_color)
 --			real_set_foreground_color (text_label, a_color)
 		end
@@ -193,7 +193,7 @@ feature {EV_ANY_I} -- implementation
 			-- functionality implemented by `Current'
 
 invariant
-	button_box_not_null: is_usable implies button_box /= NULL
+--	button_box_not_null: is_usable implies button_box /= Void
 
 note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"

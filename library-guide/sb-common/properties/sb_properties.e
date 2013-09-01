@@ -36,7 +36,7 @@ feature
 				i := i - 1
 			end
 		end
-	
+
 	add_properties
 		do
 		end
@@ -50,7 +50,7 @@ feature
 			until
 				i > properties.count
 			loop
-				fx_trace2("Property: " + (properties @ i).name)
+			--	fx_trace2("Property: " + (properties @ i).name)
 				i := i + 1
 			end
 		end

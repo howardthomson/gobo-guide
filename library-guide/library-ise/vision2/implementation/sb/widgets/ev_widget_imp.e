@@ -64,6 +64,7 @@ feature {NONE} -- Initialization
 			-- Initialize default options, colors and sizes.
 			-- Connect action sequences to events.
 		do
+			Precursor
 		end
 
 feature {EV_WINDOW_IMP, EV_INTERMEDIARY_ROUTINES, EV_ANY_I, EV_APPLICATION_IMP} -- Implementation
@@ -148,7 +149,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 			a_x, a_y, a_button: INTEGER;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER)
-		
+
 			-- Call pointer_button_press_actions or pointer_double_press_actions
 			-- depending on event type in first position of `event_data'.
 			--| GTK sends both GDK_BUTTON_PRESS and GDK_2BUTTON_PRESS events

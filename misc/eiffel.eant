@@ -75,9 +75,9 @@
 		<set name="split" value="true"/>
 		<set name="split" value="false" if="${no_split}"/>
 		<set name="gelint_option" value="false" unless="${gelint_option}"/>
-		<gec ace="${ace_filename}" finalize="${finalize}" gelint="${gelint_option}" c_compile="false" catcall="error" split="${split}"/>
-		<exec executable=".\${system}.bat" if="${GOBO_OS}=windows"/>
-		<exec executable="./${system}.sh" unless="${GOBO_OS}=windows"/>
+		<gec ace="${ace_filename}" finalize="${finalize}" gelint="${gelint_option}" c_compile="true" catcall="error" split="${split}"/>
+		<!--exec executable=".\${system}.bat" if="${GOBO_OS}=windows"/-->
+		<!--exec executable="./${system}.sh" unless="${GOBO_OS}=windows"/-->
 	</target>
 
 	<target name="compile_ise" depend="prepare_compile">
@@ -90,6 +90,7 @@
 		<set name="ace_filename" value="compile_ise.ecf"/>
 		<set name="ace_filename" value="${system_dir}/system.ecf" if="${ecf_available}=true"/>
 		<set name="eiffel" value="ise"/>
+		<setenv name="bit_64" value="_64"/>
 		<geant target="xace" unless="${ecf_available}=true">
 			<argument name="a_compiler" value="ise"/>
 			<argument name="a_output" value="compile_ise.ecf"/>

@@ -53,6 +53,7 @@ feature -- Status report
 			-- Is Current able to be tabbed to? [Can receive Focus ...]
 		do
 			-- TODO
+			Result := False
 		end
 
 	enable_tabable_to
@@ -88,6 +89,8 @@ feature {NONE} -- Initialization
 			-- Initialize tab behavior for `Current'.
 			-- Called by `initialize'.
 		do
+		--	check false end
+		--	check not is_tabable_to end
 			if is_tabable_to then
 				enable_tabable_from
 			end

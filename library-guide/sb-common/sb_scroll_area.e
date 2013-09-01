@@ -95,7 +95,7 @@ feature {NONE} -- Creation
 
 	XXset_parent (a_parent: SB_COMPOSITE)
 		do
-			Precursor (a_parent)
+	--		Precursor (a_parent)
 	--		if parent = Void then
 	         	create h_scroll_bar.make_opts (Current, Current, Id_hscrolled, SCROLLBAR_HORIZONTAL, 0,0,0,0)
 	         	create v_scroll_bar.make_opts (Current, Current, Id_vscrolled, SCROLLBAR_VERTICAL,   0,0,0,0)
@@ -107,7 +107,7 @@ feature -- Attributes
 
 	h_scroll_bar: SB_SCROLL_BAR
 	v_scroll_bar: SB_SCROLL_BAR
-	
+
 	pos_x: INTEGER	-- X position of content relative to left of viewport
 	pos_y: INTEGER	-- Y position of content relative to top  of viewport
 
@@ -116,13 +116,13 @@ feature { NONE } -- Implementation attributes
 	scroll_corner: SB_SCROLL_CORNER
 
 	scroll_timer: SB_TIMER
-  
+
 	viewport_w: INTEGER	--
 	viewport_h: INTEGER	-- Viewport size reduced by scrollbar active screen space
-   
+
 	content_w: INTEGER		-- Content size, potentially larger, (or smaller), than
 	content_h: INTEGER		-- the viewport size.
-   
+
 feature -- Queries
 
 	default_width: INTEGER
@@ -130,7 +130,7 @@ feature -- Queries
       	local
          	w: INTEGER
       	do
-         	if (options & HSCROLLER_NEVER) /= 0 
+         	if (options & HSCROLLER_NEVER) /= 0
             	and then (options & HSCROLLER_ALWAYS) /= 0
           	then
           	--	fx_trace(0, <<"SB_SCROLL_AREA::default_width">> )
@@ -146,7 +146,7 @@ feature -- Queries
 		local
          	h: INTEGER
       	do
-         	if (options & VSCROLLER_NEVER) /= 0 
+         	if (options & VSCROLLER_NEVER) /= 0
             	and then (options & VSCROLLER_ALWAYS) /= 0
           	then
             	h := content_height
@@ -189,7 +189,7 @@ feature -- Queries
 	is_h_scrollable: BOOLEAN
     		-- Return True if horizontally scrollable
 		do
-        	Result :=  (options & HSCROLLER_NEVER ) = 0 
+        	Result :=  (options & HSCROLLER_NEVER ) = 0
         	   or else (options & HSCROLLER_ALWAYS) = 0
       	end
 
@@ -548,7 +548,7 @@ feature { NONE } -- Implementation
          if h_scroll_bar.page_size < h_scroll_bar.range then
             if (x < AUTOSCROLL_FUDGE) and then (0 < h_scroll_bar.scroll_position)
               then autoscrolling := True
-            elseif (viewport_w - AUTOSCROLL_FUDGE <= x) 
+            elseif (viewport_w - AUTOSCROLL_FUDGE <= x)
             		and then (h_scroll_bar.scroll_position < h_scroll_bar.range - h_scroll_bar.page_size)
              then
             	autoscrolling := True
@@ -556,7 +556,7 @@ feature { NONE } -- Implementation
          end
          if v_scroll_bar.page_size < v_scroll_bar.range then
             if (y < AUTOSCROLL_FUDGE) and then (0 < v_scroll_bar.scroll_position)
-             then 
+             then
                autoscrolling := True
             elseif (viewport_h - AUTOSCROLL_FUDGE <= y)
                and then (v_scroll_bar.scroll_position < v_scroll_bar.range - v_scroll_bar.page_size)
@@ -564,7 +564,7 @@ feature { NONE } -- Implementation
                autoscrolling := True
             end
          end
-         if only_when_inside and then 
+         if only_when_inside and then
             (x < 0 or else y < 0 or else viewport_w <= x or else viewport_h <= y)
           then
             autoscrolling := False

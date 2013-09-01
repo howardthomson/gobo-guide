@@ -119,9 +119,8 @@ feature -- Creation
 			drawable /= Void
 			event /= Void
       	do
---			fx_trace(0, <<"SB_DC_WINDOW::make_event_def">>)
       		reset_flags
-			gc.set_clip_rectangle (0, 0, clip_x, clip_y, clip_w, clip_h)	-- This is faulty, at least for test app Scribble
+			gc.set_clip_rectangle (0, 0, clip_x, clip_y, clip_w, clip_h)
 			set_flags (Gc_clip_mask)
       	end
 
@@ -167,10 +166,10 @@ feature -- Creation
 		--	unset_flags(Gc_stipple)
 		--	unset_flags(Gc_font)
 		--	unset_flags(Gc_clip_mask)
-			
+
 			if not default_flags then
 				gcv.reset
-				if test_flags (Gc_function) 			then gcv.set_function (Blt_src)					
+				if test_flags (Gc_function) 			then gcv.set_function (Blt_src)
 						rop := Gx_copy																	end
 				if test_flags (Gc_foreground)			then
 						gcv.set_foreground (XBlackPixel (display.to_external, display.default_screen))	end
@@ -233,7 +232,7 @@ feature -- Creation
 				id := 0
 			end
 		end
-		
+
 
 	read_pixel (x, y: INTEGER): INTEGER
 		-- Read back pixel
@@ -301,7 +300,7 @@ feature -- Creation
 			x_points := to_x_points (points)
 			x_draw_lines (display.to_external, id, gc.to_external, x_points.area.item_address (0), num, CoordModeOrigin)
 		end
-		
+
 
    	draw_lines_rel (points: ARRAY [ SB_POINT ])
    		local
@@ -453,18 +452,19 @@ feature -- Creation
 		require else
 			surface /= Void or else fxerror("FXDCWindow::drawHashBox: DC not connected to drawable.")
 		do
+			check not_implemented: false end
 			gcv.reset
-			gcv.set_stipple(get_app.stipples @ Stipple_gray)
-			gcv.set_fill_style(Fill_stippled)
-			gc.change(gcv)
+		--	gcv.set_stipple (get_app.stipples @ Stipple_gray)
+			gcv.set_fill_style (Fill_stippled)
+			gc.change (gcv)
 
-			x_fill_rectangle(display.to_external, id, gc.to_external, x, y, w-b, b)
-			x_fill_rectangle(display.to_external, id, gc.to_external, x+w-b, y, b, h-b)
-			x_fill_rectangle(display.to_external, id, gc.to_external, x+b, y+h-b, w-b, b)
-			x_fill_rectangle(display.to_external, id, gc.to_external, x, y+b, b, h-b)
+			x_fill_rectangle (display.to_external, id, gc.to_external, x, y, w-b, b)
+			x_fill_rectangle (display.to_external, id, gc.to_external, x+w-b, y, b, h-b)
+			x_fill_rectangle (display.to_external, id, gc.to_external, x+b, y+h-b, w-b, b)
+			x_fill_rectangle (display.to_external, id, gc.to_external, x, y+b, b, h-b)
 
 			gcv.reset
-			gcv.set_stipple (get_app.stipples @ Stipple_white)
+		--	gcv.set_stipple (get_app.stipples @ Stipple_white)
 			gcv.set_fill_style (fill)
 			gc.change (gcv)
 		end
@@ -481,7 +481,7 @@ feature -- Creation
 			gcv.set_ts_x_origin (x)
 			gcv.set_ts_y_origin (y)
 			gc.change (gcv)
-			
+
 			x_fill_rectangle(display.to_external, id, gc.to_external, x, y, w-1, 1);
 			x_fill_rectangle(display.to_external, id, gc.to_external, x+w-1, y, 1, h-1);
 			x_fill_rectangle(display.to_external, id, gc.to_external, x+1, y+h-1, w-1, 1);
@@ -680,7 +680,7 @@ feature -- Creation
 			Precursor(dashoffset, dashpattern)
 			array_8 := to_integer_8(dashpat)
 			gc.set_dashes(dashoff, array_8)
-			flags := flags | Gc_dash_list | Gc_dash_offset	
+			flags := flags | Gc_dash_list | Gc_dash_offset
 		end
 
 	to_integer_8 (an_array: ARRAY [ INTEGER ]): ARRAY [ INTEGER_8 ]
@@ -853,10 +853,10 @@ feature -- Creation
 			clip_y := y.max (rect_y)
 			clip_w := (x + w).min (rect_x + rect_w) - clip_x
 			clip_h := (y + h).min (rect_y + rect_h) - clip_y
-			
+
 			if clip_w <= 0 then clip_w := 0 end
 			if clip_h <= 0 then clip_h := 0 end
-			
+
 			gc.set_clip_rectangle (0, 0, clip_x, clip_y, clip_w, clip_h)
 			flags := flags | Gc_clip_mask
       	end

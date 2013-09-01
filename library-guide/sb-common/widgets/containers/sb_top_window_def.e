@@ -42,12 +42,12 @@ deferred class SB_TOP_WINDOW_DEF
 inherit
 
 	SB_SHELL
-		rename         
+		rename
 			make_top as shell_make_top,
 			make_child as shell_make_child,
 			Id_last as Shell_id_last
 		undefine
-         	hide		
+         	hide
 		redefine
 			handle_2,
 			create_resource,
@@ -59,7 +59,7 @@ inherit
 			destruct,
 			class_name
 		end
-      	
+
    	SB_TOP_WINDOW_COMMANDS
    	SB_TOP_WINDOW_CONSTANTS
 
@@ -179,7 +179,7 @@ feature -- Resource destruction (and detachment)
 
          		set_message_target (Void)
          		set_message (0)
-         	
+
             	-- Hide Current window
             	hide;
             	-- If there was another main level window still visible, that's all we do
@@ -205,7 +205,7 @@ feature -- Resource destruction (and detachment)
             	destruct
          	end
 		end
-		
+
 feature -- Destruction
 
 	destruct
@@ -222,7 +222,7 @@ feature -- actions
 			Precursor
 			raise
 		end
-		
+
    	show_at (placement: INTEGER)
       	do
          	place (placement)
@@ -266,15 +266,15 @@ feature -- actions
             	-- Place such that mouse in the middle, placing it as
             	-- close as possible in the center of the owner window.
             	-- Don't move the window unless the mouse is not inside.
-            	if (wx = 0 and wy = 0) or else  x < wx or else y < wy 
-               		or else wx+ww <= x or else wy+wh <= y 
+            	if (wx = 0 and wy = 0) or else  x < wx or else y < wy
+               		or else wx+ww <= x or else wy+wh <= y
              	then
                		-- Get the owner
-               		if owner /= Void then
-                  		over := owner
-               		else
+               	--	if owner /= Void then
+                --		over := owner
+               	--	else
                   		over := get_root
-               		end
+               	--	end
 
                		-- Get owner window size
                		ow := over.width
@@ -305,7 +305,7 @@ feature -- actions
             	-- Adjust so dialog is fully visible
             	if wx < 0 then
                		wx := 10
-            	end      
+            	end
             	if wy < 0 then
                		wy := 10
             	end
@@ -320,20 +320,20 @@ feature -- actions
             	-- Place centered over the owner
 
             	-- Get the owner
-            	if owner /= Void then
-               		over := owner
-            	else
+         --   	if owner /= Void then
+         --      		over := owner
+         --   	else
                		over := get_root
-            	end
-   
+         --   	end
+
             	-- Get owner window size
             	ow := over.width
             	oh := over.height
-   
+
             	-- Owner's coordinates to root coordinates
             	p := over.translate_coordinates_to(get_root,0,0);
             	ox := p.x; oy := p.y
-   
+
             	-- Adjust position
             	wx := ox+(ow - ww) // 2
             	wy := oy+(oh - wh) // 2
@@ -341,7 +341,7 @@ feature -- actions
             	-- Adjust so dialog is fully visible
             	if wx < 0 then
                		wx := 10
-            	end      
+            	end
             	if wy < 0 then
                		wy := 10
             	end
@@ -365,7 +365,7 @@ feature -- actions
             	-- Adjust so dialog is fully visible
             	if wx < 0 then
                		wx := 10
-            	end      
+            	end
             	if wy < 0 then
                		wy := 10
             	end
@@ -415,8 +415,8 @@ feature -- actions
                else
                   w := child.default_width
                end
-               if (hints & Layout_right) = Layout_right and then 
-                  (hints & Layout_center_x) = Layout_center_x 
+               if (hints & Layout_right) = Layout_right and then
+                  (hints & Layout_center_x) = Layout_center_x
                 then
                   -- Fixed X
                   w := child.x_pos+w;
@@ -463,8 +463,8 @@ feature -- actions
                else
                   h := child.default_height
                end
-               if (hints & Layout_bottom) = Layout_bottom and then 
-                  (hints & Layout_center_y) = Layout_center_y 
+               if (hints & Layout_bottom) = Layout_bottom and then
+                  (hints & Layout_center_y) = Layout_center_y
                 then
                   -- Fixed Y
                   h := child.y_pos+h
@@ -530,7 +530,7 @@ feature -- actions
             update
          end
       end
-      
+
    set_pad_left (pl: INTEGER)
          -- Change left padding
       do
@@ -575,7 +575,7 @@ feature -- actions
       	do
          	Result := options & (Pack_uniform_height | Pack_uniform_width)
       	end
-   
+
    	set_packing_hints (ph: INTEGER)
          	-- Change packing hints for children
       	local
@@ -741,7 +741,7 @@ feature {NONE} -- Implementation
                hints := child.layout_hints;
                x := child.x_pos;
                y := child.y_pos;
-               
+
                	-- Vertical
                if (hints & Layout_side_left) /= 0 then
                   	-- Height
@@ -751,12 +751,12 @@ feature {NONE} -- Implementation
                      h := mh
                   elseif (hints & Layout_fill_y) /= 0 then
                      h := bottom-top
-                  else 
+                  else
                      h := child.default_height
                   end
                   if h < 0 then h := 0 end
 					check h >= 0 end
-					
+
                  	 -- Width
                   if (hints & Layout_fix_width) /= 0 then
                      w := child.width
@@ -769,7 +769,7 @@ feature {NONE} -- Implementation
                   end
                   if w < 0 then w := 0 end
 					check w >= 0 end
-					
+
                  	 -- Y
                   if (hints & Layout_bottom) = 0 or else (hints & Layout_center_y) /= 0
                    then
@@ -816,7 +816,7 @@ feature {NONE} -- Implementation
                      h := mh
                   elseif (hints & Layout_fill_y) /= 0 then
                      h := bottom - top
-                  else 
+                  else
                      h := child.height_for_width (w) -- Height is a function of width!
                   end
                   if h < 0 then h := 0 end
@@ -847,7 +847,7 @@ feature {NONE} -- Implementation
                      end
                   end
                end
-               
+
 				check w >= 0 and then h >= 0 end
 
                child.position (x, y, w, h)

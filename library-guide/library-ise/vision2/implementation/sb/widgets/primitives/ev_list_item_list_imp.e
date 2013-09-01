@@ -117,7 +117,8 @@ feature -- Status report
 			do
 				temp_accept_cursor := accept_cursor
 				temp_deny_cursor := deny_cursor
-				app_implementation.on_pick (Current, pebble)
+				check false end
+	--			app_implementation.on_pick (Current, pebble)
 				if pnd_row_imp /= Void then
 					if pnd_row_imp.pick_actions_internal /= Void then
 						pnd_row_imp.pick_actions_internal.call ([a_x, a_y])
@@ -254,7 +255,7 @@ feature -- Insertion
 				-- Add row to model
 print ("insert_i_th ... text = "); print (v.text); print ("%N")
 
-			
+
 
 			set_text_on_position (i, v.text)
 

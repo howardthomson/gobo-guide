@@ -20,7 +20,7 @@ inherit
 	SB_DRAWABLE
 		rename
 			make as drawable_make
-		redefine         
+		redefine
 			detach_resource,
 			destruct,
 			resize
@@ -39,12 +39,12 @@ inherit
 
 	SB_EXPANDED
 
-feature -- Data   
+feature -- Data
 
 	data: ARRAY [ INTEGER_8 ]
 			-- Pixel data
 
-	channels: INTEGER       
+	channels: INTEGER
 			-- Number of channels 3 or 4
 
 feature -- Creation
@@ -64,14 +64,14 @@ feature -- Creation
          	-- Create an image
       	require
          	a /= Void
-			a_data /= Void implies (((opts & IMAGE_ALPHA) /= Zero and then a_data.count = w * h * 4) 
+			a_data /= Void implies (((opts & IMAGE_ALPHA) /= Zero and then a_data.count = w * h * 4)
 							 or else((opts & IMAGE_ALPHA)  = Zero and then a_data.count = w * h * 3))
       	do
          	drawable_make (w, h)
          	visual := application.default_visual
          	if (opts & IMAGE_ALPHA) /= Zero then
             	channels := 4
-         	else 
+         	else
             	channels := 3
          	end
          	if a_data = Void and then (opts & IMAGE_OWNED) /= Zero then
@@ -119,12 +119,12 @@ feature -- Queries
             	b1 := data.item(t)
             	b2 := data.item(t+1)
             	b3 := data.item(t+2)
-            	b4 := data.item(t+3)            
+            	b4 := data.item(t+3)
             	Result := (b1
             			 | b2 |<< 8
             			 | b3 |<< 16
             			 | b4 |<< 24)
-         	else 
+         	else
             	t := (y * width + x) * 3 + data.lower
             --	Result := sbrgb (data.item(t).to_integer,data.item(t+1).to_integer,
             --			data.item(t+2).to_integer);
@@ -192,9 +192,9 @@ feature -- Actions
    set_pixel (x, y, color: INTEGER)
       require
          data /= Void
-         	and then (((options & IMAGE_ALPHA) /= Zero 
-         	and then (y*width+x)*4+data.lower <= data.upper) 
-            	or else((options & IMAGE_ALPHA) = Zero 
+         	and then (((options & IMAGE_ALPHA) /= Zero
+         	and then (y*width+x)*4+data.lower <= data.upper)
+            	or else((options & IMAGE_ALPHA) = Zero
                 and then (y*width+x)*3+data.lower <= data.upper))
          -- Change pixel at x,y
       local
@@ -263,7 +263,7 @@ feature -- Actions
 
    load_pixels (store: SB_STREAM)
          -- Load pixel data
-      local         
+      local
          i, e: INTEGER
          size: INTEGER
       do
@@ -361,8 +361,8 @@ feature -- Transformation
                   data.resize (1, w * h * channels)
                end
             end
-            width := w
-            height := h
+        --    width := w
+        --    height := h
          end
       end
 
@@ -376,7 +376,7 @@ feature -- Transformation
          w, h, ow, oh: INTEGER
          interim: ARRAY[INTEGER_8]
       do
-         if a_w < 1 then 
+         if a_w < 1 then
             w := 1
          else
             w := a_w
@@ -556,7 +556,7 @@ feature -- Transformation
                mem.collection_off;
         --#       mem.mem_copy (old_data.to_external, data.to_external, size);
                mem.collection_on
-               inspect degrees 
+               inspect degrees
                when 90 then
                   resize (height, width)
                   nbytesa := channels * width
@@ -576,7 +576,7 @@ feature -- Transformation
                         from
                         until
                            pa >= paa
-                        loop 
+                        loop
                            data.put (old_data.item (pb + 0), pa + 0)
                            data.put (old_data.item (pb + 1), pa + 1)
                            data.put (old_data.item (pb + 2), pa + 2)
@@ -705,7 +705,7 @@ feature -- Transformation
                      end
                   end
                else
-                  -- TODO: warning 
+                  -- TODO: warning
                end
                render
             else
@@ -717,7 +717,7 @@ feature -- Transformation
                when 270 then
                   resize (height, width)
                else
-                  -- TODO: warning 
+                  -- TODO: warning
                end
             end
          end
@@ -727,7 +727,7 @@ feature -- Transformation
    crop (x, y, w, h: INTEGER)
          -- Crop image to given rectangle
       require
-         rectangle_insige: w >= 1 and then h >= 1 and then x >= 0 and then y >= 0 
+         rectangle_insige: w >= 1 and then h >= 1 and then x >= 0 and then y >= 0
                            and then x + w <= width and then y + h <=height
       local
          paa, pbb, e, pa, pb: INTEGER

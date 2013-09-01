@@ -1,4 +1,7 @@
 note
+
+	license: "Eiffel Forum License v2 (see forum.txt)"
+
 	todo: "[
 		Fix text_extents / X_CHAR_STRUCT
 	]"
@@ -9,7 +12,7 @@ class X_FONT_STRUCT
   --| Stephane Hillion
   --| 1998/01/28
 
-inherit 
+inherit
 
 	X_STRUCT
 
@@ -45,16 +48,10 @@ feature -- Consultation
     		-- width in pixels of part string
     	require
     		non_void_string: s /= Void
-    		valid_offset: offset >= 0 and then offset < s.count
-    		valid_count: (offset + count) <= s.count
+    		valid_offset: offset >= 1 and then offset <= s.count
+    		valid_count: (offset + count - 1) <= s.count
     	do
-    	
---	print (once "X_FONT_STRUCT:text_width_n%N  offset = ")
---	print (offset.out)
---	print (once "  s.count = ")
---	print (s.count.out)
---	print (once "%N")
-    		Result := c_text_width (to_external, s.area.item_address (offset), count)
+    		Result := c_text_width (to_external, s.area.item_address (offset - 1), count)
     	end
 
 	ascent: INTEGER
@@ -82,7 +79,7 @@ feature {NONE} -- External functions
 --		alias
 --			"XFreeFontInfo"
 --    	end
-	
+
 	c_font_struct_fid				(p : POINTER) : INTEGER external "C struct XFontStruct access fid				use <X11/Xlib.h>" end
 	c_font_struct_direction			(p : POINTER) : INTEGER external "C struct XFontStruct access direction			use <X11/Xlib.h>" end
 	c_font_struct_min_char_or_byte2	(p : POINTER) : INTEGER external "C struct XFontStruct access min_char_or_byte2	use <X11/Xlib.h>" end
@@ -98,7 +95,7 @@ feature {NONE} -- External functions
 	c_font_struct_per_char			(p : POINTER) : POINTER external "C struct XFontStruct access per_char			use <X11/Xlib.h>" end
 	c_font_struct_ascent			(p : POINTER) : INTEGER external "C struct XFontStruct access ascent				use <X11/Xlib.h>" end
 	c_font_struct_descent			(p : POINTER) : INTEGER external "C struct XFontStruct access descent			use <X11/Xlib.h>" end
-	
+
 
 	c_font_struct_size: INTEGER
     	external "C inline use <X11/Xlib.h>"
@@ -117,4 +114,4 @@ feature {NONE} -- External functions
     		alias "XTextExtents"
     	end
 
-end 
+end

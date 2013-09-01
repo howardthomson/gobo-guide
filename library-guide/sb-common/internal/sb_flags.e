@@ -1,8 +1,5 @@
 class SB_FLAGS
 
-inherit
---	SB_ZERO
-	
 feature {SB_WINDOW_DEF}
 
 	flags: INTEGER

@@ -14,37 +14,37 @@ class SB_DEFS_DEF
 
 inherit
 
-   SB_MODIFIER_MASKS
-   
-   SB_SEL_TYPE
+	SB_MODIFIER_MASKS
 
-   SB_ZERO
+	SB_SEL_TYPE
+
+	SB_ZERO
 
 feature -- Truth values
 
-	SB_TRUE : INTEGER = 1;
-	SB_FALSE: INTEGER = 0;
-	SB_MAYBE: INTEGER = 2;
+	SB_TRUE : INTEGER = 1
+	SB_FALSE: INTEGER = 0
+	SB_MAYBE: INTEGER = 2
 
 feature -- Mouse buttons
 
-	LEFTBUTTON       : INTEGER = 1;
-	MIDDLEBUTTON     : INTEGER = 2;
-	RIGHTBUTTON      : INTEGER = 3;
+	LEFTBUTTON       : INTEGER = 1
+	MIDDLEBUTTON     : INTEGER = 2
+	RIGHTBUTTON      : INTEGER = 3
 
 feature -- window crossing modes
 
-	CROSSINGNORMAL: INTEGER = 0;	     -- Normal crossing event
-	CROSSINGGRAB  : INTEGER = 1;	     -- Crossing due to mouse grab
-	CROSSINGUNGRAB: INTEGER = 2;	     -- Crossing due to mouse ungrab
+	CROSSINGNORMAL: INTEGER = 0	     -- Normal crossing event
+	CROSSINGGRAB  : INTEGER = 1	     -- Crossing due to mouse grab
+	CROSSINGUNGRAB: INTEGER = 2	     -- Crossing due to mouse ungrab
 
 
 
 feature -- window visibility modes
 
-	VISIBILITYTOTAL  : INTEGER = 0;
-	VISIBILITYPARTIAL: INTEGER = 1;
-	VISIBILITYNONE   : INTEGER = 2;
+	VISIBILITYTOTAL  : INTEGER = 0
+	VISIBILITYPARTIAL: INTEGER = 1
+	VISIBILITYNONE   : INTEGER = 2
 
 
 feature -- Options for filematch
@@ -57,18 +57,18 @@ feature -- Options for filematch
 
 feature -- Drag and drop actions
 
-	DRAG_REJECT  : INTEGER = 0;                 -- Reject all drop actions
-	DRAG_ACCEPT  : INTEGER = 1;                 -- Accept any drop action
-	DRAG_COPY    : INTEGER = 2;                 -- Copy
-	DRAG_MOVE    : INTEGER = 3;                 -- Move
-	DRAG_LINK    : INTEGER = 4;                 -- Link
+	DRAG_REJECT  : INTEGER = 0                 -- Reject all drop actions
+	DRAG_ACCEPT  : INTEGER = 1                 -- Accept any drop action
+	DRAG_COPY    : INTEGER = 2                 -- Copy
+	DRAG_MOVE    : INTEGER = 3                 -- Move
+	DRAG_LINK    : INTEGER = 4                 -- Link
 	DRAG_PRIVATE : INTEGER = 5                  -- Private
 
 feature -- Origin of data
 
-	FROM_SELECTION  : INTEGER = 0;              -- Primary selection
-	FROM_CLIPBOARD  : INTEGER = 1;              -- Clipboard
-	FROM_DRAGNDROP  : INTEGER = 2               -- Drag and drop source
+	FROM_SELECTION  : INTEGER = 0              -- Primary selection
+	FROM_CLIPBOARD  : INTEGER = 1              -- Clipboard
+	FROM_DRAGNDROP  : INTEGER = 2              -- Drag and drop source
 
 feature -- Search modes for search/replace dialogs
 

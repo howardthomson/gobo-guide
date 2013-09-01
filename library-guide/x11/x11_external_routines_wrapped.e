@@ -25,42 +25,35 @@ inherit
 
 feature -- X11 Tracing facilities
 
-	trace_x: BOOLEAN = False
+--	trace_x: BOOLEAN = False
 
 feature -- X11 Routines and Functions
 
 	XFree, x_free (ptr: POINTER): INTEGER
 		do
-			if trace_x then edp_trace.st(once "XFree(").n(ptr.out).n(once ")").d end
 			Result := c_XFree(ptr)
 		end
 
 	XOpenDisplay, x_open_display(dsp: POINTER): POINTER
 		do
-			if trace_x then edp_trace.st(once "XOpenDisplay: Serial: ").n(c_XNextRequest(dsp).out).d end
 			Result := c_XOpenDisplay(dsp)
 		end
 
 	XAllPlanes, x_all_planes: INTEGER
 		do
 			Result := c_XAllPlanes
-			if trace_x then edp_trace.st(once "XAllPlanes() = ").n(Result.out).d end
 		end
 
 	XBlackPixel, x_black_pixel(display: POINTER; screen: INTEGER): INTEGER
 		do
 			if screen /= 0 then
-				edp_trace.st(once "XBlackPixel -- screen /= 0 !!").d
-			--	crash
 			end
 			Result := c_XBlackPixel(display, screen)
-			if trace_x then edp_trace.st(once "XBlackPixel(display = ").n(display.out).n(once ", screen = ").n(screen.out).n(once ") = ").n(Result.out).d end
 		end
 
 	XWhitePixel, x_white_pixel(display: POINTER; screen: INTEGER): INTEGER
 		do
 			Result := c_XWhitePixel(display, screen)
-			if trace_x then edp_trace.st(once "XWhitePixel(display = ").n(display.out).n(once ", screen = ").n(screen.out).n(once ") = ").n(Result.out).d end
 		end
 
 	XConnectionNumber, x_connection_number(display: POINTER): INTEGER
@@ -72,17 +65,15 @@ feature -- X11 Routines and Functions
 	XDefaultColormap, x_default_colormap(display: POINTER; screen: INTEGER): INTEGER
 		do
 			Result := c_XDefaultColormap(display, screen)
-			if trace_x then edp_trace.st(once "XDefaultColormap(display = ").n(display.out).n(once ", screen = ").n(screen.out).n(once ") = ").n(Result.out).d end
 		end
 
 	XDefaultDepth, x_default_depth(display: POINTER; screen: INTEGER): INTEGER
 		do
 			Result := c_XDefaultDepth(display, screen)
-			if trace_x then edp_trace.st(once "XDefaultDepth(display = ").n(display.out).n(once ", screen = ").n(screen.out).n(once ") = ").n(Result.out).d end
 		end
 
 	XListDepths, x_list_depths(display: POINTER; screen: INTEGER; count_return: POINTER): POINTER
-			-- 
+			--
 		do
 			Result := c_XListDepths(display, screen, count_return)
 		end
@@ -91,21 +82,18 @@ feature -- X11 Routines and Functions
 		-- This gc should NOT be freed!
 		do
 			Result := c_XDefaultGC(display, screen)
-			if trace_x then edp_trace.st(once "XDefaultGC(display = ").n(display.out).n(once ", screen = ").n(screen.out).n(once ") = ").n(Result.out).d end
 		end
 
 	XDefaultRootWindow, x_default_root_window(display: POINTER): INTEGER
 		do
 			Result := c_XDefaultRootWindow(display)
-			if trace_x then edp_trace.st(once "XDefaultRootWindow(display = ").n(display.out).n(once ") = ").n(Result.out).d end
 		end
 
 	XDefaultScreenOfDisplay, x_default_screen_of_display(display: POINTER): POINTER
 		do
 			Result := c_XDefaultScreenOfDisplay(display)
-			if trace_x then edp_trace.st(once "XDefaultScreenOfDisplay(screen = ").n(display.out).n(once ") = ").n(Result.out).d end
 		end
-		
+
 	-- x_screen_of_display
 	-- x_default_screen
 
@@ -123,7 +111,7 @@ feature -- X11 Routines and Functions
 		do
 			c_XCloseDisplay(ptr)
     	end
-  
+
 	XDisplayString, x_display_string (ptr: POINTER): POINTER
 		do
 			Result := c_XDisplayString(ptr)
@@ -137,43 +125,36 @@ feature -- X11 Routines and Functions
 	XDefaultScreen, x_default_screen (disp: POINTER): INTEGER
 		do
 			Result := c_XDefaultScreen(disp)
-			if trace_x then edp_trace.st(once "XDefaultScreen(display = ").n(disp.out).n(once ") = ").n(Result.out).d end
     	end
 
 	XDisplayWidth, x_display_width (disp: POINTER; scr: INTEGER): INTEGER
 		do
 			Result := c_XDisplayWidth(disp, scr)
-			if trace_x then edp_trace.st(once "XDisplayWidth(display = ").n(disp.out).n(once ", screen = ").n(scr.out).n(once ") = ").n(Result.out).d end
     	end
 
   	XDisplayHeight, x_display_height (disp: POINTER; scr: INTEGER): INTEGER
 		do
 			Result := c_XDisplayHeight(disp, scr)
-			if trace_x then edp_trace.st(once "XDisplayHeight(display = ").n(disp.out).n(once ", screen = ").n(scr.out).n(once ") = ").n(Result.out).d end
     	end
 
   	XDisplayWidthMM, x_display_width_mm (disp: POINTER; scr: INTEGER): INTEGER
 		do
 			Result := c_XDisplayWidthMM(disp, scr)
-			if trace_x then edp_trace.st(once "XDisplayWidthMM(display = ").n(disp.out).n(once ", screen = ").n(scr.out).n(once ") = ").n(Result.out).d end
     	end
 
 	XDisplayHeightMM, x_display_height_mm (disp: POINTER; scr: INTEGER): INTEGER
 		do
 			Result := c_XDisplayHeightMM(disp, scr)
-			if trace_x then edp_trace.st(once "XDisplayHeightMM(display = ").n(disp.out).n(once ", screen = ").n(scr.out).n(once ") = ").n(Result.out).d end
     	end
 
   	XDisplayCells, x_display_cells (d: POINTER; scr: INTEGER): INTEGER
 		do
 			Result := c_XDisplayCells(d, scr)
-			if trace_x then edp_trace.st(once "XDisplayCells(display = ").n(d.out).n(once ", screen = ").n(scr.out).n(once ") = ").n(Result.out).d end
     	end
 
   	XDefaultVisual, x_default_visual (disp: POINTER; scr: INTEGER): POINTER
 		do
 			Result := c_XDefaultVisual(disp, scr)
-			if trace_x then edp_trace.st(once "XDefaultVisual(display = ").n(disp.out).n(once ", screen = ").n(scr.out).n(once ") = ").n(Result.out).d end
     	end
 
 --	XDefaultDepth, x_default_depth (disp: POINTER; scr: INTEGER): INTEGER is
@@ -184,7 +165,6 @@ feature -- X11 Routines and Functions
   	XRootWindow, x_root_window (disp: POINTER; scr: INTEGER): INTEGER
 		do
 			Result := c_XRootWindow(disp, scr)
-			if trace_x then edp_trace.st(once "XRootWindow(display = ").n(disp.out).n(once ", screen = ").n(scr.out).n(once ") = ").n(Result.out).d end
     	end
 
 --	XListDepths, x_list_depths (disp: POINTER; i: INTEGER; c: POINTER): POINTER is
@@ -225,7 +205,6 @@ feature -- X11 Routines and Functions
   	XSetCloseDownMode, x_set_close_down_mode (disp: POINTER; i: INTEGER)
 		do
 			c_XSetCloseDownMode(disp, i)
-			if trace_x then edp_trace.st(once "XSetCloseDownMode(display = ").n(disp.out).n(once ", ?? = ").n(i.out).n(once ")").d end
     	end
 
   	XKillClient, x_kill_client (disp: POINTER; i: INTEGER)
@@ -336,13 +315,13 @@ feature -- Event Handling
     	alias "XPeekEvent"
     	end
 
-  	cc_XCheckWindowEvent, x_check_window_event (d: POINTER; wid, msk: INTEGER; 
+  	cc_XCheckWindowEvent, x_check_window_event (d: POINTER; wid, msk: INTEGER;
                         buf: POINTER): INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XCheckWindowEvent"
     	end
 
-  	cc_XCheckTypedWindowEvent, x_check_typed_window_event (d: POINTER; wid, typ: INTEGER; 
+  	cc_XCheckTypedWindowEvent, x_check_typed_window_event (d: POINTER; wid, typ: INTEGER;
                               buf: POINTER): INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XCheckTypedWindowEvent"
@@ -373,7 +352,7 @@ feature -- Event Handling
     	alias "XPutBackEvent"
     	end
 
-  	cc_XSendEvent, x_send_event (d: POINTER; wid: INTEGER; 
+  	cc_XSendEvent, x_send_event (d: POINTER; wid: INTEGER;
                 p: BOOLEAN; msk: INTEGER; ev: POINTER): BOOLEAN
     	external "C use <X11/Xlib.h>"
     	alias "XSendEvent"
@@ -434,7 +413,6 @@ feature -- GC routines
 
   	XChangeGC, x_change_gc (d, ctxt: POINTER; m: like long_anchor; v: POINTER)
 		do
-		--	fx_trace(0, <<"XChangeGC: Serial: ", c_XNextRequest(d).out>>)
 			c_XChangeGC(d, ctxt, m, v)
     	end
 
@@ -445,7 +423,6 @@ feature -- GC routines
 
   	XSetBackground, x_set_background (d, ctxt: POINTER; pix: INTEGER)
 		do
-		--	fx_trace(0, <<"XSetBackground: Serial: ", c_XNextRequest(d).out>>)
 			c_XSetBackground(d, ctxt, pix)
     	end
 
@@ -479,7 +456,7 @@ feature -- GC routines
 			c_XSetFillStyle(d, ctxt, s)
     	end
 
-  	cc_XSetDashes, x_set_dashes (d, ctxt: POINTER; o: INTEGER; 
+  	cc_XSetDashes, x_set_dashes (d, ctxt: POINTER; o: INTEGER;
                 buf: POINTER; n: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XSetDashes"
@@ -510,7 +487,7 @@ feature -- GC routines
     	alias "XSetClipOrigin"
     	end
 
-  	cc_XSetClipRectangles, x_set_clip_rectangles (d, ctxt: POINTER; x, y: INTEGER; 
+  	cc_XSetClipRectangles, x_set_clip_rectangles (d, ctxt: POINTER; x, y: INTEGER;
                          buf: POINTER; size: INTEGER; sort: INTEGER)
     	external "C use <X11/Xlib.h>"
    	 	alias "XSetClipRectangles"
@@ -538,79 +515,79 @@ feature -- Drawable routines
     	alias "XDrawPoint"
     	end
 
-	cc_XDrawPoints, x_draw_points (d: POINTER; rid: INTEGER; xgc: POINTER; 
+	cc_XDrawPoints, x_draw_points (d: POINTER; rid: INTEGER; xgc: POINTER;
                  buf: POINTER; n, mode: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XDrawPoints"
     	end
 
-  	cc_XDrawLine, x_draw_line (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XDrawLine, x_draw_line (d: POINTER; rid: INTEGER; xgc: POINTER;
                x1, y1, x2, y2: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XDrawLine"
     	end
 
-  	cc_XDrawLines, x_draw_lines (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XDrawLines, x_draw_lines (d: POINTER; rid: INTEGER; xgc: POINTER;
                 buf: POINTER; n, mode: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XDrawLines"
     	end
 
-  	cc_XDrawSegments, x_draw_segments (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XDrawSegments, x_draw_segments (d: POINTER; rid: INTEGER; xgc: POINTER;
                    buf: POINTER; n: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XDrawSegments"
     	end
 
-  	cc_XDrawArc, x_draw_arc (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XDrawArc, x_draw_arc (d: POINTER; rid: INTEGER; xgc: POINTER;
               x, y, w, h, a1, a2: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XDrawArc"
     	end
 
-  	cc_XDrawArcs, x_draw_arcs (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XDrawArcs, x_draw_arcs (d: POINTER; rid: INTEGER; xgc: POINTER;
                buf: POINTER; n: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XDrawArcs"
     	end
 
-  	cc_XFillArc, x_fill_arc (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XFillArc, x_fill_arc (d: POINTER; rid: INTEGER; xgc: POINTER;
               x, y, w, h, a1, a2: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XFillArc"
     	end
 
-  	cc_XFillArcs, x_fill_arcs (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XFillArcs, x_fill_arcs (d: POINTER; rid: INTEGER; xgc: POINTER;
                buf: POINTER; n: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XFillArcs"
     	end
 
-  	cc_XDrawRectangle, x_draw_rectangle (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XDrawRectangle, x_draw_rectangle (d: POINTER; rid: INTEGER; xgc: POINTER;
                     x, y, w, h: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XDrawRectangle"
     	end
 
-  	cc_XDrawRectangles, x_draw_rectangles (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XDrawRectangles, x_draw_rectangles (d: POINTER; rid: INTEGER; xgc: POINTER;
                      buf: POINTER; n: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XDrawRectangles"
     	end
 
-  	cc_XFillRectangle, x_fill_rectangle (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XFillRectangle, x_fill_rectangle (d: POINTER; rid: INTEGER; xgc: POINTER;
                     x, y, w, h: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XFillRectangle"
     	end
 
-  	cc_XFillRectangles, x_fill_rectangles (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XFillRectangles, x_fill_rectangles (d: POINTER; rid: INTEGER; xgc: POINTER;
                      buf: POINTER; n: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XFillRectangles"
     	end
 
-  	cc_XFillPolygon, x_fill_polygon (d: POINTER; rid: INTEGER; xgc: POINTER; 
+  	cc_XFillPolygon, x_fill_polygon (d: POINTER; rid: INTEGER; xgc: POINTER;
                   buf: POINTER; n, mode1, mode2: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XFillPolygon"
@@ -652,7 +629,7 @@ feature -- Drawable routines
     	alias "XPutImage"
     	end
 
-	XLookupString, x_lookup_string (ev, buf: POINTER; 
+	XLookupString, x_lookup_string (ev, buf: POINTER;
 		   n: INTEGER;
 		   ks, p: POINTER): INTEGER
 		do

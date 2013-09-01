@@ -17,7 +17,7 @@ inherit
 	EV_PRIMITIVE_IMP
 		redefine
 			make,
-			interface,
+			interface
 --			initialize
 		end
 
@@ -64,7 +64,7 @@ feature -- Access
 
 	page_size: INTEGER is
 			-- Size of slider.
-			--| We define it here to add to the internal maximum. 
+			--| We define it here to add to the internal maximum.
 			--| Value should be zero for ranges but not for scrollbars.
 		do
 	--		Result := {EV_GTK_EXTERNALS}.gtk_adjustment_struct_page_size (adjustment).rounded
@@ -146,7 +146,7 @@ feature -- Element change
 			end
 	--		{EV_GTK_EXTERNALS}.set_gtk_adjustment_struct_lower (adjustment, value_range.lower.to_real)
 			internal_set_upper
-			internal_set_value (temp_value)	
+			internal_set_value (temp_value)
 	--		{EV_GTK_EXTERNALS}.gtk_adjustment_changed (adjustment)
 		end
 
@@ -163,12 +163,12 @@ feature {NONE} -- Implementation
 
 	interface: EV_GAUGE
 
-	adjustment: POINTER
+--	adjustment: POINTER
 			-- Pointer to GtkAdjustment of gauge.
 
 	old_value: INTEGER
 			-- Value of `value' when last "value-changed" signal occurred.
-			
+
 	internal_set_value (a_value: INTEGER) is
 			-- Set `value' to `a_value'.
 		do
@@ -176,7 +176,7 @@ feature {NONE} -- Implementation
 	--			{EV_GTK_EXTERNALS}.gtk_adjustment_set_value (adjustment, a_value.to_real)
 			end
 		end
-			
+
 feature {EV_INTERMEDIARY_ROUTINES} -- Implementation
 
 	value_changed_handler is
@@ -188,7 +188,7 @@ feature {EV_INTERMEDIARY_ROUTINES} -- Implementation
 		end
 
 invariant
-	adjustment_not_void: adjustment /= NULL
+--	adjustment_not_void: adjustment /= default_pointer
 
 indexing
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"

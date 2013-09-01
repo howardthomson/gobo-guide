@@ -26,7 +26,7 @@ feature -- Event handling
 			l_app_imp: EV_APPLICATION_IMP
 		do
 			create Result
---#			l_app_imp := app_implementation
+			l_app_imp := app_implementation
 --#			l_app_imp.gtk_marshal.signal_connect (visual_widget, l_app_imp.clicked_event_string, agent (l_app_imp.gtk_marshal).button_select_intermediary (c_object), Void, False)
 		end
 

@@ -15,9 +15,9 @@ note
 		resource_id: ANY attribute, and from the other [EV_PRIMITIVE_IMP / SB_WINDOW] we
 		get the redefined xwin: X_WINDOW.
 		Unlike a routine, the compiler does not permit undefining the ANY attribute ... such
-		that the X_WINDOW attribute becomes the class implementation.	
+		that the X_WINDOW attribute becomes the class implementation.
 	]"
-	
+
 class
 	EV_DRAWING_AREA_IMP
 
@@ -195,7 +195,8 @@ feature {NONE} -- Implementation
 	tooltip_window_y_offset: INTEGER
 			-- Amount of pixels tooltip window is offset down from the mouse pointer when shown.
 		do
-			Result := {EV_GTK_EXTERNALS}.gdk_display_get_default_cursor_size ({EV_GTK_EXTERNALS}.gdk_display_get_default)
+			check false end
+--			Result := {EV_GTK_EXTERNALS}.gdk_display_get_default_cursor_size ({EV_GTK_EXTERNALS}.gdk_display_get_default)
 		end
 
 	tooltip_repeater: EV_TIMEOUT
@@ -212,7 +213,7 @@ feature {NONE} -- Implementation
 		local
 			a_tip_label: POINTER
 			a_tip_win: POINTER
-			a_cs: EV_GTK_C_STRING
+--			a_cs: EV_GTK_C_STRING
 		do
 --			internal_tooltip := a_text.twin
 --			if {EV_GTK_EXTERNALS}.gtk_maj_ver > 1 then

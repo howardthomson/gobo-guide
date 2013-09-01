@@ -4,21 +4,21 @@ note
 
 	author: "Stephane Hillion"
 	copyright: "Copyright (c) 1998-2006, Stephane Hillion and Howard Thomson"
-	license: "GNU Public License (see COPYING)"
-	
+	license: "Eiffel Forum License v2 (see forum.txt)"
+
 	todo: "[
 		Re-format class text, for 4-col tab left alignment
 	]"
 
 class X_WINDOW
 
-inherit 
+inherit
 
 	X_RESOURCE
 	X_WINDOW_CONSTANTS
 	X_PORTABILITY_ROUTINES
 
-create 
+create
 
 	make,
 	from_external
@@ -103,19 +103,19 @@ feature -- configuration
 	----------------------------------------------------------
 
 	change_attributes (mask: INTEGER; swa: X_SET_WINDOW_ATTRIBUTES)
-			-- Depending on the mask, `change_attributes' uses the window 
+			-- Depending on the mask, `change_attributes' uses the window
 			-- attributes in the swa structure to change the specified
 			-- window attributes
 		require
 			swa /= Void
 		do
-			x_change_window_attributes (display.to_external, id, 
+			x_change_window_attributes (display.to_external, id,
 					mask, swa.to_external)
 		end
 	----------------------------------------------------------
 
 	define_cursor (cursor: X_CURSOR)
-			-- If a cursor is set, it will be used when the pointer is in 
+			-- If a cursor is set, it will be used when the pointer is in
 			-- the window.  If the cursor is `None_cursor', this method undoes
 			-- the effect of a previous `define_cursor' call
 		do
@@ -154,8 +154,8 @@ feature -- configuration
 	----------------------------------------------------------
 
 --	get_wm_hints: X_WM_HINTS is
---			-- reads the window manager hints and returns Void if no 
---			-- WM_HINTS property was set on the window or returns a 
+--			-- reads the window manager hints and returns Void if no
+--			-- WM_HINTS property was set on the window or returns a
 --			-- X_WM_HINTS structure if it succeeds.
 --		require
 --			not is_same_resource (display.root_window (screen))
@@ -205,7 +205,7 @@ feature -- name and title
 		do
 			x_set_icon_name (display.to_external, id, string_to_external(name))
 		end
-  
+
 feature -- mapping
 
   	map
@@ -252,7 +252,7 @@ feature -- mapping
 feature -- window stack
 
   	raise_window
-      		-- raises the specified window to the top of the stack so that 
+      		-- raises the specified window to the top of the stack so that
       		-- no sibling window obscures it.
     	require
       		not is_same_resource (display.root_window (screen))
@@ -260,8 +260,8 @@ feature -- window stack
       		x_raise_window (display.to_external, id)
     	end
 
-  	lower 
-      		-- lowers the specified window to the bottom of the stack so that 
+  	lower
+      		-- lowers the specified window to the bottom of the stack so that
       		-- it does not obscure any sibling windows.
     	require
       		not is_same_resource (display.root_window (screen))
@@ -270,14 +270,14 @@ feature -- window stack
     	end
 
   	circulate_subwindows_up
-      		-- raises the lowest mapped child of the window that is partially 
+      		-- raises the lowest mapped child of the window that is partially
       		-- or completely occluded by another child
     	do
       		x_circulate_subwindows_up (display.to_external, id)
     	end
 
   	circulate_subwindows_down
-      		-- lowers the highest mapped child of the window that partially 
+      		-- lowers the highest mapped child of the window that partially
       		-- or completely occludes another child
     	do
       		x_circulate_subwindows_down (display.to_external, id)
@@ -303,7 +303,7 @@ feature -- Focus
 feature -- size and location
 
   	get_geometry
-      		-- fills the following attributes : last_root_id,  last_x, 
+      		-- fills the following attributes : last_root_id,  last_x,
       		-- last_y, last_width, last_height, last_border_width, last_depth.
     	do
       		x_get_geometry (display.to_external,
@@ -328,11 +328,11 @@ feature -- size and location
   	translate_coordinates (win : X_WINDOW; x, y : INTEGER) : BOOLEAN
 			-- If it returns True, it takes the `x' and `y' coordinates
 			-- relative to the window's origin and returns these coordinates
-			-- to `last_translated_x' and `last_translated_y' relative to 
-			-- `win' origin.  If it returns False, `Current' and `win' are 
-			-- on different screens, and `last_translated_x' and 
-			-- `last_translated_y' are Zero. If the coordinates are 
-			-- contained in a mapped child of `win', that child is returned 
+			-- to `last_translated_x' and `last_translated_y' relative to
+			-- `win' origin.  If it returns False, `Current' and `win' are
+			-- on different screens, and `last_translated_x' and
+			-- `last_translated_y' are Zero. If the coordinates are
+			-- contained in a mapped child of `win', that child is returned
 			-- to child_return.  Otherwise, child_return is set to `None_resource'.
     	require
       		win /= Void
@@ -396,7 +396,7 @@ feature -- size and location
     	end
 
 	set_wm_normal_hints (sh: X_SIZE_HINTS)
-			-- replaces the size hints for the WM_NORMAL_HINTS property on 
+			-- replaces the size hints for the WM_NORMAL_HINTS property on
 			-- the window
 		require
 			not is_same_resource (display.root_window (screen))
@@ -409,7 +409,7 @@ feature -- size and location
       		-- on the window. `last_supplied_hints' is set.
     	do
       		create Result.make
-      		x_get_wm_normal_hints (display.to_external, id, 
+      		x_get_wm_normal_hints (display.to_external, id,
 			     Result.to_external, $last_supplied_hints)
     	end
 
@@ -419,28 +419,28 @@ feature -- size and location
 
 feature -- grabbing
 
-	grab_pointer (owner_ev      : BOOLEAN; 
-                mask          : INTEGER; 
-                pointer_sync, 
+	grab_pointer (owner_ev      : BOOLEAN;
+                mask          : INTEGER;
+                pointer_sync,
                 keyboard_sync : INTEGER;
                 confine_win   : X_WINDOW;
                 curs          : X_CURSOR;
                 time          : INTEGER) : INTEGER
-      -- grabs control of the pointer and returns `Grab_success' if 
+      -- grabs control of the pointer and returns `Grab_success' if
       -- the grab was successful.
 		require
 			not is_same_resource (display.root_window (screen))
 			confine_win /= Void
 			curs /= Void
 		do
-			Result := x_grab_pointer (display.to_external, id, owner_ev, 
-				(mask), pointer_sync, 
+			Result := x_grab_pointer (display.to_external, id, owner_ev,
+				(mask), pointer_sync,
 				keyboard_sync, confine_win.id, curs.id, time)
 		end
 
   	ungrab_pointer (time: INTEGER)
       		-- releases the pointer and any queued events if this client has
-      		-- actively grabbed the pointer from `grab_pointer', 
+      		-- actively grabbed the pointer from `grab_pointer',
       		-- `grab_button', or from a normal button press.
       		-- `time' is timestamp or `Current_time'
     	require
@@ -450,11 +450,11 @@ feature -- grabbing
     	end
 		----------------------------------------------------------
 
-  change_active_pointer_grab (mask : INTEGER; 
+  change_active_pointer_grab (mask : INTEGER;
                               curs : X_CURSOR;
                               time : INTEGER)
       -- changes the specified dynamic parameters if the pointer is
-      -- actively grabbed by the client and if the specified time is 
+      -- actively grabbed by the client and if the specified time is
       -- no earlier than the last-pointer-grab time and no later than
       -- the current X server time.
     require
@@ -465,8 +465,8 @@ feature -- grabbing
 				    curs.id, time)
     end
 
-  grab_button (button, 
-               modifs        : INTEGER; 
+  grab_button (button,
+               modifs        : INTEGER;
                owner_ev      : BOOLEAN;
                mask          : INTEGER;
                pointer_sync,
@@ -492,28 +492,28 @@ feature -- grabbing
 			x_ungrab_button (display.to_external, button, modifs, id)
 		end
 
-	grab_keyboard (owner_ev      : BOOLEAN; 
-                 pointer_sync, 
-                 keyboard_sync : INTEGER; 
+	grab_keyboard (owner_ev      : BOOLEAN;
+                 pointer_sync,
+                 keyboard_sync : INTEGER;
                  time          : INTEGER)
-			-- grabs control of the keyboard and generates `Focus_in' and 
+			-- grabs control of the keyboard and generates `Focus_in' and
 			-- `Focus_out' events.
 		require
 			not is_same_resource (display.root_window (screen))
 		do
-			x_grab_keyboard (display.to_external, id, owner_ev, 
+			x_grab_keyboard (display.to_external, id, owner_ev,
 						pointer_sync, keyboard_sync, time)
 		end
-  
+
   ungrab_keyboard (time: INTEGER)
-      -- releases the keyboard and any queued events if this client 
+      -- releases the keyboard and any queued events if this client
       -- has it actively grabbed from either grab_keyboard or grab_key.
     do
       x_ungrab_keyboard (display.to_external, time)
     end
 
-  grab_key (key_code, 
-            modifs        : INTEGER; 
+  grab_key (key_code,
+            modifs        : INTEGER;
             owner_ev      : BOOLEAN;
             pointer_sync,
             keyboard_sync : INTEGER)
@@ -526,7 +526,7 @@ feature -- grabbing
     end
 
 	ungrab_key (key_code, modifs : INTEGER)
-			-- releases the key combination on the specified window if it 
+			-- releases the key combination on the specified window if it
 			-- was grabbed by this client.
 		do
 			x_ungrab_key (display.to_external, key_code, modifs, id)
@@ -556,9 +556,9 @@ feature -- Properties
 			prop /= Void
 			type /= Void
 		do
-			Result := x_get_window_property (display.to_external, id, 
+			Result := x_get_window_property (display.to_external, id,
 				prop.id, start, len,
-				del, type.id, 
+				del, type.id,
 				$last_property_type,
 				$last_property_format,
 				$last_property_nitems,
@@ -586,8 +586,8 @@ feature { NONE }
 
 feature {NONE} -- External functions
 
-	x_create_window (d: POINTER; wid, x, y, w, h, bw, 
-                   pl, typ: INTEGER; vis: POINTER; 
+	x_create_window (d: POINTER; wid, x, y, w, h, bw,
+                   pl, typ: INTEGER; vis: POINTER;
                    mask: INTEGER; attr: POINTER) : INTEGER
 		external "C use <X11/Xlib.h>"
 		alias "XCreateWindow"
@@ -634,7 +634,7 @@ feature {NONE} -- External functions
     	end
 
   	x_get_wm_hints (d : POINTER; wid : INTEGER) : POINTER
-    	external "C use <X11/Xlib.h>"
+    	external "C use <X11/Xutil.h>"
     	alias "XGetWMHints"
     	end
 
@@ -723,11 +723,11 @@ feature {NONE} -- External functions
     	alias "XSetInputFocus"
     	end
 
-  	x_get_geometry (d : POINTER; wid : INTEGER; 
+  	x_get_geometry (d : POINTER; wid : INTEGER;
                   rid, x, y, w, h, brdr, dpth : POINTER)
     	external "C use <X11/Xlib.h>"
     	alias "XGetGeometry"
-    	end  
+    	end
 
   	x_translate_coordinates (d : POINTER; rid, wid, x, y : INTEGER;
                            rx, ry, rc : POINTER) : BOOLEAN
@@ -770,7 +770,7 @@ feature {NONE} -- External functions
     	alias "XQueryTree"
     	end
 
-  	x_grab_pointer (d: POINTER; wid: INTEGER; own: BOOLEAN; 
+  	x_grab_pointer (d: POINTER; wid: INTEGER; own: BOOLEAN;
                   msk, ps, ks, cid, mid, time: INTEGER): INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XGrabPointer"
@@ -786,7 +786,7 @@ feature {NONE} -- External functions
     	alias "XChangeActivePointerGrab"
     	end
 
-  	x_grab_button (d: POINTER; but, mod, wid : INTEGER; 
+  	x_grab_button (d: POINTER; but, mod, wid : INTEGER;
                  own: BOOLEAN; msk, ps, ks, cid, mid: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XGrabButton"
@@ -797,7 +797,7 @@ feature {NONE} -- External functions
     	alias "XUngrabButton"
     	end
 
-  	x_grab_keyboard (d: POINTER; wid: INTEGER; 
+  	x_grab_keyboard (d: POINTER; wid: INTEGER;
                    own: BOOLEAN; ps, ks, time: INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XGrabKeyboard"
@@ -808,7 +808,7 @@ feature {NONE} -- External functions
     	alias "XUngrabKeyboard"
     	end
 
-	x_grab_key (d :POINTER; kc, mod, wid : INTEGER; 
+	x_grab_key (d :POINTER; kc, mod, wid : INTEGER;
                  own : BOOLEAN; ps, ks : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XGrabKey"
@@ -843,4 +843,4 @@ feature {NONE} -- External functions
 		end
 
 
-end 
+end

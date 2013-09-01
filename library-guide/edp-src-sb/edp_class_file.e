@@ -54,27 +54,27 @@ feature -- Scanning
 		--	src: SB_TEXT_PAGE_BUFFER
 			storage: NATIVE_ARRAY [ CHARACTER ]
 		do
-			if scanner /= Void then
-			--	scanner.re_scan
-			else
-				create fd.open_read (filename)
-				create src.make_from_file (fd)
+--			if scanner /= Void then
+--			--	scanner.re_scan
+--			else
+--				create fd.open_read (filename)
+--				create src.make_from_file (fd)
 
-				create edp_str.make (src.last + 1)
-				edp_str.from_c_substring (src.page_buf, 1, src.last)
+--				create edp_str.make (src.last + 1)
+--				edp_str.from_c_substring (src.page_buf, 1, src.last)
 
-				create scanner.make_from_string (Current, edp_str)	--#
+--				create scanner.make_from_string (Current, edp_str)	--#
 
-				edp_str := Void
+--				edp_str := Void
 
-				fd.close
-				src.done_with
+--				fd.close
+--				src.done_with
 
-				-- Check for load_fail XXX
-				if not scanned then
-		--#			print("LOAD-FAIL: "); print(name.name); print("%N")
-				end
-			end
+--				-- Check for load_fail XXX
+--				if not scanned then
+--		--#			print("LOAD-FAIL: "); print(name.name); print("%N")
+--				end
+--			end
 		end
 
 

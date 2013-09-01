@@ -18,7 +18,7 @@ note
 class SB_APPLICATION
 
 inherit
-	
+
 	SB_APPLICATION_DEF
 	SB_MODALITY
 
@@ -200,13 +200,22 @@ feature {NONE} -- Implementation routines
 
 feature -- Event processing
 
-   peek_event: BOOLEAN
-         -- Peek to determine if there's an event
-      do
-         if initialized then
-         	-- todo
-         end
-      end
+	last_peek_event: SB_RAW_EVENT_DEF
+
+	peek_event: BOOLEAN
+			-- Peek to determine if there's an event
+		do
+        	if initialized then
+        		if last_peek_event /= Void then
+        			Result := True
+        		else
+        			last_peek_event := get_next_event (True)
+        			if last_peek_event /= Void then
+        				Result := True
+        			end
+        		end
+			end
+		end
 
 --	#################### run_one_event #######################
 
@@ -215,9 +224,9 @@ feature -- Event processing
 		local
 			ev: SB_RAW_EVENT_DEF
 		do
-
+	--		check false end
 			create_new_resources
-		
+
 			ev := get_next_event (True)
 			if ev /= Void then
 				ev.process (Current)
@@ -225,7 +234,7 @@ feature -- Event processing
 					-- Sleep waiting for an event
 				display.flush
 				sleep_on_select
-				
+
 					-- Update current time
 				sus_time.make_from_now
 			end
@@ -476,7 +485,7 @@ feature {NONE}
 					refresher_window := root_window
 					again := False
 				end
-				Result := refresher_window				
+				Result := refresher_window
 				if refresher_window.first_child /= Void then
 					refresher_window := refresher_window.first_child
 				else
@@ -487,7 +496,7 @@ feature {NONE}
 						refresher_window := refresher_window.parent
 					end
 					refresher_window := refresher_window.next
-				end			
+				end
 			end
 		end
 
@@ -675,8 +684,10 @@ feature {NONE} -- Implementation
 	find_window_with_id (w: INTEGER): SB_WINDOW
 		do
 			if w /= 0 then
-				Result := wcontext.item (w)
-				check Result /= Void end
+				if wcontext.has (w) then
+					Result := wcontext.item (w)
+					check Result /= Void end
+				end
 			end
 		end
 
@@ -838,7 +849,7 @@ feature {SB_RAW_EVENT_DEF}
 				       	if invocation = Void
 					 	or else invocation.modality = MODAL_FOR_NONE
 					 	--or else (invocation.modality = MODAL_FOR_POPUP and then window.get_shell = invocation.window)
-					 	or else (invocation.window /= Void and then invocation.window.is_owner_of(window))
+			--		 	or else (invocation.window /= Void and then invocation.window.is_owner_of(window))
 					 	or else window.get_shell.does_save_under then
 				    		if window.handle_2 (Current, SEL_MOTION, 0, event) then refresh end
 				    	end
@@ -944,7 +955,7 @@ feature {SB_RAW_EVENT_DEF}
 							elseif invocation = Void
 										or else invocation.modality = MODAL_FOR_NONE
 										--or else (invocation.modality = MODAL_FOR_DIALOG and then window.get_shell = invocation.window)
-										or else (invocation.window /= Void and then invocation.window.is_owner_of(window))
+										or else (invocation.window /= Void and then invocation.window.is_parent_of (window))
 										or else window.get_shell.does_save_under then
 								if event.type = SEL_MIDDLEBUTTONPRESS then
 								--	edp_trace.start (0, "Handling Middle button press in normal window").done
@@ -972,10 +983,10 @@ feature {SB_RAW_EVENT_DEF}
 			        	or else (ev.xcrossing.mode = NotifyNormal and then ev.xcrossing.detail /= NotifyInferior) then
 							debug
 								if Leave_notify /= (Enter_notify + 1) then
-									edp_trace.start (0, "Enter_Notify / Leave_Notify not consecutive !!").done
+									check false end
 								end
 								if (SEL_ENTER + 1) /= SEL_LEAVE then
-									edp_trace.start(0, "SEL_ENTER / SEL_LEAVE not consecutive !!").done
+									check false end
 								end
 							end -- debug
 			            	event.set_type (SEL_ENTER + ev.xany.type - EnterNotify)
@@ -1157,7 +1168,7 @@ feature {SB_RAW_EVENT_DEF}
 						        	event.set_type (SEL_CLOSE)
 						            window.do_handle_2 (Current, SEL_CLOSE, 0, event)
 						        end
-					
+
 							elseif ev.xclient.data_l (0) = wmTakeFocus.id then		-- WM_TAKE_FOCUS
 						    --	if invocation /= Void and then invocation.window /= Void and then invocation.window.id /= 0 then
 							--		ev.xclient.set_window (invocation.window.id)
@@ -1167,7 +1178,7 @@ feature {SB_RAW_EVENT_DEF}
 						        -- XSetInputFocus causes a spurious BadMatch error; we ignore this in xerrorhandler
 							--	XSetInputFocus(display.to_external, ev.xclient.window, RevertToParent, ev.xclient.data_l(1));
 							end
-					
+
 						-- XDND Enter from source
 						elseif ev.xclient.message_type = xdndEnter.id then
 					--	        FXint ver=(ev.xclient.data.l[1]>>24)&255;
@@ -1179,7 +1190,7 @@ feature {SB_RAW_EVENT_DEF}
 					--			end
 					--	        if(ev.xclient.data.l[1]&1){
 					--	          fxrecvtypes(display.to_external,xdndSource,xdndTypes,ddeTypeList,ddeNumTypes);
-					
+
 					--	        else{
 					--	          FXMALLOC(&ddeTypeList,FXDragType,3);
 					--	          ddeNumTypes=0;
@@ -1194,7 +1205,7 @@ feature {SB_RAW_EVENT_DEF}
 					--	          }
 					--	#endif
 					--	        }
-					
+
 						-- XDND Leave from source
 						elseif ev.xclient.message_type = xdndLeave.id then
 					--	        fx_trace((100, <<"DNDLeave from remote window ", ev.xclient.data_l(0).out>>)
@@ -1211,7 +1222,7 @@ feature {SB_RAW_EVENT_DEF}
 					--			end
 					--	        xdndSource=0;
 					--	        }
-					
+
 						-- XDND Position from source
 						elseif ev.xclient.message_type = xdndPosition.id then
 					--	        fx_trace((100,"DNDPosition from remote window %ld\n",ev.xclient.data.l[0]));
@@ -1557,119 +1568,119 @@ feature -- X error handling
 		do
 			inspect a_opcode
 
-			when 1   then Result := once "CreateWindow"              
-			when 2   then Result := once "ChangeWindowAttributes"        
-			when 3   then Result := once "GetWindowAttributes"     
+			when 1   then Result := once "CreateWindow"
+			when 2   then Result := once "ChangeWindowAttributes"
+			when 3   then Result := once "GetWindowAttributes"
 			when 4   then Result := once "DestroyWindow"
-			when 5   then Result := once "DestroySubwindows"   
+			when 5   then Result := once "DestroySubwindows"
 			when 6   then Result := once "ChangeSaveSet"
 			when 7   then Result := once "ReparentWindow"
 			when 8   then Result := once "MapWindow"
 			when 9   then Result := once "MapSubwindows"
 			when 10  then Result := once "UnmapWindow"
-			when 11  then Result := once "UnmapSubwindows"  
-			when 12  then Result := once "ConfigureWindow"  
-			when 13  then Result := once "CirculateWindow"  
+			when 11  then Result := once "UnmapSubwindows"
+			when 12  then Result := once "ConfigureWindow"
+			when 13  then Result := once "CirculateWindow"
 			when 14  then Result := once "GetGeometry"
 			when 15  then Result := once "QueryTree"
 			when 16  then Result := once "InternAtom"
 			when 17  then Result := once "GetAtomName"
-			when 18  then Result := once "ChangeProperty" 
-			when 19  then Result := once "DeleteProperty" 
+			when 18  then Result := once "ChangeProperty"
+			when 19  then Result := once "DeleteProperty"
 			when 20  then Result := once "GetProperty"
-			when 21  then Result := once "ListProperties" 
-			when 22  then Result := once "SetSelectionOwner"    
-			when 23  then Result := once "GetSelectionOwner"    
-			when 24  then Result := once "ConvertSelection"   
+			when 21  then Result := once "ListProperties"
+			when 22  then Result := once "SetSelectionOwner"
+			when 23  then Result := once "GetSelectionOwner"
+			when 24  then Result := once "ConvertSelection"
 			when 25  then Result := once "SendEvent"
 			when 26  then Result := once "GrabPointer"
 			when 27  then Result := once "UngrabPointer"
 			when 28  then Result := once "GrabButton"
 			when 29  then Result := once "UngrabButton"
-			when 30  then Result := once "ChangeActivePointerGrab"          
+			when 30  then Result := once "ChangeActivePointerGrab"
 			when 31  then Result := once "GrabKeyboard"
-			when 32  then Result := once "UngrabKeyboard" 
+			when 32  then Result := once "UngrabKeyboard"
 			when 33  then Result := once "GrabKey"
 			when 34  then Result := once "UngrabKey"
-			when 35  then Result := once "AllowEvents"       
-			when 36  then Result := once "GrabServer"      
-			when 37  then Result := once "UngrabServer"        
-			when 38  then Result := once "QueryPointer"        
-			when 39  then Result := once "GetMotionEvents"           
-			when 40  then Result := once "TranslateCoords"                
-			when 41  then Result := once "WarpPointer"       
-			when 42  then Result := once "SetInputFocus"         
-			when 43  then Result := once "GetInputFocus"         
-			when 44  then Result := once "QueryKeymap"       
-			when 45  then Result := once "OpenFont"    
-			when 46  then Result := once "CloseFont"     
+			when 35  then Result := once "AllowEvents"
+			when 36  then Result := once "GrabServer"
+			when 37  then Result := once "UngrabServer"
+			when 38  then Result := once "QueryPointer"
+			when 39  then Result := once "GetMotionEvents"
+			when 40  then Result := once "TranslateCoords"
+			when 41  then Result := once "WarpPointer"
+			when 42  then Result := once "SetInputFocus"
+			when 43  then Result := once "GetInputFocus"
+			when 44  then Result := once "QueryKeymap"
+			when 45  then Result := once "OpenFont"
+			when 46  then Result := once "CloseFont"
 			when 47  then Result := once "QueryFont"
-			when 48  then Result := once "QueryTextExtents"     
-			when 49  then Result := once "ListFonts"  
-			when 50  then Result := once "ListFontsWithInfo" 
-			when 51  then Result := once "SetFontPath" 
-			when 52  then Result := once "GetFontPath" 
-			when 53  then Result := once "CreatePixmap"        
-			when 54  then Result := once "FreePixmap"      
-			when 55  then Result := once "CreateGC"    
-			when 56  then Result := once "ChangeGC"    
-			when 57  then Result := once "CopyGC"  
-			when 58  then Result := once "SetDashes"     
-			when 59  then Result := once "SetClipRectangles"             
-			when 60  then Result := once "FreeGC"  
-			when 61  then Result := once "ClearArea"             
-			when 62  then Result := once "CopyArea"    
-			when 63  then Result := once "CopyPlane"     
-			when 64  then Result := once "PolyPoint"     
-			when 65  then Result := once "PolyLine"    
-			when 66  then Result := once "PolySegment"       
-			when 67  then Result := once "PolyRectangle"         
-			when 68  then Result := once "PolyArc"   
-			when 69  then Result := once "FillPoly"    
-			when 70  then Result := once "PolyFillRectangle"             
-			when 71  then Result := once "PolyFillArc"       
-			when 72  then Result := once "PutImage"    
-			when 73  then Result := once "GetImage" 
-			when 74  then Result := once "PolyText8"     
-			when 75  then Result := once "PolyText16"      
-			when 76  then Result := once "ImageText8"      
-			when 77  then Result := once "ImageText16"       
-			when 78  then Result := once "CreateColormap"          
-			when 79  then Result := once "FreeColormap"        
-			when 80  then Result := once "CopyColormapAndFree"               
-			when 81  then Result := once "InstallColormap"           
-			when 82  then Result := once "UninstallColormap"             
-			when 83  then Result := once "ListInstalledColormaps"                  
-			when 84  then Result := once "AllocColor"      
-			when 85  then Result := once "AllocNamedColor"           
-			when 86  then Result := once "AllocColorCells"           
-			when 87  then Result := once "AllocColorPlanes"            
-			when 88  then Result := once "FreeColors"      
-			when 89  then Result := once "StoreColors"       
-			when 90  then Result := once "StoreNamedColor"           
-			when 91  then Result := once "QueryColors"       
-			when 92  then Result := once "LookupColor"       
-			when 93  then Result := once "CreateCursor"        
-			when 94  then Result := once "CreateGlyphCursor"             
-			when 95  then Result := once "FreeCursor"      
-			when 96  then Result := once "RecolorCursor"         
-			when 97  then Result := once "QueryBestSize"         
-			when 98  then Result := once "QueryExtension"          
-			when 99  then Result := once "ListExtensions"          
+			when 48  then Result := once "QueryTextExtents"
+			when 49  then Result := once "ListFonts"
+			when 50  then Result := once "ListFontsWithInfo"
+			when 51  then Result := once "SetFontPath"
+			when 52  then Result := once "GetFontPath"
+			when 53  then Result := once "CreatePixmap"
+			when 54  then Result := once "FreePixmap"
+			when 55  then Result := once "CreateGC"
+			when 56  then Result := once "ChangeGC"
+			when 57  then Result := once "CopyGC"
+			when 58  then Result := once "SetDashes"
+			when 59  then Result := once "SetClipRectangles"
+			when 60  then Result := once "FreeGC"
+			when 61  then Result := once "ClearArea"
+			when 62  then Result := once "CopyArea"
+			when 63  then Result := once "CopyPlane"
+			when 64  then Result := once "PolyPoint"
+			when 65  then Result := once "PolyLine"
+			when 66  then Result := once "PolySegment"
+			when 67  then Result := once "PolyRectangle"
+			when 68  then Result := once "PolyArc"
+			when 69  then Result := once "FillPoly"
+			when 70  then Result := once "PolyFillRectangle"
+			when 71  then Result := once "PolyFillArc"
+			when 72  then Result := once "PutImage"
+			when 73  then Result := once "GetImage"
+			when 74  then Result := once "PolyText8"
+			when 75  then Result := once "PolyText16"
+			when 76  then Result := once "ImageText8"
+			when 77  then Result := once "ImageText16"
+			when 78  then Result := once "CreateColormap"
+			when 79  then Result := once "FreeColormap"
+			when 80  then Result := once "CopyColormapAndFree"
+			when 81  then Result := once "InstallColormap"
+			when 82  then Result := once "UninstallColormap"
+			when 83  then Result := once "ListInstalledColormaps"
+			when 84  then Result := once "AllocColor"
+			when 85  then Result := once "AllocNamedColor"
+			when 86  then Result := once "AllocColorCells"
+			when 87  then Result := once "AllocColorPlanes"
+			when 88  then Result := once "FreeColors"
+			when 89  then Result := once "StoreColors"
+			when 90  then Result := once "StoreNamedColor"
+			when 91  then Result := once "QueryColors"
+			when 92  then Result := once "LookupColor"
+			when 93  then Result := once "CreateCursor"
+			when 94  then Result := once "CreateGlyphCursor"
+			when 95  then Result := once "FreeCursor"
+			when 96  then Result := once "RecolorCursor"
+			when 97  then Result := once "QueryBestSize"
+			when 98  then Result := once "QueryExtension"
+			when 99  then Result := once "ListExtensions"
 			when 100 then Result := once "ChangeKeyboardMapping"
 			when 101 then Result := once "GetKeyboardMapping"
-			when 102 then Result := once "ChangeKeyboardControl"                
-			when 103 then Result := once "GetKeyboardControl"             
+			when 102 then Result := once "ChangeKeyboardControl"
+			when 103 then Result := once "GetKeyboardControl"
 			when 104 then Result := once "Bell"
 			when 105 then Result := once "ChangePointerControl"
 			when 106 then Result := once "GetPointerControl"
-			when 107 then Result := once "SetScreenSaver"          
-			when 108 then Result := once "GetScreenSaver"          
-			when 109 then Result := once "ChangeHosts"       
-			when 110 then Result := once "ListHosts"     
-			when 111 then Result := once "SetAccessControl"               
+			when 107 then Result := once "SetScreenSaver"
+			when 108 then Result := once "GetScreenSaver"
+			when 109 then Result := once "ChangeHosts"
+			when 110 then Result := once "ListHosts"
+			when 111 then Result := once "SetAccessControl"
 			when 112 then Result := once "SetCloseDownMode"
-			when 113 then Result := once "KillClient" 
+			when 113 then Result := once "KillClient"
 			when 114 then Result := once "RotateProperties"
 			when 115 then Result := once "ForceScreenSaver"
 			when 116 then Result := once "SetPointerMapping"
@@ -1700,7 +1711,7 @@ feature -- X error handling
 			if initialized then
 
 	    		-- What's going on
-				edp_trace.start(100, class_name).next("::closeDisplay: closing display.%N").done
+			--	edp_trace.start(100, class_name).next("::closeDisplay: closing display.%N").done
 
 				--
 				--	    -- Free standard stipples

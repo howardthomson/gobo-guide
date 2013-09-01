@@ -44,10 +44,11 @@ feature -- Access
 		local
 			app_imp: EV_APPLICATION_IMP
 		once
-			todo_class_line ("EV_ENVIRONMENT_IMP", "#0")
+		--	todo_class_line ("EV_ENVIRONMENT_IMP", "#0")
+			check false end
 
 			app_imp ?= application.implementation
-			Result := app_imp.readable_pixbuf_formats.linear_representation
+	--		Result := app_imp.readable_pixbuf_formats.linear_representation
 			Result.compare_objects
 		end
 
@@ -61,13 +62,15 @@ feature -- Access
 	default_pointer_style_width: INTEGER
 			-- Default pointer style width.
 		do
-			todo_class_line ("EV_ENVIRONMENT_IMP", "#1")
+		--	todo_class_line ("EV_ENVIRONMENT_IMP", "#1")
+			check false end
 		end
 
 	default_pointer_style_height: INTEGER
 			-- Default pointer style height.
 		do
-			todo_class_line ("EV_ENVIRONMENT_IMP", "#2")
+		--	todo_class_line ("EV_ENVIRONMENT_IMP", "#2")
+			check false end
 		end
 
 	has_printer: BOOLEAN
@@ -83,10 +86,10 @@ feature -- Access
 		local
 			app_imp: EV_APPLICATION_IMP
 		once
-			todo_class_line ("EV_ENVIRONMENT_IMP", "#3")
-			
+		--	todo_class_line ("EV_ENVIRONMENT_IMP", "#3")
+			check false end
 			app_imp ?= application.implementation
-			Result := app_imp.font_names_on_system.linear_representation
+		--	Result := app_imp.font_names_on_system.linear_representation
 			Result.compare_objects
 		end
 

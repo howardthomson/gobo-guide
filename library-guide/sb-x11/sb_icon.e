@@ -109,7 +109,7 @@ feature -- Rendering
 				--	fx_trace(0, <<"bm height = ",			xim.height.out		>> );
 				--	fx_trace(0, <<"bm format = ",			xim.format.out		>> );		-- ==XYBitmap?"XYBitmap":xim->format==XYPixmap?"XYPixmap":"ZPixmap"));
 				--	fx_trace(0, <<"bm depth = ", 			xim.depth.out		>> );
-				
+
 				--	fx_trace(0, <<"bm byte_order = ", 		xim.byte_order.out	>> )	--		-- ==MSBFirst)?"MSBFirst":"LSBFirst"));
 				--	fx_trace(0, <<"bm bitmap_unit = ",		xim.bitmap_unit.out	>> )	--));
 				--	fx_trace(0, <<"bm bitmap_bit_order = ", xim.bitmap_bit_order.out >> )	-- ==MSBFirst)?"MSBFirst":"LSBFirst"));
@@ -121,15 +121,15 @@ feature -- Rendering
       				if channels = 3 or else (options & IMAGE_OPAQUE) /= Zero then
       					-- Opaque image
         				sp_fill_with (sp, (0xff).to_character)
-        				
+
       				elseif channels = 4 then
 	      				if (options & (IMAGE_ALPHACOLOR | IMAGE_ALPHAGUESS)) /= Zero then
 	      					-- Transparent color
 
 							check channels = 4 end
-					    	tr := int_to_int8 (sbredval   (transparent_color)) 
-					    	tg := int_to_int8 (sbgreenval (transparent_color))
-					    	tb := int_to_int8 (sbblueval  (transparent_color))
+					    	tr := (sbredval   (transparent_color)).as_integer_8
+					    	tg := (sbgreenval (transparent_color)).as_integer_8
+					    	tb := (sbblueval  (transparent_color)).as_integer_8
 					  --  	fx_trace(0, <<"SB_ICON::render - #2 tr/tg/tb = ", tr.out,"/",tg.out,"/",tb.out>>)
 							check data.count <= (width * height * 3) end
 					        from img := 1; y := 0 until y >= height loop
@@ -137,7 +137,7 @@ feature -- Rendering
 	          				--		fx_trace(0, <<"SB_ICON::render #2: x/y/img - ", x.out, "/", y.out, "/", img.out>>)
 
 									if  ((data @ (img + 0)) = tr)
-									and ((data @ (img + 1)) = tg) 
+									and ((data @ (img + 1)) = tg)
 									and ((data @ (img + 2)) = tb)
 									then
 										xim.put_pixel (x, y, 0)
@@ -208,13 +208,13 @@ feature -- Rendering
 						else
 					    	-- Transparent color
 					      	check channels = 4 end
-					    	tr := int_to_int8 (sbredval  (transparent_color))
-					    	tg := int_to_int8 (sbgreenval(transparent_color))
-					    	tb := int_to_int8 (sbblueval (transparent_color))
+					    	tr := (sbredval  (transparent_color)).as_integer_8
+					    	tg := (sbgreenval(transparent_color)).as_integer_8
+					    	tb := (sbblueval (transparent_color)).as_integer_8
 					        from img := 1; y := 0 until y >= height loop
 					          	from x := 0 until x >= width loop
 					            	if not			 ((data @ (img + 0)) = tr)
-											and then ((data @ (img + 1)) = tg) 
+											and then ((data @ (img + 1)) = tg)
 											and then ((data @ (img + 2)) = tb)
 									and then is_dark_color(data @ (img + 0), data @ (img + 1), data @ (img + 2)) then
 										xim.put_pixel (x, y, 0xffffffff)
@@ -235,7 +235,7 @@ feature -- Rendering
 					-- Clean up
 				--	mem.free	--	FXFREE(&xim->data);
 				--	xim.destroy	--	XDestroyImage(xim);
-					
+
 					gc.free
 				end
 			end
@@ -243,8 +243,8 @@ feature -- Rendering
 
 	dark_color (r, g, b: INTEGER): INTEGER
 		do
-			if   ((r & 0x00ff) 
-				+ (g & 0x00ff) 
+			if   ((r & 0x00ff)
+				+ (g & 0x00ff)
 				+ (b & 0x00ff)) < 382 then
 				Result := 0xffffffff
 			else
@@ -256,7 +256,7 @@ feature -- Rendering
 		do
 			Result := ((r+g+b) & 0x00ff) < 382
 		end
-		
+
 	resize_imp(w, h: INTEGER)
 		local
 			dd: INTEGER

@@ -42,7 +42,7 @@ feature
 
 --	rect			: SB_RECTANGLE		-- Rectangle
 		-- Removed due to expanded class problems with Estudio
-		
+
 	rect_x,
 	rect_y,
 	rect_w,
@@ -87,10 +87,10 @@ feature
 
 	trace
 		do
-			fx_trace(0, <<"SB_EVENT::trace: ",
-						"Type: ", type.out,
-						" click_count: ", click_count.out
-			>> )
+	--		fx_trace(0, <<"SB_EVENT::trace: ",
+	--					"Type: ", type.out,
+	--					" click_count: ", click_count.out
+	--		>> )
 		end
 
 	set_rect_x (a_x: INTEGER)
@@ -220,7 +220,7 @@ feature
       do
          moved := a_moved
       end
-  
+
    set_synthetic (a_synthetic: like synthetic)
       do
          synthetic := a_synthetic

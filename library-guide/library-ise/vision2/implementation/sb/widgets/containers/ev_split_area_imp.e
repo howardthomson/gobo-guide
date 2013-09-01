@@ -1,6 +1,6 @@
 note
 	description:
-		"EiffelVision Split Area. GTK+ implementation."
+		"EiffelVision Split Area. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	id: "$Id: ev_split_area_imp.e 66956 2007-02-27 20:07:24Z king $"

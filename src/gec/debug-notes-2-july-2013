@@ -1,0 +1,56 @@
+2-July-2013 Debug issue with gec [version in guide repo]
+
+GOBO=/data/git/eiffel/gobo-guide-2
+GUIDE=/data/git/eiffel/gobo-guide-2
+
+rm -rf EIFGENs
+geant -v compile_ise
+
+============ Compiles OK: ISE + ISE_runtime ========================
+
+mv gec ../../bin
+geant -v compile_ge
+
+C compilation using gec.sh ...
+Warnings from C compiler of GE_runtime issues ...
+============ Compiles OK: GE + GE_runtime ===========================
+
+geant -v compile_ge
+
+missing kernel class ...
+============= Compile failed ... ====================================
+
+cp $GOBO_EIFFEL/bin/gec ../../bin/gec-ge-ge-eb
+ln -s gec-ge-ge-eb gec
+
+============= Compile OK =============================================
+
+gec = gec-ge-ge
+GOBO=$GOBO_EIFFEL
+
+missing kernel class: FAILED
+
+============== Failed =============================================
+
+gec = gec-ise-ise
+GOBO=$GOBO_EIFFEL
+
+Compile done ...
+Generating code ...
+BUILD FAILED!
+
+================ Failed ===========================================
+
+Remove #define EIF_EDP_GC from gec.h
+Run make -f gec.Makefile ...
+
+Not possible, generated code must match!
+
+====================================================================
+
+GOBO=/data/git/eiffel/gobo-guide-2
+
+Added [enabled] debug trace for parse_file in ET_EIFFEL_PARSER_SKELETON ... (?)
+
+No (!) classes parsed [read from file]
+

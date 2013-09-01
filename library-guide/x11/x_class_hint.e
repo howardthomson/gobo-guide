@@ -2,7 +2,7 @@ note
 
 	author: "Stephane Hillion"
 	copyright: "Copyright (c) 1998-2006, Stephane Hillion and Howard Thomson"
-	license: "GNU Public License (see COPYING)"
+	license: "Eiffel Forum License v2 (see forum.txt)"
 
 	TODO: "[
 		Check/modify to_external for STRING to pass null terminated
@@ -18,11 +18,11 @@ note
 class X_CLASS_HINT
   -- This class is an interface to Xlib's XClassHint.
 
-inherit 
+inherit
 
 	X_STRUCT
-	
-create 
+
+create
 
 	make
 
@@ -106,4 +106,4 @@ feature { NONE }
 	c_set_res_name  (p: POINTER; v: POINTER)	external "C struct XClassHint access res_name  type char* use <X11/Xutil.h>"     end
 	c_set_res_class (p: POINTER; v: POINTER)	external "C struct XClassHint access res_class type char* use <X11/Xutil.h>"     end
 
-end 
+end

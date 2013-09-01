@@ -1,6 +1,6 @@
 note
 	description:
-		"Eiffel Vision textable. GTK+ implementation."
+		"Eiffel Vision textable. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	date: "$Date: 2007-03-16 18:03:51 -0800 (Fri, 16 Mar 2007) $"
@@ -20,8 +20,8 @@ feature {NONE} -- Initialization
 	textable_imp_initialize
 			-- Create a GtkLabel to display the text.
 		do
---#			text_label := {EV_GTK_EXTERNALS}.gtk_label_new (default_pointer)
---#			{EV_GTK_EXTERNALS}.gtk_widget_show (text_label)
+			create text_label.make_ev
+			text_label.show
 --#			{EV_GTK_EXTERNALS}.gtk_misc_set_alignment (text_label, 0.0, 0.5)
 --#			{EV_GTK_EXTERNALS}.gtk_misc_set_padding (text_label, 2, 0)
 		end
@@ -31,18 +31,18 @@ feature -- Access
 	text: STRING_32
 			-- Text of the label.
 		local
-			a_str: POINTER
+			l_str: STRING_32
 		do
---#			if real_text /= Void then
---#				Result := real_text.string
---#			else
---#				a_str :={EV_GTK_EXTERNALS}.gtk_label_get_label (text_label)
---#				if a_str /= default_pointer then
---#					Result := (create{EV_GTK_C_STRING}.share_from_pointer (a_str)).string
---#				else
---#					Result := ""
---#				end
---#			end
+			if real_text /= Void then
+				Result := real_text
+			else
+				l_str := text_label.label
+				if l_str /= Void then
+					Result := l_str
+				else
+					Result := ""
+				end
+			end
 		end
 
 	text_alignment: INTEGER
@@ -50,23 +50,26 @@ feature -- Access
 		local
 			an_alignment_code: INTEGER
 		do
---#			an_alignment_code := {EV_GTK_EXTERNALS}.gtk_label_struct_jtype (text_label)
---#			if an_alignment_code = {EV_GTK_EXTERNALS}.gtk_justify_center_enum then
---#				Result := {EV_TEXT_ALIGNMENT_CONSTANTS}.Ev_text_alignment_center
---#			elseif an_alignment_code = {EV_GTK_EXTERNALS}.gtk_justify_left_enum then
---#				Result := {EV_TEXT_ALIGNMENT_CONSTANTS}.Ev_text_alignment_left
---#			elseif an_alignment_code = {EV_GTK_EXTERNALS}.gtk_justify_right_enum then
---#				Result := {EV_TEXT_ALIGNMENT_CONSTANTS}.Ev_text_alignment_right
---#			else
---#				check alignment_code_not_set: False end
---#			end
+			Result := text_alignment_internal
+
+			check
+				        Result = {EV_TEXT_ALIGNMENT_CONSTANTS}.Ev_text_alignment_center
+				or else Result = {EV_TEXT_ALIGNMENT_CONSTANTS}.Ev_text_alignment_left
+				or else Result = {EV_TEXT_ALIGNMENT_CONSTANTS}.Ev_text_alignment_right
+			end
 		end
+
+feature {NONE} -- Internal status
+
+	text_alignment_internal: INTEGER
 
 feature -- Status setting
 
 	align_text_center
 			-- Display `text' centered.
 		do
+			text_alignment_internal := {EV_TEXT_ALIGNMENT_CONSTANTS}.Ev_text_alignment_center
+--			check false end
 --#			{EV_GTK_EXTERNALS}.gtk_misc_set_alignment (text_label, 0.5, 0.5)
 --#			{EV_GTK_EXTERNALS}.gtk_label_set_justify (text_label, {EV_GTK_EXTERNALS}.gtk_justify_center_enum)
 		end
@@ -74,6 +77,8 @@ feature -- Status setting
 	align_text_left
 			-- Display `text' left aligned.
 		do
+			text_alignment_internal := {EV_TEXT_ALIGNMENT_CONSTANTS}.Ev_text_alignment_left
+--			check false end
 --#			{EV_GTK_EXTERNALS}.gtk_misc_set_alignment (text_label, 0, 0.5)
 --#			{EV_GTK_EXTERNALS}.gtk_label_set_justify (text_label, {EV_GTK_EXTERNALS}.gtk_justify_left_enum)
 		end
@@ -81,6 +86,8 @@ feature -- Status setting
 	align_text_right
 			-- Display `text' right aligned.
 		do
+			text_alignment_internal := {EV_TEXT_ALIGNMENT_CONSTANTS}.Ev_text_alignment_right
+--			check false end
 --#			{EV_GTK_EXTERNALS}.gtk_misc_set_alignment (text_label, 1, 0.5)
 --#			{EV_GTK_EXTERNALS}.gtk_label_set_justify (text_label, {EV_GTK_EXTERNALS}.gtk_justify_right_enum)
 		end
@@ -89,16 +96,17 @@ feature -- Element change
 
 	set_text (a_text: STRING_GENERAL)
 			-- Assign `a_text' to `text'.
+		local
+			l_str: STRING
 		do
---#			if accelerators_enabled then
---#				real_text := a_text
---#				a_cs := App_implementation.c_string_from_eiffel_string (u_lined_filter (a_text))
---#				{EV_GTK_DEPENDENT_EXTERNALS}.gtk_label_set_text_with_mnemonic (text_label, a_cs.item)
---#			else
---#				a_cs := App_implementation.c_string_from_eiffel_string (a_text)
---#				real_text := Void
---#				{EV_GTK_EXTERNALS}.gtk_label_set_text (text_label, a_cs.item)
---#			end
+			if accelerators_enabled then
+				real_text := a_text
+				l_str := u_lined_filter (a_text)
+		--		text_label.set_text (a_text)
+			else
+				real_text := Void
+		--		text_label.set_text (a_text)
+			end
 		end
 
 feature {EV_ANY_IMP} -- Implementation
@@ -107,8 +115,8 @@ feature {EV_ANY_IMP} -- Implementation
 		deferred
 		end
 
---	text_label: POINTER
-			-- GtkLabel containing `text'.
+	text_label: SB_LABEL
+			-- Slyboots Label containing `text'.
 
 	accelerators_enabled: BOOLEAN
 			-- Does `Current' have keyboard accelerators enabled?
@@ -116,7 +124,7 @@ feature {EV_ANY_IMP} -- Implementation
 			Result := False
 		end
 
---	real_text: EV_GTK_C_STRING
+	real_text: STRING_32
 			-- Internal `text'. (with ampersands)
 
 	filter_ampersand (s: STRING_32; char: CHARACTER)
@@ -163,7 +171,7 @@ feature {EV_ANY_I} -- Implementation
 	interface: EV_TEXTABLE
 
 invariant
-	text_label_not_void: is_usable implies text_label /= default_pointer
+	text_label_not_void: is_usable implies text_label /= Void
 
 note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"

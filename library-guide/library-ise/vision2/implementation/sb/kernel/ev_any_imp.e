@@ -28,7 +28,7 @@ inherit
 
 	SB_ANY
 	SB_SHARED_APPLICATION
-	
+
 feature {EV_INTERMEDIARY_ROUTINES, EV_ANY_I, EV_STOCK_PIXMAPS_IMP} -- Implementation
 
 	App_implementation: EV_APPLICATION_IMP
@@ -44,8 +44,8 @@ feature {NONE}
 
 	frozen old_make (an_interface: like interface)
 		do
-			TODO_class_line ("EV_ANY_IMP::old_make -- make redundant ...", "__LINE__")
-		end			
+			check false end
+		end
 
 	dispose
 		do

@@ -237,7 +237,7 @@ feature -- Basic operation
 			pos: INTEGER
 		do
 			pos := a_pos - 1
-			a_cs := txt
+	--		a_cs := txt
 	--		{EV_GTK_EXTERNALS}.gtk_editable_insert_text (
 	--			entry_widget,
 	--			a_cs.item,

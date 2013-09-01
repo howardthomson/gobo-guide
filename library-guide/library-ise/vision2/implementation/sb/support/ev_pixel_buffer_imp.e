@@ -29,10 +29,15 @@ feature {NONE} -- Initialization
 --			end
 		end
 
-	make (an_interface: EV_PIXEL_BUFFER)
+	old_make (an_interface: like interface)
+			-- Create a gtk pixmap of size (1 * 1) with no mask.
+		do
+			assign_interface (an_interface)
+		end
+
+	make
 			-- Creation method.
 		do
-			base_make (an_interface)
 			make_with_size (1, 1)
 		end
 
@@ -57,7 +62,7 @@ feature {NONE} -- Initialization
 
 feature -- Command
 
-	set_with_named_file (a_file_name: STRING)
+	set_with_named_path (a_file_name: PATH)
 			-- Load pixel data file `a_file_name'.
 		local
 --			l_cs: EV_GTK_C_STRING
@@ -78,7 +83,14 @@ feature -- Command
 --			end
 		end
 
-	save_to_named_file (a_file_name: STRING)
+	set_with_pointer (a_pointer: POINTER; a_size: INTEGER)
+			-- Load pixel data from `a_pointer'
+			-- `a_size': size in bytes
+		do
+			check not_implemented: false end
+		end
+
+	save_to_named_path (a_file_name: PATH)
 			-- Save pixel data to file `a_file_name'.
 		local
 --			l_cs, l_file_type: EV_GTK_C_STRING
@@ -88,9 +100,10 @@ feature -- Command
 			l_app_imp: EV_APPLICATION_IMP
 			i: INTEGER
 		do
+			check not_implemented: false end
 			l_app_imp ?= (create {EV_ENVIRONMENT}).application.implementation
-			l_writeable_formats := l_app_imp.writeable_pixbuf_formats
-			l_extension := a_file_name.split ('.').last.as_upper
+		--	l_writeable_formats := l_app_imp.writeable_pixbuf_formats
+		--	l_extension := a_file_name.split ('.').last.as_upper
 			if l_extension.is_equal ("JPEG") then
 				l_extension := "JPG"
 			end
@@ -129,6 +142,12 @@ feature -- Command
 			end
 		end
 
+	save_to_pointer: detachable MANAGED_POINTER
+			-- Save pixel data to `a_pointer'
+		do
+			check not_implemented: false end
+		end
+
 
 	sub_pixmap (a_rect: EV_RECTANGLE): EV_PIXMAP
 			-- Draw Current to `a_drawable'
@@ -136,6 +155,7 @@ feature -- Command
 			l_pixmap_imp: EV_PIXMAP_IMP
 			l_pixbuf: POINTER
 		do
+			check not_implemented: false end
 --			if {EV_GTK_EXTERNALS}.gtk_maj_ver >= 2 then
 --				create Result
 --				l_pixmap_imp ?= Result.implementation
@@ -154,6 +174,7 @@ feature -- Command
 			l_pixbuf: POINTER
 			l_internal_pixmap: EV_PIXMAP
 		do
+			check not_implemented: false end
 --			if {EV_GTK_EXTERNALS}.gtk_maj_ver >= 2 then
 --				create Result
 --				l_imp ?= Result.implementation
@@ -175,6 +196,7 @@ feature -- Command
 			byte_pos: INTEGER_32
 			l_managed_pointer: MANAGED_POINTER
 		do
+			check not_implemented: false end
 --			byte_pos := (((a_y - 1) * width.to_natural_32 + a_x - 1) * 4).to_integer_32
 --			l_managed_pointer := reusable_managed_pointer
 --			l_managed_pointer.set_from_pointer ({EV_GTK_EXTERNALS}.gdk_pixbuf_get_pixels (gdk_pixbuf), byte_pos)
@@ -187,10 +209,17 @@ feature -- Command
 			byte_pos: INTEGER_32
 			l_managed_pointer: MANAGED_POINTER
 		do
+			check not_implemented: false end
 --			byte_pos := (((a_y - 1) * width.to_natural_32 + a_x - 1) * 4).to_integer_32
 --			l_managed_pointer := reusable_managed_pointer
 --			l_managed_pointer.set_from_pointer ({EV_GTK_EXTERNALS}.gdk_pixbuf_get_pixels (gdk_pixbuf), byte_pos)
 --			l_managed_pointer.put_natural_32 (rgba, byte_pos)
+		end
+
+	draw_pixel_buffer_with_x_y (a_x, a_y: INTEGER; a_pixel_buffer: EV_PIXEL_BUFFER)
+			-- Draw `a_pixel_buffer' at `a_x', `a_y'.
+		do
+			check not_implemented: false end
 		end
 
 	draw_text (a_text: STRING_GENERAL; a_font: EV_FONT; a_point: EV_COORDINATE)
@@ -204,6 +233,7 @@ feature -- Command
 		local
 			l_pixel_buffer_imp: EV_PIXEL_BUFFER_IMP
 		do
+			check not_implemented: false end
 --			l_pixel_buffer_imp ?= a_pixel_buffer.implementation
 --			{EV_GTK_EXTERNALS}.gdk_pixbuf_copy_area (l_pixel_buffer_imp.gdk_pixbuf, 0, 0, a_rect.width, a_rect.height, gdk_pixbuf, a_rect.x, a_rect.y)
 		end
@@ -213,6 +243,7 @@ feature -- Query
 	width: INTEGER
 			-- Width of buffer in pixels.
 		do
+			check not_implemented: false end
 --			if {EV_GTK_EXTERNALS}.gtk_maj_ver > 1 then
 --				Result := {EV_GTK_EXTERNALS}.gdk_pixbuf_get_width (gdk_pixbuf)
 --			else
@@ -223,6 +254,7 @@ feature -- Query
 	height: INTEGER
 			-- Height of buffer in pixels.
 		do
+			check not_implemented: false end
 --			if {EV_GTK_EXTERNALS}.gtk_maj_ver > 1 then
 --				Result := {EV_GTK_EXTERNALS}.gdk_pixbuf_get_height (gdk_pixbuf)
 --			else
@@ -241,6 +273,7 @@ feature {EV_PIXEL_BUFFER_IMP, EV_POINTER_STYLE_IMP, EV_PIXMAP_IMP} -- Implementa
 	set_gdkpixbuf (a_pixbuf: POINTER)
 			-- Set `gdk_pixbuf' to `a_pixbuf'.
 		do
+			check not_implemented: false end
 --			if gdk_pixbuf /= default_pointer then
 --				{EV_GTK_EXTERNALS}.object_unref (gdk_pixbuf)
 --			end
@@ -262,6 +295,7 @@ feature {EV_PIXEL_BUFFER_IMP, EV_POINTER_STYLE_IMP, EV_PIXMAP_IMP} -- Implementa
 			-- Destroy `Current'.
 		do
 			set_is_in_destroy (True)
+			check not_implemented: false end
 			set_gdkpixbuf (default_pointer)
 			set_is_destroyed (True)
 		end

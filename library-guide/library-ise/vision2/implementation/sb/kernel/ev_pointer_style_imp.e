@@ -30,7 +30,7 @@ feature {NONE} -- Initlization
 	old_make (an_interface: EV_POINTER_STYLE)
 			-- Creation method
 		do
-			base_make (an_interface)
+--			base_make (an_interface)
 		end
 
 	make
@@ -218,18 +218,18 @@ feature -- Implementation
 	--			Result := {EV_GTK_EXTERNALS}.gdk_cursor_new ({EV_GTK_ENUMS}.gdk_watch_enum)
 			when {EV_POINTER_STYLE_CONSTANTS}.help_cursor then
 	--			Result := {EV_GTK_EXTERNALS}.gdk_cursor_new ({EV_GTK_ENUMS}.gdk_question_arrow_enum)
-			when {EV_POINTER_STYLE_CONSTANTS}.no_cursor then
-				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.no_cursor_xpm)
-			when {EV_POINTER_STYLE_CONSTANTS}.sizenwse_cursor then
-				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizenwse_cursor_xpm)
-			when {EV_POINTER_STYLE_CONSTANTS}.sizenesw_cursor then
-				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizenesw_cursor_xpm)
-			when {EV_POINTER_STYLE_CONSTANTS}.sizewe_cursor then
-				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizewe_cursor_xpm)
-			when {EV_POINTER_STYLE_CONSTANTS}.uparrow_cursor then
-				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.uparrow_cursor_xpm)
-			when {EV_POINTER_STYLE_CONSTANTS}.header_sizewe_cursor then
-				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizewe_cursor_xpm)
+--			when {EV_POINTER_STYLE_CONSTANTS}.no_cursor then
+--				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.no_cursor_xpm)
+--			when {EV_POINTER_STYLE_CONSTANTS}.sizenwse_cursor then
+--				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizenwse_cursor_xpm)
+--			when {EV_POINTER_STYLE_CONSTANTS}.sizenesw_cursor then
+--				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizenesw_cursor_xpm)
+--			when {EV_POINTER_STYLE_CONSTANTS}.sizewe_cursor then
+--				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizewe_cursor_xpm)
+--			when {EV_POINTER_STYLE_CONSTANTS}.uparrow_cursor then
+--				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.uparrow_cursor_xpm)
+--			when {EV_POINTER_STYLE_CONSTANTS}.header_sizewe_cursor then
+--				a_image := image_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizewe_cursor_xpm)
 			else
 	--			a_image := gdk_pixbuf
 	--			{EV_GTK_EXTERNALS}.object_ref (a_image)

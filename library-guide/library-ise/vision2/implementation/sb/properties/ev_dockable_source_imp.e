@@ -21,7 +21,7 @@ feature -- Status setting
 				a_x, a_y, a_button: INTEGER;
 				a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 				a_screen_x, a_screen_y: INTEGER)
-			
+
 				-- Filter out duplicate events.
 			do
 				if not awaiting_movement then
@@ -89,7 +89,7 @@ feature {EV_PICK_AND_DROPABLE_IMP} -- Implementation
 			-- Initialize the pick/drag and drop mechanism.
 		do
 			enable_capture
-			App_implementation.docking_source := Current
+	--		App_implementation.docking_source := Current
 			initialize_transport (a_screen_x, a_screen_y, interface)
 		end
 
@@ -117,7 +117,7 @@ feature {EV_PICK_AND_DROPABLE_IMP} -- Implementation
 					internal_set_pointer_style (default_pixmaps.standard_cursor)
 				end
 				disable_capture
-				App_implementation.docking_source := Void
+		--		App_implementation.docking_source := Void
 				complete_dock
 				original_x_offset := -1
 				original_y_offset := -1

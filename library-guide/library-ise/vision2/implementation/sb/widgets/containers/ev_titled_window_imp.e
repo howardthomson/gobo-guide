@@ -50,9 +50,9 @@ feature {NONE} -- Initialization
 
 	create_sb_window
 		do
-			create {SB_TOP_WINDOW} sb_window.make_top_title (app_implementation.sb_application, once "Default Title")
+			create {SB_TOP_WINDOW} sb_window.make_top_title (app_implementation, once "Default Title")
 				-- TEMP: track windows created so far ...
-			app_implementation.sb_application.open_widgets_display_window
+			app_implementation.open_widgets_display_window
 		end
 
 feature {EV_APPLICATION_IMP} -- Implementation
@@ -158,7 +158,7 @@ feature -- Status setting
 		do
 			is_maximized := True
 			is_minimized := False
-			sb_window.maximize
+--			sb_window.maximize
 		end
 
 	restore

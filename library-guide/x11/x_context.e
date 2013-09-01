@@ -4,7 +4,7 @@ note
 
 	author: "Stephane Hillion"
 	copyright: "Copyright (c) 1998-2006, Stephane Hillion and Howard Thomson"
-	license: "GNU Public License (see COPYING)"
+	license: "Eiffel Forum License v2 (see forum.txt)"
 
 class X_CONTEXT
 
@@ -28,6 +28,11 @@ feature
 	put (w: SB_WINDOW)
 		do
 			table.put (w, w.xwin.id)
+		end
+
+	has (key: INTEGER): BOOLEAN
+		do
+			Result := table.has (key)
 		end
 
 	item (key: INTEGER): SB_WINDOW

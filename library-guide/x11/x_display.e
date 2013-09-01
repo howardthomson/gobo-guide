@@ -4,7 +4,7 @@ note
 
 	author: "Stephane Hillion"
 	copyright: "Copyright (c) 1998-2006, Stephane Hillion and Howard Thomson"
-	license: "GNU Public License (see COPYING)"
+	license: "Eiffel Forum License v2 (see forum.txt)"
 
 class X_DISPLAY
 
@@ -20,7 +20,7 @@ inherit
     		is_equal
     	end
 
-create 
+create
 
 	make,
 	from_external
@@ -63,7 +63,7 @@ feature -- Destruction.
     	ensure
       		to_external = default_pointer
     	end
-  
+
 feature
 
 	is_equal(other: like Current): BOOLEAN
@@ -93,7 +93,7 @@ feature
 	cached_default_screen: INTEGER
 
   	default_screen : INTEGER
-      		-- returns the default screen number referenced in make 
+      		-- returns the default screen number referenced in make
     	require
       		to_external /= default_pointer
     	do
@@ -172,7 +172,7 @@ feature
 		end
 
 	cells(scr: INTEGER): INTEGER
-			-- the number of cells in the default colormap for the 
+			-- the number of cells in the default colormap for the
 			-- specifier screen
 		require
 			to_external /= default_pointer
@@ -180,7 +180,7 @@ feature
 		do
 			Result := x_display_cells (to_external, scr)
 		end
-  
+
 	default_visual(scr: INTEGER): X_VISUAL
 			-- returns the default visual type for the specified screen
 		require
@@ -191,7 +191,7 @@ feature
 		end
 
 	default_gc(scr: INTEGER): X_GC
-			-- returns the default GC for the root window of the specified screen    
+			-- returns the default GC for the root window of the specified screen
 		require
     		to_external /= default_pointer
 			scr < screen_count
@@ -200,8 +200,8 @@ feature
 		end
 
 	default_colormap(scr: INTEGER): X_COLORMAP
-			-- returns the default colormap ID for allocation 
-			-- on the specified screen    
+			-- returns the default colormap ID for allocation
+			-- on the specified screen
     	require
 			to_external /= default_pointer
 			scr < screen_count
@@ -210,7 +210,7 @@ feature
 		end
 
 	default_depth(scr: INTEGER): INTEGER
-      		-- returns the depth (number of planes) of the 
+      		-- returns the depth (number of planes) of the
       		-- default root window for the specified screen
     	require
       		to_external /= default_pointer
@@ -234,7 +234,7 @@ feature
 		end
 
 --	list_depths (scr: INTEGER): C_VECTOR [C_INT] is
---    		-- returns the array of depths that are 
+--    		-- returns the array of depths that are
 --    		-- available on the specified screen
 --    	require
 --      		to_external /= default_pointer
@@ -255,15 +255,15 @@ feature
     	end
 
 	sync(empty_queue: BOOLEAN)
-      		-- flushes the output buffer and then waits until all requests 
+      		-- flushes the output buffer and then waits until all requests
       		-- have been received and processed by the X server
     	do
       		x_sync (to_external, empty_queue)
     	end
 
   	protocol_version: INTEGER
-      		-- returns the major version number of the X protocol 
-      		-- associated with the connected display 
+      		-- returns the major version number of the X protocol
+      		-- associated with the connected display
     	require
       		to_external /= default_pointer
     	do
@@ -285,14 +285,14 @@ feature
     	end
 
 --  	server_vendor: STRING is
---      		-- returns a pointer to a string that provides 
+--      		-- returns a pointer to a string that provides
 --      		-- some identification of the owner of the X server implementation
 --    	do
 --      		create Result.from_external (x_server_vendor (to_external))
 --    	end
 
 	set_close_down_mode(mode: INTEGER)
-      		-- defines what will happen to the client's resources 
+      		-- defines what will happen to the client's resources
       		-- at connection close
     	do
       		x_set_close_down_mode(to_external, mode)
@@ -307,7 +307,7 @@ feature  -- close down mode values
 feature
 
 	kill_client (res_id: INTEGER)
-			-- forces a close-down of the client that created the resource 
+			-- forces a close-down of the client that created the resource
 			-- if a valid resource is specified
 		do
 			x_kill_client (to_external, res_id)
@@ -384,30 +384,30 @@ feature
 		end
 
 	max_request_size: INTEGER
-			-- returns the maximum request size (in 4-byte units) supported 
+			-- returns the maximum request size (in 4-byte units) supported
 			-- by the server without using an extended-length protocol encoding
 		do
 			Result := x_max_request_size (to_external)
 		end
 
 	extended_max_request_size: INTEGER
-			-- returns Zero if the specified display does not support an 
-			-- extended-length protocol encoding; otherwise, it returns 
-			-- the maximum request size (in 4-byte units) supported by the 
-			-- server using the extended-length encoding    
+			-- returns Zero if the specified display does not support an
+			-- extended-length protocol encoding; otherwise, it returns
+			-- the maximum request size (in 4-byte units) supported by the
+			-- server using the extended-length encoding
 		do
 			Result := x_extended_max_request_size (to_external)
 		end
 
 	last_known_request_processed: INTEGER
-			-- extracts the full serial number of the last request known 
-			-- by Xlib to have been processed by the X server    
+			-- extracts the full serial number of the last request known
+			-- by Xlib to have been processed by the X server
 		do
 			Result := x_last_known_request_processed (to_external)
 		end
 
 	next_request: INTEGER
-			-- extracts the full serial number that is to be used 
+			-- extracts the full serial number that is to be used
 			-- for the next request
 		do
 			Result := x_next_request (to_external)
@@ -430,7 +430,7 @@ feature -- Buffers
 --		end
 
 --	fetch_bytes: C_VECTOR [C_BYTE] is
---			-- returns the data stored in the standard buffer, if the buffer 
+--			-- returns the data stored in the standard buffer, if the buffer
 --			-- contains data. Otherwise, the function returns Void
 --		local
 --			buf : POINTER
@@ -453,7 +453,7 @@ feature -- Buffers
 --		end
 
 --	fetch_buffer(buf_n : INTEGER) : C_VECTOR [C_BYTE] is
---			-- returns the data stored in the buffer buf_n, if the buffer 
+--			-- returns the data stored in the buffer buf_n, if the buffer
 --			-- contains data. Otherwise, the function returns Void
 --    	require
 --      		buf_n >= 0 and then buf_n < 8
@@ -469,8 +469,8 @@ feature -- Buffers
 --    	end
 
 	rotate_buffers(buf_n: INTEGER)
-			-- rotates the cut buffers, such that buffer 0 becomes buffer 8, 
-			-- buffer 1 becomes n + 1 mod 8, and so on    
+			-- rotates the cut buffers, such that buffer 0 becomes buffer 8,
+			-- buffer 1 becomes n + 1 mod 8, and so on
 		require
 			buf_n >= 0 and then buf_n < 8
 		do
@@ -481,4 +481,4 @@ feature { NONE } -- Implementation
 
 	read: INTEGER
 
-end 
+end

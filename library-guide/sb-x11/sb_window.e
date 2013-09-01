@@ -14,11 +14,11 @@ inherit
 		redefine
 			xwin
 		end
-		
+
 	X_WINDOW_CONSTANTS
 
 	X_GLOBAL	-- For None_...
-	
+
 	X_PREDEFINED_ATOMS -- For Xa_string
 
 create
@@ -46,7 +46,7 @@ feature -- resource creation/deletion
 	create_resource_imp
 		require else
 			parent /= Void implies parent.xwin /= Void
-			owner /= Void implies owner.xwin /= Void
+		--	owner /= Void implies owner.xwin /= Void
 			visual /= Void	-- XX
 		local
 			wattr: X_SET_WINDOW_ATTRIBUTES
@@ -54,12 +54,12 @@ feature -- resource creation/deletion
 			mask: INTEGER
 		do
 			visual.create_resource
-			
+
 				-- Fill in the attributes
 			create wattr.make
 
 			mask := basic_event_mask
-			
+
 				-- Events for shell windows
 			if is_shell then
 				mask := mask | shell_event_mask
@@ -69,13 +69,13 @@ feature -- resource creation/deletion
 			if (flags & Flag_enabled) /= 0 then
 				mask := mask | enabled_event_mask
 			end
-			
+
 				-- Events for normal windows
 			wattr.set_event_mask (mask)
-			
+
 				-- Do not propagate events to ancestor windows ??
 		--	wattr.set_do_not_propagate_mask (NOT_PROPAGATE_MASK)
-		
+
 				-- Obtain colormap
 		--	wattr.set_colormap (visual.colormap)
 
@@ -105,19 +105,20 @@ feature -- resource creation/deletion
 
 				-- DEBUG: check default_cursor validity
 			if default_cursor.xid = Void then
-				edp_trace.start (0, "default_cursor is invalid!").done
+				check false end
+			--	edp_trace.start (0, "default_cursor is invalid!").done
 			else
 					-- Set cursor
 				wattr.set_cursor (default_cursor.xid)
 			end -- DEBUG
-			
+
 			check
 				parent_not_void:	parent /= Void
 				pxid_not_void:		parent.xwin /= Void
 				visual_ok:			visual.visual /= Void
 				wattr_ok:			wattr /= Void
 			end
-				
+
 			-- Finally, create the window
 			create {X_DRAWABLE_WINDOW} xwin.make (
 				parent.xwin,					-- parent
@@ -131,7 +132,8 @@ feature -- resource creation/deletion
 
 				-- Uh-oh, we failed
 	    	if not xwin.is_attached then
-				edp_trace.start (0, "SB_WINDOW::create_resource_imp -- UNABLE TO CREATE WINDOW !!!").done
+	    		check false end
+			--	edp_trace.start (0, "SB_WINDOW::create_resource_imp -- UNABLE TO CREATE WINDOW !!!").done
 			end
 
 			application.wcontext.put (Current)
@@ -178,6 +180,7 @@ feature -- resource creation/deletion
 	detach_resource_imp
 		do
 			-- TODO
+			check false end
 		end
 
 	destroy_resource_imp
@@ -216,7 +219,7 @@ feature
 		once
 			Result := Structure_notify_mask
 					| Exposure_mask
-					| Property_change_mask 
+					| Property_change_mask
 					| Enter_window_mask | Leave_window_mask
 					| Key_press_mask	| Key_release_mask
 		end
@@ -261,7 +264,7 @@ feature
       	do
       		if is_mouse_grabbed then
       			-- TODO
-				edp_trace.start(0, class_name).next("set_drag_cursor -- TODO").done
+			--	edp_trace.start(0, class_name).next("set_drag_cursor -- TODO").done
       		end
       	end
 
@@ -280,7 +283,7 @@ feature
       	do
          	if is_attached then
          		-- TODO
-				edp_trace.start(0, class_name).next("set_cursor_position -- TODO").done
+			--	edp_trace.start(0, class_name).next("set_cursor_position -- TODO").done
 			--	display.warp_pointer (None, xwin, 0, 0, 0, 0, x, y)
             	Result := True
          	end
@@ -380,7 +383,7 @@ feature
 				end
       		end
       	end
-      
+
    	reparent_imp
          	-- Change the parent for this window
 		do
@@ -393,7 +396,7 @@ feature
 			tx,ty,fx,fy,ex,ey,ew,eh: INTEGER
 			--      XEvent event
 		do
-			if is_attached and then 0 < w and then 0 < h 
+			if is_attached and then 0 < w and then 0 < h
          	and then  (dx /= 0 or else dy /= 0) then
 
 			    if w <= dx.abs or else h <= dy.abs then
@@ -402,7 +405,7 @@ feature
 
 				else
 					-- Has overlap, so blit contents and repaint the exposed parts
-		
+
 						-- Force server to catch up
 					display.sync (False)
 
@@ -412,10 +415,10 @@ feature
 			   --		application.add_repaint(xid, event.xexpose.x, event.xexpose.y, event.xexpose.width, event.xexpose.height, 0);
 			   --		if(event.xgraphicsexpose.count==0) break;
 			   --	end
-			
+
 			      	-- Scroll all repaint rectangles of this window by the dx,dy
 			      	application.scroll_repaints (xwin, dx, dy)
-			
+
 			      	-- Compute blitted area
 			      	if dx > 0 then	-- Content shifted right
 			      		fx := x
@@ -439,10 +442,10 @@ feature
 			      		ey := y + h + dy
 			      		eh := -dy
 			      	end
-			
+
 			      	-- BLIT the contents
 			      	xdwin.copy_area (tx, ty, xdwin, fx, fy, w-ew, h-eh)	-- FIXME: scroll_gc ???
-			
+
 			      	-- Post additional rectangles for the uncovered areas
 			      	if dy /= 0 then
 			      		application.add_repaint (xwin.id, x, ey, w, eh, True)
@@ -549,7 +552,7 @@ feature
 			if fromwindow.xwin.translate_coordinates (xwin, fromx, fromy) then
 				Result.set_x (fromwindow.xwin.last_translated_x)
 				Result.set_y (fromwindow.xwin.last_translated_y)
-			end		
+			end
          end
       end
 
@@ -596,9 +599,9 @@ feature
 			implemented: false
 		do
 			do_handle_2 (Current, SEL_CLIPBOARD_LOST, 0, application.event)
-				
+
 		--  display.set_selection_owner (application.xcb_selection, None, application.event.time)
-		
+
 		--	application.set_xcb_typelist (Void)
 		end
 
@@ -607,7 +610,7 @@ feature { NONE } -- Implementation
 	add_colormap_windows
 		do
 		end
-      
+
 	rem_colormap_windows
     	do
       	end

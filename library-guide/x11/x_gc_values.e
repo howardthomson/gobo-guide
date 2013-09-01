@@ -1,6 +1,7 @@
 note
 	description: "C Structure -- Xlib XGCValues"
-
+	license: "Eiffel Forum License v2 (see forum.txt)"
+	
 	C_struct: "[
 		/*
 		 * Data structure for setting graphics context.
@@ -39,15 +40,15 @@ note
 		Call reset from routines to which objects of this class can
 		be passed, and reset the flags if unlocked, ignore otherwise.
 	]"
-	
+
 class X_GC_VALUES
 
-inherit 
+inherit
 
 	X_STRUCT
 
 	X_GC_CONSTANTS
-	
+
 create
 
 	make
@@ -252,7 +253,7 @@ feature -- {NONE} C getters
 feature {NONE} -- C setters
 
 	c_set_function			(p: POINTER; i: INTEGER)    external "C struct XGCValues access function			 type int use <X11/Xlib.h>" end
-	
+
 	c_set_plane_mask		(p: POINTER; i: INTEGER)    external "C struct XGCValues access plane_mask		 type unsigned long use <X11/Xlib.h>" end
 	c_set_foreground		(p: POINTER; i: INTEGER)    external "C struct XGCValues access foreground		 type unsigned long use <X11/Xlib.h>" end
 	c_set_background		(p: POINTER; i: INTEGER)    external "C struct XGCValues access background		 type unsigned long use <X11/Xlib.h>" end
@@ -272,7 +273,7 @@ feature {NONE} -- C setters
 	c_set_graphics_exposures(p: POINTER; i: INTEGER)    external "C struct XGCValues access graphics_exposures type int use <X11/Xlib.h>" end
 	c_set_clip_x_origin		(p: POINTER; i: INTEGER)    external "C struct XGCValues access clip_x_origin	 type int use <X11/Xlib.h>" end
 	c_set_clip_y_origin		(p: POINTER; i: INTEGER)    external "C struct XGCValues access clip_y_origin	 type int use <X11/Xlib.h>" end
-	
+
 	c_set_clip_mask			(p: POINTER; i: INTEGER)    external "C struct XGCValues access clip_mask		 type Pixmap use <X11/Xlib.h>" end
 	c_set_dash_offset		(p: POINTER; i: INTEGER)    external "C struct XGCValues access dash_offset		 type int use <X11/Xlib.h>" end
 	c_set_dashes			(p: POINTER; i: CHARACTER)    external "C struct XGCValues access dashes			 type char use <X11/Xlib.h>" end
@@ -316,4 +317,4 @@ feature -- Debug tracing
 --			end
 		end
 
-end 
+end

@@ -4,7 +4,7 @@ note
 
 	author: "Stephane Hillion"
 	copyright: "Copyright (c) 1998-2006, Stephane Hillion and Howard Thomson"
-	license: "GNU Public License (see COPYING)"
+	license: "Eiffel Forum License v2 (see forum.txt)"
 
 	C_structure: "[
 		typedef struct {
@@ -21,10 +21,10 @@ note
 
 class X_COLOR
 
-inherit 
+inherit
 
 	X11_EXTERNAL_ROUTINES
-	
+
 create
 
 	make
@@ -80,7 +80,7 @@ feature -- X routine calls
 		once
 			fx_trace(0, <<"X_COLOR::query_default_color - not implemented ?">>)
 		end
-	
+
 feature -- C struct accesses
 
 	c_pixel	(p: POINTER): INTEGER external "C struct XColor access pixel  use <X11/Xlib.h>" end
@@ -94,9 +94,9 @@ feature -- C struct accesses
 	c_put_green	(p: POINTER; i: INTEGER) external "C struct XColor access green  use <X11/Xlib.h>" end
 	c_put_blue	(p: POINTER; i: INTEGER) external "C struct XColor access blue	use <X11/Xlib.h>" end
 	c_put_flags	(p: POINTER; i: INTEGER) external "C struct XColor access flags  use <X11/Xlib.h>" end
-	
+
 	XQueryColors(d: POINTER; c: INTEGER; t: POINTER; n: INTEGER)
 		external "C use <X11/Xlib.h>"
 		alias "XQueryColors"
 		end
-end 
+end

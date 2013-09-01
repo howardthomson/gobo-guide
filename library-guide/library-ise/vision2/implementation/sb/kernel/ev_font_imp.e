@@ -27,7 +27,7 @@ feature {NONE} -- Initialization
  	old_make (an_interface: like interface)
  			-- Create the default font.
 		do
-			base_make (an_interface)
+	--		base_make (an_interface)
 		end
 
 	make

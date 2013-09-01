@@ -129,7 +129,7 @@ feature -- Queries
 	get_bar_style: INTEGER
 			-- Return current progress bar style
 		do
-			Result := (options and PROGRESSBAR_MASK)
+			Result := (options & PROGRESSBAR_MASK)
 		end
 
 feature -- Actions
@@ -143,7 +143,7 @@ feature -- Actions
 		do
 			set_bar_style (options & (PROGRESSBAR_VERTICAL).bit_not)
 		end
-	
+
 	set_progress (value_: INTEGER)
 			-- Change the amount of progress
 		local
@@ -200,7 +200,7 @@ feature -- Actions
          -- Show progress percentage
       do
          if (options & PROGRESSBAR_PERCENTAGE) = ZERO then
-            options := options or PROGRESSBAR_PERCENTAGE;
+            options := options | PROGRESSBAR_PERCENTAGE;
             recalc
             update
          end
@@ -365,7 +365,7 @@ feature {NONE} -- Implementation
 			percent, barlength, barfilled, tx, ty, tw, th, n, d: INTEGER
 			numtext: STRING
 		do
-			if (options and PROGRESSBAR_DIAL) /= ZERO then
+			if (options & PROGRESSBAR_DIAL) /= ZERO then
 					-- If total is 0, it's 100%
 				barfilled := 23040
 				percent := 100
@@ -403,7 +403,7 @@ feature {NONE} -- Implementation
 				dc.draw_arc (tx, ty, d, d, 225 * 64, 180 * 64)
 
 					-- Draw text
-				if (options and PROGRESSBAR_PERCENTAGE) /= ZERO then
+				if (options & PROGRESSBAR_PERCENTAGE) /= ZERO then
 					tw := font.get_text_width ("100%%")
 					if tw <= (10 * d) // 16 then
 						th := font.get_font_height
@@ -421,7 +421,7 @@ feature {NONE} -- Implementation
 					end
 				end
 
-			elseif (options and PROGRESSBAR_VERTICAL) /= ZERO then
+			elseif (options & PROGRESSBAR_VERTICAL) /= ZERO then
 					-- Vertical bar
 					-- If total is 0, it's 100%
 				barlength := height - border - border;
@@ -445,7 +445,7 @@ feature {NONE} -- Implementation
 				end
 
 					-- Draw text
-				if (options and PROGRESSBAR_PERCENTAGE) /= ZERO then
+				if (options & PROGRESSBAR_PERCENTAGE) /= ZERO then
 					numtext := percent.out + "%%"
 					n := numtext.count
 					tw := font.get_text_width (numtext)
@@ -464,7 +464,7 @@ feature {NONE} -- Implementation
 						dc.draw_text (tx, ty, numtext)
 					else
 							-- In between!
-						dc.set_foreground (text_alt_color) 
+						dc.set_foreground (text_alt_color)
 						dc.set_clip_rectangle_coords (border, height - border - barfilled, width - (border * 2), barfilled)
 						dc.draw_text (tx, ty, numtext)
 						dc.set_foreground (text_color)
@@ -497,7 +497,7 @@ feature {NONE} -- Implementation
 				end
 
 					-- Draw text
-				if (options and PROGRESSBAR_PERCENTAGE) /= ZERO then
+				if (options & PROGRESSBAR_PERCENTAGE) /= ZERO then
 					numtext := percent.out + "%%"
 					n := numtext.count
 					tw := font.get_text_width (numtext)

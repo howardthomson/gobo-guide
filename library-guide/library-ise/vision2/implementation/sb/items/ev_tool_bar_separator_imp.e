@@ -17,6 +17,7 @@ inherit
 
 	EV_ITEM_IMP
 		redefine
+			make,
 			interface
 		end
 
@@ -34,10 +35,10 @@ feature {NONE} -- Initialization
 
 	is_dockable: BOOLEAN = False
 
-	make (an_interface: like interface)
+	make
 			-- Create the tool bar button.
 		do
-			base_make (an_interface)
+		--	base_make (an_interface)
 --			set_c_object ({EV_GTK_EXTERNALS}.gtk_separator_tool_item_new)
 		end
 

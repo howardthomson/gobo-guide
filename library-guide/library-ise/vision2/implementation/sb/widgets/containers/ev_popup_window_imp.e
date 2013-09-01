@@ -25,7 +25,7 @@ inherit
 			make,
 			initialize,
 			default_wm_decorations,
-			client_area,
+		--	client_area,
 			show,
 			hide,
 			internal_enable_border,
@@ -38,14 +38,15 @@ inherit
 		end
 
 create
-	make
+	make, initialize_with_shadow
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface)
+	make
 			-- Connect interface and initialize `c_object'.
 		do
-			base_make (an_interface)
+			check false end
+	--		base_make (an_interface)
 		end
 
 	initialize
@@ -73,11 +74,12 @@ feature {EV_ANY_I} -- Implementation
 			-- if `a_has_focus' then `Current' has just received focus.
 		do
 			if override_redirect then
-				if a_has_focus then
-					app_implementation.set_focused_popup_window (Current)
-				else
-					app_implementation.set_focused_popup_window (Void)
-				end
+			check false end
+--				if a_has_focus then
+--					app_implementation.set_focused_popup_window (Current)
+--				else
+--					app_implementation.set_focused_popup_window (Void)
+--				end
 			end
 			Precursor {EV_WINDOW_IMP} (a_has_focus)
 		end
@@ -118,13 +120,15 @@ feature {NONE} -- implementation
 	internal_enable_border
 			-- Ensure a border is displayed around Current.
 		do
-			{EV_GTK_EXTERNALS}.gtk_container_set_border_width (c_object, border_width)
+			check false end
+--			{EV_GTK_EXTERNALS}.gtk_container_set_border_width (c_object, border_width)
 		end
 
 	internal_disable_border
 			-- Ensure no border is displayed around Current.
 		do
-			{EV_GTK_EXTERNALS}.gtk_container_set_border_width (c_object, 0)
+			check false end
+--			{EV_GTK_EXTERNALS}.gtk_container_set_border_width (c_object, 0)
 		end
 
 feature {EV_APPLICATION_IMP} -- Implementation
@@ -149,32 +153,34 @@ feature {EV_APPLICATION_IMP} -- Implementation
 						-- We reset the focused popup window here in case hide is called as part of destroy
 						-- in which case the focus out event will not be called.
 					if is_in_destroy then
-						app_implementation.set_focused_popup_window (Void)
+						check false end
+--						app_implementation.set_focused_popup_window (Void)
 					end
 				end
 			end
-			Precursor;
+			Precursor
 		end
 
 	handle_mouse_button_event (a_type: INTEGER_32; a_button: INTEGER_32; a_screen_x, a_screen_y: INTEGER_32)
 			-- A mouse event has occurred.
 		do
 			if override_redirect then
-				if a_type = {EV_GTK_EXTERNALS}.gdk_button_press_enum then
-					if
-						a_screen_x >= x_position and then
-						a_screen_x <= (x_position + width) and then
-						a_screen_y >= y_position and then
-						a_screen_y <= (y_position + height)
-					then
-						grab_keyboard_and_mouse
-					else
-							-- Emulate WM handling when clicking off window.
-						if has_focus then
-							release_keyboard_and_mouse
-						end
-					end
-				end
+			check false end
+--				if a_type = {EV_GTK_EXTERNALS}.gdk_button_press_enum then
+--					if
+--						a_screen_x >= x_position and then
+--						a_screen_x <= (x_position + width) and then
+--						a_screen_y >= y_position and then
+--						a_screen_y <= (y_position + height)
+--					then
+--						grab_keyboard_and_mouse
+--					else
+--							-- Emulate WM handling when clicking off window.
+--						if has_focus then
+--							release_keyboard_and_mouse
+--						end
+--					end
+--				end
 			end
 		end
 

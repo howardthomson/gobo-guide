@@ -605,12 +605,6 @@ feature {NONE} -- Implementation
 			retry
 		end
 
-	exceptions: EXCEPTIONS
-			-- Should be in parent class somewhere
-		once
-			create Result
-		end
-
 	int_to_bit32(i: INTEGER): INTEGER
 		do
 			Result := i

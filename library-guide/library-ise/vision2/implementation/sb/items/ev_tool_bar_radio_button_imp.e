@@ -40,7 +40,7 @@ feature {NONE} -- Initialization
 		do
 			todo_class_line ("__EV_TOOL_BAR_RADIO_BUTTON_IMP__", "__LINE__")
 
-			base_make (an_interface)
+		--	base_make (an_interface)
 		end
 
 feature -- Status setting

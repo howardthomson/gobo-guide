@@ -27,15 +27,21 @@ inherit
 			pixmap
 		end
 
+	EV_ANY_IMP
+		redefine
+			interface
+		end
+
 create
 	make
 
 feature {NONE} -- Initialization
 
-	make (an_interface: like interface)
+	make
 			-- Create `Current' with interface `an_interface'.
 		do
-			base_make (an_interface)
+			check false end
+		--	base_make (an_interface)
 		end
 
 	initialize

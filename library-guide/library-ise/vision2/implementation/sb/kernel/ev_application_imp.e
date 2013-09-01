@@ -21,7 +21,6 @@ inherit
 			{EV_ANY_I, EV_INTERMEDIARY_ROUTINES}
 				is_destroyed
 		redefine
-		--	launch, 
 			focused_widget, make
 		end
 
@@ -37,13 +36,6 @@ inherit
 
 create
 	make
-
-feature -- Attributes
-
-	sb_application: SB_APPLICATION
-		do
-			Result := Current
-		end
 
 feature -- TODO
 
@@ -87,9 +79,8 @@ feature {NONE} -- Event loop
 			-- and start the event loop.
 		do
 			if slyboots_is_launchable then
---				Precursor					-- FIXME ?
-				call_post_launch_actions	-- FIXME ?
-				sb_application.launch	
+				launch_sb
+				call_post_launch_actions
 			end
 		end
 
@@ -106,7 +97,8 @@ feature {NONE} -- Implementation
 		local
 			x: BOOLEAN
 		do
-			x := sb_application.run_while_events (Void)
+		--	check false end
+			x := run_while_events (Void)
 		end
 
 feature -- Basic operation
@@ -116,26 +108,27 @@ feature -- Basic operation
 			-- Pass control to the GUI toolkit so that it can
 			-- handle any paint events that may be in its queue.
 		do
-			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__20") 
+			check false end
 		end
 
 	sleep (msec: INTEGER)
 			-- Wait for `msec' milliseconds and return.
 		do
-			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__21") 
+		--	check false end
 		end
 
 	tooltip_delay: INTEGER
 			-- Time in milliseconds before tooltips pop up.
 		do
-			Result := sb_application.tooltip_pause
+		--	Result := sb_application.tooltip_pause
+			Result := tooltip_pause
 		end
 
 	wait_for_input (msec: INTEGER)
 			-- Wait for at most `msec' milliseconds for an input.
 		do
---			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__23")
---			sb_application.wait_for_input (msec) 
+		--	check false end
+--			sb_application.wait_for_input (msec)
 		end
 
 	destroy
@@ -143,8 +136,8 @@ feature -- Basic operation
 		do
 			if not is_destroyed then
 
-				sb_application.exit (0) -- FIXME: exit or stop ?
-				
+				exit (0) -- FIXME: exit or stop ?
+
 				set_is_destroyed (True)
 					-- This will exit our main loop
 				destroy_actions.call (Void)
@@ -156,7 +149,7 @@ feature -- Status setting
 	set_tooltip_delay (a_delay: INTEGER)
 			-- Set `tooltip_delay' to `a_delay'.
 		do
-			sb_application.set_tooltip_pause (a_delay)
+			set_tooltip_pause (a_delay)
 		end
 
 feature -- Locking
@@ -164,19 +157,19 @@ feature -- Locking
 	lock
 			-- Lock the Mutex.
 		do
-			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__26") 
+			check false end
 		end
 
 	try_lock: BOOLEAN
 			-- Try to see if we can lock, False means no lock could be attained
 		do
-			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__27") 
+			check false end
 		end
 
 	unlock
 			-- Unlock the Mutex.
 		do
-			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__28") 
+			check false end
 		end
 
 
@@ -199,7 +192,8 @@ feature {EV_ANY_I} -- Implementation
 				current_window := current_windows.item
 				if current_window.has_focus then
 					if current_window.full then
-						todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__29") 
+						check false end
+						--todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__29")
 					else
 						Result := current_window
 					end
@@ -213,31 +207,30 @@ feature -- Access
 	ctrl_pressed: BOOLEAN
 			-- Is ctrl key currently pressed?
 		do
-			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__30") 
+			check false end
 		end
 
 	alt_pressed: BOOLEAN
 			-- Is alt key currently pressed?
 		do
-			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__31") 
+			check false end
 		end
 
 	shift_pressed: BOOLEAN
 			-- Is shift key currently pressed?
 		do
-			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__32") 
-		end
+			check false end		end
 
 	caps_lock_on: BOOLEAN
 			-- Is the Caps or Shift Lock key currently on?
 		do
-			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__33") 
+			check false end
 		end
 
 	windows: LINEAR [EV_WINDOW]
 			-- Global list of windows.
 		do
-			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__34") 
+			check false end
 		end
 
 feature -- Implementation
@@ -245,19 +238,9 @@ feature -- Implementation
 	pick_and_drop_source: EV_PICK_AND_DROPABLE_IMP
 			-- Source of pick and drop if any.
 		do
-			todo_class_line ("__EV_APPLICATION_IMP__", "__LINE__35") 
+			check false end
+
 --			Result := internal_pick_and_drop_source
-		end
-
-feature {NONE}
-
-	todo_class_line (a_class, a_line: STRING)
-		do
-			print (once "todo_class_line: ")
-			print (a_class)
-			print (once "   ")
-			print (a_line)
-			print (once "%N")
 		end
 
 invariant

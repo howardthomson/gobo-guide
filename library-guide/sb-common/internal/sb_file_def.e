@@ -90,7 +90,7 @@ feature
    	directory(file: STRING): STRING
     		-- Return the directory part of the path name.
          	-- Note that directory("/bla/bla/") is "/bla/bla" and NOT "/bla".
-         	-- However, directory("/bla/bla") is "/bla" as we expect not 
+         	-- However, directory("/bla/bla") is "/bla" as we expect not
       	require
          	file /= Void
       	local
@@ -126,7 +126,7 @@ feature
 	name(file: STRING): STRING
     		-- Return name and extension part of the path name.
         	-- Note that name("/bla/bla/") is "" and NOT "bla".
-        	-- However, name("/bla/bla") is "bla" as we expect not 
+        	-- However, name("/bla/bla") is "bla" as we expect not
 		require
          	file /= Void
       	local
@@ -312,7 +312,7 @@ feature
 		deferred
       	end
 
-   	expand(file: STRING): STRING      
+   	expand(file: STRING): STRING
          	-- Perform tilde or environment variable expansion
       	require
          	file /= Void
@@ -409,8 +409,8 @@ feature
                 	if 2 <= p and then result.item(p) = '.' and then ISPATHSEP(result.item(p-1))
                    	and then q <= ee and then ISPATHSEP(Result.item(q+1)) then
                    		p := p-2;
-                	elseif 3 <= p and then Result.item(p) = '.' and then Result.item(p-1) = '.' 
-                   	and then ISPATHSEP(Result.item(p-2)) 
+                	elseif 3 <= p and then Result.item(p) = '.' and then Result.item(p-1) = '.'
+                   	and then ISPATHSEP(Result.item(p-2))
                   	and then not (5 <= p and then Result.item(p-3) = '.' and then Result.item(p-4) = '.')
                  	then
                    		p := p-2;
@@ -468,7 +468,7 @@ feature
 	            	end
 	         	elseif pathfile.count >= 2 and then utils.is_alpha(pathfile.item(1))
 	            and then pathfile.item(2) = ':'
-	          	then            
+	          	then
 	            	if pathfile.count >= 3 and then ISPATHSEP(pathfile.item(3))
 	             	then
 	               		Result := simplify(pathfile);
@@ -573,14 +573,14 @@ feature
 			implemented: false
 		end
 
-	search(pathlist, file: STRING): STRING
-			-- Search path list for this file, return full path name for first 
-			-- occurrence
-		require
-			pathlist /= Void and then file /= Void
-		do
-			not_implemented;
-		end
+--	search(pathlist, file: STRING): STRING
+--			-- Search path list for this file, return full path name for first
+--			-- occurrence
+--		require
+--			pathlist /= Void and then file /= Void
+--		do
+--			not_implemented;
+--		end
 
 	up_level(file: STRING): STRING
 			-- Return path to directory above input directory name
@@ -603,7 +603,7 @@ feature
 	               		if file.count >= 2 and then ISPATHSEP(file.item(2)) then
 	                  		beg := beg + 1;     -- UNC
 	               		end
-            		elseif file.count >= 2 and then utils.is_alpha(file.item(1)) 
+            		elseif file.count >= 2 and then utils.is_alpha(file.item(1))
 	               	and then file.item(2) = ':'
              		then
 	               		beg := beg + 2;
@@ -655,7 +655,7 @@ feature
 				else
 					Result := ((ISPATHSEP(file.item(1))
 						and then (file.count = 1 or else (file.count = 2 and then ISPATHSEP(file.item(2))))))
-					or else (file.count >= 2 and then utils.is_alpha(file.item(1)) and then file.item(2) = ':' 
+					or else (file.count >= 2 and then utils.is_alpha(file.item(1)) and then file.item(2) = ':'
 						and then (file.count = 2 or else (file.count = 3 and then ISPATHSEP(file.item(3)))))
 				end
 			end
@@ -1003,145 +1003,92 @@ feature
 		deferred
 		end
 
+--	set_mode(file: STRING; a_mode: INTEGER)
+--			-- Change the mode flags for Current file
+--		do
+--			check false end
+--		end
 
+--	create_directory(path: STRING; a_mode: INTEGER): BOOLEAN
+--			-- Create new directory
+--		require
+--			path /= Void and then not path.is_empty
+--		do
+--			not_implemented
+--		end
 
---   time(filetime: INTEGER): STRING is
---         -- Convert file time to date-string
---      do
---         Result := format_time(timeformat, filetime);
---      end
+--	create_file(file: STRING; a_mode: INTEGER)
+--			-- Create new (is_empty) file
+--		require
+--			file /= Void and then not file.is_empty
+--		do
+--			not_implemented
+--		end
 
---   format_time(format: STRING;filetime: INTEGER): STRING is
---         -- Convert file time to date-string as per strftime.
---         -- Format characters supported by most systems are:
---         --
---         --  %a %A %b %B %c %d %H %I %j %m %M %p %S %U %w %W %x %X %y %Y %Z %%
---         --
---         -- Some systems support additional conversions.
---      require
---         format /= Void
---      local
---         sz: INTEGER;
---      do
---         create Result.make_filled('%U',1024);
---         mem.collection_off
---         sz := ext_format_time(Result.to_external,1024,format.to_external,filetime);
---         mem.collection_on;
---         Result.resize(sz);
---      end
+--	concatenate_files(srcfile1, srcfile2, dstfile: STRING; overwrite: BOOLEAN)
+--    		-- Concatenate srcfile1 and srcfile2 to a dstfile.
+--        	-- If overwrite is true, then the operation fails if dstfile already exists.
+--        	-- srcfile1 and srcfile2 should not be the same as dstfile.
+--      	require
+--         	srcfile1 /= Void and then not srcfile1.is_empty
+--         	srcfile2 /= Void and then not srcfile2.is_empty
+--         	dstfile /= Void and then not dstfile.is_empty
+--      	do
+--         	not_implemented
+--      	end
 
---   exists(file: STRING): BOOLEAN is
---         -- Return true if file exists
---      require
---         file /= Void
---      do
---#ifdef WIN32
---         Result := is_readable(file);
---#endif
---      end
---
---   identical(file1,file2: STRING): BOOLEAN is
---         -- Return true if files are identical
---      do
---      end
---
---   mode(file: STRING): INTEGER is
---         -- Return the mode flags for Current file
---      require
---         file /= Void and then not file.is_empty
---      do
---         mem.collection_off
---         Result := ext_mode(file.to_external);
---         mem.collection_on
---      end
+--	remove_file(file: STRING): BOOLEAN
+--    		-- Remove file or directory, recursively.
+--      	require
+--         	file /= Void and then not file.is_empty
+--      	do
+--			not_implemented
+--		end
 
+--	copy_file( srcfile,dstfile: STRING; overwrite: BOOLEAN)
+--    		-- Copy file or directory, recursively
+--      	require
+--      		implemented: false
+--         	srcfile /= Void and then not srcfile.is_empty
+--         	dstfile /= Void and then not dstfile.is_empty
+--      	do
+--         	not_implemented
+--      	end
 
-	set_mode(file: STRING; a_mode: INTEGER)
-			-- Change the mode flags for Current file
-		do         
-			not_implemented
-		end
+--	move_file(srcfile, dstfile: STRING; overwrite: BOOLEAN)
+--    		-- Rename or move file or directory
+--		require
+--			srcfile /= Void and then not srcfile.is_empty
+--			dstfile /= Void and then not dstfile.is_empty
+--      	do
+--			check false end
+--      	end
 
-	create_directory(path: STRING; a_mode: INTEGER): BOOLEAN
-			-- Create new directory
-		require
-			path /= Void and then not path.is_empty
-		do
-			not_implemented
-		end
+--	create_link(srcfile, dstfile: STRING; overwrite: BOOLEAN)
+--    		-- Link file
+--      	require
+--         	srcfile /= Void and then not srcfile.is_empty
+--         	dstfile /= Void and then not dstfile.is_empty
+--      	do
+--         	not_implemented
+--      	end
 
-	create_file(file: STRING; a_mode: INTEGER)
-			-- Create new (is_empty) file
-		require
-			file /= Void and then not file.is_empty
-		do
-			not_implemented
-		end
+--	create_symlink(srcfile, dstfile: STRING overwrite: BOOLEAN)
+--    		-- Symbolic link file
+--    	require
+--         	srcfile /= Void and then not srcfile.is_empty
+--         	dstfile /= Void and then not dstfile.is_empty
+--      	do
+--         	not_implemented
+--      	end
 
-	concatenate_files(srcfile1, srcfile2, dstfile: STRING; overwrite: BOOLEAN)
-    		-- Concatenate srcfile1 and srcfile2 to a dstfile.
-        	-- If overwrite is true, then the operation fails if dstfile already exists.
-        	-- srcfile1 and srcfile2 should not be the same as dstfile.
-      	require
-         	srcfile1 /= Void and then not srcfile1.is_empty 
-         	srcfile2 /= Void and then not srcfile2.is_empty 
-         	dstfile /= Void and then not dstfile.is_empty 
-      	do
-         	not_implemented
-      	end
-
-	remove_file(file: STRING): BOOLEAN
-    		-- Remove file or directory, recursively.
-      	require
-         	file /= Void and then not file.is_empty
-      	do
-			not_implemented
-		end
-
-	copy_file( srcfile,dstfile: STRING; overwrite: BOOLEAN)
-    		-- Copy file or directory, recursively
-      	require
-      		implemented: false
-         	srcfile /= Void and then not srcfile.is_empty 
-         	dstfile /= Void and then not dstfile.is_empty 
-      	do
-         	not_implemented
-      	end
-
-	move_file(srcfile, dstfile: STRING; overwrite: BOOLEAN)
-    		-- Rename or move file or directory
-		require
-			srcfile /= Void and then not srcfile.is_empty 
-			dstfile /= Void and then not dstfile.is_empty 
-      	do
-         	not_implemented
-      	end
-
-	create_link(srcfile, dstfile: STRING; overwrite: BOOLEAN)
-    		-- Link file
-      	require
-         	srcfile /= Void and then not srcfile.is_empty 
-         	dstfile /= Void and then not dstfile.is_empty 
-      	do
-         	not_implemented
-      	end
-
-	create_symlink(srcfile, dstfile: STRING overwrite: BOOLEAN)
-    		-- Symbolic link file
-    	require
-         	srcfile /= Void and then not srcfile.is_empty 
-         	dstfile /= Void and then not dstfile.is_empty 
-      	do
-         	not_implemented
-      	end
-
-	symlink(file: STRING): STRING
-    		-- Read symbolic link
-    	require
-         	file /= Void and then not file.is_empty 
-      	do
-         	create Result.make_empty
-      	end
+--	symlink(file: STRING): STRING
+--    		-- Read symbolic link
+--    	require
+--         	file /= Void and then not file.is_empty
+--      	do
+--         	create Result.make_empty
+--      	end
 
 	timeformat: STRING once Result := "%%m/%%d/%%Y %%H:%%M:%%S" end
 

@@ -16,7 +16,7 @@ inherit
 		end
 
 	X11_EXTERNAL_ROUTINES
-	SB_ZERO
+--	SB_ZERO
 
 create
 	make
@@ -27,40 +27,33 @@ feature
 
 	make_imp
 		do
-			hints := FONTHINT_X11;         -- X11 font string method
+			hints := FONTHINT_X11         -- X11 font string method
 		end
 
 	create_resource_imp
-		require else
-			--implemented: false
 		do
-		--	todo("SB_FONT::create_resource_imp")
-
-			-- X11 font specification
+				-- X11 font specification
 			if (hints & FONTHINT_X11) /= 0 then
-
 				check
 					-- Should have non-NULL font name
 					name_ok: name /= Void and then name.count > 0
 				end
-
-				create xfont.make(application.display, name);
-
+				create xfont.make (application.display, name);
 			else
-				-- Platform independent specification
-
+					-- Platform independent specification
+				check false end
 				-- FXTRACE((150,"%s::create: face: %s size: %d weight: %d slant: %d encoding: %d hints: %04x\n",getClassName(),name.text()?name.text():"none",size,weight,slant,encoding,hints));
 				-- Try load best font
 
 				-- create xfont.make(application.display, find_best_font);
 			end
 
-			-- If we still don't have a font yet, try fallback fonts
+				-- If we still don't have a font yet, try fallback fonts
 			if (xfont = Void) or else not xfont.is_valid then
 				if xfont = Void then
-					create xfont.make(application.display, fallbackfont);
+					create xfont.make (application.display, fallbackfont);
 				else
-					xfont.make(application.display, fallbackfont);
+					xfont.make (application.display, fallbackfont);
 				end
 			end
 		ensure then

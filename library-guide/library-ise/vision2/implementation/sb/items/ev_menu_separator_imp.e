@@ -52,7 +52,7 @@ feature {NONE} -- Initialization
 	initialize
 			-- Do nothing because an empty GtkMenuItem is a separator.
 		do
-			real_text := ""
+--			real_text := ""
 			pixmapable_imp_initialize
 			textable_imp_initialize
 			initialize_menu_sep_box
@@ -71,11 +71,11 @@ feature {NONE} -- Initialization
 --			{EV_GTK_EXTERNALS}.gtk_box_pack_start (box, text_label, True, True, 0)
 --			{EV_GTK_EXTERNALS}.gtk_box_pack_start (box, pixmap_box, True, True, 0)
 		end
-		
+
 feature {NONE} -- Implementation
 
 	is_sensitive: BOOLEAN
-	
+
 	enable_sensitive
 			-- Implemented to fulfill assertions but leave c_object unsensitive.
 		do
@@ -86,7 +86,7 @@ feature {NONE} -- Implementation
 			-- Implemented to fulfill assertions but leave c_object unsensitive.
 		do
 			is_sensitive := False
-		end	
+		end
 
 feature {EV_MENU_ITEM_LIST_IMP} -- Implementation
 
@@ -96,7 +96,7 @@ feature {EV_MENU_ITEM_LIST_IMP} -- Implementation
 --			{EV_GTK_DEPENDENT_EXTERNALS}.object_unref (box)
 			Precursor
 		end
-		
+
 	box: POINTER
 		-- Dummy hbox used for holding *able widgets to satisfy invariants.
 

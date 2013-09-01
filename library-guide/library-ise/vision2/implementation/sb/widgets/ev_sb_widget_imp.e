@@ -37,7 +37,7 @@ inherit
 --			minimum_width,
 --			minimum_height
 		end
-	
+
 feature {EV_SB_WIDGET_IMP, EV_TREE_NODE_IMP, EV_ANY, EV_ANY_I} -- Implementation Attributes
 
 	sb_widget: SB_WINDOW

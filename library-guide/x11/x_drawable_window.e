@@ -4,11 +4,11 @@ note
 
 	author: "Stephane Hillion"
 	copyright: "Copyright (c) 1998-2006, Stephane Hillion and Howard Thomson"
-	license: "GNU Public License (see COPYING)"
+	license: "Eiffel Forum License v2 (see forum.txt)"
 
 class X_DRAWABLE_WINDOW
 
-inherit 
+inherit
 
   	X_WINDOW
     	rename
@@ -18,7 +18,7 @@ inherit
 
   	X_DRAWABLE
 
-create 
+create
 
   	make,
   	from_external,
@@ -54,10 +54,10 @@ feature { NONE } -- Creation
       		init (disp, scr)
     	end
 
-  	make_simple (parent : X_WINDOW; 
-	       x, 
-	       y, 
-	       width, 
+  	make_simple (parent : X_WINDOW;
+	       x,
+	       y,
+	       width,
 	       height,
 	       border_width,
 	       border_pixel,
@@ -91,7 +91,7 @@ feature
 		--------
 
   	clear_area (x, y, w, h : INTEGER; send_event : BOOLEAN)
-      		-- paints a rectangular area in the window according to the 
+      		-- paints a rectangular area in the window according to the
       		-- specified dimensions with the window's background pixel or pixmap.
     	do
       		x_clear_area (display.to_external, id, x, y, w, h, send_event)
@@ -128,13 +128,13 @@ feature -- colors
 feature -- pixmaps
 
 	set_background_pixmap (pix : X_PIXMAP)
-      		-- sets the background pixmap of the window to the specified 
+      		-- sets the background pixmap of the window to the specified
       		-- pixmap. To unset the pixmap use 'None_pixmap'.
     	do
       		x_set_window_background_pixmap (display.to_external, id, pix.id)
     	end
 		--------
-  
+
   	set_border_pixmap (pix : X_PIXMAP)
       		-- sets the border pixmap of the window to the specified pixmap.
       		-- To unset the pixmap use 'None_pixmap'.
@@ -147,7 +147,7 @@ feature -- pixmaps
 
 feature {NONE} -- External functions
 
-  	x_create_simple (d : POINTER; pid, x, y, w, h, 
+  	x_create_simple (d : POINTER; pid, x, y, w, h,
 			bw, bp, bgp : INTEGER) : INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XCreateSimpleWindow"
@@ -191,4 +191,4 @@ feature {NONE} -- External functions
     	alias "XSetWindowBorderPixmap"
     	end
 
-end 
+end

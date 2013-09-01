@@ -18,7 +18,7 @@ feature
 			minimum_height_sb := a_minimum_height
 		end
 
-	once_property_minimum_height: SB_PROPERTY_MINIMUM_WIDTH
+	once_property_minimum_height: SB_PROPERTY_MINIMUM_HEIGHT
 		once
 			create Result
 --			once_properties.add_last (Result)

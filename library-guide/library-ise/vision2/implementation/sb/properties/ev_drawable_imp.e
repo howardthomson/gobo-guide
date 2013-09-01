@@ -35,7 +35,7 @@ inherit
 			default_create
 		end
 
-	MATH_CONST
+--	MATH_CONST
 
 	SB_DRAWABLE
 		rename
@@ -71,12 +71,14 @@ feature {EV_DRAWABLE_IMP} -- Implementation
 	cap_style: INTEGER
 			-- Style used for drawing end of lines.
 		do
+			check false end
 --			Result := {EV_GTK_EXTERNALS}.gdk_cap_round_enum
 		end
 
 	join_style: INTEGER
 			-- Way in which lines are joined together.				
 		do
+			check false end
 --			Result := {EV_GTK_EXTERNALS}.Gdk_join_bevel_enum
 		end
 
@@ -132,6 +134,7 @@ feature -- Access
 	line_width: INTEGER
 			-- Line thickness.
 		do
+			Result := 1 -- !!! TODO
 --			gcvalues := {EV_GTK_EXTERNALS}.c_gdk_gcvalues_struct_allocate
 --			{EV_GTK_EXTERNALS}.gdk_gc_get_values (gc, gcvalues)
 --			Result := {EV_GTK_EXTERNALS}.gdk_gcvalues_struct_line_width (gcvalues)
@@ -143,6 +146,7 @@ feature -- Access
 		local
 			gdk_drawing_mode: INTEGER
 		do
+			Result := drawing_mode_copy -- TODO
 --			gcvalues := {EV_GTK_EXTERNALS}.c_gdk_gcvalues_struct_allocate
 --			{EV_GTK_EXTERNALS}.gdk_gc_get_values (gc, gcvalues)
 --			gdk_drawing_mode := {EV_GTK_EXTERNALS}.gdk_gcvalues_struct_function (gcvalues)
@@ -188,6 +192,7 @@ feature -- Access
 --			style := {EV_GTK_EXTERNALS}.gdk_gcvalues_struct_line_style (gcvalues)
 --			gcvalues.memory_free
 --			Result := style = {EV_GTK_EXTERNALS}.Gdk_line_on_off_dash_enum
+			check not Result end
 		end
 
 feature -- Element change
@@ -653,8 +658,8 @@ feature -- Drawing operations
 			tang_start := tangent (a_start_angle)
 			tang_end := tangent (a_start_angle + an_aperture)
 
-			x_tmp := semi_height / (sqrt (tang_start^2 + semi_height^2 / semi_width^2))
-			y_tmp := semi_height / (sqrt (1 + semi_height^2 / (semi_width^2 * tang_start^2)))
+--			x_tmp := semi_height / (sqrt (tang_start^2 + semi_height^2 / semi_width^2))
+--			y_tmp := semi_height / (sqrt (1 + semi_height^2 / (semi_width^2 * tang_start^2)))
 			if sine (a_start_angle) > 0 then
 				y_tmp := - y_tmp
 			end
@@ -664,8 +669,8 @@ feature -- Drawing operations
 			x_start_arc := (x_tmp + left + semi_width).rounded
 			y_start_arc := (y_tmp + top + semi_height).rounded
 
-			x_tmp := semi_height / (sqrt (tang_end^2 + semi_height^2 / semi_width^2))
-			y_tmp := semi_height / (sqrt (1 + semi_height^2 / (semi_width^2 * tang_end^2)))
+--			x_tmp := semi_height / (sqrt (tang_end^2 + semi_height^2 / semi_width^2))
+--			y_tmp := semi_height / (sqrt (1 + semi_height^2 / (semi_width^2 * tang_end^2)))
 			if sine (a_start_angle + an_aperture) > 0 then
 				y_tmp := - y_tmp
 			end
@@ -793,7 +798,7 @@ feature {NONE} -- Implementation
 	interface: EV_DRAWABLE
 
 invariant
-	gc_not_void: is_usable implies gc /= default_pointer
+--	gc_not_void: is_usable implies gc /= default_pointer
 
 note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"

@@ -15,7 +15,7 @@ note
 deferred class SB_DC
 
 inherit
-   
+
 	SB_DC_CONSTANTS
 		rename
 			Fill_tiled			as SB_fill_tiled,
@@ -128,21 +128,21 @@ feature -- Draw points
 
 	draw_point (x, y : INTEGER)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_point: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_point: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
 	draw_points (points: ARRAY [ SB_POINT ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_points: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_points: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
 	draw_points_rel (points: ARRAY [ SB_POINT ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_points_rel: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_points_rel: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -151,28 +151,28 @@ feature -- Draw lines
 
 	draw_line (x1, y1, x2, y2: INTEGER)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_line: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_line: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
-   
+
 	draw_lines (points: ARRAY [ SB_POINT ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_lines: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_lines: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
 	draw_lines_rel (points: ARRAY [ SB_POINT ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_lines_rel: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_lines_rel: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
 	draw_line_segments (segments: ARRAY [ SB_SEGMENT ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_line_segments: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_line_segments: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -181,14 +181,14 @@ feature -- Draw rectangles
 
 	draw_rectangle (x, y, w, h: INTEGER)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_line_segments: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_line_segments: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
-   
+
 	draw_rectangles (rectangles: ARRAY [ SB_RECTANGLE ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_line_segments: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_line_segments: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -203,14 +203,14 @@ feature -- Draw arcs.
 
    draw_arc (x, y, w, h, ang1, ang2: INTEGER)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_arc: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_arc: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
    draw_arcs (arcs: ARRAY [ SB_ARC ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_arcs: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_arcs: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -220,17 +220,17 @@ feature -- Filled rectangles
 
    fill_rectangle (x, y, w, h: INTEGER)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::fill_rectangle: ", Current.out, " x/y/w/h: ",
-				x.out,"/",y.out,"/",w.out,"/",h.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::fill_rectangle: ", Current.out, " x/y/w/h: ",
+		--		x.out,"/",y.out,"/",w.out,"/",h.out>>)
 --			good_width: w >= 0
 --			good_height: h >= 0
 			valid_to_draw: ok_to_draw
 		do
 		end
-   
+
    fill_rectangles (rectangles: ARRAY [ SB_RECTANGLE ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::fill_rectangles: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::fill_rectangles: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -239,14 +239,14 @@ feature -- Filled arcs
 
    fill_arc (x, y, w, h, ang1, ang2: INTEGER)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::fill_arc: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::fill_arc: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
    fill_arcs (arcs: ARRAY [ SB_ARC ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::fill_arcs: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::fill_arcs: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -255,21 +255,21 @@ feature -- Filled polygon
 
    fill_polygon (points: ARRAY [ SB_POINT ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::fill_polygon: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::fill_polygon: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
    fill_concave_polygon (points: ARRAY [ SB_POINT ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::fill_concave_polygon: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::fill_concave_polygon: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
    fill_complex_polygon (points: ARRAY [ SB_POINT ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::fill_complex_polygon: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::fill_complex_polygon: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -279,21 +279,21 @@ feature  -- Filled polygon with relative points
 
    fill_polygon_rel (points: ARRAY [ SB_POINT ] )
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::fill_polygon_rel: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::fill_polygon_rel: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
    fill_concave_polygon_rel (points: ARRAY [ SB_POINT ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::fill_concave_polygon_rel: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::fill_concave_polygon_rel: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
    fill_complex_polygon_rel (points: ARRAY [ SB_POINT ])
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::fill_complex_polygon_rel: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::fill_complex_polygon_rel: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -303,7 +303,7 @@ feature
    draw_hash_box (x, y, w, h,b: INTEGER)
          -- Draw hashed box
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_hash_box: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_hash_box: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -311,7 +311,7 @@ feature
    draw_focus_rectangle ( x, y, w, h: INTEGER)
          -- Draw focus rectangle
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_focus_rectangle: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_focus_rectangle: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -319,7 +319,7 @@ feature
    draw_area (source: SB_DRAWABLE; sx, sy, sw, sh, dx, dy: INTEGER)
          -- Draw area from source
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_area: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_area: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -327,7 +327,7 @@ feature
    draw_image (image: SB_IMAGE; dx, dy: INTEGER)
          -- Draw image
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_image: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_image: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -335,7 +335,7 @@ feature
    draw_bitmap (bitmap: SB_BITMAP; dx, dy: INTEGER)
          -- Draw bitmap
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_bitmap: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_bitmap: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
@@ -344,31 +344,31 @@ feature -- Draw icon
 
    draw_icon (icon: SB_ICON; dx, dy: INTEGER)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_icon: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_icon: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
    draw_icon_shaded (icon: SB_ICON; dx, dy: INTEGER)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_icon_shaded: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_icon_shaded: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
 
    draw_icon_sunken (icon: SB_ICON; dx, dy: INTEGER)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_icon_sunken: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_icon_sunken: ", Current.out>>)
 			valid_to_draw: ok_to_draw
 		do
 		end
-      
+
 feature -- Draw text
 
    draw_text (x, y: INTEGER; string: STRING)
          -- Draw text
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_text: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_text: ", Current.out>>)
 			valid_to_draw: ok_to_draw
       do
          draw_text_offset (x,y,string, 1, string.count);
@@ -377,25 +377,25 @@ feature -- Draw text
    draw_text_len (x, y: INTEGER; string: STRING; length: INTEGER)
          -- Draw text
 		require
-			trace_dc_calls implies rq_trace (<<"SB_DC::draw_text_len: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace (<<"SB_DC::draw_text_len: ", Current.out>>)
 			valid_to_draw: ok_to_draw
       do
          draw_text_offset (x,y,string, 1, length);
       end
-   
+
    draw_text_offset (x, y: INTEGER; string: STRING; strt,length: INTEGER)
          -- Draw text
       require
          string /= Void
          strt > 0
          strt+length <= string.count + 1;
-			trace_dc_calls implies rq_trace (<<"SB_DC::draw_text_offset: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace (<<"SB_DC::draw_text_offset: ", Current.out>>)
       do
       end
 
    draw_image_text (x, y: INTEGER; string: STRING)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_image_text: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_image_text: ", Current.out>>)
 			valid_to_draw: ok_to_draw
       do
          draw_image_text_offset (x, y, string, 1, string.count);
@@ -403,7 +403,7 @@ feature -- Draw text
 
    draw_image_text_len(x, y: INTEGER; string: STRING; length: INTEGER)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_image_text_len: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_image_text_len: ", Current.out>>)
 			valid_to_draw: ok_to_draw
       do
          draw_image_text_offset(x,y,string, 1, length);
@@ -411,7 +411,7 @@ feature -- Draw text
 
    draw_image_text_offset (x, y: INTEGER; string: STRING; strt, length: INTEGER)
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_image_text_offset: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_image_text_offset: ", Current.out>>)
 			valid_to_draw: ok_to_draw
       do
       end
@@ -421,7 +421,7 @@ feature
    set_foreground (clr: INTEGER)
          -- Set foreground drawing color
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_foreground: ", Current.out, " color: ", clr.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_foreground: ", Current.out, " color: ", clr.out>>)
       do
          fg := clr;
       end
@@ -429,7 +429,7 @@ feature
    set_background (clr: INTEGER)
          -- Set background drawing color
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_background: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_background: ", Current.out>>)
       do
          bg := clr;
       end
@@ -443,7 +443,7 @@ feature
          -- The maximum length of the dash pattern is 32.
       require
          dashpattern /= Void and then dashpattern.count <= 32
-			trace_dc_calls implies rq_trace(<<"SB_DC::draw_image: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::draw_image: ", Current.out>>)
       local
          i, j, e, len: INTEGER;
       do
@@ -467,7 +467,7 @@ feature
    set_line_width (line_width: INTEGER)
          -- Set line width:- 0 means thinnest/fastest possible
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_line_width: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_line_width: ", Current.out>>)
       do
          width := line_width
       end
@@ -475,7 +475,7 @@ feature
    set_line_cap (cap_style: INTEGER)
          -- Set line cap style
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_line_cap: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_line_cap: ", Current.out>>)
       do
          cap := cap_style
       end
@@ -483,7 +483,7 @@ feature
    set_line_join (join_style: INTEGER)
          -- Set line join style
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_line_join: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_line_join: ", Current.out>>)
       do
          join := join_style
       end
@@ -491,7 +491,7 @@ feature
    set_line_style (line_style: INTEGER)
          -- Set line style
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_line_style: ", Current.out>>)
+	--		trace_dc_calls implies rq_trace(<<"SB_DC::set_line_style: ", Current.out>>)
       do
          style := line_style
       end
@@ -499,7 +499,7 @@ feature
    set_fill_style (fillstyle: INTEGER)
          -- Set fill style
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_fill_style: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_fill_style: ", Current.out>>)
       do
          fill := fillstyle
       end
@@ -507,7 +507,7 @@ feature
    set_fill_rule (fillrule: INTEGER)
          -- Set fill rule
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_fill_rule: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_fill_rule: ", Current.out>>)
       do
          rule := fillrule
       end
@@ -515,7 +515,7 @@ feature
    set_function (func: INTEGER)
          -- Set rasterop function
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_function: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_function: ", Current.out>>)
       do
          rop := func
       end
@@ -523,7 +523,7 @@ feature
    set_tile (a_tile: SB_IMAGE; dx, dy: INTEGER)
          -- Set the tile image
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_tile: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_tile: ", Current.out>>)
       do
          tile := a_tile
          tx := dx
@@ -533,7 +533,7 @@ feature
    set_stipple_bitmap (a_stipple: SB_BITMAP; dx, dy: INTEGER)
          -- Set the stipple bitmap
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_stipple_bitmap: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_stipple_bitmap: ", Current.out>>)
       do
          stipple := a_stipple
          pattern := Stipple_none
@@ -544,7 +544,7 @@ feature
    set_stipple_pattern (a_pattern: INTEGER; dx, dy: INTEGER)
          -- Set the stipple pattern
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_stipple_pattern: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_stipple_pattern: ", Current.out>>)
       do
          pattern := a_pattern
          stipple := Void
@@ -555,14 +555,14 @@ feature
    set_clip_region (region: SB_REGION)
          -- Set clip region
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_clip_region: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_clip_region: ", Current.out>>)
       do
       end
 
    set_clip_rectangle_coords (x, y, w, h: INTEGER)
          -- Set clip rectangle
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_clip_rectangle_coords: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_clip_rectangle_coords: ", Current.out>>)
       do
          clip_x := x
          clip_y := y
@@ -573,7 +573,7 @@ feature
    set_clip_rectangle (rectangle: SB_RECTANGLE)
          -- Set clip rectangle
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_clip_rectangle: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_clip_rectangle: ", Current.out>>)
       do
          clip_x := rectangle.x
          clip_y := rectangle.y
@@ -584,7 +584,7 @@ feature
    clear_clip_rectangle
          -- Clear clipping
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::clear_clip_rectangle: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::clear_clip_rectangle: ", Current.out>>)
       do
          clip_x := 0
          clip_y := 0
@@ -595,7 +595,7 @@ feature
 	set_clip_mask (a_mask: SB_BITMAP; dx, dy: INTEGER)
 			-- Set clip mask
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_clip_mask: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_clip_mask: ", Current.out>>)
 		do
         	mask := a_mask
          	cx := dx
@@ -605,7 +605,7 @@ feature
 	clear_clip_mask
     		-- Clear clip mask
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::clear_clip_mask: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::clear_clip_mask: ", Current.out>>)
 		do
 			mask := Void
 			cx := 0
@@ -615,7 +615,7 @@ feature
 	set_font (a_font: SB_FONT)
 			-- Set font for drawing text
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::set_font: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::set_font: ", Current.out>>)
 		do
 			font := a_font
 		end
@@ -623,7 +623,7 @@ feature
 	clip_children (yes: BOOLEAN)
 			-- Clip against child windows
 		require
-			trace_dc_calls implies rq_trace(<<"SB_DC::clip_children: ", Current.out>>)
+		--	trace_dc_calls implies rq_trace(<<"SB_DC::clip_children: ", Current.out>>)
 		do
 		end
 

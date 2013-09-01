@@ -4,7 +4,7 @@ note
 
 	author: "Stephane Hillion"
 	copyright: "Copyright (c) 1998-2006, Stephane Hillion and Howard Thomson"
-	license: "GNU Public License (see COPYING)"
+	license: "Eiffel Forum License v2 (see forum.txt)"
 
 	todo: "[
 		Remove BOOLEAN from set_graphics_exposures
@@ -91,7 +91,7 @@ feature
       		to_external /= default_pointer
     	do
       		create Result.make
-      		x_get_gc_values (display.to_external, to_external, 
+      		x_get_gc_values (display.to_external, to_external,
 		       mask, Result.to_external)
     	end
 
@@ -180,7 +180,7 @@ feature
 			to_external /= default_pointer
 			tab /= Void
     	do
-			x_set_dashes (display.to_external, to_external, 
+			x_set_dashes (display.to_external, to_external,
 				origin, array_to_external (tab), tab.count)
 		end
 
@@ -229,7 +229,7 @@ feature
 --		require
 --			ptr_not_null: c_ptr /= default_pointer
 --		do
---			x_set_clip_rectangles (display.to_external, to_external, 
+--			x_set_clip_rectangles (display.to_external, to_external,
 --				x, y, c_ptr, 1, Unsorted)
 --		end
 
@@ -251,7 +251,7 @@ feature
 			pa.put (a_h.to_integer_16, 4)
 			Result := pa.area.base_address
 		end
-			
+
 	set_clip_rectangle (x, y: INTEGER; cx, cy, cw, ch: INTEGER)
 			-- changes the clip-mask in the GC to the specified
 			-- rectangle and sets the clip origin
@@ -269,9 +269,9 @@ feature
     	end
 
   	set_graphics_exposures (set: BOOLEAN)
-      		-- sets the graphics-exposures flag in the GC 
+      		-- sets the graphics-exposures flag in the GC
     	do
       		x_set_graphics_exposures (display.to_external, to_external, set)
     	end
 
-end 
+end

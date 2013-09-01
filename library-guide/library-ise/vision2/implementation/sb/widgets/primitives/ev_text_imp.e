@@ -15,6 +15,7 @@ inherit
 	EV_TEXT_I
 		redefine
 			interface,
+			text,
 			text_length,
 			selected_text
 		end
@@ -79,6 +80,7 @@ feature {NONE} -- Initialization
 			set_editable (True)
 			set_background_color ((create {EV_STOCK_COLORS}).white)
 			Precursor {EV_TEXT_COMPONENT_IMP}
+			check text /= Void end
 		end
 
 feature -- Access
@@ -90,6 +92,12 @@ feature -- Access
 		end
 
 feature -- Status report
+
+	first_visible_line: INTEGER
+			-- First visible line current being displayed.
+		do
+			check not_implemented: false end
+		end
 
 	line_number_from_position (i: INTEGER): INTEGER
 			-- Line containing caret position `i'.
@@ -232,13 +240,14 @@ feature -- Basic operation
 --			a_text := clip_imp.text
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_text_buffer_get_iter_at_offset (text_buffer, a_iter.item, index - 1)
 --			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_text_buffer_insert (text_buffer, a_iter.item, a_text.item, -1)
-			a_text.set_with_eiffel_string (once "")
+--			a_text.set_with_eiffel_string (once "")
 		end
 
 feature -- Access
 
 	text: STRING_32
 		do
+			Result := ""
 		end
 
 	line (a_line: INTEGER): STRING_32
@@ -341,7 +350,7 @@ feature {NONE} -- Implementation
 	visual_widget: POINTER
 			-- Pointer to the GtkWidget representing `Current'
 		do
-			Result := text_view
+--			Result := text_view
 		end
 
 	selection_start_internal: INTEGER

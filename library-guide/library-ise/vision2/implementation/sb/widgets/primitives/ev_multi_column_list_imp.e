@@ -213,7 +213,7 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Event handling
 			a_x, a_y, a_button: INTEGER;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER)
-		
+
 		local
 			t : TUPLE [INTEGER, INTEGER, INTEGER, DOUBLE, DOUBLE, DOUBLE,
 				INTEGER, INTEGER]
@@ -223,43 +223,44 @@ feature {EV_GTK_DEPENDENT_INTERMEDIARY_ROUTINES} -- Event handling
 			l_x, l_y: INTEGER
 		do
 			Precursor {EV_PRIMITIVE_IMP} (a_type, a_x, a_y, a_button, a_x_tilt, a_y_tilt, a_pressure, a_screen_x, a_screen_y)
-			if a_type /= {EV_GTK_EXTERNALS}.gdk_button_release_enum then
-				a_gdkwin := {EV_GTK_EXTERNALS}.gdk_window_at_pointer ($l_x, $l_y)
-				if a_gdkwin /= default_pointer then
-					{EV_GTK_EXTERNALS}.gdk_window_get_user_data (a_gdkwin, $a_gtkwid)
-					if a_gtkwid = tree_view then
-							-- This prevents item actions from being called if clicking on a scrollbar
-						mouse_button_pressed := True
-						t := [a_x, a_y, a_button, a_x_tilt, a_y_tilt, a_pressure,
-							a_screen_x, a_screen_y]
-						a_row_number := row_index_from_y_coord (a_y)
-						if a_row_number > 0 and then a_row_number <= count then
-							clicked_row := ev_children @ a_row_number
-						else
-							clear_selection
-								-- This follows the Windows behavior of clearing selection if list is clicked on
-						end
-						if a_type = {EV_GTK_EXTERNALS}.gDK_BUTTON_PRESS_ENUM then
-							if
-								clicked_row /= Void and then
-								clicked_row.pointer_button_press_actions_internal /= Void
-							then
-								clicked_row.pointer_button_press_actions_internal.call (t)
-							end
-						elseif a_type = {EV_GTK_EXTERNALS}.gDK_2BUTTON_PRESS_ENUM then
-							if
-								clicked_row /= Void and then
-								clicked_row.pointer_double_press_actions_internal /= Void
-							then
-								clicked_row.pointer_double_press_actions_internal.call (t)
-							end
-						end
-					end
-				end
-			else
-				mouse_button_pressed := False
-				call_selection_action_sequences
-			end
+			check false end
+--			if a_type /= {EV_GTK_EXTERNALS}.gdk_button_release_enum then
+--				a_gdkwin := {EV_GTK_EXTERNALS}.gdk_window_at_pointer ($l_x, $l_y)
+--				if a_gdkwin /= default_pointer then
+--					{EV_GTK_EXTERNALS}.gdk_window_get_user_data (a_gdkwin, $a_gtkwid)
+--					if a_gtkwid = tree_view then
+--							-- This prevents item actions from being called if clicking on a scrollbar
+--						mouse_button_pressed := True
+--						t := [a_x, a_y, a_button, a_x_tilt, a_y_tilt, a_pressure,
+--							a_screen_x, a_screen_y]
+--						a_row_number := row_index_from_y_coord (a_y)
+--						if a_row_number > 0 and then a_row_number <= count then
+--							clicked_row := ev_children @ a_row_number
+--						else
+--							clear_selection
+--								-- This follows the Windows behavior of clearing selection if list is clicked on
+--						end
+--						if a_type = {EV_GTK_EXTERNALS}.gDK_BUTTON_PRESS_ENUM then
+--							if
+--								clicked_row /= Void and then
+--								clicked_row.pointer_button_press_actions_internal /= Void
+--							then
+--								clicked_row.pointer_button_press_actions_internal.call (t)
+--							end
+--						elseif a_type = {EV_GTK_EXTERNALS}.gDK_2BUTTON_PRESS_ENUM then
+--							if
+--								clicked_row /= Void and then
+--								clicked_row.pointer_double_press_actions_internal /= Void
+--							then
+--								clicked_row.pointer_double_press_actions_internal.call (t)
+--							end
+--						end
+--					end
+--				end
+--			else
+--				mouse_button_pressed := False
+--				call_selection_action_sequences
+--			end
 		end
 
 	mouse_button_pressed: BOOLEAN
@@ -425,16 +426,17 @@ feature {NONE} -- Implementation
 			a_row_number: INTEGER
 			a_row_imp: EV_MULTI_COLUMN_LIST_ROW_IMP
 		do
-			Precursor (a_motion_tuple)
-			if not app_implementation.is_in_transport and then a_motion_tuple.integer_item (2) > 0 and a_motion_tuple.integer_item (1) <= width then
-				a_row_number := row_index_from_y_coord (a_motion_tuple.integer_item (2))
-				if a_row_number > 0 and then a_row_number <= count then
-					a_row_imp := ev_children @ a_row_number
-					if a_row_imp.pointer_motion_actions_internal /= Void then
-						a_row_imp.pointer_motion_actions_internal.call (a_motion_tuple)
-					end
-				end
-			end
+			check false end
+--			Precursor (a_motion_tuple)
+--			if not app_implementation.is_in_transport and then a_motion_tuple.integer_item (2) > 0 and a_motion_tuple.integer_item (1) <= width then
+--				a_row_number := row_index_from_y_coord (a_motion_tuple.integer_item (2))
+--				if a_row_number > 0 and then a_row_number <= count then
+--					a_row_imp := ev_children @ a_row_number
+--					if a_row_imp.pointer_motion_actions_internal /= Void then
+--						a_row_imp.pointer_motion_actions_internal.call (a_motion_tuple)
+--					end
+--				end
+--			end
 		end
 
 	pixmaps_size_changed
@@ -676,8 +678,9 @@ feature -- Status setting
 		local
 			a_column_ptr: POINTER
 		do
-			a_column_ptr := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_get_column (tree_view, a_column - 1)
-			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_column_set_sizing (a_column_ptr, {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_column_grow_only_enum)
+			check false end
+--			a_column_ptr := {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_get_column (tree_view, a_column - 1)
+--			{EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_column_set_sizing (a_column_ptr, {EV_GTK_DEPENDENT_EXTERNALS}.gtk_tree_view_column_grow_only_enum)
 		end
 
 feature -- Element change
@@ -686,7 +689,7 @@ feature -- Element change
 			-- Make `a_txt' the title of the column number.
 		local
 			l_txt: STRING_32
-			a_cs: EV_GTK_C_STRING
+--			a_cs: EV_GTK_C_STRING
 			a_column_ptr: POINTER
 		do
 			todo_class_line ("__EV_MULTI_COLUMN_LIST_IMP__", "__LINE__")
@@ -724,7 +727,7 @@ feature -- Element change
 		local
 			alignment: REAL
 			a_column_ptr, a_cell_rend_list, a_cell_rend: POINTER
-			a_gtk_c_str: EV_GTK_C_STRING
+--			a_gtk_c_str: EV_GTK_C_STRING
 			i: INTEGER
 		do
 			todo_class_line ("__EV_MULTI_COLUMN_LIST_IMP__", "__LINE__")
@@ -758,7 +761,7 @@ feature -- Element change
 			-- Make `value' the new height of all the rows.
 		local
 			a_column_ptr, a_cell_rend_list, a_cell_rend: POINTER
-			a_gtk_c_str: EV_GTK_C_STRING
+--			a_gtk_c_str: EV_GTK_C_STRING
 			a_vert_sep: INTEGER
 		do
 			todo_class_line ("__EV_MULTI_COLUMN_LIST_IMP__", "__LINE__")
@@ -880,7 +883,7 @@ feature -- Implementation
 			a_x, a_y, a_button: INTEGER;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER)
-		
+
 			-- Initialize a pick and drop transport.
 		local
 			a_row_index: INTEGER
@@ -933,7 +936,8 @@ feature -- Implementation
 		do
 			temp_accept_cursor := accept_cursor
 			temp_deny_cursor := deny_cursor
-			app_implementation.on_pick (Current, pebble)
+			check false end
+	--		app_implementation.on_pick (Current, pebble)
 
 			if pnd_row_imp /= Void then
 				if pnd_row_imp.pick_actions_internal /= Void then
@@ -1183,15 +1187,16 @@ feature {NONE} -- Implementation
 		local
 			item_imp: EV_MULTI_COLUMN_LIST_ROW_IMP
 		do
-			item_imp := (ev_children @ (a_position))
-			item_imp.set_parent_imp (Void)
-			{EV_GTK_EXTERNALS}.gtk_list_store_remove (list_store, item_imp.list_iter.item)
-			-- remove the row from the `ev_children'
-			ev_children.go_i_th (a_position)
-			ev_children.remove
-			child_array.go_i_th (a_position)
-			child_array.remove
-			update_pnd_status
+			check false end
+--			item_imp := (ev_children @ (a_position))
+--			item_imp.set_parent_imp (Void)
+--			{EV_GTK_EXTERNALS}.gtk_list_store_remove (list_store, item_imp.list_iter.item)
+--			-- remove the row from the `ev_children'
+--			ev_children.go_i_th (a_position)
+--			ev_children.remove
+--			child_array.go_i_th (a_position)
+--			child_array.remove
+--			update_pnd_status
 		end
 
 	row_height: INTEGER

@@ -144,16 +144,12 @@ feature {NONE} -- Implementation
 
 	x_position, screen_x: INTEGER
 			-- Horizontal position of the window on screen,
-		local
-			temp_y: INTEGER
 		do
 			Result := sb_window.x_pos
 		end
 
 	y_position, screen_y: INTEGER
 			-- Vertical position of the window on screen,
-		local
-			temp_x: INTEGER
 		do
 			Result := sb_window.y_pos
 		end
@@ -315,7 +311,7 @@ feature {EV_INTERMEDIARY_ROUTINES, EV_APPLICATION_IMP}
 	--					end
 	--				end
 	--			end
-				if a_key /= Void and then a_key.out.count /= 1 and then not a_key.is_numpad then
+				if a_key /= Void and then a_key.text.count /= 1 and then not a_key.is_numpad then
 					inspect a_key.code
 					when {EV_KEY_CONSTANTS}.key_space then
 						a_key_string := once " "

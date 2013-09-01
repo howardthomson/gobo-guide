@@ -84,7 +84,7 @@ feature {NONE} -- Initialization
 		local
 			l_app_imp: like app_implementation
 		do
---			Precursor {EV_PRIMITIVE_IMP}
+			Precursor {EV_PRIMITIVE_IMP}
 			l_app_imp := app_implementation
 
 			todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ 2")
@@ -100,44 +100,44 @@ feature {NONE} -- Initialization
 			a_pointer_style_imp: EV_POINTER_STYLE_IMP
 			l_pixbuf: POINTER
 		do
-			a_pointer_style_imp ?= a_pointer_style.implementation
+--			a_pointer_style_imp ?= a_pointer_style.implementation
 
-			if a_pointer_style_imp.predefined_cursor_code /= -1 then
-				-- We are building from a stock cursor.
-				inspect
-					a_pointer_style_imp.predefined_cursor_code
-				when {EV_POINTER_STYLE_CONSTANTS}.busy_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.busy_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.wait_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.wait_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.crosshair_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.crosshair_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.help_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.help_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.ibeam_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.ibeam_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.no_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.no_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.sizeall_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizeall_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.sizenesw_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizenesw_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.sizens_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizens_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.sizenwse_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizenwse_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.sizewe_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizewe_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.uparrow_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.uparrow_cursor_xpm)
-				when {EV_POINTER_STYLE_CONSTANTS}.standard_cursor then
-					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.standard_cursor_xpm)
-				else
-					set_size (a_pointer_style.width, a_pointer_style.height)
-					clear
-				end
-			else
-				todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ ?")
+--			if a_pointer_style_imp.predefined_cursor_code /= -1 then
+--				-- We are building from a stock cursor.
+--				inspect
+--					a_pointer_style_imp.predefined_cursor_code
+--				when {EV_POINTER_STYLE_CONSTANTS}.busy_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.busy_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.wait_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.wait_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.crosshair_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.crosshair_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.help_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.help_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.ibeam_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.ibeam_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.no_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.no_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.sizeall_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizeall_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.sizenesw_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizenesw_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.sizens_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizens_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.sizenwse_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizenwse_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.sizewe_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.sizewe_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.uparrow_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.uparrow_cursor_xpm)
+--				when {EV_POINTER_STYLE_CONSTANTS}.standard_cursor then
+--					set_from_xpm_data ({EV_STOCK_PIXMAPS_IMP}.standard_cursor_xpm)
+--				else
+--					set_size (a_pointer_style.width, a_pointer_style.height)
+--					clear
+--				end
+--			else
+--				todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ ?")
 
 --				l_pixbuf := a_pointer_style_imp.gdk_pixbuf
 --				if l_pixbuf /= default_pointer then
@@ -146,7 +146,7 @@ feature {NONE} -- Initialization
 --					set_size (a_pointer_style.width, a_pointer_style.height)
 --					clear
 --				end
-			end
+--			end
 		end
 
 	init_from_pixel_buffer (a_pixel_buffer: EV_PIXEL_BUFFER)
@@ -208,9 +208,20 @@ feature -- Element change
 			todo_class_line ("__EV_PIXMAP_IMP__", "__LINE__ 6")
 		end
 
+	read_from_named_path (file_path: PATH)
+			-- Load pixmap data from the file named `file_path'.
+			-- Exceptions: "Unable to retrieve icon information"
+	--	require
+	--		file_path_not_void: file_path /= Void
+	--		file_path_not_empty: not file_path.is_empty
+		do
+			check not_implemented: false end
+		end
+
+
 	set_with_default
-			-- Initialize the pixmap with the default
-			-- pixmap (Vision2 logo)
+			-- Initialize the pixmap with the default pixmap
+			-- (Vision2 logo)
 		do
 --			set_from_xpm_data (default_pixmap_xpm)
 		end
@@ -283,7 +294,7 @@ feature {EV_STOCK_PIXMAPS_IMP, EV_PIXMAPABLE_IMP, EV_PIXEL_BUFFER_IMP} -- Implem
 	set_from_xpm_data (a_xpm_data: POINTER)
 			-- Pixmap symbolizing a piece of information.
 		require
-			xpm_data_not_null: a_xpm_data /= NULL
+			xpm_data_not_null: a_xpm_data /= default_pointer
 		local
 			gdkpix, gdkmask: POINTER
 		do
@@ -293,7 +304,7 @@ feature {EV_STOCK_PIXMAPS_IMP, EV_PIXMAPABLE_IMP, EV_PIXEL_BUFFER_IMP} -- Implem
 	set_from_stock_id (a_stock_id: POINTER)
 			-- Pixmap symbolizing a piece of information
 		require
-			a_stock_id_not_null: a_stock_id /= NULL
+			a_stock_id_not_null: a_stock_id /= default_pointer
 		local
 			stock_pixbuf: POINTER
 		do
@@ -319,13 +330,13 @@ feature {NONE} -- Implementation
 			a_gerror: POINTER
 --			a_handle, a_filetype: EV_GTK_C_STRING
 		do
-			if app_implementation.writeable_pixbuf_formats.has (a_format.file_extension.as_upper) then
-					-- Perform custom saving with GdkPixbuf
-				-- todo_class_line
-			else
-				-- If Gtk cannot save the file then the default is called
-				Precursor {EV_PIXMAP_I} (a_format, a_filename)
-			end
+--			if app_implementation.writeable_pixbuf_formats.has (a_format.file_extension.as_upper) then
+--					-- Perform custom saving with GdkPixbuf
+--				-- todo_class_line
+--			else
+--				-- If Gtk cannot save the file then the default is called
+--				Precursor {EV_PIXMAP_I} (a_format, a_filename)
+--			end
 		end
 
 	destroy
@@ -333,7 +344,7 @@ feature {NONE} -- Implementation
 		do
 --			set_pixmap (NULL, NULL)
 			-- todo_class_line
-			Precursor {EV_PRIMITIVE_IMP}
+--			Precursor {EV_PRIMITIVE_IMP}
 		end
 
 	dispose

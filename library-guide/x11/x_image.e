@@ -4,7 +4,7 @@ note
 
 	author: "Stephane Hillion"
 	copyright: "Copyright (c) 1998-2006, Stephane Hillion and Howard Thomson"
-	license: "GNU Public License (see COPYING)"
+	license: "Eiffel Forum License v2 (see forum.txt)"
 
 class X_IMAGE
 
@@ -16,7 +16,7 @@ inherit
 			x_free as xxx2
 		end
 
-create 
+create
 
 	make_pointer
 
@@ -162,6 +162,7 @@ feature -- Get/Put Pixel
 
 	put_pixel (x, y: INTEGER; pixel: INTEGER)
 		do
+--			check false end
 			x_put_pixel (to_external, x, y, pixel)
 		end
 
@@ -190,7 +191,7 @@ feature {SB_IMAGE} -- External functions TEMPORARY!
 feature {NONE} -- External functions
 
 	x_put_pixel(p: POINTER; x,y: INTEGER; pix: INTEGER)
-		external "C use <X11/Xlib.h>"
+		external "C signature (XImage*, int, int, int) use <X11/Xutil.h>"
 		alias "XPutPixel"
 		end
 
@@ -200,13 +201,13 @@ feature {NONE} -- External functions
     	alias "XCreateImage"
     	end
 
-	c_width					(p: POINTER): INTEGER external "C struct XImage access width use <X11/Xlib.h>"				end -- 
+	c_width					(p: POINTER): INTEGER external "C struct XImage access width use <X11/Xlib.h>"				end --
 	c_height				(p: POINTER): INTEGER external "C struct XImage access height use <X11/Xlib.h>"				end -- size of image */
-	c_xoffset				(p: POINTER): INTEGER external "C struct XImage access xoffset use <X11/Xlib.h>"				end	-- number of pixels offset in X direction */
+	c_xoffset				(p: POINTER): INTEGER external "C struct XImage access xoffset use <X11/Xlib.h>"			end	-- number of pixels offset in X direction */
 	c_format				(p: POINTER): INTEGER external "C struct XImage access format use <X11/Xlib.h>"				end	-- XYBitmap, XYPixmap, ZPixmap */
 	c_data					(p: POINTER): POINTER external "C struct XImage access data use <X11/Xlib.h>"				end -- pointer to image data */
 	c_byte_order			(p: POINTER): INTEGER external "C struct XImage access byte_order use <X11/Xlib.h>"			end -- data byte order, LSBFirst, MSBFirst */
-	c_bitmap_unit			(p: POINTER): INTEGER external "C struct XImage access bitmap_unit use <X11/Xlib.h>"			end -- quant. of scanline 8, 16, 32 */
+	c_bitmap_unit			(p: POINTER): INTEGER external "C struct XImage access bitmap_unit use <X11/Xlib.h>"		end -- quant. of scanline 8, 16, 32 */
 	c_bitmap_bit_order		(p: POINTER): INTEGER external "C struct XImage access bitmap_bit_order use <X11/Xlib.h>"	end -- LSBFirst, MSBFirst */
 	c_bitmap_pad			(p: POINTER): INTEGER external "C struct XImage access bitmap_pad use <X11/Xlib.h>"			end -- 8, 16, 32 either XY or ZPixmap */
 	c_depth					(p: POINTER): INTEGER external "C struct XImage access depth use <X11/Xlib.h>"				end -- depth of image */
@@ -216,7 +217,7 @@ feature {NONE} -- External functions
 	c_green_mask			(p: POINTER): INTEGER external "C struct XImage access green_mask use <X11/Xlib.h>"			end
 	c_blue_mask				(p: POINTER): INTEGER external "C struct XImage access blue_mask use <X11/Xlib.h>"			end
 
-	c_set_width				(p: POINTER; i: INTEGER) external "C struct XImage access width            type int    use <X11/Xlib.h>"	end -- 
+	c_set_width				(p: POINTER; i: INTEGER) external "C struct XImage access width            type int    use <X11/Xlib.h>"	end --
 	c_set_height			(p: POINTER; i: INTEGER) external "C struct XImage access height           type int    use <X11/Xlib.h>"	end -- size of image */
 	c_set_xoffset			(p: POINTER; i: INTEGER) external "C struct XImage access xoffset          type int    use <X11/Xlib.h>"	end	-- number of pixels offset in X direction */
 	c_set_format			(p: POINTER; i: INTEGER) external "C struct XImage access format           type int    use <X11/Xlib.h>"	end	-- XYBitmap, XYPixmap, ZPixmap */
@@ -234,4 +235,4 @@ feature {NONE} -- External functions
 	c_set_blue_mask			(p: POINTER; i: INTEGER) external "C struct XImage access blue_mask   type unsigned long use <X11/Xlib.h>"	end
 
 
-end 
+end

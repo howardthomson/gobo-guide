@@ -44,7 +44,7 @@ note
 		on_paint -
 			process strings etc for embedded tabs etc.
 	]"
-		
+
 class EDP_SYMBOL_EDITOR
 
 inherit
@@ -116,7 +116,7 @@ feature -- Attributes
 
 	sel_back_color: INTEGER
 			-- Background colour for selected text
-	
+
 feature -- Focus [ Move to event section when working ]
 
 	can_focus: BOOLEAN
@@ -221,7 +221,7 @@ feature -- Redefined routines
          	if (flags & Flag_caret) /= Zero then
 				dc_draw_cursor (dc, True)
 			end
-			
+
          	dc.stop
          	Result := True
 		end
@@ -460,102 +460,102 @@ feature -- event handling
 
 	                when key_right, key_kp_right then
 	                  if not event.shift then
-	                     event_command.process_with_id (ID_DESELECT_ALL).discard_result
+	                     event_command.process_with_id (ID_DESELECT_ALL).do_nothing
 	                  end
-	                  event_command.process_with_id (ID_CURSOR_RIGHT).discard_result
+	                  event_command.process_with_id (ID_CURSOR_RIGHT).do_nothing
 	                  if event.shift then
-	                     event_command.process_with_id (ID_EXTEND).discard_result
+	                     event_command.process_with_id (ID_EXTEND).do_nothing
 	                  else
-	                     event_command.process_with_id (ID_MARK).discard_result
+	                     event_command.process_with_id (ID_MARK).do_nothing
 	                  end
 
 	                when key_left, key_kp_left then
 	                  if not event.shift then
-	                     event_command.process_with_id (ID_DESELECT_ALL).discard_result
+	                     event_command.process_with_id (ID_DESELECT_ALL).do_nothing
 	                  end
-					  event_command.process_with_id (ID_CURSOR_LEFT).discard_result
+					  event_command.process_with_id (ID_CURSOR_LEFT).do_nothing
 
 	                  if event.shift then
-	                     event_command.process_with_id (ID_EXTEND).discard_result
+	                     event_command.process_with_id (ID_EXTEND).do_nothing
 	                  else
-	                     event_command.process_with_id (ID_MARK).discard_result
+	                     event_command.process_with_id (ID_MARK).do_nothing
 	                  end
 
 	                when key_up, key_kp_up then
 	                --	fx_trace(0, <<"EDP_SYMBOL_EDITOR=> Up">>)
 	                  if not event.shift then
-	                     event_command.process_with_id (ID_DESELECT_ALL).discard_result
+	                     event_command.process_with_id (ID_DESELECT_ALL).do_nothing
 	                  end
-	                  event_command.process_with_id (ID_CURSOR_UP).discard_result
+	                  event_command.process_with_id (ID_CURSOR_UP).do_nothing
 	                  if event.shift then
-	                     event_command.process_with_id (ID_EXTEND).discard_result
+	                     event_command.process_with_id (ID_EXTEND).do_nothing
 	                  else
-	                     event_command.process_with_id (ID_MARK).discard_result
+	                     event_command.process_with_id (ID_MARK).do_nothing
 	                  end
 
 	                when key_down, key_kp_down then
 	                	if not event.shift then
-	                		event_command.process_with_id (ID_DESELECT_ALL).discard_result
+	                		event_command.process_with_id (ID_DESELECT_ALL).do_nothing
 	                	end
-	                  	event_command.process_with_id (ID_CURSOR_DOWN).discard_result
+	                  	event_command.process_with_id (ID_CURSOR_DOWN).do_nothing
 	                	if event.shift then
-	                		event_command.process_with_id (ID_EXTEND).discard_result
+	                		event_command.process_with_id (ID_EXTEND).do_nothing
 	                	else
-	                		event_command.process_with_id (ID_MARK).discard_result
+	                		event_command.process_with_id (ID_MARK).do_nothing
 	                	end
 
 	              	when key_home, key_kp_home then
 	                  if not event.shift then
-	                     event_command.process_with_id (ID_DESELECT_ALL).discard_result
+	                     event_command.process_with_id (ID_DESELECT_ALL).do_nothing
 	                  end
 	                  if event.control then
-	                  	 event_command.process_with_id (ID_CURSOR_HOME).discard_result
+	                  	 event_command.process_with_id (ID_CURSOR_HOME).do_nothing
 	               	  else
-	                  	 event_command.process_with_id (ID_CURSOR_HOME_LINE).discard_result
+	                  	 event_command.process_with_id (ID_CURSOR_HOME_LINE).do_nothing
 	                  end
 	                  if event.shift then
-	                     event_command.process_with_id (ID_EXTEND).discard_result
+	                     event_command.process_with_id (ID_EXTEND).do_nothing
 	                  else
-	                     event_command.process_with_id (ID_MARK).discard_result
+	                     event_command.process_with_id (ID_MARK).do_nothing
 	                  end
 
 	                when key_end, key_kp_end then
 	                --	fx_trace (0, <<"EDP_SYMBOL_EDITOR=> End">>)
 	                  if not event.shift then
-	                     event_command.process_with_id (ID_DESELECT_ALL).discard_result
+	                     event_command.process_with_id (ID_DESELECT_ALL).do_nothing
 	                  end
 	                  if event.control then
-	                  	event_command.process_with_id (ID_CURSOR_END_LINE).discard_result
+	                  	event_command.process_with_id (ID_CURSOR_END_LINE).do_nothing
 	                  else
-	                  	event_command.process_with_id (ID_CURSOR_END).discard_result
+	                  	event_command.process_with_id (ID_CURSOR_END).do_nothing
 	                  end
 	                  if event.shift then
-	                     event_command.process_with_id (ID_EXTEND).discard_result
+	                     event_command.process_with_id (ID_EXTEND).do_nothing
 	                  else
-	                     event_command.process_with_id (ID_MARK).discard_result
+	                     event_command.process_with_id (ID_MARK).do_nothing
 	                  end
 
 	                when key_insert, key_kp_insert then
 	                --	fx_trace (0, <<"EDP_SYMBOL_EDITOR=> Insert">>)
 	                  if event.control then
-	                     event_command.process_with_id (ID_COPY_SEL).discard_result
+	                     event_command.process_with_id (ID_COPY_SEL).do_nothing
 	                  elseif event.shift then
 	                     if is_editable then
-	                        event_command.process_with_id (ID_PASTE_SEL).discard_result
+	                        event_command.process_with_id (ID_PASTE_SEL).do_nothing
 	                     else
 	                        application.beep;
 	                     end
 	                  else
-	                     event_command.process_with_id (ID_TOGGLE_OVERSTRIKE).discard_result
+	                     event_command.process_with_id (ID_TOGGLE_OVERSTRIKE).do_nothing
 	                  end
 
 	                when key_delete, key_kp_delete then
 	                --	fx_trace (0, <<"EDP_SYMBOL_EDITOR=> Delete">>)
 	                  if is_editable then
 	                     if has_selection then
-	                        event_command.process_with_id (ID_DELETE_SEL).discard_result
+	                        event_command.process_with_id (ID_DELETE_SEL).do_nothing
 	                     else
-	                        event_command.process_with_id (Id_delete).discard_result
+	                        event_command.process_with_id (Id_delete).do_nothing
 	                     end
 	                  else
 	                     application.beep;
@@ -565,9 +565,9 @@ feature -- event handling
 	                --	fx_trace (0, <<"EDP_SYMBOL_EDITOR=> Backspace">>)
 	                  if is_editable then
 	                     if has_selection then
-	                        event_command.process_with_id (ID_DELETE_SEL).discard_result
+	                        event_command.process_with_id (ID_DELETE_SEL).do_nothing
 	                     else
-	                        event_command.process_with_id (ID_BACKSPACE).discard_result
+	                        event_command.process_with_id (ID_BACKSPACE).do_nothing
 	                     end
 	                  else
 	                     application.beep
@@ -578,7 +578,7 @@ feature -- event handling
 	                  if is_editable then
 	                     flags := flags | Flag_update;
 	                     unset_flags (Flag_changed);
-	                --#	 event_command.emit_with_id_data (message, contents).discard_result
+	                --#	 event_command.emit_with_id_data (message, contents).do_nothing
 	                  else
 	                     application.beep
 	                  end
@@ -586,7 +586,7 @@ feature -- event handling
 	                when key_a then -- Select All
 	                --	fx_trace (0, <<"EDP_SYMBOL_EDITOR=> Select-all">>)
 	                  if event.control then
-	                     event_command.process_with_id (ID_SELECT_ALL).discard_result
+	                     event_command.process_with_id (ID_SELECT_ALL).do_nothing
 	                  else
 	                     Result := make_ins (event);
 	                  end
@@ -597,7 +597,7 @@ feature -- event handling
 	                     Result := make_ins (event);
 	                  elseif event.code = key_f20 then
 	                     if is_editable then
-	                        event_command.process_with_id (ID_CUT_SEL).discard_result
+	                        event_command.process_with_id (ID_CUT_SEL).do_nothing
 	                     else
 	                        application.beep
 	                     end
@@ -608,7 +608,7 @@ feature -- event handling
 	                  if not event.control then
 	                     Result := make_ins (event);
 	                  elseif event.code = key_f16 then
-	                     event_command.process_with_id (ID_COPY_SEL).discard_result
+	                     event_command.process_with_id (ID_COPY_SEL).do_nothing
 	                  end
 
 	                when key_v then -- PASTE
@@ -617,18 +617,18 @@ feature -- event handling
 	                     Result := make_ins (event);
 	                  elseif event.code = key_f18 then
 	                     if is_editable then
-	                        event_command.process_with_id (ID_PASTE_SEL).discard_result
+	                        event_command.process_with_id (ID_PASTE_SEL).do_nothing
 	                     else
 	                        application.beep;
 	                     end
 	                  end
 
 				--	when key_page_up then -- PAGE_UP
-				--		event_command.process_with_id (Id_page_up).discard_result
+				--		event_command.process_with_id (Id_page_up).do_nothing
 
 				--	when key_page_down then -- PAGE_DOWN
-				--		event_command.process_with_id (Id_page_down).discard_result
-				
+				--		event_command.process_with_id (Id_page_down).do_nothing
+
 	                else -- inspect default
 	                --	fx_trace (0, <<"EDP_SYMBOL_EDITOR=> #other#">>)
 	                	Result := make_ins (event)
@@ -636,8 +636,9 @@ feature -- event handling
             	end
 			end
 			if not Result then
+				check false end
 			--	print_run_time_stack
-				edp_trace.simple (0, "False Result for EDP_SYMBOL_EDITOR::on_key_press")
+			--	edp_trace.simple (0, "False Result for EDP_SYMBOL_EDITOR::on_key_press")
 			end
 		end
 
@@ -845,7 +846,7 @@ feature -- event handling
 			Result := True;
         	if (event.state & (CONTROLMASK | ALTMASK)) /= Zero
               or else event.text.is_empty or else event.text.item(1).code < 32 then
-              	edp_trace.st ("make_ins -- control character!").d
+        --      	edp_trace.st ("make_ins -- control character!").d
             	Result := False
          	elseif is_editable then
             	if (options & TEXTFIELD_OVERSTRIKE) /= Zero then
@@ -863,10 +864,10 @@ feature -- event handling
 		local
 			ev: SB_EVENT
 		do
-			Precursor(sender, key, data).discard_result
+			Precursor(sender, key, data).do_nothing
 			ev ?= data
 				check ev /= Void end
-			set_cursor_xy (ev.win_x, ev.win_y).discard_result
+			set_cursor_xy (ev.win_x, ev.win_y).do_nothing
 			Result := True
 
 			-- TEMP
@@ -888,7 +889,7 @@ feature -- event handling
 			else
 				new_line := line
 			end
-			set_cursor_xy (((new_col - 1) * fw) + pos_x, ((new_line - 1) * fh) + pos_y).discard_result
+			set_cursor_xy (((new_col - 1) * fw) + pos_x, ((new_line - 1) * fh) + pos_y).do_nothing
 			check
 				correct_line:	cursor_line = new_line
 				correct_column:	cursor_column = new_col

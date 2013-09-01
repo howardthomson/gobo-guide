@@ -78,7 +78,7 @@ feature {NONE} -- Implementation
 	list_widget: POINTER
 			--
 		do
-			Result := visual_widget
+	--		Result := visual_widget
 		end
 
 	set_parent_imp (a_container_imp: EV_CONTAINER_IMP)

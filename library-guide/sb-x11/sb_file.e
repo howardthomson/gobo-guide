@@ -74,13 +74,13 @@ feature
 	set_current_directory (path: STRING)
 			-- Set the current working directory
 		do
-			if nyi_test then not_yet_implemented end
+		--	if nyi_test then not_yet_implemented end
 		end
 
 	set_current_drive (drv: STRING): BOOLEAN
 			-- Set the current drive (for Win32 systems)
 		do
-			if nyi_test then not_yet_implemented end
+		--	if nyi_test then not_yet_implemented end
 		end
 
 	drive (file: STRING): STRING
@@ -89,7 +89,7 @@ feature
          	create Result.make_empty
       	end
 
-   	expand(file: STRING): STRING      
+   	expand(file: STRING): STRING
          	-- Perform tilde or environment variable expansion
         require else
         	non_void_file: file /= Void
@@ -192,7 +192,7 @@ feature
 			end
 
 			-- Paths are equal
-			if (p > ee or else (ISPATHSEP(base.item(p+1)) and then p+1 >ee)) 
+			if (p > ee or else (ISPATHSEP(base.item(p+1)) and then p+1 >ee))
 			and then (p >= file.count or else (ISPATHSEP (file.item (p+1)) and then p+1 >= file.count))
 			then
 				Result := "."
@@ -264,14 +264,14 @@ feature
          	until
             	i > ee
          	loop
-            	c := file.item (i)            
+            	c := file.item (i)
             	if c = '%'' then -- Quote needs to be escaped
                		Result.append_string("\'")
 				elseif c = '\' then -- Backspace needs to be escaped, of course
                		Result.append_string("\\")
             	elseif (c = '#' or else c = '~') and then i /= 1 then
                		Result.append_character(c) -- Only quote if at begin of filename
-            	elseif c = '#' or else c = '~' 
+            	elseif c = '#' or else c = '~'
                	or else c = '!' -- Special in csh
                	or else c = '"'
                	or else c = '$' -- Variable substitution

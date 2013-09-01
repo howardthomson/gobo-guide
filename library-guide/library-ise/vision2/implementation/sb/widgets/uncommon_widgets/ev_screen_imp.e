@@ -34,7 +34,7 @@ feature {NONE} -- Initialization
 			-- Set up action sequence connections and create graphics context.
 		do
 			todo_class_line ("__EV_SCREEN_IMP__", "__LINE__ 1")
-			
+
 --#			gc := {EV_GTK_EXTERNALS}.gdk_gc_new (drawable)
 --#			{EV_GTK_EXTERNALS}.gdk_gc_set_subwindow (gc, {EV_GTK_EXTERNALS}.gdk_include_inferiors_enum)
 			init_default_values
@@ -48,7 +48,7 @@ feature -- Status report
 		local
 			l_display_data: TUPLE [a_window: POINTER; a_x: INTEGER; a_y: INTEGER; a_mask: INTEGER]	-- FIXME
 		do
-			l_display_data := app_implementation.retrieve_display_data
+		--	l_display_data := app_implementation.retrieve_display_data
 			create Result.set (l_display_data.a_x, l_display_data.a_y)
 		end
 
@@ -219,7 +219,7 @@ feature -- Basic operation
 			check
 				x_test_capable: x_test_capable
 			end
-			a_key_code := key_conversion.key_code_to_gtk (a_key.code).to_integer_32
+--			a_key_code := key_conversion.key_code_to_gtk (a_key.code).to_integer_32
 --			a_key_code := x_keysym_to_keycode ({EV_GTK_EXTERNALS}.gdk_display, a_key_code)
 --			a_success_flag := x_test_fake_key_event ( {EV_GTK_EXTERNALS}.gdk_display, a_key_code, True, 0)
 			check

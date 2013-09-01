@@ -147,8 +147,8 @@ feature -- Actions
             end
 
             	-- Remember new size
-            width := w
-            height := h
+  --          width := w
+    --        height := h
          end
       end
 

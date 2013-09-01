@@ -22,8 +22,6 @@ inherit
 
 	SB_FONT_CONSTANTS
 
-	SB_ZERO
-	
 feature -- Creation
 
 	make_from_string (a: SB_APPLICATION; nm: STRING)
@@ -239,6 +237,7 @@ feature -- Queries
 			valid_start_index: strt > 0
 			valid_end_index: strt+count <= text.count + 1
 		do
+			check false end
 		end
 
 --	list_fonts (face: STRING; wt, sl, sw, en: INTEGER; h: INTEGER): ARRAY [SB_FONT_DESC] is

@@ -1,26 +1,26 @@
 note
-	description: "EiffelVision toggle button, gtk implementation."
+	description: "EiffelVision toggle button, Slyboots implementation."
 	legal: "See notice at end of class.";
 	status: "See notice at end of class.";
 	id: "$Id: ev_toggle_button_imp.e 56675 2006-01-23 02:25:44Z manus $";
 	date: "$Date: 2006-01-22 18:25:44 -0800 (Sun, 22 Jan 2006) $";
 	revision: "$Revision: 56675 $"
-	
+
 class
 	EV_TOGGLE_BUTTON_IMP
-	
+
 inherit
 	EV_TOGGLE_BUTTON_I
 		redefine
 			interface
 		end
-	
+
 	EV_BUTTON_IMP
 		redefine
 			make,
 			interface
 		end
-	
+
 create
 	make
 
@@ -29,6 +29,7 @@ feature {NONE} -- Initialization
 	make
 			-- Create a gtk toggle button.
 		do
+			Precursor {EV_BUTTON_IMP}
 --			base_make (an_interface)
 --			set_c_object ({EV_GTK_EXTERNALS}.gtk_toggle_button_new)
 		end
@@ -48,16 +49,16 @@ feature -- Status setting
 		do
 			if is_selected then
 --				{EV_GTK_EXTERNALS}.gtk_toggle_button_set_active (visual_widget, False)
-			end	
+			end
 		end
 
 feature -- Status report
-	
+
 	is_selected: BOOLEAN
 			-- Is toggle button pressed?
 		do
 --			Result := {EV_GTK_EXTERNALS}.gtk_toggle_button_get_active (visual_widget)
-		end 
+		end
 
 feature {EV_ANY_I}
 

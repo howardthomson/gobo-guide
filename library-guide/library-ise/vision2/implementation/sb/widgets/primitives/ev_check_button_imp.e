@@ -7,7 +7,7 @@ note
 	id: "$Id: ev_check_button_imp.e 57641 2006-03-23 07:29:03Z manus $";
 	date: "$Date$";
 	revision: "$Revision"
-	
+
 class
 	EV_CHECK_BUTTON_IMP
 
@@ -16,7 +16,7 @@ inherit
 		redefine
 			interface
 		end
-	
+
 	EV_TOGGLE_BUTTON_IMP
 		undefine
 			default_alignment
@@ -30,11 +30,11 @@ create
 	make
 
 feature {NONE} -- Initialization
-		
+
 	make
 			-- Initialize 'Current'
 		do
---			Precursor {EV_TOGGLE_BUTTON_IMP}
+			Precursor {EV_TOGGLE_BUTTON_IMP}
 			align_text_left
 		end
 
@@ -51,7 +51,7 @@ feature -- Element change
 feature {EV_ANY_I}
 
 	interface: EV_CHECK_BUTTON;
-	
+
 note
 	copyright:	"Copyright (c) 1984-2006, Eiffel Software and others"
 	license:	"Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"

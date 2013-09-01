@@ -33,7 +33,8 @@ feature -- Initialization
 	old_make (an_interface: like interface)
 			-- Call base make only.
 		do
-			base_make (an_interface)
+			check false end
+	--		base_make (an_interface)
 		end
 
 	make

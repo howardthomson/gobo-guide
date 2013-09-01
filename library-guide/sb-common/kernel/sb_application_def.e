@@ -6,6 +6,11 @@ note
 	status:		"partly complete"
 
 	todo: "[
+		Fix peek_event.
+			Alter run_one_event to load and clear last_peek_event, return it
+			if non-void, otherwise as is. peek_event returns True if last_peek_event
+			is non-void otherwise uses run_one_event to assign to last_peek_event
+			and returns True if now non void ...
 		Need auto create_resource call after creation or modification of
 			windows and widgets
 		group/reorder features; remove unnecessary getters;
@@ -24,11 +29,11 @@ inherit
 		redefine
 			handle_2
 		end
-      
+
 	SB_APPLICATION_COMMANDS
 	SB_DEFAULT_CURSORS
 	SB_CURSOR_CONSTANTS
-      
+
 	SB_VISUAL_CONSTANTS
 
 	SB_MODALITY
@@ -36,7 +41,7 @@ inherit
 	SB_APPLICATION_CURSORS
 
 	SB_EXPANDED
-	
+
 	MEMORY	-- for GC control
 
 	SB_SHARED_APPLICATION
@@ -51,9 +56,9 @@ feature -- Creation
         	a_name /= Void
          	a_vendor /= Void
       	do
-      
+
 			shared_app.set_value (Current)
-      	
+
         	dpy := ":0.0"
 	 		create event
 	 		event.set_event_originator (Current)
@@ -113,7 +118,7 @@ feature {EV_APPLICATION_IMP}
 			exit_code: INTEGER
 		do
     		create_resource
-    		exit_code := run
+    	--	exit_code := run
 		end
 
 feature -- Data
@@ -130,7 +135,7 @@ feature -- Data
 
 	registry: SB_REGISTRY
 			-- Application setting registry
-			
+
 	initialized: BOOLEAN
 			-- Has been initialized
 
@@ -200,7 +205,7 @@ feature -- Shared objects
 
 				-- Now process deletions for resources no longer accessible
 			-- TODO
-			
+
 			flag_so_rescan := False
 		end
 
@@ -226,7 +231,7 @@ feature -- Queries
    get_modal_window: SB_WINDOW
          -- Return window of current modal loop
       do
-         if invocation /= Void then 
+         if invocation /= Void then
             Result := invocation.window
          end
       end
@@ -234,7 +239,7 @@ feature -- Queries
    get_modal_modality: INTEGER
          -- Return mode of current modal loop
       do
-         if invocation /= Void then 
+         if invocation /= Void then
             Result := invocation.modality
          end
       end
@@ -375,13 +380,13 @@ feature -- Actions
    set_tip_fore_color (color: INTEGER)
       do
          tip_fore_color := color
-         registry.write_color_entry ("SETTINGS", "tipforecolor", tip_fore_color);         
+         registry.write_color_entry ("SETTINGS", "tipforecolor", tip_fore_color);
       end
 
    set_tip_back_color (color: INTEGER)
       do
          tip_back_color := color
-         registry.write_color_entry ("SETTINGS", "tipbackcolor", tip_back_color);         
+         registry.write_color_entry ("SETTINGS", "tipbackcolor", tip_back_color);
       end
 
 	beep
@@ -390,7 +395,7 @@ feature -- Actions
 		end
 
    begin_wait_cursor
-         -- Begin of wait-cursor block; wait-cursor blocks may be 
+         -- Begin of wait-cursor block; wait-cursor blocks may be
          -- nested.
       do
          if initialized then
@@ -487,7 +492,7 @@ feature -- Message processing
          	elseif	match_function_2 (SEL_CHORE,  ID_QUIT, type, key) then Result := on_cmd_quit (sender, key, data)
          	elseif	match_function_2 (SEL_COMMAND,ID_QUIT, type, key) then Result := on_cmd_quit (sender, key, data)
          	elseif	match_function_2 (SEL_COMMAND,ID_DUMP, type, key) then Result := on_cmd_dump (sender, key, data)
-         	elseif  match_function_2 (SEL_COMMAND,ID_OPEN_WINDOW_TREE, type, key) 
+         	elseif  match_function_2 (SEL_COMMAND,ID_OPEN_WINDOW_TREE, type, key)
          													  then Result := on_open_window_tree(sender, key, data)
          	else Result := Precursor(sender, type, key, data) end
       	end
@@ -786,6 +791,7 @@ feature -- Run
       local
          inv: SB_INVOCATION
       do
+--		check false end
          from
             create inv.make (invocation, MODAL_FOR_NONE, window)
             invocation := inv
@@ -817,7 +823,7 @@ feature -- Run
       end
 
    run_modal_for (window: SB_WINDOW): INTEGER
-         -- Run a modal event loop for the given window, until stop() or stopModal() is 
+         -- Run a modal event loop for the given window, until stop() or stopModal() is
          -- called. Except for the modal window and its children, user input to all
          -- windows is blocked; if the modal window is NULL no user input is blocked.
       local
@@ -838,7 +844,7 @@ feature -- Run
    run_modal_while_shown (window: SB_WINDOW): BOOLEAN
          -- Run modal while window is shown, or until stop() or stopModal() is called.
          -- Except for the modal window and its children, user input to all windows
-         -- is blocked; if the modal window is NULL all user input is 
+         -- is blocked; if the modal window is NULL all user input is
          -- blocked.
       require
          valid_window: window /= Void
@@ -925,7 +931,7 @@ feature -- Run
 		 else
          end
       end
-   
+
    stop_modal (value: INTEGER)
          -- Break out of the innermost modal loop, returning code equal to value.
       local
@@ -960,7 +966,7 @@ feature -- Run
       end
 
 feature -- Painting
-   
+
 	force_refresh
          -- Force GUI refresh
 		require
@@ -990,8 +996,8 @@ feature -- Painting
 feature -- Initialization
 
 	init (connect: BOOLEAN)
-    		-- Initialize application. Parses and removes common command 
-			-- line  arguments, reads the registry. Finally, if connect 
+    		-- Initialize application. Parses and removes common command
+			-- line  arguments, reads the registry. Finally, if connect
 			-- is TRUE, it opens display.
 		local
         	d: STRING
@@ -1086,7 +1092,7 @@ feature -- Initialization
        		tooltip_time	:= registry.read_integer_entry ("SETTINGS", "tiptime",		tooltip_time)
        		drag_delta		:= registry.read_integer_entry ("SETTINGS", "dragdelta",	drag_delta)
        		wheel_lines		:= registry.read_integer_entry ("SETTINGS", "wheellines",	wheel_lines)
-       
+
        			-- Colors; defaults are those values determined previously
        		border_color	:= registry.read_color_entry ("SETTINGS", "bordercolor", border_color)
        		base_color		:= registry.read_color_entry ("SETTINGS", "basecolor",	 base_color)
@@ -1102,7 +1108,7 @@ feature -- Initialization
        			--  Maximum number of colors to allocate
        		max_colors		:= registry.read_integer_entry ("SETTINGS", "maxcolors", max_colors)
        			-- Command line takes precedence
-       		if maxcols > 0 then 
+       		if maxcols > 0 then
           		max_colors := maxcols
        		end
 
@@ -1148,7 +1154,7 @@ feature -- DND
 --				create Result.make_from_string (buf)
 --			end
 --			mem.collection_on;
---#endif            
+--#endif
          end
       end
 
@@ -1437,7 +1443,7 @@ feature {NONE}
 					top = Void
 				loop
 			--		t := wapi_pf.RedrawWindow (top.resource_id, default_pointer, 0,
-			--                            (wapi_rdw.RDW_ERASENOW or wapi_rdw.RDW_UPDATENOW 
+			--                            (wapi_rdw.RDW_ERASENOW or wapi_rdw.RDW_UPDATENOW
 			--                             or wapi_rdw.RDW_ALLCHILDREN))
 					top := top.next;
 				end

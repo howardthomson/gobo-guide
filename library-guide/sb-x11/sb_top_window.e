@@ -36,12 +36,12 @@ feature
 		do
 				-- Set size and position for Window Manager
 			create wmh.make
-			
+
       		if x_pos /= 0 or else y_pos /= 0 then		-- Force explicit position
         		wmh.set_flags (wmh.US_position | wmh.P_position)
 			end
         	wmh.set_position (x_pos, y_pos)
-      		
+
       		if (options & Decor_shrinkable) = Zero then
       				-- Cannot shrink, so set min size
         		wmh.set_min_size (default_width, default_height)
@@ -60,7 +60,7 @@ feature
       			-- Set hints
       		xwin.set_wm_normal_hints (wmh)
 		end
-		
+
 	set_focus
       	do
          	Precursor
@@ -78,14 +78,14 @@ feature
 				-- TODO
 			--	win := display.get_input_focus_window
 				if win /= Void and then win.is_equal (Current) then
-					if owner /= Void and then owner.is_attached then
-			--			fx_trace(100, <<"focus back to owner">>)
-						owner.xwin.set_input_focus (RevertToPointerRoot, CurrentTime)
-					else
-			--			fx_trace(100, <<"focus back to NULL">>)
-					--	XSetInputFocus(DISPLAY(getApp()), PointerRoot, RevertToPointerRoot, CurrentTime);
-			--			display.set_input_focus_pointer_root
-					end
+--					if owner /= Void and then owner.is_attached then
+--			--			fx_trace(100, <<"focus back to owner">>)
+--						owner.xwin.set_input_focus (RevertToPointerRoot, CurrentTime)
+--					else
+--			--			fx_trace(100, <<"focus back to NULL">>)
+--					--	XSetInputFocus(DISPLAY(getApp()), PointerRoot, RevertToPointerRoot, CurrentTime);
+--			--			display.set_input_focus_pointer_root
+--					end
 				end
          	end
       	end
@@ -164,7 +164,7 @@ feature
 		do
 			if is_attached then
 				-- TODO
-			end     
+			end
 		end
 
 feature { NONE } -- Implementation

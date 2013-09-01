@@ -31,10 +31,10 @@ create
 
 feature {NONE} -- Initialization
 
-	XX_make (an_interface: like interface)
+	make
 			-- Create a menu item.
 		do
-			base_make (an_interface)
+--			base_make (an_interface)
 --			set_c_object ({EV_GTK_EXTERNALS}.gtk_radio_menu_item_new (NULL))
 --			{EV_GTK_EXTERNALS}.gtk_check_menu_item_set_show_toggle (c_object, True)
 			enable_select

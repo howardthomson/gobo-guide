@@ -1,7 +1,7 @@
 note
 
 	description:
-		"EiffelVision label, gtk implementation."
+		"EiffelVision label, Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	id: "$Id: ev_label_imp.e 66063 2007-01-20 01:25:46Z king $"
@@ -20,6 +20,7 @@ inherit
 	EV_PRIMITIVE_IMP
 		redefine
 			make,
+			is_tabable_to,
 			interface,
 			sb_widget
 		end
@@ -45,8 +46,10 @@ feature {NONE} -- Initialization
 
 	make
 		do
+			Precursor {EV_PRIMITIVE_IMP}
 			textable_imp_initialize
-			create {SB_LABEL} sb_widget.make_ev
+			initialize_tab_behavior
+--			create {SB_LABEL} sb_widget.make_ev
 			align_text_center
 		end
 
@@ -77,6 +80,13 @@ feature -- Status Setting
 	align_text_bottom
 			-- Set vertical text alignment of current label to bottom.
 		do
+		end
+
+feature
+
+	is_tabable_to: BOOLEAN
+		do
+			Result := True
 		end
 
 feature {EV_ANY_I} -- Implementation

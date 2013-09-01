@@ -4,7 +4,7 @@ note
 
 	author: "Stephane Hillion"
 	copyright: "Copyright (c) 1998-2006, Stephane Hillion and Howard Thomson"
-	license: "GNU Public License (see COPYING)"
+	license: "Eiffel Forum License v2 (see forum.txt)"
 
 	TODO: "[
 		Do not create new X_FONT_STRUCT for every call to 'query_font'
@@ -13,13 +13,13 @@ note
 
 class X_FONT
 
-inherit 
+inherit
 
 	X_RESOURCE
 
 	X_PORTABILITY_ROUTINES
-	
-create 
+
+create
 
   	make,
   	from_external
@@ -67,14 +67,14 @@ feature -- Destruction
 			end
 			Result := font_struct
 		end
-  
+
 feature {NONE} -- External functions
 
   	x_load_font (disp, str : POINTER) : INTEGER
     	external "C use <X11/Xlib.h>"
     	alias "XLoadFont"
     	end
-      
+
   	x_unload_font (d : POINTER; rid : INTEGER)
     	external "C use <X11/Xlib.h>"
     	alias "XUnloadFont"
@@ -85,4 +85,4 @@ feature {NONE} -- External functions
     	alias "XQueryFont"
     	end
 
-end 
+end

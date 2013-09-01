@@ -213,7 +213,7 @@ feature {NONE} -- Processing
 			l_system: ET_DYNAMIC_SYSTEM
 			l_builder: ET_DYNAMIC_TYPE_SET_BUILDER
 			l_root_type: ET_BASE_TYPE
-			l_generator: ET_C_GENERATOR
+			l_generator: ET_LLVM_C_GENERATOR
 			l_command: KL_SHELL_COMMAND
 			l_filename: STRING
 			l_system_name: STRING

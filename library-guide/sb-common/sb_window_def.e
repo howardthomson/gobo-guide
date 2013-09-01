@@ -76,7 +76,7 @@ inherit
 feature -- attributes
 
 	parent,							-- Parent Window
-	owner,							-- Owner  Window
+--	owner,							-- Owner  Window
 	first_child,					-- First Child
 	last_child,						-- Last Child
 	next,							-- Next Sibling
@@ -146,8 +146,8 @@ feature -- Creation
 		end
 
 	make (p: SB_COMPOSITE; opts: INTEGER; x, y, w, h: INTEGER)
-    	require
-        	p /= Void
+    --	require
+    --    	p /= Void
       	do
          	make_drawable (w, h)
          	if p /= Void then
@@ -164,8 +164,8 @@ feature -- Creation
          	set_options (opts)
          	application.set_do_create_resource
 		ensure
-         	parent /= Void
-         	owner /= Void
+    --     	parent /= Void
+    --     	owner /= Void
          	visual /= Void
          	default_cursor /= Void
          	drag_cursor /= Void
@@ -180,10 +180,11 @@ feature { EV_WIDGET_IMP, EV_MENU_BAR_IMP } -- Creation special
 --	print_run_time_stack
 			if parent /= Void then
 				print ("set_parent called twice for same object !%N")
+				check false end
 				Exceptions.die (1)
 			end
          	parent := p
-         	owner := parent
+        -- 	owner := parent
          	visual := parent.visual
          	prev := parent.last_child
          	parent.set_last_child (current_w)
@@ -198,7 +199,7 @@ feature { EV_WIDGET_IMP, EV_MENU_BAR_IMP } -- Creation special
          	application.set_do_create_resource
 		ensure
          	parent /= Void
-         	owner /= Void
+        -- 	owner /= Void
          	visual /= Void
 		end
 
@@ -220,7 +221,7 @@ feature { EV_WIDGET_IMP, EV_MENU_BAR_IMP } -- Creation special
       	do
          	make_drawable (w, h)
          	parent := app.root_window
-         	owner := own
+        -- 	owner := own
          	visual := application.default_visual
          	prev := parent.last_child
          	parent.set_last_child (current_w)
@@ -249,7 +250,7 @@ feature -- resource creation/deletion
 			-- Create all of the server-side resources for this window
 		require else
 			parent /= Void and then parent.is_attached
-			owner /= Void implies owner.is_attached
+		--	owner /= Void implies owner.is_attached
 		-- 	not is_attached
 			application /= Void and then application.initialized
 			visual /= Void
@@ -547,8 +548,8 @@ feature
          end
       end
 
-	is_owner_of (window: SB_WINDOW): BOOLEAN
-   			-- True if specified window is owned by this window
+	is_parent_of (window: SB_WINDOW): BOOLEAN
+   			-- True if specified window is a descendant of this window
 		local
 			w: SB_WINDOW
    		do
@@ -560,9 +561,26 @@ feature
    				if w = Current then
    					Result := True
    				end
-   				w := w.owner
+   				w := w.parent
    			end
    		end
+
+--	is_owner_of (window: SB_WINDOW): BOOLEAN
+--   			-- True if specified window is owned by this window
+--		local
+--			w: SB_WINDOW
+--   		do
+--   			from
+--   				w := window
+--   			until
+--   				w = Void or else Result
+--   			loop
+--   				if w = Current then
+--   					Result := True
+--   				end
+--   				w := w.owner
+--   			end
+--   		end
 
    contains_child (child: SB_WINDOW): BOOLEAN
          -- Is the specified window a child of this window
@@ -1069,7 +1087,7 @@ feature -- actions (cont'd)
                parent.set_first_child (next)
             end
             	-- New owner is the new parent
-            owner := parent
+        --	owner := parent
             	-- Hook up to new window in server too
             if is_attached and then parent.is_attached then
 				reparent_imp
@@ -1139,7 +1157,7 @@ feature -- actions (cont'd)
 			good_width: w_ >= 0
 			good_height: h_ >= 0
       local
-         x,y,w,h: INTEGER;
+         x,y,w,h: INTEGER
       do
          x := x_; y := y_; w := w_; h := h_;
          if is_attached then
@@ -1147,21 +1165,21 @@ feature -- actions (cont'd)
             if x < width and then y < height and then x+w > 0 and then y+h > 0 then
                	-- Intersect with the window
                if x < 0 then
-                  w := w + x;
-                  x := 0;
+                  w := w + x
+                  x := 0
                end
                if y < 0 then
-                  h := h + y;
-                  y := 0;
+                  h := h + y
+                  y := 0
                end
                if x+w > width then
-                  w := width - x;
+                  w := width - x
                end
                if y+h > height then
-                  h := height - y;
+                  h := height - y
                end
                if w > 0 and then h > 0 then
-					repaint_rectangle_imp(x, y, w, h)
+					repaint_rectangle_imp (x, y, w, h)
                end
             end
          end
@@ -1192,7 +1210,7 @@ feature -- actions (cont'd)
    	is_mouse_grabbed: BOOLEAN
          	-- Return true if the window has been grabbed
       	do
-         	Result := application.mouse_grab_window = Current;
+         	Result := application.mouse_grab_window = Current
       	end
 
    	grab_keyboard
@@ -1215,7 +1233,7 @@ feature -- actions (cont'd)
          	-- Release the mouse grab
       	do
          	if is_attached then
-            	application.set_keyboard_grab_window(Void);
+            	application.set_keyboard_grab_window (Void)
             	release_keyboard_imp
          	end
       	end
@@ -1226,14 +1244,14 @@ feature -- actions (cont'd)
 
    is_keyboard_grabbed: BOOLEAN
       do
-         Result := application.keyboard_grab_window = Current;
+         Result := application.keyboard_grab_window = Current
       end
 
    show
          -- Show this window
       do
          if (flags & Flag_shown) /= Flag_shown then
-            flags := flags | Flag_shown;
+            flags := flags | Flag_shown
             if is_attached then
 				show_imp
             end
@@ -1281,7 +1299,7 @@ feature -- actions (cont'd)
    	has_selection: BOOLEAN
          	-- Return true if this window owns the selection
       	do
-         	Result := application.selection_window = Current;
+         	Result := application.selection_window = Current
       	end
 
    acquire_selection (types: ARRAY [ INTEGER ]): BOOLEAN
@@ -1291,14 +1309,14 @@ feature -- actions (cont'd)
       do
          if is_attached then
            if application.selection_window /= Void then
-             application.selection_window.do_handle_2 (application, SEL_SELECTION_LOST, 0, application.event);
-             application.set_selection_window(Void);
-             application.set_sel_type_list(Void);
+             application.selection_window.do_handle_2 (application, SEL_SELECTION_LOST, 0, application.event)
+             application.set_selection_window (Void)
+             application.set_sel_type_list (Void)
            end
            if application.selection_window = Void then
-             application.set_sel_type_list(types);
-             application.set_selection_window(current_w);
-             application.selection_window.do_handle_2 (Current, SEL_SELECTION_GAINED, 0, application.event);
+             application.set_sel_type_list (types)
+             application.set_selection_window (current_w)
+             application.selection_window.do_handle_2 (Current, SEL_SELECTION_GAINED, 0, application.event)
            end
            Result := True;
         end
@@ -1310,8 +1328,8 @@ feature -- actions (cont'd)
          if is_attached then
             if application.selection_window = Current then
                do_handle_2 (Current, SEL_SELECTION_LOST, 0, application.event);
-               application.set_sel_type_list(Void);
-               application.set_selection_window(Void);
+               application.set_sel_type_list (Void)
+               application.set_selection_window (Void)
             end
          end
       end
@@ -1319,7 +1337,7 @@ feature -- actions (cont'd)
 	has_clipboard: BOOLEAN
     		--  Return true if this window owns the clipboard
 		do
-			Result := application.clipboard_window = Current;
+			Result := application.clipboard_window = Current
       	end
 
 	acquire_clipboard (types: ARRAY [ INTEGER ]): BOOLEAN
@@ -1327,11 +1345,11 @@ feature -- actions (cont'd)
       	require
         	types /= Void and then not types.is_empty
       	local
-        	i,e: INTEGER;
-        	t: INTEGER;
+        	i,e: INTEGER
+        	t: INTEGER
       	do
         	if is_attached then
-				Result := acquire_clipboard_imp(types)
+				Result := acquire_clipboard_imp (types)
          	end
       	end
 
@@ -1345,8 +1363,8 @@ feature -- actions (cont'd)
         	if is_attached then
             	if application.clipboard_window = Current then
 					release_clipboard_imp
-               		application.set_clipboard_window(Void)
-               		Result := True;
+               		application.set_clipboard_window (Void)
+               		Result := True
             	end
          	end
       	end
@@ -1364,20 +1382,20 @@ feature -- actions (cont'd)
    disable_drop
          -- Disable this window from receiving drops
       do
-         unset_flags (Flag_droptarget);
+         unset_flags (Flag_droptarget)
       end
 
    is_drop_enabled: BOOLEAN
          -- Return true if this window is able to receive drops
       do
-         Result := (flags & Flag_droptarget) = Flag_droptarget;
+         Result := (flags & Flag_droptarget) = Flag_droptarget
       end
 
    is_dragging : BOOLEAN
          -- Return true if a drag operaion has been initiated from this
          -- window
       do
-         Result := application.drag_window = Current;
+         Result := application.drag_window = Current
       end
 
    begin_drag (drag: ARRAY [INTEGER]): BOOLEAN
@@ -1743,9 +1761,6 @@ feature -- Message processing
 
    on_middle_btn_press (sender: SB_MESSAGE_HANDLER; selector: INTEGER; data: ANY): like handle_2
       do
-
-		edp_trace.st("SB_WINDOW_DEF::on_middle_btn_press called").d
-
          unset_flags (Flag_tip)
          do_handle_2 (Current, SEL_FOCUS_SELF, 0, data)
          if is_enabled then
@@ -1802,7 +1817,7 @@ feature -- Message processing
                		if (ev.win_x - ev.click_x).abs < 2
                		and then (ev.win_y - ev.click_y).abs < 2 then
 				--		on_menu_popup_right_btn(Current, selector, data)
-						edp_trace.st("on_menu_popup ...").d
+				--		edp_trace.st("on_menu_popup ...").d
 					end
 				--	if ev /= Void then
 				--		edp_trace.st("Click Pos: ").n(ev.click_x.out).n("/").n(ev.click_y.out)
@@ -1933,7 +1948,7 @@ feature -- Message processing
 			s1 := "Void"; s2 := "Void"
 			if message_target /= Void then s1 := message_target.out end
 			if data /= Void then s2 := data.out end
-      		edp_trace.st("SB_WINDOW_DEF::on_selection_request - #1 - message_target= ").n(s1).n(" data = ").n(s2).d
+      	--	edp_trace.st("SB_WINDOW_DEF::on_selection_request - #1 - message_target= ").n(s1).n(" data = ").n(s2).d
       		-- ##DEBUG-END##
 
 			if message_target /= Void
@@ -2190,7 +2205,7 @@ feature -- Destruction
          	end
          	destroy_resource
          	parent := Void
-         	owner := Void
+        -- 	owner := Void
          	first_child := Void
          	last_child := Void
          	next := Void
@@ -2343,7 +2358,7 @@ feature -- Debugging
 			print (once "   Height: "); print (height.out); print (once "%N")
 			print (once "   x_pos: "); print (x_pos.out); print (once "%N")
 			print (once "   y_pos: "); print (y_pos.out); print (once "%N")
-			
+
 		end
 
 end

@@ -76,7 +76,7 @@ feature -- creation implementation
 		local
 			p, c: SB_TREE_LIST_ITEM
 		do
-			tree.create_item_last (p, "Item 1", Void, Void, Void, False).discard_result
+			tree.create_item_last (p, "Item 1", Void, Void, Void, False).do_nothing
 			p := tree.create_item_last (Void, "Item 2", Void, Void, Void, False)
 			c := tree.create_item_last (p, "Item 2 Child", Void, Void, Void, False)
 			c.set_expanded (True)
@@ -190,7 +190,7 @@ feature -- Window tree modification
 		do
 --			root_window := get_app.root_window
 --			if aw.parent = root_window then
-				
+
 		end
 
 feature -- Destruction, of this window

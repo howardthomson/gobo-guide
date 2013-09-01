@@ -89,15 +89,16 @@ feature {NONE} -- Initialization
 		local
 			app_imp: like app_implementation
 		do
+		--	check false end
 			set_is_initialized (False)
 			create_sb_window
 
 			create accel_list.make (10)
-			create upper_bar
-			create lower_bar
+		--	create upper_bar
+		--	create lower_bar
 
 			create vbox.make (sb_window)
-			
+
 			internal_is_border_enabled := True
 			configure_event_pending := True
 			user_can_resize := True
@@ -274,10 +275,10 @@ feature -- Element change
 			mb_imp: detachable EV_MENU_BAR_IMP
 		do
 			todo_class_line ("__EV_WINDOW_IMP__", "__LINE__ 10")
-			
+
 			mb_imp ?= a_menu_bar.implementation
 			mb_imp.set_parent_window_imp (Current)	-- ???
-			mb_imp.sb_widget.set_parent (vbox)
+	--		mb_imp.sb_widget.set_parent (vbox)
 			menu_bar := a_menu_bar
 		end
 
@@ -359,8 +360,9 @@ feature {NONE} -- Implementation
 	set_focused_widget (a_widget: EV_WIDGET_IMP)
 			-- Set currently focused widget to `a_widget'.
 		do
+			check not_implemented: false end
 			if a_widget /= Void then
-				previously_focused_widget := a_widget.c_object
+	--			previously_focused_widget := a_widget.c_object
 			else
 				previously_focused_widget := default_pointer
 			end
@@ -483,7 +485,7 @@ feature {EV_INTERMEDIARY_ROUTINES}
 			-- Call the close request actions.
 		do
 			if close_request_actions_internal /= Void
-			and then not app_implementation.is_in_transport
+	--		and then not app_implementation.is_in_transport
 			and then not has_modal_window then
 				close_request_actions_internal.call (Void)
 			end
