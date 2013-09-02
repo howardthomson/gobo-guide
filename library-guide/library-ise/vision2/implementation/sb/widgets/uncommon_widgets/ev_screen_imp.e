@@ -275,7 +275,7 @@ feature -- Measurement
 --			Result := vertical_resolution_internal
 		end
 
-	XXheight: INTEGER
+	height: INTEGER
 			-- Vertical size in pixels.
 		do
 			todo_class_line ("__EV_SCREEN_IMP__", "__LINE__ 1")
@@ -283,7 +283,7 @@ feature -- Measurement
 --			Result := {EV_GTK_EXTERNALS}.gdk_screen_height
 		end
 
-	XXwidth: INTEGER
+	width: INTEGER
 			-- Horizontal size in pixels.
 		do
 			todo_class_line ("__EV_SCREEN_IMP__", "__LINE__ 1")

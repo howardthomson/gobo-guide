@@ -22,8 +22,8 @@ inherit
 		end
 
 	EV_PRIMITIVE_IMP
-		rename
-			sb_widget as sb_pixmap_window
+--		rename
+--			sb_widget as sb_pixmap_window
 		undefine
 			foreground_color_internal,
 			background_color_internal,
@@ -31,38 +31,38 @@ inherit
 			set_background_color
 		redefine
 			make,
-			sb_pixmap_window,
+--			sb_pixmap_window,
 			interface,
 			width,
 			height,
 			destroy,
-			dispose,
-			xwin
+			dispose
+--			xwin
 		end
 
 	EV_DRAWABLE_IMP
-		rename
-			sb_drawable as sb_pixmap_window,
-			resource_id as xwin
+--		rename
+--			sb_drawable as sb_pixmap_window,
+--			resource_id as xwin
 		undefine
-			make_drawable,
-			resize,
-			detach_resource,
-			add_properties,
-			set_width,
-			set_height,
-			set_minimum_width,
-			set_minimum_height,
-			destruct
+--			make_drawable,
+--			resize
+--			detach_resource,
+--			add_properties,
+--			set_width,
+--			set_height,
+--			set_minimum_width,
+--			set_minimum_height,
+--			destruct
 		redefine
 			make,
-			sb_pixmap_window,
+--			sb_pixmap_window,
 			interface,
 			width,
 			height,
 			destroy,
-			dispose,
-			xwin
+			dispose
+--			xwin
 		end
 
 	EV_PIXMAP_ACTION_SEQUENCES_IMP

@@ -20,27 +20,27 @@ inherit
 		end
 
 	EV_CELL_IMP
-		rename
-			sb_widget as sb_window
+--		rename
+--			sb_widget as sb_window
 		undefine
 			x_position,
 			y_position,
 			screen_x,
 			screen_y,
-			minimum_width,
-			minimum_height,
+--			minimum_width,
+--			minimum_height,
 			width,
 			height,
 			show,
-			has,
-				-- SB_ ...
-			class_name,
-			default_width_sb,
-			default_height_sb,
-			on_paint
+			has
+--				-- SB_ ...
+--			class_name,
+--			default_width_sb,
+--			default_height_sb,
+--			on_paint
 		redefine
 			interface,
-			sb_window,
+--			sb_window,
 			make,
 			on_size_allocate,
 			hide,
@@ -51,17 +51,17 @@ inherit
 		end
 
 	EV_SB_WINDOW_IMP
-		rename
-			make_ev as make_window_ev
+--		rename
+--			make_ev as make_window_ev
 		undefine
 			initialize,
-			parent_imp,
-			set_width,
-			set_height,
-			set_minimum_width,
-			set_minimum_height
+			parent_imp
+--			set_width,
+--			set_height
+--			set_minimum_width,
+--			set_minimum_height
 		redefine
-			sb_window,
+--			sb_window,
 			make,
 			interface,
 			has_focus,
@@ -76,7 +76,7 @@ create
 
 feature {NONE} -- Attributes
 
-	sb_window: SB_TOP_WINDOW
+--	sb_window: SB_TOP_WINDOW
 
 feature {NONE} -- Initialization
 
@@ -97,7 +97,7 @@ feature {NONE} -- Initialization
 		--	create upper_bar
 		--	create lower_bar
 
-			create vbox.make (sb_window)
+		--	create vbox.make (sb_window)
 
 			internal_is_border_enabled := True
 			configure_event_pending := True
@@ -107,7 +107,7 @@ feature {NONE} -- Initialization
 
 	create_sb_window
 		do
-			create {SB_TOP_WINDOW} sb_window.make_top_title (application, "Title ...")
+	--		create {SB_TOP_WINDOW} sb_window.make_top_title (application, "Title ...")
 		end
 
 feature  -- Access
@@ -131,7 +131,7 @@ feature  -- Access
 			-- the window manager.
 		do
 				-- TODO: should this we .twin ?
-			Result := sb_window.title
+	--		Result := sb_window.title
 		end
 
 	menu_bar: EV_MENU_BAR
@@ -265,7 +265,7 @@ feature -- Element change
 		do
 			l_title ?= new_title
 			if l_title /= Void then
-				sb_window.set_title (l_title)
+	--			sb_window.set_title (l_title)
 			end
 		end
 

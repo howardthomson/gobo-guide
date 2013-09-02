@@ -29,8 +29,8 @@ feature {NONE} -- Initialization
 	make
 			-- Create a Slyboots vertical seperator in an event box.
 		do
-			make_window_ev
-			set_options ({SB_CONSTANTS}.Layout_fill_y)
+--			make_window_ev
+--			set_options ({SB_CONSTANTS}.Layout_fill_y)
 		end
 
 feature {EV_ANY_I} -- Implementation

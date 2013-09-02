@@ -45,7 +45,7 @@ feature {NONE} -- Initialization
 			-- Create scrollable area.
 		do
 		--	create {SB_SCROLL_AREA} sb_widget.make_ev
-			make_ev
+		--	make_ev
 			TODO_class_line ("EV_SCROLLABLE_AREA_IMP", "__LINE__")
 		end
 

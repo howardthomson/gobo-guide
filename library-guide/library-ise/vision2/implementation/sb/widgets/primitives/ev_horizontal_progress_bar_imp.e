@@ -29,7 +29,7 @@ feature {NONE} -- Initialization
 			-- Initialize `Current'.
 		do
 			Precursor {EV_PROGRESS_BAR_IMP}
-			sb_widget.set_horizontal
+--			sb_widget.set_horizontal
 			set_minimum_height (16)
 		end
 

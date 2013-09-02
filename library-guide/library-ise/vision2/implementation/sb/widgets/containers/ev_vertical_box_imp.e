@@ -1,5 +1,5 @@
 note
-	description: 
+	description:
 		"EiffelVision vertical box. Slyboots implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -9,7 +9,7 @@ note
 
 class
 	EV_VERTICAL_BOX_IMP
-	
+
 inherit
 	EV_VERTICAL_BOX_I
 		undefine
@@ -18,56 +18,56 @@ inherit
 		redefine
 			interface
 		end
-		
+
 	EV_BOX_IMP
-		rename
-			make_sb_window as make_composite
-		undefine
-			layout,
-			create_resource,
-			detach_resource,
-			destroy_resource,
-			class_name,
-			destruct,
-			handle_2,
-			on_key_press,
-			on_key_release,
-			on_cmd_update,
-			on_paint,
-			is_composite,
-			make_ev,
-			make_composite,
-			default_width_sb,
-			default_height_sb
+--		rename
+--			make_sb_window as make_composite
+--		undefine
+--			layout,
+--			create_resource,
+--			detach_resource,
+--			destroy_resource,
+--			class_name,
+--			destruct,
+--			handle_2,
+--			on_key_press,
+--			on_key_release,
+--			on_cmd_update,
+--			on_paint,
+--			is_composite,
+--			make_ev,
+--			make_composite,
+--			default_width_sb,
+--			default_height_sb
 		redefine
 			make,
 			interface
 		end
 
-	SB_VERTICAL_FRAME
-		rename
-			make as make_composite_sb,
-			show as show_sb,
-			hide as hide_sb,
-			set_focus as set_focus_sb,
-			has_focus as has_focus_sb,
-			parent as parent_sb,
-			move as move_sb,
-			drag_cursor as drag_cursor_sb,
-			raise as raise_sb,
-			lower as lower_sb,
-			x_offset as x_offset_sb,
-			y_offset as y_offset_sb,
-			flush as flush_sb,
-			selected as selected_sb,
-			has_selection as has_selection_sb,
-			default_width as default_width_sb,
-			default_height as default_height_sb,
-			default_spacing as default_spacing_sb
-		undefine
-			set_minimum_width,
-			set_minimum_height
-		end
+--	SB_VERTICAL_FRAME
+--		rename
+--			make as make_composite_sb,
+--			show as show_sb,
+--			hide as hide_sb,
+--			set_focus as set_focus_sb,
+--			has_focus as has_focus_sb,
+--			parent as parent_sb,
+--			move as move_sb,
+--			drag_cursor as drag_cursor_sb,
+--			raise as raise_sb,
+--			lower as lower_sb,
+--			x_offset as x_offset_sb,
+--			y_offset as y_offset_sb,
+--			flush as flush_sb,
+--			selected as selected_sb,
+--			has_selection as has_selection_sb,
+--			default_width as default_width_sb,
+--			default_height as default_height_sb,
+--			default_spacing as default_spacing_sb
+--		undefine
+--			set_minimum_width,
+--			set_minimum_height
+--		end
 
 create
 	make
@@ -76,9 +76,9 @@ feature {NONE} -- Initialization
 
 	make
 			-- Create a horizontal box.
-		do	
+		do
 
-			make_ev
+--			make_ev
 
 			Precursor {EV_BOX_IMP}
 		end

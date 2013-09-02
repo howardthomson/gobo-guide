@@ -69,13 +69,13 @@ feature -- Status Setting
 
 feature -- Access
 
-	XX_width: INTEGER
+	width: INTEGER
 			-- Width in pixels of mask bitmap.
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "width")
 		end
 
-	XX_height: INTEGER
+	height: INTEGER
 			-- Width in pixels of mask bitmap.
 		do
 			TODO_class_line ("__EV_BITMAP_IMP__", "height")

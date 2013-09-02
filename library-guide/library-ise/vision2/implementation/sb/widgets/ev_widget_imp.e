@@ -29,9 +29,9 @@ inherit
 			call_button_event_actions,
 			destroy,
 			x_position,
-			y_position,
-			set_minimum_width,
-			set_minimum_height
+			y_position
+--			set_minimum_width,
+--			set_minimum_height
 		end
 
 	EV_SENSITIVE_IMP
@@ -241,7 +241,7 @@ feature -- Status setting
 	hide
 			-- Request that `Current' not be displayed even when its parent is.
 		do
-			sb_widget.hide
+--			sb_widget.hide
 		end
 
 feature -- Element change
@@ -253,7 +253,7 @@ feature -- Element change
 			l_viewport_parent: EV_VIEWPORT_IMP
 			l_fixed_parent: EV_FIXED_IMP
 		do
-			Precursor (a_minimum_width)
+--			Precursor (a_minimum_width)
 				-- If the parent is a fixed or scrollable area we need to update the item size.
 			l_viewport_parent ?= parent_imp
 			if l_viewport_parent /= Void then
@@ -273,7 +273,7 @@ feature -- Element change
 			l_viewport_parent: EV_VIEWPORT_IMP
 			l_fixed_parent: EV_FIXED_IMP
 		do
-			Precursor (a_minimum_height)
+--			Precursor (a_minimum_height)
 				-- If the parent is a fixed or scrollable area we need to update the item size.
 			l_viewport_parent ?= parent_imp
 			if l_viewport_parent /= Void then
@@ -293,8 +293,8 @@ feature -- Element change
 			l_viewport_parent: EV_VIEWPORT_IMP
 			l_fixed_parent: EV_FIXED_IMP
 		do
-			sb_widget.set_minimum_width (a_minimum_width)
-			sb_widget.set_minimum_height (a_minimum_height)
+	--		sb_widget.set_minimum_width (a_minimum_width)
+	--		sb_widget.set_minimum_height (a_minimum_height)
 				-- If the parent is a fixed or scrollable area we need to update the item size.
 			l_viewport_parent ?= parent_imp
 			if l_viewport_parent /= Void then
@@ -355,12 +355,12 @@ feature {EV_CONTAINER_IMP} -- Implementation
 			parent_imp := a_container_imp
 print ("EV_WIDGET_IMP::set_parent_imp #1%N")
 			if parent_imp /= Void then
-				l_composite ?= parent_imp.sb_widget
-				if l_composite /= Void then
-					if sb_widget /= Void then
-						sb_widget.set_parent (l_composite)
-					end
-				end
+	--			l_composite ?= parent_imp.sb_widget
+	--			if l_composite /= Void then
+	--				if sb_widget /= Void then
+	--					sb_widget.set_parent (l_composite)
+	--				end
+	--			end
 			end
 print ("EV_WIDGET_IMP::set_parent_imp #2%N")
 		end

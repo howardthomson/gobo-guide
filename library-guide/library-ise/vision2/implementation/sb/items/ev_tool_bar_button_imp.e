@@ -19,36 +19,36 @@ inherit
 		end
 
 	EV_ITEM_IMP
-		rename
-			make_ev as make_window_ev
+--		rename
+--			make_ev as make_window_ev
 		undefine
-			update_for_pick_and_drop,
-			make_sb_window,
-			handle_2,
-			on_focus_in,
-			on_focus_out,
-			on_paint,
-			on_left_btn_press,
-			on_left_btn_release,
-			on_key_press,
-			on_key_release,
-			on_enter,
-			on_leave,
-		--	on_grabbed,
-			on_ungrabbed,
-			create_resource,
-			detach_resource,
-			destruct,
-			can_focus,
-			set_focus_sb,
-			kill_focus,
-			class_name,
-			on_update,
-			enable,
-			disable,
-			default_width_sb,
-			default_height_sb,
-			set_default
+			update_for_pick_and_drop
+--			make_sb_window,
+--			handle_2,
+--			on_focus_in,
+--			on_focus_out,
+--			on_paint,
+--			on_left_btn_press,
+--			on_left_btn_release,
+--			on_key_press,
+--			on_key_release,
+--			on_enter,
+--			on_leave,
+--		--	on_grabbed,
+--			on_ungrabbed,
+--			create_resource,
+--			detach_resource,
+--			destruct,
+--			can_focus,
+--			set_focus_sb,
+--			kill_focus,
+--			class_name,
+--			on_update,
+--			enable,
+--			disable,
+--			default_width_sb,
+--			default_height_sb,
+--			set_default
 		redefine
 			make,
 			interface,
@@ -74,42 +74,42 @@ inherit
 			interface
 		end
 
-	SB_BUTTON
-		rename
-			make_window as make_sb_window,
-			make as make_button_sb,
-			show as show_sb,
-			hide as hide_sb,
-			set_focus as set_focus_sb,
-	--		width as width_sb,
-	--		height as height_sb,
-	--		set_width as set_width_sb,
-	--		set_height as set_height_sb,
-	--		minimum_width as minimum_width_sb,
-	--		minimum_height as minimum_height_sb,
-	--		set_minimum_width as set_minimum_width_sb,
-	--		set_minimum_height as set_minimum_height_sb,
-			has_focus as has_focus_sb,
-			parent as parent_sb,
-			move as move_sb,
-			drag_cursor as drag_cursor_sb,
-			raise as raise_sb,
-			lower as lower_sb,
-			x_offset as x_offset_sb,
-			y_offset as y_offset_sb,
-			flush as flush_sb,
-			selected as selected_sb,
-			has_selection as has_selection_sb,
-			default_width as default_width_sb,
-			default_height as default_height_sb,
-	--		enable as enable_sb,
-	--		disable as disable_sb
-			set_text as set_text_sb
-	--		set_default as set_default_sb
-		undefine
-			set_minimum_width,
-			set_minimum_height
-		end
+--	SB_BUTTON
+--		rename
+--			make_window as make_sb_window,
+--			make as make_button_sb,
+--			show as show_sb,
+--			hide as hide_sb,
+--			set_focus as set_focus_sb,
+--	--		width as width_sb,
+--	--		height as height_sb,
+--	--		set_width as set_width_sb,
+--	--		set_height as set_height_sb,
+--	--		minimum_width as minimum_width_sb,
+--	--		minimum_height as minimum_height_sb,
+--	--		set_minimum_width as set_minimum_width_sb,
+--	--		set_minimum_height as set_minimum_height_sb,
+--			has_focus as has_focus_sb,
+--			parent as parent_sb,
+--			move as move_sb,
+--			drag_cursor as drag_cursor_sb,
+--			raise as raise_sb,
+--			lower as lower_sb,
+--			x_offset as x_offset_sb,
+--			y_offset as y_offset_sb,
+--			flush as flush_sb,
+--			selected as selected_sb,
+--			has_selection as has_selection_sb,
+--			default_width as default_width_sb,
+--			default_height as default_height_sb,
+--	--		enable as enable_sb,
+--	--		disable as disable_sb
+--			set_text as set_text_sb
+--	--		set_default as set_default_sb
+--		undefine
+--			set_minimum_width,
+--			set_minimum_height
+--		end
 
 create
 	make
@@ -123,7 +123,7 @@ feature {NONE} -- Initialization
 			pixmapable_imp_initialize
 			-- TODO ...
 			print ("EV_TOOL_BAR_BUTTON_IMP::make TODO ...%N")
-			make_ev
+--			make_ev
 			set_is_initialized (True)
 		end
 

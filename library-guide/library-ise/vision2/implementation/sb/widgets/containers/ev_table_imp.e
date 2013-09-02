@@ -26,7 +26,7 @@ inherit
 
 	EV_CONTAINER_IMP
 		redefine
-			resize,
+--			resize,
 			make,
 			interface	--,
 --			needs_event_box

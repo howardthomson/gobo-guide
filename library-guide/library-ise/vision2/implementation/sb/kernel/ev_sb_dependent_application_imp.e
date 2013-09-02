@@ -207,7 +207,7 @@ feature -- Implementation
 			a_cs: EV_GTK_C_STRING
 		do
 			-- FIXME
-			
+
 			if Result = Void or else Result.is_empty then
 				Result := once "Sans 10"
 			end
@@ -283,5 +283,5 @@ note
 
 
 
-end -- class EV_GTK_DEPENDENT_APPLICATION_IMP
+end -- class EV_SB_DEPENDENT_APPLICATION_IMP
 

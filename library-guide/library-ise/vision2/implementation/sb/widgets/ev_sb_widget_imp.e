@@ -14,36 +14,36 @@ deferred class
 inherit
 	EV_ANY_IMP
 
-	SB_WINDOW
-		rename
-			make as make_sb_window,
-			show as show_sb,
-			hide as hide_sb,
-			set_focus as set_focus_sb,
-			has_focus as has_focus_sb,
-			parent as parent_sb,
-			move as move_sb,
-			drag_cursor as drag_cursor_sb,
-			raise as raise_sb,
-			lower as lower_sb,
-			x_offset as x_offset_sb,
-			y_offset as y_offset_sb,
-			flush as flush_sb,
-			selected as selected_sb,
-			has_selection as has_selection_sb,
-			default_width as default_width_sb,
-			default_height as default_height_sb
-		redefine
---			minimum_width,
---			minimum_height
-		end
+--	SB_WINDOW
+--		rename
+--			make as make_sb_window,
+--			show as show_sb,
+--			hide as hide_sb,
+--			set_focus as set_focus_sb,
+--			has_focus as has_focus_sb,
+--			parent as parent_sb,
+--			move as move_sb,
+--			drag_cursor as drag_cursor_sb,
+--			raise as raise_sb,
+--			lower as lower_sb,
+--			x_offset as x_offset_sb,
+--			y_offset as y_offset_sb,
+--			flush as flush_sb,
+--			selected as selected_sb,
+--			has_selection as has_selection_sb,
+--			default_width as default_width_sb,
+--			default_height as default_height_sb
+--		redefine
+----			minimum_width,
+----			minimum_height
+--		end
 
 feature {EV_SB_WIDGET_IMP, EV_TREE_NODE_IMP, EV_ANY, EV_ANY_I} -- Implementation Attributes
 
-	sb_widget: SB_WINDOW
-		do
-			Result := Current
-		end
+--	sb_widget: SB_WINDOW
+--		do
+--			Result := Current
+--		end
 
 feature {NONE} -- Implementation
 
@@ -60,6 +60,13 @@ feature {NONE} -- Implementation
 		end
 
 feature {EV_ANY_I} -- Position retrieval
+
+
+	width: INTEGER do end
+	height: INTEGER do  end
+	minimum_width: INTEGER do  end
+	minimum_height: INTEGER do  end
+
 
 	screen_x: INTEGER
 			-- Horizontal position of the client area on screen,
@@ -83,7 +90,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 			-- Horizontal offset relative to parent `x_position'.
 			-- Unit of measurement: screen pixels.
 		do
-			Result := sb_widget.x_pos
+	--		Result := sb_widget.x_pos
 			Result := Result.max (0)
 		end
 
@@ -91,7 +98,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 			-- Vertical offset relative to parent `y_position'.
 			-- Unit of measurement: screen pixels.
 		do
-			Result := sb_widget.y_pos
+	--		Result := sb_widget.y_pos
 			Result := Result.max (0)
 		end
 
@@ -106,7 +113,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 			-- Minimum width that the widget may occupy.
 		do
 			if not is_destroyed then
-				Result := sb_widget.minimum_width
+	--			Result := sb_widget.minimum_width
 			end
 		end
 
@@ -115,7 +122,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 			-- Minimum height that the widget may occupy.
 		do
 			if not is_destroyed then
-				Result := sb_widget.minimum_height
+	--			Result := sb_widget.minimum_height
 			end
 		end
 
@@ -214,7 +221,7 @@ feature {EV_ANY_I, EV_INTERMEDIARY_ROUTINES} -- Implementation
 	show
 			-- Request that `Current' be displayed when its parent is.
 		do
-			sb_widget.show
+	--		sb_widget.show
 		end
 
 feature -- Status report

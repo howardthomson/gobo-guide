@@ -1,5 +1,5 @@
 note
-	description: 
+	description:
 		"Eiffel Vision Split Area, GTK+ implementation."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
@@ -8,7 +8,7 @@ note
 
 class
 	EV_VERTICAL_SPLIT_AREA_IMP
-	
+
 inherit
 	EV_VERTICAL_SPLIT_AREA_I
 		undefine
@@ -19,62 +19,54 @@ inherit
 		end
 
 	EV_SPLIT_AREA_IMP
-		rename
-			make_sb_window as make_composite
-		undefine
-			class_name,
-			on_left_btn_press,
-			on_left_btn_release,
-			on_key_press,
-			on_key_release,
-			handle_2,
-			is_composite,
-			default_width_sb,
-			default_height_sb,
-			destruct,
-			layout,
-			create_resource,
-			detach_resource,
-			destroy_resource,
-			on_motion,
-			on_cmd_update
+--		rename
+--			make_sb_window as make_composite
+--		undefine
+--			class_name,
+--			on_left_btn_press,
+--			on_left_btn_release,
+--			on_key_press,
+--			on_key_release,
+--			handle_2,
+--			is_composite,
+--			default_width_sb,
+--			default_height_sb,
+--			destruct,
+--			layout,
+--			create_resource,
+--			detach_resource,
+--			destroy_resource,
+--			on_motion,
+--			on_cmd_update
 		redefine
 			make,
 			interface
 		end
 
-	SB_SPLITTER
-		rename
-			make 			as make_sb_window,
-			show 			as show_sb,
-			hide 			as hide_sb,
-			set_focus 		as set_focus_sb,
-	--		width 			as width_sb,
-	--		height 			as height_sb,
-	--		set_width 		as set_width_sb,
-	--		set_height 		as set_height_sb,
-			default_width 	as default_width_sb,
-			default_height 	as default_height_sb,
-	--		minimum_width 	as minimum_width_sb,
-	--		minimum_height 	as minimum_height_sb,
-	--		set_minimum_width as set_minimum_width_sb,
-	--		set_minimum_height as set_minimum_height_sb,
-			has_focus 		as has_focus_sb,
-			parent 			as parent_sb,
-			move 			as move_sb,
-			drag_cursor 	as drag_cursor_sb,
-			raise 			as raise_sb,
-			lower 			as lower_sb,
-			x_offset 		as x_offset_sb,
-			y_offset 		as y_offset_sb,
-			flush 			as flush_sb,
-			selected 		as selected_sb,
-			has_selection 	as has_selection_sb
-		undefine
-			set_minimum_width,
-			set_minimum_height
-		end
-	
+--	SB_SPLITTER
+--		rename
+--			make 			as make_sb_window,
+--			show 			as show_sb,
+--			hide 			as hide_sb,
+--			set_focus 		as set_focus_sb,
+--			default_width 	as default_width_sb,
+--			default_height 	as default_height_sb,
+--			has_focus 		as has_focus_sb,
+--			parent 			as parent_sb,
+--			move 			as move_sb,
+--			drag_cursor 	as drag_cursor_sb,
+--			raise 			as raise_sb,
+--			lower 			as lower_sb,
+--			x_offset 		as x_offset_sb,
+--			y_offset 		as y_offset_sb,
+--			flush 			as flush_sb,
+--			selected 		as selected_sb,
+--			has_selection 	as has_selection_sb
+--		undefine
+--			set_minimum_width,
+--			set_minimum_height
+--		end
+
 create
 	make
 
@@ -82,9 +74,9 @@ feature -- initialization
 
 	make
 		do
-			make_sb_window (Void)
-			set_options (Frame_line)	-- TEMP
-			show_sb
+--			make_sb_window (Void)
+--			set_options (Frame_line)	-- TEMP
+--			show_sb
 		end
 
 feature {EV_ANY_I} -- Implementation

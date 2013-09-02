@@ -42,8 +42,6 @@ inherit
 
 	SB_EXPANDED
 
-	MEMORY	-- for GC control
-
 	SB_SHARED_APPLICATION
 
 feature -- Creation

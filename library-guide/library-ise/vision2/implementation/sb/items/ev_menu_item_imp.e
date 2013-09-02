@@ -22,25 +22,25 @@ inherit
 		end
 
 	EV_ITEM_IMP
-		undefine
-			create_resource,
-			detach_resource,
-			destruct,
-			class_name,
-			default_width_sb,
-			default_height_sb,
-			handle_2,
-			on_key_press,
-			on_key_release,
-			on_enter,
-			on_leave,
-			enable,
-			disable,
-			on_paint,
-			on_update,
-			can_focus,
-			kill_focus,
-			set_focus_sb
+--		undefine
+--			create_resource,
+--			detach_resource,
+--			destruct,
+--			class_name,
+--			default_width_sb,
+--			default_height_sb,
+--			handle_2,
+--			on_key_press,
+--			on_key_release,
+--			on_enter,
+--			on_leave,
+--			enable,
+--			disable,
+--			on_paint,
+--			on_update,
+--			can_focus,
+--			kill_focus,
+--			set_focus_sb
 		redefine
 			make,
 			interface,
@@ -61,29 +61,29 @@ inherit
 
 	EV_MENU_ITEM_ACTION_SEQUENCES_IMP
 
-	SB_MENU_COMMAND
-		rename
-			make as make_sb_menu_command,
-			window_make as make_sb_window,
-			show as show_sb,
-			hide as hide_sb,
-			move as move_sb,
-			raise as raise_sb,
-			lower as lower_sb,
-			set_focus as set_focus_sb,
-			has_focus as has_focus_sb,
-			has_selection as has_selection_sb,
-			drag_cursor as drag_cursor_sb,
-			selected as selected_sb,
-			flush as flush_sb,
-			default_width as default_width_sb,
-			default_height as default_height_sb,
-			x_offset as x_offset_sb,
-			y_offset as y_offset_sb,
-			parent as parent_sb,
-			set_text as set_text_sb
-		end
-		
+--	SB_MENU_COMMAND
+--		rename
+--			make as make_sb_menu_command,
+--			window_make as make_sb_window,
+--			show as show_sb,
+--			hide as hide_sb,
+--			move as move_sb,
+--			raise as raise_sb,
+--			lower as lower_sb,
+--			set_focus as set_focus_sb,
+--			has_focus as has_focus_sb,
+--			has_selection as has_selection_sb,
+--			drag_cursor as drag_cursor_sb,
+--			selected as selected_sb,
+--			flush as flush_sb,
+--			default_width as default_width_sb,
+--			default_height as default_height_sb,
+--			x_offset as x_offset_sb,
+--			y_offset as y_offset_sb,
+--			parent as parent_sb,
+--			set_text as set_text_sb
+--		end
+
 create
 	make
 

@@ -21,12 +21,12 @@ inherit
 		end
 
 	EV_PICK_AND_DROPABLE_IMP
-		rename
-			sb_widget as sb_item
+--		rename
+--			sb_widget as sb_item
 		redefine
 			interface,
-			destroy,
-			sb_item
+			destroy
+--			sb_item
 		end
 
 	EV_PIXMAPABLE_IMP
@@ -38,7 +38,7 @@ inherit
 
 feature {NONE} -- Attributes
 
-	sb_item: SB_WINDOW
+--	sb_item: SB_WINDOW
 
 feature {NONE} -- Initialization
 
@@ -47,7 +47,7 @@ feature {NONE} -- Initialization
 			a_x, a_y, a_button: INTEGER;
 			a_x_tilt, a_y_tilt, a_pressure: DOUBLE;
 			a_screen_x, a_screen_y: INTEGER)
-		
+
 			-- Call pointer_button_press_actions or pointer_double_press_actions
 			-- depending on event type in first position of `event_data'.
 		local

@@ -22,7 +22,7 @@ inherit
 
 	EV_WINDOW_IMP
 		redefine
-			sb_window,
+--			sb_window,
 			interface,
 			make,
 			create_sb_window,

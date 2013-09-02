@@ -36,29 +36,29 @@ inherit
 			interface
 		end
 
-	SB_WINDOW
-		rename
-			make as make_sb_window,
-			show as show_sb,
-			hide as hide_sb,
-			set_focus as set_focus_sb,
-			has_focus as has_focus_sb,
-			parent as parent_sb,
-			move as move_sb,
-			drag_cursor as drag_cursor_sb,
-			raise as raise_sb,
-			lower as lower_sb,
-			x_offset as x_offset_sb,
-			y_offset as y_offset_sb,
-			flush as flush_sb,
-			selected as selected_sb,
-			has_selection as has_selection_sb,
-			default_width as default_width_sb,
-			default_height as default_height_sb
-		undefine
-			set_minimum_width,
-			set_minimum_height
-		end
+--	SB_WINDOW
+--		rename
+--			make as make_sb_window,
+--			show as show_sb,
+--			hide as hide_sb,
+--			set_focus as set_focus_sb,
+--			has_focus as has_focus_sb,
+--			parent as parent_sb,
+--			move as move_sb,
+--			drag_cursor as drag_cursor_sb,
+--			raise as raise_sb,
+--			lower as lower_sb,
+--			x_offset as x_offset_sb,
+--			y_offset as y_offset_sb,
+--			flush as flush_sb,
+--			selected as selected_sb,
+--			has_selection as has_selection_sb,
+--			default_width as default_width_sb,
+--			default_height as default_height_sb
+--		undefine
+--			set_minimum_width,
+--			set_minimum_height
+--		end
 
 create
 	make
@@ -75,7 +75,7 @@ feature {NONE} -- Initialization
 			-- Initialize `Current'
 		do
 --			create {SB_TEXT_FIELD} sb_widget.make_ev
-			make_ev
+--			make_ev
 			enable_word_wrapping
 			set_editable (True)
 			set_background_color ((create {EV_STOCK_COLORS}).white)

@@ -37,14 +37,14 @@ inherit
 
 --	MATH_CONST
 
-	SB_DRAWABLE
-		rename
-			make as make_drawable
-		end
+--	SB_DRAWABLE
+--		rename
+--			make as make_drawable
+--		end
 
 feature {NONE} -- Implementation Attribute(s)
 
-	sb_drawable: SB_DRAWABLE
+--	sb_drawable: SB_DRAWABLE
 
 feature {NONE} -- Initialization
 
@@ -369,9 +369,9 @@ feature -- Clearing operations
 		local
 			l_fg_color: EV_COLOR
 		do
-			if sb_drawable /= Void then
-				l_fg_color := foreground_color
-				set_foreground_color (background_color)
+--			if sb_drawable /= Void then
+--				l_fg_color := foreground_color
+--				set_foreground_color (background_color)
 
 --				{EV_GTK_EXTERNALS}.gdk_draw_rectangle (drawable, gc, 1,
 --					x,
@@ -379,9 +379,9 @@ feature -- Clearing operations
 --					a_width,
 --					a_height)
 
-				set_foreground_color (l_fg_color)
-				update_if_needed
-			end
+--				set_foreground_color (l_fg_color)
+--				update_if_needed
+--			end
 		end
 
 feature -- Drawing operations

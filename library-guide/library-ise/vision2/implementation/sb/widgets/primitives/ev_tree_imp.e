@@ -21,7 +21,7 @@ inherit
 	EV_PRIMITIVE_IMP
 		redefine
 			make,
-			sb_widget,
+--			sb_widget,
 			interface,
 			initialize,
 			call_button_event_actions,
@@ -64,7 +64,7 @@ feature
 		do
 			Result := True
 		end
-		
+
 feature {EV_SB_WIDGET_IMP, EV_TREE_NODE_IMP} -- Implementation Attributes
 
 	sb_widget: SB_TREE_LIST

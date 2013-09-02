@@ -28,21 +28,25 @@ inherit
 		end
 
 	EV_DRAWABLE_IMP
-		rename
-			resource_id as xwin
+--		rename
+--			resource_id as xwin
 		undefine
-			set_width,
-			set_height,
-			set_minimum_width,
-			set_minimum_height,
-			add_properties,
-			resize,
-			detach_resource,
-			destruct
+--			width,
+--			height,
+--			minimum_width,
+--			minimum_height,
+--			set_width,
+--			set_height,
+--			set_minimum_width,
+--			set_minimum_height,
+--			add_properties,
+--			resize,
+--			detach_resource,
+--			destruct
 		redefine
 			interface,
-			dispose,
-			xwin
+			dispose
+--			xwin
 		end
 
 	EV_PRIMITIVE_IMP
@@ -63,8 +67,8 @@ inherit
 			tooltip,
 			on_pointer_enter_leave,
 			on_key_event,
-			internal_set_focus,
-			xwin
+			internal_set_focus
+--			xwin
 		end
 
 	EV_DRAWING_AREA_ACTION_SEQUENCES_IMP
@@ -317,7 +321,7 @@ feature {EV_DRAWABLE_IMP} -- Implementation
 			-- Not applicable for drawing area
 		end
 
-feature {EV_INTERMEDIARY_ROUTINES} -- Implementation
+feature {NONE} --{EV_INTERMEDIARY_ROUTINES} -- Implementation
 
 	call_expose_actions (a_x, a_y, a_width, a_height: INTEGER)
 			-- Call the expose actions for the drawing area.

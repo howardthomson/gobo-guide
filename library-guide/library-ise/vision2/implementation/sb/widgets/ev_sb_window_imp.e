@@ -11,8 +11,8 @@ deferred class
 
 inherit
 	EV_SB_WIDGET_IMP
-		rename
-			sb_widget as sb_window
+--		rename
+--			sb_widget as sb_window
 		redefine
 			show,
 			screen_x,
@@ -20,9 +20,9 @@ inherit
 			x_position,
 			y_position,
 			width,
-			height,
-			set_width,
-			set_height
+			height
+--			set_width,
+--			set_height
 		end
 
 feature {NONE} -- Implementation Attributes
@@ -86,7 +86,7 @@ feature {NONE} -- Implementation
 				-- Set constraints so that resize does not break existing minimum sizing.
 			l_width := a_width.max (minimum_width)
 			l_height := a_height.max (minimum_height)
-			sb_window.resize (l_width, l_height)
+	--		sb_window.resize (l_width, l_height)
 				-- {EV_GTK_EXTERNALS}.gtk_window_set_default_size (c_object, l_width, l_height)
 	--		sb_window.set_default_size (l_width, l_height)
 				-- Set configure_event_pending to True so that dimensions are updated immediately.
@@ -102,7 +102,7 @@ feature {NONE} -- Implementation
 			-- Width of `Current'.
 		do
 			if configure_event_pending then
-				Result := sb_window.width
+	--			Result := sb_window.width
 				Result := Result.max (minimum_width)
 			else
 				Result := Precursor
@@ -113,7 +113,7 @@ feature {NONE} -- Implementation
 			-- Height of `Current'.
 		do
 			if configure_event_pending then
-				Result := sb_window.height
+	--			Result := sb_window.height
 				Result := Result.max (minimum_height)
 			else
 				Result := Precursor
@@ -136,7 +136,7 @@ feature {NONE} -- Implementation
 			-- Set horizontal offset to parent to `a_x'.
 			-- Set vertical offset to parent to `a_y'.
 		do
-			sb_window.move (a_x, a_y)
+--			sb_window.move (a_x, a_y)
 		end
 
 	configure_event_pending: BOOLEAN
@@ -145,13 +145,13 @@ feature {NONE} -- Implementation
 	x_position, screen_x: INTEGER
 			-- Horizontal position of the window on screen,
 		do
-			Result := sb_window.x_pos
+--			Result := sb_window.x_pos
 		end
 
 	y_position, screen_y: INTEGER
 			-- Vertical position of the window on screen,
 		do
-			Result := sb_window.y_pos
+--			Result := sb_window.y_pos
 		end
 
 	default_wm_decorations: INTEGER
@@ -164,7 +164,7 @@ feature {NONE} -- Implementation
 			-- Request that `Current' be displayed when its parent is.
 		do
 			if not is_show_requested then
-				sb_window.show
+--				sb_window.show
 			end
 		end
 
@@ -182,7 +182,7 @@ feature {NONE} -- Implementation
 				end
 				is_modal := False
 				set_blocking_window (Void)
-				sb_window.hide
+--				sb_window.hide
 			end
 		end
 

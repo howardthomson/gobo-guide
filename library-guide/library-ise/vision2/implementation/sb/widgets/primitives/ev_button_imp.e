@@ -17,11 +17,11 @@ inherit
 		end
 
 	EV_PRIMITIVE_IMP
-		rename
-			sb_widget as sb_button
+--		rename
+--			sb_widget as sb_button
 		redefine
 			make,
-			sb_button,
+--			sb_button,
 			interface,
 			set_foreground_color,
 			on_focus_changed
@@ -55,7 +55,7 @@ create
 
 feature {NONE} -- Implementation Attributes
 
-	sb_button: SB_BUTTON
+--	sb_button: SB_BUTTON
 
 feature {NONE} -- Initialization
 
@@ -65,7 +65,7 @@ feature {NONE} -- Initialization
 		local
 --			l_composite: SB_COMPOSITE
 		do
-			create sb_button.make_ev
+--			create sb_button.make_ev
 --			if parent_imp /= Void then
 --				l_composite ?= parent_imp.sb_widget
 --			end

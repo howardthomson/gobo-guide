@@ -38,7 +38,7 @@ feature {NONE} -- Initialization
 			-- Initialize `Current'.
 		do
 --			create {SB_FRAME} sb_widget.make_ev
-			make_ev
+--			make_ev
 			set_style (Ev_frame_etched_in)
 			align_text_left
 --			Precursor {EV_CELL_IMP}

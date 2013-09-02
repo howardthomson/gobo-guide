@@ -21,8 +21,8 @@ inherit
 		redefine
 			make,
 			is_tabable_to,
-			interface,
-			sb_widget
+			interface
+--			sb_widget
 		end
 
 	EV_TEXTABLE_IMP
@@ -40,7 +40,7 @@ create
 
 feature {NONE} -- Attributes
 
-	sb_widget: SB_LABEL
+--	sb_widget: SB_LABEL
 
 feature {NONE} -- Initialization
 

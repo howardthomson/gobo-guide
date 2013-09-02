@@ -1,4 +1,4 @@
-note 
+note
 		description: "Eiffel Vision Progress bar. Slyboots implementation."
 
 	legal: "See notice at end of class."
@@ -18,13 +18,13 @@ inherit
 	EV_GAUGE_IMP
 		redefine
 			interface,
-			make,
-			sb_widget
+			make
+--			sb_widget
 		end
 
 feature {NONE} -- Attributes
 
-	sb_widget: SB_PROGRESS_BAR
+--	sb_widget: SB_PROGRESS_BAR
 
 feature {NONE} -- Implementation
 
