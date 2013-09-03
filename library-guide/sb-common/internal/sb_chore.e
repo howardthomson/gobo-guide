@@ -14,7 +14,7 @@ class SB_CHORE
 inherit
 
 	SB_RAW_EVENT_DEF
-	
+
 create
 
    make
@@ -27,30 +27,25 @@ feature -- Attributes
 
 feature -- Creation
 
---	make(app: SB_APPLICATION) is
---		do
---	--		app.add_chore(Current)
---		end
-
-	make(an_agent: PROCEDURE [ ANY, TUPLE ])
+	make (an_agent: PROCEDURE [ ANY, TUPLE ])
 		do
 			the_agent := an_agent
 		end
 
 feature -- Update
 
-	set_next(n: SB_CHORE)
+	set_next (n: SB_CHORE)
 		do
 			next := n
 		end
 
 feature -- Processing
 
-	process(app: SB_APPLICATION)
+	process (app: SB_APPLICATION)
 		do
 			app.flush
 			the_agent.call([])
-		end			
+		end
 
 	execute
 		do
