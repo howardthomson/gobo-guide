@@ -24,14 +24,14 @@ feature
 
 feature -- Processing
 
-	process (app: SB_APPLICATION)
+	process (app: EV_APPLICATION_IMP)
 		local
 			ev: SB_RAW_EVENT
 			ev_expose: X_EXPOSE_EVENT
 		do
 			ev := app.invocation.ev
 			ev_expose := ev.xexpose
-			
+
 			ev.set_type (Expose)
 			ev.set_window (window)
 			ev_expose.set_x (rect_x)
@@ -39,7 +39,7 @@ feature -- Processing
 			ev_expose.set_width (rect_w)
 			ev_expose.set_height (rect_h)
 			ev_expose.set_count (0)
-			
+
 		--	fx_trace(0, <<"Processing repaint:", ev.out, ", ", ev.xexpose.x.out,"/",ev.xexpose.y.out, " ", ev.xexpose.width.out,"/",ev.xexpose.height.out>>)
 			check ev_expose.width /= 0 and ev_expose.height /= 0 end
 			check   ev.xexpose.x 	  = rect_x
@@ -59,7 +59,7 @@ feature
 	rect_x, rect_y,
 	rect_w, rect_h : INTEGER
 			-- Dirty rectangle
-	
+
 	hint: INTEGER
 			-- Hint for compositing
 

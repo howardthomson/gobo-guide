@@ -14,36 +14,8 @@ deferred class
 inherit
 	EV_ANY_IMP
 
---	SB_WINDOW
---		rename
---			make as make_sb_window,
---			show as show_sb,
---			hide as hide_sb,
---			set_focus as set_focus_sb,
---			has_focus as has_focus_sb,
---			parent as parent_sb,
---			move as move_sb,
---			drag_cursor as drag_cursor_sb,
---			raise as raise_sb,
---			lower as lower_sb,
---			x_offset as x_offset_sb,
---			y_offset as y_offset_sb,
---			flush as flush_sb,
---			selected as selected_sb,
---			has_selection as has_selection_sb,
---			default_width as default_width_sb,
---			default_height as default_height_sb
---		redefine
-----			minimum_width,
-----			minimum_height
---		end
-
 feature {EV_SB_WIDGET_IMP, EV_TREE_NODE_IMP, EV_ANY, EV_ANY_I} -- Implementation Attributes
 
---	sb_widget: SB_WINDOW
---		do
---			Result := Current
---		end
 
 feature {NONE} -- Implementation
 

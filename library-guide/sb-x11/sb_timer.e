@@ -11,10 +11,10 @@ inherit
 	SB_RAW_EVENT_DEF
 	SB_SEL_TYPE
 	SB_MESSAGE_COMMON
-	
+
 feature
 
-	process(app: SB_APPLICATION)
+	process (app: EV_APPLICATION_IMP)
 		do
 			if target.handle_2 (app, Sel_timeout, message, Void) then
 				app.refresh
@@ -24,7 +24,7 @@ feature
 
 	next: SB_TIMER
 
-	set_next(t: SB_TIMER)
+	set_next (t: SB_TIMER)
 		do
 			next := t
 		end
@@ -32,12 +32,12 @@ feature
 	target: SB_MESSAGE_HANDLER
 	message: INTEGER
 
-	set_target(new_target: like target)
+	set_target (new_target: like target)
 		do
 			target := new_target
 		end
 
-	set_message(new_message: like message)
+	set_message (new_message: like message)
 		do
 			message := new_message
 		end
@@ -45,13 +45,13 @@ feature
 	seconds,
 	micro_secs:	INTEGER			-- Time due
 
-	set_time(a_seconds, a_micro_secs: INTEGER)
+	set_time (a_seconds, a_micro_secs: INTEGER)
 		do
 			seconds := a_seconds
 			micro_secs := a_micro_secs
 		end
 
-	is_due(st: SB_TIME_VALUE): BOOLEAN
+	is_due (st: SB_TIME_VALUE): BOOLEAN
 			-- Is this time on or after 'st' ?
 		do
 			if st.seconds > seconds
@@ -61,7 +61,7 @@ feature
 			end
 		end
 
-	precedes(other: like Current): BOOLEAN
+	precedes (other: like Current): BOOLEAN
 			-- Does Current precede other in time ?
 		do
 			Result := other.seconds > seconds

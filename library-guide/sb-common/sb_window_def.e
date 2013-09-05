@@ -344,7 +344,7 @@ end
 
 feature -- Event processing: refresh window
 
-	process (app: SB_APPLICATION)
+	process (app: EV_APPLICATION_IMP)
 		do
 			do_handle_2 (app, SEL_UPDATE, 0, Void)
 		end
