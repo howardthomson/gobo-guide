@@ -30,7 +30,7 @@ feature
 	done: BOOLEAN			-- True if higher invocation is done
 	code: INTEGER			-- Return code
 
-feature { SB_APPLICATION_DEF, SB_RAW_EVENT_DEF }
+feature { EV_APPLICATION_IMP_DEF, SB_APPLICATION_DEF, SB_RAW_EVENT_DEF }
 
    set_done
       do

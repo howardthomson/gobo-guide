@@ -61,7 +61,7 @@ feature -- Creation
       do
          Precursor (p,q, opts, x,y,w,h, pl,pr,pt,pb, hs,vs)
          flags := flags | Flag_enabled
-         drag_cursor := application.get_default_cursor (Def_rarrow_cursor)
+         drag_cursor := application.default_cursor (Def_rarrow_cursor)
       end
 
 feature -- Queries

@@ -134,8 +134,8 @@ feature -- Creation
 			make_drawable (0, 0)
 			application.register_window (current_w)
 
-			default_cursor := application.get_default_cursor (Def_arrow_cursor)
-			drag_cursor	   := application.get_default_cursor (Def_arrow_cursor)
+			default_cursor := application.default_cursor (Def_arrow_cursor)
+			drag_cursor	   := application.default_cursor (Def_arrow_cursor)
 			back_color := application.base_color
 			set_flags (Flag_dirty | Flag_update | Flag_recalc)
 			set_options (0)
@@ -155,8 +155,8 @@ feature -- Creation
 			end
          	application.register_window (current_w)
 				-- Cursors
-         	default_cursor := application.get_default_cursor (Def_arrow_cursor)
-         	drag_cursor	   := application.get_default_cursor (Def_arrow_cursor)
+         	default_cursor := application.default_cursor (Def_arrow_cursor)
+         	drag_cursor	   := application.default_cursor (Def_arrow_cursor)
          	x_pos := x
          	y_pos := y
          	back_color := application.base_color
@@ -203,20 +203,20 @@ feature { EV_WIDGET_IMP, EV_MENU_BAR_IMP } -- Creation special
          	visual /= Void
 		end
 
-	make_root (app: SB_APPLICATION; vis: SB_VISUAL)
+	make_root (app: EV_APPLICATION_IMP; vis: SB_VISUAL)
 			-- Only used for the root window
 		do
          	make_drawable (1,1)
          	visual := vis
          	window_key := 1
-         	default_cursor := application.get_default_cursor (Def_arrow_cursor)
-         	drag_cursor := application.get_default_cursor (Def_arrow_cursor)
+         	default_cursor := application.default_cursor (Def_arrow_cursor)
+         	drag_cursor := application.default_cursor (Def_arrow_cursor)
          	flags := Flag_dirty | Flag_shown | Flag_update | Flag_recalc
          	options := Layout_fix_x     | Layout_fix_y
          			| Layout_fix_width | Layout_fix_height
       	end
 
-	make_shell (app: SB_APPLICATION; own: SB_WINDOW; opts: INTEGER; x, y, w, h: INTEGER)
+	make_shell (app: EV_APPLICATION_IMP; own: SB_WINDOW; opts: INTEGER; x, y, w, h: INTEGER)
     		-- Used for shell windows
       	do
          	make_drawable (w, h)
@@ -235,8 +235,8 @@ feature { EV_WIDGET_IMP, EV_MENU_BAR_IMP } -- Creation special
          	end
          	application.register_window (current_w)
 
-         	default_cursor := application.get_default_cursor (Def_arrow_cursor)
-         	drag_cursor    := application.get_default_cursor (Def_arrow_cursor)
+         	default_cursor := application.default_cursor (Def_arrow_cursor)
+         	drag_cursor    := application.default_cursor (Def_arrow_cursor)
          	x_pos := x
          	y_pos := y
          	back_color := application.base_color
@@ -2343,22 +2343,22 @@ feature -- Properties
 		end
 
 
-feature -- Debugging
+--feature -- Debugging
 
-	trace_values
-		do
-		end
+--	trace_values
+--		do
+--		end
 
-	report_status
-			-- Report (print) configuration status info
-		do
-			print (once "Reporting status for: "); print (generating_type); print (once " @ "); print (($Current).out); print (once "%N")
-			print (once "   Options: "); print (options.out); print (once "%N")
-			print (once "   Width: "); print (width.out); print (once "%N")
-			print (once "   Height: "); print (height.out); print (once "%N")
-			print (once "   x_pos: "); print (x_pos.out); print (once "%N")
-			print (once "   y_pos: "); print (y_pos.out); print (once "%N")
+--	report_status
+--			-- Report (print) configuration status info
+--		do
+--			print (once "Reporting status for: "); print (generating_type); print (once " @ "); print (($Current).out); print (once "%N")
+--			print (once "   Options: "); print (options.out); print (once "%N")
+--			print (once "   Width: "); print (width.out); print (once "%N")
+--			print (once "   Height: "); print (height.out); print (once "%N")
+--			print (once "   x_pos: "); print (x_pos.out); print (once "%N")
+--			print (once "   y_pos: "); print (y_pos.out); print (once "%N")
 
-		end
+--		end
 
 end

@@ -2,9 +2,9 @@ class SB_APP_SHARED
 
 feature
 
-	value: SB_APPLICATION
+	value: EV_APPLICATION_IMP
 
-	set_value (v: SB_APPLICATION_DEF)
+	set_value (v: EV_APPLICATION_IMP_DEF)
 		do
 			value ?= v
 		ensure

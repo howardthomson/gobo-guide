@@ -5,7 +5,7 @@ deferred class SB_RAW_EVENT_DEF
 
 feature
 
-	process (app: SB_APPLICATION)
+	process (app: EV_APPLICATION_IMP)
 			-- Process this event
 		deferred
 		end

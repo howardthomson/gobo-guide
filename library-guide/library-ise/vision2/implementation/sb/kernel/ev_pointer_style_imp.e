@@ -1,10 +1,15 @@
 note
-	description: "Windows implementation of EV_POINTER_STYLE_I."
+	description: "Implementation of EV_POINTER_STYLE_I."
 	legal: "See notice at end of class."
 	status: "See notice at end of class."
 	keywords: "mouse, pointer, cursor, arrow"
 	date: "$Date: 2007-02-13 10:03:20 -0800 (Tue, 13 Feb 2007) $"
 	revision: "$Revision: 66638 $"
+
+
+	todo: "[
+		Incorporate code from SB_CURSOR
+	]"
 
 class
 	EV_POINTER_STYLE_IMP

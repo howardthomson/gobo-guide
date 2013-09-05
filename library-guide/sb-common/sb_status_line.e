@@ -39,12 +39,7 @@ inherit
          	handle_2,
          	on_update,
          	on_paint,
-         	class_name,
-         	
-         -- #### Debugging only ###
-         	trace_values,
-         	create_resource_imp,
-         	resize_imp
+         	class_name
       	end
 
 create
@@ -82,16 +77,16 @@ feature -- Data
 
 	text: STRING
 		-- Current status message
-		
+
 	normal_text: STRING
 		-- Normally displayed message
-		
+
 	font: SB_FONT
 		-- Font
-		
+
 	text_color: INTEGER
 		-- Status text color
-		
+
 	text_highlight_color: INTEGER
 		-- Status text highlight color
 
@@ -208,7 +203,7 @@ feature -- Message processing
 		--	fx_trace(0, <<"SB_STATUS_LINE::on_paint: x/y/w/h: ",
 		--		ev.rect_x.out, "/", ev.rect_y.out, "/", ev.rect_w.out, "/", ev.rect_h.out>>)
 		--	print_run_time_stack
-         	
+
          	if not text.is_empty then
             	dc.set_font (font)
             	pos := u.find_forward (text, '%N', 1)
@@ -281,33 +276,31 @@ feature {NONE} -- Implementation
 
    default_message: STRING = "Ready."
 
-feature -- Debugging
+--feature -- Debugging
 
-	trace_values
-		do
-		--	fx_trace(0, <<"SB_STATUS_LINE::trace_values",
-		--		" width: ", width.out,
-		--		" height: ", height.out>>)
-		end
+--	trace_values
+--		do
+--		--	fx_trace(0, <<"SB_STATUS_LINE::trace_values",
+--		--		" width: ", width.out,
+--		--		" height: ", height.out>>)
+--		end
 
-	create_resource_imp
-		do
-			Precursor
-		--	fx_trace(0, <<"SB_STATUS_LINE::create_resource_imp",
-		--		" width: ", width.out,
-		--		" height: ", height.out>>)
-		end
+--	create_resource_imp
+--		do
+--			Precursor
+--		--	fx_trace(0, <<"SB_STATUS_LINE::create_resource_imp",
+--		--		" width: ", width.out,
+--		--		" height: ", height.out>>)
+--		end
 
-	resize_imp(w, h: INTEGER)
-		do
-			fx_trace(0, <<"SB_STATUS_LINE::resize_imp before",
-				" width: ", width.out,
-				" height: ", height.out>>)
-			Precursor(w, h)
-			fx_trace(0, <<"SB_STATUS_LINE::resize_imp after",
-				" width: ", width.out,
-				" height: ", height.out>>)
-		end	
-invariant
---	rq_trace(<<out, " width: ", width.out>>)
+--	resize_imp(w, h: INTEGER)
+--		do
+--			fx_trace(0, <<"SB_STATUS_LINE::resize_imp before",
+--				" width: ", width.out,
+--				" height: ", height.out>>)
+--			Precursor(w, h)
+--			fx_trace(0, <<"SB_STATUS_LINE::resize_imp after",
+--				" width: ", width.out,
+--				" height: ", height.out>>)
+--		end
 end

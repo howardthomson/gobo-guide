@@ -46,7 +46,7 @@ feature -- deferred
 
 feature -- Data
 
-	app		: SB_APPLICATION	-- Application
+	app		: EV_APPLICATION_IMP	-- Application
 	font	: SB_FONT			-- Drawing font
 	pattern	: INTEGER			-- Stipple pattern
 	stipple	: SB_BITMAP			-- Stipple bitmap
@@ -78,7 +78,7 @@ feature -- Data
 
 feature -- Creation
 
-	make (an_app: SB_APPLICATION)
+	make (an_app: EV_APPLICATION_IMP)
 			-- Construct dummy DC
 		do
 			app := an_app

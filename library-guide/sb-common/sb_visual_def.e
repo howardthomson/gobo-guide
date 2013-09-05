@@ -21,12 +21,12 @@ inherit
 
 feature { NONE } -- Creation
 
-	make (a_app: SB_APPLICATION; a_flags: INTEGER)
+	make (a_app: EV_APPLICATION_IMP; a_flags: INTEGER)
 		do
 			make_with_depth (a_app, a_flags, 32)
 		end
 
-	make_with_depth (a_app: SB_APPLICATION; a_flags: INTEGER; a_depth_hint: INTEGER)
+	make_with_depth (a_app: EV_APPLICATION_IMP; a_flags: INTEGER; a_depth_hint: INTEGER)
 		do
 			init
 			flags := a_flags
@@ -109,16 +109,16 @@ feature {ANY} -- Implementation
 
 	green_count: INTEGER
 			-- Number of greens
-			
+
 	blue_count: INTEGER
 			-- Number of blues
 
 	color_count: INTEGER
 			-- Total number of colors
-	
+
 	maxcolors: INTEGER
 			-- Maximum number of colors
-	
+
 	rgb_order: INTEGER
 			-- Order of red/green/blue
 

@@ -24,7 +24,7 @@ inherit
 
 feature -- Creation
 
-	make_from_string (a: SB_APPLICATION; nm: STRING)
+	make_from_string (a: EV_APPLICATION_IMP; nm: STRING)
     		-- Construct a font with given X11 font string
 		do
         	init
@@ -37,7 +37,7 @@ feature -- Creation
 			make_imp
 		end
 
-	make_from_description (a: SB_APPLICATION; font_desc: SB_FONT_DESC)
+	make_from_description (a: EV_APPLICATION_IMP; font_desc: SB_FONT_DESC)
 			-- Construct font from font description
       	do
          	init
@@ -51,7 +51,7 @@ feature -- Creation
 			make_imp
 		end
 
-	make (a: SB_APPLICATION; face: STRING; sz: INTEGER)
+	make (a: EV_APPLICATION_IMP; face: STRING; sz: INTEGER)
 			-- Construct a font with given face name, size in points(pixels), weight,
 			-- slant, character set encoding, setwidth, and hints
 		do
@@ -59,7 +59,7 @@ feature -- Creation
 				FONTSETWIDTH_DONTCARE, 0)
 		end
 
-	make_opts (a: SB_APPLICATION; face: STRING; sz, wt, sl, enc,
+	make_opts (a: EV_APPLICATION_IMP; face: STRING; sz, wt, sl, enc,
                       setw: INTEGER ; h: INTEGER)
          -- Construct a font with:
          --		given face name,

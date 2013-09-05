@@ -53,7 +53,7 @@ feature -- Creation
 			make_top (application, once "Default dialog name", 0)
 		end
 
-	make_top (a: SB_APPLICATION; name: STRING; opts: INTEGER)
+	make_top (a: EV_APPLICATION_IMP; name: STRING; opts: INTEGER)
     		-- Construct free-floating dialog
       	local
          	o: INTEGER
@@ -66,7 +66,7 @@ feature -- Creation
          	make_top_opts (a, name, o, 0,0,0,0, 10,10,10,10, 4,4);
       	end
 
-   	make_top_opts (a: SB_APPLICATION; name: STRING; opts: INTEGER; x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER)
+   	make_top_opts (a: EV_APPLICATION_IMP; name: STRING; opts: INTEGER; x,y,w,h, pl,pr,pt,pb, hs,vs: INTEGER)
       	do
          	top_window_make_top (a, name, Void, Void, opts, x,y,w,h, pl,pr,pt,pb, hs,vs);
       	end

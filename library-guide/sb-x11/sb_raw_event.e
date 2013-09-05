@@ -10,13 +10,13 @@ inherit
 	X_EVENT
 	SB_RAW_EVENT_DEF
 
-create {SB_INVOCATION, SB_APPLICATION}
+create {SB_INVOCATION, EV_APPLICATION_IMP}
 
 	make
 
 feature -- Event processing
 
-	process (app: SB_APPLICATION)
+	process (app: EV_APPLICATION_IMP)
 		local
 			l_xexpose: X_EXPOSE_EVENT
 		do

@@ -23,7 +23,7 @@ feature
 	height	: INTEGER;	-- Height
 	hot_x	: INTEGER;	-- Hot spot x
 	hot_y	: INTEGER;	-- Hot spot x
-   
+
 feature { NONE } -- Implementation
 
    	source:  STRING;     -- Source data
@@ -37,10 +37,9 @@ feature
 
 feature -- Creation
 
-	make_from_stock (app: SB_APPLICATION; a_glyph : INTEGER)
-		-- Make stock cursor
+	make_from_stock (a_glyph : INTEGER)
+			-- Make stock cursor
     	require
-			app /= Void
 			a_glyph > 0
 		do
         	init
@@ -54,11 +53,9 @@ feature -- Creation
          	owned := False
 		end
 
-	make_from_bitmap, make_from_bits (app: SB_APPLICATION; src, msk: STRING;
-                     w, h: INTEGER; hx, hy: INTEGER)
+	make_from_bitmap, make_from_bits (src, msk: STRING; w, h: INTEGER; hx, hy: INTEGER)
     	require
-         	app /= Void
-         	src /= Void
+    		src /= Void
          	msk /= Void
       	do
          	init

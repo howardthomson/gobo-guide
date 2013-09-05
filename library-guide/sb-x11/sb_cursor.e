@@ -9,11 +9,11 @@ inherit
 		redefine
 			xid
 		end
-		
+
 	X_CURSOR_DEFINES
 
 	X_H
-	
+
 create
 	make_from_stock,
 	make_from_bits,
@@ -21,10 +21,8 @@ create
 
 feature
 
---	class_name: STRING is "SB_CURSOR"
-
 	xid: X_CURSOR
-	
+
 	stock: ARRAY [ INTEGER ]
 		once
 			create Result.make (1, 7)
@@ -56,7 +54,7 @@ feature
 				(glyph = 0 implies (source /= Void and then source.count /= 0) and (mask /= Void and then mask.count /= 0))
 				or else fxerror("" + class_name + "::create_resources: source or mask bad")
 			end
-			
+
 			if xid = Void then
 
 				if glyph = 0 then
@@ -89,7 +87,7 @@ feature
 					-- No longer needed
 					srcpix.destroy	-- XFreePixmap
 					mskpix.destroy	-- XFreePixmap
-	
+
 				else
 					-- Building stock cursor
 					check glyph <= stock.count

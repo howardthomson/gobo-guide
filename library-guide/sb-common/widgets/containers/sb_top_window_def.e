@@ -86,12 +86,12 @@ feature -- class name
 
 feature -- creation
 
-	make_top_title (a: SB_APPLICATION; name: STRING)
+	make_top_title (a: EV_APPLICATION_IMP; name: STRING)
 		do
 			make_top (a, name, Void, Void, 0, 0,0,0,0, 0,0,0,0, 0,0)
 		end
 
-   make_top (a: SB_APPLICATION; name: STRING; ic, mi: SB_ICON; opts: INTEGER;
+   make_top (a: EV_APPLICATION_IMP; name: STRING; ic, mi: SB_ICON; opts: INTEGER;
                         x,y,w,h,  pl,pr,pt,pb,  hs,vs: INTEGER)
       do
          shell_make_top (a, opts, x,y,w,h)

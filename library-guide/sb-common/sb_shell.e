@@ -37,7 +37,7 @@ feature -- class name
 
 feature {NONE} -- creation
 
-   make_top (a: SB_APPLICATION; opts: INTEGER; x, y, w, h : INTEGER)
+   make_top (a: EV_APPLICATION_IMP; opts: INTEGER; x, y, w, h : INTEGER)
          -- Create a toplevel window
       do
          make_shell (a, Void, opts, x,y,w,h)
@@ -45,7 +45,8 @@ feature {NONE} -- creation
 
    make_child (own: SB_WINDOW; opts: INTEGER; x, y, w, h : INTEGER)
       do
-         make_shell (own.application, own, opts, x,y,w,h)
+		check false end
+--         make_shell (own.application, own, opts, x,y,w,h)
       end
 
 feature -- resource creation/deletion

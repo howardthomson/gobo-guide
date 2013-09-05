@@ -571,7 +571,7 @@ feature
          end
       end
 
-   acquire_clipboard_imp(types: ARRAY[INTEGER]): BOOLEAN
+   acquire_clipboard_imp (types: ARRAY[INTEGER]): BOOLEAN
          -- Try to acquire the clipboard, given a list of drag types
       require else
          types /= Void and then not types.is_empty

@@ -9,7 +9,7 @@ deferred class SB_ROOT_WINDOW_DEF
 
 inherit
 	SB_COMPOSITE
-    	rename 
+    	rename
         	make as composite_make
 		undefine
          	create_resource_imp,
@@ -21,7 +21,7 @@ inherit
          	detach_resource, destroy_resource,
 			update_so_references,
 			move,
-			position, 
+			position,
 			resize,
 			layout,
 			recalc,
@@ -38,7 +38,7 @@ feature -- class name
 
 feature -- creation and resources
 
-   	make (app_ : SB_APPLICATION; vis_ : SB_VISUAL)
+   	make (app_ : EV_APPLICATION_IMP; vis_ : SB_VISUAL)
       	do
          	make_root (app_, vis_)
       	end
@@ -55,7 +55,7 @@ feature -- creation and resources
 				create_resource_imp
 
 				check is_attached end
-				
+
          	end
         		-- Normally create children
         	from
@@ -67,7 +67,7 @@ feature -- creation and resources
            		c.create_resource
 
 				check c.is_attached end
-           		
+
            		c := c.next
         	end
       	end

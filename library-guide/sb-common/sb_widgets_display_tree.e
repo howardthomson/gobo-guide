@@ -35,7 +35,7 @@ inherit
 	SB_TREE_LIST_CONSTANTS
 	SB_SHARED_APPLICATION
 
-create { SB_APPLICATION_DEF }
+create { SB_APPLICATION_DEF, EV_APPLICATION_IMP_DEF }
 	make
 
 feature -- Attributes
@@ -118,8 +118,7 @@ feature -- creation implementation
 			until
 				w = Void
 			loop
-				c := tree.create_item_last(p, w.class_name, Void, Void, Void, False)	-- .discard_result
-				w.trace_values
+				c := tree.create_item_last (p, w.class_name, Void, Void, Void, False)
 				c.set_data (w)
 				if w.first_child /= Void then
 					w := w.first_child
