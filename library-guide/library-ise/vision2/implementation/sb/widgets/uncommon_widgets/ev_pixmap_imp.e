@@ -75,7 +75,7 @@ feature {NONE} -- Implementation Attributes
 	sb_pixmap_window: SB_WINDOW
 		-- Implementation link
 
-	xwin: X_WINDOW
+--	xwin: X_WINDOW
 
 feature {NONE} -- Initialization
 

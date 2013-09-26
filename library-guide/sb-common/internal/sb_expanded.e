@@ -11,10 +11,10 @@ feature
 
 	sbk: SB_KEYS
 
-	ff: SB_FILE
-		once
-			create Result
-		end
+--	ff: SB_FILE
+--		once
+--			create Result
+--		end
 
 	u, utils: SB_UTILS
 		once
@@ -29,12 +29,12 @@ feature
 
 	sbd: SB_DEFS
 
-	math: SB_MATH
+--	math: SB_MATH
 
-	bmp_io: SB_BMP_IO
-		once
-			create Result
-		end
+--	bmp_io: SB_BMP_IO
+--		once
+--			create Result
+--		end
 
 	sb_exceptions: EXCEPTIONS
 		once

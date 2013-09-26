@@ -66,8 +66,8 @@ feature -- Creation
 	 		event.set_event_originator (Current)
         	create registry.make (Void, Void)
         	again := True
-        	create mono_visual.make (application, VISUAL_MONOCHROME)
-        	create default_visual.make (application, VISUAL_DEFAULT)
+        	create mono_visual.make (VISUAL_MONOCHROME)
+        	create default_visual.make (VISUAL_DEFAULT)
 
         	create wait_cursor.make_from_stock (CURSOR_WATCH)
 

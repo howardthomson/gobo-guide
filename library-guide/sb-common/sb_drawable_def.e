@@ -18,8 +18,6 @@ deferred class SB_DRAWABLE_DEF
 inherit
 
 	SB_SERVER_RESOURCE
-      	rename
-         	init as init_resource
       	redefine
          	destruct
       	end

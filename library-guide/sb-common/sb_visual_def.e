@@ -16,19 +16,19 @@ inherit
 
    	SB_VISUAL_CONSTANTS
 
-   	SB_COMMON_MACROS
+	SB_COMMON_MACROS
 	SB_SHARED_APPLICATION
 
 feature { NONE } -- Creation
 
-	make (a_app: EV_APPLICATION_IMP; a_flags: INTEGER)
+	make (a_flags: INTEGER)
 		do
-			make_with_depth (a_app, a_flags, 32)
+			make_with_depth (a_flags, 32)
 		end
 
-	make_with_depth (a_app: EV_APPLICATION_IMP; a_flags: INTEGER; a_depth_hint: INTEGER)
+	make_with_depth (a_flags: INTEGER; a_depth_hint: INTEGER)
 		do
-			init
+			init_resource
 			flags := a_flags
 			depth_hint := a_depth_hint.max (1)
 			maxcolors := 1000000
@@ -74,13 +74,13 @@ feature
 
 feature
 
-   set_max_colors (maxcols : INTEGER)
+   set_max_colors (a_maxcols : INTEGER)
          -- Set maximum number of colors to allocate
       do
-         if maxcols < 2 then
+         if a_maxcols < 2 then
             maxcolors := 2
          else
-            maxcolors := maxcols
+            maxcolors := a_maxcols
          end
       end
 

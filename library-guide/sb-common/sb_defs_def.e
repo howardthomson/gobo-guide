@@ -47,13 +47,13 @@ feature -- window visibility modes
 	VISIBILITYNONE   : INTEGER = 2
 
 
-feature -- Options for filematch
+--feature -- Options for filematch
 
-	FILEMATCH_FILE_NAME	 : INTEGER = 1	-- No wildcard can ever match `/'
-	FILEMATCH_NOESCAPE	 : INTEGER = 2	-- Backslashes don't quote special chars
-	FILEMATCH_PERIOD	 : INTEGER = 4	-- Leading `.' is matched only explicitly
-	FILEMATCH_LEADING_DIR: INTEGER = 8	-- Ignore `/...' after a match
-	FILEMATCH_CASEFOLD	 : INTEGER = 16	-- Compare without regard to case
+--	FILEMATCH_FILE_NAME	 : INTEGER = 1	-- No wildcard can ever match `/'
+--	FILEMATCH_NOESCAPE	 : INTEGER = 2	-- Backslashes don't quote special chars
+--	FILEMATCH_PERIOD	 : INTEGER = 4	-- Leading `.' is matched only explicitly
+--	FILEMATCH_LEADING_DIR: INTEGER = 8	-- Ignore `/...' after a match
+--	FILEMATCH_CASEFOLD	 : INTEGER = 16	-- Compare without regard to case
 
 feature -- Drag and drop actions
 

@@ -18,13 +18,13 @@ inherit
 
 feature { ANY } -- Queries
 
-    is_attached: BOOLEAN is
+    is_attached: BOOLEAN
             deferred
         end
 
 feature { ANY } -- Resource ID update
 
-	reset_resource_id is
+	reset_resource_id
 		deferred
 		ensure
 			not is_attached
@@ -32,7 +32,7 @@ feature { ANY } -- Resource ID update
 
 feature {ANY} -- Resource management
 
-    create_resource is
+    create_resource
         	-- Create resource
         require
         --	not is_attached
@@ -41,21 +41,21 @@ feature {ANY} -- Resource management
         --	is_attached
         end -- create_resource
 
-	detach_resource is
+	detach_resource
 			-- Detach resource
 		deferred
         ensure
             not is_attached
         end
 
-    destroy_resource is
+    destroy_resource
         	-- Destroy resource
         deferred
         end
 
 feature { ANY } -- Destruction
 
-    destruct is
+    destruct
         do
             reset_resource_id
             Precursor
@@ -63,7 +63,7 @@ feature { ANY } -- Destruction
 
 feature { NONE } -- Initialisation
 
-	init is
+	init_resource
         do
         	reset_resource_id
         end

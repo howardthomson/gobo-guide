@@ -42,7 +42,7 @@ feature -- Creation
     	require
 			a_glyph > 0
 		do
-        	init
+        	init_resource
          	source := Void
          	mask := Void
          	width := 0
@@ -58,7 +58,7 @@ feature -- Creation
     		src /= Void
          	msk /= Void
       	do
-         	init
+         	init_resource
          	create source.make_from_string (src)
          	create mask.make_from_string (msk)
          	width := w

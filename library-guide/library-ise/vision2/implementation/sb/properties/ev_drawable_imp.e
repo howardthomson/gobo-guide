@@ -11,40 +11,38 @@ deferred class
 
 inherit
 
-	EV_ANY_IMP
-		redefine
-			interface
-		end
+--	EV_ANY_IMP
+--		redefine
+--			interface
+--		end
 
-	EV_DRAWABLE_I
-		redefine
-			interface
-		end
+--	EV_DRAWABLE_I
+--		redefine
+--			interface
+--		end
 
-	EV_DRAWABLE_CONSTANTS
+--	EV_DRAWABLE_CONSTANTS
 
-	DISPOSABLE
-		undefine
-			copy,
-			default_create
-		end
+--	DISPOSABLE
+--		undefine
+--			copy,
+--			default_create
+--		end
 
-	PLATFORM
-		undefine
-			copy,
-			default_create
-		end
+--	PLATFORM
+--		undefine
+--			copy,
+--			default_create
+--		end
 
---	MATH_CONST
+
+	EV_DRAWABLE_IMP_DEF
+
 
 --	SB_DRAWABLE
 --		rename
 --			make as make_drawable
 --		end
-
-feature {NONE} -- Implementation Attribute(s)
-
---	sb_drawable: SB_DRAWABLE
 
 feature {NONE} -- Initialization
 
@@ -762,40 +760,6 @@ feature -- filling operations
 --				update_if_needed
 --			end
 		end
-
-feature {NONE} -- Implementation
-
---	app_implementation: EV_APPLICATION_IMP is
---			-- Return the instance of EV_APPLICATION_IMP.
---		deferred
---		end
-
-	internal_foreground_color: EV_COLOR
-			-- Color used to draw primitives.
-
-	internal_background_color: EV_COLOR
-			-- Color used for erasing of canvas.
-			-- Default: white.
-
-	flush
-			-- Force all queued expose events to be called.
-		deferred
-		end
-
-	update_if_needed
-			-- Force update of `Current' if needed
-		deferred
-		end
-
-	whole_circle: INTEGER = 23040
-		-- Number of 1/64 th degrees in a full circle (360 * 64)
-
-	radians_to_gdk_angle: INTEGER = 3667 --
-			-- Multiply radian by this to get no of (1/64) degree segments.
-
-	internal_font_imp: EV_FONT_IMP
-
-	interface: EV_DRAWABLE
 
 invariant
 --	gc_not_void: is_usable implies gc /= default_pointer

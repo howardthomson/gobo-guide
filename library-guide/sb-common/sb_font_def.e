@@ -27,7 +27,7 @@ feature -- Creation
 	make_from_string (a: EV_APPLICATION_IMP; nm: STRING)
     		-- Construct a font with given X11 font string
 		do
-        	init
+        	init_resource
         	create name.make_from_string (nm)
         	size := 0
 			weight := 0
@@ -40,7 +40,7 @@ feature -- Creation
 	make_from_description (a: EV_APPLICATION_IMP; font_desc: SB_FONT_DESC)
 			-- Construct font from font description
       	do
-         	init
+         	init_resource
          	create name.make_from_string (font_desc.face)
          	size := font_desc.size
          	weight := font_desc.weight
@@ -73,7 +73,7 @@ feature -- Creation
          	application_not_void: a /= Void
          	face_name_not_void: face /= Void
       	do
-         	init
+         	init_resource
          	create name.make_from_string (face)
          	size := 10 * sz
          	weight := wt

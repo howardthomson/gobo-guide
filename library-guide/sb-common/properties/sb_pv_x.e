@@ -10,17 +10,17 @@ inherit
 feature
 	x_pos: INTEGER
 
-	x_private: INTEGER
-		do
-			Result := x_pos
-		end
+--	x_private: INTEGER
+--		do
+--			Result := x_pos
+--		end
 
 --	set_x_pos(new_x: like x_pos) is
 --		do
 --			x_pos := new_x
 --		end
 
-	set_x(x: INTEGER)
+	set_x (x: INTEGER)
 		deferred
 		end
 

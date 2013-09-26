@@ -33,24 +33,24 @@ feature
 
          Result := br | bg | bb | 0xFF000000
       end
-      
+
 	sbredval (rgba : INTEGER) : INTEGER
          	-- Get red value from RGBA color
       	do
          	Result := rgba & 0x000000FF
-      	end;
+      	end
 
    	sbgreenval (rgba : INTEGER) : INTEGER
          -- Get green value from RGBA color
       	do
          	Result := ((rgba |>> 8) & 0x000000FF)
-      	end;
+      	end
 
    	sbblueval (rgba : INTEGER) : INTEGER
          	-- Get blue value from RGBA color
       	do
          	Result := ((rgba |>> 16) & 0x000000FF)
-      	end;
+      	end
 
    sbalphaval (rgba : INTEGER) : INTEGER
          -- Get alpha value from RGBA color
@@ -58,33 +58,6 @@ feature
          rgbab : INTEGER
       do
          Result := ((rgba |>> 24) & 0x000000FF)
-      end;
-
-   sbrgbacompval(rgba, comp : INTEGER) : INTEGER
-         -- Get component value of RGBA color
-      do
-         Result := ((rgba |>> (comp*8).to_integer_8) & 0x000000FF)
-      end;
-
-   sbclamp(lo, x, hi: INTEGER): INTEGER
-         -- Clamp value x to range [lo..hi]
-      do
-         if x < lo then
-            Result := lo
-         elseif x > hi then
-            Result := hi
-         else
-            Result := x
-         end
       end
 
-	sbabs(arg: INTEGER): INTEGER
-		do
-			if arg < 0 then
-				Result := - arg
-			else
-				Result := arg
-			end
-		end
-  
 end

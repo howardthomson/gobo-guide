@@ -14,10 +14,6 @@ deferred class SB_FILE_DEF
 
 inherit
 
-	SB_NOT_IMPLEMENTED
-		export {NONE} all
-		end
-
 	SB_DEFS
 
 	SB_FILE_CONSTANTS

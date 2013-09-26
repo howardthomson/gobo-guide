@@ -6,7 +6,6 @@ note
 		target window/object
 	]"
 
--- deferred
 class SB_PROPERTIES
 
 inherit
@@ -18,11 +17,11 @@ feature
 	frozen properties: ARRAY [ SB_PROPERTY ]
 		do
 			Result := once_properties
-			disable_all(Result)
+			disable_all (Result)
 			add_properties
 		end
 
-	disable_all(a: ARRAY [ SB_PROPERTY ])
+	disable_all (a: ARRAY [ SB_PROPERTY ])
 			-- disable all properties in array
 		local
 			i: INTEGER
